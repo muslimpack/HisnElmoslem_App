@@ -1,5 +1,5 @@
-# HisnElmoslem_App
-Mobile app made with flutter for both ios &amp; android feel free to rebuild and distribute with no rules totally free
+# تطبيق حصن المسلم
+يمكنك تعديل واعادة بناء ونشر التطبيق أنى شئت وبدون قيود فقط حافظ على وجود بريدي لتصلني الأخطاء الإملائية لأصوبها
 
 ```
 قال رسول الله صلى الله عليه وسلم
