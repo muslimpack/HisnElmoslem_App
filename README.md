@@ -10,7 +10,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 الصفحة أو الرقم: 3461 | خلاصة حكم المحدث : [صحيح] |
 ```
 
----
+
 
 ## لتعديل التطبيق
 
@@ -20,7 +20,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 
 - بعدها قم بتحميل ملف Azkar
 
----
+
 
 ## مميزات التطبيق
 
@@ -40,7 +40,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 - يمكنك الإبلاغ عن الذكر في حالة وجود خطأ
 - يمكنك مراسلتي أو ارسال تقييم للتطبيق من خلال الاعدادات
 
----
+
 
 ## ميزات مستقبلية
 
@@ -51,7 +51,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 - [ ] اضافة منبهات للأذكار (النوم - الاستيقاظ - الصباح - المساء)
 - [ ] عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة
 
----
+
 
 ## صور من التطبيق
 
