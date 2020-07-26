@@ -24,7 +24,7 @@
 
 - [Android](https://drive.google.com/drive/folders/1NCfXgfr6T9ujA-syWG_AtYxo014IXhty?usp=sharing)
 
-- Ios `require mac machine to build ios app so as far as I know`
+- Ios `require mac machine to build ios app as far as I know`
 
 ## مميزات التطبيق
 
