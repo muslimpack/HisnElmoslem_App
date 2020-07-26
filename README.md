@@ -8,22 +8,18 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 
 الراوي : عبدالله بن عمرو | المحدث : البخاري | المصدر : صحيح البخاري
 الصفحة أو الرقم: 3461 | خلاصة حكم المحدث : [صحيح] |
+
 ```
 
-## صور من التطبيق
+---
 
+## لتعديل التطبيق
 
+- أولا التطبيق معمول بلغة dart
 
-<p align="center">
-  <img src="ScreenShoots/01.png" width="350" title="الصفحة الرئيسية">
-  <img src="ScreenShoots/02.png" width="350" title="الفهرس">
-  <img src="ScreenShoots/03.png" width="350" title="المفضلة">
-  <img src="ScreenShoots/04.png" width="350" title="السبحة">
-  <img src="ScreenShoots/05.png" width="350" title="أحاديث لاتصح">
-  <img src="ScreenShoots/06.png" width="350" title="تطبيقات نوصي بها">
-  <img src="ScreenShoots/07.png" width="350" title="الإعدادات">
-  <img src="ScreenShoots/08.png" width="350" title="عينة من الأذكار">
-</p>
+- [اتبع الارشادات لتحميل بيئة العمل على جهازك](https://flutter.dev/docs/get-started/install)
+
+- بعدها قم بتحميل ملف Azkar
 
 ---
 
@@ -56,12 +52,6 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 - [ ] اضافة منبهات للأذكار (النوم - الاستيقاظ - الصباح - المساء)
 - [ ] عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة
 
----
 
-## لتعديل التطبيق
 
-- أولا التطبيق معمول بلغة dart
 
-- [اتبع الارشادات لتحميل بيئة العمل على جهازك](https://flutter.dev/docs/get-started/install)
-
-- بعدها قم بتحميل ملف Azkar
