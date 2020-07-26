@@ -12,7 +12,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 
 
 
-## لتعديل التطبيق
+## لتعديل ملفات التطبيق
 
 - أولا التطبيق معمول بلغة dart
 
@@ -20,7 +20,11 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 
 - بعدها قم بتحميل ملف Azkar
 
+## لتحميل التطبيق
 
+- [Android](https://drive.google.com/drive/folders/1NCfXgfr6T9ujA-syWG_AtYxo014IXhty?usp=sharing)
+
+- Ios `require mac machine to build ios app so as far as I know`
 
 ## مميزات التطبيق
 
@@ -50,7 +54,7 @@ Mobile app made with flutter for both ios &amp; android feel free to rebuild and
 - [ ] حذف واضافة التطبيقات في المفضلة
 - [ ] اضافة منبهات للأذكار (النوم - الاستيقاظ - الصباح - المساء)
 - [ ] عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة
-
+- [ ] استخراج نسخة من التطبيق لهواتف الآيفون
 
 
 ## صور من التطبيق
