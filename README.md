@@ -1,4 +1,6 @@
+[![version](https://img.shields.io/badge/version-1.0.0-yellow.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
 # تطبيق حصن المسلم
+
 يمكنك تعديل واعادة بناء ونشر التطبيق أنى شئت وبدون قيود فقط حافظ على وجود بريدي لتصلني الأخطاء الإملائية لأصوبها
 
 ```
