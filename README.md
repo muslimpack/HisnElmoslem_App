@@ -105,20 +105,14 @@
 
 
 # صور من التطبيق
-## هذه الصور من الإصدار القديم للبرنامج ولم يتم تحديثها بعد
-
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/50374022/91616969-3529a580-e987-11ea-9510-54b4baea36d0.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616973-36f36900-e987-11ea-920f-3b69d17999ec.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616975-378bff80-e987-11ea-8aad-9330625f5416.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616977-38249600-e987-11ea-8585-0cbdf1087de0.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616979-3955c300-e987-11ea-9230-c42c4722265a.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616980-39ee5980-e987-11ea-8a81-cc3f64e7334e.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616982-3a86f000-e987-11ea-8e74-6ab4acac4e12.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616983-3b1f8680-e987-11ea-80b1-c7da458b976a.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616985-3c50b380-e987-11ea-8b76-e5b9be6c9b19.png" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/91616987-3ce94a00-e987-11ea-8538-163cf552b81e.png" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830412-6bed14a0-fcd2-4c7d-87fd-112ea064a43d.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830414-9928ed2d-82cf-487b-bee9-d2b4ad956ec6.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830394-9c9c9e35-c7e9-4e57-b0ad-210fc25b1d76.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830401-e86fcced-d8b3-4756-823b-7e5abc9896d0.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830404-5e74b34f-c958-4711-9214-ced05f898b1f.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830409-93fb9032-2e4a-47e1-9530-251835112e63.jpg" width="350" >
 </p>
 
 
