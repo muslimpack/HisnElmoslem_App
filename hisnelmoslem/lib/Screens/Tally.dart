@@ -4,37 +4,43 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-
 class Tally extends StatefulWidget {
-  Tally({Key key}) : super(key: key);
+  Tally({Key? key}) : super(key: key);
 
   @override
   _TallyState createState() => _TallyState();
 }
 
 class _TallyState extends State<Tally> {
-  //final ValueNotifier<int> _counter = ValueNotifier<int>(0);
-
-//a
-
   @override
   void initState() {
-    super.initState();
     getData();
+    //TODO  To activate this we need to prevent system to change
+    // volume when press physical button
+    // Control page with volumeButton
+    // volumeButton.onPressAny(function:incrementCounter );
+    //Check for headset status
+    // volumeButton.checkHeadsetStatus();
+    super.initState();
   }
 
-  //
+  @override
+  void dispose() {
+    // volumeButton?.cancel();
+    super.dispose();
+  }
+
   Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
   int counter = 0;
   double circval = 0;
-  int circvaltimes;
+  late int circvaltimes;
 
   Future getData() async {
     final SharedPreferences prefs = await _sprefs;
     if (prefs.getString('counter') == null) {
       prefs.setString('counter', "0");
     }
-    int data = int.parse((prefs.getString('counter')));
+    int data = int.parse((prefs.getString('counter')!));
     this.setState(() {
       counter = data;
       circval = counter.toDouble() - (counter ~/ 33) * 33;
@@ -78,20 +84,19 @@ class _TallyState extends State<Tally> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * .75;
     double height = MediaQuery.of(context).size.height * .75;
-    double smalLenght;
-    if(width>height){
+    late double smalLenght;
+    if (width > height) {
       setState(() {
-        smalLenght=height;
+        smalLenght = height;
       });
-    }else{
-      smalLenght=width;
+    } else {
+      smalLenght = width;
     }
     return Scaffold(
-
       appBar: AppBar(
         //elevation: 0,
         title: Text("السبحة"),
-       // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: InkWell(
         onTap: () {
@@ -142,16 +147,14 @@ class _TallyState extends State<Tally> {
                           },
                         ),
                         customWidths: CustomSliderWidths(
-                          progressBarWidth: 40,
-                          trackWidth: 40
-                        ),
+                            progressBarWidth: 40, trackWidth: 40),
                         customColors: CustomSliderColors(
-                         trackColor: Colors.blue.shade100,
-                         // shadowColor: Colors.orange,
+                          trackColor: Colors.blue.shade100,
+                          // shadowColor: Colors.orange,
                           progressBarColors: [
-                         Colors.blue[200],
-                            Colors.blue[400],
-                          //  Colors.orange
+                            Colors.blue[200]!,
+                            Colors.blue[400]!,
+                            //  Colors.orange
                           ],
                         ),
                         size: smalLenght),

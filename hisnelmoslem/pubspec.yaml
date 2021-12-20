@@ -1,5 +1,5 @@
 name: hisnelmoslem
-description: Hisn Elmoslem
+description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -15,10 +15,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.0+4
+version: 1.3.0+5
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -29,17 +29,24 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.1
-  url_launcher: ^5.7.10
-  flutter_local_notifications: ^3.0.2
-  rxdart: ^0.25.0
-  material_design_icons_flutter: 4.0.5755
-  clipboard_manager: ^0.0.4
-  shared_preferences: ^0.5.8
-  font_awesome_flutter: ^8.2.0
-  sleek_circular_slider: ^1.1.0
-  provider: ^4.3.2+1
-  share: ^0.6.5+4
+  cupertino_icons: ^1.0.2
+  url_launcher:
+  flutter_local_notifications:
+  rxdart:
+  material_design_icons_flutter:
+  clipboard:
+  shared_preferences:
+  font_awesome_flutter:
+  sleek_circular_slider:
+  provider:
+  share:
+  sqflite:
+  path:
+  path_provider:
+  wakelock:
+  day_night_time_picker:
+  flutter_slidable:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
@@ -58,11 +65,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/json/
-     - assets/images/
-     - assets/quran/
-     - assets/sounds/
-
+    - assets/json/
+    - assets/images/
+    - assets/quran/
+    - assets/sounds/
+    - assets/db/
+    - assets/db/hisn_elmoslem_book.db
+    - assets/db/fakeHadith.db
+    - assets/db/quran.db
+    - assets/db/alarms.db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -75,17 +86,8 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Uthmanic
+      fonts:
+        - asset: assets/fonts/uthmanic_hafs_ver12.otf
+

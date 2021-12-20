@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Notification/NotificationManager.dart';
+import 'package:hisnelmoslem/AppManager/NotificationManager.dart';
 import 'package:hisnelmoslem/Providers/AppSettings.dart';
-import 'package:hisnelmoslem/Widgets/OpenURL.dart';
-import 'package:hisnelmoslem/Widgets/constant.dart';
+import 'package:hisnelmoslem/Screens/AlarmsPage.dart';
+import 'package:hisnelmoslem/Shared/Functions/OpenURL.dart';
+import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
+import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart';
+import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'About.dart';
@@ -17,18 +20,17 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
     String azkarReadMode = appSettings.getAzkarReadMode();
-    bool isPage;
+    late bool isPage;
     if (azkarReadMode == "Page") {
       isPage = true;
     } else if (azkarReadMode == "Card") {
       isPage = false;
     }
 
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("الإعدادات"),
+        title: Text("الإعدادات", style: TextStyle(fontFamily: "Uthmanic")),
         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: ScrollConfiguration(
@@ -67,217 +69,170 @@ class _SettingsState extends State<Settings> {
               /**/
               Title(title: 'المنبهات'),
               ListTile(
-                // leading: Icon(Icons.bookmark_border),
+                title: Text("إدارة تنبيهات الأذكار"),
                 leading: Icon(
-                  Icons.wb_sunny_sharp,
+                  Icons.alarm_add_rounded,
                 ),
-                title: Text("أذكار الصباح"),
-                trailing: Checkbox(
-                  activeColor: MAINCOLOR,
-                  value: appSettings.getRMorning(),
-                  onChanged: (value) {
-                    setState(() {
-                      appSettings.setRMorning(value);
-                    });
-                    if (appSettings.getRMorning()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 10,
-                          title: "تم تفعيل منبة أذكار الصباح");
-                    } else if (!appSettings.getRMorning()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 10,
-                          title: "تم الغاء منبة أذكار الصباح");
-                    }
-                  },
+                onTap: () {
+                  transitionAnimation.fromBottom2Top(
+                      context: context, goToPage: AlarmsPages());
+                },
+              ),
+              // SwitchListTile(
+              //     title: ListTile(
+              //       contentPadding: EdgeInsets.all(0),
+              //       leading: Icon(
+              //         Icons.wb_sunny_sharp,
+              //       ),
+              //       title: Text("أذكار الصباح"),
+              //     ),
+              //     activeColor: MAINCOLOR,
+              //     value: appSettings.getRMorning(),
+              //     onChanged: (value) {
+              //       setState(() {
+              //         appSettings.setRMorning(value);
+              //       });
+              //       if (appSettings.getRMorning()) {
+              //         localNotifyManager.customShowNotification(
+              //             showTime: 1000,
+              //             id: 10,
+              //             title: "تم تفعيل منبة أذكار الصباح");
+              //       } else if (!appSettings.getRMorning()) {
+              //         localNotifyManager.customShowNotification(
+              //             showTime: 1000,
+              //             id: 10,
+              //             title: "تم الغاء منبة أذكار الصباح");
+              //       }
+              //     }),
+              // SwitchListTile(
+              //     title: ListTile(
+              //       contentPadding: EdgeInsets.all(0),
+              //       // leading: Icon(Icons.bookmark_border),
+              //       leading: Icon(
+              //         Icons.nightlight_round,
+              //       ),
+              //       title: Text("أذكار المساء"),
+              //     ),
+              //     activeColor: MAINCOLOR,
+              //     value: appSettings.getRNight(),
+              //     onChanged: (value) {
+              //       setState(() {
+              //         appSettings.setRNight(value);
+              //       });
+              //
+              //       if (appSettings.getRNight()) {
+              //         localNotifyManager.customShowNotification(
+              //             showTime: 1000,
+              //             id: 20,
+              //             title: "تم تفعيل منبة أذكار المساء");
+              //       } else if (!appSettings.getRNight()) {
+              //         localNotifyManager.customShowNotification(
+              //             showTime: 1000,
+              //             id: 20,
+              //             title: "تم الغاء منبة أذكار المساء");
+              //       }
+              //     }),
+              // SwitchListTile(
+              //   title: ListTile(
+              //     contentPadding: EdgeInsets.all(0),
+              //     // leading: Icon(Icons.bookmark_border),
+              //     leading: Icon(
+              //       Icons.alarm,
+              //     ),
+              //     title: Text("أذكار الإستيقاظ"),
+              //   ),
+              //   activeColor: MAINCOLOR,
+              //   value: appSettings.getRWakeup(),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       appSettings.setRWakeup(value);
+              //     });
+              //     if (appSettings.getRWakeup()) {
+              //       localNotifyManager.customShowNotification(
+              //           showTime: 1000,
+              //           id: 30,
+              //           title: "تم تفعيل منبة أذكار الاستيقاظ");
+              //     } else if (!appSettings.getRWakeup()) {
+              //       localNotifyManager.customShowNotification(
+              //           showTime: 1000,
+              //           id: 30,
+              //           title: "تم الغاء منبة أذكار الاستيقاظ");
+              //     }
+              //   },
+              // ),
+              // SwitchListTile(
+              //   title: ListTile(
+              //     contentPadding: EdgeInsets.all(0),
+              //     // leading: Icon(Icons.bookmark_border),
+              //     leading: Icon(
+              //       MdiIcons.sleep,
+              //     ),
+              //     title: Text("أذكار النوم"),
+              //   ),
+              //   activeColor: MAINCOLOR,
+              //   value: appSettings.getRSleep(),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       appSettings.setRSleep(value);
+              //     });
+              //     if (appSettings.getRSleep()) {
+              //       localNotifyManager.customShowNotification(
+              //           showTime: 1000,
+              //           id: 40,
+              //           title: "تم تفعيل منبة أذكار النوم");
+              //     } else if (!appSettings.getRSleep()) {
+              //       localNotifyManager.customShowNotification(
+              //           showTime: 1000,
+              //           id: 40,
+              //           title: "تم الغاء منبة أذكار النوم");
+              //     }
+              //   },
+              // ),
+              SwitchListTile(
+                title: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  // leading: Icon(Icons.bookmark_border),
+                  leading: Icon(
+                    Icons.person,
+                  ),
+                  title: Text("صيام الإثنين والخميس"),
                 ),
-                onTap: () async {
+                activeColor: MAINCOLOR,
+                value: appSettings.getRFastTwice(),
+                onChanged: (value) {
                   setState(() {
-                    appSettings.toogleRMorning();
+                    appSettings.setRFastTwice(value);
                   });
-                  if (appSettings.getRMorning()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 10,
-                        title: "تم تفعيل منبة أذكار الصباح");
-                  } else if (!appSettings.getRMorning()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 10,
-                        title: "تم الغاء منبة أذكار الصباح");
+                  if (appSettings.getRFastTwice()) {
+                    localNotifyManager.showCustomNotification(
+                        title: "تم تفعيل منبه صيام الإثنين والخميس", payload: '');
+                  } else if (!appSettings.getRFastTwice()) {
+                    localNotifyManager.showCustomNotification(
+                        title: "تم الغاء منبه صيام الإثنين والخميس", payload: '');
                   }
                 },
               ),
-              ListTile(
-                // leading: Icon(Icons.bookmark_border),
-                leading: Icon(
-                  Icons.nightlight_round,
+              SwitchListTile(
+                title: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  // leading: Icon(Icons.bookmark_border),
+                  leading: Icon(
+                    Icons.alarm,
+                  ),
+                  title: Text("تذكير قراءة سورة الكهف"),
                 ),
-                title: Text("أذكار المساء"),
-                trailing: Checkbox(
-                  activeColor: MAINCOLOR,
-                  value: appSettings.getRNight(),
-                  onChanged: (value) {
-                    setState(() {
-                      appSettings.setRNight(value);
-                    });
-
-                    if (appSettings.getRNight()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 20,
-                          title: "تم تفعيل منبة أذكار المساء");
-                    } else if (!appSettings.getRNight()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 20,
-                          title: "تم الغاء منبة أذكار المساء");
-                    }
-                  },
-                ),
-                onTap: () {
+                activeColor: MAINCOLOR,
+                value: appSettings.getRCave(),
+                onChanged: (value) {
                   setState(() {
-                    appSettings.toogleRNight();
-                  });
-
-                  if (appSettings.getRNight()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 20,
-                        title: "تم تفعيل منبة أذكار المساء");
-                  } else if (!appSettings.getRNight()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 20,
-                        title: "تم الغاء منبة أذكار المساء");
-                  }
-                },
-              ),
-              ListTile(
-                // leading: Icon(Icons.bookmark_border),
-                leading: Icon(
-                  Icons.alarm,
-                ),
-                title: Text("أذكار الإستيقاظ"),
-                trailing: Checkbox(
-                  activeColor: MAINCOLOR,
-                  value: appSettings.getRWakeup(),
-                  onChanged: (value) {
-                    setState(() {
-                      appSettings.setRWakeup(value);
-                    });
-                    if (appSettings.getRWakeup()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 30,
-                          title: "تم تفعيل منبة أذكار الاستيقاظ");
-                    } else if (!appSettings.getRWakeup()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 30,
-                          title: "تم الغاء منبة أذكار الاستيقاظ");
-                    }
-                  },
-                ),
-                onTap: () {
-                  setState(() {
-                    appSettings.toogleRWakeup();
-                  });
-                  if (appSettings.getRWakeup()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 30,
-                        title: "تم تفعيل منبة أذكار الاستيقاظ");
-                  } else if (!appSettings.getRWakeup()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 30,
-                        title: "تم الغاء منبة أذكار الاستيقاظ");
-                  }
-                },
-              ),
-              ListTile(
-                // leading: Icon(Icons.bookmark_border),
-                leading: Icon(
-                  MdiIcons.sleep,
-                ),
-                title: Text("أذكار النوم"),
-                trailing: Checkbox(
-                  activeColor: MAINCOLOR,
-                  value: appSettings.getRSleep(),
-                  onChanged: (value) {
-                    setState(() {
-                      appSettings.setRSleep(value);
-                    });
-                    if (appSettings.getRSleep()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 40,
-                          title: "تم تفعيل منبة أذكار النوم");
-                    } else if (!appSettings.getRSleep()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 40,
-                          title: "تم الغاء منبة أذكار النوم");
-                    }
-                  },
-                ),
-                onTap: () {
-                  setState(() {
-                    appSettings.toogleRSleep();
-                  });
-                  if (appSettings.getRSleep()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 40,
-                        title: "تم تفعيل منبة أذكار النوم");
-                  } else if (!appSettings.getRSleep()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 40,
-                        title: "تم الغاء منبة أذكار النوم");
-                  }
-                },
-              ),
-              ListTile(
-                // leading: Icon(Icons.bookmark_border),
-                leading: Text(''),
-                title: Text("تذكير قراءة سورة الكهف"),
-                trailing: Checkbox(
-                  activeColor: MAINCOLOR,
-                  value: appSettings.getRCave(),
-                  onChanged: (value) {
-                    setState(() {
-                      appSettings.setRCave(value);
-                    });
-                    if (appSettings.getRCave()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 50,
-                          title: "تم تفعيل تذكير سورة الكهف");
-                    } else if (!appSettings.getRCave()) {
-                      localNotifyManager.customShowNotification(
-                          showTime: 1000,
-                          id: 50,
-                          title: "تم الغاء تذكير سورة الكهف");
-                    }
-                  },
-                ),
-                onTap: () {
-                  setState(() {
-                    appSettings.toogleRCave();
+                    appSettings.setRCave(value);
                   });
                   if (appSettings.getRCave()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 50,
-                        title: "تم تفعيل تذكير سورة الكهف");
+                    localNotifyManager.showCustomNotification(
+                        title: "تم تفعيل تذكير سورة الكهف", payload: '');
                   } else if (!appSettings.getRCave()) {
-                    localNotifyManager.customShowNotification(
-                        showTime: 1000,
-                        id: 50,
-                        title: "تم الغاء تذكير سورة الكهف");
+                    localNotifyManager.showCustomNotification(
+                        title: "تم الغاء تذكير سورة الكهف", payload: '');
                   }
                 },
               ),
@@ -286,7 +241,7 @@ class _SettingsState extends State<Settings> {
               Title(title: 'التواصل'),
               ListTile(
                 leading: Icon(Icons.star),
-                title: Text("تقييم التطبيق"),
+                title: Text("الشكاوى والمقترحات"),
                 onTap: () {
                   sendEmail(
                       toMailId: 'hassaneltantawy@gmail.com',
@@ -323,20 +278,16 @@ class _SettingsState extends State<Settings> {
                 title: Text("المشروع"),
                 onTap: () {
                   openURL('https://github.com/HasanEltantawy/HisnElmoslem_App');
-
                 },
               ),
               ListTile(
-                leading: Icon(MdiIcons.information),
-                trailing: Icon(Icons.keyboard_arrow_left),
-                title: Text("عن التطبيق"),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => About()),
-                  );
-                },
-              ),
+                  leading: Icon(MdiIcons.information),
+                  trailing: Icon(Icons.keyboard_arrow_left),
+                  title: Text("عن التطبيق"),
+                  onTap: () {
+                    transitionAnimation.fromBottom2Top(
+                        context: context, goToPage: About());
+                  }),
               Divider(),
             ],
           ),
@@ -349,7 +300,7 @@ class _SettingsState extends State<Settings> {
 class Title extends StatelessWidget {
   final String title;
 
-  Title({@required this.title});
+  Title({required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -359,11 +310,9 @@ class Title extends StatelessWidget {
 
         title: Text(
           title,
-          style: TextStyle(fontSize: 20, color: Colors.blue.shade200),
+          style: TextStyle(fontSize: 20, color: MAINCOLOR),
         ),
       ),
     );
   }
 }
-
-

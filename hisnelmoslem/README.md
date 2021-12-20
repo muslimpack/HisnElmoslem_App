@@ -1,6 +1,6 @@
-# hisnelmoslem
+# new_project_flutter_2
 
-Hisn Elmoslem
+A new Flutter project.
 
 ## Getting Started
 

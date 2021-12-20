@@ -1,67 +1,74 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/Cards/zikrCard.dart';
-import 'package:hisnelmoslem/Widgets/Loading.dart';
-import 'package:hisnelmoslem/models/Zikr.dart';
+import 'package:hisnelmoslem/Shared/Cards/zikrCard.dart';
+import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
 
-class Bookmarks extends StatefulWidget {
+class AzkarBookmarks extends StatefulWidget {
   @override
-  _BookmarksState createState() => _BookmarksState();
+  _AzkarBookmarksState createState() => _AzkarBookmarksState();
 }
 
-class _BookmarksState extends State<Bookmarks> {
-  List<Zikr> _zikr = List<Zikr>();
-  List<Zikr> _zikrForDisplay = List<Zikr>();
+class _AzkarBookmarksState extends State<AzkarBookmarks> {
+  final ScrollController _controllerOne = ScrollController();
+  List<DbTitle> favouriteAzkar = <DbTitle>[];
+
   bool isLoading = false;
 
-  Future<List<Zikr>> fetchAzkar() async {
+  fetchAzkar() async {
+    favouriteAzkar = <DbTitle>[];
     setState(() {
       isLoading = true;
     });
-    String data = await rootBundle.loadString('assets/json/azkar.json');
 
-    var azkar = List<Zikr>();
-
-    var azkarJson = json.decode(data);
-    for (var azkarJson in azkarJson) {
-      azkar.add(Zikr.fromJson(azkarJson));
-    }
-
-    return azkar;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchAzkar();
-    fetchAzkar().then((value) {
+    await azkarDatabaseHelper.getTitles().then((value) {
       setState(() {
-        _zikr.addAll(value);
-        _zikrForDisplay = _zikr;
-        //* return bookmarked only //////////
-        _zikrForDisplay = _zikr.where((zikr) {
-          var zikrTitle = zikr.bookmark;
-          return zikrTitle.contains("1");
-        }).toList();
+        value.forEach((element) {
+          if (element.favourite == 1) {
+            favouriteAzkar.add(element);
+          } else {
+            favouriteAzkar.remove(element);
+            print(" favouriteAzkar.remove(element);");
+          }
+        });
       });
     });
     setState(() {
       isLoading = false;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAzkar();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return isLoading? Loading(): Scaffold(
-      body: ListView.builder(
-        padding: EdgeInsets.only(top: 10),
-        itemBuilder: (context, index) {
-          return ZikrCard(index: index, zikrList: _zikrForDisplay);
-        },
-        itemCount: _zikrForDisplay.length,
-      ),
-    );
+
+    return isLoading
+        ? Loading()
+        : Scaffold(
+            body: RefreshIndicator(
+              color: MAINCOLOR,
+              onRefresh: () async {
+                fetchAzkar();
+              },
+              child: Scrollbar(
+                controller: _controllerOne,
+                isAlwaysShown: false,
+                child: new ListView.builder(
+                  padding: EdgeInsets.only(top: 10),
+                  itemBuilder: (context, index) {
+                    return ZikrCard(index: index, fehrsTitle: favouriteAzkar);
+                  },
+                  itemCount: favouriteAzkar.length,
+                ),
+              ),
+            ),
+          );
   }
 }

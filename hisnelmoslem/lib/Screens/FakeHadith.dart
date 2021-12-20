@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/Cards/HadithCard.dart';
-import 'package:hisnelmoslem/models/Hadith.dart';
+import 'package:hisnelmoslem/Shared/Cards/HadithCard.dart';
+import 'package:hisnelmoslem/models/json/Hadith.dart';
 import 'package:provider/provider.dart';
 import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,8 +14,8 @@ class FakeHadith extends StatefulWidget {
 
 class _FakeHadithState extends State<FakeHadith> {
   final _fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();
-  List<Hadith> fakeHadithList = new List<Hadith>();
-  List<Hadith> fakeHadithListForDispaly = new List<Hadith>();
+  List<Hadith> fakeHadithList =  <Hadith>[];
+  List<Hadith> fakeHadithListForDispaly =  <Hadith>[];
   bool isLoading = false;
 
   Future<List<Hadith>> fetchHadith() async {
@@ -24,7 +24,7 @@ class _FakeHadithState extends State<FakeHadith> {
     });
     String data = await rootBundle.loadString('assets/json/fakehadith.json');
 
-    var hadith = List<Hadith>();
+    var hadith = <Hadith>[];
 
     var azkarJson = json.decode(data);
     for (var azkarJson in azkarJson) {

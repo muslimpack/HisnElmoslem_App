@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/Widgets/Loading.dart';
-import 'package:hisnelmoslem/models/Quran.dart';
+import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/models/json/Quran.dart';
 
 class QuranReadPage extends StatefulWidget {
   @override
@@ -13,11 +14,11 @@ class QuranReadPage extends StatefulWidget {
 
 class _QuranReadPageState extends State<QuranReadPage> {
   final _quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
-  PageController _pageController;
+  late PageController _pageController;
   int currentPage = 0;
 
-  List<Quran> _quran = List<Quran>();
-  List<Quran> _quranDisplay = List<Quran>();
+  List<Quran> _quran = <Quran>[];
+  List<Quran> _quranDisplay = <Quran>[];
   bool isLoading = false;
 
   Future<List<Quran>> fetchAzkar() async {
@@ -26,7 +27,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
     });
     String data = await rootBundle.loadString('assets/json/quran.json');
 
-    var quran = List<Quran>();
+    var quran = <Quran>[];
 
     var quranJson = json.decode(data);
     for (var quranJson in quranJson) {
@@ -71,10 +72,13 @@ class _QuranReadPageState extends State<QuranReadPage> {
     return isLoading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            // backgroundColor: Colors.yellow.withOpacity(.3),
             key: _quranReadPageScaffoldKey,
             appBar: AppBar(
-              title: Text(_quranDisplay[0].surha),
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              elevation: 0,
+              title: Text(_quranDisplay[0].surha,
+                  style: TextStyle(fontFamily: "Uthmanic")),
               actions: [
                 Padding(
                   padding: EdgeInsets.all(10),
@@ -94,14 +98,88 @@ class _QuranReadPageState extends State<QuranReadPage> {
                   controller: _pageController,
                   itemCount: _quranDisplay[0].pages.length,
                   itemBuilder: (context, index) {
-                    return Image.asset(
-                      _quranDisplay[0].pages[index].toString(),
-                      fit: BoxFit.fitWidth,
+                    return Stack(
+                      children: [
+                        BetweenPageEffect(index: index+1),
+                        PageSideEffect(index: index+1),
+                        Center(
+                          child: ColorFiltered(
+                              colorFilter: greyScale,
+                              child: ColorFiltered(
+                                  colorFilter: invert,
+                                  child: Image.asset(
+                                    _quranDisplay[0].pages[index].toString(),
+                                    fit: BoxFit.fitWidth,
+                                  ))),
+                        ),
+
+                      ],
                     );
                   },
                 ),
               ),
             ),
           );
+  }
+}
+
+class BetweenPageEffect extends StatelessWidget {
+  final int index;
+
+  const BetweenPageEffect({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        width: 50,
+        decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+          begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
+          end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
+          colors: [
+            // Color.fromARGB(10, 225, 255, 255),
+            // Theme.of(context).primaryColor.withAlpha(90),
+            Colors.black.withOpacity(.05),
+            Colors.black.withOpacity(.1),
+          ],
+        )),
+      ),
+    );
+  }
+}
+
+class PageSideEffect extends StatelessWidget {
+  final int index;
+
+  const PageSideEffect({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      //left: index.isEven ? 0 : 20,
+      //right: index.isEven ? 20 : 0,
+      alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        width: 5,
+        height: 5000,
+        decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+          begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
+          end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
+          colors: [
+            Color.fromARGB(255, 225, 255, 255),
+            Colors.black.withAlpha(200),
+          ],
+        )),
+      ),
+    );
   }
 }

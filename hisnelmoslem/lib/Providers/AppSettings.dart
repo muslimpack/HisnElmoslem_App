@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hisnelmoslem/Notification/NotificationManager.dart';
+import 'package:hisnelmoslem/AppManager/NotificationManager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSettingsNotifier extends ChangeNotifier {
@@ -10,11 +10,13 @@ class AppSettingsNotifier extends ChangeNotifier {
   bool _tashkel = true;
 
   //
-  bool _rMorning = false;
-  bool _rNight = false;
-  bool _rSleep = false;
-  bool _rWakeup = false;
-  bool _rCave = false;
+  // Reminders
+  // bool _rMorning = true;
+  // bool _rNight = true;
+  // bool _rSleep = true;
+  // bool _rWakeup = true;
+  bool _rCave = true;
+  bool _rFastTwice = true;
 
   // TO SAVE IN SHAREDPREFRENCES  ///////////////////
   // SharedPreferences
@@ -34,7 +36,7 @@ class AppSettingsNotifier extends ChangeNotifier {
   //* problem when called on main it it always run and print  and don't stop
   Future getAzkarReadModeData() async {
     final SharedPreferences prefs = await _sprefs;
-    String azkarMode = prefs.getString('azkarModeStatus');
+    String? azkarMode = prefs.getString('azkarModeStatus')!;
     _azkarReadMode = azkarMode;
 
     if (azkarMode == null) {
@@ -84,8 +86,8 @@ class AppSettingsNotifier extends ChangeNotifier {
   //* problem when called on main it it always run and print  and don't stop
   Future getfontSizeData() async {
     final SharedPreferences prefs = await _sprefs;
-    double fontSize = prefs.getDouble('fontSize');
-    if (fontSize == null || fontSize == 0) {
+    double fontSize = prefs.getDouble('fontSize')!;
+    if (fontSize == 0) {
       fontSize = 2.6;
     } else {
       this.setfontSize(fontSize);
@@ -123,7 +125,7 @@ class AppSettingsNotifier extends ChangeNotifier {
   // To get tashkel
   Future getTashkelStatusData() async {
     final SharedPreferences prefs = await _sprefs;
-    bool tashkel = prefs.getBool('tashkelStatus');
+    bool tashkel = prefs.getBool('tashkelStatus')!;
     if (tashkel == null) {
       tashkel = true;
     } else {
@@ -152,18 +154,9 @@ class AppSettingsNotifier extends ChangeNotifier {
     print("Tacshkel toogled");
     notifyListeners();
   }
-
-  ///////////////////////
+///////////////////////
   //// Reminders
 
-  // Future saveRemindersData(bool rMorning , bool rNight ,bool rSleep ,bool rWakeup , bool rCave ) async {
-  //   final SharedPreferences prefs = await _sprefs;
-  //   prefs.setBool('rMorning', rMorning);
-  //   prefs.setBool('rNight', rNight);
-  //   prefs.setBool('rSleep', rSleep);
-  //   prefs.setBool('rWakeup', rWakeup);
-  //   prefs.setBool('rCave', rCave);
-  // }
   Future saveRMorningData(bool rMorning) async {
     final SharedPreferences prefs = await _sprefs;
     prefs.setBool('rMorning', rMorning);
@@ -193,143 +186,202 @@ class AppSettingsNotifier extends ChangeNotifier {
     prefs.setBool('rCave', rCave);
   }
 
+  Future saveRFastTwice(bool rFastTwice) async {
+    final SharedPreferences prefs = await _sprefs;
+    prefs.setBool('rFastTwice', rFastTwice);
+  }
+
   // To get All Reminders
   Future getRemindersData() async {
     final SharedPreferences prefs = await _sprefs;
-    bool rMorning = prefs.getBool('rMorning');
-    bool rNight = prefs.getBool('rNight');
-    bool rSleep = prefs.getBool('rSleep');
-    bool rWakeup = prefs.getBool('rWakeup');
-    bool rCave = prefs.getBool('rCave');
+    // bool rMorning = prefs.getBool('rMorning') ?? true;
+    // bool rNight = prefs.getBool('rNight') ?? true;
+    // bool rSleep = prefs.getBool('rSleep') ?? true;
+    // bool rWakeup = prefs.getBool('rWakeup') ?? true;
+    bool rCave = prefs.getBool('rCave') ?? true;
+    bool rFastTwice = prefs.getBool('rFastTwice') ?? true;
 
-    if (rMorning == null) {
-      rMorning = true;
-    } else {
-      this.setRMorning(rMorning);
-    }
-    if (rNight == null) {
-      rNight = true;
-    } else {
-      this.setRNight(rNight);
-    }
-    if (rSleep == null) {
-      rSleep = true;
-    } else {
-      this.setRSleep(rSleep);
-    }
-    if (rWakeup == null) {
-      rWakeup = true;
-    } else {
-      this.setRWakeup(rWakeup);
+    // this.setRMorning(rMorning);
+    //
+    // this.setRNight(rNight);
+    //
+    // this.setRSleep(rSleep);
+    //
+    // this.setRWakeup(rWakeup);
 
-    }
-    if (rCave == null) {
-      rCave = true;
-    } else {
-      this.setRCave(rCave);
+    this.setRCave(rCave);
 
-    }
+    this.setRFastTwice(rFastTwice);
   }
-
-  setRMorning(bool rMorning) {
-    _rMorning = rMorning;
-    saveRMorningData(_rMorning);
-    notifyListeners();
-    if (_rMorning) {
-      localNotifyManager.customDailyReminder(channelName: "تنبيهات الأذكار", id: 1, title: "أذكار الصباح", time: Time(6,00,0));
-    } else if (_rMorning) {
-      localNotifyManager.cancelNotification(1);
-    }
-  }
-
-  setRNight(bool rNight) {
-    _rNight = rNight;
-    saveRNightData(_rNight);
-    notifyListeners();
-    if (_rNight) {
-      localNotifyManager.customDailyReminder(channelName: "تنبيهات الأذكار", id: 2, title: "أذكار المساء", time: Time(16,00,0));
-    } else if (_rNight) {
-      localNotifyManager.cancelNotification(2);
-    }
-  }
-
-  setRSleep(bool rSleep) {
-    _rSleep = rSleep;
-    saveRSleepData(_rSleep);
-    notifyListeners();
-    if (_rSleep) {
-      localNotifyManager.customDailyReminder(channelName: "تنبيهات الأذكار", id: 3, title: "أذكار النوم", time: Time(21,00,0));
-    } else if (_rSleep) {
-      localNotifyManager.cancelNotification(3);
-    }
-  }
-
-  setRWakeup(bool rWakeup) {
-    _rWakeup = rWakeup;
-    saveRWakeupData(_rWakeup);
-    notifyListeners();
-    if (_rSleep) {
-      localNotifyManager.customDailyReminder(channelName: "تنبيهات الأذكار", id: 4, title: "أذكار الاستيقاظ", time: Time(4,30,0));
-    } else if (_rSleep) {
-      localNotifyManager.cancelNotification(4);
-    }
-  }
+  //
+  // setRMorning(bool rMorning) {
+  //   _rMorning = rMorning;
+  //   saveRMorningData(_rMorning);
+  //   notifyListeners();
+  //   if (_rMorning) {
+  //     localNotifyManager.customDailyReminder(
+  //         channelName: "تنبيهات الأذكار",
+  //         id: 1,
+  //         title: "أذكار الصباح",
+  //         body: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+  //
+  //         time: Time(6, 00, 0),
+  //         payload: "أذكار الصباح");
+  //   } else if (_rMorning) {
+  //     localNotifyManager.cancelNotificationById(id: 1);
+  //   }
+  // }
+  //
+  // setRNight(bool rNight) {
+  //   _rNight = rNight;
+  //   saveRNightData(_rNight);
+  //   notifyListeners();
+  //   if (_rNight) {
+  //     localNotifyManager.customDailyReminder(
+  //         channelName: "تنبيهات الأذكار",
+  //         id: 2,
+  //         title: "أذكار المساء",
+  //         body: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+  //         time: Time(16, 00, 0),
+  //         payload: "أذكار المساء");
+  //   } else if (_rNight) {
+  //     localNotifyManager.cancelNotificationById(id: 2);
+  //   }
+  // }
+  //
+  // setRSleep(bool rSleep) {
+  //   _rSleep = rSleep;
+  //   saveRSleepData(_rSleep);
+  //   notifyListeners();
+  //   if (_rSleep) {
+  //     localNotifyManager.customDailyReminder(
+  //         channelName: "تنبيهات الأذكار",
+  //         id: 3,
+  //         title: "أذكار النوم",
+  //         body: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+  //
+  //         time: Time(21, 00, 0),
+  //         payload: "أذكار النوم");
+  //   } else if (_rSleep) {
+  //     localNotifyManager.cancelNotificationById(id: 3);
+  //   }
+  // }
+  //
+  // setRWakeup(bool rWakeup) {
+  //   _rWakeup = rWakeup;
+  //   saveRWakeupData(_rWakeup);
+  //   notifyListeners();
+  //   if (_rSleep) {
+  //     localNotifyManager.customDailyReminder(
+  //         channelName: "تنبيهات الأذكار",
+  //         id: 4,
+  //         title: "أذكار الاستيقاظ",
+  //         body: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+  //         time: Time(4, 30, 0),
+  //         payload: "أذكار الاستيقاظ");
+  //   } else if (_rSleep) {
+  //     localNotifyManager.cancelNotificationById(id: 4);
+  //   }
+  // }
 
   setRCave(bool rCave) {
     _rCave = rCave;
     saveRCaveData(_rCave);
     notifyListeners();
     if (_rCave) {
-      localNotifyManager.customWeeklyReminder(channelName: "تنبيهات الأذكار", id: 5, title: "سورة الكهف", time: Time(9,00,0), day: Day.friday,payload: "الكهف");
+      localNotifyManager.addCustomWeeklyReminder(
+          channelName: "تنبيهات الأذكار",
+          id: 5,
+          title: "سورة الكهف",
+          body: "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
+          time: Time(9, 00, 0),
+          day: Day.friday,
+          payload: "الكهف");
     } else if (_rCave) {
-      localNotifyManager.cancelNotification(5);
+      localNotifyManager.cancelNotificationById(id: 5);
     }
   }
 
-  getRMorning() {
-    return _rMorning;
+  setRFastTwice(bool rFastTwice) {
+    _rFastTwice = rFastTwice;
+    saveRFastTwice(_rFastTwice);
+    notifyListeners();
+    if (_rFastTwice) {
+      localNotifyManager.addCustomWeeklyReminder(
+          channelName: "تنبيهات الأذكار",
+          id: 555,
+          title: "صيام غدا الإثنين",
+          body:
+          "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
+          time: Time(21, 00, 0),
+          day: Day.sunday,
+          payload: "");
+      localNotifyManager.addCustomWeeklyReminder(
+          channelName: "تنبيهات الأذكار",
+          id: 777,
+          title: "صيام غدا الخميس",
+          body:
+          "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
+          time: Time(21, 00, 0),
+          day: Day.wednesday,
+          payload: "");
+    } else if (_rFastTwice) {
+      localNotifyManager.cancelNotificationById(id: 6);
+      localNotifyManager.cancelNotificationById(id: 7);
+    }
   }
 
-  getRNight() {
-    return _rNight;
-  }
-
-  getRSleep() {
-    return _rSleep;
-  }
-
-  getRWakeup() {
-    return _rWakeup;
-  }
+  // getRMorning() {
+  //   return _rMorning;
+  // }
+  //
+  // getRNight() {
+  //   return _rNight;
+  // }
+  //
+  // getRSleep() {
+  //   return _rSleep;
+  // }
+  //
+  // getRWakeup() {
+  //   return _rWakeup;
+  // }
 
   getRCave() {
     return _rCave;
   }
 
-  toogleRMorning() {
-    _rMorning = !_rMorning;
-    saveRMorningData(_rMorning);
+  getRFastTwice() {
+    return _rFastTwice;
   }
 
-  toogleRNight() {
-    _rNight = !_rNight;
-    saveRNightData(_rNight);
-  }
-
-  toogleRSleep() {
-    _rSleep = !_rSleep;
-    saveRSleepData(_rSleep);
-  }
-
-  toogleRWakeup() {
-    _rWakeup = !_rWakeup;
-    saveRWakeupData(_rWakeup);
-  }
+  // toogleRMorning() {
+  //   _rMorning = !_rMorning;
+  //   saveRMorningData(_rMorning);
+  // }
+  //
+  // toogleRNight() {
+  //   _rNight = !_rNight;
+  //   saveRNightData(_rNight);
+  // }
+  //
+  // toogleRSleep() {
+  //   _rSleep = !_rSleep;
+  //   saveRSleepData(_rSleep);
+  // }
+  //
+  // toogleRWakeup() {
+  //   _rWakeup = !_rWakeup;
+  //   saveRWakeupData(_rWakeup);
+  // }
 
   toogleRCave() {
     _rCave = !_rCave;
     saveRCaveData(_rCave);
   }
 
-
+  toogleRFastTwice() {
+    _rFastTwice = !_rFastTwice;
+    saveRCaveData(_rFastTwice);
+  }
 }
