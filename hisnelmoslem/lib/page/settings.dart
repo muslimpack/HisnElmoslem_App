@@ -1,4 +1,5 @@
 import 'package:hisnelmoslem/Screen/about.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
 import 'package:hisnelmoslem/provider/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
+    final azkarMode = Provider.of<AzkarMode>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -39,7 +41,6 @@ class _SettingsState extends State<Settings> {
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 10),
-          //
           Card(
             elevation: 20,
             margin: EdgeInsets.fromLTRB(10, 15, 10, 15),
@@ -65,7 +66,9 @@ class _SettingsState extends State<Settings> {
                             new Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: new ListTile(
-                                  leading: Icon(MdiIcons.weatherNight),
+                                  leading: theme.getTheme() == ThemeData.dark()
+                                      ? Icon(Icons.wb_sunny)
+                                      : Icon(MdiIcons.weatherNight),
                                   title: Text(
                                     theme.getTheme() == ThemeData.dark()
                                         ? "الوضع الفاتح"
@@ -87,89 +90,40 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
                 BuildDiv(), //
-
-                ExpansionTile(
-                    title: Text(
-                      "لون التطبيق في الوضع الفاتح",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_drop_down,
-                      size: 32,
-                    ),
-                    onExpansionChanged: (value) {
-                      setState(() {
-                        isExpand = value;
-                      });
-                    },
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      new Expanded(
+                        flex: 2,
+                        child: Column(
                           children: <Widget>[
-                            //
-                            Container(
-                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  theme.setTheme(new ThemeData(
-                                    primarySwatch: Colors.blue,
-                                  ));
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.blue,
-                                ),
-                              ),
-                            ),
-                            //
-                            Container(
-                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  theme.setTheme(new ThemeData(
-                                    primarySwatch: Colors.green,
-                                  ));
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.green,
-                                ),
-                              ),
-                            ),
-                            //
-                            Container(
-                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  theme.setTheme(new ThemeData(
-                                    primarySwatch: Colors.red,
-                                  ));
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.red,
-                                ),
-                              ),
-                            ),
-
-                            //
+                            new Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: new ListTile(
+                                  leading: azkarMode.getAzkarMode() == "Card"
+                                      ? Icon(MdiIcons.card)
+                                      : Icon(MdiIcons.bookOpenPageVariant),
+                                  title: Text(
+                                    azkarMode.getAzkarMode() == "Card"
+                                        ? "وضع البطاقات"
+                                        : "وضع الصفحات",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    azkarMode.toggleAzkarMode();
+                                  },
+                                )),
                           ],
                         ),
-                      ),
-                    ]),
-                //
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-          //
-
-          //
           Card(
             elevation: 20,
             margin: EdgeInsets.fromLTRB(10, 5, 10, 15),

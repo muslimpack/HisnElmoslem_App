@@ -30,7 +30,7 @@ class _TallyState extends State<Tally> {
   int counter = 0;
   double circval = 0;
   int circvaltimes;
-  @override
+
   Future getData() async {
     final SharedPreferences prefs = await _sprefs;
     if (prefs.getString('counter') == null) {

@@ -1,4 +1,5 @@
 import 'package:hisnelmoslem/Screen/splash_screen.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
 import 'package:hisnelmoslem/provider/fontsize.dart';
 import 'package:hisnelmoslem/provider/settings_provider.dart';
 import 'package:hisnelmoslem/provider/theme.dart';
@@ -10,7 +11,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -25,7 +25,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<FontSizeNotifier>(
             create: (_) => FontSizeNotifier()),
         ChangeNotifierProvider<UserSettingsNotifier>(
-            create: (_) => UserSettingsNotifier())
+            create: (_) => UserSettingsNotifier()),
+        ChangeNotifierProvider<AzkarMode>(create: (_) => AzkarMode())
       ],
       child: MaterialAppWithProvider(),
     );

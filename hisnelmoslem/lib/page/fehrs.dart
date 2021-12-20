@@ -1,11 +1,14 @@
 import 'dart:convert';
-import 'package:hisnelmoslem/Screen/azakar_page.dart';
+import 'package:hisnelmoslem/Screen/azkar_page_card.dart';
+import 'package:hisnelmoslem/Screen/azkar_page_page.dart';
 import 'package:hisnelmoslem/model/zikr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class Hisn extends StatefulWidget {
   Hisn({Key key}) : super(key: key);
@@ -17,7 +20,7 @@ class Hisn extends StatefulWidget {
 class _HisnState extends State<Hisn> {
   bool isSearching = false;
   String searchtxt;
-  //*
+
   List<Zikr> _zikr = List<Zikr>();
   List<Zikr> _zikrForDisplay = List<Zikr>();
 
@@ -49,6 +52,7 @@ class _HisnState extends State<Hisn> {
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final azkarMode = Provider.of<AzkarMode>(context);
     return new Scaffold(
       appBar: new AppBar(
         elevation: 20,
@@ -73,7 +77,7 @@ class _HisnState extends State<Hisn> {
                 child: TextFormField(
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
-                    decorationColor: Color(0XFFFFCC00), //Font color change
+                    decorationColor: Color(0XFFFFCC00),
                   ),
                   textAlign: TextAlign.center,
                   controller: searchController,
@@ -120,7 +124,7 @@ class _HisnState extends State<Hisn> {
                           setState(() {
                             isSearching = !isSearching;
                             //* set controller to empty
-                            searchController = TextEditingController(text: "");
+                            searchController.clear();
                             //* return all
                             _zikrForDisplay = _zikr.where((zikr) {
                               var zikrTitle = zikr.title;
@@ -137,14 +141,14 @@ class _HisnState extends State<Hisn> {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return fehrsItems(index);
+          return fehrsItems(index, azkarMode);
         },
         itemCount: _zikrForDisplay.length,
       ),
     );
   }
 
-  fehrsItems(index) {
+  fehrsItems(index, AzkarMode azkarMode) {
     return new Card(
       elevation: 10,
       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -155,12 +159,19 @@ class _HisnState extends State<Hisn> {
         splashColor: Theme.of(context).accentColor,
         onLongPress: () {},
         onTap: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    new AzkarPage(_zikrForDisplay[index])),
-          );
+          azkarMode.getAzkarMode() == "Card"
+              ? Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new AzkarPage(_zikrForDisplay[index])),
+                )
+              : Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new AzkarPagePage(_zikrForDisplay[index])),
+                );
         },
         child: Padding(
           padding: EdgeInsets.fromLTRB(10, 15, 10, 10),

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThemeNotifier extends ChangeNotifier {
   ThemeData _themeData;
   ThemeNotifier(this._themeData);
-
+  String _themeString;
   //* TO SAVE THEME IN SHAREDPREFRENCES  ///////////////////
   //* SharedPreferences
   Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
@@ -14,14 +14,16 @@ class ThemeNotifier extends ChangeNotifier {
   Future saveThemeData(ThemeData theme) async {
     final SharedPreferences prefs = await _sprefs;
     String _theme;
-
+    _themeString = _theme;
     if (theme == ThemeData.dark()) {
       _theme = "dark";
     } else if (theme == ThemeData.light()) {
       _theme = "light";
     }
+
     prefs.setString('theme', _theme);
-    //print("theme provider theme from SharedPreferences: " +prefs.getString('theme'));
+
+    _themeString = _theme;
   }
 
   //* save themedata in pref
@@ -29,7 +31,8 @@ class ThemeNotifier extends ChangeNotifier {
   Future getThemeData() async {
     final SharedPreferences prefs = await _sprefs;
     String _theme = prefs.getString('theme');
-    //print("theme provider theme from getTheme: " + _theme.toString());
+    _themeString = _theme;
+
     if (_theme == null) {
       this.setTheme(ThemeData.dark());
     } else if (_theme == "dark") {
@@ -37,11 +40,18 @@ class ThemeNotifier extends ChangeNotifier {
     } else if (_theme == "light") {
       this.setTheme(ThemeData.light());
     }
+
+    _themeString = _theme;
   }
 
   //getter
   getTheme() {
     return _themeData;
+  }
+
+  //getter
+  getThemeString() {
+    return _themeString;
   }
 
   //setter

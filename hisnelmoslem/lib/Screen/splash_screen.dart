@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Screen/onboarding.dart';
 import 'package:hisnelmoslem/page/dashboard.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
 import 'package:hisnelmoslem/provider/fontsize.dart';
 import 'package:hisnelmoslem/provider/settings_provider.dart';
 import 'package:hisnelmoslem/provider/theme.dart';
@@ -47,11 +48,13 @@ class _SplashScreenState extends State<SplashScreen> {
     final theme = Provider.of<ThemeNotifier>(context);
     final fontSize = Provider.of<FontSizeNotifier>(context);
     final userSettings = Provider.of<UserSettingsNotifier>(context);
+    final azkarMode = Provider.of<AzkarMode>(context);
 
     setState(() {
       theme.getThemeData();
       fontSize.getfontSizeData();
       userSettings.getTashkelStatusData();
+      azkarMode.getAzkarModeData();
     });
 
     return Scaffold(

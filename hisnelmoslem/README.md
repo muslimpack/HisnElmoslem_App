@@ -1,6 +1,6 @@
-# hisnelmoslem
+# HisnElmoslem
 
-A new Flutter project.
+Azkar and Tally.
 
 ## Getting Started
 

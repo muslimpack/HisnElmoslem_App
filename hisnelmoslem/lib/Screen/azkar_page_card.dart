@@ -20,8 +20,6 @@ class AzkarPage extends StatefulWidget {
 }
 
 class _AzkarPageState extends State<AzkarPage> {
-  //double fontSize = 2.6;
-
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
@@ -37,8 +35,6 @@ class _AzkarPageState extends State<AzkarPage> {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
         ),
       ),
-      //
-
       body: new ListView.builder(
         itemCount: widget.zikr == null ? 0 : int.parse(widget.zikr.count),
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -46,10 +42,9 @@ class _AzkarPageState extends State<AzkarPage> {
           BuildContext context,
           int index,
         ) {
-          return azkarCard(index, fontSize, setting);
+          return azkarCard(index, fontSize, setting, theme);
         },
       ),
-      //
       bottomNavigationBar: BottomAppBar(
         child: Container(
           height: 40,
@@ -107,7 +102,7 @@ class _AzkarPageState extends State<AzkarPage> {
     );
   }
 
-  azkarCard(index, fontSize, setting) {
+  azkarCard(index, fontSize, setting, ThemeNotifier theme) {
     int _counter = int.parse(widget.zikr.content[index].count);
     String text = setting.getTashkelStatus()
         ? widget.zikr.content[index].text
@@ -137,12 +132,14 @@ class _AzkarPageState extends State<AzkarPage> {
         margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        //shadowColor: Theme.of(context).primaryColor,
         child: Column(
           children: <Widget>[
             new Card(
-              color:
-                  _counter != 0 ? Theme.of(context).primaryColor : Colors.green,
+              color: _counter != 0
+                  ? Theme.of(context).primaryColor
+                  : theme.getTheme().toString() == "green"
+                      ? Colors.blue
+                      : Colors.green,
               margin: EdgeInsets.only(bottom: 0, top: 0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -155,7 +152,6 @@ class _AzkarPageState extends State<AzkarPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    //
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
                       child: InkWell(
@@ -169,8 +165,6 @@ class _AzkarPageState extends State<AzkarPage> {
                         ),
                       ),
                     ),
-
-                    //
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
                       child: InkWell(
@@ -200,13 +194,10 @@ class _AzkarPageState extends State<AzkarPage> {
                         ),
                       ),
                     ),
-                    //
                   ],
                 ),
               ),
             ),
-
-            //
             InkWell(
               borderRadius: BorderRadius.circular(20),
               highlightColor: Colors.transparent,
@@ -221,7 +212,6 @@ class _AzkarPageState extends State<AzkarPage> {
                   action: SnackBarAction(
                       label: 'نسخ',
                       onPressed: () {
-                        // Some code to undo the change.
                         Share.share(source);
                       }),
                 );
@@ -231,16 +221,18 @@ class _AzkarPageState extends State<AzkarPage> {
               onTap: () {
                 if (_counter == 0) {
                   HapticFeedback.vibrate();
-                  _showSnackbar('تم', Colors.green, 150);
                 } else {
                   _counter--;
 
+                  setState(() {
+                    widget.zikr.content[index].count =
+                        (int.parse(widget.zikr.content[index].count) - 1)
+                            .toString();
+                  });
+
                   if (_counter > 0) {
-                    _showSnackbar(
-                        '$_counter', Theme.of(context).accentColor, 150);
                   } else if (_counter == 0) {
                     HapticFeedback.vibrate();
-                    _showSnackbar('$_counter', Colors.green, 150);
                   }
                 }
               },
@@ -277,7 +269,9 @@ class _AzkarPageState extends State<AzkarPage> {
                       decoration: BoxDecoration(
                         color: _counter != 0
                             ? Theme.of(context).primaryColor
-                            : Colors.green,
+                            : theme.getTheme().toString() == "ThemeData#55559"
+                                ? Colors.blue
+                                : Colors.green,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Center(
@@ -299,20 +293,6 @@ class _AzkarPageState extends State<AzkarPage> {
   }
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  _showSnackbar(String message, Color color, int duration) {
-    final snackBar = SnackBar(
-      //* 150
-      duration: Duration(milliseconds: duration),
-      backgroundColor: color,
-      content: Text(
-        message,
-        textAlign: TextAlign.center,
-      ),
-    );
-
-    _scaffoldKey.currentState.hideCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-  }
 
   _launchURL(String toMailId, String subject, String body) async {
     var url = 'mailto:$toMailId?subject=$subject&body=$body';

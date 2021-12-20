@@ -1,10 +1,13 @@
 import 'dart:convert';
-import 'package:hisnelmoslem/Screen/azakar_page.dart';
+import 'package:hisnelmoslem/Screen/azkar_page_card.dart';
+import 'package:hisnelmoslem/Screen/azkar_page_page.dart';
 import 'package:hisnelmoslem/model/zikr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class BookmarkPage extends StatefulWidget {
   BookmarkPage({Key key}) : super(key: key);
@@ -14,7 +17,6 @@ class BookmarkPage extends StatefulWidget {
 }
 
 class _BookmarkPageState extends State<BookmarkPage> {
-  //*
   List<Zikr> _zikr = List<Zikr>();
   List<Zikr> _zikrForDisplay = List<Zikr>();
 
@@ -50,6 +52,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
 
   @override
   Widget build(BuildContext context) {
+    final azkarMode = Provider.of<AzkarMode>(context);
     return new Scaffold(
       appBar: new AppBar(
         elevation: 20,
@@ -61,14 +64,14 @@ class _BookmarkPageState extends State<BookmarkPage> {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return fehrsItems(index);
+          return fehrsItems(index, azkarMode);
         },
         itemCount: _zikrForDisplay.length,
       ),
     );
   }
 
-  fehrsItems(index) {
+  fehrsItems(index, AzkarMode azkarMode) {
     return new Card(
       elevation: 10,
       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -79,12 +82,19 @@ class _BookmarkPageState extends State<BookmarkPage> {
         splashColor: Theme.of(context).accentColor,
         onLongPress: () {},
         onTap: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    new AzkarPage(_zikrForDisplay[index])),
-          );
+          azkarMode.getAzkarMode() == "Card"
+              ? Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new AzkarPage(_zikrForDisplay[index])),
+                )
+              : Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new AzkarPagePage(_zikrForDisplay[index])),
+                );
         },
         child: Padding(
           padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
