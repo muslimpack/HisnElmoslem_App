@@ -1,6 +1,6 @@
-# HisnElmoslem
+# hisnelmoslem
 
-Azkar and Tally.
+Hisn Elmoslem
 
 ## Getting Started
 
