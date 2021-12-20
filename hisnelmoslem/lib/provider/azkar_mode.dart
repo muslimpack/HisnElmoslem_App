@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AzkarMode extends ChangeNotifier {
+  // String _azkarMode;
   String _azkarMode = "Card";
 
   //* TO SAVE IN SHAREDPREFRENCES  ///////////////////
@@ -14,19 +15,23 @@ class AzkarMode extends ChangeNotifier {
     final SharedPreferences prefs = await _sprefs;
 
     prefs.setString('azkarModeStatus', azkarMode);
+    _azkarMode = azkarMode;
   }
 
   //* get from pref
   //* problem when called on main it it always run and print  and don't stop
   Future getAzkarModeData() async {
     final SharedPreferences prefs = await _sprefs;
-    String azkarMode = prefs.getString('azkarMode');
+    String azkarMode = prefs.getString('azkarModeStatus');
+    _azkarMode = azkarMode;
+
     if (azkarMode == null) {
       azkarMode = 'Card';
     } else {
       this.setAzkarMode(azkarMode);
-      // print("setting provider TashkelStatusData: " + tashkel.toString());
+      print("setting provider TashkelStatusData: " + azkarMode);
     }
+    _azkarMode = azkarMode;
   }
 
   //* getter

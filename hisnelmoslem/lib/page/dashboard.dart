@@ -5,6 +5,8 @@ import 'package:hisnelmoslem/page/bookmark_page.dart';
 import 'package:hisnelmoslem/page/fehrs.dart';
 import 'package:hisnelmoslem/page/tally.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/provider/azkar_mode.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.title}) : super(key: key);
@@ -23,6 +25,11 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final azkarMode = Provider.of<AzkarMode>(context);
+    setState(() {
+      azkarMode.getAzkarModeData();
+    });
+
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Colors.grey[900]
