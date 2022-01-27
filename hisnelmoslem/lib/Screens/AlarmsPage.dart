@@ -43,7 +43,7 @@ class _AlarmsPagesState extends State<AlarmsPages> {
 
     //QuranPageLists
 
-    print(alarms.length);
+    debugPrint(alarms.length.toString());
     setState(() {
       isLoading = false;
     });
@@ -57,81 +57,160 @@ class _AlarmsPagesState extends State<AlarmsPages> {
       isActive = false;
     }
     return new Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: .2,
-      actions: [
-        RoundButton(
-          widget: Icon(Icons.delete),
-          color: Colors.red.shade300,
-          onTap: () {
-            setState(() {
-              alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
-              alarms.removeAt(index);
-            });
-          },
-        ),
-      ],
-      secondaryActions: [
-        RoundButton(
-          widget: Icon(Icons.edit),
-          color: Colors.green.shade300,
-          onTap: () {
-            setState(() {
-              showFastEditAlarmDialog(
-                context: context,
-                dbAlarm: alarms[index],
-              );
-            });
-          },
-        ),
-      ],
-      child: Column(
+      startActionPane: ActionPane(
+        // A motion is a widget used to control how the pane animates.
+        motion: const ScrollMotion(),
+
+        // All actions are defined in the children parameter.
         children: [
-          SwitchListTile(
-            title: ListTile(
-              contentPadding: EdgeInsets.all(0),
-              // leading: Icon(Icons.bookmark_border),
-              leading: Icon(
-                Icons.alarm,
-              ),
-              subtitle: Wrap(
-                children: [
-                  RoundTagCard(
-                    name: alarms[index].body,
-                    color: Colors.green.shade300,
-                  ),
-                  RoundTagCard(
-                    name: '⌚ ${alarms[index].hour} : ${alarms[index].minute}',
-                    color: Colors.blue.shade300,
-                  ),
-                  RoundTagCard(
-                    name: HandleRepeatType()
-                        .getNameToUser(chosenValue: alarms[index].repeatType),
-                    color: Colors.orange.shade300,
-                  ),
-                ],
-              ),
-              isThreeLine: true,
-              title: Text(alarms[index].title),
-            ),
-            activeColor: MAINCOLOR,
-            value: isActive,
-            onChanged: (value) {
+          // A SlidableAction can have an icon and/or a label.
+          SlidableAction(
+            onPressed: (val) {
               setState(() {
-                //Update database
-                DbAlarm updateAlarm = alarms[index];
-                value ? updateAlarm.isActive = 1 : updateAlarm.isActive = 0;
-                alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
-                // update view
-                isActive = value;
-                //
-                alarmManager.alarmState(dbAlarm: updateAlarm);
+                showFastEditAlarmDialog(
+                  context: context,
+                  dbAlarm: alarms[index],
+                );
               });
             },
+            backgroundColor: Colors.green.shade300,
+            foregroundColor: Colors.white,
+            icon: Icons.edit,
+            label: 'تعديل',
           ),
-          // Divider(),
         ],
       ),
+
+      endActionPane: ActionPane(
+        motion: ScrollMotion(),
+        children: [
+          SlidableAction(
+            // An action can be bigger than the others.
+            flex: 2,
+            onPressed: (val) {
+              setState(() {
+                alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
+                alarms.removeAt(index);
+              });
+            },
+            backgroundColor: Colors.red.shade300,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: 'حذف',
+          ),
+        ],
+      ),
+
+      // actionExtentRatio: .2,
+      // actions: [
+      //   RoundButton(
+      //     widget: Icon(Icons.delete),
+      //     color: Colors.red.shade300,
+      //     onTap: () {
+      //       setState(() {
+      //         alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
+      //         alarms.removeAt(index);
+      //       });
+      //     },
+      //   ),
+      // ],
+      // secondaryActions: [
+      //   RoundButton(
+      //     widget: Icon(Icons.edit),
+      //     color: Colors.green.shade300,
+      //     onTap: () {
+      //       setState(() {
+      //         showFastEditAlarmDialog(
+      //           context: context,
+      //           dbAlarm: alarms[index],
+      //         );
+      //       });
+      //     },
+      //   ),
+      // ],
+      child: alarmCardBody(index: index, isActive: isActive),
+    );
+
+    // return new Slidable(
+    //   actionPane: SlidableDrawerActionPane(),
+    //   actionExtentRatio: .2,
+    //   actions: [
+    //     RoundButton(
+    //       widget: Icon(Icons.delete),
+    //       color: Colors.red.shade300,
+    //       onTap: () {
+    //         setState(() {
+    //           alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
+    //           alarms.removeAt(index);
+    //         });
+    //       },
+    //     ),
+    //   ],
+    //   secondaryActions: [
+    //     RoundButton(
+    //       widget: Icon(Icons.edit),
+    //       color: Colors.green.shade300,
+    //       onTap: () {
+    //         setState(() {
+    //           showFastEditAlarmDialog(
+    //             context: context,
+    //             dbAlarm: alarms[index],
+    //           );
+    //         });
+    //       },
+    //     ),
+    //   ],
+    //   child: alarmCardBody(index: index, isActive: isActive),
+    // );
+  }
+
+  Widget alarmCardBody({required int index, required bool isActive}) {
+    return Column(
+      children: [
+        SwitchListTile(
+          title: ListTile(
+            contentPadding: EdgeInsets.all(0),
+            // leading: Icon(Icons.bookmark_border),
+            leading: Icon(
+              Icons.alarm,
+            ),
+            subtitle: Wrap(
+              children: [
+                RoundTagCard(
+                  name: alarms[index].body,
+                  color: Colors.green.shade300,
+                ),
+                RoundTagCard(
+                  name: '⌚ ${alarms[index].hour} : ${alarms[index].minute}',
+                  color: Colors.blue.shade300,
+                ),
+                RoundTagCard(
+                  name: HandleRepeatType()
+                      .getNameToUser(chosenValue: alarms[index].repeatType),
+                  color: Colors.orange.shade300,
+                ),
+              ],
+            ),
+            isThreeLine: true,
+            title: Text(alarms[index].title),
+          ),
+          activeColor: MAINCOLOR,
+          value: isActive,
+          onChanged: (value) {
+            setState(() {
+              //Update database
+              DbAlarm updateAlarm = alarms[index];
+              value ? updateAlarm.isActive = 1 : updateAlarm.isActive = 0;
+              alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
+              // update view
+              isActive = value;
+              //
+              alarmManager.alarmState(dbAlarm: updateAlarm);
+            });
+          },
+        ),
+        // Divider(),
+      ],
     );
   }
 

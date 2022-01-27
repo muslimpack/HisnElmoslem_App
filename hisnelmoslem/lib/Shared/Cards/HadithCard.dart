@@ -1,8 +1,6 @@
 import 'package:clipboard/clipboard.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hisnelmoslem/models/json/Hadith.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';

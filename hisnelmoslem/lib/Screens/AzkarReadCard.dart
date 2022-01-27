@@ -24,12 +24,9 @@ class AzkarReadCard extends StatefulWidget {
 class _AzkarReadCardState extends State<AzkarReadCard> {
   final _vReadScaffoldKey = GlobalKey<ScaffoldState>();
   List<Zikr> zikr = <Zikr>[];
-  bool isLoading = false;
+  bool? isLoading = true;
 
   Future<List<Zikr>> fetchAzkar() async {
-    setState(() {
-      isLoading = true;
-    });
     String data = await rootBundle.loadString('assets/json/azkar.json');
 
     var azkar = <Zikr>[];
@@ -45,7 +42,12 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
   @override
   void initState() {
     Wakelock.enable();
-    fetchAzkar().then((value) {
+    getReady();
+    super.initState();
+  }
+
+  getReady() async {
+    await fetchAzkar().then((value) {
       setState(() {
         zikr.addAll(value);
       });
@@ -53,8 +55,6 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
     setState(() {
       isLoading = false;
     });
-
-    super.initState();
   }
 
   @override
@@ -66,7 +66,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
-    return isLoading
+    return isLoading!
         ? Loading()
         : Scaffold(
             key: _vReadScaffoldKey,
@@ -80,8 +80,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                 axisDirection: AxisDirection.down,
                 color: Colors.black26,
                 child: ListView.builder(
-                  itemCount:
-                          zikr[widget.index].count == ""
+                  itemCount: zikr[widget.index].count == ""
                       ? 0
                       : int.parse(zikr[widget.index].count),
                   itemBuilder: (context, index) {
@@ -115,7 +114,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                         int.parse(zikr[widget.index].content[index].count);
                     return InkWell(
                       onTap: () {
-                       if (_counter == 0) {
+                        if (_counter == 0) {
                           HapticFeedback.vibrate();
                         } else {
                           _counter--;
@@ -146,8 +145,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                               label: 'نسخ',
                               onPressed: () {
                                 // Some code to undo the change.
-                                FlutterClipboard.copy(source)
-                                    .then((result) {
+                                FlutterClipboard.copy(source).then((result) {
                                   final snackBar = SnackBar(
                                     content: Text('تم النسخ إلى الحافظة'),
                                     action: SnackBarAction(
@@ -180,8 +178,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                     icon: Icon(Icons.copy,
                                         color: Colors.blue.shade200),
                                     onPressed: () {
-                                      FlutterClipboard.copy(
-                                              text + "\n" + fadl)
+                                      FlutterClipboard.copy(text + "\n" + fadl)
                                           .then((result) {
                                         final snackBar = SnackBar(
                                           content: Text('تم النسخ إلى الحافظة'),

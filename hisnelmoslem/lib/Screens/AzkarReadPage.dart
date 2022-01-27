@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/Providers/AppSettings.dart';
@@ -25,11 +24,11 @@ class AzkarReadPage extends StatefulWidget {
 
 class _AzkarReadPageState extends State<AzkarReadPage> {
   final _hReadScaffoldKey = GlobalKey<ScaffoldState>();
-  PageController _pageController =   PageController(initialPage: 0);
+  PageController _pageController = PageController(initialPage: 0);
   int currentPage = 0;
   List<Zikr> zikr = <Zikr>[];
-  bool isLoading = false;
-
+  bool isLoading = true;
+  double? totalProgress = 0.0;
   Future<List<Zikr>> fetchAzkar() async {
     String data = await rootBundle.loadString('assets/json/azkar.json');
 
@@ -39,29 +38,41 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
     for (var azkarJson in azkarJson) {
       azkar.add(Zikr.fromJson(azkarJson));
     }
-    setState(() {
-      isLoading = false;
-    });
+
     return azkar;
   }
 
   //*
-
+  static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //*
   @override
   void initState() {
+    //
+    _volumeBtnChannel.setMethodCallHandler((call) {
+      if (call.method == "volumeBtnPressed") {
+        if (call.arguments == "volume_down" || call.arguments == "volume_up") {
+          decreaseCount();
+        }
+      }
+
+      return Future.value(null);
+    });
     //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _pageController = PageController(initialPage: 0);
     Wakelock.enable();
-    setState(() {
-      isLoading = true;
-    });
-    fetchAzkar().then((value) {
+    getReady();
+    super.initState();
+  }
+
+  getReady() async {
+    await fetchAzkar().then((value) {
       setState(() {
         zikr.addAll(value);
       });
     });
-    super.initState();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -77,6 +88,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   }
 
   decreaseCount() {
+    checkProgress();
     int _counter = int.parse(zikr[widget.index].content[currentPage].count);
     if (_counter == 0) {
       HapticFeedback.vibrate();
@@ -101,37 +113,54 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
     }
   }
 
+  checkProgress() {
+    int totalNum = 0, done = 0;
+    totalNum = zikr[widget.index].content.length;
+    for (Content item in zikr[widget.index].content) {
+      if (int.parse(item.count) == 0) {
+        done++;
+      }
+    }
+    setState(() {
+      totalProgress = done / totalNum;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
-    String text ;
-    text = appSettings.getTashkelStatus()
-        ? zikr[widget.index].content[currentPage].text
-        : zikr[widget.index].content[currentPage].text.replaceAll(
-            //* لحذف التشكيل
-            new RegExp(String.fromCharCodes([
-              1617,
-              124,
-              1614,
-              124,
-              1611,
-              124,
-              1615,
-              124,
-              1612,
-              124,
-              1616,
-              124,
-              1613,
-              124,
-              1618
-            ])),
-            "");
+    String? text = "";
+    String? source = "";
+    String? fadl = "";
+    int? cardnum = 0;
+    if (!isLoading) {
+      text = appSettings.getTashkelStatus()
+          ? zikr[widget.index].content[currentPage].text
+          : zikr[widget.index].content[currentPage].text.replaceAll(
+              //* لحذف التشكيل
+              new RegExp(String.fromCharCodes([
+                1617,
+                124,
+                1614,
+                124,
+                1611,
+                124,
+                1615,
+                124,
+                1612,
+                124,
+                1616,
+                124,
+                1613,
+                124,
+                1618
+              ])),
+              "");
 
-    String source = zikr[widget.index].content[currentPage].source;
-    String fadl = zikr[widget.index].content[currentPage].fadl;
-    int cardnum = currentPage + 1;
+      source = zikr[widget.index].content[currentPage].source;
+      fadl = zikr[widget.index].content[currentPage].fadl;
+      cardnum = currentPage + 1;
+    }
 
     return isLoading
         ? Loading()
@@ -146,19 +175,33 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                     padding: EdgeInsets.all(0),
                     icon: Icon(Icons.share, color: Colors.blue.shade200),
                     onPressed: () {
-                      Share.share(text + "\n" + fadl);
+                      Share.share(text! + "\n" + fadl!);
                     }),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: CircleAvatar(
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Colors.transparent,
                     child: Text(
                       zikr[widget.index].content[currentPage].count,
-                      style: TextStyle(color: MAINCOLOR),
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 )
               ],
+              bottom: PreferredSize(
+                preferredSize: Size(100, 5),
+                child: LinearProgressIndicator(
+                  value: totalProgress,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.blue,
+                  ),
+                  backgroundColor: Colors.grey,
+                ),
+              ),
             ),
             body: ScrollConfiguration(
               behavior: ScrollBehavior(),
@@ -168,8 +211,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                 child: PageView.builder(
                   onPageChanged: _onPageViewChange,
                   controller: _pageController,
-                  itemCount:
-                          zikr[widget.index].count == ""
+                  itemCount: zikr[widget.index].count == ""
                       ? 0
                       : int.parse(zikr[widget.index].count),
                   itemBuilder: (context, index) {
@@ -204,7 +246,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                       onLongPress: () {
                         final snackBar = SnackBar(
                           content: Text(
-                            source,
+                            source!,
                             textAlign: TextAlign.center,
                             softWrap: true,
                           ),
@@ -212,8 +254,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                               label: 'نسخ',
                               onPressed: () {
                                 // Some code to undo the change.
-                                FlutterClipboard.copy(source)
-                                    .then((result) {
+                                FlutterClipboard.copy(source!).then((result) {
                                   final snackBar = SnackBar(
                                     content: Text('تم النسخ إلى الحافظة'),
                                     action: SnackBarAction(
@@ -246,7 +287,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                               softWrap: true,
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
-                                  fontSize: appSettings.getfontSize() *10,
+                                  fontSize: appSettings.getfontSize() * 10,
                                   color: int.parse(zikr[widget.index]
                                               .content[index]
                                               .count) ==
@@ -288,7 +329,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                           padding: EdgeInsets.all(0),
                           icon: Icon(Icons.copy, color: Colors.blue.shade200),
                           onPressed: () {
-                            FlutterClipboard.copy(text + "\n" + fadl)
+                            FlutterClipboard.copy(text! + "\n" + fadl!)
                                 .then((result) {
                               final snackBar = SnackBar(
                                 content: Text('تم النسخ إلى الحافظة'),
@@ -300,7 +341,8 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                               // ignore: deprecated_member_use
                               // _hReadScaffoldKey.currentState
                               //     .showSnackBar(snackBar);
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             });
                           }),
                     ),

@@ -1,8 +1,6 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:hisnelmoslem/AppManager/AlarmManager.dart';
 import 'package:hisnelmoslem/Shared/Functions/HandleRepeatType.dart';
 import 'package:hisnelmoslem/Shared/Functions/ShowToast.dart';
@@ -11,8 +9,7 @@ import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/models/AlarmsDb/DbAlarm.dart';
 
 showFastEditAlarmDialog(
-    {required BuildContext context,
-    required DbAlarm dbAlarm}) {
+    {required BuildContext context, required DbAlarm dbAlarm}) {
   // show the dialog
   showDialog(
     barrierDismissible: false,
@@ -33,7 +30,7 @@ class AddAlarmDialog extends StatefulWidget {
 }
 
 class _AddAlarmDialogState extends State<AddAlarmDialog> {
-  late TimeOfDay _time;
+  late TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;
   int? selectedHour, selectedMinute;
@@ -53,8 +50,8 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   @override
   void initState() {
     super.initState();
-    _time = TimeOfDay.now().replacing(hour: widget.dbAlarm.hour);
-    _time = TimeOfDay.now().replacing(minute: widget.dbAlarm.minute);
+    _time = TimeOfDay.now()
+        .replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
 
     bodyController = TextEditingController(text: widget.dbAlarm.body);
     repeatType = HandleRepeatType()
@@ -72,6 +69,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
       ),
       content: Container(
           height: 270,
+          width: MediaQuery.of(context).size.width * .9,
           child: ScrollConfiguration(
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
@@ -125,7 +123,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                               maxMinute: 59,
                               // Optional onChange to receive value as DateTime
                               onChangeDateTime: (DateTime dateTime) {
-                                print(dateTime);
+                                debugPrint(dateTime.toString());
                               },
                             ),
                           );

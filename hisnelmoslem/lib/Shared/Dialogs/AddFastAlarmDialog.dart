@@ -1,8 +1,6 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:hisnelmoslem/AppManager/AlarmManager.dart';
 import 'package:hisnelmoslem/Shared/Functions/HandleRepeatType.dart';
 import 'package:hisnelmoslem/Shared/Functions/ShowToast.dart';
@@ -11,7 +9,8 @@ import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/models/AlarmsDb/DbAlarm.dart';
 import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
 
-showFastAddAlarmDialog({required BuildContext context,required DbTitle dbTitle}) {
+showFastAddAlarmDialog(
+    {required BuildContext context, required DbTitle dbTitle}) {
   // show the dialog
   showDialog(
     barrierDismissible: false,
@@ -25,7 +24,7 @@ showFastAddAlarmDialog({required BuildContext context,required DbTitle dbTitle})
 class AddAlarmDialog extends StatefulWidget {
   final DbTitle dbTitle;
 
-  const AddAlarmDialog({Key? key,required this.dbTitle}) : super(key: key);
+  const AddAlarmDialog({Key? key, required this.dbTitle}) : super(key: key);
 
   @override
   _AddAlarmDialogState createState() => _AddAlarmDialogState();
@@ -35,7 +34,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;
-   int? selectedHour, selectedMinute;
+  int? selectedHour, selectedMinute;
 
   void onTimeChanged(TimeOfDay newTime) {
     setState(() {
@@ -58,6 +57,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
       ),
       content: Container(
           height: 270,
+          width: MediaQuery.of(context).size.width * .9,
           child: ScrollConfiguration(
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
@@ -111,7 +111,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                               maxMinute: 59,
                               // Optional onChange to receive value as DateTime
                               onChangeDateTime: (DateTime dateTime) {
-                                print(dateTime);
+                                debugPrint(dateTime.toString());
                               },
                             ),
                           );
@@ -165,14 +165,14 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             child: Text("تم"),
             onPressed: () {
               if (selectedHour != null) {
-
                 DbAlarm newAlarm = DbAlarm(
                   id: widget.dbTitle.id,
                   title: widget.dbTitle.name,
                   body: bodyController.text,
                   hour: selectedHour!,
                   minute: selectedMinute!,
-                  repeatType: HandleRepeatType().getNameToPutInDatabase(chosenValue: repeatType),
+                  repeatType: HandleRepeatType()
+                      .getNameToPutInDatabase(chosenValue: repeatType),
                   isActive: 1,
                 );
                 alarmDatabaseHelper.addNewAlarm(dbAlarm: newAlarm);

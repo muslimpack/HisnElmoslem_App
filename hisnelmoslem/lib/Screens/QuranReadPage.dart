@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
@@ -13,13 +11,15 @@ class QuranReadPage extends StatefulWidget {
 }
 
 class _QuranReadPageState extends State<QuranReadPage> {
+  static const _volumeBtnChannel = MethodChannel("volume_button_channel");
+  //
   final _quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
   late PageController _pageController;
   int currentPage = 0;
 
   List<Quran> _quran = <Quran>[];
   List<Quran> _quranDisplay = <Quran>[];
-  bool isLoading = false;
+  bool isLoading = true;
 
   Future<List<Quran>> fetchAzkar() async {
     setState(() {
@@ -39,8 +39,33 @@ class _QuranReadPageState extends State<QuranReadPage> {
 
   @override
   void initState() {
-    fetchAzkar();
-    fetchAzkar().then((value) {
+    preparePages();
+    //
+    _pageController = PageController(initialPage: 0);
+    super.initState();
+    //
+    _volumeBtnChannel.setMethodCallHandler((call) {
+      if (call.method == "volumeBtnPressed") {
+        if (call.arguments == "volume_down") {
+          _pageController.nextPage(
+            duration: new Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+        }
+        if (call.arguments == "volume_up") {
+          _pageController.previousPage(
+            duration: new Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+        }
+      }
+
+      return Future.value(null);
+    });
+  }
+
+  preparePages() async {
+    await fetchAzkar().then((value) {
       setState(() {
         _quran.addAll(value);
         _quranDisplay = _quran;
@@ -49,8 +74,6 @@ class _QuranReadPageState extends State<QuranReadPage> {
     setState(() {
       isLoading = false;
     });
-    _pageController = PageController(initialPage: 0);
-    super.initState();
   }
 
   @override
@@ -83,6 +106,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
                     child: Text('${page + currentPage}'),
                   ),
                 )
@@ -100,8 +124,8 @@ class _QuranReadPageState extends State<QuranReadPage> {
                   itemBuilder: (context, index) {
                     return Stack(
                       children: [
-                        BetweenPageEffect(index: index+1),
-                        PageSideEffect(index: index+1),
+                        BetweenPageEffect(index: index + 1),
+                        PageSideEffect(index: index + 1),
                         Center(
                           child: ColorFiltered(
                               colorFilter: greyScale,
@@ -112,7 +136,6 @@ class _QuranReadPageState extends State<QuranReadPage> {
                                     fit: BoxFit.fitWidth,
                                   ))),
                         ),
-
                       ],
                     );
                   },

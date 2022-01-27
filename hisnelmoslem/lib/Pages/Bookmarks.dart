@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/Cards/zikrCard.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
@@ -30,7 +29,7 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
             favouriteAzkar.add(element);
           } else {
             favouriteAzkar.remove(element);
-            print(" favouriteAzkar.remove(element);");
+            debugPrint(" favouriteAzkar.remove(element);");
           }
         });
       });
@@ -48,7 +47,6 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
 
   @override
   Widget build(BuildContext context) {
-
     return isLoading
         ? Loading()
         : Scaffold(

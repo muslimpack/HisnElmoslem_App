@@ -9,6 +9,7 @@ import 'dart:io' show Platform;
 import 'package:rxdart/subjects.dart';
 
 NotificationManager localNotifyManager = NotificationManager.init();
+
 class NotificationManager {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var initSetting;
@@ -27,13 +28,13 @@ class NotificationManager {
   requestIOSPermission() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()!
+            IOSFlutterLocalNotificationsPlugin>()!
         .requestPermissions(alert: true, badge: true, sound: true);
   }
 
   initializePlatform() {
     var initSettingAndroid =
-    AndroidInitializationSettings('app_notification_icon');
+        AndroidInitializationSettings('app_notification_icon');
     var initSettingIOS = IOSInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
@@ -57,10 +58,9 @@ class NotificationManager {
   setOnNotificationClick(Function onNotificationClick) async {
     await flutterLocalNotificationsPlugin.initialize(initSetting,
         onSelectNotification: (String? payload) async {
-          onNotificationClick(payload);
-        });
+      onNotificationClick(payload);
+    });
   }
-
 
   Future<void> cancelNotificationById({required int id}) async {
     await flutterLocalNotificationsPlugin.cancel(id);
@@ -70,11 +70,17 @@ class NotificationManager {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  Future<void> addCustomDailyReminder({required String channelName,required int id,required String title,String? body,required Time time,required String payload}) async {
+  Future<void> addCustomDailyReminder(
+      {required String channelName,
+      required int id,
+      required String title,
+      String? body,
+      required Time time,
+      required String payload}) async {
     //Time time = Time(24, 12, 0);
     var androidChannel = AndroidNotificationDetails(
-      'CHANNEL_ID',channelName,
-      'CHANNEL_DESCRIPTION',
+      'CHANNEL_ID', channelName,
+
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -86,9 +92,10 @@ class NotificationManager {
       enableLights: true,
     );
 
-    var iosChannel = IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+    var iosChannel =
+        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
-    NotificationDetails(android: androidChannel, iOS: iosChannel);
+        NotificationDetails(android: androidChannel, iOS: iosChannel);
 
     // ignore: deprecated_member_use
     await flutterLocalNotificationsPlugin.showDailyAtTime(
@@ -100,12 +107,21 @@ class NotificationManager {
       payload: payload,
     );
   }
-  Future<void> addCustomWeeklyReminder({required String channelName,required int id,int showTime = 5000,required String title,String? body,required String payload,required Time time,required Day day}) async {
+
+  Future<void> addCustomWeeklyReminder(
+      {required String channelName,
+      required int id,
+      int showTime = 5000,
+      required String title,
+      String? body,
+      required String payload,
+      required Time time,
+      required Day day}) async {
     //var time = Time(24, 12, 0);
     var androidChannel = AndroidNotificationDetails(
       'CHANNEL_ID',
       channelName,
-      'CHANNEL_DESCRIPTION',
+
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -117,9 +133,10 @@ class NotificationManager {
       enableLights: true,
     );
 
-    var iosChannel = IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+    var iosChannel =
+        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
-    NotificationDetails(android: androidChannel, iOS: iosChannel);
+        NotificationDetails(android: androidChannel, iOS: iosChannel);
 
     //day: Day.Friday
     //time: Time(24,00,0)
@@ -134,11 +151,13 @@ class NotificationManager {
       payload: payload,
     );
   }
-  Future<void> showCustomNotification({required String title,String? body,required String payload}) async {
+
+  Future<void> showCustomNotification(
+      {required String title, String? body, required String payload}) async {
     var androidChannel = AndroidNotificationDetails(
       'CHANNEL_ID',
       'الإشعارات داخل التطبيق',
-      'CHANNEL_DESCRIPTION',
+
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -151,13 +170,12 @@ class NotificationManager {
     );
 
     var iosChannel =
-    IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
-    NotificationDetails(android: androidChannel, iOS: iosChannel);
+        NotificationDetails(android: androidChannel, iOS: iosChannel);
 
-    await flutterLocalNotificationsPlugin.show(
-        999, title, body, platformChannel,
-        payload: payload);
+    await flutterLocalNotificationsPlugin
+        .show(999, title, body, platformChannel, payload: payload);
   }
 
   Future<void> appOpenNotification() async {
@@ -165,7 +183,7 @@ class NotificationManager {
     var androidChannel = AndroidNotificationDetails(
       'CHANNEL_ID',
       'إشعار عدم فتح التطبيق',
-      'CHANNEL_DESCRIPTION',
+
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -176,9 +194,10 @@ class NotificationManager {
       enableLights: true,
     );
 
-    var iosChannel = IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+    var iosChannel =
+        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
-    NotificationDetails(android: androidChannel, iOS: iosChannel);
+        NotificationDetails(android: androidChannel, iOS: iosChannel);
 
     // ignore: deprecated_member_use
     await flutterLocalNotificationsPlugin.schedule(
@@ -190,10 +209,7 @@ class NotificationManager {
       payload: '2',
     );
   }
-
 }
-
-
 
 class ReceiveNotification {
   final int id;
@@ -203,7 +219,7 @@ class ReceiveNotification {
 
   ReceiveNotification(
       {required this.id,
-        required this.title,
-        required this.body,
-        required this.payload});
+      required this.title,
+      required this.body,
+      required this.payload});
 }

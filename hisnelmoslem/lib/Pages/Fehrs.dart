@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/Cards/zikrCard.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
@@ -9,7 +8,9 @@ class AzkarFehrs extends StatefulWidget {
   final bool isSearching;
   final String searchTxt;
 
-  const AzkarFehrs({Key? key, required this.isSearching,required this.searchTxt}) : super(key: key);
+  const AzkarFehrs(
+      {Key? key, required this.isSearching, required this.searchTxt})
+      : super(key: key);
 
   @override
   _AzkarFehrsState createState() => _AzkarFehrsState();
@@ -29,7 +30,7 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
     });
     getAllListsReady();
 
-    _zikrForDisplay =zikr;
+    _zikrForDisplay = zikr;
     setState(() {
       isLoading = false;
     });
@@ -46,7 +47,6 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
 
     //QuranPageLists
 
-
     setState(() {
       isLoading = false;
     });
@@ -54,17 +54,15 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
 
   @override
   Widget build(BuildContext context) {
-
-    if(widget.isSearching){
-      if(widget.searchTxt.isEmpty  || widget.searchTxt == ""){
-        _zikrForDisplay =zikr.where((zikr) {
+    if (widget.isSearching) {
+      if (widget.searchTxt.isEmpty || widget.searchTxt == "") {
+        _zikrForDisplay = zikr.where((zikr) {
           var zikrTitle = zikr.name;
           return zikrTitle.contains("");
         }).toList();
-      }
-      else{
+      } else {
         setState(() {
-          _zikrForDisplay =zikr.where((zikr) {
+          _zikrForDisplay = zikr.where((zikr) {
             var zikrTitle = zikr.name.replaceAll(
                 new RegExp(String.fromCharCodes([
                   1617,
@@ -88,26 +86,26 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
           }).toList();
         });
       }
-
-
-    }else{
-      _zikrForDisplay =zikr.where((zikr) {
+    } else {
+      _zikrForDisplay = zikr.where((zikr) {
         var zikrTitle = zikr.name;
         return zikrTitle.contains("");
       }).toList();
     }
-    return  isLoading? Loading(): Scaffold(
-      body:Scrollbar(
-        controller: _controllerOne,
-        isAlwaysShown: false,
-        child: new ListView.builder(
-          padding: EdgeInsets.only(top: 10),
-          itemBuilder: (context, index) {
-            return ZikrCard(index: index, fehrsTitle: _zikrForDisplay);
-          },
-          itemCount: _zikrForDisplay.length,
-        ),
-      ),
-    );
+    return isLoading
+        ? Loading()
+        : Scaffold(
+            body: Scrollbar(
+              controller: _controllerOne,
+              isAlwaysShown: false,
+              child: new ListView.builder(
+                padding: EdgeInsets.only(top: 10),
+                itemBuilder: (context, index) {
+                  return ZikrCard(index: index, fehrsTitle: _zikrForDisplay);
+                },
+                itemCount: _zikrForDisplay.length,
+              ),
+            ),
+          );
   }
 }

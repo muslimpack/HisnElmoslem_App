@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/AppManager/NotificationManager.dart';
@@ -17,7 +16,8 @@ import 'AzkarReadPage.dart';
 import 'QuranReadPage.dart';
 
 class AzkarDashboard extends StatefulWidget {
-  const AzkarDashboard({Key? key}) : super(key: key);
+  final String? payload;
+  const AzkarDashboard({Key? key, required this.payload}) : super(key: key);
 
   @override
   _AzkarDashboardState createState() => _AzkarDashboardState();
@@ -26,10 +26,10 @@ class AzkarDashboard extends StatefulWidget {
 class _AzkarDashboardState extends State<AzkarDashboard>
     with SingleTickerProviderStateMixin {
   TextEditingController searchController = TextEditingController();
-  int currentIndex =0;
+  int currentIndex = 0;
   bool isLoading = false;
   bool isSearching = false;
-  String searchTxt ="";
+  String searchTxt = "";
   late TabController tabController;
 
   // PageController pageController;
@@ -42,13 +42,20 @@ class _AzkarDashboardState extends State<AzkarDashboard>
       isLoading = true;
     });
 
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
 
     //Manage Notification feedback
+
+    if (widget.payload != "") {
+      onNotificationClick(widget.payload!);
+    }
+
     localNotifyManager.setOnNotificationReceive(onNotificationReceive);
     localNotifyManager.setOnNotificationClick(onNotificationClick);
 
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
 
     tabController = new TabController(initialIndex: 0, length: 2, vsync: this);
     // pageController = new PageController(initialPage: 0);
@@ -60,20 +67,19 @@ class _AzkarDashboardState extends State<AzkarDashboard>
   onNotificationReceive(ReceiveNotification notification) {}
 
   onNotificationClick(String payload) {
-    print('payload = $payload');
+    debugPrint('payload = $payload');
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
           context: context, goToPage: QuranReadPage());
     } else if (payload == "555" || payload == "777") {
     } else {
       int? pageIndex = int.parse(payload);
-      print('pageIndex = $pageIndex');
-      if (pageIndex != null) {
-        print('Will open = $pageIndex');
-        print(pageIndex.toString());
-        transitionAnimation.fromBottom2Top(
-            context: context, goToPage: AzkarReadPage(index: pageIndex - 1));
-      }
+      debugPrint('pageIndex = $pageIndex');
+
+      debugPrint('Will open = $pageIndex');
+      debugPrint(pageIndex.toString());
+      transitionAnimation.fromBottom2Top(
+          context: context, goToPage: AzkarReadPage(index: pageIndex - 1));
     }
   }
 
@@ -102,7 +108,6 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                                 left: 15, bottom: 5, top: 5, right: 15),
                             prefix: IconButton(
                               icon: Icon(Icons.clear_all),
-
                               onPressed: () {
                                 searchController.clear();
                                 setState(() {
@@ -117,10 +122,10 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                         },
                       )
                     : GestureDetector(
-                  onLongPress: (){
-                    transitionAnimation.fromBottom2Top(
-                        context: context, goToPage: QuranReadPage());
-                  },
+                        onLongPress: () {
+                          transitionAnimation.fromBottom2Top(
+                              context: context, goToPage: QuranReadPage());
+                        },
                         onTap: () {
                           transitionAnimation.fromBottom2Top(
                               context: context, goToPage: AppUpdateNews());

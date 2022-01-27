@@ -12,15 +12,23 @@ class Tally extends StatefulWidget {
 }
 
 class _TallyState extends State<Tally> {
+  static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   @override
   void initState() {
     getData();
-    //TODO  To activate this we need to prevent system to change
-    // volume when press physical button
-    // Control page with volumeButton
-    // volumeButton.onPressAny(function:incrementCounter );
-    //Check for headset status
-    // volumeButton.checkHeadsetStatus();
+    _volumeBtnChannel.setMethodCallHandler((call) {
+      if (call.method == "volumeBtnPressed") {
+        if (call.arguments == "volume_down") {
+          minusCounter();
+        }
+        if (call.arguments == "volume_up") {
+          incrementCounter();
+        }
+      }
+
+      return Future.value(null);
+    });
+
     super.initState();
   }
 
@@ -33,7 +41,7 @@ class _TallyState extends State<Tally> {
   Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
   int counter = 0;
   double circval = 0;
-  late int circvaltimes;
+  int? circvaltimes = 0;
 
   Future getData() async {
     final SharedPreferences prefs = await _sprefs;
@@ -50,6 +58,7 @@ class _TallyState extends State<Tally> {
 
   Future incrementCounter() async {
     final SharedPreferences prefs = await _sprefs;
+    HapticFeedback.vibrate();
     setState(() {
       counter++;
       circval = counter.toDouble() - (counter ~/ 33) * 33;
@@ -70,8 +79,12 @@ class _TallyState extends State<Tally> {
 
   Future minusCounter() async {
     final SharedPreferences prefs = await _sprefs;
+    HapticFeedback.heavyImpact();
     setState(() {
       counter--;
+      if (counter < 0) {
+        counter = 0;
+      }
       circval = counter.toDouble() - (counter ~/ 33) * 33;
       circvaltimes = counter ~/ 33;
       prefs.setString('counter', counter.toString());
@@ -95,14 +108,12 @@ class _TallyState extends State<Tally> {
     return Scaffold(
       appBar: AppBar(
         //elevation: 0,
-        title: Text("السبحة"),
+        title: Text("السبحة"), centerTitle: true,
         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: InkWell(
         onTap: () {
           incrementCounter();
-
-          HapticFeedback.vibrate();
         },
         child: Center(
           child: Column(
@@ -140,7 +151,7 @@ class _TallyState extends State<Tally> {
                             fontSize: 25,
                           ),
                           mainLabelStyle:
-                          TextStyle(fontSize: 70, color: Colors.white),
+                              TextStyle(fontSize: 70, color: Colors.white),
                           modifier: (double value) {
                             final circval = value.ceil().toInt().toString();
                             return '$circval';
