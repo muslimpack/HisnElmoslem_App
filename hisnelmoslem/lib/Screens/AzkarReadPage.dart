@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbContent.dart';
 import 'package:hisnelmoslem/models/json/Zikr.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   PageController _pageController = PageController(initialPage: 0);
   int currentPage = 0;
   List<Zikr> zikr = <Zikr>[];
+  List<DbContent> zikrContent = <DbContent>[];
   bool isLoading = true;
   double? totalProgress = 0.0;
   Future<List<Zikr>> fetchAzkar() async {
@@ -50,14 +52,14 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
     //
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "volume_down" || call.arguments == "volume_up") {
+        if (call.arguments == "VOLUME_DOWN_UP" ||
+            call.arguments == "VOLUME_UP_UP") {
           decreaseCount();
         }
       }
 
       return Future.value(null);
     });
-    //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _pageController = PageController(initialPage: 0);
     Wakelock.enable();
     getReady();
@@ -88,7 +90,6 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   }
 
   decreaseCount() {
-    checkProgress();
     int _counter = int.parse(zikr[widget.index].content[currentPage].count);
     if (_counter == 0) {
       HapticFeedback.vibrate();
@@ -111,6 +112,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
         });
       }
     }
+    checkProgress();
   }
 
   checkProgress() {

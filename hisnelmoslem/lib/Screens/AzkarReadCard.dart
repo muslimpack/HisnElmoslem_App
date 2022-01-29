@@ -25,7 +25,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
   final _vReadScaffoldKey = GlobalKey<ScaffoldState>();
   List<Zikr> zikr = <Zikr>[];
   bool? isLoading = true;
-
+  double? totalProgress = 0.0;
   Future<List<Zikr>> fetchAzkar() async {
     String data = await rootBundle.loadString('assets/json/azkar.json');
 
@@ -57,6 +57,19 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
     });
   }
 
+  checkProgress() {
+    int totalNum = 0, done = 0;
+    totalNum = zikr[widget.index].content.length;
+    for (Content item in zikr[widget.index].content) {
+      if (int.parse(item.count) == 0) {
+        done++;
+      }
+    }
+    setState(() {
+      totalProgress = done / totalNum;
+    });
+  }
+
   @override
   void dispose() {
     Wakelock.disable();
@@ -73,6 +86,16 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
             appBar: AppBar(
               title: Text(zikr[widget.index].title,
                   style: TextStyle(fontFamily: "Uthmanic")),
+              bottom: PreferredSize(
+                preferredSize: Size(100, 5),
+                child: LinearProgressIndicator(
+                  value: totalProgress,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.blue,
+                  ),
+                  backgroundColor: Colors.grey,
+                ),
+              ),
             ),
             body: ScrollConfiguration(
               behavior: ScrollBehavior(),
@@ -133,6 +156,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                             HapticFeedback.vibrate();
                           }
                         }
+                        checkProgress();
                       },
                       onLongPress: () {
                         final snackBar = SnackBar(

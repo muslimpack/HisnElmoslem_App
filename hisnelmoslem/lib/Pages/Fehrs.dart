@@ -46,7 +46,7 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
   getAllListsReady() async {
     //AzkarPageList
 
-    await azkarDatabaseHelper.getTitles().then((value) {
+    await azkarDatabaseHelper.getAllTitles().then((value) {
       setState(() {
         zikr = value;
       });

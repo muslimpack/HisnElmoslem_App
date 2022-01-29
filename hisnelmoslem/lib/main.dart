@@ -52,6 +52,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  void dispose() {
+    azkarDatabaseHelper.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     debugPrint("MyApp payload: ${widget.payload}");
     return ListenableProvider(

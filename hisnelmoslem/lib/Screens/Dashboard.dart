@@ -143,6 +143,7 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                           ),
                     pinned: true,
                     floating: true,
+                    snap: true,
                     bottom: TabBar(
                         indicatorColor: Colors.blue.shade200,
                         labelColor: Colors.blue.shade200,

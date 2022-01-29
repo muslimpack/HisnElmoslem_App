@@ -46,13 +46,13 @@ class _QuranReadPageState extends State<QuranReadPage> {
     //
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "volume_down") {
+        if (call.arguments == "VOLUME_DOWN_UP") {
           _pageController!.nextPage(
             duration: new Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }
-        if (call.arguments == "volume_up") {
+        if (call.arguments == "VOLUME_UP_UP") {
           _pageController!.previousPage(
             duration: new Duration(milliseconds: 500),
             curve: Curves.easeIn,

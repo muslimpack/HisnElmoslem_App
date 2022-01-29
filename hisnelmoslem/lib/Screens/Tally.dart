@@ -18,10 +18,10 @@ class _TallyState extends State<Tally> {
     getData();
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "volume_down") {
+        if (call.arguments == "VOLUME_DOWN_UP") {
           minusCounter();
         }
-        if (call.arguments == "volume_up") {
+        if (call.arguments == "VOLUME_UP_UP") {
           incrementCounter();
         }
       }

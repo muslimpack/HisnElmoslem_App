@@ -11,8 +11,8 @@ import 'dart:io';
 AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
 
 class AzkarDatabaseHelper {
-  static  AzkarDatabaseHelper? _databaseHelper; // Singleton DatabaseHelper
-  static  Database? _database; // Singleton Database
+  static AzkarDatabaseHelper? _databaseHelper; // Singleton DatabaseHelper
+  static Database? _database; // Singleton Database
 
   // Constant name
   static const String DB_NAME = "hisn_elmoslem_book.db";
@@ -65,7 +65,7 @@ class AzkarDatabaseHelper {
   }
 
   // A method that retrieves all the chapters from the chapters table.
-  Future<List<DbChapter>> getChapters() async {
+  Future<List<DbChapter>> getAllChapters() async {
     // Get a reference to the database.
     final Database db = await database;
 
@@ -83,7 +83,7 @@ class AzkarDatabaseHelper {
   }
 
   // A method that retrieves all the chapters from the chapters table.
-  Future<List<DbTitle>> getTitles() async {
+  Future<List<DbTitle>> getAllTitles() async {
     // Get a reference to the database.
     final Database db = await database;
 
@@ -98,13 +98,13 @@ class AzkarDatabaseHelper {
         chapterId: maps[i]['chapter_id'],
         orderId: maps[i]['order_id'],
         favourite: maps[i]['favourite'],
-        alarm:maps[i]['alarm'],
+        alarm: maps[i]['alarm'],
       );
     });
   }
 
   // A method that retrieves all the contents from the contents table.
-  Future<List<DbContent>> getContents() async {
+  Future<List<DbContent>> getAllContents() async {
     // Get a reference to the database.
     final Database db = await database;
 
@@ -124,6 +124,29 @@ class AzkarDatabaseHelper {
         source: maps[i]['source'],
       );
     });
+  }
+
+  // A method that retrieves all the contents from the contents table.
+  Future<List<DbContent>> getContentsByTitleIndex({required int? index}) async {
+    // Get a reference to the database.
+    final Database db = await database;
+
+    // Query the table for all The contents.
+    final List<Map<String, dynamic>> maps = await db.query('contents');
+
+    // Convert the List<Map<String, dynamic> into a List<contents>.
+    return List.generate(maps.length, (i) {
+      return DbContent(
+        id: maps[i]['_id'],
+        content: maps[i]['content'],
+        chapterId: maps[i]['chapter_id'],
+        titleId: maps[i]['title_id'],
+        orderId: maps[i]['order_id'],
+        count: maps[i]['count'],
+        fadl: maps[i]['fadl'],
+        source: maps[i]['source'],
+      );
+    }).where((element) => element.titleId == index).toList();
   }
 
   // A method that retrieves all the contents from the favourite table.

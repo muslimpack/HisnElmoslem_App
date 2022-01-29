@@ -22,7 +22,7 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
       isLoading = true;
     });
     //
-    await azkarDatabaseHelper.getTitles().then((value) {
+    await azkarDatabaseHelper.getAllTitles().then((value) {
       setState(() {
         value.forEach((element) {
           if (element.favourite == 1) {
