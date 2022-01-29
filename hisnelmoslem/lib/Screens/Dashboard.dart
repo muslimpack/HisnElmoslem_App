@@ -11,7 +11,6 @@ import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
 import 'AzkarReadPage.dart';
 import 'QuranReadPage.dart';
 
@@ -31,9 +30,6 @@ class _AzkarDashboardState extends State<AzkarDashboard>
   bool isSearching = false;
   String searchTxt = "";
   late TabController tabController;
-
-  // PageController pageController;
-  //var appSettings;
 
   @override
   void initState() {
@@ -87,143 +83,143 @@ class _AzkarDashboardState extends State<AzkarDashboard>
   Widget build(BuildContext context) {
     return isLoading
         ? Loading()
-        : DefaultTabController(
-            length: 2,
-            child: Scaffold(
-              appBar: AppBar(
-                title: isSearching
-                    ? TextFormField(
-                        style: TextStyle(decorationColor: MAINCOLOR),
-                        textAlign: TextAlign.center,
-                        controller: searchController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintText: "البحث",
-                            contentPadding: EdgeInsets.only(
-                                left: 15, bottom: 5, top: 5, right: 15),
-                            prefix: IconButton(
-                              icon: Icon(Icons.clear_all),
+        : Scaffold(
+            body: NestedScrollView(
+              floatHeaderSlivers: true,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverAppBar(
+                    title: isSearching
+                        ? TextFormField(
+                            style: TextStyle(decorationColor: MAINCOLOR),
+                            textAlign: TextAlign.center,
+                            controller: searchController,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                hintText: "البحث",
+                                contentPadding: EdgeInsets.only(
+                                    left: 15, bottom: 5, top: 5, right: 15),
+                                prefix: IconButton(
+                                  icon: Icon(Icons.clear_all),
+                                  onPressed: () {
+                                    searchController.clear();
+                                    setState(() {
+                                      searchTxt = "";
+                                    });
+                                  },
+                                )),
+                            onChanged: (value) {
+                              setState(() {
+                                searchTxt = value;
+                              });
+                            },
+                          )
+                        : GestureDetector(
+                            onLongPress: () {
+                              transitionAnimation.fromBottom2Top(
+                                  context: context, goToPage: QuranReadPage());
+                            },
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
+                                  context: context, goToPage: AppUpdateNews());
+                            },
+                            child: Image.asset(
+                              'assets/images/app_icon.png',
+                              scale: 6,
+                            ),
+                          ),
+                    pinned: true,
+                    floating: true,
+                    bottom: TabBar(
+                        indicatorColor: Colors.blue.shade200,
+                        labelColor: Colors.blue.shade200,
+                        unselectedLabelColor: Colors.white,
+                        controller: tabController,
+                        tabs: [
+                          Tab(
+                            child: Text(
+                              "الفهرس",
+                              style: TextStyle(fontFamily: "Uthmanic"),
+                            ),
+                          ),
+                          Tab(
+                            child: Text(
+                              "المفضلة",
+                              style: TextStyle(fontFamily: "Uthmanic"),
+                            ),
+                          ),
+                        ]),
+                    actions: [
+                      isSearching
+                          ? IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.exit_to_app_sharp),
                               onPressed: () {
-                                searchController.clear();
                                 setState(() {
+                                  isSearching = false;
+                                  searchController.clear();
+                                });
+                              })
+                          : IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.search),
+                              onPressed: () {
+                                setState(() {
+                                  isSearching = true;
                                   searchTxt = "";
                                 });
-                              },
-                            )),
-                        onChanged: (value) {
-                          setState(() {
-                            searchTxt = value;
-                          });
-                        },
-                      )
-                    : GestureDetector(
-                        onLongPress: () {
-                          transitionAnimation.fromBottom2Top(
-                              context: context, goToPage: QuranReadPage());
-                        },
-                        onTap: () {
-                          transitionAnimation.fromBottom2Top(
-                              context: context, goToPage: AppUpdateNews());
-                        },
-                        child: Image.asset(
-                          'assets/images/app_icon.png',
-                          scale: 6,
-                        ),
-                      ),
-                actions: [
-                  isSearching
-                      ? IconButton(
+                              }),
+                      isSearching
+                          ? SizedBox()
+                          : IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.watch_outlined),
+                              onPressed: () {
+                                transitionAnimation.fromBottom2Top(
+                                    context: context, goToPage: Tally());
+                              }),
+                      isSearching
+                          ? SizedBox()
+                          : IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(
+                                MdiIcons.bookOpenPageVariant,
+                              ),
+                              onPressed: () {
+                                transitionAnimation.fromBottom2Top(
+                                    context: context, goToPage: FakeHadith());
+                              }),
+                      IconButton(
                           splashRadius: 20,
                           padding: EdgeInsets.all(0),
-                          icon: Icon(Icons.exit_to_app_sharp),
-                          onPressed: () {
-                            setState(() {
-                              isSearching = false;
-                              searchController.clear();
-                            });
-                          })
-                      : IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(Icons.search),
-                          onPressed: () {
-                            setState(() {
-                              isSearching = true;
-                              searchTxt = "";
-                            });
-                          }),
-                  isSearching
-                      ? SizedBox()
-                      : IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(Icons.watch_outlined),
+                          icon: Icon(Icons.settings),
                           onPressed: () {
                             transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: Tally());
+                                context: context, goToPage: Settings());
                           }),
-                  isSearching
-                      ? SizedBox()
-                      : IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(
-                            MdiIcons.bookOpenPageVariant,
-                          ),
-                          onPressed: () {
-                            transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: FakeHadith());
-                          }),
-                  IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.all(0),
-                      icon: Icon(Icons.settings),
-                      onPressed: () {
-                        transitionAnimation.fromBottom2Top(
-                            context: context, goToPage: Settings());
-                      }),
-                ],
-                bottom: TabBar(
-                  indicatorColor: Colors.blue.shade200,
-                  labelColor: Colors.blue.shade200,
-                  unselectedLabelColor: Colors.white,
-                  tabs: <Widget>[
-                    Tab(
-                      child: Text(
-                        "الفهرس",
-                        style: TextStyle(fontFamily: "Uthmanic"),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "المفضلة",
-                        style: TextStyle(fontFamily: "Uthmanic"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              body: ScrollConfiguration(
-                behavior: ScrollBehavior(),
-                child: GlowingOverscrollIndicator(
-                  axisDirection: AxisDirection.left,
-                  color: Colors.black26,
-                  child: TabBarView(
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      AzkarFehrs(
-                        isSearching: isSearching,
-                        searchTxt: searchTxt,
-                      ),
-                      AzkarBookmarks(),
                     ],
                   ),
-                ),
+                ];
+              },
+              body: TabBarView(
+                controller: tabController,
+                children: [
+                  AzkarFehrs(
+                    isSearching: isSearching,
+                    searchTxt: searchTxt,
+                  ),
+                  AzkarBookmarks(),
+                ],
               ),
             ),
           );
