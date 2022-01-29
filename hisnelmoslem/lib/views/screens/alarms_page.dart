@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hisnelmoslem/AppManager/AlarmManager.dart';
-import 'package:hisnelmoslem/Shared/Cards/AlarmCard.dart';
-import 'package:hisnelmoslem/Shared/Dialogs/EditFastAlarmDialog.dart';
-import 'package:hisnelmoslem/Shared/Functions/HandleRepeatType.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/models/AlarmsDb/DbAlarm.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
+import 'package:hisnelmoslem/shared/dialogs/edit_fast_alarm_dialog.dart';
+import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
+import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
 class AlarmsPages extends StatefulWidget {
   const AlarmsPages({Key? key}) : super(key: key);

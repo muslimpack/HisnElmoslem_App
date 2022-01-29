@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/AppManager/NotificationManager.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
-import 'package:hisnelmoslem/Screens/AlarmsPage.dart';
-import 'package:hisnelmoslem/Shared/Functions/OpenURL.dart';
-import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
-import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/functions/open_url.dart';
+import 'package:hisnelmoslem/shared/functions/send_email.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/views/screens/alarms_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'About.dart';
+import 'about.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -205,10 +205,12 @@ class _SettingsState extends State<Settings> {
                   });
                   if (appSettings.getRFastTwice()) {
                     localNotifyManager.showCustomNotification(
-                        title: "تم تفعيل منبه صيام الإثنين والخميس", payload: '');
+                        title: "تم تفعيل منبه صيام الإثنين والخميس",
+                        payload: '');
                   } else if (!appSettings.getRFastTwice()) {
                     localNotifyManager.showCustomNotification(
-                        title: "تم الغاء منبه صيام الإثنين والخميس", payload: '');
+                        title: "تم الغاء منبه صيام الإثنين والخميس",
+                        payload: '');
                   }
                 },
               ),

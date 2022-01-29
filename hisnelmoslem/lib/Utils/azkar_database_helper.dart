@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbChapters.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbContent.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbFavourite.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
+import 'package:hisnelmoslem/models/zikr_chapters.dart';
+import 'package:hisnelmoslem/models/zikr_content.dart';
+import 'package:hisnelmoslem/models/zikr_favourite.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';

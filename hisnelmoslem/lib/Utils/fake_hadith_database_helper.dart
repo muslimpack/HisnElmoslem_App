@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbFakeHaith.dart';
+import 'package:hisnelmoslem/models/fakeHaith.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';

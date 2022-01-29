@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/AppManager/NotificationManager.dart';
-import 'package:hisnelmoslem/Pages/Bookmarks.dart';
-import 'package:hisnelmoslem/Pages/Fehrs.dart';
-import 'package:hisnelmoslem/Screens/AppUpdateNews.dart';
-import 'package:hisnelmoslem/Screens/FakeHadith.dart';
-import 'package:hisnelmoslem/Screens/Settings.dart';
-import 'package:hisnelmoslem/Screens/Tally.dart';
-import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/views/pages/bookmarks.dart';
+import 'package:hisnelmoslem/views/pages/fehrs.dart';
+import 'package:hisnelmoslem/views/screens/app_update_news.dart';
+import 'package:hisnelmoslem/views/screens/fake_hadith.dart';
+import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
+import 'package:hisnelmoslem/views/screens/settings.dart';
+import 'package:hisnelmoslem/views/screens/tally.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'AzkarReadPage.dart';
-import 'QuranReadPage.dart';
+import 'azkar_read_page.dart';
 
 class AzkarDashboard extends StatefulWidget {
   final String? payload;

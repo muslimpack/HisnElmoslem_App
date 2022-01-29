@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/models/AlarmsDb/DbAlarm.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -8,8 +8,8 @@ import 'dart:io';
 AlarmDatabaseHelper alarmDatabaseHelper = AlarmDatabaseHelper();
 
 class AlarmDatabaseHelper {
-   static  AlarmDatabaseHelper? _databaseHelper; // Singleton DatabaseHelper
-   static  Database? _database; // Singleton Database
+  static AlarmDatabaseHelper? _databaseHelper; // Singleton DatabaseHelper
+  static Database? _database; // Singleton Database
 
   // Constant name
   static const String DB_NAME = "alarms.db";
@@ -52,7 +52,7 @@ class AlarmDatabaseHelper {
 
       ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
       List<int> bytes =
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
     }
@@ -93,12 +93,12 @@ class AlarmDatabaseHelper {
         id: dbAlarm.id,
         title: dbAlarm.title,
         body: dbAlarm.body,
-        repeatType:dbAlarm.repeatType,
+        repeatType: dbAlarm.repeatType,
         hour: dbAlarm.hour,
         minute: dbAlarm.minute,
         isActive: dbAlarm.isActive,
       ).toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -113,7 +113,7 @@ class AlarmDatabaseHelper {
         id: dbAlarm.id,
         title: dbAlarm.title,
         body: dbAlarm.body,
-        repeatType:dbAlarm.repeatType,
+        repeatType: dbAlarm.repeatType,
         hour: dbAlarm.hour,
         minute: dbAlarm.minute,
         isActive: dbAlarm.isActive,
@@ -122,7 +122,6 @@ class AlarmDatabaseHelper {
       where: "id = ?",
       // Pass the favourite's id as a whereArg to prevent SQL injection.
       whereArgs: [dbAlarm.id],
-
     );
   }
 
@@ -139,7 +138,6 @@ class AlarmDatabaseHelper {
       whereArgs: [dbAlarm.id],
     );
   }
-
 
   Future close() async {
     final db = await database;

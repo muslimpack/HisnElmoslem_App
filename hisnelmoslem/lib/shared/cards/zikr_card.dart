@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
-import 'package:hisnelmoslem/Screens/AzkarReadCard.dart';
-import 'package:hisnelmoslem/Screens/AzkarReadPage.dart';
-import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/dialogs/add_fast_alarm_dialog.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
 import 'package:provider/provider.dart';
-
-import '../Dialogs/AddFastAlarmDialog.dart';
 
 class ZikrCard extends StatefulWidget {
   final List<DbTitle> fehrsTitle;

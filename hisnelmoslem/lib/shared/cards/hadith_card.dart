@@ -1,10 +1,10 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbFakeHaith.dart';
+import 'package:hisnelmoslem/models/fakeHaith.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
 
 class HadithCard extends StatelessWidget {
   final DbFakeHaith fakeHaith;

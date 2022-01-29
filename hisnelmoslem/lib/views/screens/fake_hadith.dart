@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/Cards/HadithCard.dart';
 import 'package:hisnelmoslem/Utils/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbFakeHaith.dart';
+import 'package:hisnelmoslem/models/fakeHaith.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/cards/hadith_card.dart';
 import 'package:provider/provider.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FakeHadith extends StatefulWidget {

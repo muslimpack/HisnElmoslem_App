@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/Cards/zikrCard.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/shared/cards/zikr_card.dart';
 
 class AzkarBookmarks extends StatefulWidget {
   @override

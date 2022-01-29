@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hisnelmoslem/models/AlarmsDb/DbAlarm.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
 
-import 'NotificationManager.dart';
+import 'notification_manager.dart';
 
 AlarmManager alarmManager = AlarmManager();
 

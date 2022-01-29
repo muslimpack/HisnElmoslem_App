@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:provider/provider.dart';
-import 'AppManager/NotificationManager.dart';
-import 'Screens/Dashboard.dart';
 import 'Utils/azkar_database_helper.dart';
+import 'providers/app_settings.dart';
+import 'utils/notification_manager.dart';
+import 'views/screens/dashboard.dart';
 
 void main() async {
   //Make sure all stuff are initialized

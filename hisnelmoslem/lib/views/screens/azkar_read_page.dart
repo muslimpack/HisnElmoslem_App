@@ -1,13 +1,13 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/Providers/AppSettings.dart';
-import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbContent.dart';
-import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
+import 'package:hisnelmoslem/models/zikr_content.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
