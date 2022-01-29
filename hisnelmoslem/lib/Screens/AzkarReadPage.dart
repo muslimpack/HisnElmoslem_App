@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,8 +5,9 @@ import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/models/AzkarDb/DbContent.dart';
-import 'package:hisnelmoslem/models/json/Zikr.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
@@ -24,29 +24,34 @@ class AzkarReadPage extends StatefulWidget {
 }
 
 class _AzkarReadPageState extends State<AzkarReadPage> {
+  //
   final _hReadScaffoldKey = GlobalKey<ScaffoldState>();
   PageController _pageController = PageController(initialPage: 0);
-  int currentPage = 0;
-  List<Zikr> zikr = <Zikr>[];
+  //
   List<DbContent> zikrContent = <DbContent>[];
+  DbTitle? zikrTitle;
+  //
+  int currentPage = 0;
   bool isLoading = true;
   double? totalProgress = 0.0;
-  Future<List<Zikr>> fetchAzkar() async {
-    String data = await rootBundle.loadString('assets/json/azkar.json');
-
-    var azkar = <Zikr>[];
-
-    var azkarJson = await json.decode(data);
-    for (var azkarJson in azkarJson) {
-      azkar.add(Zikr.fromJson(azkarJson));
-    }
-
-    return azkar;
-  }
-
-  //*
+  //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
-  //*
+
+  //
+  // Future<List<Zikr>> fetchAzkar() async {
+  //   String data = await rootBundle.loadString('assets/json/azkar.json');
+
+  //   var azkar = <Zikr>[];
+
+  //   var azkarJson = await json.decode(data);
+  //   for (var azkarJson in azkarJson) {
+  //     azkar.add(Zikr.fromJson(azkarJson));
+  //   }
+
+  //   return azkar;
+  // }
+
+  //
   @override
   void initState() {
     //
@@ -60,6 +65,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
 
       return Future.value(null);
     });
+    //
     _pageController = PageController(initialPage: 0);
     Wakelock.enable();
     getReady();
@@ -67,11 +73,14 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   }
 
   getReady() async {
-    await fetchAzkar().then((value) {
-      setState(() {
-        zikr.addAll(value);
-      });
-    });
+    await azkarDatabaseHelper
+        .getTitleByIndex(index: widget.index)
+        .then((value) => zikrTitle = value);
+    //
+    await azkarDatabaseHelper
+        .getContentsByTitleIndex(index: widget.index)
+        .then((value) => zikrContent = value);
+
     setState(() {
       isLoading = false;
     });
@@ -90,16 +99,14 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   }
 
   decreaseCount() {
-    int _counter = int.parse(zikr[widget.index].content[currentPage].count);
+    int _counter = zikrContent[currentPage].count;
     if (_counter == 0) {
       HapticFeedback.vibrate();
     } else {
       _counter--;
 
       setState(() {
-        zikr[widget.index].content[currentPage].count =
-            (int.parse(zikr[widget.index].content[currentPage].count) - 1)
-                .toString();
+        zikrContent[currentPage].count = ((zikrContent[currentPage].count) - 1);
       });
 
       if (_counter > 0) {
@@ -117,9 +124,9 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
 
   checkProgress() {
     int totalNum = 0, done = 0;
-    totalNum = zikr[widget.index].content.length;
-    for (Content item in zikr[widget.index].content) {
-      if (int.parse(item.count) == 0) {
+    totalNum = zikrContent.length;
+    for (var i = 0; i < zikrContent.length; i++) {
+      if (zikrContent[i].count == 0) {
         done++;
       }
     }
@@ -137,8 +144,8 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
     int? cardnum = 0;
     if (!isLoading) {
       text = appSettings.getTashkelStatus()
-          ? zikr[widget.index].content[currentPage].text
-          : zikr[widget.index].content[currentPage].text.replaceAll(
+          ? zikrContent[currentPage].content
+          : zikrContent[currentPage].content.replaceAll(
               //* لحذف التشكيل
               new RegExp(String.fromCharCodes([
                 1617,
@@ -159,8 +166,8 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
               ])),
               "");
 
-      source = zikr[widget.index].content[currentPage].source;
-      fadl = zikr[widget.index].content[currentPage].fadl;
+      source = zikrContent[currentPage].source;
+      fadl = zikrContent[currentPage].fadl;
       cardnum = currentPage + 1;
     }
 
@@ -169,7 +176,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
         : Scaffold(
             key: _hReadScaffoldKey,
             appBar: AppBar(
-              title: Text(zikr[widget.index].title,
+              title: Text(zikrTitle!.name,
                   style: TextStyle(fontFamily: "Uthmanic")),
               actions: [
                 IconButton(
@@ -184,7 +191,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     child: Text(
-                      zikr[widget.index].content[currentPage].count,
+                      zikrContent[currentPage].count.toString(),
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -213,15 +220,13 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                 child: PageView.builder(
                   onPageChanged: _onPageViewChange,
                   controller: _pageController,
-                  itemCount: zikr[widget.index].count == ""
-                      ? 0
-                      : int.parse(zikr[widget.index].count),
+                  itemCount: zikrContent.length.isNaN ? 0 : zikrContent.length,
                   itemBuilder: (context, index) {
                     /* I repeated this code here to prevent text to be look like
                        the text in the next page when we swipe */
                     String text = appSettings.getTashkelStatus()
-                        ? zikr[widget.index].content[index].text
-                        : zikr[widget.index].content[index].text.replaceAll(
+                        ? zikrContent[index].content
+                        : zikrContent[index].content.replaceAll(
                             //* لحذف التشكيل
                             new RegExp(String.fromCharCodes([
                               1617,
@@ -290,10 +295,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
                                   fontSize: appSettings.getfontSize() * 10,
-                                  color: int.parse(zikr[widget.index]
-                                              .content[index]
-                                              .count) ==
-                                          0
+                                  color: zikrContent[index].count == 0
                                       ? MAINCOLOR
                                       : Colors.white,
                                   // fontSize: 20,
@@ -303,7 +305,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
                             child: Text(
-                              zikr[widget.index].content[index].fadl,
+                              zikrContent[index].fadl,
                               textAlign: TextAlign.center,
                               textDirection: TextDirection.rtl,
                               softWrap: true,
@@ -391,7 +393,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                     ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
                                         '\n' +
                                         'الموضوع: ' +
-                                        zikr[widget.index].title +
+                                        zikrTitle!.name +
                                         '\n' +
                                         'الذكر رقم: ' +
                                         '$cardnum' +

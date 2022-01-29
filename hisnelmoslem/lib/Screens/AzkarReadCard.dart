@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +5,9 @@ import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
-import 'package:hisnelmoslem/models/json/Zikr.dart';
+import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbContent.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
@@ -23,22 +24,12 @@ class AzkarReadCard extends StatefulWidget {
 
 class _AzkarReadCardState extends State<AzkarReadCard> {
   final _vReadScaffoldKey = GlobalKey<ScaffoldState>();
-  List<Zikr> zikr = <Zikr>[];
   bool? isLoading = true;
   double? totalProgress = 0.0;
-  Future<List<Zikr>> fetchAzkar() async {
-    String data = await rootBundle.loadString('assets/json/azkar.json');
-
-    var azkar = <Zikr>[];
-
-    var azkarJson = json.decode(data);
-    for (var azkarJson in azkarJson) {
-      azkar.add(Zikr.fromJson(azkarJson));
-    }
-
-    return azkar;
-  }
-
+  //
+  List<DbContent> zikrContent = <DbContent>[];
+  DbTitle? zikrTitle;
+  //
   @override
   void initState() {
     Wakelock.enable();
@@ -47,11 +38,14 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
   }
 
   getReady() async {
-    await fetchAzkar().then((value) {
-      setState(() {
-        zikr.addAll(value);
-      });
-    });
+    await azkarDatabaseHelper
+        .getTitleByIndex(index: widget.index)
+        .then((value) => zikrTitle = value);
+    //
+    await azkarDatabaseHelper
+        .getContentsByTitleIndex(index: widget.index)
+        .then((value) => zikrContent = value);
+
     setState(() {
       isLoading = false;
     });
@@ -59,9 +53,9 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
 
   checkProgress() {
     int totalNum = 0, done = 0;
-    totalNum = zikr[widget.index].content.length;
-    for (Content item in zikr[widget.index].content) {
-      if (int.parse(item.count) == 0) {
+    totalNum = zikrContent.length;
+    for (var i = 0; i < zikrContent.length; i++) {
+      if (zikrContent[i].count == 0) {
         done++;
       }
     }
@@ -84,7 +78,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
         : Scaffold(
             key: _vReadScaffoldKey,
             appBar: AppBar(
-              title: Text(zikr[widget.index].title,
+              title: Text(zikrTitle!.name,
                   style: TextStyle(fontFamily: "Uthmanic")),
               bottom: PreferredSize(
                 preferredSize: Size(100, 5),
@@ -103,14 +97,12 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                 axisDirection: AxisDirection.down,
                 color: Colors.black26,
                 child: ListView.builder(
-                  itemCount: zikr[widget.index].count == ""
-                      ? 0
-                      : int.parse(zikr[widget.index].count),
+                  itemCount: zikrContent.length.isNaN ? 0 : zikrContent.length,
                   itemBuilder: (context, index) {
                     // String text = widget.zikr.content[index].text;
                     String text = appSettings.getTashkelStatus()
-                        ? zikr[widget.index].content[index].text
-                        : zikr[widget.index].content[index].text.replaceAll(
+                        ? zikrContent[index].content
+                        : zikrContent[index].content.replaceAll(
                             //* لحذف التشكيل
                             new RegExp(String.fromCharCodes([
                               1617,
@@ -130,11 +122,10 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                               1618
                             ])),
                             "");
-                    String source = zikr[widget.index].content[index].source;
-                    String fadl = zikr[widget.index].content[index].fadl;
+                    String source = zikrContent[index].source;
+                    String fadl = zikrContent[index].fadl;
                     int cardnum = index + 1;
-                    int _counter =
-                        int.parse(zikr[widget.index].content[index].count);
+                    int _counter = zikrContent.length;
                     return InkWell(
                       onTap: () {
                         if (_counter == 0) {
@@ -143,12 +134,8 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                           _counter--;
 
                           setState(() {
-                            zikr[widget.index].content[index].count =
-                                (int.parse(zikr[widget.index]
-                                            .content[index]
-                                            .count) -
-                                        1)
-                                    .toString();
+                            zikrContent[index].count =
+                                (zikrContent[index].count - 1);
                           });
 
                           if (_counter > 0) {
@@ -245,7 +232,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                               ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
                                                   '\n' +
                                                   'الموضوع: ' +
-                                                  zikr[widget.index].title +
+                                                  zikrTitle!.name +
                                                   '\n' +
                                                   'الذكر رقم: ' +
                                                   '$cardnum' +
@@ -268,10 +255,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
                                   fontSize: appSettings.getfontSize() * 10,
-                                  color: int.parse(zikr[widget.index]
-                                              .content[index]
-                                              .count) ==
-                                          0
+                                  color: zikrContent[index].count == 0
                                       ? MAINCOLOR
                                       : Colors.white,
                                   //fontSize: 20,
@@ -281,7 +265,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
                             child: Text(
-                              zikr[widget.index].content[index].fadl,
+                              zikrContent[index].fadl,
                               textAlign: TextAlign.center,
                               textDirection: TextDirection.rtl,
                               softWrap: true,
@@ -292,7 +276,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                             child: CircleAvatar(
                               backgroundColor: Theme.of(context).primaryColor,
                               child: Text(
-                                zikr[widget.index].content[index].count,
+                                zikrContent[index].count.toString(),
                                 style: TextStyle(color: MAINCOLOR),
                               ),
                             ),

@@ -103,6 +103,27 @@ class AzkarDatabaseHelper {
     });
   }
 
+// A method that retrieves all the chapters from the chapters table.
+  Future<DbTitle> getTitleByIndex({required int? index}) async {
+    // Get a reference to the database.
+    final Database db = await database;
+
+    // Query the table for all The chapters.
+    final List<Map<String, dynamic>> maps = await db.query('title');
+
+    // Convert the List<Map<String, dynamic> into a List<chapters>.
+    return List.generate(maps.length, (i) {
+      return DbTitle(
+        id: maps[i]['_id'],
+        name: maps[i]['name'],
+        chapterId: maps[i]['chapter_id'],
+        orderId: maps[i]['order_id'],
+        favourite: maps[i]['favourite'],
+        alarm: maps[i]['alarm'],
+      );
+    }).where((element) => element.id == index).first;
+  }
+
   // A method that retrieves all the contents from the contents table.
   Future<List<DbContent>> getAllContents() async {
     // Get a reference to the database.
@@ -120,8 +141,8 @@ class AzkarDatabaseHelper {
         titleId: maps[i]['title_id'],
         orderId: maps[i]['order_id'],
         count: maps[i]['count'],
-        fadl: maps[i]['fadl'],
-        source: maps[i]['source'],
+        fadl: maps[i]['fadl'] ?? "",
+        source: maps[i]['source'] ?? "",
       );
     });
   }
@@ -143,8 +164,8 @@ class AzkarDatabaseHelper {
         titleId: maps[i]['title_id'],
         orderId: maps[i]['order_id'],
         count: maps[i]['count'],
-        fadl: maps[i]['fadl'],
-        source: maps[i]['source'],
+        fadl: maps[i]['fadl'] ?? "",
+        source: maps[i]['source'] ?? "",
       );
     }).where((element) => element.titleId == index).toList();
   }

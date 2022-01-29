@@ -3,6 +3,7 @@ import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:hisnelmoslem/Screens/AzkarReadCard.dart';
 import 'package:hisnelmoslem/Screens/AzkarReadPage.dart';
 import 'package:hisnelmoslem/Shared/TransitionAnimation/TransitionAnimation.dart';
+import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/models/AzkarDb/DbTitle.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,12 @@ class _ZikrCardState extends State<ZikrCard> {
                 });
               }),
       trailing: IconButton(
-          icon: Icon(Icons.alarm_add_rounded),
+          icon: widget.fehrsTitle[widget.index].alarm == 0
+              ? Icon(Icons.alarm_add_rounded)
+              : Icon(
+                  Icons.alarm,
+                  color: MAINCOLOR,
+                ),
           onPressed: () {
             setState(() {
               showFastAddAlarmDialog(
@@ -66,12 +72,12 @@ class _ZikrCardState extends State<ZikrCard> {
           transitionAnimation.circleReval(
               context: context,
               goToPage:
-                  AzkarReadPage(index: widget.fehrsTitle[widget.index].id - 1));
+                  AzkarReadPage(index: widget.fehrsTitle[widget.index].id));
         } else if (azkarReadMode == "Card") {
           transitionAnimation.circleReval(
               context: context,
               goToPage:
-                  AzkarReadCard(index: widget.fehrsTitle[widget.index].id - 1));
+                  AzkarReadCard(index: widget.fehrsTitle[widget.index].id));
         }
       },
     );

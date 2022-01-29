@@ -1,21 +1,18 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/Functions/SendEmail.dart';
-import 'package:hisnelmoslem/models/json/Hadith.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbFakeHaith.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
 import 'package:hisnelmoslem/Providers/AppSettings.dart';
 
 class HadithCard extends StatelessWidget {
-  final int index;
-  final List<Hadith> hadith;
-
+  final DbFakeHaith fakeHaith;
   // final double fontSize;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   HadithCard(
-      {required this.index,
-      required this.hadith,
+      {required this.fakeHaith,
       /* @required this.fontSize,*/
 
       required this.scaffoldKey});
@@ -23,15 +20,12 @@ class HadithCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
-    int cardnum = index + 1;
-    String text = hadith[index].text;
-    String darga = hadith[index].darga;
-    String source = hadith[index].source;
+
     return GestureDetector(
       onLongPress: () {
         final snackBar = SnackBar(
           content: Text(
-            source,
+            fakeHaith.text,
             textAlign: TextAlign.center,
             softWrap: true,
           ),
@@ -39,7 +33,7 @@ class HadithCard extends StatelessWidget {
               label: 'نسخ',
               onPressed: () {
                 // Some code to undo the change.
-                FlutterClipboard.copy(source);
+                FlutterClipboard.copy(fakeHaith.source);
               }),
         );
 
@@ -60,7 +54,8 @@ class HadithCard extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                       icon: Icon(Icons.copy, color: Colors.blue.shade200),
                       onPressed: () {
-                        FlutterClipboard.copy(text + "\n" + darga)
+                        FlutterClipboard.copy(
+                                fakeHaith.text + "\n" + fakeHaith.darga)
                             .then((result) {
                           final snackBar = SnackBar(
                             content: Text('تم النسخ إلى الحافظة'),
@@ -81,7 +76,7 @@ class HadithCard extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                       icon: Icon(Icons.share, color: Colors.blue.shade200),
                       onPressed: () {
-                        Share.share(text + "\n" + darga);
+                        Share.share(fakeHaith.text + "\n" + fakeHaith.darga);
                       }),
                 ),
                 Expanded(
@@ -101,10 +96,10 @@ class HadithCard extends StatelessWidget {
                                   'أحاديث لا تصح' +
                                   '\n' +
                                   'البطاقة رقم: ' +
-                                  '$cardnum' +
+                                  '${(fakeHaith.id) + 1}' +
                                   '\n' +
                                   'النص: ' +
-                                  '$text' +
+                                  '${fakeHaith.text}' +
                                   '\n' +
                                   'والصواب:' +
                                   '\n',
@@ -116,7 +111,7 @@ class HadithCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                text,
+                fakeHaith.text,
                 textAlign: TextAlign.center,
                 softWrap: true,
                 textDirection: TextDirection.rtl,
@@ -128,7 +123,7 @@ class HadithCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                darga,
+                fakeHaith.darga,
                 textAlign: TextAlign.start,
                 textDirection: TextDirection.rtl,
                 softWrap: true,

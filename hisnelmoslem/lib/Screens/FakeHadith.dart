@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/Shared/Cards/HadithCard.dart';
-import 'package:hisnelmoslem/models/json/Hadith.dart';
+import 'package:hisnelmoslem/Utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/models/AzkarDb/DbFakeHaith.dart';
 import 'package:provider/provider.dart';
 import 'package:hisnelmoslem/Providers/AppSettings.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,35 +13,24 @@ class FakeHadith extends StatefulWidget {
 
 class _FakeHadithState extends State<FakeHadith> {
   final _fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();
-  List<Hadith> fakeHadithList =  <Hadith>[];
-  List<Hadith> fakeHadithListForDispaly =  <Hadith>[];
+  List<DbFakeHaith> fakeHadithList = <DbFakeHaith>[];
+
   bool isLoading = false;
 
-  Future<List<Hadith>> fetchHadith() async {
+  getReady() async {
+    await fakeHadithDatabaseHelper
+        .getAllFakeHadiths()
+        .then((value) => fakeHadithList = value);
+
     setState(() {
-      isLoading = true;
+      isLoading = false;
     });
-    String data = await rootBundle.loadString('assets/json/fakehadith.json');
-
-    var hadith = <Hadith>[];
-
-    var azkarJson = json.decode(data);
-    for (var azkarJson in azkarJson) {
-      hadith.add(Hadith.fromJson(azkarJson));
-    }
-    return hadith;
   }
 
   @override
   void initState() {
     super.initState();
-    fetchHadith();
-    fetchHadith().then((value) {
-      setState(() {
-        fakeHadithList.addAll(value);
-        fakeHadithListForDispaly = fakeHadithList;
-      });
-    });
+    getReady();
     setState(() {
       isLoading = false;
     });
@@ -52,30 +40,27 @@ class _FakeHadithState extends State<FakeHadith> {
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
     return Scaffold(
-      key:_fakeHadithScaffoldKey ,
+      key: _fakeHadithScaffoldKey,
       appBar: AppBar(
         elevation: 0,
         title: Text("أحاديث منتشرة لا تصح"),
         //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body:   ScrollConfiguration(
+      body: ScrollConfiguration(
         behavior: ScrollBehavior(),
-
         child: GlowingOverscrollIndicator(
-            axisDirection: AxisDirection.down,
-            color: Colors.black26,
-
+          axisDirection: AxisDirection.down,
+          color: Colors.black26,
           child: ListView.builder(
             physics: ClampingScrollPhysics(),
             padding: EdgeInsets.only(top: 10),
             itemBuilder: (context, index) {
               return HadithCard(
-                index: index,
-                hadith: fakeHadithListForDispaly,
+                fakeHaith: fakeHadithList[index],
                 scaffoldKey: _fakeHadithScaffoldKey,
               );
             },
-            itemCount: fakeHadithListForDispaly.length,
+            itemCount: fakeHadithList.length,
           ),
         ),
       ),
@@ -116,5 +101,3 @@ class _FakeHadithState extends State<FakeHadith> {
     );
   }
 }
-
-
