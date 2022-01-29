@@ -23,6 +23,12 @@ class _AlarmsPagesState extends State<AlarmsPages> {
   bool isLoading = false;
 
   @override
+  void dispose() {
+    _controllerOne.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -80,7 +86,6 @@ class _AlarmsPagesState extends State<AlarmsPages> {
           ),
         ],
       ),
-
       endActionPane: ActionPane(
         motion: ScrollMotion(),
         children: [
@@ -100,68 +105,8 @@ class _AlarmsPagesState extends State<AlarmsPages> {
           ),
         ],
       ),
-
-      // actionExtentRatio: .2,
-      // actions: [
-      //   RoundButton(
-      //     widget: Icon(Icons.delete),
-      //     color: Colors.red.shade300,
-      //     onTap: () {
-      //       setState(() {
-      //         alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
-      //         alarms.removeAt(index);
-      //       });
-      //     },
-      //   ),
-      // ],
-      // secondaryActions: [
-      //   RoundButton(
-      //     widget: Icon(Icons.edit),
-      //     color: Colors.green.shade300,
-      //     onTap: () {
-      //       setState(() {
-      //         showFastEditAlarmDialog(
-      //           context: context,
-      //           dbAlarm: alarms[index],
-      //         );
-      //       });
-      //     },
-      //   ),
-      // ],
       child: alarmCardBody(index: index, isActive: isActive),
     );
-
-    // return new Slidable(
-    //   actionPane: SlidableDrawerActionPane(),
-    //   actionExtentRatio: .2,
-    //   actions: [
-    //     RoundButton(
-    //       widget: Icon(Icons.delete),
-    //       color: Colors.red.shade300,
-    //       onTap: () {
-    //         setState(() {
-    //           alarmDatabaseHelper.deleteAlarm(dbAlarm: alarms[index]);
-    //           alarms.removeAt(index);
-    //         });
-    //       },
-    //     ),
-    //   ],
-    //   secondaryActions: [
-    //     RoundButton(
-    //       widget: Icon(Icons.edit),
-    //       color: Colors.green.shade300,
-    //       onTap: () {
-    //         setState(() {
-    //           showFastEditAlarmDialog(
-    //             context: context,
-    //             dbAlarm: alarms[index],
-    //           );
-    //         });
-    //       },
-    //     ),
-    //   ],
-    //   child: alarmCardBody(index: index, isActive: isActive),
-    // );
   }
 
   Widget alarmCardBody({required int index, required bool isActive}) {
@@ -170,7 +115,6 @@ class _AlarmsPagesState extends State<AlarmsPages> {
         SwitchListTile(
           title: ListTile(
             contentPadding: EdgeInsets.all(0),
-            // leading: Icon(Icons.bookmark_border),
             leading: Icon(
               Icons.alarm,
             ),

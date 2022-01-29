@@ -14,7 +14,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //
   final _quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
-  late PageController _pageController;
+  PageController? _pageController;
   int currentPage = 0;
 
   List<Quran> _quran = <Quran>[];
@@ -47,13 +47,13 @@ class _QuranReadPageState extends State<QuranReadPage> {
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "volume_down") {
-          _pageController.nextPage(
+          _pageController!.nextPage(
             duration: new Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }
         if (call.arguments == "volume_up") {
-          _pageController.previousPage(
+          _pageController!.previousPage(
             duration: new Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
@@ -78,7 +78,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 

@@ -21,7 +21,7 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
     setState(() {
       isLoading = true;
     });
-
+    //
     await azkarDatabaseHelper.getTitles().then((value) {
       setState(() {
         value.forEach((element) {
@@ -34,6 +34,7 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
         });
       });
     });
+    //
     setState(() {
       isLoading = false;
     });
@@ -43,6 +44,12 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
   void initState() {
     super.initState();
     fetchAzkar();
+  }
+
+  @override
+  void dispose() {
+    _controllerOne.dispose();
+    super.dispose();
   }
 
   @override

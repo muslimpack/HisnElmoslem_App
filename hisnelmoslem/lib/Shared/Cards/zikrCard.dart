@@ -23,7 +23,7 @@ class _ZikrCardState extends State<ZikrCard> {
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
-    String azkarReadMode = appSettings.getAzkarReadMode();
+
     return ListTile(
       leading: widget.fehrsTitle[widget.index].favourite == 1
           ? IconButton(
@@ -61,6 +61,7 @@ class _ZikrCardState extends State<ZikrCard> {
           style: TextStyle(fontFamily: "Uthmanic")),
       // trailing: Text(zikrList[index]),
       onTap: () {
+        String azkarReadMode = appSettings.getAzkarReadMode();
         if (azkarReadMode == "Page") {
           transitionAnimation.circleReval(
               context: context,

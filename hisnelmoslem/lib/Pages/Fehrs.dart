@@ -22,6 +22,13 @@ class _AzkarFehrsState extends State<AzkarFehrs> {
   List<DbTitle> zikr = <DbTitle>[];
   List<DbTitle> _zikrForDisplay = <DbTitle>[];
   bool isLoading = false;
+
+  @override
+  void dispose() {
+    _controllerOne.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();

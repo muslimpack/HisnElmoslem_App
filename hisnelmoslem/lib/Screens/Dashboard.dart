@@ -32,6 +32,13 @@ class _AzkarDashboardState extends State<AzkarDashboard>
   late TabController tabController;
 
   @override
+  void dispose() {
+    searchController.dispose();
+    tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     setState(() {

@@ -49,6 +49,12 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   String repeatType = 'يوميا';
 
   @override
+  void dispose() {
+    bodyController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
