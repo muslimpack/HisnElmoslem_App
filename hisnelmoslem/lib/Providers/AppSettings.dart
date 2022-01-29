@@ -48,7 +48,7 @@ class AppSettingsNotifier extends ChangeNotifier {
 
   //* getter
   getAzkarReadMode() {
-    debugPrint(_tashkel.toString());
+    debugPrint("getAzkarReadMode: " + _tashkel.toString());
     return _azkarReadMode;
   }
 

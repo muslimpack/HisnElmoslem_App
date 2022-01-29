@@ -111,7 +111,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                               maxMinute: 59,
                               // Optional onChange to receive value as DateTime
                               onChangeDateTime: (DateTime dateTime) {
-                                debugPrint(dateTime.toString());
+                                debugPrint("dateTime: " + dateTime.toString());
                               },
                             ),
                           );

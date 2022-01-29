@@ -77,7 +77,7 @@ class _AzkarDashboardState extends State<AzkarDashboard>
       debugPrint('pageIndex = $pageIndex');
 
       debugPrint('Will open = $pageIndex');
-      debugPrint(pageIndex.toString());
+      debugPrint("pageIndex: " + pageIndex.toString());
       transitionAnimation.fromBottom2Top(
           context: context, goToPage: AzkarReadPage(index: pageIndex - 1));
     }
