@@ -1,49 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
-import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/cards/zikr_card.dart';
 
 class AzkarBookmarks extends StatefulWidget {
+  final List<DbTitle> titles;
+  final List<DbAlarm> alarms;
+  AzkarBookmarks({required this.titles, required this.alarms});
   @override
   _AzkarBookmarksState createState() => _AzkarBookmarksState();
 }
 
 class _AzkarBookmarksState extends State<AzkarBookmarks> {
   final ScrollController _controllerOne = ScrollController();
-  List<DbTitle> favouriteAzkar = <DbTitle>[];
 
   bool isLoading = false;
-
-  fetchAzkar() async {
-    favouriteAzkar = <DbTitle>[];
-    setState(() {
-      isLoading = true;
-    });
-    //
-    await azkarDatabaseHelper.getAllTitles().then((value) {
-      setState(() {
-        value.forEach((element) {
-          if (element.favourite == 1) {
-            favouriteAzkar.add(element);
-          } else {
-            favouriteAzkar.remove(element);
-            debugPrint(" favouriteAzkar.remove(element);");
-          }
-        });
-      });
-    });
-    //
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    fetchAzkar();
   }
 
   @override
@@ -59,18 +36,19 @@ class _AzkarBookmarksState extends State<AzkarBookmarks> {
         : Scaffold(
             body: RefreshIndicator(
               color: MAINCOLOR,
-              onRefresh: () async {
-                fetchAzkar();
-              },
+              onRefresh: () async {},
               child: Scrollbar(
                 controller: _controllerOne,
                 isAlwaysShown: false,
                 child: new ListView.builder(
                   padding: EdgeInsets.only(top: 10),
                   itemBuilder: (context, index) {
-                    return ZikrCard(index: index, fehrsTitle: favouriteAzkar);
+                    return ZikrCard(
+                      fehrsTitle: widget.titles[index],
+                      alarm: DbAlarm(id: index),
+                    );
                   },
-                  itemCount: favouriteAzkar.length,
+                  itemCount: widget.titles.length,
                 ),
               ),
             ),

@@ -22,4 +22,15 @@ class DbFakeHaith {
       'isRead': isRead,
     };
   }
+
+  @override
+  String toString() {
+    return '''
+      '_id': $id,
+      'text': $text,
+      'darga': $darga,
+      'source': $source,
+      'isRead': $isRead,
+    ''';
+  }
 }

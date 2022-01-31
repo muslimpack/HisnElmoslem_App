@@ -4,27 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
-import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
-showFastAddAlarmDialog(
-    {required BuildContext context, required DbTitle dbTitle}) {
+Future<DbAlarm> showFastAddAlarmDialog(
+    {required BuildContext context, required DbAlarm dbAlarm}) async {
   // show the dialog
-  showDialog(
+  return await showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AddAlarmDialog(dbTitle: dbTitle);
+      return AddAlarmDialog(dbAlarm: dbAlarm);
     },
   );
 }
 
 class AddAlarmDialog extends StatefulWidget {
-  final DbTitle dbTitle;
+  final DbAlarm dbAlarm;
 
-  const AddAlarmDialog({Key? key, required this.dbTitle}) : super(key: key);
+  const AddAlarmDialog({Key? key, required this.dbAlarm}) : super(key: key);
 
   @override
   _AddAlarmDialogState createState() => _AddAlarmDialogState();
@@ -72,7 +71,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                 child: ListView(
                   children: [
                     Text(
-                      widget.dbTitle.name,
+                      widget.dbAlarm.title,
                       style: TextStyle(color: MAINCOLOR, fontSize: 20),
                     ),
                     Divider(),
@@ -172,8 +171,8 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             onPressed: () {
               if (selectedHour != null) {
                 DbAlarm newAlarm = DbAlarm(
-                  id: widget.dbTitle.id,
-                  title: widget.dbTitle.name,
+                  id: widget.dbAlarm.id,
+                  title: widget.dbAlarm.title,
                   body: bodyController.text,
                   hour: selectedHour!,
                   minute: selectedMinute!,
@@ -183,7 +182,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                 );
                 alarmDatabaseHelper.addNewAlarm(dbAlarm: newAlarm);
                 alarmManager.alarmState(dbAlarm: newAlarm);
-                Navigator.pop(context, true);
+                Navigator.pop(context, newAlarm);
               } else {
                 showToast(msg: "اختر وقتا للتذكير");
               }
@@ -199,7 +198,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             ),
             child: Text("اغلاق"),
             onPressed: () {
-              Navigator.pop(context, false);
+              Navigator.pop(context, DbAlarm(id: widget.dbAlarm.id));
             },
           ),
         )

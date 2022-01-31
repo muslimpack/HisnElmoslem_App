@@ -143,6 +143,7 @@ class AzkarDatabaseHelper {
         count: maps[i]['count'],
         fadl: ((maps[i]['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'] ?? "",
+        favourite: maps[i]['favourite'] ?? 0,
       );
     });
   }
@@ -166,8 +167,49 @@ class AzkarDatabaseHelper {
         count: maps[i]['count'],
         fadl: ((maps[i]['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'] ?? "",
+        favourite: maps[i]['favourite'] ?? 0,
       );
     }).where((element) => element.titleId == index).toList();
+  }
+
+// A method that retrieves all the contents from the contents table.
+  Future<List<DbContent>> getFavouriteContent() async {
+    // Get a reference to the database.
+    final Database db = await database;
+
+    // Query the table for all The contents.
+    final List<Map<String, dynamic>> maps = await db.query('contents');
+
+    // Convert the List<Map<String, dynamic> into a List<contents>.
+    return List.generate(maps.length, (i) {
+      return DbContent(
+        id: maps[i]['_id'],
+        content: (maps[i]['content'] as String).replaceAll("\\n", "\n"),
+        chapterId: maps[i]['chapter_id'],
+        titleId: maps[i]['title_id'],
+        orderId: maps[i]['order_id'],
+        count: maps[i]['count'],
+        fadl: ((maps[i]['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
+        source: maps[i]['source'] ?? "",
+        favourite: maps[i]['favourite'] ?? 0,
+      );
+    }).where((element) => element.favourite == 1).toList();
+  }
+
+// A method that retrieves all the contents from the contents table.
+  setFavouriteContent({required DbContent dbContent}) async {
+    // Get a reference to the database.
+    final Database db = await database;
+    dbContent.favourite = 1;
+    // Convert the List<Map<String, dynamic> into a List<contents>.
+    await db.update(
+      'contents',
+      dbContent.toMap(),
+      // Use a `where` clause to delete a specific favourite.
+      where: "_id = ?",
+      // Pass the favourite's id as a whereArg to prevent SQL injection.
+      whereArgs: [dbContent.id],
+    );
   }
 
   // A method that retrieves all the contents from the favourite table.
@@ -187,22 +229,6 @@ class AzkarDatabaseHelper {
       );
     });
   }
-
-  // Define a function that inserts favourite into the database
-  // Future<void> insertZikrFromFavourite(DbFavourite favourite) async {
-  //   // Get a reference to the database.
-  //   final Database db = await database;
-  //
-  //   // Insert the favourite into the correct table. You might also specify the
-  //   // `conflictAlgorithm` to use in case the same favourite is inserted twice.
-  //   //
-  //   // In this case, replace any previous data.
-  //   await db.insert(
-  //     'favourite',
-  //     favourite.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
 
   Future<void> addToFavourite({required DbTitle dbTitle}) async {
     // Get a reference to the database.

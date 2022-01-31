@@ -1,9 +1,9 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
-import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
@@ -179,6 +179,20 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
               title: Text(zikrTitle!.name,
                   style: TextStyle(fontFamily: "Uthmanic")),
               actions: [
+                // IconButton(
+                //     splashRadius: 20,
+                //     padding: EdgeInsets.all(0),
+                //     icon: zikrContent[currentPage].favourite == 0
+                //         ? Icon(Icons.favorite_border,
+                //             color: Colors.blue.shade200)
+                //         : Icon(Icons.favorite, color: Colors.blue.shade200),
+                //     onPressed: () {
+                //       setState(() {
+                //         zikrContent[currentPage].favourite = 1;
+                //       });
+                //       azkarDatabaseHelper.setFavouriteContent(
+                //           dbContent: zikrContent[currentPage]);
+                //     }),
                 IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.all(0),

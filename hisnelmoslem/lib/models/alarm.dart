@@ -1,4 +1,3 @@
-
 class DbAlarm {
   int id;
   String title;
@@ -10,12 +9,12 @@ class DbAlarm {
 
   DbAlarm({
     required this.id,
-    required this.title,
-    required this.body,
-    required this.repeatType,
-    required this.hour,
-    required this.minute,
-    required this.isActive,
+    this.title = "",
+    this.body = "",
+    this.repeatType = "",
+    this.hour = 12,
+    this.minute = 30,
+    this.isActive = 0,
   });
 
   //
@@ -37,5 +36,18 @@ class DbAlarm {
       "minute": minute,
       "isActive": isActive,
     };
+  }
+
+  @override
+  String toString() {
+    return '''
+       "id": $id,
+      "title": $title,
+      "body": $body,
+      "repeatType": $repeatType,
+      "hour": $hour,
+      "minute": $minute,
+      "isActive": $isActive,
+    ''';
   }
 }

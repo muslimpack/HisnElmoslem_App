@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/models/zikr_content.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/pages/bookmarks.dart';
 import 'package:hisnelmoslem/views/pages/fehrs.dart';
@@ -30,7 +35,41 @@ class _AzkarDashboardState extends State<AzkarDashboard>
   bool isSearching = false;
   String searchTxt = "";
   late TabController tabController;
+  //
+  List<DbTitle> favouriteTitle = <DbTitle>[];
+  List<DbTitle> allTitle = <DbTitle>[];
+  List<DbTitle> searchedTitle = <DbTitle>[];
+  List<DbAlarm> alarms = <DbAlarm>[];
+  List<DbContent> zikrContent = <DbContent>[];
 
+  //
+
+  getAllListsReady() async {
+    //
+    await azkarDatabaseHelper.getAllTitles().then((value) {
+      setState(() {
+        allTitle = value;
+      });
+    });
+
+    favouriteTitle = allTitle.where((item) => item.favourite == 1).toList();
+    //
+    await alarmDatabaseHelper.getAlarms().then((value) {
+      setState(() {
+        alarms = value;
+      });
+    });
+
+//
+    await azkarDatabaseHelper
+        .getFavouriteContent()
+        .then((value) => zikrContent = value);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  //
   @override
   void dispose() {
     searchController.dispose();
@@ -44,7 +83,7 @@ class _AzkarDashboardState extends State<AzkarDashboard>
     setState(() {
       isLoading = true;
     });
-
+    getAllListsReady();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]);
 
@@ -61,6 +100,7 @@ class _AzkarDashboardState extends State<AzkarDashboard>
         overlays: [SystemUiOverlay.top]);
 
     tabController = new TabController(initialIndex: 0, length: 2, vsync: this);
+    // tabController = new TabController(initialIndex: 0, length: 3, vsync: this);
     // pageController = new PageController(initialPage: 0);
     setState(() {
       isLoading = false;
@@ -125,6 +165,45 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                               setState(() {
                                 searchTxt = value;
                               });
+                              //
+                              if (isSearching) {
+                                if (searchTxt.isEmpty || searchTxt == "") {
+                                  searchedTitle = allTitle.where((zikr) {
+                                    var zikrTitle = zikr.name;
+                                    return zikrTitle.contains("");
+                                  }).toList();
+                                } else {
+                                  setState(() {
+                                    searchedTitle = allTitle.where((zikr) {
+                                      var zikrTitle = zikr.name.replaceAll(
+                                          new RegExp(String.fromCharCodes([
+                                            1617,
+                                            124,
+                                            1614,
+                                            124,
+                                            1611,
+                                            124,
+                                            1615,
+                                            124,
+                                            1612,
+                                            124,
+                                            1616,
+                                            124,
+                                            1613,
+                                            124,
+                                            1618
+                                          ])),
+                                          "");
+                                      return zikrTitle.contains(searchTxt);
+                                    }).toList();
+                                  });
+                                }
+                              } else {
+                                searchedTitle = allTitle.where((zikr) {
+                                  var zikrTitle = zikr.name;
+                                  return zikrTitle.contains("");
+                                }).toList();
+                              }
                             },
                           )
                         : GestureDetector(
@@ -162,6 +241,12 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                               style: TextStyle(fontFamily: "Uthmanic"),
                             ),
                           ),
+                          // Tab(
+                          //   child: Text(
+                          //     "مفضلة الأذكار ",
+                          //     style: TextStyle(fontFamily: "Uthmanic"),
+                          //   ),
+                          // ),
                         ]),
                     actions: [
                       isSearching
@@ -223,10 +308,16 @@ class _AzkarDashboardState extends State<AzkarDashboard>
                 controller: tabController,
                 children: [
                   AzkarFehrs(
-                    isSearching: isSearching,
-                    searchTxt: searchTxt,
+                    titles: isSearching ? searchedTitle : allTitle,
+                    alarms: alarms,
                   ),
-                  AzkarBookmarks(),
+                  AzkarBookmarks(
+                    titles: favouriteTitle,
+                    alarms: alarms,
+                  ),
+                  // FavouriteZikr(
+                  //   zikrContent: zikrContent,
+                  // ),
                 ],
               ),
             ),

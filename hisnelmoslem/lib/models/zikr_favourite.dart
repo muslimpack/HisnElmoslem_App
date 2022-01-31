@@ -16,4 +16,13 @@ class DbFavourite {
       'order_id': orderId,
     };
   }
+
+  @override
+  String toString() {
+    return '''
+      '_id': $id,
+      'content_id': $contentId,
+      'order_id': $orderId,
+    ''';
+  }
 }
