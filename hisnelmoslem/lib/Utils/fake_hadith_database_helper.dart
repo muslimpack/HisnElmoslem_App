@@ -73,8 +73,8 @@ class FakeHadithDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbFakeHaith(
         id: maps[i]['_id'],
-        text: maps[i]['text'],
-        darga: maps[i]['darga'],
+        text: (maps[i]['text'] as String).replaceAll("\\n", "\n"),
+        darga: (maps[i]['darga'] as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'],
         isRead: maps[i]['isRead'],
       );
@@ -92,8 +92,8 @@ class FakeHadithDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbFakeHaith(
         id: maps[i]['_id'],
-        text: maps[i]['text'],
-        darga: maps[i]['darga'],
+        text: (maps[i]['text'] as String).replaceAll("\\n", "\n"),
+        darga: (maps[i]['darga'] as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'],
         isRead: maps[i]['isRead'],
       );
@@ -111,9 +111,9 @@ class FakeHadithDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbFakeHaith(
         id: maps[i]['_id'],
-        text: maps[i]['text'],
-        darga: maps[i]['darga'],
         source: maps[i]['source'],
+        text: (maps[i]['text'] as String).replaceAll("\\n", "\n"),
+        darga: (maps[i]['darga'] as String).replaceAll("\\n", "\n"),
         isRead: maps[i]['isRead'],
       );
     }).where((element) => element.isRead == 0).toList();

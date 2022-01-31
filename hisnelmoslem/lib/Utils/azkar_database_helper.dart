@@ -136,12 +136,12 @@ class AzkarDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbContent(
         id: maps[i]['_id'],
-        content: maps[i]['content'],
+        content: (maps[i]['content'] as String).replaceAll("\\n", "\n"),
         chapterId: maps[i]['chapter_id'],
         titleId: maps[i]['title_id'],
         orderId: maps[i]['order_id'],
         count: maps[i]['count'],
-        fadl: maps[i]['fadl'] ?? "",
+        fadl: ((maps[i]['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'] ?? "",
       );
     });
@@ -159,12 +159,12 @@ class AzkarDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbContent(
         id: maps[i]['_id'],
-        content: maps[i]['content'],
+        content: (maps[i]['content'] as String).replaceAll("\\n", "\n"),
         chapterId: maps[i]['chapter_id'],
         titleId: maps[i]['title_id'],
         orderId: maps[i]['order_id'],
         count: maps[i]['count'],
-        fadl: maps[i]['fadl'] ?? "",
+        fadl: ((maps[i]['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
         source: maps[i]['source'] ?? "",
       );
     }).where((element) => element.titleId == index).toList();
