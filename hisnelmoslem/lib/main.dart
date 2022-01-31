@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:provider/provider.dart';
 import 'Utils/azkar_database_helper.dart';
@@ -62,14 +62,8 @@ class _MyAppState extends State<MyApp> {
     debugPrint("MyApp payload: ${widget.payload}");
     return ListenableProvider(
       create: (context) => AppSettingsNotifier(),
-      child: MaterialApp(
-        // Make UI RTL
-        localizationsDelegates: [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [Locale('ar', 'AE')],
+      child: GetMaterialApp(
+        locale: Locale('ar'),
         debugShowCheckedModeBanner: false,
         title: 'حصن المسلم',
         theme: ThemeData.dark(),
