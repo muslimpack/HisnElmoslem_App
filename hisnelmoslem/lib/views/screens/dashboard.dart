@@ -160,10 +160,7 @@ class AzkarDashboard extends StatelessWidget {
                     // controller: tabController,
                     children: [
                       AzkarFehrs(),
-                      AzkarBookmarks(
-                        titles: controller.favouriteTitle,
-                        alarms: controller.alarms,
-                      ),
+                      AzkarBookmarks(),
                       // FavouriteZikr(
                       //   zikrContent: zikrContent,
                       // ),
