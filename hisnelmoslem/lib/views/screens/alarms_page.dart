@@ -33,7 +33,6 @@ class AlarmsPages extends StatelessWidget {
                             padding: EdgeInsets.only(top: 10),
                             itemBuilder: (context, index) {
                               return AlarmCard(
-                                index: index,
                                 dbAlarm: controller.alarms[index],
                               );
                             },

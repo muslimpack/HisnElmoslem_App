@@ -19,10 +19,18 @@ class AzkarBookmarks extends StatelessWidget {
           child: new ListView.builder(
             padding: EdgeInsets.only(top: 10),
             itemBuilder: (context, index) {
+              //TODO get rid of this for loop
+              DbAlarm tempAlarm = DbAlarm(id: index);
+              for (var item in controller.alarms) {
+                // debugPrint(item.toString());
+                if (item.id == index) {
+                  tempAlarm = item;
+                }
+              }
               return ZikrCard(
                 fehrsTitle: controller.favouriteTitle[index],
                 //controller.alarms
-                alarm: DbAlarm(id: index),
+                dbAlarm: tempAlarm,
               );
             },
             itemCount: controller.favouriteTitle.length,

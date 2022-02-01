@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
+import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/shared/dialogs/edit_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
@@ -13,12 +14,11 @@ import '../constant.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
-  final int index;
-  const AlarmCard({Key? key, required this.dbAlarm, required this.index})
-      : super(key: key);
+  AlarmCard({Key? key, required this.dbAlarm}) : super(key: key);
 
   //
-
+  final DashboardController dashboardController =
+      Get.put(DashboardController());
   Widget alarmCardBody() {
     return GetBuilder<AlarmsPageController>(builder: (controller) {
       return Column(
@@ -62,6 +62,8 @@ class AlarmCard extends StatelessWidget {
               alarmManager.alarmState(dbAlarm: updateAlarm);
               //
               controller.update();
+              dashboardController.alarms = controller.alarms;
+              dashboardController.update();
             },
           ),
           // Divider(),
@@ -88,8 +90,11 @@ class AlarmCard extends StatelessWidget {
                   context: context,
                   dbAlarm: dbAlarm,
                 ).then((value) {
+                  int index = controller.alarms.indexOf(dbAlarm);
                   controller.alarms[index] = value;
                   controller.update();
+                  dashboardController.alarms = controller.alarms;
+                  dashboardController.update();
                 });
               },
               backgroundColor: Colors.green.shade300,
@@ -109,6 +114,8 @@ class AlarmCard extends StatelessWidget {
                 alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
                 controller.alarms.removeWhere((item) => item == dbAlarm);
                 controller.update();
+                dashboardController.alarms = controller.alarms;
+                dashboardController.update();
               },
               backgroundColor: Colors.red.shade300,
               foregroundColor: Colors.white,

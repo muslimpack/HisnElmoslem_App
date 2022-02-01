@@ -19,6 +19,7 @@ class AzkarFehrs extends StatelessWidget {
             child: new ListView.builder(
               padding: EdgeInsets.only(top: 10),
               itemBuilder: (context, index) {
+                //TODO get rid of this for loop
                 DbAlarm tempAlarm = DbAlarm(id: index);
                 for (var item in controller.alarms) {
                   // debugPrint(item.toString());
@@ -30,7 +31,7 @@ class AzkarFehrs extends StatelessWidget {
                   fehrsTitle: controller.isSearching
                       ? controller.searchedTitle[index]
                       : controller.allTitle[index],
-                  alarm: tempAlarm,
+                  dbAlarm: tempAlarm,
                 );
               },
               itemCount: controller.isSearching
