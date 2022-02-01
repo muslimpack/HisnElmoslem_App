@@ -56,6 +56,8 @@ class ZikrCard extends StatelessWidget {
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
                   controller.favouriteTitle.add(fehrsTitle);
+                  controller.favouriteTitle
+                      .sort((a, b) => a.orderId.compareTo(b.orderId));
                   controller.update();
                   //
                 }),
