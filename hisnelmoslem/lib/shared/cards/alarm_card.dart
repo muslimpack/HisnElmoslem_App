@@ -1,54 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/alarm_controller.dart';
+import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/shared/dialogs/edit_fast_alarm_dialog.dart';
+import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
+import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
-class RoundButton extends StatelessWidget {
-  final Widget widget;
-  final Color color;
-  final Function onTap;
+import '../constant.dart';
 
-  const RoundButton(
-      {Key? key,
-      required this.widget,
-      required this.color,
-      required this.onTap})
+class AlarmCard extends StatelessWidget {
+  final DbAlarm dbAlarm;
+  final int index;
+  const AlarmCard({Key? key, required this.dbAlarm, required this.index})
       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: widget,
-        ),
-      ),
-    );
+  //
+
+  Widget alarmCardBody() {
+    return GetBuilder<AlarmsPageController>(builder: (controller) {
+      return Column(
+        children: [
+          SwitchListTile(
+            title: ListTile(
+              contentPadding: EdgeInsets.all(0),
+              leading: Icon(
+                Icons.alarm,
+              ),
+              subtitle: Wrap(
+                children: [
+                  RoundTagCard(
+                    name: dbAlarm.body,
+                    color: Colors.green.shade300,
+                  ),
+                  RoundTagCard(
+                    name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
+                    color: Colors.blue.shade300,
+                  ),
+                  RoundTagCard(
+                    name: HandleRepeatType()
+                        .getNameToUser(chosenValue: dbAlarm.repeatType),
+                    color: Colors.orange.shade300,
+                  ),
+                ],
+              ),
+              isThreeLine: true,
+              title: Text(dbAlarm.title),
+            ),
+            activeColor: MAINCOLOR,
+            value: dbAlarm.isActive == 0 ? false : true,
+            onChanged: (value) {
+              //Update database
+              DbAlarm updateAlarm = dbAlarm;
+              value ? updateAlarm.isActive = 1 : updateAlarm.isActive = 0;
+              alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
+              // update view
+              dbAlarm.isActive = value ? 1 : 0;
+              //
+              alarmManager.alarmState(dbAlarm: updateAlarm);
+              //
+              controller.update();
+            },
+          ),
+          // Divider(),
+        ],
+      );
+    });
   }
-}
 
-class RoundTagCard extends StatelessWidget {
-  final String name;
-  final Color color;
-
-  const RoundTagCard({Key? key, required this.name, required this.color})
-      : super(key: key);
-
+//
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Text(name,
-            style: TextStyle(fontSize: 12), textDirection: TextDirection.ltr),
-      ),
-    );
+    return GetBuilder<AlarmsPageController>(builder: (controller) {
+      return new Slidable(
+        startActionPane: ActionPane(
+          // A motion is a widget used to control how the pane animates.
+          motion: const ScrollMotion(),
+
+          // All actions are defined in the children parameter.
+          children: [
+            // A SlidableAction can have an icon and/or a label.
+            SlidableAction(
+              onPressed: (val) {
+                showFastEditAlarmDialog(
+                  context: context,
+                  dbAlarm: dbAlarm,
+                ).then((value) {
+                  controller.alarms[index] = value;
+                  controller.update();
+                });
+              },
+              backgroundColor: Colors.green.shade300,
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'تعديل',
+            ),
+          ],
+        ),
+        endActionPane: ActionPane(
+          motion: ScrollMotion(),
+          children: [
+            SlidableAction(
+              // An action can be bigger than the others.
+              flex: 2,
+              onPressed: (val) {
+                alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
+                controller.alarms.removeWhere((item) => item == dbAlarm);
+                controller.update();
+              },
+              backgroundColor: Colors.red.shade300,
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'حذف',
+            ),
+          ],
+        ),
+        child: alarmCardBody(),
+      );
+    });
   }
 }

@@ -8,10 +8,10 @@ import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
-showFastEditAlarmDialog(
-    {required BuildContext context, required DbAlarm dbAlarm}) {
+Future<DbAlarm> showFastEditAlarmDialog(
+    {required BuildContext context, required DbAlarm dbAlarm}) async {
   // show the dialog
-  showDialog(
+  return await showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
@@ -186,7 +186,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
 
                   alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
                   alarmManager.alarmState(dbAlarm: updateAlarm);
-                  Navigator.pop(context, true);
+                  Navigator.pop(context, updateAlarm);
                 } else {
                   showToast(msg: "اختر وقتا للتذكير");
                 }
@@ -204,7 +204,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             ),
             child: Text("اغلاق"),
             onPressed: () {
-              Navigator.pop(context, false);
+              Navigator.pop(context, widget.dbAlarm);
             },
           ),
         )

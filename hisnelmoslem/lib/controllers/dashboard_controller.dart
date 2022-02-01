@@ -103,6 +103,7 @@ class DashboardController extends GetxController {
 
   //
   onNotificationReceive(ReceiveNotification notification) {}
+
   //
   onNotificationClick(String payload) {
     // TODO solve context issue to route to zikr  screen when click notification
@@ -121,8 +122,8 @@ class DashboardController extends GetxController {
       //     context: context, goToPage: AzkarReadPage(index: pageIndex));
     }
   }
-  //
 
+  //
   searchZikr() {
     isSearching = true;
     //
