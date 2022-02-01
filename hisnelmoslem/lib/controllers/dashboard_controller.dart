@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
+import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
 
 class DashboardController extends GetxController {
   /* *************** Variables *************** */
@@ -106,11 +109,10 @@ class DashboardController extends GetxController {
 
   //
   onNotificationClick(String payload) {
-    // TODO solve context issue to route to zikr  screen when click notification
     debugPrint('payload = $payload');
     if (payload == "الكهف") {
-      // transitionAnimation.fromBottom2Top(
-      //     context: context, goToPage: QuranReadPage());
+      transitionAnimation.fromBottom2Top(
+          context: Get.context!, goToPage: QuranReadPage());
     } else if (payload == "555" || payload == "777") {
     } else {
       int? pageIndex = int.parse(payload);
@@ -118,8 +120,8 @@ class DashboardController extends GetxController {
 
       debugPrint('Will open = $pageIndex');
       debugPrint("pageIndex: " + pageIndex.toString());
-      // transitionAnimation.fromBottom2Top(
-      //     context: context, goToPage: AzkarReadPage(index: pageIndex));
+      transitionAnimation.fromBottom2Top(
+          context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
     }
   }
 
