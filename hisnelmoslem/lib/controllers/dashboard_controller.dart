@@ -17,10 +17,12 @@ class DashboardController extends GetxController {
   bool isLoading = false;
   //
   bool isSearching = false;
-  String searchTxt = "";
   //
   TextEditingController searchController = TextEditingController();
   late TabController tabController;
+  //
+  final ScrollController fehrsScrollController = ScrollController();
+  final ScrollController bookmarksScrollController = ScrollController();
   //
   List<DbTitle> favouriteTitle = <DbTitle>[];
   List<DbTitle> allTitle = <DbTitle>[];
@@ -67,6 +69,8 @@ class DashboardController extends GetxController {
     super.onClose();
     searchController.dispose();
     tabController.dispose();
+    fehrsScrollController.dispose();
+    bookmarksScrollController.dispose();
   }
 
   /* *************** Functions *************** */
@@ -117,6 +121,42 @@ class DashboardController extends GetxController {
       //     context: context, goToPage: AzkarReadPage(index: pageIndex));
     }
   }
+  //
 
+  searchZikr() {
+    isSearching = true;
+    //
+    update();
+    if (searchController.text.isEmpty || searchController.text == "") {
+      searchedTitle = allTitle;
+      debugPrint("Controller.searchTxt.isEmpty || controller.searchTxt == ");
+    } else {
+      debugPrint("else");
+      searchedTitle = allTitle.where((zikr) {
+        var zikrTitle = zikr.name.replaceAll(
+            new RegExp(String.fromCharCodes([
+              1617,
+              124,
+              1614,
+              124,
+              1611,
+              124,
+              1615,
+              124,
+              1612,
+              124,
+              1616,
+              124,
+              1613,
+              124,
+              1618
+            ])),
+            "");
+        return zikrTitle.contains(searchController.text);
+      }).toList();
+    }
+    //
+    update();
+  }
   /* ****************************** */
 }

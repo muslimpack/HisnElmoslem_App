@@ -1,62 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
-import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/cards/zikr_card.dart';
 
-class AzkarFehrs extends StatefulWidget {
-  final List<DbTitle> titles;
-  final List<DbAlarm> alarms;
+class AzkarFehrs extends StatelessWidget {
   const AzkarFehrs({
     Key? key,
-    required this.titles,
-    required this.alarms,
   }) : super(key: key);
 
   @override
-  _AzkarFehrsState createState() => _AzkarFehrsState();
-}
-
-class _AzkarFehrsState extends State<AzkarFehrs> {
-  final ScrollController _controllerOne = ScrollController();
-
-  bool isLoading = false;
-
-  @override
-  void dispose() {
-    _controllerOne.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Loading()
-        : Scaffold(
-            body: Scrollbar(
-              controller: _controllerOne,
-              isAlwaysShown: false,
-              child: new ListView.builder(
-                padding: EdgeInsets.only(top: 10),
-                itemBuilder: (context, index) {
-                  DbAlarm tempAlarm = DbAlarm(id: index);
-                  for (var item in widget.alarms) {
-                    // debugPrint(item.toString());
-                    if (item.id == index) {
-                      tempAlarm = item;
-                    }
+    return GetBuilder<DashboardController>(builder: (controller) {
+      return Scaffold(
+        body: Scrollbar(
+            controller: controller.fehrsScrollController,
+            isAlwaysShown: false,
+            child: new ListView.builder(
+              padding: EdgeInsets.only(top: 10),
+              itemBuilder: (context, index) {
+                DbAlarm tempAlarm = DbAlarm(id: index);
+                for (var item in controller.alarms) {
+                  // debugPrint(item.toString());
+                  if (item.id == index) {
+                    tempAlarm = item;
                   }
-                  return ZikrCard(
-                      fehrsTitle: widget.titles[index], alarm: tempAlarm);
-                },
-                itemCount: widget.titles.length,
-              ),
-            ),
-          );
+                }
+                return ZikrCard(
+                  fehrsTitle: controller.isSearching
+                      ? controller.searchedTitle[index]
+                      : controller.allTitle[index],
+                  alarm: tempAlarm,
+                );
+              },
+              itemCount: controller.isSearching
+                  ? controller.searchedTitle.length
+                  : controller.allTitle.length,
+            )),
+      );
+    });
   }
 }

@@ -51,57 +51,12 @@ class AzkarDashboard extends StatelessWidget {
                                       icon: Icon(Icons.clear_all),
                                       onPressed: () {
                                         controller.searchController.clear();
-
-                                        controller.searchTxt = "";
+                                        controller.searchZikr();
                                         controller.update();
                                       },
                                     )),
                                 onChanged: (value) {
-                                  controller.searchTxt = value;
-
-                                  //
-                                  if (controller.isSearching) {
-                                    if (controller.searchTxt.isEmpty ||
-                                        controller.searchTxt == "") {
-                                      controller.searchedTitle =
-                                          controller.allTitle.where((zikr) {
-                                        var zikrTitle = zikr.name;
-                                        return zikrTitle.contains("");
-                                      }).toList();
-                                    } else {
-                                      controller.searchedTitle =
-                                          controller.allTitle.where((zikr) {
-                                        var zikrTitle = zikr.name.replaceAll(
-                                            new RegExp(String.fromCharCodes([
-                                              1617,
-                                              124,
-                                              1614,
-                                              124,
-                                              1611,
-                                              124,
-                                              1615,
-                                              124,
-                                              1612,
-                                              124,
-                                              1616,
-                                              124,
-                                              1613,
-                                              124,
-                                              1618
-                                            ])),
-                                            "");
-                                        return zikrTitle
-                                            .contains(controller.searchTxt);
-                                      }).toList();
-                                    }
-                                  } else {
-                                    controller.searchedTitle =
-                                        controller.allTitle.where((zikr) {
-                                      var zikrTitle = zikr.name;
-                                      return zikrTitle.contains("");
-                                    }).toList();
-                                  }
-                                  controller.update();
+                                  controller.searchZikr();
                                 },
                               )
                             : GestureDetector(
@@ -164,9 +119,7 @@ class AzkarDashboard extends StatelessWidget {
                                   padding: EdgeInsets.all(0),
                                   icon: Icon(Icons.search),
                                   onPressed: () {
-                                    controller.isSearching = true;
-                                    controller.searchTxt = "";
-                                    controller.update();
+                                    controller.searchZikr();
                                   }),
                           controller.isSearching
                               ? SizedBox()
@@ -206,12 +159,7 @@ class AzkarDashboard extends StatelessWidget {
                   body: TabBarView(
                     // controller: tabController,
                     children: [
-                      AzkarFehrs(
-                        titles: controller.isSearching
-                            ? controller.searchedTitle
-                            : controller.allTitle,
-                        alarms: controller.alarms,
-                      ),
+                      AzkarFehrs(),
                       AzkarBookmarks(
                         titles: controller.favouriteTitle,
                         alarms: controller.alarms,
