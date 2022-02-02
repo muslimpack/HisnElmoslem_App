@@ -97,8 +97,8 @@ class AlarmCard extends StatelessWidget {
                   dashboardController.update();
                 });
               },
-              backgroundColor: Colors.green.shade300,
-              foregroundColor: Colors.white,
+              backgroundColor: green,
+              foregroundColor: white,
               icon: Icons.edit,
               label: 'تعديل',
             ),
@@ -117,8 +117,8 @@ class AlarmCard extends StatelessWidget {
                 dashboardController.alarms = controller.alarms;
                 dashboardController.update();
               },
-              backgroundColor: Colors.red.shade300,
-              foregroundColor: Colors.white,
+              backgroundColor: red,
+              foregroundColor: white,
               icon: Icons.delete,
               label: 'حذف',
             ),

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/models/json/Quran.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 
 class QuranReadPage extends StatefulWidget {
   @override
@@ -95,7 +95,6 @@ class _QuranReadPageState extends State<QuranReadPage> {
     return isLoading
         ? Loading()
         : Scaffold(
-            // backgroundColor: Colors.yellow.withOpacity(.3),
             key: _quranReadPageScaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -106,7 +105,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: CircleAvatar(
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: transparent,
                     child: Text('${page + currentPage}'),
                   ),
                 )
@@ -116,7 +115,7 @@ class _QuranReadPageState extends State<QuranReadPage> {
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.left,
-                color: Colors.black26,
+                color: black26,
                 child: PageView.builder(
                   onPageChanged: _onPageViewChange,
                   controller: _pageController,
@@ -167,8 +166,8 @@ class BetweenPageEffect extends StatelessWidget {
           colors: [
             // Color.fromARGB(10, 225, 255, 255),
             // Theme.of(context).primaryColor.withAlpha(90),
-            Colors.black.withOpacity(.05),
-            Colors.black.withOpacity(.1),
+            black.withOpacity(.05),
+            black.withOpacity(.1),
           ],
         )),
       ),
@@ -198,8 +197,8 @@ class PageSideEffect extends StatelessWidget {
           begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
           end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
           colors: [
-            Color.fromARGB(255, 225, 255, 255),
-            Colors.black.withAlpha(200),
+            white,
+            black.withAlpha(200),
           ],
         )),
       ),

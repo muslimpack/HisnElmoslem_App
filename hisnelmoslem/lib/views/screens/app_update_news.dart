@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 
 class AppUpdateNews extends StatefulWidget {
   @override
@@ -116,14 +116,14 @@ Dev side
         behavior: ScrollBehavior(),
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
-          color: Colors.black26,
+          color: black26,
           child: ListView.builder(
             itemCount: updateNewFeature.length,
             itemBuilder: (context, index) {
               return ListTile(
                 leading: Icon(
                   Icons.arrow_circle_up,
-                  color: index == 0 ? MAINCOLOR : Colors.white,
+                  color: index == 0 ? MAINCOLOR : white,
                 ),
                 title: Text(index == 0
                     ? "الإصدار الحالي: " + updateNewFeature[index][0]

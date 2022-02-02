@@ -52,9 +52,8 @@ class FavouriteZikr extends StatelessWidget {
                             padding: EdgeInsets.all(0),
                             icon: dbContent.favourite == 0
                                 ? Icon(Icons.favorite_border,
-                                    color: Colors.blue.shade200)
-                                : Icon(Icons.favorite,
-                                    color: Colors.blue.shade200),
+                                    color: bleuShade200)
+                                : Icon(Icons.favorite, color: bleuShade200),
                             onPressed: () {
                               controller.removeContentFromFavourite(dbContent);
                             }),
@@ -63,8 +62,7 @@ class FavouriteZikr extends StatelessWidget {
                           child: IconButton(
                               splashRadius: 20,
                               padding: EdgeInsets.all(0),
-                              icon:
-                                  Icon(Icons.copy, color: Colors.blue.shade200),
+                              icon: Icon(Icons.copy, color: bleuShade200),
                               onPressed: () {
                                 FlutterClipboard.copy(dbContent.content +
                                         "\n" +
@@ -80,8 +78,7 @@ class FavouriteZikr extends StatelessWidget {
                           child: IconButton(
                               splashRadius: 20,
                               padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.share,
-                                  color: Colors.blue.shade200),
+                              icon: Icon(Icons.share, color: bleuShade200),
                               onPressed: () {
                                 Share.share(
                                     dbContent.content + "\n" + dbContent.fadl);
@@ -92,7 +89,7 @@ class FavouriteZikr extends StatelessWidget {
                           child: IconButton(
                               splashRadius: 20,
                               padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.report, color: Colors.orange),
+                              icon: Icon(Icons.report, color: orange),
                               onPressed: () {
                                 sendEmail(
                                     toMailId: 'hassaneltantawy@gmail.com',
@@ -118,7 +115,6 @@ class FavouriteZikr extends StatelessWidget {
                           child: IconButton(
                             splashRadius: 20,
                             onPressed: () {
-                              //TODO reset counter
                               //  dbContent.count =  ;
                               controller.update();
                             },
@@ -132,7 +128,7 @@ class FavouriteZikr extends StatelessWidget {
                       valueColor: AlwaysStoppedAnimation<Color>(
                         MAINCOLOR,
                       ),
-                      backgroundColor: Colors.grey,
+                      backgroundColor: grey,
                     ),
                     Container(
                       child: Column(
@@ -144,25 +140,27 @@ class FavouriteZikr extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: appSettings.getfontSize() * 10,
-                                  color: dbContent.count == 0
-                                      ? MAINCOLOR
-                                      : Colors.white,
+                                  color:
+                                      dbContent.count == 0 ? MAINCOLOR : white,
                                   //fontSize: 20,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              dbContent.fadl.toString(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: appSettings.getfontSize() * 10,
-                                  color: MAINCOLOR,
-                                  //fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          dbContent.fadl == ""
+                              ? SizedBox()
+                              : Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(
+                                    dbContent.fadl.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize:
+                                            appSettings.getfontSize() * 10,
+                                        color: MAINCOLOR,
+                                        //fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: CircleAvatar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/tally_controller.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class Tally extends StatelessWidget {
@@ -71,7 +72,7 @@ class Tally extends StatelessWidget {
                               fontSize: 25,
                             ),
                             mainLabelStyle:
-                                TextStyle(fontSize: 70, color: Colors.white),
+                                TextStyle(fontSize: 70, color: white),
                             modifier: (double value) {
                               final circval = value.ceil().toInt().toString();
                               return '$circval';
@@ -80,12 +81,11 @@ class Tally extends StatelessWidget {
                           customWidths: CustomSliderWidths(
                               progressBarWidth: 40, trackWidth: 40),
                           customColors: CustomSliderColors(
-                            trackColor: Colors.blue.shade100,
-                            // shadowColor: Colors.orange,
+                            trackColor: grey,
                             progressBarColors: [
-                              Colors.blue[200]!,
-                              Colors.blue[400]!,
-                              //  Colors.orange
+                              bleuShade200,
+                              blue,
+                              //  orange
                             ],
                           ),
                           size: smalLenght),

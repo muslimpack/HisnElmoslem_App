@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
@@ -13,6 +12,8 @@ import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
 import 'package:provider/provider.dart';
+
+import '../constant.dart';
 
 class ZikrCard extends StatelessWidget {
   final DbTitle fehrsTitle;
@@ -39,7 +40,7 @@ class ZikrCard extends StatelessWidget {
             ? IconButton(
                 icon: Icon(
                   Icons.bookmark,
-                  color: Colors.blue.shade200,
+                  color: bleuShade200,
                 ),
                 onPressed: () {
                   azkarDatabaseHelper.deleteFromFavourite(dbTitle: fehrsTitle);
@@ -99,7 +100,7 @@ class ZikrCard extends StatelessWidget {
                 : IconButton(
                     icon: Icon(
                       Icons.alarm,
-                      color: Colors.redAccent,
+                      color: redAccent,
                     ),
                     onPressed: () {
                       dbAlarm.isActive = 1;

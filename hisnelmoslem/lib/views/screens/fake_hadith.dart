@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/cards/hadith_card.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -24,7 +25,7 @@ class FakeHadith extends StatelessWidget {
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
-                color: Colors.black26,
+                color: black26,
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   padding: EdgeInsets.only(top: 10),

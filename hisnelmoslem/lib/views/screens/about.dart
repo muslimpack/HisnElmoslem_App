@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -21,7 +21,7 @@ class _AboutState extends State<About> {
             behavior: ScrollBehavior(),
             child: GlowingOverscrollIndicator(
               axisDirection: AxisDirection.down,
-              color: Colors.black26,
+              color: black26,
               child: ListView(
                 children: [
                   SizedBox(height: 15),

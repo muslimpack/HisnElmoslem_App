@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constant.dart';
+
 class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -7,7 +9,7 @@ class Loading extends StatelessWidget {
       body: Center(
         child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
-          Colors.blue.shade200,
+          bleuShade200,
         )),
       ),
     );

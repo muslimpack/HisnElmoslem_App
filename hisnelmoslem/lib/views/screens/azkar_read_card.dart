@@ -89,9 +89,9 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                 child: LinearProgressIndicator(
                   value: totalProgress,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.blue,
+                    blue,
                   ),
-                  backgroundColor: Colors.grey,
+                  backgroundColor: grey,
                 ),
               ),
             ),
@@ -99,7 +99,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
-                color: Colors.black26,
+                color: black26,
                 child: ListView.builder(
                   itemCount: zikrContent.length.isNaN ? 0 : zikrContent.length,
                   itemBuilder: (context, index) {
@@ -183,7 +183,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
                                       icon: Icon(Icons.favorite_border,
-                                          color: Colors.blue.shade200),
+                                          color: bleuShade200),
                                       onPressed: () {
                                         setState(() {
                                           zikrContent[index].favourite = 1;
@@ -197,7 +197,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                       padding: EdgeInsets.all(0),
                                       icon: Icon(
                                         Icons.favorite,
-                                        color: Colors.blue.shade200,
+                                        color: bleuShade200,
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -212,8 +212,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                 child: IconButton(
                                     splashRadius: 20,
                                     padding: EdgeInsets.all(0),
-                                    icon: Icon(Icons.copy,
-                                        color: Colors.blue.shade200),
+                                    icon: Icon(Icons.copy, color: bleuShade200),
                                     onPressed: () {
                                       FlutterClipboard.copy(text + "\n" + fadl)
                                           .then((result) {
@@ -234,8 +233,8 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                 child: IconButton(
                                     splashRadius: 20,
                                     padding: EdgeInsets.all(0),
-                                    icon: Icon(Icons.share,
-                                        color: Colors.blue.shade200),
+                                    icon:
+                                        Icon(Icons.share, color: bleuShade200),
                                     onPressed: () {
                                       Share.share(text + "\n" + fadl);
                                     }),
@@ -245,8 +244,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                 child: IconButton(
                                     splashRadius: 20,
                                     padding: EdgeInsets.all(0),
-                                    icon: Icon(Icons.report,
-                                        color: Colors.orange),
+                                    icon: Icon(Icons.report, color: orange),
                                     onPressed: () {
                                       sendEmail(
                                           toMailId: 'hassaneltantawy@gmail.com',
@@ -281,7 +279,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                   fontSize: appSettings.getfontSize() * 10,
                                   color: zikrContent[index].count == 0
                                       ? MAINCOLOR
-                                      : Colors.white,
+                                      : white,
                                   //fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),

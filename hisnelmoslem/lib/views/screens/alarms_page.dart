@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 
 class AlarmsPages extends StatelessWidget {
   const AlarmsPages({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class AlarmsPages extends StatelessWidget {
                         behavior: ScrollBehavior(),
                         child: GlowingOverscrollIndicator(
                           axisDirection: AxisDirection.down,
-                          color: Colors.black26,
+                          color: black26,
                           child: new ListView.builder(
                             padding: EdgeInsets.only(top: 10),
                             itemBuilder: (context, index) {

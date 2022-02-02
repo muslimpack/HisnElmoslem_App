@@ -1,12 +1,13 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
+
+import '../constant.dart';
 
 Future<DbAlarm> showFastAddAlarmDialog(
     {required BuildContext context, required DbAlarm dbAlarm}) async {
@@ -67,7 +68,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
               behavior: ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
-                color: Colors.black26,
+                color: black26,
                 child: ListView(
                   children: [
                     Text(
@@ -129,11 +130,6 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                       icon: const Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
-                      // style: const TextStyle(color: Colors.deepPurple),
-                      // underline: Container(
-                      //   height: 2,
-                      //   color: Colors.deepPurpleAccent,
-                      // ),
                       onChanged: (String? newValue) {
                         setState(() {
                           repeatType = newValue!;
@@ -164,7 +160,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
           child: TextButton(
             style: TextButton.styleFrom(
               // minimumSize: Size(_width, _height),
-              backgroundColor: Colors.white,
+              backgroundColor: white,
               padding: EdgeInsets.all(0),
             ),
             child: Text("تم"),
@@ -193,7 +189,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
           padding: EdgeInsets.only(left: 5),
           child: TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: white,
               padding: EdgeInsets.all(0),
             ),
             child: Text("اغلاق"),

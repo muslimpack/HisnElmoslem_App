@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
@@ -37,7 +37,7 @@ class _SettingsState extends State<Settings> {
         behavior: ScrollBehavior(),
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
-          color: Colors.black26,
+          color: black26,
           child: ListView(
             physics: ClampingScrollPhysics(),
             children: [

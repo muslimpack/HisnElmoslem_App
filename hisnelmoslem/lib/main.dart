@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:provider/provider.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'providers/app_settings.dart';
+import 'shared/constant.dart';
 import 'utils/notification_manager.dart';
 import 'views/screens/dashboard.dart';
 
@@ -34,7 +35,7 @@ void main() async {
 
   // Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      SystemUiOverlayStyle(statusBarColor: transparent));
   //
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);

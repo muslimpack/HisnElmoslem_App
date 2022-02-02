@@ -1,16 +1,17 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/models/fakeHaith.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
 
 import '../constant.dart';
 
-class HadithCard extends StatefulWidget {
+class HadithCard extends StatelessWidget {
   final DbFakeHaith fakeHaith;
   // final double fontSize;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -21,32 +22,30 @@ class HadithCard extends StatefulWidget {
 
       required this.scaffoldKey});
 
-  @override
-  State<HadithCard> createState() => _HadithCardState();
-}
-
-class _HadithCardState extends State<HadithCard> {
+  final FakeHadithController dashboardController =
+      Get.put(FakeHadithController());
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
 
     return InkWell(
       onTap: () {
-        setState(() {
-          widget.fakeHaith.isRead = widget.fakeHaith.isRead == 1 ? 0 : 1;
-          //
-          if (widget.fakeHaith.isRead == 1) {
-            fakeHadithDatabaseHelper.markAsRead(dbFakeHaith: widget.fakeHaith);
-          } else {
-            fakeHadithDatabaseHelper.markAsUnRead(
-                dbFakeHaith: widget.fakeHaith);
-          }
-        });
+        fakeHaith.isRead = fakeHaith.isRead == 1 ? 0 : 1;
+        //
+        if (fakeHaith.isRead == 1) {
+          fakeHadithDatabaseHelper.markAsRead(dbFakeHaith: fakeHaith);
+        } else {
+          fakeHadithDatabaseHelper.markAsUnRead(dbFakeHaith: fakeHaith);
+        }
+        dashboardController.fakeHadithList
+            .sort((a, b) => a.isRead.compareTo(b.isRead));
+        dashboardController.fakeHadithList.reversed.toList();
+        dashboardController.update();
       },
       onLongPress: () {
         final snackBar = SnackBar(
           content: Text(
-            widget.fakeHaith.text,
+            fakeHaith.text,
             textAlign: TextAlign.center,
             softWrap: true,
           ),
@@ -54,7 +53,7 @@ class _HadithCardState extends State<HadithCard> {
               label: 'نسخ',
               onPressed: () {
                 // Some code to undo the change.
-                FlutterClipboard.copy(widget.fakeHaith.source);
+                FlutterClipboard.copy(fakeHaith.source);
               }),
         );
 
@@ -66,7 +65,7 @@ class _HadithCardState extends State<HadithCard> {
             Row(
               children: [
                 Expanded(
-                  child: widget.fakeHaith.isRead == 0
+                  child: fakeHaith.isRead == 0
                       ? Icon(
                           Icons.check,
                         )
@@ -82,12 +81,11 @@ class _HadithCardState extends State<HadithCard> {
                       padding: EdgeInsets.all(0),
                       icon: Icon(
                         Icons.copy,
-                        color: Colors.blue.shade200,
+                        color: bleuShade200,
                       ),
                       onPressed: () {
-                        FlutterClipboard.copy(widget.fakeHaith.text +
-                                "\n" +
-                                widget.fakeHaith.darga)
+                        FlutterClipboard.copy(
+                                fakeHaith.text + "\n" + fakeHaith.darga)
                             .then((result) {
                           final snackBar = SnackBar(
                             content: Text('تم النسخ إلى الحافظة'),
@@ -106,11 +104,9 @@ class _HadithCardState extends State<HadithCard> {
                   child: IconButton(
                       splashRadius: 20,
                       padding: EdgeInsets.all(0),
-                      icon: Icon(Icons.share, color: Colors.blue.shade200),
+                      icon: Icon(Icons.share, color: bleuShade200),
                       onPressed: () {
-                        Share.share(widget.fakeHaith.text +
-                            "\n" +
-                            widget.fakeHaith.darga);
+                        Share.share(fakeHaith.text + "\n" + fakeHaith.darga);
                       }),
                 ),
                 Expanded(
@@ -118,7 +114,7 @@ class _HadithCardState extends State<HadithCard> {
                   child: IconButton(
                       splashRadius: 20,
                       padding: EdgeInsets.all(0),
-                      icon: Icon(Icons.report, color: Colors.orange),
+                      icon: Icon(Icons.report, color: orange),
                       onPressed: () {
                         sendEmail(
                           toMailId: 'hassaneltantawy@gmail.com',
@@ -130,10 +126,10 @@ class _HadithCardState extends State<HadithCard> {
                                   'أحاديث لا تصح' +
                                   '\n' +
                                   'البطاقة رقم: ' +
-                                  '${(widget.fakeHaith.id) + 1}' +
+                                  '${(fakeHaith.id) + 1}' +
                                   '\n' +
                                   'النص: ' +
-                                  '${widget.fakeHaith.text}' +
+                                  '${fakeHaith.text}' +
                                   '\n' +
                                   'والصواب:' +
                                   '\n',
@@ -145,13 +141,12 @@ class _HadithCardState extends State<HadithCard> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.fakeHaith.text,
+                fakeHaith.text,
                 textAlign: TextAlign.center,
                 softWrap: true,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                    color:
-                        widget.fakeHaith.isRead == 1 ? MAINCOLOR : Colors.white,
+                    color: fakeHaith.isRead == 1 ? MAINCOLOR : white,
                     fontSize: appSettings.getfontSize() * 10,
                     fontWeight: FontWeight.bold),
               ),
@@ -159,7 +154,7 @@ class _HadithCardState extends State<HadithCard> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.fakeHaith.darga,
+                fakeHaith.darga,
                 textAlign: TextAlign.center,
                 textDirection: TextDirection.rtl,
                 softWrap: true,
