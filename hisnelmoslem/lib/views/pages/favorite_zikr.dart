@@ -21,7 +21,6 @@ class FavouriteZikr extends StatelessWidget {
 
     //
     return GetBuilder<DashboardController>(builder: (controller) {
-      debugPrint("GetBuilder");
       return ListView.builder(
         itemCount: controller.favouriteConent.length,
         itemBuilder: (BuildContext context, int index) {
@@ -110,17 +109,18 @@ class FavouriteZikr extends StatelessWidget {
                                             '\n');
                               }),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            splashRadius: 20,
-                            onPressed: () {
-                              //  dbContent.count =  ;
-                              controller.update();
-                            },
-                            icon: Icon(Icons.repeat),
-                          ),
-                        ),
+                        // Expanded(
+                        //   flex: 1,
+                        //   child: IconButton(
+                        //     splashRadius: 20,
+                        //     onPressed: () {
+                        //       //TODO Rest counter
+                        //       //  dbContent.count =  ;
+                        //       // controller.update();
+                        //     },
+                        //     icon: Icon(Icons.repeat),
+                        //   ),
+                        // ),
                       ],
                     ),
                     LinearProgressIndicator(

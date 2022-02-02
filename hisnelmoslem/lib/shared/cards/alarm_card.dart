@@ -78,12 +78,9 @@ class AlarmCard extends StatelessWidget {
     return GetBuilder<AlarmsPageController>(builder: (controller) {
       return new Slidable(
         startActionPane: ActionPane(
-          // A motion is a widget used to control how the pane animates.
-          motion: const ScrollMotion(),
-
-          // All actions are defined in the children parameter.
+          extentRatio: .3,
+          motion: const BehindMotion(),
           children: [
-            // A SlidableAction can have an icon and/or a label.
             SlidableAction(
               onPressed: (val) {
                 showFastEditAlarmDialog(
@@ -105,11 +102,12 @@ class AlarmCard extends StatelessWidget {
           ],
         ),
         endActionPane: ActionPane(
-          motion: ScrollMotion(),
+          extentRatio: .3,
+          motion: const BehindMotion(),
           children: [
             SlidableAction(
               // An action can be bigger than the others.
-              flex: 2,
+
               onPressed: (val) {
                 alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
                 controller.alarms.removeWhere((item) => item == dbAlarm);
