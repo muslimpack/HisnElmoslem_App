@@ -168,6 +168,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
               if (selectedHour != null) {
                 DbAlarm newAlarm = DbAlarm(
                   id: widget.dbAlarm.id,
+                  titleId: widget.dbAlarm.titleId,
                   title: widget.dbAlarm.title,
                   body: bodyController.text,
                   hour: selectedHour!,
@@ -196,7 +197,10 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             ),
             child: Text("اغلاق"),
             onPressed: () {
-              Navigator.pop(context, DbAlarm(id: widget.dbAlarm.id));
+              Navigator.pop(
+                  context,
+                  DbAlarm(
+                      id: widget.dbAlarm.id, titleId: widget.dbAlarm.titleId));
             },
           ),
         )

@@ -18,12 +18,13 @@ class AlarmManager {
       switch (dbAlarm.repeatType) {
         case "Daily":
           localNotifyManager.addCustomDailyReminder(
-              channelName: "تنبيهات الأذكار",
-              id: dbAlarm.id,
-              title: dbAlarm.title,
-              body: dbAlarm.body,
-              time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-              payload: (dbAlarm.id).toString());
+            channelName: "تنبيهات الأذكار",
+            id: dbAlarm.id,
+            title: dbAlarm.title,
+            body: dbAlarm.body,
+            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            payload: (dbAlarm.titleId).toString(),
+          );
           break;
         case "AtSaturday":
           localNotifyManager.addCustomWeeklyReminder(
@@ -32,7 +33,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.saturday,
           );
           break;
@@ -43,7 +44,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.sunday,
           );
           break;
@@ -54,7 +55,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.monday,
           );
           break;
@@ -65,7 +66,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.tuesday,
           );
           break;
@@ -76,7 +77,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.wednesday,
           );
           break;
@@ -87,7 +88,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.thursday,
           );
           break;
@@ -98,7 +99,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-            payload: (dbAlarm.id).toString(),
+            payload: (dbAlarm.titleId).toString(),
             day: Day.friday,
           );
           break;

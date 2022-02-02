@@ -73,7 +73,8 @@ class AlarmDatabaseHelper {
       return DbAlarm(
         id: maps[i]['id'],
         title: maps[i]['title'],
-        body: maps[i]['body'],
+        titleId: maps[i]['titleId'],
+        body: (maps[i]['body'] ?? "") as String,
         repeatType: maps[i]['repeatType'],
         hour: maps[i]['hour'],
         minute: maps[i]['minute'],
@@ -91,14 +92,15 @@ class AlarmDatabaseHelper {
     await db.insert(
       'Alarms',
       DbAlarm(
-        id: dbAlarm.id,
-        title: dbAlarm.title,
-        body: dbAlarm.body,
-        repeatType: dbAlarm.repeatType,
-        hour: dbAlarm.hour,
-        minute: dbAlarm.minute,
-        isActive: dbAlarm.isActive,
-      ).toMap(),
+              id: dbAlarm.id,
+              title: dbAlarm.title,
+              body: dbAlarm.body ?? "",
+              repeatType: dbAlarm.repeatType,
+              hour: dbAlarm.hour,
+              minute: dbAlarm.minute,
+              isActive: dbAlarm.isActive,
+              titleId: dbAlarm.titleId)
+          .toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -111,14 +113,15 @@ class AlarmDatabaseHelper {
     await db.update(
       'Alarms',
       DbAlarm(
-        id: dbAlarm.id,
-        title: dbAlarm.title,
-        body: dbAlarm.body,
-        repeatType: dbAlarm.repeatType,
-        hour: dbAlarm.hour,
-        minute: dbAlarm.minute,
-        isActive: dbAlarm.isActive,
-      ).toMap(),
+              id: dbAlarm.id,
+              title: dbAlarm.title,
+              body: dbAlarm.body,
+              repeatType: dbAlarm.repeatType,
+              hour: dbAlarm.hour,
+              minute: dbAlarm.minute,
+              isActive: dbAlarm.isActive,
+              titleId: dbAlarm.titleId)
+          .toMap(),
       // Use a `where` clause to delete a specific favourite.
       where: "id = ?",
       // Pass the favourite's id as a whereArg to prevent SQL injection.

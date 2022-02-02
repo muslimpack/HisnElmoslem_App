@@ -175,10 +175,12 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
               setState(() {
                 if (selectedHour != null) {
                   DbAlarm updateAlarm = DbAlarm(
+                    titleId: widget.dbAlarm.id,
                     id: widget.dbAlarm.id,
                     title: widget.dbAlarm.title,
                     body: bodyController.text,
                     hour: selectedHour!,
+                    hasAlarmInside: true,
                     minute: selectedMinute!,
                     repeatType: HandleRepeatType()
                         .getNameToPutInDatabase(chosenValue: repeatType),
@@ -205,6 +207,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             ),
             child: Text("اغلاق"),
             onPressed: () {
+              widget.dbAlarm.hasAlarmInside = true;
               Navigator.pop(context, widget.dbAlarm);
             },
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/cards/zikr_card.dart';
 
 class AzkarFehrs extends StatelessWidget {
@@ -20,18 +21,19 @@ class AzkarFehrs extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
               itemBuilder: (context, index) {
                 //TODO get rid of this for loop
-
-                DbAlarm tempAlarm = DbAlarm(id: index);
+                List<DbTitle> titleListTODisplay = controller.isSearching
+                    ? controller.searchedTitle
+                    : controller.allTitle;
+                DbAlarm tempAlarm =
+                    DbAlarm(id: index, titleId: titleListTODisplay[index].id);
                 for (var item in controller.alarms) {
                   // debugPrint(item.toString());
-                  if (item.id == index) {
+                  if (item.title == titleListTODisplay[index].name) {
                     tempAlarm = item;
                   }
                 }
                 return ZikrCard(
-                  fehrsTitle: controller.isSearching
-                      ? controller.searchedTitle[index]
-                      : controller.allTitle[index],
+                  fehrsTitle: titleListTODisplay[index],
                   dbAlarm: tempAlarm,
                 );
               },

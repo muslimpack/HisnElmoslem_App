@@ -26,15 +26,15 @@ class AlarmCard extends StatelessWidget {
           SwitchListTile(
             title: ListTile(
               contentPadding: EdgeInsets.all(0),
-              leading: Icon(
-                Icons.alarm,
-              ),
+              leading: Icon(Icons.alarm),
               subtitle: Wrap(
                 children: [
-                  RoundTagCard(
-                    name: dbAlarm.body,
-                    color: brwon,
-                  ),
+                  dbAlarm.body!.isEmpty
+                      ? SizedBox()
+                      : RoundTagCard(
+                          name: dbAlarm.body,
+                          color: brwon,
+                        ),
                   RoundTagCard(
                     name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
                     color: green,
@@ -83,15 +83,25 @@ class AlarmCard extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (val) {
+                debugPrint(dbAlarm.toString());
+
                 showFastEditAlarmDialog(
                   context: context,
                   dbAlarm: dbAlarm,
                 ).then((value) {
-                  int index = controller.alarms.indexOf(dbAlarm);
-                  controller.alarms[index] = value;
-                  controller.update();
-                  dashboardController.alarms = controller.alarms;
-                  dashboardController.update();
+                  debugPrint(value.toString());
+
+                  if (value.hasAlarmInside) {
+                    int index = controller.alarms.indexOf(dbAlarm);
+                    controller.alarms[index] = value;
+                    //
+                    dashboardController.alarms = controller.alarms;
+                    dashboardController.update();
+                    //
+                    controller.update();
+                    //
+                    debugPrint("showFastEditAlarmDialog Done");
+                  }
                 });
               },
               backgroundColor: green,

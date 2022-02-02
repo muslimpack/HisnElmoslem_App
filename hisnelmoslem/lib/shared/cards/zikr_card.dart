@@ -107,6 +107,7 @@ class ZikrCard extends StatelessWidget {
         title: Text(fehrsTitle.name, style: TextStyle(fontFamily: "Uthmanic")),
         // trailing: Text(zikrList[index]),
         onTap: () {
+          debugPrint("fehrsTitle.id: $fehrsTitle");
           String azkarReadMode = appSettings.getAzkarReadMode();
           if (azkarReadMode == "Page") {
             transitionAnimation.circleReval(

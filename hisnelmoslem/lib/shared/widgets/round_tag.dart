@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RoundTagCard extends StatelessWidget {
-  final String name;
+  final String? name;
   final Color color;
 
   const RoundTagCard({Key? key, required this.name, required this.color})
@@ -19,7 +19,7 @@ class RoundTagCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: FittedBox(
-            child: Text(name,
+            child: Text(name ?? "",
                 style: TextStyle(fontSize: 12),
                 textDirection: TextDirection.ltr),
           ),

@@ -1,7 +1,8 @@
 class DbAlarm {
   int id;
+  int titleId;
   String title;
-  String body;
+  String? body;
   String repeatType;
   int hour;
   int minute;
@@ -10,6 +11,7 @@ class DbAlarm {
 
   DbAlarm({
     required this.id,
+    required this.titleId,
     this.title = "",
     this.body = "",
     this.repeatType = "",
@@ -37,6 +39,7 @@ class DbAlarm {
       "hour": hour,
       "minute": minute,
       "isActive": isActive,
+      "titleId": titleId,
     };
   }
 
@@ -45,11 +48,13 @@ class DbAlarm {
     return '''
        "id": $id,
       "title": $title,
+      "titleId": $titleId,
       "body": $body,
       "repeatType": $repeatType,
       "hour": $hour,
       "minute": $minute,
       "isActive": $isActive,
+      "hasAlarmInside": $hasAlarmInside, 
     ''';
   }
 }

@@ -127,6 +127,7 @@ class DashboardController extends GetxController {
 
       debugPrint('Will open = $pageIndex');
       debugPrint("pageIndex: " + pageIndex.toString());
+      //
       transitionAnimation.fromBottom2Top(
           context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
     }
