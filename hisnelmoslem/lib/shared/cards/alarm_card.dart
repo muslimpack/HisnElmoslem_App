@@ -124,6 +124,9 @@ class AlarmCard extends StatelessWidget {
                 controller.update();
                 dashboardController.alarms = controller.alarms;
                 dashboardController.update();
+                Get.snackbar("رسالة", "تم حذف منبه ${dbAlarm.title}",
+                    duration: const Duration(seconds: 1),
+                    icon: Image.asset("assets/images/app_icon.png"));
               },
               backgroundColor: red,
               foregroundColor: white,
