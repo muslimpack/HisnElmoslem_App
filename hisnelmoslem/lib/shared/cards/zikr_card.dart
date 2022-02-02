@@ -51,13 +51,13 @@ class ZikrCard extends StatelessWidget {
             : IconButton(
                 icon: Icon(Icons.bookmark_border_outlined),
                 onPressed: () {
+                  //
                   azkarDatabaseHelper.addToFavourite(dbTitle: fehrsTitle);
                   fehrsTitle.favourite = 1;
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
                   controller.favouriteTitle.add(fehrsTitle);
-                  // controller.favouriteTitle
-                  //     .sort((a, b) => a.orderId.compareTo(b.orderId));
+                  //
                   controller.update();
                   //
                 }),

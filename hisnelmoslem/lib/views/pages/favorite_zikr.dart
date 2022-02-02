@@ -4,20 +4,21 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 
 import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 class FavouriteZikr extends StatelessWidget {
-  FavouriteZikr({Key? key}) : super(key: key);
-
-  DashboardController dashboardController = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
+    final appSettings = Provider.of<AppSettingsNotifier>(context);
+
     //
     return GetBuilder<DashboardController>(builder: (controller) {
       debugPrint("GetBuilder");
@@ -118,7 +119,7 @@ class FavouriteZikr extends StatelessWidget {
                             splashRadius: 20,
                             onPressed: () {
                               //TODO reset counter
-                             dbContent.count =  ;
+                              //  dbContent.count =  ;
                               controller.update();
                             },
                             icon: Icon(Icons.repeat),
@@ -170,8 +171,7 @@ class FavouriteZikr extends StatelessWidget {
                       child: ListTile(
                         tileColor: Theme.of(context).backgroundColor,
                         onTap: () {
-                          //TODO read readpagemode from pref
-                          String azkarReadMode = "Card";
+                          String azkarReadMode = appSettings.getAzkarReadMode();
                           if (azkarReadMode == "Page") {
                             transitionAnimation.circleReval(
                                 context: Get.context!,

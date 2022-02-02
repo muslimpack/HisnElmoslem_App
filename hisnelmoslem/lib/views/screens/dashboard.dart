@@ -88,19 +88,25 @@ class AzkarDashboard extends StatelessWidget {
                               Tab(
                                 child: Text(
                                   "الفهرس",
-                                  style: TextStyle(fontFamily: "Uthmanic"),
+                                  style: TextStyle(
+                                      fontFamily: "Uthmanic",
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Tab(
                                 child: Text(
                                   "المفضلة",
-                                  style: TextStyle(fontFamily: "Uthmanic"),
+                                  style: TextStyle(
+                                      fontFamily: "Uthmanic",
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Tab(
                                 child: Text(
                                   "مفضلة الأذكار ",
-                                  style: TextStyle(fontFamily: "Uthmanic"),
+                                  style: TextStyle(
+                                      fontFamily: "Uthmanic",
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ]),
