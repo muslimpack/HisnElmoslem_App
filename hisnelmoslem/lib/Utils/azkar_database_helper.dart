@@ -204,15 +204,6 @@ class AzkarDatabaseHelper {
     // Convert the List<Map<String, dynamic> into a List<contents>.
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [1, dbContent.id]);
-
-    // await db.update(
-    //   'contents',
-    //   dbContent.toMap(),
-    //   // Use a `where` clause to delete a specific favourite.
-    //   where: "_id = ?",
-    //   // Pass the favourite's id as a whereArg to prevent SQL injection.
-    //   whereArgs: [dbContent.id],
-    // );
   }
 
 // A method that retrieves all the contents from the contents table.
@@ -223,14 +214,6 @@ class AzkarDatabaseHelper {
     // Convert the List<Map<String, dynamic> into a List<contents>.
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
-    // await db.update(
-    //   'contents',
-    //   dbContent.toMap(),
-    //   // Use a `where` clause to delete a specific favourite.
-    //   where: "_id = ?",
-    //   // Pass the favourite's id as a whereArg to prevent SQL injection.
-    //   whereArgs: [dbContent.id],
-    // );
   }
 
   // A method that retrieves all the contents from the favourite table.
@@ -317,19 +300,6 @@ class AzkarDatabaseHelper {
     );
   }
 
-// Future<void> deleteZikrFromFavourite(int id) async {
-//   // Get a reference to the database.
-//   final db = await database;
-//
-//   // Remove the favourite from the Database.
-//   await db.delete(
-//     'favourite',
-//     // Use a `where` clause to delete a specific favourite.
-//     where: "_id = ?",
-//     // Pass the favourite's id as a whereArg to prevent SQL injection.
-//     whereArgs: [id],
-//   );
-// }
   Future close() async {
     final db = await database;
     db.close();

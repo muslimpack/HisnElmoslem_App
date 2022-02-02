@@ -1,10 +1,10 @@
 class DbFakeHaith {
-  final int id;
+  int id;
 
-  final String text;
-  final String darga;
-  final String source;
-  final int isRead;
+  String text;
+  String darga;
+  String source;
+  int isRead;
   DbFakeHaith({
     required this.id,
     required this.text,

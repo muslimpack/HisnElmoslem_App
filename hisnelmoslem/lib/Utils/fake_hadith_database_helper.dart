@@ -123,21 +123,9 @@ class FakeHadithDatabaseHelper {
     // Get a reference to the database.
     final db = await database;
 
-    // Remove the favourite from the Database.
-    await db.update(
-      'fakehadith',
-      DbFakeHaith(
-        id: dbFakeHaith.id,
-        darga: dbFakeHaith.darga,
-        text: dbFakeHaith.text,
-        source: dbFakeHaith.source,
-        isRead: 1,
-      ).toMap(),
-      // Use a `where` clause to delete a specific favourite.
-      where: "_id = ?",
-      // Pass the favourite's id as a whereArg to prevent SQL injection.
-      whereArgs: [dbFakeHaith.id],
-    );
+    // Add the favourite from the Database.
+    await db.rawUpdate(
+        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [1, dbFakeHaith.id]);
   }
 
   Future<void> markAsUnRead({required DbFakeHaith dbFakeHaith}) async {
@@ -145,20 +133,8 @@ class FakeHadithDatabaseHelper {
     final db = await database;
 
     // Remove the favourite from the Database.
-    await db.update(
-      'fakehadith',
-      DbFakeHaith(
-        id: dbFakeHaith.id,
-        darga: dbFakeHaith.darga,
-        text: dbFakeHaith.text,
-        source: dbFakeHaith.source,
-        isRead: 0,
-      ).toMap(),
-      // Use a `where` clause to delete a specific favourite.
-      where: "_id = ?",
-      // Pass the favourite's id as a whereArg to prevent SQL injection.
-      whereArgs: [dbFakeHaith.id],
-    );
+    await db.rawUpdate(
+        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [0, dbFakeHaith.id]);
   }
 
   Future close() async {

@@ -288,18 +288,14 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                       onPressed: () {},
                                     ),
                                   );
-                                  // ignore: deprecated_member_use
-                                  _hReadScaffoldKey.currentState!
-                                      // ignore: deprecated_member_use
+
+                                  ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
                                 });
                               }),
                         );
 
-                        // Find the Scaffold in the widget tree and use
-                        // it to show a SnackBar.
-                        // ignore: deprecated_member_use
-                        _hReadScaffoldKey.currentState!.showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: ListView(
                         physics: ClampingScrollPhysics(),
@@ -366,9 +362,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                   onPressed: () {},
                                 ),
                               );
-                              // ignore: deprecated_member_use
-                              // _hReadScaffoldKey.currentState
-                              //     .showSnackBar(snackBar);
+
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                             });

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:provider/provider.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'providers/app_settings.dart';
@@ -53,7 +54,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
+    //Colse databses
     azkarDatabaseHelper.close();
+    fakeHadithDatabaseHelper.close();
+    alarmDatabaseHelper.close();
     super.dispose();
   }
 
