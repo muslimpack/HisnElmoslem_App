@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 
 import 'notification_manager.dart';
@@ -8,8 +10,11 @@ AlarmManager alarmManager = AlarmManager();
 class AlarmManager {
   alarmState({required DbAlarm dbAlarm}) {
     if (dbAlarm.isActive == 1) {
-      localNotifyManager.showCustomNotification(
-          title: "تم تفعيل منبه ${dbAlarm.title}", payload: '');
+      Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
+          duration: const Duration(seconds: 1),
+          icon: Image.asset("assets/images/app_icon.png"));
+      // localNotifyManager.showCustomNotification(
+      //     title: "تم تفعيل منبه ${dbAlarm.title}", payload: '');
       switch (dbAlarm.repeatType) {
         case "Daily":
           localNotifyManager.addCustomDailyReminder(
@@ -108,8 +113,11 @@ class AlarmManager {
       //       payload: (dbAlarm.id).toString());
       // }
     } else if (dbAlarm.isActive == 0) {
-      localNotifyManager.showCustomNotification(
-          title: "تم الغاء منبه ${dbAlarm.title}", payload: '');
+      Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
+          duration: const Duration(seconds: 1),
+          icon: Image.asset("assets/images/app_icon.png"));
+      // localNotifyManager.showCustomNotification(
+      //     title: "تم الغاء منبه ${dbAlarm.title}", payload: '');
       localNotifyManager.cancelNotificationById(id: dbAlarm.id);
     }
   }

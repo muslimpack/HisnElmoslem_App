@@ -1,6 +1,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
@@ -24,6 +26,7 @@ class AzkarReadPage extends StatefulWidget {
 }
 
 class _AzkarReadPageState extends State<AzkarReadPage> {
+  DashboardController dashboardController = Get.put(DashboardController());
   //
   final _hReadScaffoldKey = GlobalKey<ScaffoldState>();
   PageController _pageController = PageController(initialPage: 0);
@@ -37,21 +40,6 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
 
-  //
-  // Future<List<Zikr>> fetchAzkar() async {
-  //   String data = await rootBundle.loadString('assets/json/azkar.json');
-
-  //   var azkar = <Zikr>[];
-
-  //   var azkarJson = await json.decode(data);
-  //   for (var azkarJson in azkarJson) {
-  //     azkar.add(Zikr.fromJson(azkarJson));
-  //   }
-
-  //   return azkar;
-  // }
-
-  //
   @override
   void initState() {
     //
@@ -179,20 +167,37 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
               title: Text(zikrTitle!.name,
                   style: TextStyle(fontFamily: "Uthmanic")),
               actions: [
-                // IconButton(
-                //     splashRadius: 20,
-                //     padding: EdgeInsets.all(0),
-                //     icon: zikrContent[currentPage].favourite == 0
-                //         ? Icon(Icons.favorite_border,
-                //             color: Colors.blue.shade200)
-                //         : Icon(Icons.favorite, color: Colors.blue.shade200),
-                //     onPressed: () {
-                //       setState(() {
-                //         zikrContent[currentPage].favourite = 1;
-                //       });
-                //       azkarDatabaseHelper.setFavouriteContent(
-                //           dbContent: zikrContent[currentPage]);
-                //     }),
+                zikrContent[currentPage].favourite == 0
+                    ? IconButton(
+                        splashRadius: 20,
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(Icons.favorite_border,
+                            color: Colors.blue.shade200),
+                        onPressed: () {
+                          setState(() {
+                            zikrContent[currentPage].favourite = 1;
+                          });
+                          //
+                          dashboardController
+                              .addContentToFavourite(zikrContent[currentPage]);
+                          //
+                          // dashboardController.update();
+                        })
+                    : IconButton(
+                        splashRadius: 20,
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Colors.blue.shade200,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            zikrContent[currentPage].favourite = 0;
+                          });
+
+                          dashboardController.removeContentFromFavourite(
+                              zikrContent[currentPage]);
+                        }),
                 IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.all(0),

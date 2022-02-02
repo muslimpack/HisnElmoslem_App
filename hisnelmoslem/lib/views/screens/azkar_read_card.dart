@@ -1,9 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
@@ -70,6 +72,8 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
     super.dispose();
   }
 
+  DashboardController dashboardController = Get.put(DashboardController());
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
@@ -99,7 +103,6 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                 child: ListView.builder(
                   itemCount: zikrContent.length.isNaN ? 0 : zikrContent.length,
                   itemBuilder: (context, index) {
-                    // String text = widget.zikr.content[index].text;
                     String text = appSettings.getTashkelStatus()
                         ? zikrContent[index].content
                         : zikrContent[index].content.replaceAll(
@@ -125,22 +128,20 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                     String source = zikrContent[index].source;
                     String fadl = zikrContent[index].fadl;
                     int cardnum = index + 1;
-                    int _counter = zikrContent.length;
+                    int _counter = zikrContent[index].count;
                     return InkWell(
                       onTap: () {
-                        if (_counter == 0) {
-                          HapticFeedback.vibrate();
-                        } else {
+                        if (_counter > 0) {
                           _counter--;
 
                           setState(() {
-                            zikrContent[index].count =
-                                (zikrContent[index].count - 1);
+                            zikrContent[index].count = (_counter);
                           });
 
-                          if (_counter > 0) {
-                          } else if (_counter == 0) {
+                          if (_counter == 0) {
                             HapticFeedback.vibrate();
+                          } else if (_counter < 0) {
+                            _counter = 0;
                           }
                         }
                         checkProgress();
@@ -181,6 +182,35 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                         children: [
                           Row(
                             children: [
+                              zikrContent[index].favourite == 0
+                                  ? IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.all(0),
+                                      icon: Icon(Icons.favorite_border,
+                                          color: Colors.blue.shade200),
+                                      onPressed: () {
+                                        setState(() {
+                                          zikrContent[index].favourite = 1;
+                                        });
+                                        dashboardController
+                                            .addContentToFavourite(
+                                                zikrContent[index]);
+                                      })
+                                  : IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.all(0),
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: Colors.blue.shade200,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          zikrContent[index].favourite = 0;
+                                        });
+                                        dashboardController
+                                            .removeContentFromFavourite(
+                                                zikrContent[index]);
+                                      }),
                               Expanded(
                                 flex: 1,
                                 child: IconButton(

@@ -31,7 +31,8 @@ class DashboardController extends GetxController {
   List<DbTitle> allTitle = <DbTitle>[];
   List<DbTitle> searchedTitle = <DbTitle>[];
   List<DbAlarm> alarms = <DbAlarm>[];
-  List<DbContent> zikrContent = <DbContent>[];
+  List<DbContent> favouriteConent = <DbContent>[];
+  // List<DbContent> zikrContent = <DbContent>[];
   //
 
   /* *************** Controller life cycle *************** */
@@ -84,6 +85,9 @@ class DashboardController extends GetxController {
       allTitle = value;
     });
 
+    /* ***** Get All favoutie content ***** */
+    await getFavouriteContent();
+
     favouriteTitle = allTitle.where((item) => item.favourite == 1).toList();
 
     /* ***** Get All Alarms ***** */
@@ -91,16 +95,19 @@ class DashboardController extends GetxController {
       alarms = value;
     });
 
-    /* ***** Get All favoutie content ***** */
-    await azkarDatabaseHelper
-        .getFavouriteContent()
-        .then((value) => zikrContent = value);
-
     /* 
     ***** Update is loading to start show views and widgets
     ***** Update() is like SetState() in statefulWidget
     ***** */
     isLoading = false;
+    update();
+  }
+
+  //
+  getFavouriteContent() async {
+    await azkarDatabaseHelper.getFavouriteContent().then((value) {
+      favouriteConent = value;
+    });
     update();
   }
 
@@ -158,6 +165,26 @@ class DashboardController extends GetxController {
         return zikrTitle.contains(searchController.text);
       }).toList();
     }
+    //
+    update();
+  }
+
+  //
+  addContentToFavourite(DbContent dbContent) async {
+    //
+    azkarDatabaseHelper.addToFavouriteContent(dbContent: dbContent);
+    //
+    await getFavouriteContent();
+    //
+    update();
+  }
+
+  //
+  removeContentFromFavourite(DbContent dbContent) async {
+    //
+    azkarDatabaseHelper.removeFromFavouriteContent(dbContent: dbContent);
+    //
+    await getFavouriteContent();
     //
     update();
   }

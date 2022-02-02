@@ -27,6 +27,8 @@ class AzkarBookmarks extends StatelessWidget {
                   tempAlarm = item;
                 }
               }
+              controller.favouriteTitle
+                  .sort((a, b) => a.orderId.compareTo(b.orderId));
               return ZikrCard(
                 fehrsTitle: controller.favouriteTitle[index],
                 //controller.alarms

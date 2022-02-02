@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/views/pages/bookmarks.dart';
+import 'package:hisnelmoslem/views/pages/favorite_zikr.dart';
 import 'package:hisnelmoslem/views/pages/fehrs.dart';
 import 'package:hisnelmoslem/views/screens/app_update_news.dart';
 import 'package:hisnelmoslem/views/screens/fake_hadith.dart';
@@ -24,7 +25,7 @@ class AzkarDashboard extends StatelessWidget {
       builder: (controller) => controller.isLoading
           ? Loading()
           : DefaultTabController(
-              length: 2,
+              length: 3,
               child: Scaffold(
                 body: NestedScrollView(
                   floatHeaderSlivers: true,
@@ -96,12 +97,12 @@ class AzkarDashboard extends StatelessWidget {
                                   style: TextStyle(fontFamily: "Uthmanic"),
                                 ),
                               ),
-                              // Tab(
-                              //   child: Text(
-                              //     "مفضلة الأذكار ",
-                              //     style: TextStyle(fontFamily: "Uthmanic"),
-                              //   ),
-                              // ),
+                              Tab(
+                                child: Text(
+                                  "مفضلة الأذكار ",
+                                  style: TextStyle(fontFamily: "Uthmanic"),
+                                ),
+                              ),
                             ]),
                         actions: [
                           controller.isSearching
@@ -161,9 +162,7 @@ class AzkarDashboard extends StatelessWidget {
                     children: [
                       AzkarFehrs(),
                       AzkarBookmarks(),
-                      // FavouriteZikr(
-                      //   zikrContent: zikrContent,
-                      // ),
+                      FavouriteZikr(),
                     ],
                   ),
                 ),

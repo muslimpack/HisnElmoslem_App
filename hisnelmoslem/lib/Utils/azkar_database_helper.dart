@@ -197,19 +197,40 @@ class AzkarDatabaseHelper {
   }
 
 // A method that retrieves all the contents from the contents table.
-  setFavouriteContent({required DbContent dbContent}) async {
+  addToFavouriteContent({required DbContent dbContent}) async {
     // Get a reference to the database.
     final Database db = await database;
-    dbContent.favourite = 1;
+    // dbContent.favourite = 1;
     // Convert the List<Map<String, dynamic> into a List<contents>.
-    await db.update(
-      'contents',
-      dbContent.toMap(),
-      // Use a `where` clause to delete a specific favourite.
-      where: "_id = ?",
-      // Pass the favourite's id as a whereArg to prevent SQL injection.
-      whereArgs: [dbContent.id],
-    );
+    await db.rawUpdate(
+        'UPDATE contents SET favourite = ? WHERE _id = ?', [1, dbContent.id]);
+
+    // await db.update(
+    //   'contents',
+    //   dbContent.toMap(),
+    //   // Use a `where` clause to delete a specific favourite.
+    //   where: "_id = ?",
+    //   // Pass the favourite's id as a whereArg to prevent SQL injection.
+    //   whereArgs: [dbContent.id],
+    // );
+  }
+
+// A method that retrieves all the contents from the contents table.
+  removeFromFavouriteContent({required DbContent dbContent}) async {
+    // Get a reference to the database.
+    final Database db = await database;
+    dbContent.favourite = 0;
+    // Convert the List<Map<String, dynamic> into a List<contents>.
+    await db.rawUpdate(
+        'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
+    // await db.update(
+    //   'contents',
+    //   dbContent.toMap(),
+    //   // Use a `where` clause to delete a specific favourite.
+    //   where: "_id = ?",
+    //   // Pass the favourite's id as a whereArg to prevent SQL injection.
+    //   whereArgs: [dbContent.id],
+    // );
   }
 
   // A method that retrieves all the contents from the favourite table.

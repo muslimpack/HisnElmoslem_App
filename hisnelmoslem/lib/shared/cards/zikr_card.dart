@@ -56,8 +56,8 @@ class ZikrCard extends StatelessWidget {
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
                   controller.favouriteTitle.add(fehrsTitle);
-                  controller.favouriteTitle
-                      .sort((a, b) => a.orderId.compareTo(b.orderId));
+                  // controller.favouriteTitle
+                  //     .sort((a, b) => a.orderId.compareTo(b.orderId));
                   controller.update();
                   //
                 }),
@@ -88,6 +88,7 @@ class ZikrCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       dbAlarm.isActive = 0;
+                      tempAlarm.isActive = 0;
                       alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
 
                       //
@@ -102,6 +103,7 @@ class ZikrCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       dbAlarm.isActive = 1;
+                      tempAlarm.isActive = 1;
                       alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
 
                       //
