@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/Shared/constant.dart';
 import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
+import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -289,7 +289,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                       ? MAINCOLOR
                                       : Colors.white,
                                   //fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
@@ -299,6 +299,11 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                               textAlign: TextAlign.center,
                               textDirection: TextDirection.rtl,
                               softWrap: true,
+                              style: TextStyle(
+                                  fontSize: appSettings.getfontSize() * 10,
+                                  color: MAINCOLOR,
+                                  //fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(

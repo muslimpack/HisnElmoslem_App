@@ -26,7 +26,7 @@ class FavouriteZikr extends StatelessWidget {
         itemCount: controller.favouriteConent.length,
         itemBuilder: (BuildContext context, int index) {
           //
-          DbContent? dbContent = controller.favouriteConent[index];
+          late DbContent dbContent = controller.favouriteConent[index];
           //
           DbTitle? dbTitle = controller.allTitle
               .where((element) => element.id == dbContent.titleId)
@@ -142,14 +142,25 @@ class FavouriteZikr extends StatelessWidget {
                             child: Text(
                               dbContent.content.toString(),
                               textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: appSettings.getfontSize() * 10,
+                                  color: dbContent.count == 0
+                                      ? MAINCOLOR
+                                      : Colors.white,
+                                  //fontSize: 20,
+                                  fontWeight: FontWeight.w700),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Text(
                               dbContent.fadl.toString(),
-                              style: TextStyle(color: MAINCOLOR),
                               textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: appSettings.getfontSize() * 10,
+                                  color: MAINCOLOR,
+                                  //fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(

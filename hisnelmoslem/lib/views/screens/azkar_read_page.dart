@@ -318,7 +318,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                       ? MAINCOLOR
                                       : Colors.white,
                                   // fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
@@ -328,6 +328,11 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                               textAlign: TextAlign.center,
                               textDirection: TextDirection.rtl,
                               softWrap: true,
+                              style: TextStyle(
+                                  fontSize: appSettings.getfontSize() * 10,
+                                  color: MAINCOLOR,
+                                  //fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
