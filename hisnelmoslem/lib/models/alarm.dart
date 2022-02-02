@@ -6,6 +6,7 @@ class DbAlarm {
   int hour;
   int minute;
   int isActive;
+  bool hasAlarmInside;
 
   DbAlarm({
     required this.id,
@@ -15,6 +16,7 @@ class DbAlarm {
     this.hour = 12,
     this.minute = 30,
     this.isActive = 0,
+    this.hasAlarmInside = false,
   });
 
   //

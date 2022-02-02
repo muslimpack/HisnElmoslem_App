@@ -78,6 +78,7 @@ class AlarmDatabaseHelper {
         hour: maps[i]['hour'],
         minute: maps[i]['minute'],
         isActive: maps[i]['isActive'],
+        hasAlarmInside: true,
       );
     });
   }

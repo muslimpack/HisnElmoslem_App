@@ -172,10 +172,12 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                   body: bodyController.text,
                   hour: selectedHour!,
                   minute: selectedMinute!,
+                  hasAlarmInside: true,
                   repeatType: HandleRepeatType()
                       .getNameToPutInDatabase(chosenValue: repeatType),
                   isActive: 1,
                 );
+
                 alarmDatabaseHelper.addNewAlarm(dbAlarm: newAlarm);
                 alarmManager.alarmState(dbAlarm: newAlarm);
                 Navigator.pop(context, newAlarm);

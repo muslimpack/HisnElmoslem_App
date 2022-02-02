@@ -25,16 +25,7 @@ class ZikrCard extends StatelessWidget {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
 
     return GetBuilder<DashboardController>(builder: (controller) {
-      bool hasAlarm = false;
       DbAlarm tempAlarm = dbAlarm;
-      hasAlarm = controller.alarms
-          .where((alarm) => alarm.id == fehrsTitle.orderId - 1)
-          .isNotEmpty;
-      if (hasAlarm) {
-        tempAlarm = controller.alarms
-            .where((alarm) => alarm.id == fehrsTitle.orderId - 1)
-            .first;
-      }
       return ListTile(
         leading: fehrsTitle.favourite == 1
             ? IconButton(
@@ -62,7 +53,7 @@ class ZikrCard extends StatelessWidget {
                   controller.update();
                   //
                 }),
-        trailing: !hasAlarm
+        trailing: !dbAlarm.hasAlarmInside
             ? IconButton(
                 icon: Icon(Icons.alarm_add_rounded),
                 onPressed: () {
@@ -70,15 +61,16 @@ class ZikrCard extends StatelessWidget {
                   showFastAddAlarmDialog(context: context, dbAlarm: dbAlarm)
                       .then((value) {
                     int index = controller.alarms.indexOf(dbAlarm);
-                    if (index == -1) {
-                      controller.alarms.add(value);
-                    } else {
-                      controller.alarms[index] = value;
+                    if (value.hasAlarmInside) {
+                      if (index == -1) {
+                        controller.alarms.add(value);
+                      } else {
+                        controller.alarms[index] = value;
+                      }
+                      controller.update();
+
+                      debugPrint(value.toString());
                     }
-
-                    controller.update();
-
-                    debugPrint(value.toString());
                   });
                 })
             : tempAlarm.isActive == 1
