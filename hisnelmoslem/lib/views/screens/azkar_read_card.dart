@@ -10,10 +10,13 @@ import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:wakelock/wakelock.dart';
+
+import 'share_as_image.dart';
 
 class AzkarReadCard extends StatefulWidget {
   final int index;
@@ -178,6 +181,17 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                         children: [
                           Row(
                             children: [
+                              Expanded(
+                                  child: IconButton(
+                                splashRadius: 20,
+                                icon: Icon(MdiIcons.camera),
+                                onPressed: () {
+                                  transitionAnimation.circleReval(
+                                      context: Get.context!,
+                                      goToPage: ShareAsImage(
+                                          dbContent: zikrContent[index]));
+                                },
+                              )),
                               zikrContent[index].favourite == 0
                                   ? IconButton(
                                       splashRadius: 20,

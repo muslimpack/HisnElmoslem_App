@@ -2,7 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/controllers/share_as_image_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
+import 'package:screenshot/screenshot.dart';
 
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
@@ -10,29 +12,57 @@ class ShareAsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TransformationController? transformationController =
-        new TransformationController();
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text("مشاركة الذكر كصورة"),
-        centerTitle: true,
-      ),
-      body: GestureDetector(
-        onDoubleTap: () {
-          transformationController.value = Matrix4.identity();
-        },
-        child: InteractiveViewer(
-            transformationController: transformationController,
-            minScale: 0.25,
-            maxScale: 2,
-            clipBehavior: Clip.antiAlias,
-            boundaryMargin: EdgeInsets.all(100),
-            panEnabled: true,
-            child: ImageBuilder(dbContent: dbContent)),
-      ),
-    );
+    return GetBuilder<ShareAsImageController>(
+        init: ShareAsImageController(),
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              title: Text(
+                "مشاركة كصورة",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Uthmanic",
+                ),
+              ),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    controller.invertColor();
+                  },
+                  icon: Icon(
+                    controller.bInvert
+                        ? Icons.invert_colors_off_rounded
+                        : Icons.invert_colors_on_rounded,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    controller.shareImage();
+                  },
+                  icon: Icon(Icons.share),
+                ),
+              ],
+            ),
+            body: GestureDetector(
+              onDoubleTap: () {
+                controller.transformationController.value = Matrix4.identity();
+              },
+              child: InteractiveViewer(
+                  transformationController: controller.transformationController,
+                  minScale: 0.25,
+                  maxScale: 3,
+                  clipBehavior: Clip.antiAlias,
+                  boundaryMargin: EdgeInsets.all(500),
+                  panEnabled: true,
+                  child: Screenshot(
+                    controller: controller.screenshotController,
+                    child: ImageBuilder(dbContent: dbContent),
+                  )),
+            ),
+          );
+        });
   }
 }
 
@@ -43,60 +73,38 @@ class ImageBuilder extends StatelessWidget {
     required this.dbContent,
   }) : super(key: key);
 
-  DashboardController dashboardController = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
-    return Center(
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          color: Colors.white.withAlpha(50),
-          child: Stack(
+    DashboardController dashboardController = Get.put(DashboardController());
+    return GetBuilder<ShareAsImageController>(builder: (controller) {
+      return Center(
+        child: Card(
+          margin: EdgeInsets.zero,
+          color: controller.backgroundColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Image.asset("assets/images/app_icon.png"),
-              //
-              Positioned(
-                top: 10,
-                width: screenWidth,
-                child: Container(
-                  child: Text(
-                    "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Uthmanic",
-                        fontSize: 15),
-                  ),
-                ),
-              ),
-
-              Positioned(
-                bottom: 10,
-                width: screenWidth,
-                child: Container(
-                  child: Text(
-                    "بواسطة تطبيق حصن المسلم 2022",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Uthmanic",
-                        fontSize: 15),
-                  ),
-                ),
-              ),
-
               Container(
-                padding: EdgeInsets.only(
-                  top: 40,
-                  right: 60,
-                  left: 60,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Uthmanic",
+                      color: controller.titleColor,
+                      fontSize: 20),
                 ),
+              ),
+              Divider(
+                color: controller.dividerColor,
+                height: 2,
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
                 child: Container(
-                  color: Colors.blue.withAlpha(50),
                   child: SizedBox(
-                    height: 250,
+                    height: 240,
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Center(
@@ -106,33 +114,36 @@ class ImageBuilder extends StatelessWidget {
                           textAlign: TextAlign.center,
                           minFontSize: 10,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                              color: controller.textColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 40,
-                width: screenWidth,
+              // Fadl
+              Visibility(
+                visible: !(dbContent.fadl == ""),
                 child: Container(
+                  height: 100,
+                  padding: EdgeInsets.all(10),
                   child: Container(
-                    color: Colors.red.withAlpha(50),
                     child: SizedBox(
-                      height: 70,
+                      height: 240,
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Center(
                           child: AutoSizeText(
                             dbContent.fadl,
                             softWrap: true,
-                            minFontSize: 10,
                             textAlign: TextAlign.center,
+                            minFontSize: 10,
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                color: controller.textColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
                         ),
                       ),
@@ -140,16 +151,39 @@ class ImageBuilder extends StatelessWidget {
                   ),
                 ),
               ),
-              //
-              Positioned(
-                  top: 10,
-                  right: 10,
-                  width: 50,
-                  child: Image.asset("assets/images/app_icon.png")),
+              Divider(
+                color: controller.dividerColor,
+                height: 2,
+              ),
+              //Bottom
+              Container(
+                padding: EdgeInsets.all(10),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  SizedBox(
+                      width: 40,
+                      child: Image.asset("assets/images/app_icon.png")),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    height: 30,
+                    width: 1.5,
+                    color: controller.appNameColor,
+                  ),
+                  Text(
+                    "تطبيق حصن المسلم",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Uthmanic",
+                        color: controller.appNameColor,
+                        fontSize: 17),
+                  )
+                ]),
+              ),
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

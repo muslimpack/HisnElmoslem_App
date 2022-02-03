@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
@@ -14,6 +15,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:wakelock/wakelock.dart';
+
+import 'share_as_image.dart';
 // import 'package:hisnelmoslem/AppManager/VolumeButton.dart';
 
 class AzkarReadPage extends StatefulWidget {
@@ -164,69 +167,107 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
         : Scaffold(
             key: _hReadScaffoldKey,
             appBar: AppBar(
+              centerTitle: true,
               title: Text(zikrTitle!.name,
                   style: TextStyle(fontFamily: "Uthmanic")),
-              actions: [
-                zikrContent[currentPage].favourite == 0
-                    ? IconButton(
-                        splashRadius: 20,
-                        padding: EdgeInsets.all(0),
-                        icon: Icon(Icons.favorite_border, color: bleuShade200),
-                        onPressed: () {
-                          setState(() {
-                            zikrContent[currentPage].favourite = 1;
-                          });
-                          //
-                          dashboardController
-                              .addContentToFavourite(zikrContent[currentPage]);
-                          //
-                          // dashboardController.update();
-                        })
-                    : IconButton(
-                        splashRadius: 20,
-                        padding: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.favorite,
-                          color: bleuShade200,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            zikrContent[currentPage].favourite = 0;
-                          });
+              actions: [],
+              bottom: PreferredSize(
+                preferredSize: Size(100, 30),
+                child: Container(
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                            child: Row(
+                          children: [
+                            Expanded(
+                                child: IconButton(
+                              splashRadius: 20,
+                              icon: Icon(MdiIcons.camera),
+                              onPressed: () {
+                                transitionAnimation.circleReval(
+                                    context: Get.context!,
+                                    goToPage: ShareAsImage(
+                                        dbContent: zikrContent[currentPage]));
+                              },
+                            )),
+                            zikrContent[currentPage].favourite == 0
+                                ? Expanded(
+                                    child: IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Icon(Icons.favorite_border,
+                                            color: bleuShade200),
+                                        onPressed: () {
+                                          setState(() {
+                                            zikrContent[currentPage].favourite =
+                                                1;
+                                          });
+                                          //
+                                          dashboardController
+                                              .addContentToFavourite(
+                                                  zikrContent[currentPage]);
+                                          //
+                                          // dashboardController.update();
+                                        }),
+                                  )
+                                : Expanded(
+                                    child: IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Icon(
+                                          Icons.favorite,
+                                          color: bleuShade200,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            zikrContent[currentPage].favourite =
+                                                0;
+                                          });
 
-                          dashboardController.removeContentFromFavourite(
-                              zikrContent[currentPage]);
-                        }),
-                IconButton(
-                    splashRadius: 20,
-                    padding: EdgeInsets.all(0),
-                    icon: Icon(Icons.share, color: bleuShade200),
-                    onPressed: () {
-                      Share.share(text! + "\n" + fadl!);
-                    }),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CircleAvatar(
-                    backgroundColor: transparent,
-                    child: Text(
-                      zikrContent[currentPage].count.toString(),
-                      style: TextStyle(
-                        color: blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                                          dashboardController
+                                              .removeContentFromFavourite(
+                                                  zikrContent[currentPage]);
+                                        }),
+                                  ),
+                            Expanded(
+                              child: IconButton(
+                                  splashRadius: 20,
+                                  padding: EdgeInsets.all(0),
+                                  icon: Icon(Icons.share, color: bleuShade200),
+                                  onPressed: () {
+                                    Share.share(text! + "\n" + fadl!);
+                                  }),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: CircleAvatar(
+                                  backgroundColor: transparent,
+                                  child: Text(
+                                    zikrContent[currentPage].count.toString(),
+                                    style: TextStyle(
+                                      color: blue,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
+                        LinearProgressIndicator(
+                          value: totalProgress,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            blue,
+                          ),
+                          backgroundColor: grey,
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
-              bottom: PreferredSize(
-                preferredSize: Size(100, 5),
-                child: LinearProgressIndicator(
-                  value: totalProgress,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    blue,
-                  ),
-                  backgroundColor: grey,
                 ),
               ),
             ),
