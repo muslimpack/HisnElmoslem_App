@@ -35,6 +35,7 @@ dependencies:
   flutter_slidable: ^1.2.0
   fluttertoast: ^8.0.8
   get: ^4.6.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

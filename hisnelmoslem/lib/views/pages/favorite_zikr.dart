@@ -11,6 +11,8 @@ import 'package:hisnelmoslem/shared/transition_animation/transition_animation.da
 
 import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
+import 'package:hisnelmoslem/views/screens/share_as_image.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
@@ -46,6 +48,16 @@ class FavouriteZikr extends StatelessWidget {
                   children: [
                     Row(
                       children: [
+                        Expanded(
+                            child: IconButton(
+                          splashRadius: 20,
+                          icon: Icon(MdiIcons.camera),
+                          onPressed: () {
+                            transitionAnimation.circleReval(
+                                context: Get.context!,
+                                goToPage: ShareAsImage(dbContent: dbContent));
+                          },
+                        )),
                         IconButton(
                             splashRadius: 20,
                             padding: EdgeInsets.all(0),
