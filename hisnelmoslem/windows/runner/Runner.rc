@@ -92,10 +92,10 @@ BEGIN
             VALUE "CompanyName", "com.hassaneltantawy.hisnelmoslem" "\0"
             VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "new_project_flutter_2" "\0"
+            VALUE "InternalName", "hisnelmoslem" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2021 com.hassaneltantawy.hisnelmoslem. All rights reserved." "\0"
-            VALUE "OriginalFilename", "new_project_flutter_2.exe" "\0"
-            VALUE "ProductName", "new_project_flutter_2" "\0"
+            VALUE "OriginalFilename", "hisnelmoslem.exe" "\0"
+            VALUE "ProductName", "hisnelmoslem" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

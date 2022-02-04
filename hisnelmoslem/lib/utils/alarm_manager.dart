@@ -13,8 +13,7 @@ class AlarmManager {
       Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
           duration: const Duration(seconds: 1),
           icon: Image.asset("assets/images/app_icon.png"));
-      // localNotifyManager.showCustomNotification(
-      //     title: "تم تفعيل منبه ${dbAlarm.title}", payload: '');
+
       switch (dbAlarm.repeatType) {
         case "Daily":
           localNotifyManager.addCustomDailyReminder(
@@ -104,21 +103,11 @@ class AlarmManager {
           );
           break;
       }
-      // if (dbAlarm.repeatType == "Daily") {
-      //   localNotifyManager.customDailyReminder(
-      //       channelName: "تنبيهات الأذكار",
-      //       id: dbAlarm.id,
-      //       title: dbAlarm.title,
-      //       body: dbAlarm.body,
-      //       time: Time(dbAlarm.hour, dbAlarm.minute, 0),
-      //       payload: (dbAlarm.id).toString());
-      // }
     } else if (dbAlarm.isActive == 0) {
       Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
           duration: const Duration(seconds: 1),
           icon: Image.asset("assets/images/app_icon.png"));
-      // localNotifyManager.showCustomNotification(
-      //     title: "تم الغاء منبه ${dbAlarm.title}", payload: '');
+
       localNotifyManager.cancelNotificationById(id: dbAlarm.id);
     }
   }

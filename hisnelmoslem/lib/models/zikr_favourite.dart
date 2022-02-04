@@ -1,13 +1,21 @@
 class DbFavourite {
-  final int id;
-  final int contentId;
-  final int orderId;
+  int id;
+  int contentId;
+  int orderId;
 
   DbFavourite({
-    required this.id,
-    required this.contentId,
-    required this.orderId,
+    this.id = 0,
+    this.contentId = 0,
+    this.orderId = 0,
   });
+
+  DbFavourite fromMap(Map<String, dynamic> map) {
+    return DbFavourite(
+      id: map['_id'],
+      contentId: map['content_id'],
+      orderId: map['order_id'],
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {

@@ -2,7 +2,7 @@ class DbAlarm {
   int id;
   int titleId;
   String title;
-  String? body;
+  String body;
   String repeatType;
   int hour;
   int minute;
@@ -10,8 +10,8 @@ class DbAlarm {
   bool hasAlarmInside;
 
   DbAlarm({
-    required this.id,
-    required this.titleId,
+    this.id = 0,
+    this.titleId = 0,
     this.title = "",
     this.body = "",
     this.repeatType = "",
@@ -21,14 +21,19 @@ class DbAlarm {
     this.hasAlarmInside = false,
   });
 
-  //
-  // DbTitle.fromMap(Map<String, dynamic> map) {
-  //   id: map['_id'];
-  //   name: map['name'];
-  //   chapter_id: map['chapter_id'];
-  //   order_id: map['order_id'];
-  //   favourite: map['favourite'];
-  // }
+  DbAlarm fromMap(Map<String, dynamic> map) {
+    return DbAlarm(
+      id: map['id'],
+      title: map['title'],
+      titleId: map['titleId'],
+      body: (map['body'] ?? "") as String,
+      repeatType: map['repeatType'],
+      hour: map['hour'],
+      minute: map['minute'],
+      isActive: map['isActive'],
+      hasAlarmInside: true,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

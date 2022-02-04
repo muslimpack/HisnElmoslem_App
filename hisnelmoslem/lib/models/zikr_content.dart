@@ -10,16 +10,30 @@ class DbContent {
   String source;
 
   DbContent({
-    required this.id,
-    required this.content,
-    required this.chapterId,
-    required this.titleId,
-    required this.count,
-    required this.fadl,
-    required this.source,
-    required this.orderId,
-    required this.favourite,
+    this.id = 0,
+    this.content = "",
+    this.chapterId = 0,
+    this.titleId = 0,
+    this.count = 0,
+    this.fadl = "",
+    this.source = "",
+    this.orderId = 0,
+    this.favourite = 0,
   });
+
+  DbContent fromMap(Map<String, dynamic> map) {
+    return DbContent(
+      id: map['_id'],
+      content: (map['content'] as String).replaceAll("\\n", "\n"),
+      chapterId: map['chapter_id'],
+      titleId: map['title_id'],
+      orderId: map['order_id'],
+      count: map['count'],
+      fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
+      source: map['source'] ?? "",
+      favourite: map['favourite'] ?? 0,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

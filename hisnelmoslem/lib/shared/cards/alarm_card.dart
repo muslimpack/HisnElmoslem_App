@@ -29,7 +29,7 @@ class AlarmCard extends StatelessWidget {
               leading: Icon(Icons.alarm),
               subtitle: Wrap(
                 children: [
-                  dbAlarm.body!.isEmpty
+                  dbAlarm.body.isEmpty
                       ? SizedBox()
                       : RoundTagCard(
                           name: dbAlarm.body,

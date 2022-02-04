@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(new_project_flutter_2 LANGUAGES CXX)
+project(hisnelmoslem LANGUAGES CXX)
 
-set(BINARY_NAME "new_project_flutter_2")
+set(BINARY_NAME "hisnelmoslem")
 
 cmake_policy(SET CMP0063 NEW)
 

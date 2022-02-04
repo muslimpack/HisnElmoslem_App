@@ -1,9 +1,21 @@
 class DbChapter {
-  final int id;
-  final String name;
-  final int orderId;
+  int id;
+  String name;
+  int orderId;
 
-  DbChapter({required this.id, required this.name, required this.orderId});
+  DbChapter({
+    this.id = 0,
+    this.name = "",
+    this.orderId = 0,
+  });
+
+  DbChapter fromMap(Map<String, dynamic> map) {
+    return DbChapter(
+      id: map['_id'],
+      name: map['name'],
+      orderId: map['order_id'],
+    );
+  }
 
   @override
   String toString() {

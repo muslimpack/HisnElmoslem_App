@@ -27,8 +27,8 @@ void main() async {
   localNotifyManager.appOpenNotification();
 
   //Initialize Databases
-  await azkarDatabaseHelper.initDb();
-  await alarmDatabaseHelper.initDb();
+  // await azkarDatabaseHelper.initDb();
+  // await alarmDatabaseHelper._initDatabase();
 
   //Set All Alarm in database to confirm it
   // await alarmManager.checkAllAlarms();

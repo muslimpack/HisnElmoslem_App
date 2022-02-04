@@ -36,6 +36,13 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   bool iosStyle = true;
   int? selectedHour, selectedMinute;
 
+  @override
+  void initState() {
+    super.initState();
+    //
+    debugPrint("widget.dbAlarm.titleId: " + widget.dbAlarm.titleId.toString());
+  }
+
   void onTimeChanged(TimeOfDay newTime) {
     setState(() {
       _time = newTime;
@@ -179,6 +186,11 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                   isActive: 1,
                 );
 
+                debugPrint("widget.dbAlarm.titleId: " +
+                    widget.dbAlarm.titleId.toString());
+
+                debugPrint(
+                    "newAlarm: $newAlarm" + widget.dbAlarm.titleId.toString());
                 alarmDatabaseHelper.addNewAlarm(dbAlarm: newAlarm);
                 alarmManager.alarmState(dbAlarm: newAlarm);
                 Navigator.pop(context, newAlarm);
