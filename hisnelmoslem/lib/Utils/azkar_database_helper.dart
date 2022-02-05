@@ -52,7 +52,7 @@ class AzkarDatabaseHelper {
     //Check if database is already in that Directory
     if (!exist) {
       // Database isn't exist > Create new Database
-      _copyFromAssets(path: path);
+      await _copyFromAssets(path: path);
     }
 
     return await openDatabase(

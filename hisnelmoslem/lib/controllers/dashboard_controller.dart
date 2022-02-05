@@ -50,7 +50,7 @@ class DashboardController extends GetxController {
     await getAllListsReady();
 
     //Manage Notification feedback
-    if (payload != "") {
+    if (payload != "" && payload != null) {
       onNotificationClick(payload!);
     }
 

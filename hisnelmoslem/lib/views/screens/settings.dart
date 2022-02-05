@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
@@ -8,6 +7,7 @@ import 'package:hisnelmoslem/shared/transition_animation/transition_animation.da
 import 'package:hisnelmoslem/views/screens/alarms_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../shared/functions/get_snackbar.dart';
 import 'about.dart';
 
 class Settings extends StatefulWidget {
@@ -97,16 +97,20 @@ class _SettingsState extends State<Settings> {
                     // localNotifyManager.showCustomNotification(
                     //     title: "تم تفعيل منبه صيام الإثنين والخميس",
                     //     payload: '');
-                    Get.snackbar("رسالة", "تم تفعيل منبه صيام الإثنين والخميس",
-                        duration: const Duration(seconds: 1),
-                        icon: Image.asset("assets/images/app_icon.png"));
+                    // Get.snackbar("رسالة", "تم تفعيل منبه صيام الإثنين والخميس",
+                    //     duration: const Duration(seconds: 1),
+                    //     icon: Image.asset("assets/images/app_icon.png"));
+
+                    getSnackbar(message: "تم تفعيل منبه صيام الإثنين والخميس");
                   } else if (!appSettings.getRFastTwice()) {
                     // localNotifyManager.showCustomNotification(
                     //     title: "تم الغاء منبه صيام الإثنين والخميس",
                     //     payload: '');
-                    Get.snackbar("رسالة", "تم الغاء منبه صيام الإثنين والخميس",
-                        duration: const Duration(seconds: 1),
-                        icon: Image.asset("assets/images/app_icon.png"));
+                    // Get.snackbar("رسالة", "تم الغاء منبه صيام الإثنين والخميس",
+                    //     duration: const Duration(seconds: 1),
+                    //     icon: Image.asset("assets/images/app_icon.png"));
+
+                    getSnackbar(message: "تم الغاء منبه صيام الإثنين والخميس");
                   }
                 },
               ),
@@ -128,15 +132,19 @@ class _SettingsState extends State<Settings> {
                   if (appSettings.getRCave()) {
                     // localNotifyManager.showCustomNotification(
                     //     title: "تم تفعيل تذكير سورة الكهف", payload: '');
-                    Get.snackbar("رسالة", "تم تفعيل تذكير سورة الكهف",
-                        duration: const Duration(seconds: 1),
-                        icon: Image.asset("assets/images/app_icon.png"));
+                    // Get.snackbar("رسالة", "تم تفعيل تذكير سورة الكهف",
+                    //     duration: const Duration(seconds: 1),
+                    //     icon: Image.asset("assets/images/app_icon.png"));
+
+                    getSnackbar(message: "تم تفعيل تذكير سورة الكهف");
                   } else if (!appSettings.getRCave()) {
                     // localNotifyManager.showCustomNotification(
                     //     title: "تم الغاء تذكير سورة الكهف", payload: '');
-                    Get.snackbar("رسالة", "تم الغاء تذكير سورة الكهف",
-                        duration: const Duration(seconds: 1),
-                        icon: Image.asset("assets/images/app_icon.png"));
+                    // Get.snackbar("رسالة", "تم الغاء تذكير سورة الكهف",
+                    //     duration: const Duration(seconds: 1),
+                    //     icon: Image.asset("assets/images/app_icon.png"));
+
+                    getSnackbar(message: "تم الغاء تذكير سورة الكهف");
                   }
                 },
               ),

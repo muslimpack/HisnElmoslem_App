@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:provider/provider.dart';
@@ -25,8 +26,11 @@ void main() async {
   String? payload = notificationAppLaunchDetails!.payload;
   debugPrint("main() payload: $payload");
   //
+  DashboardController dashboardController = Get.put(DashboardController());
+  dashboardController.payload = payload;
+  //
   //U Doesn't open app notification
-  localNotifyManager.appOpenNotification();
+  await localNotifyManager.appOpenNotification();
 
   // Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
@@ -67,9 +71,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'حصن المسلم',
         theme: ThemeData.dark(),
-        home: AzkarDashboard(
-          payload: widget.payload,
-        ),
+        home: AzkarDashboard(),
       ),
     );
   }

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 
+import '../shared/functions/get_snackbar.dart';
 import 'notification_manager.dart';
 
 AlarmManager alarmManager = AlarmManager();
@@ -10,10 +9,10 @@ AlarmManager alarmManager = AlarmManager();
 class AlarmManager {
   alarmState({required DbAlarm dbAlarm}) {
     if (dbAlarm.isActive == 1) {
-      Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
-          duration: const Duration(seconds: 1),
-          icon: Image.asset("assets/images/app_icon.png"));
-
+      // Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
+      //     duration: const Duration(seconds: 1),
+      //     icon: Image.asset("assets/images/app_icon.png"));
+      getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
       switch (dbAlarm.repeatType) {
         case "Daily":
           localNotifyManager.addCustomDailyReminder(
@@ -104,9 +103,10 @@ class AlarmManager {
           break;
       }
     } else if (dbAlarm.isActive == 0) {
-      Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
-          duration: const Duration(seconds: 1),
-          icon: Image.asset("assets/images/app_icon.png"));
+      // Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
+      //     duration: const Duration(seconds: 1),
+      //     icon: Image.asset("assets/images/app_icon.png"));
+      getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
 
       localNotifyManager.cancelNotificationById(id: dbAlarm.id);
     }

@@ -16,6 +16,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
+import '../../shared/functions/get_snackbar.dart';
+
 class FavouriteZikr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,9 @@ class FavouriteZikr extends StatelessWidget {
                                         "\n" +
                                         dbContent.fadl)
                                     .then((result) {
-                                  Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
+                                  // Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
+
+                                  getSnackbar(message: 'تم النسخ إلى الحافظة');
                                   // Get..currentState!.showSnackBar(snackBar);
                                 });
                               }),

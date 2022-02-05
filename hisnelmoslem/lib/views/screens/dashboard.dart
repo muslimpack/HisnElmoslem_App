@@ -15,8 +15,7 @@ import 'package:hisnelmoslem/views/screens/tally.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AzkarDashboard extends StatelessWidget {
-  final String? payload;
-  AzkarDashboard({Key? key, required this.payload}) : super(key: key);
+  AzkarDashboard({Key? key}) : super(key: key);
 
   @override
   build(BuildContext context) {

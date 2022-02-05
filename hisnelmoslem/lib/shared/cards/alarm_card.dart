@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
 import '../constant.dart';
+import '../functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
@@ -124,9 +125,11 @@ class AlarmCard extends StatelessWidget {
                 controller.update();
                 dashboardController.alarms = controller.alarms;
                 dashboardController.update();
-                Get.snackbar("رسالة", "تم حذف منبه ${dbAlarm.title}",
-                    duration: const Duration(seconds: 1),
-                    icon: Image.asset("assets/images/app_icon.png"));
+                // Get.snackbar("رسالة", "تم حذف منبه ${dbAlarm.title}",
+                //     duration: const Duration(seconds: 1),
+                //     icon: Image.asset("assets/images/app_icon.png"));
+
+                getSnackbar(message: "تم حذف منبه ${dbAlarm.title}");
               },
               backgroundColor: red,
               foregroundColor: white,
