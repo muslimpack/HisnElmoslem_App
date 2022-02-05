@@ -18,20 +18,15 @@ void main() async {
   //Manage Notification feedback
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  //
   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  //
   String? payload = notificationAppLaunchDetails!.payload;
   debugPrint("main() payload: $payload");
   //
   //U Doesn't open app notification
   localNotifyManager.appOpenNotification();
-
-  //Initialize Databases
-  // await azkarDatabaseHelper.initDb();
-  // await alarmDatabaseHelper._initDatabase();
-
-  //Set All Alarm in database to confirm it
-  // await alarmManager.checkAllAlarms();
 
   // Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
@@ -54,11 +49,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void dispose() {
+  void dispose() async {
     //Colse databses
-    azkarDatabaseHelper.close();
-    fakeHadithDatabaseHelper.close();
-    alarmDatabaseHelper.close();
+    await azkarDatabaseHelper.close();
+    await fakeHadithDatabaseHelper.close();
+    await alarmDatabaseHelper.close();
     super.dispose();
   }
 

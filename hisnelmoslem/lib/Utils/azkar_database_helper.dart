@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hisnelmoslem/models/zikr_chapters.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
@@ -43,6 +47,14 @@ class AzkarDatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, DB_NAME);
 
+    final exist = await databaseExists(path);
+
+    //Check if database is already in that Directory
+    if (!exist) {
+      // Database isn't exist > Create new Database
+      _copyFromAssets(path: path);
+    }
+
     return await openDatabase(
       path,
       version: DATABASE_VERSION,
@@ -53,9 +65,8 @@ class AzkarDatabaseHelper {
   }
 
   // On create database
-  _onCreateDatabase(Database db, int version) {
+  _onCreateDatabase(Database db, int version) async {
     //
-    //TODO add data from database in assets
   }
 
   // On upgrade database version
@@ -68,6 +79,22 @@ class AzkarDatabaseHelper {
     //
   }
 
+  // Copy database from assets to Database Direcorty of app
+  _copyFromAssets({required String path}) async {
+    //
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+
+      ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      await File(path).writeAsBytes(bytes, flush: true);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   /* ************* Functions ************* */
 
   // Get all chapters from database
@@ -77,7 +104,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('chapters');
 
     return List.generate(maps.length, (i) {
-      return DbChapter().fromMap(maps[i]);
+      return DbChapter.fromMap(maps[i]);
     });
   }
 
@@ -88,7 +115,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('title');
 
     return List.generate(maps.length, (i) {
-      return DbTitle().fromMap(maps[i]);
+      return DbTitle.fromMap(maps[i]);
     });
   }
 
@@ -99,7 +126,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('title');
 
     return List.generate(maps.length, (i) {
-      return DbTitle().fromMap(maps[i]);
+      return DbTitle.fromMap(maps[i]);
     }).where((element) => element.id == index).first;
   }
 
@@ -110,7 +137,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('contents');
 
     return List.generate(maps.length, (i) {
-      return DbContent().fromMap(maps[i]);
+      return DbContent.fromMap(maps[i]);
     });
   }
 
@@ -121,7 +148,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('contents');
 
     return List.generate(maps.length, (i) {
-      return DbContent().fromMap(maps[i]);
+      return DbContent.fromMap(maps[i]);
     }).where((element) => element.titleId == index).toList();
   }
 
@@ -132,7 +159,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('contents');
 
     return List.generate(maps.length, (i) {
-      return DbContent().fromMap(maps[i]);
+      return DbContent.fromMap(maps[i]);
     }).where((element) => element.favourite == 1).toList();
   }
 
@@ -164,7 +191,7 @@ class AzkarDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('favourite');
 
     return List.generate(maps.length, (i) {
-      return DbFavourite().fromMap(maps[i]);
+      return DbFavourite.fromMap(maps[i]);
     });
   }
 

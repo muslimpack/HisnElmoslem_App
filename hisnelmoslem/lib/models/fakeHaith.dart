@@ -13,7 +13,7 @@ class DbFakeHaith {
     this.isRead = 0,
   });
 
-  DbFakeHaith fromMap(Map<String, dynamic> map) {
+  factory DbFakeHaith.fromMap(Map<String, dynamic> map) {
     return DbFakeHaith(
       id: map['_id'],
       source: map['source'],

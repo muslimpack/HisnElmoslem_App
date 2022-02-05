@@ -9,7 +9,7 @@ class DbChapter {
     this.orderId = 0,
   });
 
-  DbChapter fromMap(Map<String, dynamic> map) {
+  factory DbChapter.fromMap(Map<String, dynamic> map) {
     return DbChapter(
       id: map['_id'],
       name: map['name'],

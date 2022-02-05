@@ -15,7 +15,7 @@ class DbTitle {
     this.alarm = 0,
   });
 
-  DbTitle fromMap(Map<String, dynamic> map) {
+  factory DbTitle.fromMap(Map<String, dynamic> map) {
     return DbTitle(
       id: map['_id'],
       name: map['name'],

@@ -78,63 +78,65 @@ class ImageBuilder extends StatelessWidget {
     DashboardController dashboardController = Get.put(DashboardController());
     return GetBuilder<ShareAsImageController>(builder: (controller) {
       return Center(
-        child: Card(
-          margin: EdgeInsets.zero,
-          color: controller.backgroundColor,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Uthmanic",
-                      color: controller.titleColor,
-                      fontSize: 20),
+        child: Container(
+          width: 1000,
+          child: Card(
+            margin: EdgeInsets.zero,
+            color: controller.backgroundColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Uthmanic",
+                        color: controller.titleColor,
+                        fontSize: 20),
+                  ),
                 ),
-              ),
-              Divider(
-                color: controller.dividerColor,
-                height: 2,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                  child: SizedBox(
-                    height: 240,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Center(
-                        child: AutoSizeText(
-                          dbContent.content,
-                          softWrap: true,
-                          textAlign: TextAlign.center,
-                          minFontSize: 10,
-                          style: TextStyle(
-                              color: controller.textColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                      ),
+                Divider(
+                  color: controller.dividerColor,
+                  height: 3,
+                ),
+
+                /**
+                 * Body
+                 */
+
+                /**
+                 * Content
+                 */
+                Container(
+                  constraints: BoxConstraints(minHeight: 100, maxHeight: 350),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: AutoSizeText(
+                      dbContent.content,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      minFontSize: 12,
+                      style: TextStyle(
+                          color: controller.textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
                 ),
-              ),
-              // Fadl
-              Visibility(
-                visible: !(dbContent.fadl == ""),
-                child: Container(
-                  height: 100,
-                  padding: EdgeInsets.all(10),
+                // Fadl
+                Visibility(
+                  visible: !(dbContent.fadl == ""),
                   child: Container(
-                    child: SizedBox(
-                      height: 240,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Center(
+                    constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
                           child: AutoSizeText(
                             dbContent.fadl,
                             softWrap: true,
@@ -146,41 +148,68 @@ class ImageBuilder extends StatelessWidget {
                                 fontSize: 20),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-              Divider(
-                color: controller.dividerColor,
-                height: 2,
-              ),
-              //Bottom
-              Container(
-                padding: EdgeInsets.all(10),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  SizedBox(
-                      width: 40,
-                      child: Image.asset("assets/images/app_icon.png")),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    height: 30,
-                    width: 1.5,
-                    color: controller.appNameColor,
+                // Source
+                Visibility(
+                  visible: !(dbContent.source == ""),
+                  child: Container(
+                    constraints: BoxConstraints(minHeight: 50, maxHeight: 150),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: AutoSizeText(
+                            dbContent.source,
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            minFontSize: 10,
+                            style: TextStyle(
+                                color: controller.textColor,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    "تطبيق حصن المسلم",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Uthmanic",
-                        color: controller.appNameColor,
-                        fontSize: 17),
-                  )
-                ]),
-              ),
-            ],
+                ),
+                Divider(
+                  color: controller.dividerColor,
+                  height: 3,
+                ),
+                //Bottom
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: 40,
+                            child: Image.asset("assets/images/app_icon.png")),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          height: 30,
+                          width: 1.5,
+                          color: controller.appNameColor,
+                        ),
+                        Text(
+                          "تطبيق حصن المسلم",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Uthmanic",
+                              color: controller.appNameColor,
+                              fontSize: 17),
+                        )
+                      ]),
+                ),
+              ],
+            ),
           ),
         ),
       );

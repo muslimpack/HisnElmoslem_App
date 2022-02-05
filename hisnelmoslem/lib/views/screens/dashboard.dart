@@ -118,7 +118,9 @@ class AzkarDashboard extends StatelessWidget {
                                   icon: Icon(Icons.exit_to_app_sharp),
                                   onPressed: () {
                                     controller.isSearching = false;
-                                    controller.searchController.clear();
+                                    controller.searchedTitle =
+                                        controller.allTitle;
+                                    // controller.searchController.clear();
                                     controller.update();
                                   })
                               : IconButton(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
@@ -38,29 +37,25 @@ class DashboardController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+
     //
     isLoading = true;
+
     //
     update();
+
     //
-    getAllListsReady();
-    //
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    await getAllListsReady();
 
     //Manage Notification feedback
-
     if (payload != "") {
       onNotificationClick(payload!);
     }
 
     localNotifyManager.setOnNotificationReceive(onNotificationReceive);
     localNotifyManager.setOnNotificationClick(onNotificationClick);
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
 
     isLoading = false;
     //
@@ -95,10 +90,12 @@ class DashboardController extends GetxController {
       alarms = value;
     });
 
-    /* 
-    ***** Update is loading to start show views and widgets
-    ***** Update() is like SetState() in statefulWidget
-    ***** */
+    searchedTitle = allTitle;
+
+    /**  
+      * Update is loading to start show views and widgets
+      * Update() is like SetState() in statefulWidget
+      */
     isLoading = false;
     update();
   }

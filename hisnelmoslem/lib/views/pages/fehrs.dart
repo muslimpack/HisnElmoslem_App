@@ -21,9 +21,7 @@ class AzkarFehrs extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
               itemBuilder: (context, index) {
                 //TODO get rid of this for loop
-                List<DbTitle> titleListTODisplay = controller.isSearching
-                    ? controller.searchedTitle
-                    : controller.allTitle;
+                List<DbTitle> titleListTODisplay = controller.searchedTitle;
                 DbAlarm tempAlarm =
                     DbAlarm(id: index, titleId: titleListTODisplay[index].id);
                 for (var item in controller.alarms) {
@@ -37,9 +35,7 @@ class AzkarFehrs extends StatelessWidget {
                   dbAlarm: tempAlarm,
                 );
               },
-              itemCount: controller.isSearching
-                  ? controller.searchedTitle.length
-                  : controller.allTitle.length,
+              itemCount: controller.searchedTitle.length,
             )),
       );
     });

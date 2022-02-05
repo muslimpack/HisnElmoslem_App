@@ -9,7 +9,7 @@ class DbFavourite {
     this.orderId = 0,
   });
 
-  DbFavourite fromMap(Map<String, dynamic> map) {
+  factory DbFavourite.fromMap(Map<String, dynamic> map) {
     return DbFavourite(
       id: map['_id'],
       contentId: map['content_id'],

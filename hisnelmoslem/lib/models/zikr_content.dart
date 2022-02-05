@@ -21,7 +21,7 @@ class DbContent {
     this.favourite = 0,
   });
 
-  DbContent fromMap(Map<String, dynamic> map) {
+  factory DbContent.fromMap(Map<String, dynamic> map) {
     return DbContent(
       id: map['_id'],
       content: (map['content'] as String).replaceAll("\\n", "\n"),
@@ -30,7 +30,7 @@ class DbContent {
       orderId: map['order_id'],
       count: map['count'],
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
-      source: map['source'] ?? "",
+      source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
       favourite: map['favourite'] ?? 0,
     );
   }

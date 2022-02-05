@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hisnelmoslem/models/fakeHaith.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -39,6 +43,14 @@ class FakeHadithDatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, DB_NAME);
 
+    final exist = await databaseExists(path);
+
+    //Check if database is already in that Directory
+    if (!exist) {
+      // Database isn't exist > Create new Database
+      _copyFromAssets(path: path);
+    }
+
     return await openDatabase(
       path,
       version: DATABASE_VERSION,
@@ -49,9 +61,8 @@ class FakeHadithDatabaseHelper {
   }
 
   // On create database
-  _onCreateDatabase(Database db, int version) {
+  _onCreateDatabase(Database db, int version) async {
     //
-    //TODO add data from database in assets
   }
 
   // On upgrade database version
@@ -64,6 +75,22 @@ class FakeHadithDatabaseHelper {
     //
   }
 
+  // Copy database from assets to Database Direcorty of app
+  _copyFromAssets({required String path}) async {
+    //
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+
+      ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      await File(path).writeAsBytes(bytes, flush: true);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   /* ************* Functions ************* */
   // Get all hadith from database
   Future<List<DbFakeHaith>> getAllFakeHadiths() async {
@@ -72,7 +99,7 @@ class FakeHadithDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
     return List.generate(maps.length, (i) {
-      return DbFakeHaith().fromMap(maps[i]);
+      return DbFakeHaith.fromMap(maps[i]);
     });
   }
 
@@ -83,7 +110,7 @@ class FakeHadithDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
     return List.generate(maps.length, (i) {
-      return DbFakeHaith().fromMap(maps[i]);
+      return DbFakeHaith.fromMap(maps[i]);
     }).where((element) => element.isRead == 1).toList();
   }
 
@@ -94,7 +121,7 @@ class FakeHadithDatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
     return List.generate(maps.length, (i) {
-      return DbFakeHaith().fromMap(maps[i]);
+      return DbFakeHaith.fromMap(maps[i]);
     }).where((element) => element.isRead == 0).toList();
   }
 

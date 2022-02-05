@@ -21,7 +21,7 @@ class DbAlarm {
     this.hasAlarmInside = false,
   });
 
-  DbAlarm fromMap(Map<String, dynamic> map) {
+  factory DbAlarm.fromMap(Map<String, dynamic> map) {
     return DbAlarm(
       id: map['id'],
       title: map['title'],
