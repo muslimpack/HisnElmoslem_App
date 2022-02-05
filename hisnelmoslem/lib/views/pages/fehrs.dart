@@ -23,7 +23,7 @@ class AzkarFehrs extends StatelessWidget {
                 //TODO get rid of this for loop
                 List<DbTitle> titleListTODisplay = controller.searchedTitle;
                 DbAlarm tempAlarm =
-                    DbAlarm(id: index, titleId: titleListTODisplay[index].id);
+                    DbAlarm(titleId: titleListTODisplay[index].orderId);
                 for (var item in controller.alarms) {
                   // debugPrint(item.toString());
                   if (item.title == titleListTODisplay[index].name) {

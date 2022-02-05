@@ -65,11 +65,11 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
 
   getReady() async {
     await azkarDatabaseHelper
-        .getTitleByIndex(index: widget.index)
+        .getTitleById(id: widget.index)
         .then((value) => zikrTitle = value);
     //
     await azkarDatabaseHelper
-        .getContentsByTitleIndex(index: widget.index)
+        .getContentsByTitleId(titleId: widget.index)
         .then((value) => zikrContent = value);
 
     setState(() {

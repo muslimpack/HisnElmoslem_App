@@ -20,8 +20,8 @@ class AzkarBookmarks extends StatelessWidget {
             padding: EdgeInsets.only(top: 10),
             itemBuilder: (context, index) {
               //TODO get rid of this for loop
-              DbAlarm tempAlarm = DbAlarm(
-                  id: index, titleId: controller.favouriteTitle[index].id);
+              DbAlarm tempAlarm =
+                  DbAlarm(titleId: controller.favouriteTitle[index].orderId);
               for (var item in controller.alarms) {
                 // debugPrint(item.toString());
                 if (item.title == controller.favouriteTitle[index].name) {

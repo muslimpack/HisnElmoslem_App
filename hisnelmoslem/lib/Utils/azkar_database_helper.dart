@@ -120,14 +120,14 @@ class AzkarDatabaseHelper {
   }
 
   // Get title by index
-  Future<DbTitle> getTitleByIndex({required int? index}) async {
+  Future<DbTitle> getTitleById({required int? id}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('title');
 
     return List.generate(maps.length, (i) {
       return DbTitle.fromMap(maps[i]);
-    }).where((element) => element.id == index).first;
+    }).where((element) => element.id == id).first;
   }
 
   // Get all contents
@@ -142,14 +142,14 @@ class AzkarDatabaseHelper {
   }
 
   // Get content by title index
-  Future<List<DbContent>> getContentsByTitleIndex({required int? index}) async {
+  Future<List<DbContent>> getContentsByTitleId({required int? titleId}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('contents');
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
-    }).where((element) => element.titleId == index).toList();
+    }).where((element) => element.titleId == titleId).toList();
   }
 
   // Get favourite content

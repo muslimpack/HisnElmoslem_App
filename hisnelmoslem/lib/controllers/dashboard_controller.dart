@@ -93,7 +93,7 @@ class DashboardController extends GetxController {
     searchedTitle = allTitle;
 
     /**  
-      * Update is loading to start show views and widgets
+      * Update isLoading to start show views and widgets
       * Update() is like SetState() in statefulWidget
       */
     isLoading = false;

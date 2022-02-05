@@ -97,7 +97,7 @@ class AlarmDatabaseHelper {
   Future<List<DbAlarm>> getAlarms() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('Alarms');
+    final List<Map<String, dynamic>> maps = await db.query('alarms');
 
     return List.generate(maps.length, (i) {
       return DbAlarm.fromMap(maps[i]);
@@ -109,7 +109,7 @@ class AlarmDatabaseHelper {
     final db = await database;
 
     await db.insert(
-      'Alarms',
+      'alarms',
       dbAlarm.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -120,10 +120,10 @@ class AlarmDatabaseHelper {
     final db = await database;
 
     await db.update(
-      'Alarms',
+      'alarms',
       dbAlarm.toMap(),
-      where: "id = ?",
-      whereArgs: [dbAlarm.id],
+      where: "titleId = ?",
+      whereArgs: [dbAlarm.titleId],
     );
   }
 
@@ -133,8 +133,8 @@ class AlarmDatabaseHelper {
 
     await db.delete(
       'alarms',
-      where: "id = ?",
-      whereArgs: [dbAlarm.id],
+      where: "titleId = ?",
+      whereArgs: [dbAlarm.titleId],
     );
   }
 

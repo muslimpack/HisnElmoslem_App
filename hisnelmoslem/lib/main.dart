@@ -39,14 +39,13 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
 
+
   runApp(MyApp(
-    payload: payload ?? "",
   ));
 }
 
 class MyApp extends StatefulWidget {
-  final String? payload;
-  MyApp({required this.payload});
+  MyApp();
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -54,7 +53,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void dispose() async {
-    //Colse databses
+    //Close databases
     await azkarDatabaseHelper.close();
     await fakeHadithDatabaseHelper.close();
     await alarmDatabaseHelper.close();
@@ -63,7 +62,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("MyApp payload: ${widget.payload}");
     return ListenableProvider(
       create: (context) => AppSettingsNotifier(),
       child: GetMaterialApp(

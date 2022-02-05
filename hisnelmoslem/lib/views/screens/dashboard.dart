@@ -70,9 +70,11 @@ class AzkarDashboard extends StatelessWidget {
                                       context: context,
                                       goToPage: AppUpdateNews());
                                 },
-                                child: Image.asset(
-                                  'assets/images/app_icon.png',
-                                  scale: 6,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: Image.asset(
+                                    'assets/images/app_icon.png',
+                                  ),
                                 ),
                               ),
                         pinned: true,

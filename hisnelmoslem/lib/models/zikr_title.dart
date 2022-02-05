@@ -4,7 +4,6 @@ class DbTitle {
   int chapterId;
   int orderId;
   int favourite;
-  int alarm;
 
   DbTitle({
     this.id = 0,
@@ -12,7 +11,6 @@ class DbTitle {
     this.chapterId = 0,
     this.orderId = 0,
     this.favourite = 0,
-    this.alarm = 0,
   });
 
   factory DbTitle.fromMap(Map<String, dynamic> map) {
@@ -22,7 +20,6 @@ class DbTitle {
       chapterId: map['chapter_id'],
       orderId: map['order_id'],
       favourite: map['favourite'],
-      alarm: map['alarm'],
     );
   }
 
@@ -33,7 +30,6 @@ class DbTitle {
       'chapter_id': chapterId,
       'order_id': orderId,
       'favourite': favourite,
-      'alarm': alarm,
     };
   }
 
@@ -45,7 +41,6 @@ class DbTitle {
       'chapter_id': $chapterId,
       'order_id': $orderId,
       'favourite': $favourite,
-      'alarm': $alarm,
     ''';
   }
 }
