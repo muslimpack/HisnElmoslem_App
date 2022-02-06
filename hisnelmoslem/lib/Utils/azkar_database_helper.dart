@@ -114,12 +114,8 @@ class AzkarDatabaseHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('title');
 
-    debugPrint("Future<List<DbTitle>> getAllTitles()");
-
     return List.generate(maps.length, (i) {
       DbTitle dbTitle = DbTitle.fromMap(maps[i]);
-
-      debugPrint(dbTitle.toString());
 
       return dbTitle;
       // return DbTitle.fromMap(maps[i]);
@@ -186,6 +182,7 @@ class AzkarDatabaseHelper {
   removeFromFavouriteContent({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = false;
+
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
   }

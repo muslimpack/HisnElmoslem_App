@@ -32,7 +32,7 @@ class AzkarFehrs extends StatelessWidget {
                     tempAlarm = item;
                   }
                 }
-                return ZikrCard(
+                return TitleCard(
                   fehrsTitle: titleListToDisplay[index],
                   dbAlarm: tempAlarm,
                 );

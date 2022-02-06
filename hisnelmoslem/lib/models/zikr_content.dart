@@ -31,7 +31,7 @@ class DbContent {
       count: map['count'],
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: ((map['favourite'] ?? "0") == "0" ? false : true),
+      favourite: (map['favourite'] ?? 0) == 0 ? false : true,
     );
   }
 

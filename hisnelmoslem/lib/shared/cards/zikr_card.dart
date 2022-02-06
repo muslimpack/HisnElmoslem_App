@@ -15,10 +15,10 @@ import 'package:provider/provider.dart';
 
 import '../constant.dart';
 
-class ZikrCard extends StatelessWidget {
+class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;
   final DbAlarm dbAlarm;
-  ZikrCard({required this.fehrsTitle, required this.dbAlarm});
+  TitleCard({required this.fehrsTitle, required this.dbAlarm});
 
   @override
   Widget build(BuildContext context) {

@@ -30,7 +30,7 @@ class AzkarBookmarks extends StatelessWidget {
               }
               controller.favouriteTitle
                   .sort((a, b) => a.orderId.compareTo(b.orderId));
-              return ZikrCard(
+              return TitleCard(
                 fehrsTitle: controller.favouriteTitle[index],
                 //controller.alarms
                 dbAlarm: tempAlarm,
