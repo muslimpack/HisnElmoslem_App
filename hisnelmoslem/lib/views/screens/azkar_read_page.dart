@@ -191,7 +191,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                         dbContent: zikrContent[currentPage]));
                               },
                             )),
-                            zikrContent[currentPage].favourite == 0
+                            !zikrContent[currentPage].favourite
                                 ? Expanded(
                                     child: IconButton(
                                         splashRadius: 20,
@@ -201,7 +201,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                         onPressed: () {
                                           setState(() {
                                             zikrContent[currentPage].favourite =
-                                                1;
+                                                true;
                                           });
                                           //
                                           dashboardController
@@ -222,7 +222,7 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
                                         onPressed: () {
                                           setState(() {
                                             zikrContent[currentPage].favourite =
-                                                0;
+                                                false;
                                           });
 
                                           dashboardController

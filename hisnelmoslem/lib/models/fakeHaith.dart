@@ -3,14 +3,14 @@ class DbFakeHaith {
   String text;
   String darga;
   String source;
-  int isRead;
+  bool isRead;
 
   DbFakeHaith({
     this.id = 0,
     this.text = "",
     this.darga = "",
     this.source = "",
-    this.isRead = 0,
+    this.isRead = false,
   });
 
   factory DbFakeHaith.fromMap(Map<String, dynamic> map) {
@@ -19,7 +19,7 @@ class DbFakeHaith {
       source: map['source'],
       text: (map['text'] as String).replaceAll("\\n", "\n"),
       darga: (map['darga'] as String).replaceAll("\\n", "\n"),
-      isRead: map['isRead'],
+      isRead: map['isRead'] == 0 ? false : true,
     );
   }
 
@@ -29,7 +29,7 @@ class DbFakeHaith {
       'text': text,
       'darga': darga,
       'source': source,
-      'isRead': isRead,
+      'isRead': isRead ? 1 : 0,
     };
   }
 

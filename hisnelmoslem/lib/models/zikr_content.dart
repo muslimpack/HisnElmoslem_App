@@ -5,7 +5,7 @@ class DbContent {
   int titleId;
   int orderId;
   int count;
-  int favourite;
+  bool favourite;
   String fadl;
   String source;
 
@@ -18,7 +18,7 @@ class DbContent {
     this.fadl = "",
     this.source = "",
     this.orderId = 0,
-    this.favourite = 0,
+    this.favourite = false,
   });
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
@@ -31,7 +31,7 @@ class DbContent {
       count: map['count'],
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: map['favourite'] ?? 0,
+      favourite: ((map['favourite'] ?? false) == 0 ? true : false),
     );
   }
 
@@ -45,7 +45,7 @@ class DbContent {
       'fadl': fadl,
       'source': source,
       'order_id': orderId,
-      'favourite': favourite,
+      'favourite': favourite ? 1 : 0,
     };
   }
 

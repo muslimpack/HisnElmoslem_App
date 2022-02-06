@@ -192,7 +192,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                           dbContent: zikrContent[index]));
                                 },
                               )),
-                              zikrContent[index].favourite == 0
+                              !zikrContent[index].favourite
                                   ? IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
@@ -200,7 +200,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                           color: bleuShade200),
                                       onPressed: () {
                                         setState(() {
-                                          zikrContent[index].favourite = 1;
+                                          zikrContent[index].favourite = true;
                                         });
                                         dashboardController
                                             .addContentToFavourite(
@@ -215,7 +215,7 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          zikrContent[index].favourite = 0;
+                                          zikrContent[index].favourite = false;
                                         });
                                         dashboardController
                                             .removeContentFromFavourite(

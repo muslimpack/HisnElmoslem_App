@@ -27,7 +27,7 @@ class ZikrCard extends StatelessWidget {
     return GetBuilder<DashboardController>(builder: (controller) {
       DbAlarm tempAlarm = dbAlarm;
       return ListTile(
-        leading: fehrsTitle.favourite == 1
+        leading: fehrsTitle.favourite
             ? IconButton(
                 icon: Icon(
                   Icons.bookmark,
@@ -35,7 +35,7 @@ class ZikrCard extends StatelessWidget {
                 ),
                 onPressed: () {
                   azkarDatabaseHelper.deleteFromFavourite(dbTitle: fehrsTitle);
-                  fehrsTitle.favourite = 0;
+                  fehrsTitle.favourite = false;
                   controller.favouriteTitle
                       .removeWhere((item) => item == fehrsTitle);
                   controller.update();
@@ -45,7 +45,7 @@ class ZikrCard extends StatelessWidget {
                 onPressed: () {
                   //
                   azkarDatabaseHelper.addToFavourite(dbTitle: fehrsTitle);
-                  fehrsTitle.favourite = 1;
+                  fehrsTitle.favourite = true;
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
                   controller.favouriteTitle.add(fehrsTitle);
@@ -73,15 +73,14 @@ class ZikrCard extends StatelessWidget {
                     }
                   });
                 })
-            : tempAlarm.isActive == 1
+            : tempAlarm.isActive
                 ? IconButton(
                     icon: Icon(
                       Icons.alarm,
                       color: MAINCOLOR,
                     ),
                     onPressed: () {
-                      dbAlarm.isActive = 0;
-                      tempAlarm.isActive = 0;
+                      dbAlarm.isActive = tempAlarm.isActive = false;
                       alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
 
                       //
@@ -95,8 +94,7 @@ class ZikrCard extends StatelessWidget {
                       color: redAccent,
                     ),
                     onPressed: () {
-                      dbAlarm.isActive = 1;
-                      tempAlarm.isActive = 1;
+                      dbAlarm.isActive = tempAlarm.isActive = true;
                       alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
 
                       //

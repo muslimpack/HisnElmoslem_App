@@ -83,7 +83,7 @@ class DashboardController extends GetxController {
     /* ***** Get All favoutie content ***** */
     await getFavouriteContent();
 
-    favouriteTitle = allTitle.where((item) => item.favourite == 1).toList();
+    favouriteTitle = allTitle.where((item) => item.favourite = true).toList();
 
     /* ***** Get All Alarms ***** */
     await alarmDatabaseHelper.getAlarms().then((value) {

@@ -6,7 +6,7 @@ class DbAlarm {
   String repeatType;
   int hour;
   int minute;
-  int isActive;
+  bool isActive;
   bool hasAlarmInside;
 
   DbAlarm({
@@ -17,7 +17,7 @@ class DbAlarm {
     this.repeatType = "",
     this.hour = 12,
     this.minute = 30,
-    this.isActive = 0,
+    this.isActive = false,
     this.hasAlarmInside = false,
   });
 
@@ -30,7 +30,7 @@ class DbAlarm {
       repeatType: map['repeatType'],
       hour: map['hour'],
       minute: map['minute'],
-      isActive: map['isActive'],
+      isActive: map['isActive'] == 0 ? false : true,
       hasAlarmInside: true,
     );
   }
@@ -43,7 +43,7 @@ class DbAlarm {
       "repeatType": repeatType,
       "hour": hour,
       "minute": minute,
-      "isActive": isActive,
+      "isActive": isActive ? 1 : 0,
       "titleId": titleId,
     };
   }

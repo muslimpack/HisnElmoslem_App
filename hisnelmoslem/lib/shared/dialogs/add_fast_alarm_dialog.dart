@@ -183,7 +183,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                   hasAlarmInside: true,
                   repeatType: HandleRepeatType()
                       .getNameToPutInDatabase(chosenValue: repeatType),
-                  isActive: 1,
+                  isActive: true,
                 );
 
                 debugPrint("widget.dbAlarm.titleId: " +

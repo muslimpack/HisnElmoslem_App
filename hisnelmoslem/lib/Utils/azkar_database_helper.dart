@@ -160,7 +160,7 @@ class AzkarDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
-    }).where((element) => element.favourite == 1).toList();
+    }).where((element) => element.favourite = true).toList();
   }
 
   // Add content to favourite
@@ -174,7 +174,7 @@ class AzkarDatabaseHelper {
   // Remove Content from favourite
   removeFromFavouriteContent({required DbContent dbContent}) async {
     final Database db = await database;
-    dbContent.favourite = 0;
+    dbContent.favourite = false;
 
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
@@ -202,7 +202,7 @@ class AzkarDatabaseHelper {
   */
   Future<void> addToFavourite({required DbTitle dbTitle}) async {
     final db = await database;
-    dbTitle.favourite = 1;
+    dbTitle.favourite = true;
     await db.update(
       'title',
       dbTitle.toMap(),
@@ -218,7 +218,7 @@ class AzkarDatabaseHelper {
   */
   Future<void> deleteFromFavourite({required DbTitle dbTitle}) async {
     final db = await database;
-    dbTitle.favourite = 0;
+    dbTitle.favourite = false;
 
     await db.update(
       'title',

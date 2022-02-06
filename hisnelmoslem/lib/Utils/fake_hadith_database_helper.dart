@@ -111,7 +111,7 @@ class FakeHadithDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return DbFakeHaith.fromMap(maps[i]);
-    }).where((element) => element.isRead == 1).toList();
+    }).where((element) => element.isRead = true).toList();
   }
 
   // Get unread hadith only
@@ -122,7 +122,7 @@ class FakeHadithDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return DbFakeHaith.fromMap(maps[i]);
-    }).where((element) => element.isRead == 0).toList();
+    }).where((element) => element.isRead = false).toList();
   }
 
   // Mark haduth as read

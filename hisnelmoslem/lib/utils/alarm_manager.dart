@@ -8,7 +8,7 @@ AlarmManager alarmManager = AlarmManager();
 
 class AlarmManager {
   alarmState({required DbAlarm dbAlarm}) {
-    if (dbAlarm.isActive == 1) {
+    if (dbAlarm.isActive) {
       // Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
@@ -102,7 +102,7 @@ class AlarmManager {
           );
           break;
       }
-    } else if (dbAlarm.isActive == 0) {
+    } else if (!dbAlarm.isActive) {
       // Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));

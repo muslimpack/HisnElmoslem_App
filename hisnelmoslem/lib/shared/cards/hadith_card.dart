@@ -30,15 +30,16 @@ class HadithCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        fakeHaith.isRead = fakeHaith.isRead == 1 ? 0 : 1;
+        fakeHaith.isRead = !fakeHaith.isRead;
         //
-        if (fakeHaith.isRead == 1) {
+        if (fakeHaith.isRead) {
           fakeHadithDatabaseHelper.markAsRead(dbFakeHaith: fakeHaith);
         } else {
           fakeHadithDatabaseHelper.markAsUnRead(dbFakeHaith: fakeHaith);
         }
-        dashboardController.fakeHadithList
-            .sort((a, b) => a.isRead.compareTo(b.isRead));
+        //TODO make unread at top of the list
+        // dashboardController.fakeHadithList
+        //     .sort((a, b) => a.isRead.compareTo(b.isRead));
         dashboardController.fakeHadithList.reversed.toList();
         dashboardController.update();
       },
@@ -65,7 +66,7 @@ class HadithCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: fakeHaith.isRead == 0
+                  child: !fakeHaith.isRead
                       ? Icon(
                           Icons.check,
                         )
@@ -146,7 +147,7 @@ class HadithCard extends StatelessWidget {
                 softWrap: true,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                    color: fakeHaith.isRead == 1 ? MAINCOLOR : white,
+                    color: fakeHaith.isRead ? MAINCOLOR : white,
                     fontSize: appSettings.getfontSize() * 10,
                     fontWeight: FontWeight.bold),
               ),

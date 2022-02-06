@@ -51,14 +51,14 @@ class AlarmCard extends StatelessWidget {
               title: Text(dbAlarm.title),
             ),
             activeColor: MAINCOLOR,
-            value: dbAlarm.isActive == 0 ? false : true,
+            value: dbAlarm.isActive,
             onChanged: (value) {
               //Update database
               DbAlarm updateAlarm = dbAlarm;
-              value ? updateAlarm.isActive = 1 : updateAlarm.isActive = 0;
+              updateAlarm.isActive = value;
               alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
               // update view
-              dbAlarm.isActive = value ? 1 : 0;
+              dbAlarm.isActive = value;
               //
               alarmManager.alarmState(dbAlarm: updateAlarm);
               //
