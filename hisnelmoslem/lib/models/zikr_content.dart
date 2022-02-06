@@ -31,7 +31,7 @@ class DbContent {
       count: map['count'],
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: ((map['favourite'] ?? false) == 0 ? true : false),
+      favourite: ((map['favourite'] ?? "0") == "0" ? false : true),
     );
   }
 
@@ -51,18 +51,6 @@ class DbContent {
 
   @override
   String toString() {
-    return '''
-    ///////////////////////////////////
-    ///  '_id': $id,
-    ///  'content': $content,
-    ///  'chapter_id': $chapterId,
-    ///  'title_id': $titleId,
-    ///  'count': $count,
-    ///  'fadl': $fadl,
-    ///  'source': $source,
-    ///  'order_id': $orderId,
-    ///  'favourite': $favourite,
-    ///////////////////////////////////
-    ''';
+    return "'_id': $id |'content': $content | 'chapter_id': $chapterId |'title_id': $titleId |'count': $count |'fadl': $fadl,|'source': $source,|'order_id': $orderId,|'favourite': $favourite";
   }
 }

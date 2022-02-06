@@ -114,8 +114,15 @@ class AzkarDatabaseHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('title');
 
+    debugPrint("Future<List<DbTitle>> getAllTitles()");
+
     return List.generate(maps.length, (i) {
-      return DbTitle.fromMap(maps[i]);
+      DbTitle dbTitle = DbTitle.fromMap(maps[i]);
+
+      debugPrint(dbTitle.toString());
+
+      return dbTitle;
+      // return DbTitle.fromMap(maps[i]);
     });
   }
 
@@ -136,8 +143,12 @@ class AzkarDatabaseHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('contents');
 
+    debugPrint("Future<List<DbContent>> getAllContents()");
     return List.generate(maps.length, (i) {
-      return DbContent.fromMap(maps[i]);
+      DbContent dbContent = DbContent.fromMap(maps[i]);
+      debugPrint(dbContent.favourite.toString());
+      return dbContent;
+      // return DbContent.fromMap(maps[i]);
     });
   }
 
@@ -160,13 +171,13 @@ class AzkarDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
-    }).where((element) => element.favourite = true).toList();
+    }).where((element) => element.favourite).toList();
   }
 
   // Add content to favourite
   addToFavouriteContent({required DbContent dbContent}) async {
     final Database db = await database;
-
+    dbContent.favourite = true;
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [1, dbContent.id]);
   }
@@ -175,7 +186,6 @@ class AzkarDatabaseHelper {
   removeFromFavouriteContent({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = false;
-
     await db.rawUpdate(
         'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
   }
@@ -203,12 +213,9 @@ class AzkarDatabaseHelper {
   Future<void> addToFavourite({required DbTitle dbTitle}) async {
     final db = await database;
     dbTitle.favourite = true;
-    await db.update(
-      'title',
-      dbTitle.toMap(),
-      where: "_id = ?",
-      whereArgs: [dbTitle.id],
-    );
+
+    await db.rawUpdate(
+        'UPDATE title SET favourite = ? WHERE _id = ?', [1, dbTitle.id]);
   }
 
   /*
@@ -220,12 +227,8 @@ class AzkarDatabaseHelper {
     final db = await database;
     dbTitle.favourite = false;
 
-    await db.update(
-      'title',
-      dbTitle.toMap(),
-      where: "_id = ?",
-      whereArgs: [dbTitle.id],
-    );
+    await db.rawUpdate(
+        'UPDATE title SET favourite = ? WHERE _id = ?', [0, dbTitle.id]);
   }
 
   Future close() async {

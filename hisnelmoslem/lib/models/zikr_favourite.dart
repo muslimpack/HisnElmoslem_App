@@ -27,10 +27,6 @@ class DbFavourite {
 
   @override
   String toString() {
-    return '''
-      '_id': $id,
-      'content_id': $contentId,
-      'order_id': $orderId,
-    ''';
+    return ''''_id': $id |'content_id': $contentId |'order_id': $orderId''';
   }
 }

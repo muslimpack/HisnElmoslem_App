@@ -40,4 +40,23 @@ class FakeHadithController extends GetxController {
     isLoading = false;
     update();
   }
+
+  //
+  toggleReadState({required DbFakeHaith fakeHaith}) {
+    fakeHaith.isRead = !fakeHaith.isRead;
+    if (fakeHaith.isRead) {
+      fakeHadithDatabaseHelper.markAsRead(dbFakeHaith: fakeHaith);
+    } else {
+      fakeHadithDatabaseHelper.markAsUnRead(dbFakeHaith: fakeHaith);
+    }
+
+    fakeHadithList.sort((a, b) {
+      if (b.isRead) {
+        return -1;
+      }
+      return 1;
+    });
+
+    update();
+  }
 }

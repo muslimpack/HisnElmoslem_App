@@ -380,91 +380,89 @@ class _AzkarReadPageState extends State<AzkarReadPage> {
             ),
             bottomNavigationBar: BottomAppBar(
               //elevation: 20,
-              color: Theme.of(context).primaryColor,
-              child: Container(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(Icons.copy, color: bleuShade200),
-                          onPressed: () {
-                            FlutterClipboard.copy(text! + "\n" + fadl!)
-                                .then((result) {
-                              final snackBar = SnackBar(
-                                content: Text('تم النسخ إلى الحافظة'),
-                                action: SnackBarAction(
-                                  label: 'تم',
-                                  onPressed: () {},
-                                ),
-                              );
+              // color: Theme.of(context).primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                        splashRadius: 20,
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(Icons.copy, color: bleuShade200),
+                        onPressed: () {
+                          FlutterClipboard.copy(text! + "\n" + fadl!)
+                              .then((result) {
+                            final snackBar = SnackBar(
+                              content: Text('تم النسخ إلى الحافظة'),
+                              action: SnackBarAction(
+                                label: 'تم',
+                                onPressed: () {},
+                              ),
+                            );
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            });
-                          }),
-                    ),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeIncrease),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.setfontSize(
-                                    appSettings.getfontSize() + 0.3);
-                              });
-                            })),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeDecrease),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.setfontSize(
-                                    appSettings.getfontSize() - 0.3);
-                              });
-                            })),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.abjadArabic),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.toggleTashkelStatus();
-                              });
-                            })),
-                    Expanded(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          });
+                        }),
+                  ),
+                  Expanded(
                       flex: 1,
                       child: IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(Icons.report, color: orange),
+                          icon: Icon(MdiIcons.formatFontSizeIncrease),
                           onPressed: () {
-                            sendEmail(
-                                toMailId: 'hassaneltantawy@gmail.com',
-                                subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-                                body:
-                                    ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
-                                        '\n' +
-                                        'الموضوع: ' +
-                                        zikrTitle!.name +
-                                        '\n' +
-                                        'الذكر رقم: ' +
-                                        '$cardnum' +
-                                        '\n' +
-                                        'النص: ' +
-                                        '$text' +
-                                        '\n' +
-                                        'والصواب:' +
-                                        '\n');
-                          }),
-                    ),
-                  ],
-                ),
+                            setState(() {
+                              appSettings
+                                  .setfontSize(appSettings.getfontSize() + 0.3);
+                            });
+                          })),
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(MdiIcons.formatFontSizeDecrease),
+                          onPressed: () {
+                            setState(() {
+                              appSettings
+                                  .setfontSize(appSettings.getfontSize() - 0.3);
+                            });
+                          })),
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(MdiIcons.abjadArabic),
+                          onPressed: () {
+                            setState(() {
+                              appSettings.toggleTashkelStatus();
+                            });
+                          })),
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                        splashRadius: 20,
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(Icons.report, color: orange),
+                        onPressed: () {
+                          sendEmail(
+                              toMailId: 'hassaneltantawy@gmail.com',
+                              subject: 'تطبيق حصن المسلم: خطأ إملائي ',
+                              body:
+                                  ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
+                                      '\n' +
+                                      'الموضوع: ' +
+                                      zikrTitle!.name +
+                                      '\n' +
+                                      'الذكر رقم: ' +
+                                      '$cardnum' +
+                                      '\n' +
+                                      'النص: ' +
+                                      '$text' +
+                                      '\n' +
+                                      'والصواب:' +
+                                      '\n');
+                        }),
+                  ),
+                ],
               ),
             ),
           );

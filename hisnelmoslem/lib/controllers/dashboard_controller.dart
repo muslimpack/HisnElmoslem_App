@@ -83,7 +83,7 @@ class DashboardController extends GetxController {
     /* ***** Get All favoutie content ***** */
     await getFavouriteContent();
 
-    favouriteTitle = allTitle.where((item) => item.favourite = true).toList();
+    favouriteTitle = allTitle.where((item) => item.favourite).toList();
 
     /* ***** Get All Alarms ***** */
     await alarmDatabaseHelper.getAlarms().then((value) {
@@ -170,7 +170,7 @@ class DashboardController extends GetxController {
   //
   addContentToFavourite(DbContent dbContent) async {
     //
-    azkarDatabaseHelper.addToFavouriteContent(dbContent: dbContent);
+    await azkarDatabaseHelper.addToFavouriteContent(dbContent: dbContent);
     //
     await getFavouriteContent();
     //
@@ -180,7 +180,7 @@ class DashboardController extends GetxController {
   //
   removeContentFromFavourite(DbContent dbContent) async {
     //
-    azkarDatabaseHelper.removeFromFavouriteContent(dbContent: dbContent);
+    await azkarDatabaseHelper.removeFromFavouriteContent(dbContent: dbContent);
     //
     await getFavouriteContent();
     //

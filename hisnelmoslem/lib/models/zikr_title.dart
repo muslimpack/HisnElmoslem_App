@@ -19,7 +19,8 @@ class DbTitle {
       name: map['name'],
       chapterId: map['chapter_id'],
       orderId: map['order_id'],
-      favourite: map['favourite'] == 0 ? false : true,
+      // favourite: false,
+      favourite: (map['favourite'] ?? 0) == 0 ? false : true,
     );
   }
 
@@ -36,11 +37,7 @@ class DbTitle {
   @override
   String toString() {
     return '''
-      '_id': $id,
-      'name': $name,
-      'chapter_id': $chapterId,
-      'order_id': $orderId,
-      'favourite': $favourite,
+      '_id': $id |'name': $name |'chapter_id': $chapterId |'order_id': $orderId |'favourite': $favourite,
     ''';
   }
 }

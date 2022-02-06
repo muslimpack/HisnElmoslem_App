@@ -23,6 +23,8 @@ class ShareAsImageController extends GetxController {
   Color appNameColor = blue;
   //
   bool bInvert = false;
+  bool showFadl = true;
+  bool showSource = true;
   //
   final ScreenshotController screenshotController = ScreenshotController();
   //
@@ -85,5 +87,17 @@ class ShareAsImageController extends GetxController {
     file.writeAsBytesSync(imageFile!);
     //
     Share.shareFiles([file.path], text: "بواسطة تطبيق حصن السلم");
+  }
+
+  //
+  toggleShowFadl({required bool value}) {
+    showFadl = value;
+    update();
+  }
+
+  //
+  toggleShowSource({required bool value}) {
+    showSource = value;
+    update();
   }
 }

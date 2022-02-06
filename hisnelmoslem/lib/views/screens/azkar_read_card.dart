@@ -177,153 +177,166 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
 
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
+                      child: Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: IconButton(
+                                  splashRadius: 20,
+                                  icon: Icon(MdiIcons.camera),
+                                  onPressed: () {
+                                    transitionAnimation.circleReval(
+                                        context: Get.context!,
+                                        goToPage: ShareAsImage(
+                                            dbContent: zikrContent[index]));
+                                  },
+                                )),
+                                !zikrContent[index].favourite
+                                    ? IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Icon(Icons.favorite_border,
+                                            color: bleuShade200),
+                                        onPressed: () {
+                                          setState(() {
+                                            zikrContent[index].favourite = true;
+                                          });
+                                          dashboardController
+                                              .addContentToFavourite(
+                                                  zikrContent[index]);
+                                        })
+                                    : IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Icon(
+                                          Icons.favorite,
+                                          color: bleuShade200,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            zikrContent[index].favourite =
+                                                false;
+                                          });
+                                          dashboardController
+                                              .removeContentFromFavourite(
+                                                  zikrContent[index]);
+                                        }),
+                                Expanded(
+                                  flex: 1,
                                   child: IconButton(
-                                splashRadius: 20,
-                                icon: Icon(MdiIcons.camera),
-                                onPressed: () {
-                                  transitionAnimation.circleReval(
-                                      context: Get.context!,
-                                      goToPage: ShareAsImage(
-                                          dbContent: zikrContent[index]));
-                                },
-                              )),
-                              !zikrContent[index].favourite
-                                  ? IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.favorite_border,
+                                      icon:
+                                          Icon(Icons.copy, color: bleuShade200),
+                                      onPressed: () {
+                                        FlutterClipboard.copy(
+                                                text + "\n" + fadl)
+                                            .then((result) {
+                                          final snackBar = SnackBar(
+                                            content:
+                                                Text('تم النسخ إلى الحافظة'),
+                                            action: SnackBarAction(
+                                              label: 'تم',
+                                              onPressed: () {},
+                                            ),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        });
+                                      }),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.all(0),
+                                      icon: Icon(Icons.share,
                                           color: bleuShade200),
                                       onPressed: () {
-                                        setState(() {
-                                          zikrContent[index].favourite = true;
-                                        });
-                                        dashboardController
-                                            .addContentToFavourite(
-                                                zikrContent[index]);
-                                      })
-                                  : IconButton(
+                                        Share.share(text + "\n" + fadl);
+                                      }),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: bleuShade200,
-                                      ),
+                                      icon: Icon(Icons.report, color: orange),
                                       onPressed: () {
-                                        setState(() {
-                                          zikrContent[index].favourite = false;
-                                        });
-                                        dashboardController
-                                            .removeContentFromFavourite(
-                                                zikrContent[index]);
+                                        sendEmail(
+                                            toMailId:
+                                                'hassaneltantawy@gmail.com',
+                                            subject:
+                                                'تطبيق حصن المسلم: خطأ إملائي ',
+                                            body:
+                                                ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
+                                                    '\n' +
+                                                    'الموضوع: ' +
+                                                    zikrTitle!.name +
+                                                    '\n' +
+                                                    'الذكر رقم: ' +
+                                                    '$cardnum' +
+                                                    '\n' +
+                                                    'النص: ' +
+                                                    '$text' +
+                                                    '\n' +
+                                                    'والصواب:' +
+                                                    '\n');
                                       }),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    splashRadius: 20,
-                                    padding: EdgeInsets.all(0),
-                                    icon: Icon(Icons.copy, color: bleuShade200),
-                                    onPressed: () {
-                                      FlutterClipboard.copy(text + "\n" + fadl)
-                                          .then((result) {
-                                        final snackBar = SnackBar(
-                                          content: Text('تم النسخ إلى الحافظة'),
-                                          action: SnackBarAction(
-                                            label: 'تم',
-                                            onPressed: () {},
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      });
-                                    }),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    splashRadius: 20,
-                                    padding: EdgeInsets.all(0),
-                                    icon:
-                                        Icon(Icons.share, color: bleuShade200),
-                                    onPressed: () {
-                                      Share.share(text + "\n" + fadl);
-                                    }),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    splashRadius: 20,
-                                    padding: EdgeInsets.all(0),
-                                    icon: Icon(Icons.report, color: orange),
-                                    onPressed: () {
-                                      sendEmail(
-                                          toMailId: 'hassaneltantawy@gmail.com',
-                                          subject:
-                                              'تطبيق حصن المسلم: خطأ إملائي ',
-                                          body:
-                                              ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
-                                                  '\n' +
-                                                  'الموضوع: ' +
-                                                  zikrTitle!.name +
-                                                  '\n' +
-                                                  'الذكر رقم: ' +
-                                                  '$cardnum' +
-                                                  '\n' +
-                                                  'النص: ' +
-                                                  '$text' +
-                                                  '\n' +
-                                                  'والصواب:' +
-                                                  '\n');
-                                    }),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
-                            child: Text(
-                              text,
-                              textAlign: TextAlign.center,
-                              softWrap: true,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                  fontSize: appSettings.getfontSize() * 10,
-                                  color: zikrContent[index].count == 0
-                                      ? MAINCOLOR
-                                      : white,
-                                  //fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                            child: Text(
-                              zikrContent[index].fadl,
-                              textAlign: TextAlign.center,
-                              textDirection: TextDirection.rtl,
-                              softWrap: true,
-                              style: TextStyle(
-                                  fontSize: appSettings.getfontSize() * 10,
-                                  color: MAINCOLOR,
-                                  //fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: CircleAvatar(
-                              backgroundColor: Theme.of(context).primaryColor,
+                            Divider(),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                               child: Text(
-                                zikrContent[index].count.toString(),
-                                style: TextStyle(color: MAINCOLOR),
+                                text,
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                    fontSize: appSettings.getfontSize() * 10,
+                                    color: zikrContent[index].count == 0
+                                        ? MAINCOLOR
+                                        : white,
+                                    //fontSize: 20,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ),
-                          Divider(),
-                        ],
+                            zikrContent[index].fadl == ""
+                                ? SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 10, 10, 20),
+                                    child: Text(
+                                      zikrContent[index].fadl,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontSize:
+                                              appSettings.getfontSize() * 10,
+                                          color: MAINCOLOR,
+                                          //fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                            Divider(),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: CircleAvatar(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                child: Text(
+                                  zikrContent[index].count.toString(),
+                                  style: TextStyle(color: MAINCOLOR),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -333,42 +346,39 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
             bottomNavigationBar: BottomAppBar(
               //elevation: 20,
               color: Theme.of(context).primaryColor,
-              child: Container(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeIncrease),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.setfontSize(
-                                    appSettings.getfontSize() + 0.3);
-                              });
-                            })),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeDecrease),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.setfontSize(
-                                    appSettings.getfontSize() - 0.3);
-                              });
-                            })),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.abjadArabic),
-                            onPressed: () {
-                              setState(() {
-                                appSettings.toggleTashkelStatus();
-                              });
-                            })),
-                  ],
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(MdiIcons.formatFontSizeIncrease),
+                          onPressed: () {
+                            setState(() {
+                              appSettings
+                                  .setfontSize(appSettings.getfontSize() + 0.3);
+                            });
+                          })),
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(MdiIcons.formatFontSizeDecrease),
+                          onPressed: () {
+                            setState(() {
+                              appSettings
+                                  .setfontSize(appSettings.getfontSize() - 0.3);
+                            });
+                          })),
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(MdiIcons.abjadArabic),
+                          onPressed: () {
+                            setState(() {
+                              appSettings.toggleTashkelStatus();
+                            });
+                          })),
+                ],
               ),
             ),
           );

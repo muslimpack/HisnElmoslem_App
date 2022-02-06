@@ -19,7 +19,7 @@ class DbFakeHaith {
       source: map['source'],
       text: (map['text'] as String).replaceAll("\\n", "\n"),
       darga: (map['darga'] as String).replaceAll("\\n", "\n"),
-      isRead: map['isRead'] == 0 ? false : true,
+      isRead: (map['isRead'] ?? 0) == 0 ? false : true,
     );
   }
 

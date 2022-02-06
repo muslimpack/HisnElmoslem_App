@@ -53,7 +53,7 @@ class ShareAsImage extends StatelessWidget {
                   transformationController: controller.transformationController,
                   minScale: 0.25,
                   maxScale: 3,
-                  clipBehavior: Clip.antiAlias,
+                  // clipBehavior: Clip.antiAlias,
                   boundaryMargin: EdgeInsets.all(500),
                   panEnabled: true,
                   child: Screenshot(
@@ -61,6 +61,31 @@ class ShareAsImage extends StatelessWidget {
                     child: ImageBuilder(dbContent: dbContent),
                   )),
             ),
+            bottomSheet: BottomAppBar(
+                child: Container(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: SwitchListTile(
+                        title: Text("الفضل"),
+                        value: controller.showFadl,
+                        onChanged: (value) {
+                          controller.toggleShowFadl(value: value);
+                        }),
+                  ),
+                  SizedBox(height: 40, child: VerticalDivider()),
+                  Expanded(
+                    child: SwitchListTile(
+                        title: Text("المصدر"),
+                        value: controller.showSource,
+                        onChanged: (value) {
+                          controller.toggleShowSource(value: value);
+                        }),
+                  ),
+                ],
+              ),
+            )),
           );
         });
   }
@@ -79,7 +104,7 @@ class ImageBuilder extends StatelessWidget {
     return GetBuilder<ShareAsImageController>(builder: (controller) {
       return Center(
         child: Container(
-          width: 1000,
+          width: 1080,
           child: Card(
             margin: EdgeInsets.zero,
             color: controller.backgroundColor,
@@ -128,7 +153,7 @@ class ImageBuilder extends StatelessWidget {
                 ),
                 // Fadl
                 Visibility(
-                  visible: !(dbContent.fadl == ""),
+                  visible: !(dbContent.fadl == "") && controller.showFadl,
                   child: Container(
                     constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
                     child: Column(
@@ -154,9 +179,9 @@ class ImageBuilder extends StatelessWidget {
                 ),
                 // Source
                 Visibility(
-                  visible: !(dbContent.source == ""),
+                  visible: !(dbContent.source == "") && controller.showSource,
                   child: Container(
-                    constraints: BoxConstraints(minHeight: 50, maxHeight: 150),
+                    constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,

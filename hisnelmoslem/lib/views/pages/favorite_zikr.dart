@@ -63,10 +63,10 @@ class FavouriteZikr extends StatelessWidget {
                         IconButton(
                             splashRadius: 20,
                             padding: EdgeInsets.all(0),
-                            icon: !dbContent.favourite
-                                ? Icon(Icons.favorite_border,
-                                    color: bleuShade200)
-                                : Icon(Icons.favorite, color: bleuShade200),
+                            icon: dbContent.favourite
+                                ? Icon(Icons.favorite, color: bleuShade200)
+                                : Icon(Icons.favorite_border,
+                                    color: bleuShade200),
                             onPressed: () {
                               controller.removeContentFromFavourite(dbContent);
                             }),
@@ -191,6 +191,7 @@ class FavouriteZikr extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Divider(),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ListTile(
