@@ -37,7 +37,6 @@ class DbAlarm {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      "id": id,
       "title": title,
       "body": body,
       "repeatType": repeatType,
