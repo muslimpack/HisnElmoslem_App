@@ -17,6 +17,7 @@ class _AppUpdateNewsState extends State<AppUpdateNews> {
 - اضافة ذكر إلى المفضلة
 - تعديل واجهة قراءة الأذكار في وضع الصفحات
 - تعيين الحديث كمقروء
+- التطبيق في الوضع الرأسي دائما
 - اصلاح الألوان الساطعة في صفحة المنبهات
 - اصلاح النمط لبعض النصوص
 - اضافة مؤشر كلي لتقدمك في الذكر لوضع البطاقة
@@ -116,6 +117,7 @@ Dev side
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text("جديد التحديثات"),
         centerTitle: true,
       ),
@@ -124,10 +126,11 @@ Dev side
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
           color: black26,
-          child: ListView.builder(
+          child: ListView.separated(
             itemCount: updateNewFeature.length,
             itemBuilder: (context, index) {
               return ListTile(
+
                 leading: Icon(
                   Icons.arrow_circle_up,
                   color: index == 0 ? MAINCOLOR : white,
@@ -138,7 +141,9 @@ Dev side
                 subtitle: Text(updateNewFeature[index][1]),
                 onTap: () {},
               );
-            },
+            },separatorBuilder: (context,index){
+              return Divider();
+          },
           ),
         ),
       ),

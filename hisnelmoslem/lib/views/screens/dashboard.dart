@@ -63,7 +63,7 @@ class AzkarDashboard extends StatelessWidget {
                                 onLongPress: () {
                                   transitionAnimation.fromBottom2Top(
                                       context: context,
-                                      goToPage: QuranReadPage());
+                                      goToPage:const QuranReadPage());
                                 },
                                 onTap: () {
                                   transitionAnimation.fromBottom2Top(

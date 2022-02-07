@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
-import 'package:hisnelmoslem/shared/cards/zikr_card.dart';
+import 'package:hisnelmoslem/shared/cards/title_card.dart';
 
 class AzkarFehrs extends StatelessWidget {
   const AzkarFehrs({
