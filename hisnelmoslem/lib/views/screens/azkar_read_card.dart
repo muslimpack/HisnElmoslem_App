@@ -14,23 +14,19 @@ import 'package:share/share.dart';
 import '../../controllers/azkar_read_card_controller.dart';
 import 'share_as_image.dart';
 
-class AzkarReadCard extends StatefulWidget {
+class AzkarReadCard extends StatelessWidget {
   final int index;
 
-  const AzkarReadCard({required this.index});
+  AzkarReadCard({required this.index});
 
-  @override
-  _AzkarReadCardState createState() => _AzkarReadCardState();
-}
-
-class _AzkarReadCardState extends State<AzkarReadCard> {
-  DashboardController dashboardController = Get.put(DashboardController());
+  static DashboardController dashboardController =
+      Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsNotifier>(context);
     return GetBuilder<AzkarReadCardController>(
-        init: AzkarReadCardController(index: widget.index),
+        init: AzkarReadCardController(index: index),
         builder: (controller) {
           return controller.isLoading!
               ? Loading()
@@ -92,10 +88,8 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                               if (_counter > 0) {
                                 _counter--;
 
-                                setState(() {
-                                  controller.zikrContent[index].count =
-                                      (_counter);
-                                });
+                                controller.zikrContent[index].count =
+                                    (_counter);
 
                                 if (_counter == 0) {
                                   HapticFeedback.vibrate();
@@ -160,10 +154,9 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                               icon: Icon(Icons.favorite_border,
                                                   color: bleuShade200),
                                               onPressed: () {
-                                                setState(() {
-                                                  controller.zikrContent[index]
-                                                      .favourite = true;
-                                                });
+                                                controller.zikrContent[index]
+                                                    .favourite = true;
+                                                controller.update();
                                                 dashboardController
                                                     .addContentToFavourite(
                                                         controller.zikrContent[
@@ -177,10 +170,9 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                                                 color: bleuShade200,
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  controller.zikrContent[index]
-                                                      .favourite = false;
-                                                });
+                                                controller.zikrContent[index]
+                                                    .favourite = false;
+                                                controller.update();
                                                 dashboardController
                                                     .removeContentFromFavourite(
                                                         controller.zikrContent[
@@ -325,29 +317,26 @@ class _AzkarReadCardState extends State<AzkarReadCard> {
                             child: IconButton(
                                 icon: Icon(MdiIcons.formatFontSizeIncrease),
                                 onPressed: () {
-                                  setState(() {
-                                    appSettings.setfontSize(
-                                        appSettings.getfontSize() + 0.3);
-                                  });
+                                  appSettings.setfontSize(
+                                      appSettings.getfontSize() + 0.3);
+                                  controller.update();
                                 })),
                         Expanded(
                             flex: 1,
                             child: IconButton(
                                 icon: Icon(MdiIcons.formatFontSizeDecrease),
                                 onPressed: () {
-                                  setState(() {
-                                    appSettings.setfontSize(
-                                        appSettings.getfontSize() - 0.3);
-                                  });
+                                  appSettings.setfontSize(
+                                      appSettings.getfontSize() - 0.3);
+                                  controller.update();
                                 })),
                         Expanded(
                             flex: 1,
                             child: IconButton(
                                 icon: Icon(MdiIcons.abjadArabic),
                                 onPressed: () {
-                                  setState(() {
-                                    appSettings.toggleTashkelStatus();
-                                  });
+                                  appSettings.toggleTashkelStatus();
+                                  controller.update();
                                 })),
                       ],
                     ),
