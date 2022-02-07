@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
+import '../constants/constant.dart';
 
 class Loading extends StatelessWidget {
   @override

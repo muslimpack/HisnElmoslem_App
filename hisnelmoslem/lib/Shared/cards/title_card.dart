@@ -13,7 +13,7 @@ import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
 import 'package:provider/provider.dart';
 
-import '../constant.dart';
+import '../constants/constant.dart';
 
 class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;

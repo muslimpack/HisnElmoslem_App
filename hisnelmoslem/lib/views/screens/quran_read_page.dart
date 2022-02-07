@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 
 import '../../controllers/quran_controller.dart';
 

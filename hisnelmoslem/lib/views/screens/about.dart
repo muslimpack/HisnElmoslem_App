@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class About extends StatefulWidget {
-  @override
-  _AboutState createState() => _AboutState();
-}
+class About extends StatelessWidget {
 
-class _AboutState extends State<About> {
+  const About({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

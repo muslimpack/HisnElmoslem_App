@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
-import '../constant.dart';
+import '../constants/constant.dart';
 import '../functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {

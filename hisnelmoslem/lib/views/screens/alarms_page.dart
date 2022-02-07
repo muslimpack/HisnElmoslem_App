@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 
 class AlarmsPages extends StatelessWidget {
   const AlarmsPages({Key? key}) : super(key: key);

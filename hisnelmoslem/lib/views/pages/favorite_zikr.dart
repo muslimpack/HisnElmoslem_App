@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/providers/app_settings.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 

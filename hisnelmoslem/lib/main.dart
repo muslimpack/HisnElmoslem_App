@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:provider/provider.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'providers/app_settings.dart';
-import 'shared/constant.dart';
+import 'shared/constants/constant.dart';
 import 'utils/notification_manager.dart';
 import 'views/screens/dashboard.dart';
 

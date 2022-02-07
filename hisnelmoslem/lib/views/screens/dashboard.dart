@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/views/pages/bookmarks.dart';
 import 'package:hisnelmoslem/views/pages/favorite_zikr.dart';

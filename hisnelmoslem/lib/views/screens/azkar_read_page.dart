@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
-import 'package:hisnelmoslem/shared/constant.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';

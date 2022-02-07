@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
-import '../constant.dart';
+import '../constants/constant.dart';
 
 Future<DbAlarm> showFastAddAlarmDialog(
     {required BuildContext context, required DbAlarm dbAlarm}) async {
