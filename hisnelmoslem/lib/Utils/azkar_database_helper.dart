@@ -9,8 +9,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
-import '../models/zikr_favourite.dart';
-
 AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
 
 class AzkarDatabaseHelper {
@@ -64,22 +62,22 @@ class AzkarDatabaseHelper {
     );
   }
 
-  // On create database
+  /// On create database
   _onCreateDatabase(Database db, int version) async {
     //
   }
 
-  // On upgrade database version
+  /// On upgrade database version
   _onUpgradeDatabase(Database db, int oldVersion, int newVersion) {
     //
   }
 
-  // On downgrade database version
+  /// On downgrade database version
   _onDowngradeDatabase(Database db, int oldVersion, int newVersion) {
     //
   }
 
-  // Copy database from assets to Database Direcorty of app
+  /// Copy database from assets to Database Direcorty of app
   _copyFromAssets({required String path}) async {
     //
     try {
@@ -97,7 +95,11 @@ class AzkarDatabaseHelper {
 
   /* ************* Functions ************* */
 
-  // Get all chapters from database
+  /**
+   * Chapters Operations
+   */
+
+  /// Get all chapters from database
   Future<List<DbChapter>> getAllChapters() async {
     final Database db = await database;
 
@@ -108,124 +110,172 @@ class AzkarDatabaseHelper {
     });
   }
 
-  // Get all titles
+  /**
+   * Titles Operations
+   */
+
+  /// Get all titles
   Future<List<DbTitle>> getAllTitles() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('title');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+        titles._id,titles.name,titles.chapter_id
+        ,titles.order_id,favourite_titles.favourite
+        FROM titles
+        INNER JOIN favourite_titles
+        on favourite_titles.title_id = titles.order_id
+        ''',
+    );
 
     return List.generate(maps.length, (i) {
-      DbTitle dbTitle = DbTitle.fromMap(maps[i]);
-
-      return dbTitle;
-      // return DbTitle.fromMap(maps[i]);
+      return DbTitle.fromMap(maps[i]);
     });
   }
 
-  // Get title by index
+  /// Get all favourite titles
+  Future<List<DbTitle>> getAllFavoriteTitles() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+        titles._id,titles.name,titles.chapter_id
+        ,titles.order_id,favourite_titles.favourite
+        FROM titles
+        INNER JOIN favourite_titles
+        on favourite_titles.title_id = titles.order_id WHERE favourite = 1
+        ''',
+    );
+
+    return List.generate(maps.length, (i) {
+      return DbTitle.fromMap(maps[i]);
+    });
+  }
+
+  /// Get title by index
   Future<DbTitle> getTitleById({required int? id}) async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('title');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+          titles._id,titles.name,titles.chapter_id
+          ,titles.order_id,favourite_titles.favourite
+          FROM titles
+          INNER JOIN favourite_titles
+          on favourite_titles.title_id = titles.order_id 
+          WHERE order_id = ?
+          ''',
+      [id],
+    );
 
     return List.generate(maps.length, (i) {
       return DbTitle.fromMap(maps[i]);
     }).where((element) => element.id == id).first;
   }
 
-  // Get all contents
+  /// Add title to favourite
+  Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
+    final db = await database;
+    dbTitle.favourite = true;
+
+    await db.rawUpdate(
+        'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
+        [1, dbTitle.id]);
+  }
+
+  /// Remove title from favourite
+  Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
+    final db = await database;
+    dbTitle.favourite = false;
+
+    await db.rawUpdate(
+        'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
+        [0, dbTitle.id]);
+  }
+
+  /**
+   * Contents Operations
+   */
+
+  /// Get all contents
   Future<List<DbContent>> getAllContents() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('contents');
-
-    debugPrint("Future<List<DbContent>> getAllContents()");
-    return List.generate(maps.length, (i) {
-      DbContent dbContent = DbContent.fromMap(maps[i]);
-      debugPrint(dbContent.favourite.toString());
-      return dbContent;
-      // return DbContent.fromMap(maps[i]);
-    });
-  }
-
-  // Get content by title index
-  Future<List<DbContent>> getContentsByTitleId({required int? titleId}) async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.query('contents');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+        contents._id ,contents.content ,contents.chapter_id 
+        ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
+        ,contents.source ,favourite_contents.favourite
+        FROM contents
+        INNER JOIN favourite_contents
+        on favourite_contents.content_id = contents.order_id
+        ''',
+    );
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
-    }).where((element) => element.titleId == titleId).toList();
+    });
   }
 
-  // Get favourite content
-  Future<List<DbContent>> getFavouriteContent() async {
+  /// Get content by title index
+  Future<List<DbContent>> getContentsByTitleId({required int? titleId}) async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('contents');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+          contents._id ,contents.content ,contents.chapter_id 
+          ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
+          ,contents.source ,favourite_contents.favourite
+          FROM contents
+          INNER JOIN favourite_contents
+          on favourite_contents.content_id = contents._id 
+          WHERE title_id = ?
+          ''',
+      [titleId],
+    );
+
+    return List.generate(maps.length, (i) {
+      return DbContent.fromMap(maps[i]);
+    });
+  }
+
+  /// Get favourite content
+  Future<List<DbContent>> getFavouriteContents() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT 
+          contents._id ,contents.content ,contents.chapter_id 
+          ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
+          ,contents.source ,favourite_contents.favourite
+          FROM contents
+          INNER JOIN favourite_contents
+          on favourite_contents.content_id = contents._id 
+          WHERE favourite = 1''',
+    );
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
     }).where((element) => element.favourite).toList();
   }
 
-  // Add content to favourite
-  addToFavouriteContent({required DbContent dbContent}) async {
+  /// Add content to favourite
+  addContentToFavourite({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = true;
     await db.rawUpdate(
-        'UPDATE contents SET favourite = ? WHERE _id = ?', [1, dbContent.id]);
+        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+        [1, dbContent.id]);
   }
 
-  // Remove Content from favourite
-  removeFromFavouriteContent({required DbContent dbContent}) async {
+  /// Remove Content from favourite
+  removeContentFromFavourite({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = false;
 
     await db.rawUpdate(
-        'UPDATE contents SET favourite = ? WHERE _id = ?', [0, dbContent.id]);
-  }
-
-  /*
-  Get favourite titles
-  It supposed to be the correct way to get title to favourite
-  but not implemented yet
-  */
-  Future<List<DbFavourite>> getFavourite() async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.query('favourite');
-
-    return List.generate(maps.length, (i) {
-      return DbFavourite.fromMap(maps[i]);
-    });
-  }
-
-  /* 
-  Add title to favourite
-  It supposed to be the correct way to add title to favourite
-  but not implemented yet 
-  */
-  Future<void> addToFavourite({required DbTitle dbTitle}) async {
-    final db = await database;
-    dbTitle.favourite = true;
-
-    await db.rawUpdate(
-        'UPDATE title SET favourite = ? WHERE _id = ?', [1, dbTitle.id]);
-  }
-
-  /*
-  Remove title from favourite by id
-  It supposed to be the correct way to remove title to favourite
-  but not implemented yet
-  */
-  Future<void> deleteFromFavourite({required DbTitle dbTitle}) async {
-    final db = await database;
-    dbTitle.favourite = false;
-
-    await db.rawUpdate(
-        'UPDATE title SET favourite = ? WHERE _id = ?', [0, dbTitle.id]);
+        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+        [0, dbContent.id]);
   }
 
   Future close() async {

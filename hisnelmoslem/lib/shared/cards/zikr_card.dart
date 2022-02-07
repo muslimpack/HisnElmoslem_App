@@ -34,7 +34,7 @@ class TitleCard extends StatelessWidget {
                   color: bleuShade200,
                 ),
                 onPressed: () {
-                  azkarDatabaseHelper.deleteFromFavourite(dbTitle: fehrsTitle);
+                  azkarDatabaseHelper.deleteTitleFromFavourite(dbTitle: fehrsTitle);
                   fehrsTitle.favourite = false;
                   controller.favouriteTitle
                       .removeWhere((item) => item == fehrsTitle);
@@ -44,7 +44,7 @@ class TitleCard extends StatelessWidget {
                 icon: Icon(Icons.bookmark_border_outlined),
                 onPressed: () {
                   //
-                  azkarDatabaseHelper.addToFavourite(dbTitle: fehrsTitle);
+                  azkarDatabaseHelper.addTitleToFavourite(dbTitle: fehrsTitle);
                   fehrsTitle.favourite = true;
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
