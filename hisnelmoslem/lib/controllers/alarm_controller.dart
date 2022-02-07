@@ -28,7 +28,7 @@ class AlarmsPageController extends GetxController {
   }
 
   /* *************** Functions *************** */
-  //
+  ///
   getAllListsReady() async {
     alarms = <DbAlarm>[];
 

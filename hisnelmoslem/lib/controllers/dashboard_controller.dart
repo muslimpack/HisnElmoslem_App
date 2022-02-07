@@ -97,7 +97,6 @@ class DashboardController extends GetxController {
 
     /**  
       * Update isLoading to start show views and widgets
-      * Update() is like SetState() in statefulWidget
       */
     isLoading = false;
     update();

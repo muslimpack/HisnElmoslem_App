@@ -39,9 +39,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
 
-
-  runApp(MyApp(
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {

@@ -8,7 +8,7 @@ class AppUpdateNews extends StatelessWidget {
   const AppUpdateNews({
     Key? key,
   }) : super(key: key);
-  
+
 
   @override
   Widget build(BuildContext context) {
