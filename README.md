@@ -1,12 +1,24 @@
-[![version](https://img.shields.io/badge/version-1.3.0-yellow.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+<div align="center">
 
-<p align="Left">
-  <img src="https://user-images.githubusercontent.com/50374022/146823940-a0949157-9c06-4457-9c79-69176fe7788e.png" width="150" >
-</p>
+<img src="https://user-images.githubusercontent.com/50374022/146823940-a0949157-9c06-4457-9c79-69176fe7788e.png" alt='HisnElmoslem logo'/>
+	
+
 
 # تطبيق حصن المسلم
+[![version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+[![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
-يمكنك تعديل واعادة بناء ونشر التطبيق أنى شئت وبدون قيود فقط حافظ على وجود بريدي لتصلني الأخطاء الإملائية لأصوبها
+يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
+	
+
+[<img src="https://user-images.githubusercontent.com/50374022/152713461-d367ec7a-687b-40ca-a881-30e49d69821c.png"
+      alt='Get it on Google Play'
+      height="80">](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
+[<img src="https://user-images.githubusercontent.com/50374022/152713265-c54cec69-9583-4ecd-bc7c-35b227c4a8cf.png"
+      alt='Get it on AppGallery'
+      height="80">](https://appgallery.huawei.com/app/C105465105)
+	
+
 
 ```
 قال رسول الله صلى الله عليه وسلم
@@ -29,11 +41,6 @@
 
 - open pubspec.yaml and hit git pub
 
-# لتحميل التطبيق
-
-- [Google Play](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
-
-- Ios `require mac machine to build ios app as far as I know`
 
 # مميزات التطبيق
 ## v1.4.0
@@ -98,33 +105,30 @@
 
 
 # ميزات مستقبلية
-
-- [x] TODO اضافة خاصية البحث  في الفهرس
-- [x] TODO اضافة منبهات للأذكار (النوم - الاستيقاظ - الصباح - المساء)
-
-- [x] TODO الإشعار يذهب إلى الذكر مباشرة
-- [x] TODO Always on on read page
-- [x] TODO اضافة منبة لصيام الإثنين والخميس
-- [ ] TODO اضافة منبة لصيام النوافل
-- [ ] TODO اضافة خاصية مسافر
-- [x] TODO تنبية عند فتح عدم فتح التطبيق لأيام متتابعة
-- [x] TODO اضافة وحذف الأذكار من المفضلة
-- [x] TODO التسبيح بمفاتح الصوت وزار سماعة الرأس السلكية
-
-- [x] TODO تحويل ملفات JSON  لقاعدة بيانات محلية للتطبيق
-- [ ] TODO عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة
-- [ ] TODO استخراج نسخة من التطبيق لهواتف الآيفون
-
+| تم  | تفاصيل |
+| ------------- | ------------- |
+| [x] |   اضافة خاصية البحث  في الفهرس|
+| [x] |   اضافة منبهات للأذكار (النوم - الاستيقاظ - الصباح - المساء)|
+| [x] |   الإشعار يذهب إلى الذكر مباشرة|
+| [x] |   Always on on read page|
+| [x] |   اضافة منبة لصيام الإثنين والخميس||
+| [x] |   تنبية عند فتح عدم فتح التطبيق لأيام متتابعة|
+| [x] |   اضافة وحذف الأذكار من المفضلة|
+| [x] |   التسبيح بمفاتح الصوت وزار سماعة الرأس السلكية|
+| [x] |   تحويل ملفات JSON  لقاعدة بيانات محلية للتطبيق|
+| [ ] |   عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة|
+| [ ] |   استخراج نسخة من التطبيق لهواتف الآيفون|
+| [ ] |   اضافة منبة لصيام النوافل|
 
 # صور من التطبيق
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/50374022/146830412-6bed14a0-fcd2-4c7d-87fd-112ea064a43d.jpg" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830414-9928ed2d-82cf-487b-bee9-d2b4ad956ec6.jpg" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830394-9c9c9e35-c7e9-4e57-b0ad-210fc25b1d76.jpg" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830401-e86fcced-d8b3-4756-823b-7e5abc9896d0.jpg" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830404-5e74b34f-c958-4711-9214-ced05f898b1f.jpg" width="350" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830409-93fb9032-2e4a-47e1-9530-251835112e63.jpg" width="350" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830412-6bed14a0-fcd2-4c7d-87fd-112ea064a43d.jpg" height="400" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830414-9928ed2d-82cf-487b-bee9-d2b4ad956ec6.jpg" height="400" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830394-9c9c9e35-c7e9-4e57-b0ad-210fc25b1d76.jpg" height="400" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830401-e86fcced-d8b3-4756-823b-7e5abc9896d0.jpg" height="400" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830404-5e74b34f-c958-4711-9214-ced05f898b1f.jpg" height="400" >
+  <img src="https://user-images.githubusercontent.com/50374022/146830409-93fb9032-2e4a-47e1-9530-251835112e63.jpg" height="400" >
 </p>
 
 
