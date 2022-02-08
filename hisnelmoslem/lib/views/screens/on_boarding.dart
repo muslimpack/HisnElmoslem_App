@@ -61,7 +61,7 @@ class OnBoardingPage extends StatelessWidget {
                             child: RoundButton(
                             radius: 10,
                             text: Text(
-                              "الرئيسية",
+                              "بدء",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             onTap: () {
