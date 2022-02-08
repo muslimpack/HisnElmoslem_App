@@ -76,17 +76,21 @@ class ShareAsImageController extends GetxController {
   }
 
   shareImage() async {
-    //
-    await convertToImage();
-    //
-    final tempDir = await getTemporaryDirectory();
-    //
-    File file =
-        await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
-    //
-    file.writeAsBytesSync(imageFile!);
-    //
-    Share.shareFiles([file.path], text: "بواسطة تطبيق حصن السلم");
+    try {
+      //
+      await convertToImage();
+      //
+      final tempDir = await getTemporaryDirectory();
+      //
+      File file =
+          await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
+      //
+      file.writeAsBytesSync(imageFile!);
+      //
+      await Share.shareFiles([file.path]);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   //
