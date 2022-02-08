@@ -14,7 +14,7 @@ AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
 class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "hisn_elmoslem_book.db";
+  static const String DB_NAME = "hisn_elmoslem_database.db";
   static const int DATABASE_VERSION = 1;
 
   /* ************* Singelton Constractor ************* */
@@ -256,7 +256,7 @@ class AzkarDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
-    }).where((element) => element.favourite).toList();
+    });
   }
 
   /// Add content to favourite

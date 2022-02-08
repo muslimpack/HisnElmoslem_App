@@ -12,7 +12,7 @@ AlarmDatabaseHelper alarmDatabaseHelper = AlarmDatabaseHelper();
 class AlarmDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "alarms.db";
+  static const String DB_NAME = "alarms_database.db";
   static const int DATABASE_VERSION = 1;
 
   static AlarmDatabaseHelper? _databaseHelper;
@@ -122,8 +122,8 @@ class AlarmDatabaseHelper {
     await db.update(
       'alarms',
       dbAlarm.toMap(),
-      where: "titleId = ?",
-      whereArgs: [dbAlarm.titleId],
+      where: "id = ?",
+      whereArgs: [dbAlarm.id],
     );
   }
 

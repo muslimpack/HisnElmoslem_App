@@ -4,11 +4,9 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import '../../shared/constants/new_featuers_list.dart';
 
 class AppUpdateNews extends StatelessWidget {
-
   const AppUpdateNews({
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,6 @@ class AppUpdateNews extends StatelessWidget {
             itemCount: updateNewFeature.length,
             itemBuilder: (context, index) {
               return ListTile(
-
                 leading: Icon(
                   Icons.arrow_circle_up,
                   color: index == 0 ? MAINCOLOR : white,
@@ -38,9 +35,10 @@ class AppUpdateNews extends StatelessWidget {
                 subtitle: Text(updateNewFeature[index][1]),
                 onTap: () {},
               );
-            },separatorBuilder: (context,index){
+            },
+            separatorBuilder: (context, index) {
               return Divider();
-          },
+            },
           ),
         ),
       ),

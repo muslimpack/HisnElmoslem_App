@@ -8,14 +8,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io' show Platform;
 import 'package:rxdart/subjects.dart';
 
+import '../models/received_notification.dart';
+
 NotificationManager localNotifyManager = NotificationManager.init();
 
 class NotificationManager {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var initSetting;
 
-  BehaviorSubject<ReceiveNotification> get didReceiveLocalNotificationSubject =>
-      BehaviorSubject<ReceiveNotification>();
+  BehaviorSubject<ReceivedNotification>
+      get didReceiveLocalNotificationSubject =>
+          BehaviorSubject<ReceivedNotification>();
 
   NotificationManager.init() {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -40,7 +43,7 @@ class NotificationManager {
         requestBadgePermission: true,
         defaultPresentSound: true,
         onDidReceiveLocalNotification: (id, title, body, payload) async {
-          ReceiveNotification notification = ReceiveNotification(
+          ReceivedNotification notification = ReceivedNotification(
               id: id, title: title!, body: body!, payload: payload!);
           didReceiveLocalNotificationSubject.add(notification);
         });
@@ -209,17 +212,4 @@ class NotificationManager {
       payload: '2',
     );
   }
-}
-
-class ReceiveNotification {
-  final int id;
-  final String title;
-  final String body;
-  final String payload;
-
-  ReceiveNotification(
-      {required this.id,
-      required this.title,
-      required this.body,
-      required this.payload});
 }

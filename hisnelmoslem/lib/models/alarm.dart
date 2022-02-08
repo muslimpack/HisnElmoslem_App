@@ -30,7 +30,7 @@ class DbAlarm {
       repeatType: map['repeatType'],
       hour: map['hour'],
       minute: map['minute'],
-      isActive: (map['isActive'] ?? "0") == "0" ? false : true,
+      isActive: (map['isActive'] ?? 0) == 0 ? false : true,
       hasAlarmInside: true,
     );
   }

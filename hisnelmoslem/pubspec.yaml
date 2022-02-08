@@ -23,7 +23,6 @@ dependencies:
   shared_preferences: ^2.0.12
   font_awesome_flutter: ^9.2.0
   sleek_circular_slider: ^2.0.1
-  provider: ^6.0.2
   share: ^2.0.4
   sqflite: ^2.0.2
   path: ^1.8.0
@@ -35,6 +34,7 @@ dependencies:
   get: ^4.6.1
   auto_size_text: ^3.0.0
   screenshot: ^1.2.3
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -51,9 +51,6 @@ flutter:
     - assets/quran/
     - assets/sounds/
     - assets/db/
-    - assets/db/hisn_elmoslem_book.db
-    - assets/db/fakeHadith.db
-    - assets/db/alarms.db
 
   fonts:
     - family: Uthmanic

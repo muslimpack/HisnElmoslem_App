@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
@@ -7,8 +8,11 @@ import 'package:hisnelmoslem/shared/transition_animation/transition_animation.da
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
 import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
+import '../models/received_notification.dart';
+import '../shared/constants/constant.dart';
 
 class DashboardController extends GetxController {
   /* *************** Variables *************** */
@@ -25,6 +29,8 @@ class DashboardController extends GetxController {
   //
   final ScrollController fehrsScrollController = ScrollController();
   final ScrollController bookmarksScrollController = ScrollController();
+  //
+  final AppDataController appDataController = Get.put(AppDataController());
   //
   List<DbTitle> favouriteTitle = <DbTitle>[];
   List<DbTitle> allTitle = <DbTitle>[];
@@ -111,24 +117,33 @@ class DashboardController extends GetxController {
   }
 
   //
-  onNotificationReceive(ReceiveNotification notification) {}
+  onNotificationReceive(ReceivedNotification notification) {}
 
   //
   onNotificationClick(String payload) {
     debugPrint('payload = $payload');
+
+    /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
           context: Get.context!, goToPage: QuranReadPage());
-    } else if (payload == "555" || payload == "777") {
-    } else {
-      int? pageIndex = int.parse(payload);
-      debugPrint('pageIndex = $pageIndex');
+    }
 
-      debugPrint('Will open = $pageIndex');
-      debugPrint("pageIndex: " + pageIndex.toString());
+    /// ignore constant alarms if clicked
+    else if (payload == "555" || payload == "666") {
+    }
+
+    /// go to zikr page if clicked
+    else {
+      int? pageIndex = int.parse(payload);
       //
-      transitionAnimation.fromBottom2Top(
-          context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+      if (appDataController.isCardReadMode) {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
+      } else {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+      }
     }
   }
 
@@ -144,24 +159,7 @@ class DashboardController extends GetxController {
       debugPrint("else");
       searchedTitle = allTitle.where((zikr) {
         var zikrTitle = zikr.name.replaceAll(
-            new RegExp(String.fromCharCodes([
-              1617,
-              124,
-              1614,
-              124,
-              1611,
-              124,
-              1615,
-              124,
-              1612,
-              124,
-              1616,
-              124,
-              1613,
-              124,
-              1618
-            ])),
-            "");
+            new RegExp(String.fromCharCodes(arabicTashkelChar)), "");
         return zikrTitle.contains(searchController.text);
       }).toList();
     }

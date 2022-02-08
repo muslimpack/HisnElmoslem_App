@@ -5,6 +5,8 @@ import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 
+import '../../shared/widgets/empty.dart';
+
 class AlarmsPages extends StatelessWidget {
   const AlarmsPages({Key? key}) : super(key: key);
 
@@ -30,15 +32,21 @@ class AlarmsPages extends StatelessWidget {
                         child: GlowingOverscrollIndicator(
                           axisDirection: AxisDirection.down,
                           color: black26,
-                          child: new ListView.builder(
-                            padding: EdgeInsets.only(top: 10),
-                            itemBuilder: (context, index) {
-                              return AlarmCard(
-                                dbAlarm: controller.alarms[index],
-                              );
-                            },
-                            itemCount: controller.alarms.length,
-                          ),
+                          child: controller.alarms.length == 0
+                              ? Empty(
+                                  title: "لا يوجد أي منبهات",
+                                  description:
+                                      "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
+                                )
+                              : ListView.builder(
+                                  padding: EdgeInsets.only(top: 10),
+                                  itemBuilder: (context, index) {
+                                    return AlarmCard(
+                                      dbAlarm: controller.alarms[index],
+                                    );
+                                  },
+                                  itemCount: controller.alarms.length,
+                                ),
                         ),
                       ),
                     ));

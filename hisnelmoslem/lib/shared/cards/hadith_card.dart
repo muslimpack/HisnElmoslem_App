@@ -1,12 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/models/fakeHaith.dart';
-import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:share/share.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/constant.dart';
 
@@ -23,10 +22,9 @@ class HadithCard extends StatelessWidget {
 
   final FakeHadithController fakeHadithController =
       Get.put(FakeHadithController());
+  final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettingsNotifier>(context);
-
     return InkWell(
       onTap: () {
         fakeHadithController.toggleReadState(fakeHaith: fakeHaith);
@@ -139,7 +137,7 @@ class HadithCard extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
                       color: fakeHaith.isRead ? MAINCOLOR : white,
-                      fontSize: appSettings.getfontSize() * 10,
+                      fontSize: appDataController.fontSize * 10,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -151,7 +149,7 @@ class HadithCard extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   softWrap: true,
                   style: TextStyle(
-                      fontSize: appSettings.getfontSize() * 10,
+                      fontSize: appDataController.fontSize * 10,
                       color: MAINCOLOR,
                       //fontSize: 20,
                       fontWeight: FontWeight.bold),

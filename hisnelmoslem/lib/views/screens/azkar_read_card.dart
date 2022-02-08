@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
-import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import '../../controllers/app_data_controllers.dart';
 import '../../controllers/azkar_read_card_controller.dart';
+import '../../shared/widgets/font_settings.dart';
 import 'share_as_image.dart';
 
 class AzkarReadCard extends StatelessWidget {
@@ -21,10 +21,9 @@ class AzkarReadCard extends StatelessWidget {
 
   static DashboardController dashboardController =
       Get.put(DashboardController());
-
+  static AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettingsNotifier>(context);
     return GetBuilder<AzkarReadCardController>(
         init: AzkarReadCardController(index: index),
         builder: (controller) {
@@ -56,28 +55,13 @@ class AzkarReadCard extends StatelessWidget {
                             ? 0
                             : controller.zikrContent.length,
                         itemBuilder: (context, index) {
-                          String text = appSettings.getTashkelStatus()
+                          String text = appDataController.isTashkelEnabled
                               ? controller.zikrContent[index].content
                               : controller.zikrContent[index].content
                                   .replaceAll(
                                       //* لحذف التشكيل
-                                      new RegExp(String.fromCharCodes([
-                                        1617,
-                                        124,
-                                        1614,
-                                        124,
-                                        1611,
-                                        124,
-                                        1615,
-                                        124,
-                                        1612,
-                                        124,
-                                        1616,
-                                        124,
-                                        1613,
-                                        124,
-                                        1618
-                                      ])),
+                                      new RegExp(String.fromCharCodes(
+                                          arabicTashkelChar)),
                                       "");
                           String source = controller.zikrContent[index].source;
                           String fadl = controller.zikrContent[index].fadl;
@@ -256,7 +240,7 @@ class AzkarReadCard extends StatelessWidget {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           fontSize:
-                                              appSettings.getfontSize() * 10,
+                                              appDataController.fontSize * 10,
                                           color: controller.zikrContent[index]
                                                       .count ==
                                                   0
@@ -278,7 +262,7 @@ class AzkarReadCard extends StatelessWidget {
                                             softWrap: true,
                                             style: TextStyle(
                                                 fontSize:
-                                                    appSettings.getfontSize() *
+                                                    appDataController.fontSize *
                                                         10,
                                                 color: MAINCOLOR,
                                                 //fontSize: 20,
@@ -313,31 +297,9 @@ class AzkarReadCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Expanded(
-                            flex: 1,
-                            child: IconButton(
-                                icon: Icon(MdiIcons.formatFontSizeIncrease),
-                                onPressed: () {
-                                  appSettings.setfontSize(
-                                      appSettings.getfontSize() + 0.3);
-                                  controller.update();
-                                })),
-                        Expanded(
-                            flex: 1,
-                            child: IconButton(
-                                icon: Icon(MdiIcons.formatFontSizeDecrease),
-                                onPressed: () {
-                                  appSettings.setfontSize(
-                                      appSettings.getfontSize() - 0.3);
-                                  controller.update();
-                                })),
-                        Expanded(
-                            flex: 1,
-                            child: IconButton(
-                                icon: Icon(MdiIcons.abjadArabic),
-                                onPressed: () {
-                                  appSettings.toggleTashkelStatus();
-                                  controller.update();
-                                })),
+                            child: FontSettingsToolbox(
+                          controllerToUpdate: controller,
+                        )),
                       ],
                     ),
                   ),

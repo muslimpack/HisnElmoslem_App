@@ -47,12 +47,13 @@ class AzkarReadCardController extends GetxController {
   }
 
   /* *************** Functions *************** */
-  //
+
+  /// Load all lists from its databases
   getReady() async {
     await azkarDatabaseHelper
         .getTitleById(id: index)
         .then((value) => zikrTitle = value);
-    //
+
     await azkarDatabaseHelper
         .getContentsByTitleId(titleId: index)
         .then((value) => zikrContent = value);

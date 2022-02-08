@@ -39,10 +39,6 @@ class AlarmsPageController extends GetxController {
       alarms = value;
     });
 
-    //QuranPageLists
-
-    debugPrint(alarms.length.toString());
-
     isLoading = false;
     update();
   }

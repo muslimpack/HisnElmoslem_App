@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
-import 'package:hisnelmoslem/providers/app_settings.dart';
 import 'package:hisnelmoslem/shared/cards/hadith_card.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
-import 'package:provider/provider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../controllers/app_data_controllers.dart';
+import '../../shared/widgets/font_settings.dart';
 
 class FakeHadith extends StatelessWidget {
+  FakeHadith({Key? key}) : super(key: key);
+  final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettingsNotifier>(context);
     return GetBuilder<FakeHadithController>(
         init: FakeHadithController(),
         builder: (controller) {
@@ -43,30 +44,15 @@ class FakeHadith extends StatelessWidget {
               //elevation: 20,
               color: Theme.of(context).primaryColor,
               child: Container(
-                height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeIncrease),
-                            onPressed: () {
-                              appSettings
-                                  .setfontSize(appSettings.getfontSize() + 0.3);
-                              controller.update();
-                            })),
-                    Expanded(
-                        flex: 1,
-                        child: IconButton(
-                            icon: Icon(MdiIcons.formatFontSizeDecrease),
-                            onPressed: () {
-                              appSettings
-                                  .setfontSize(appSettings.getfontSize() - 0.3);
-                              controller.update();
-                            })),
-
-                    /*   */
+                        flex: 3,
+                        child: FontSettingsToolbox(
+                          controllerToUpdate: controller,
+                          showTashkelControllers: false,
+                        )),
                   ],
                 ),
               ),

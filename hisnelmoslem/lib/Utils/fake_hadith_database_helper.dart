@@ -12,7 +12,7 @@ FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
 class FakeHadithDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "fakeHadith.db";
+  static const String DB_NAME = "fake_hadith_database.db";
   static const int DATABASE_VERSION = 1;
 
   /* ************* Singelton Constractor ************* */
