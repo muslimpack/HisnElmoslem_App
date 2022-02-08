@@ -34,6 +34,8 @@ class AlarmsPages extends StatelessWidget {
                           color: black26,
                           child: controller.alarms.length == 0
                               ? Empty(
+                                  isImage: false,
+                                  icon: Icons.alarm_add_rounded,
                                   title: "لا يوجد أي منبهات",
                                   description:
                                       "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",

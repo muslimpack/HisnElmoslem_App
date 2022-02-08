@@ -6,10 +6,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/views/screens/dashboard.dart';
+import 'package:hisnelmoslem/views/screens/on_boarding.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'shared/constants/constant.dart';
 import 'utils/notification_manager.dart';
-import 'views/screens/dashboard.dart';
 
 void main() async {
   /// Make sure all stuff are initialized
@@ -23,9 +24,7 @@ void main() async {
   /// bookmared titles will be deleted in V1.5
   final box = GetStorage();
   if (box.read('is_v1.5_first_open') ?? true) {
-    debugPrint('is_v1.5_first_open');
     await localNotifyManager.cancelAllNotifications();
-    box.write("is_v1.5_first_open", false);
   }
 
   /// Manage Notification feedback
@@ -57,6 +56,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final box = GetStorage();
+
   @override
   void dispose() async {
     //Close databases
@@ -79,7 +80,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
       theme: ThemeData.dark(),
-      home: AzkarDashboard(),
+
+      /// if this is the first open of the app
+      /// then show on boardPage
+      /// if not show dashboard
+      home: box.read('is_v1.5_first_open') ?? true
+          ? OnBoardingPage()
+          : AzkarDashboard(),
     );
   }
 }

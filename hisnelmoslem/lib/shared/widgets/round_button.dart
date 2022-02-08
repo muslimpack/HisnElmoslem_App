@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 
 class RoundButton extends StatelessWidget {
-  final Widget widget;
-  final Color color;
+  final Widget text;
   final Function onTap;
-
-  const RoundButton(
+  final double radius;
+  final bool isTransparent;
+  RoundButton(
       {Key? key,
-      required this.widget,
-      required this.color,
-      required this.onTap})
+      required this.text,
+      required this.onTap,
+      this.radius = 5.0,
+      this.isTransparent = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: widget,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        style: isTransparent
+            ? ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                backgroundColor: MaterialStateProperty.all(transparent),
+                foregroundColor: MaterialStateProperty.all(MAINCOLOR),
+              )
+            : ButtonStyle(),
+        onPressed: () {
+          onTap();
+        },
+        child: text,
       ),
     );
   }

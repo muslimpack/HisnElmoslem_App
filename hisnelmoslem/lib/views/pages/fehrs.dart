@@ -22,6 +22,8 @@ class AzkarFehrs extends StatelessWidget {
             isAlwaysShown: false,
             child: titleListToDisplay.length == 0
                 ? Empty(
+                    isImage: false,
+                    icon: Icons.search_outlined,
                     title: "لا يوجد عنوان بهذا الاسم",
                     description: "برجاء قم بمراجعة ما كتبت",
                   )

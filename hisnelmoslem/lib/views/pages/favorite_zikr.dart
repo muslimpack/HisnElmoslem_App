@@ -25,6 +25,8 @@ class FavouriteZikr extends StatelessWidget {
     return GetBuilder<DashboardController>(builder: (controller) {
       return controller.favouriteConent.length == 0
           ? Empty(
+              isImage: false,
+              icon: Icons.favorite_outline_rounded,
               title: "لا يوجد شيء في المفضلة",
               description:
                   "لم يتم تحديد أي ذكر كمفضل \nقم بالضغط على علامة القلب ❤ عند أي ذكر داخلي",
