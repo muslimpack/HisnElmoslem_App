@@ -5,7 +5,7 @@
 
 
 # تطبيق حصن المسلم
-[![version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+[![version](https://img.shields.io/badge/version-1.5.0-blue.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
 [![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
@@ -29,7 +29,7 @@
 الصفحة أو الرقم: 3461 | خلاصة حكم المحدث : [صحيح] |
 ```
 
-
+<div align="right">
 
 # لتعديل ملفات التطبيق
 
@@ -43,6 +43,24 @@
 
 
 # مميزات التطبيق
+## v1.5.0
+- الشريط العلوي يختفي أثناء تصفح الفهرس والمفضلة
+- مشاركة الذكر كصورة
+- أيقونات تعبر عن منبه الذكر في الصفحة الرئيسية [اضافة - تفعيل - الغاء تفعيل]
+- اضافة ذكر إلى المفضلة
+- اضافة اعدادت الخط إلى صفحة الإعدادت
+- تعديل واجهة قراءة الأذكار في وضع الصفحات
+- تعيين الحديث كمقروء
+- التطبيق في الوضع الرأسي دائما
+- اصلاح الألوان الساطعة في صفحة المنبهات
+- اصلاح النمط لبعض النصوص
+- اضافة مؤشر كلي لتقدمك في الذكر لوضع البطاقة
+- Stable التسبيح بمفاتيح الصوت وسماعات الرأس التي تدعم التحكم بمفاتيح الصوت
+  - التحكم في الأذكار اليومية بمفاتيح الصوت
+  - التحكم بالسبحة بمفاتيح الصوت
+  - تقليب صفحات سورة الكهف
+- اصلاح بعض الأخطاء
+
 ## v1.4.0
 - تعديلات في شاشة الأذكار في وضعية الصفحات
 - اضافة مؤشر كلي لتقدمك في الذكر
@@ -103,8 +121,10 @@
 - يمكنك الإبلاغ عن الذكر في حالة وجود خطأ
 - يمكنك مراسلتي أو ارسال تقييم للتطبيق من خلال الاعدادات
 
+<div align="center">
 
 # ميزات مستقبلية
+
 | تم  | تفاصيل |
 | ------------- | ------------- |
 | [x] |   اضافة خاصية البحث  في الفهرس|
@@ -122,13 +142,20 @@
 
 # صور من التطبيق
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/50374022/146830412-6bed14a0-fcd2-4c7d-87fd-112ea064a43d.jpg" height="400" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830414-9928ed2d-82cf-487b-bee9-d2b4ad956ec6.jpg" height="400" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830394-9c9c9e35-c7e9-4e57-b0ad-210fc25b1d76.jpg" height="400" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830401-e86fcced-d8b3-4756-823b-7e5abc9896d0.jpg" height="400" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830404-5e74b34f-c958-4711-9214-ced05f898b1f.jpg" height="400" >
-  <img src="https://user-images.githubusercontent.com/50374022/146830409-93fb9032-2e4a-47e1-9530-251835112e63.jpg" height="400" >
-</p>
+
+<img src="https://user-images.githubusercontent.com/50374022/152843902-472680b6-f188-4e95-9fa8-e62d335afde8.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092334-584a5d60-48ef-4f6f-94b6-7e2a0b45f446.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092342-56ff97cc-4d61-4169-95d1-ff1d59d7a47c.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092345-a86630f1-04a9-44a2-99ba-edce4a1543f0.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092349-d7c8c6fb-d567-4111-80d3-3bb99c7643e7.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092352-6178eac0-c9ca-47b4-9c7a-f202c1acf24c.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092355-1ac1576f-c933-472a-b2be-49610f071151.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092363-de7249cb-2dfb-4f71-a3a1-3d9d5ac3b7fb.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092364-526e2878-0647-41a9-942c-7489150e02b6.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092371-7a70447d-bd1f-4a4b-ba5a-15877b39fdc9.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092373-16c8113e-13d3-4a31-a272-eb30639ff678.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092380-73f5ee50-bc5e-42bb-90c5-8aa12f9b7ddb.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092383-59d0caff-4c9d-49ce-92f5-c2105683ae01.png" height="400" >
+<img src="https://user-images.githubusercontent.com/50374022/153092388-301dd51b-b66b-44f4-8703-240d094193dd.png" height="400" >
 
 
