@@ -74,7 +74,8 @@ class FontSettingsToolbox extends StatelessWidget {
 class TextSample extends StatelessWidget {
   const TextSample({Key? key}) : super(key: key);
   static AppDataController appDataController = Get.put(AppDataController());
-  static String text = "اِلْبَسْ جَدِيداً وَعِشْ حَمِيداً وَمُتْ شَهِيداً";
+  static String text =
+      "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
   @override
   Widget build(BuildContext context) {
     return Container(

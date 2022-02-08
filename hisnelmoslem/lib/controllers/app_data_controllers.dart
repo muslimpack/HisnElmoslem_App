@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,6 +7,20 @@ import '../utils/notification_manager.dart';
 
 class AppDataController extends GetxController {
   final box = GetStorage();
+
+  /* ******* Dark Mode status ******* */
+
+  /// Get dark mode status
+  bool get isDarkModeEnabled => box.read('dark_mode_status') ?? true;
+
+  /// Set dark mode status
+  void changeDarkModeStatus(bool val) => box.write('dark_mode_status', val);
+
+  /// Toggle dark mode status
+  void toggleDarkModeStatus() {
+    changeDarkModeStatus(!isDarkModeEnabled);
+    Get.changeThemeMode(isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light);
+  }
 
   /* ******* Azkar Read Mode ******* */
 

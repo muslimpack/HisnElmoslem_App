@@ -248,11 +248,9 @@ class FavouriteZikr extends StatelessWidget {
                 },
               ),
               bottomSheet: BottomAppBar(
-                child: Expanded(
-                    flex: 3,
-                    child: FontSettingsToolbox(
-                      controllerToUpdate: controller,
-                    )),
+                child: FontSettingsToolbox(
+                  controllerToUpdate: controller,
+                ),
               ),
             );
     });
