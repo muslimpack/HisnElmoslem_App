@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
       body: Center(
         child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
-          bleuShade200,
+          MAINCOLOR,
         )),
       ),
     );

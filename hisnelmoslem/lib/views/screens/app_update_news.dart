@@ -27,7 +27,7 @@ class AppUpdateNews extends StatelessWidget {
               return ListTile(
                 leading: Icon(
                   Icons.arrow_circle_up,
-                  color: index == 0 ? MAINCOLOR : white,
+                  color: index == 0 ? MAINCOLOR : null,
                 ),
                 title: Text(index == 0
                     ? "الإصدار الحالي: " + updateNewFeature[index][0]

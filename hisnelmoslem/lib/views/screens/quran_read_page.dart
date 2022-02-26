@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
-
+import 'package:hisnelmoslem/themes/theme_services.dart';
 import '../../controllers/quran_controller.dart';
 
 class QuranReadPage extends StatelessWidget {
@@ -12,62 +12,79 @@ class QuranReadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return  GetBuilder<QuranPageController>(
-      init: QuranPageController(),
-          builder: (controller) {
-            return controller.isLoading
-                ? Loading()
-                : Scaffold(
-                key: controller.quranReadPageScaffoldKey,
-                appBar: AppBar(
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  elevation: 0,
-                  title: Text(controller.quranDisplay[0].surha,
-                      style: TextStyle(fontFamily: "Uthmanic")),
-                  actions: [
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CircleAvatar(
-                        backgroundColor: transparent,
-                        child: Text('${controller.page + controller.currentPage}'),
+    return GetBuilder<QuranPageController>(
+        init: QuranPageController(),
+        builder: (controller) {
+          return controller.isLoading
+              ? Loading()
+              : Scaffold(
+                  key: controller.quranReadPageScaffoldKey,
+                  appBar: AppBar(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    elevation: 0,
+                    title: Text(controller.quranDisplay[0].surha,
+                        style: TextStyle(fontFamily: "Uthmanic")),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          controller.toggleTheme();
+                        },
+                        icon: Icon(Icons.dark_mode),
                       ),
-                    )
-                  ],
-                ),
-                body: ScrollConfiguration(
-                  behavior: ScrollBehavior(),
-                  child: GlowingOverscrollIndicator(
-                    axisDirection: AxisDirection.left,
-                    color: black26,
-                    child: PageView.builder(
-                      onPageChanged: controller.onPageViewChange,
-                      controller: controller.pageController,
-                      itemCount: controller.quranDisplay[0].pages.length,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            BetweenPageEffect(index: index + 1),
-                            PageSideEffect(index: index + 1),
-                            Center(
-                              child: ColorFiltered(
-                                  colorFilter: greyScale,
-                                  child: ColorFiltered(
-                                      colorFilter: invert,
-                                      child: Image.asset(
-                                        controller.quranDisplay[0].pages[index].toString(),
-                                        fit: BoxFit.fitWidth,
-                                      ))),
-                            ),
-                          ],
-                        );
-                      },
+                      // Padding(
+                      //   padding: EdgeInsets.all(10),
+                      //   child: Text(
+                      //     '${controller.page + controller.currentPage}',
+                      //     style: Theme.of(context).appBarTheme.titleTextStyle,
+                      //   ),
+                      // )
+                    ],
+                  ),
+                  body: ScrollConfiguration(
+                    behavior: ScrollBehavior(),
+                    child: GlowingOverscrollIndicator(
+                      axisDirection: AxisDirection.left,
+                      color: black26,
+                      child: PageView.builder(
+                        onPageChanged: controller.onPageViewChange,
+                        controller: controller.pageController,
+                        itemCount: controller.quranDisplay[0].pages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              BetweenPageEffect(index: index + 1),
+                              PageSideEffect(index: index + 1),
+                              Center(
+                                child: ColorFiltered(
+                                    colorFilter: greyScale,
+                                    child: ColorFiltered(
+                                        colorFilter: ThemeServices.isDarkMode()
+                                            ? invert
+                                            : normal,
+                                        child: Image.asset(
+                                          controller
+                                              .quranDisplay[0].pages[index]
+                                              .toString(),
+                                          fit: BoxFit.fitWidth,
+                                        ))),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    '${controller.page + controller.currentPage}',
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              );
-          }
-        );
+                );
+        });
   }
 }
 

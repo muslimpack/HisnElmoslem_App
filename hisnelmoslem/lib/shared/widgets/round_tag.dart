@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 
 class RoundTagCard extends StatelessWidget {
   final String? name;
@@ -20,7 +21,7 @@ class RoundTagCard extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: FittedBox(
             child: Text(name ?? "",
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12, color: white),
                 textDirection: TextDirection.ltr),
           ),
         ),

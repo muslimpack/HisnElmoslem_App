@@ -71,8 +71,7 @@ class Tally extends StatelessWidget {
                             bottomLabelStyle: TextStyle(
                               fontSize: 25,
                             ),
-                            mainLabelStyle:
-                                TextStyle(fontSize: 70, color: white),
+                            mainLabelStyle: TextStyle(fontSize: 70),
                             modifier: (double value) {
                               final circval = value.ceil().toInt().toString();
                               return '$circval';
@@ -81,10 +80,11 @@ class Tally extends StatelessWidget {
                           customWidths: CustomSliderWidths(
                               progressBarWidth: 40, trackWidth: 40),
                           customColors: CustomSliderColors(
-                            trackColor: grey,
+                            // trackColor: grey,
+                            hideShadow: true,
                             progressBarColors: [
-                              bleuShade200,
-                              blue,
+                              MAINCOLOR,
+                              MAINCOLOR,
                               //  orange
                             ],
                           ),

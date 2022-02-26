@@ -32,6 +32,7 @@ class AzkarReadCard extends StatelessWidget {
               : Scaffold(
                   key: controller.vReadScaffoldKey,
                   appBar: AppBar(
+                    centerTitle: true,
                     title: Text(controller.zikrTitle!.name,
                         style: TextStyle(fontFamily: "Uthmanic")),
                     bottom: PreferredSize(
@@ -39,7 +40,7 @@ class AzkarReadCard extends StatelessWidget {
                       child: LinearProgressIndicator(
                         value: controller.totalProgress,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          blue,
+                          MAINCOLOR,
                         ),
                         backgroundColor: grey,
                       ),
@@ -136,7 +137,7 @@ class AzkarReadCard extends StatelessWidget {
                                               splashRadius: 20,
                                               padding: EdgeInsets.all(0),
                                               icon: Icon(Icons.favorite_border,
-                                                  color: bleuShade200),
+                                                  color: MAINCOLOR),
                                               onPressed: () {
                                                 controller.zikrContent[index]
                                                     .favourite = true;
@@ -151,7 +152,7 @@ class AzkarReadCard extends StatelessWidget {
                                               padding: EdgeInsets.all(0),
                                               icon: Icon(
                                                 Icons.favorite,
-                                                color: bleuShade200,
+                                                color: MAINCOLOR,
                                               ),
                                               onPressed: () {
                                                 controller.zikrContent[index]
@@ -168,7 +169,7 @@ class AzkarReadCard extends StatelessWidget {
                                             splashRadius: 20,
                                             padding: EdgeInsets.all(0),
                                             icon: Icon(Icons.copy,
-                                                color: bleuShade200),
+                                                color: MAINCOLOR),
                                             onPressed: () {
                                               FlutterClipboard.copy(
                                                       text + "\n" + fadl)
@@ -192,7 +193,7 @@ class AzkarReadCard extends StatelessWidget {
                                             splashRadius: 20,
                                             padding: EdgeInsets.all(0),
                                             icon: Icon(Icons.share,
-                                                color: bleuShade200),
+                                                color: MAINCOLOR),
                                             onPressed: () {
                                               Share.share(text + "\n" + fadl);
                                             }),
@@ -245,7 +246,7 @@ class AzkarReadCard extends StatelessWidget {
                                                       .count ==
                                                   0
                                               ? MAINCOLOR
-                                              : white,
+                                              : null,
                                           //fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),

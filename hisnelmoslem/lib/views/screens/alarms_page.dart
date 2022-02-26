@@ -17,6 +17,7 @@ class AlarmsPages extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
               appBar: AppBar(
+                centerTitle: true,
                 title: Text("إدارة تنبيهات الأذكار",
                     style: TextStyle(fontFamily: "Uthmanic")),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,

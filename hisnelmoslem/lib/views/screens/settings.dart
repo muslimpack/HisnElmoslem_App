@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/views/screens/alarms_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
@@ -21,6 +22,7 @@ class Settings extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               elevation: 0,
               title:
                   Text("الإعدادات", style: TextStyle(fontFamily: "Uthmanic")),
@@ -35,6 +37,21 @@ class Settings extends StatelessWidget {
                   physics: ClampingScrollPhysics(),
                   children: [
                     Title(title: 'عام'),
+                    SwitchListTile(
+                      title: Row(
+                        children: [
+                          Icon(Icons.dark_mode),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 30),
+                            child: Text("الوضع المعتم"),
+                          )
+                        ],
+                      ),
+                      value: ThemeServices.isDarkMode(),
+                      onChanged: (value) {
+                        controller.toggleTheme();
+                      },
+                    ),
                     !appDataController.isCardReadMode
                         ? ListTile(
                             leading: Icon(MdiIcons.bookOpenPageVariant),

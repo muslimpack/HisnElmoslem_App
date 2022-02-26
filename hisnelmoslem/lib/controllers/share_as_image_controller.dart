@@ -20,7 +20,7 @@ class ShareAsImageController extends GetxController {
   Color titleColor = brwon;
   Color backgroundColor = white;
   Color dividerColor = green;
-  Color appNameColor = blue;
+  Color appNameColor = MAINCOLOR;
   //
   bool bInvert = false;
   bool showFadl = true;
@@ -59,7 +59,7 @@ class ShareAsImageController extends GetxController {
       titleColor = brwon;
       backgroundColor = white;
       dividerColor = green;
-      appNameColor = blue;
+      appNameColor = MAINCOLOR;
     }
 
     update();

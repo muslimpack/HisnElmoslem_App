@@ -167,7 +167,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
           child: TextButton(
             style: TextButton.styleFrom(
               // minimumSize: Size(_width, _height),
-              backgroundColor: white,
+              // backgroundColor: white,
               padding: EdgeInsets.all(0),
             ),
             child: Text("تم"),
@@ -204,7 +204,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
           padding: EdgeInsets.only(left: 5),
           child: TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: white,
+              // backgroundColor: white,
               padding: EdgeInsets.all(0),
             ),
             child: Text("اغلاق"),

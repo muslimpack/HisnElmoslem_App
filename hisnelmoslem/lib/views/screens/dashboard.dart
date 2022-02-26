@@ -80,10 +80,9 @@ class AzkarDashboard extends StatelessWidget {
                         pinned: true,
                         floating: true,
                         snap: true,
-                        bottom: TabBar(
-                            indicatorColor: bleuShade200,
-                            labelColor: bleuShade200,
-                            unselectedLabelColor: white,
+                        bottom: TabBar(indicatorColor: MAINCOLOR,
+                            // labelColor: MAINCOLOR,
+                            // unselectedLabelColor: null,
                             // controller: tabController,
                             tabs: [
                               Tab(

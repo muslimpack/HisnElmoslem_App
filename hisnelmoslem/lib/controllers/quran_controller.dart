@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/themes/theme_services.dart';
 
 import '../models/json/Quran.dart';
 
@@ -12,7 +13,7 @@ class QuranPageController extends GetxController {
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //
   final quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
-  PageController pageController= PageController(initialPage: 0);
+  PageController pageController = PageController(initialPage: 0);
   int currentPage = 0;
   //
   List<Quran> _quran = <Quran>[];
@@ -25,10 +26,10 @@ class QuranPageController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
     //
-   await preparePages();
+    await preparePages();
     //
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
@@ -58,20 +59,19 @@ class QuranPageController extends GetxController {
     super.onClose();
     //
     pageController.dispose();
-
   }
+
   /* *************** Functions *************** */
   ///
   preparePages() async {
     await fetchAzkar().then((value) {
-        _quran.addAll(value);
-        quranDisplay = _quran;
+      _quran.addAll(value);
+      quranDisplay = _quran;
     });
   }
 
   ///
   Future<List<Quran>> fetchAzkar() async {
-
     String data = await rootBundle.loadString('assets/json/quran.json');
 
     var quran = <Quran>[];
@@ -83,10 +83,15 @@ class QuranPageController extends GetxController {
 
     return quran;
   }
+
   ///
   onPageViewChange(int page) {
     //  currentPage = page;
-      currentPage = page;
-   update();
+    currentPage = page;
+    update();
+  }
+
+  void toggleTheme() {
+    ThemeServices.changeThemeMode();
   }
 }

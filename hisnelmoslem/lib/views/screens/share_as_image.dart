@@ -54,7 +54,7 @@ class ShareAsImage extends StatelessWidget {
                   minScale: 0.25,
                   maxScale: 3,
                   // clipBehavior: Clip.antiAlias,
-                  boundaryMargin: EdgeInsets.all(500),
+                  boundaryMargin: EdgeInsets.all(5000),
                   panEnabled: true,
                   child: Screenshot(
                     controller: controller.screenshotController,

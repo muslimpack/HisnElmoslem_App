@@ -72,10 +72,9 @@ class FavouriteZikr extends StatelessWidget {
                                     splashRadius: 20,
                                     padding: EdgeInsets.all(0),
                                     icon: dbContent.favourite
-                                        ? Icon(Icons.favorite,
-                                            color: bleuShade200)
+                                        ? Icon(Icons.favorite, color: MAINCOLOR)
                                         : Icon(Icons.favorite_border,
-                                            color: bleuShade200),
+                                            color: MAINCOLOR),
                                     onPressed: () {
                                       controller.removeContentFromFavourite(
                                           dbContent);
@@ -85,8 +84,7 @@ class FavouriteZikr extends StatelessWidget {
                                   child: IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
-                                      icon:
-                                          Icon(Icons.copy, color: bleuShade200),
+                                      icon: Icon(Icons.copy, color: MAINCOLOR),
                                       onPressed: () {
                                         FlutterClipboard.copy(
                                                 dbContent.content +
@@ -106,8 +104,7 @@ class FavouriteZikr extends StatelessWidget {
                                   child: IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.share,
-                                          color: bleuShade200),
+                                      icon: Icon(Icons.share, color: MAINCOLOR),
                                       onPressed: () {
                                         Share.share(dbContent.content +
                                             "\n" +
@@ -182,7 +179,7 @@ class FavouriteZikr extends StatelessWidget {
                                               appDataController.fontSize * 10,
                                           color: dbContent.count == 0
                                               ? MAINCOLOR
-                                              : white,
+                                              : null,
                                           //fontSize: 20,
                                           fontWeight: FontWeight.w700),
                                     ),

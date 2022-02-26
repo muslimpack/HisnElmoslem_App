@@ -28,7 +28,7 @@ class TitleCard extends StatelessWidget {
             ? IconButton(
                 icon: Icon(
                   Icons.bookmark,
-                  color: bleuShade200,
+                  color: MAINCOLOR,
                 ),
                 onPressed: () {
                   azkarDatabaseHelper.deleteTitleFromFavourite(
@@ -108,7 +108,9 @@ class TitleCard extends StatelessWidget {
                       //
                       controller.update();
                     }),
-        title: Text(fehrsTitle.name, style: TextStyle(fontFamily: "Uthmanic")),
+        title: Text(fehrsTitle.name,
+            style:
+                TextStyle(fontFamily: "Uthmanic", fontWeight: FontWeight.bold)),
         // trailing: Text(zikrList[index]),
         onTap: () {
           if (!appDataController.isCardReadMode) {

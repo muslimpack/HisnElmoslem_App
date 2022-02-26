@@ -82,7 +82,7 @@ class AzkarReadPage extends StatelessWidget {
                                               splashRadius: 20,
                                               padding: EdgeInsets.all(0),
                                               icon: Icon(Icons.favorite_border,
-                                                  color: bleuShade200),
+                                                  color: MAINCOLOR),
                                               onPressed: () {
                                                 controller
                                                     .zikrContent[
@@ -105,7 +105,7 @@ class AzkarReadPage extends StatelessWidget {
                                               padding: EdgeInsets.all(0),
                                               icon: Icon(
                                                 Icons.favorite,
-                                                color: bleuShade200,
+                                                color: MAINCOLOR,
                                               ),
                                               onPressed: () {
                                                 controller
@@ -125,8 +125,8 @@ class AzkarReadPage extends StatelessWidget {
                                     child: IconButton(
                                         splashRadius: 20,
                                         padding: EdgeInsets.all(0),
-                                        icon: Icon(Icons.share,
-                                            color: bleuShade200),
+                                        icon:
+                                            Icon(Icons.share, color: MAINCOLOR),
                                         onPressed: () {
                                           Share.share(text! + "\n" + fadl!);
                                         }),
@@ -144,7 +144,7 @@ class AzkarReadPage extends StatelessWidget {
                                               .count
                                               .toString(),
                                           style: TextStyle(
-                                            color: blue,
+                                            color: MAINCOLOR,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20,
                                           ),
@@ -157,7 +157,7 @@ class AzkarReadPage extends StatelessWidget {
                               LinearProgressIndicator(
                                 value: controller.totalProgress,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  blue,
+                                  MAINCOLOR,
                                 ),
                                 backgroundColor: grey,
                               ),
@@ -242,7 +242,7 @@ class AzkarReadPage extends StatelessWidget {
                                                     .zikrContent[index].count ==
                                                 0
                                             ? MAINCOLOR
-                                            : white,
+                                            : null,
                                         // fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -282,7 +282,7 @@ class AzkarReadPage extends StatelessWidget {
                           child: IconButton(
                               splashRadius: 20,
                               padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.copy, color: bleuShade200),
+                              icon: Icon(Icons.copy, color: MAINCOLOR),
                               onPressed: () {
                                 FlutterClipboard.copy(text! + "\n" + fadl!)
                                     .then((result) {

@@ -4,12 +4,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
 import 'package:hisnelmoslem/views/screens/on_boarding.dart';
 import 'Utils/azkar_database_helper.dart';
-import 'shared/constants/constant.dart';
+import 'themes/themes.dart';
 import 'utils/notification_manager.dart';
 
 void main() async {
@@ -42,7 +43,7 @@ void main() async {
 
   /// Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: transparent));
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
 
@@ -79,7 +80,9 @@ class _MyAppState extends State<MyApp> {
       locale: Locale('ar'),
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
-      theme: ThemeData.dark(),
+      theme: Themes.light,
+      darkTheme: Themes.dark,
+      themeMode: ThemeServices.getTheme(),
 
       /// if this is the first open of the app
       /// then show on boardPage

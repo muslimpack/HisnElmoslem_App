@@ -69,7 +69,7 @@ class HadithCard extends StatelessWidget {
                         padding: EdgeInsets.all(0),
                         icon: Icon(
                           Icons.copy,
-                          color: bleuShade200,
+                          color: MAINCOLOR,
                         ),
                         onPressed: () {
                           FlutterClipboard.copy(
@@ -93,7 +93,7 @@ class HadithCard extends StatelessWidget {
                     child: IconButton(
                         splashRadius: 20,
                         padding: EdgeInsets.all(0),
-                        icon: Icon(Icons.share, color: bleuShade200),
+                        icon: Icon(Icons.share, color: MAINCOLOR),
                         onPressed: () {
                           Share.share(fakeHaith.text + "\n" + fakeHaith.darga);
                         }),
@@ -136,7 +136,7 @@ class HadithCard extends StatelessWidget {
                   softWrap: true,
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
-                      color: fakeHaith.isRead ? MAINCOLOR : white,
+                      color: fakeHaith.isRead ? MAINCOLOR : null,
                       fontSize: appDataController.fontSize * 10,
                       fontWeight: FontWeight.bold),
                 ),

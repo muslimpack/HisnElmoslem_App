@@ -1,2 +1,0 @@
-//TODO ThemeManager
-class ThemeManager {}

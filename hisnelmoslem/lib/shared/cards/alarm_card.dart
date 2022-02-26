@@ -4,13 +4,12 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/dialogs/edit_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
-
-import '../constants/constant.dart';
 import '../functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
