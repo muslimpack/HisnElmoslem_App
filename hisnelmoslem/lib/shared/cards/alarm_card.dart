@@ -89,18 +89,20 @@ class AlarmCard extends StatelessWidget {
                   context: context,
                   dbAlarm: dbAlarm,
                 ).then((value) {
-                  debugPrint(value.toString());
+                  if (value is DbAlarm) {
+                    debugPrint(value.toString());
 
-                  if (value.hasAlarmInside) {
-                    int index = controller.alarms.indexOf(dbAlarm);
-                    controller.alarms[index] = value;
-                    //
-                    dashboardController.alarms = controller.alarms;
-                    dashboardController.update();
-                    //
-                    controller.update();
-                    //
-                    debugPrint("showFastEditAlarmDialog Done");
+                    if (value.hasAlarmInside) {
+                      int index = controller.alarms.indexOf(dbAlarm);
+                      controller.alarms[index] = value;
+                      //
+                      dashboardController.alarms = controller.alarms;
+                      dashboardController.update();
+                      //
+                      controller.update();
+                      //
+                      debugPrint("showFastEditAlarmDialog Done");
+                    }
                   }
                 });
               },

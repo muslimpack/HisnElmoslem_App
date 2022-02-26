@@ -66,16 +66,18 @@ class TitleCard extends StatelessWidget {
                   dbAlarm.title = fehrsTitle.name;
                   showFastAddAlarmDialog(context: context, dbAlarm: dbAlarm)
                       .then((value) {
-                    int index = controller.alarms.indexOf(dbAlarm);
-                    if (value.hasAlarmInside) {
-                      if (index == -1) {
-                        controller.alarms.add(value);
-                      } else {
-                        controller.alarms[index] = value;
-                      }
-                      controller.update();
+                    if (value is DbAlarm) {
+                      int index = controller.alarms.indexOf(dbAlarm);
+                      if (value.hasAlarmInside) {
+                        if (index == -1) {
+                          controller.alarms.add(value);
+                        } else {
+                          controller.alarms[index] = value;
+                        }
+                        controller.update();
 
-                      debugPrint(value.toString());
+                        debugPrint(value.toString());
+                      }
                     }
                   });
                 })

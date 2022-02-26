@@ -19,67 +19,72 @@ class QuranReadPage extends StatelessWidget {
               ? Loading()
               : Scaffold(
                   key: controller.quranReadPageScaffoldKey,
-                  appBar: AppBar(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    elevation: 0,
-                    title: Text(controller.quranDisplay[0].surha,
-                        style: TextStyle(fontFamily: "Uthmanic")),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          controller.toggleTheme();
-                        },
-                        icon: Icon(Icons.dark_mode),
-                      ),
-                      // Padding(
-                      //   padding: EdgeInsets.all(10),
-                      //   child: Text(
-                      //     '${controller.page + controller.currentPage}',
-                      //     style: Theme.of(context).appBarTheme.titleTextStyle,
-                      //   ),
-                      // )
-                    ],
-                  ),
                   body: ScrollConfiguration(
                     behavior: ScrollBehavior(),
                     child: GlowingOverscrollIndicator(
                       axisDirection: AxisDirection.left,
                       color: black26,
-                      child: PageView.builder(
-                        onPageChanged: controller.onPageViewChange,
-                        controller: controller.pageController,
-                        itemCount: controller.quranDisplay[0].pages.length,
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              BetweenPageEffect(index: index + 1),
-                              PageSideEffect(index: index + 1),
-                              Center(
-                                child: ColorFiltered(
-                                    colorFilter: greyScale,
-                                    child: ColorFiltered(
-                                        colorFilter: ThemeServices.isDarkMode()
-                                            ? invert
-                                            : normal,
-                                        child: Image.asset(
-                                          controller
-                                              .quranDisplay[0].pages[index]
-                                              .toString(),
-                                          fit: BoxFit.fitWidth,
-                                        ))),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    '${controller.page + controller.currentPage}',
+                      child: GestureDetector(
+                        onDoubleTap: () {
+                          controller.onDoubleTap();
+                        },
+                        child: PageView.builder(
+                          onPageChanged: controller.onPageViewChange,
+                          controller: controller.pageController,
+                          itemCount: controller.quranDisplay[0].pages.length,
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              children: [
+                                BetweenPageEffect(index: index),
+                                PageSideEffect(index: index),
+                                Center(
+                                  child: ColorFiltered(
+                                      colorFilter: greyScale,
+                                      child: ColorFiltered(
+                                          colorFilter:
+                                              ThemeServices.isDarkMode()
+                                                  ? invert
+                                                  : normal,
+                                          child: Image.asset(
+                                            controller
+                                                .quranDisplay[0].pages[index]
+                                                .toString(),
+                                            fit: BoxFit.fitWidth,
+                                          ))),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      '${controller.page + controller.currentPage}',
+                                    ),
                                   ),
                                 ),
-                              )
-                            ],
-                          );
-                        },
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                        "سورة " +
+                                            controller.quranDisplay[0].surha,
+                                        style:
+                                            TextStyle(fontFamily: "Uthmanic")),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      controller.toggleTheme();
+                                    },
+                                    icon: Icon(Icons.dark_mode),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -107,6 +112,7 @@ class BetweenPageEffect extends StatelessWidget {
           begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
           end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
           colors: [
+            transparent,
             black.withOpacity(.05),
             black.withOpacity(.1),
           ],
@@ -130,7 +136,6 @@ class PageSideEffect extends StatelessWidget {
       alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: 5,
-        height: 5000,
         decoration: new BoxDecoration(
             gradient: new LinearGradient(
           begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,

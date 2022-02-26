@@ -8,7 +8,6 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
-import 'package:hisnelmoslem/views/screens/on_boarding.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'themes/themes.dart';
 import 'utils/notification_manager.dart';
@@ -23,10 +22,10 @@ void main() async {
   /// If user have old version of hisnElmoslem consider
   /// to disable all notification as all alrams and
   /// bookmared titles will be deleted in V1.5
-  final box = GetStorage();
-  if (box.read('is_v1.5_first_open') ?? true) {
-    await localNotifyManager.cancelAllNotifications();
-  }
+  // final box = GetStorage();
+  // if (box.read('is_v1.5_first_open') ?? true) {
+  //   await localNotifyManager.cancelAllNotifications();
+  // }
 
   /// Manage Notification feedback
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -87,9 +86,7 @@ class _MyAppState extends State<MyApp> {
       /// if this is the first open of the app
       /// then show on boardPage
       /// if not show dashboard
-      home: box.read('is_v1.5_first_open') ?? true
-          ? OnBoardingPage()
-          : AzkarDashboard(),
+      home: AzkarDashboard(),
     );
   }
 }

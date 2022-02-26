@@ -9,7 +9,7 @@ import 'package:hisnelmoslem/utils/alarm_manager.dart';
 
 import '../constants/constant.dart';
 
-Future<DbAlarm> showFastEditAlarmDialog(
+Future<dynamic> showFastEditAlarmDialog(
     {required BuildContext context, required DbAlarm dbAlarm}) async {
   // show the dialog
   return await showDialog(

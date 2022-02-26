@@ -28,6 +28,8 @@ class QuranPageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    // hide status bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     //
     await preparePages();
     //
@@ -59,6 +61,9 @@ class QuranPageController extends GetxController {
     super.onClose();
     //
     pageController.dispose();
+    //
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
   }
 
   /* *************** Functions *************** */
@@ -93,5 +98,11 @@ class QuranPageController extends GetxController {
 
   void toggleTheme() {
     ThemeServices.changeThemeMode();
+    update();
+  }
+
+  void onDoubleTap() {
+    // hide statusbar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 }

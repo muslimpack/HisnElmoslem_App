@@ -68,7 +68,7 @@ class AppDataController extends GetxController {
   /* ******* Surat al kahf alarm ******* */
 
   /// get Surat al kahf alarm status
-  bool get isCaveAlarmEnabled => box.read('cave_status') ?? true;
+  bool get isCaveAlarmEnabled => box.read('cave_status') ?? false;
 
   /// set Surat al kahf alarm status
   void changCaveAlarmStatus(bool value) {
@@ -84,7 +84,7 @@ class AppDataController extends GetxController {
   /* ******* monday and thursday fast alarm ******* */
 
   /// get monday and thursday fast alarm alarm status
-  bool get isFastAlarmEnabled => box.read('fast_status') ?? true;
+  bool get isFastAlarmEnabled => box.read('fast_status') ?? false;
 
   /// set monday and thursday fast alarm alarm status
   void changFastAlarmStatus(bool value) {
