@@ -9,7 +9,6 @@ import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
 import 'Utils/azkar_database_helper.dart';
-import 'themes/themes.dart';
 import 'utils/notification_manager.dart';
 
 void main() async {
@@ -56,8 +55,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final box = GetStorage();
-
   @override
   void dispose() async {
     //Close databases
@@ -80,11 +77,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
       theme: ThemeServices.getTheme(),
-      darkTheme: Themes.dark,
-
-      /// if this is the first open of the app
-      /// then show on boardPage
-      /// if not show dashboard
       home: AzkarDashboard(),
     );
   }

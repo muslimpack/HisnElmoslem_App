@@ -36,6 +36,7 @@ dependencies:
   screenshot: ^1.2.3
   get_storage: ^2.0.3
   audioplayers: ^0.20.1
+  enum_to_string: ^2.0.1
 
 dev_dependencies:
   flutter_test:

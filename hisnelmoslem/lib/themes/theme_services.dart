@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,22 +12,33 @@ class ThemeServices {
   static const storeKey = "appThemeMode";
 
   /// Get appMode from storage
-  static AppThemeMode get appThemeMode =>
-      box.read<AppThemeMode>(storeKey) ?? AppThemeMode.dark;
+  static AppThemeMode? get appThemeMode {
+    final stringVal = box.read<String>(storeKey) ??
+        EnumToString.convertToString(AppThemeMode.dark);
+    return EnumToString.fromString(AppThemeMode.values, stringVal);
+  }
 
   /// Save Changes to storage
-  static void changeAppThemeModeStatus(AppThemeMode? val) =>
-      box.write(storeKey, val);
+  static void changeAppThemeModeStatus(AppThemeMode? val) {
+    final stringfyVal = EnumToString.convertToString(val);
+    box.write(storeKey, stringfyVal);
+    // box.write(storeKey, val);
+  }
 
   /// Get AppTheme and change themes depend on its values
   static void handleThemeChange(AppThemeMode? val) {
-    changeAppThemeModeStatus(val);
-    if (val == AppThemeMode.light) {
-      Get.changeTheme(Themes.light);
-    } else if (val == AppThemeMode.dark) {
-      Get.changeTheme(Themes.dark);
-    } else if (val == AppThemeMode.defaultDark) {
-      Get.changeTheme(Themes.darkDefault);
+    try {
+      changeAppThemeModeStatus(val);
+      if (val == AppThemeMode.light) {
+        Get.changeTheme(Themes.light);
+      } else if (val == AppThemeMode.dark) {
+        Get.changeTheme(Themes.dark);
+      } else if (val == AppThemeMode.defaultDark) {
+        Get.changeTheme(Themes.darkDefault);
+      }
+      debugPrint('appThemeMode $appThemeMode}');
+    } catch (e) {
+      debugPrint("handleThemeChange");
     }
   }
 
@@ -53,12 +65,15 @@ class ThemeServices {
 
   /// Get appMode
   static ThemeData? getTheme() {
+    debugPrint('appThemeMode $appThemeMode}');
     if (appThemeMode == AppThemeMode.light) {
       return Themes.light;
     } else if (appThemeMode == AppThemeMode.dark) {
       return Themes.dark;
     } else if (appThemeMode == AppThemeMode.defaultDark) {
       return Themes.darkDefault;
+    } else {
+      return Themes.dark;
     }
   }
 }

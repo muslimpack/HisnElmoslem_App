@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/Shared/functions/get_snackbar.dart';
 import 'package:wakelock/wakelock.dart';
 import '../models/zikr_content.dart';
 import '../models/zikr_title.dart';
@@ -47,6 +48,9 @@ class AzkarReadPageController extends GetxController {
         if (call.arguments == "VOLUME_DOWN_UP" ||
             call.arguments == "VOLUME_UP_UP") {
           decreaseCount();
+        }
+        if (call.arguments == "MEDIA_BUTTON_DOWN") {
+          getSnackbar(message: "MEDIA_BUTTON_DOWN");
         }
       }
 
