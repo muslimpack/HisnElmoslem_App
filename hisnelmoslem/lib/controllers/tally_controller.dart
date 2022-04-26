@@ -12,6 +12,8 @@ class TallyController extends GetxController {
   double circval = 0;
   int? circvaltimes = 0;
   //
+  int circleResetEvery = 33;
+  //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //
 
@@ -46,8 +48,9 @@ class TallyController extends GetxController {
     int data = int.parse((prefs.getString('counter')!));
     //
     counter = data;
-    circval = counter.toDouble() - (counter ~/ 33) * 33;
-    circvaltimes = counter ~/ 33;
+    circval =
+        counter.toDouble() - (counter ~/ circleResetEvery) * circleResetEvery;
+    circvaltimes = counter ~/ circleResetEvery;
     //
     update();
   }
@@ -56,9 +59,13 @@ class TallyController extends GetxController {
     final SharedPreferences prefs = await _sprefs;
     HapticFeedback.vibrate();
     //
+    if (circval == circleResetEvery - 1) {
+      SoundsManagerController().playZikrDoneSound();
+    }
     counter++;
-    circval = counter.toDouble() - (counter ~/ 33) * 33;
-    circvaltimes = counter ~/ 33;
+    circval =
+        counter.toDouble() - (counter ~/ circleResetEvery) * circleResetEvery;
+    circvaltimes = counter ~/ circleResetEvery;
     prefs.setString('counter', counter.toString());
     //
     SoundsManagerController().playTallySound();
@@ -70,8 +77,9 @@ class TallyController extends GetxController {
     final SharedPreferences prefs = await _sprefs;
     //
     counter = 0;
-    circval = counter.toDouble() - (counter ~/ 33) * 33;
-    circvaltimes = counter ~/ 33;
+    circval =
+        counter.toDouble() - (counter ~/ circleResetEvery) * circleResetEvery;
+    circvaltimes = counter ~/ circleResetEvery;
     prefs.setString('counter', counter.toString());
     //
     update();
@@ -85,8 +93,9 @@ class TallyController extends GetxController {
     if (counter < 0) {
       counter = 0;
     }
-    circval = counter.toDouble() - (counter ~/ 33) * 33;
-    circvaltimes = counter ~/ 33;
+    circval =
+        counter.toDouble() - (counter ~/ circleResetEvery) * circleResetEvery;
+    circvaltimes = counter ~/ circleResetEvery;
     prefs.setString('counter', counter.toString());
     //
     update();
