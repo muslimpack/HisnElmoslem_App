@@ -32,219 +32,236 @@ class FavouriteZikr extends StatelessWidget {
                   "لم يتم تحديد أي ذكر كمفضل \nقم بالضغط على علامة القلب ❤ عند أي ذكر داخلي",
             )
           : Scaffold(
-              body: ListView.builder(
-                itemCount: controller.favouriteConent.length,
-                itemBuilder: (BuildContext context, int index) {
-                  //
-                  late DbContent dbContent = controller.favouriteConent[index];
-                  //
-                  DbTitle? dbTitle = controller.allTitle
-                      .where((element) => element.id == dbContent.titleId)
-                      .first;
-                  //
-                  return InkWell(
-                    splashColor: MAINCOLOR,
-                    onTap: () {
-                      if (dbContent.count > 0) {
-                        dbContent.count--;
-                        controller.update();
-                      }
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: IconButton(
-                                  splashRadius: 20,
-                                  icon: Icon(MdiIcons.camera),
-                                  onPressed: () {
-                                    transitionAnimation.circleReval(
-                                        context: Get.context!,
-                                        goToPage:
-                                            ShareAsImage(dbContent: dbContent));
-                                  },
-                                )),
-                                IconButton(
-                                    splashRadius: 20,
-                                    padding: EdgeInsets.all(0),
-                                    icon: dbContent.favourite
-                                        ? Icon(Icons.favorite, color: MAINCOLOR)
-                                        : Icon(Icons.favorite_border,
-                                            color: MAINCOLOR),
-                                    onPressed: () {
-                                      controller.removeContentFromFavourite(
-                                          dbContent);
-                                    }),
-                                Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.copy, color: MAINCOLOR),
-                                      onPressed: () {
-                                        FlutterClipboard.copy(
-                                                dbContent.content +
-                                                    "\n" +
-                                                    dbContent.fadl)
-                                            .then((result) {
-                                          // Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
-
-                                          getSnackbar(
-                                              message: 'تم النسخ إلى الحافظة');
-                                          // Get..currentState!.showSnackBar(snackBar);
-                                        });
-                                      }),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.share, color: MAINCOLOR),
-                                      onPressed: () {
-                                        Share.share(dbContent.content +
-                                            "\n" +
-                                            dbContent.fadl);
-                                      }),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.report, color: orange),
-                                      onPressed: () {
-                                        sendEmail(
-                                            toMailId:
-                                                'hassaneltantawy@gmail.com',
-                                            subject:
-                                                'تطبيق حصن المسلم: خطأ إملائي ',
-                                            body:
-                                                ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
-                                                    '\n' +
-                                                    'الموضوع: ' +
-                                                    dbTitle.name +
-                                                    '\n' +
-                                                    'الذكر رقم: ' +
-                                                    '${dbContent.orderId}' +
-                                                    '\n' +
-                                                    'النص: ' +
-                                                    '${dbContent.content}' +
-                                                    '\n' +
-                                                    'والصواب:' +
-                                                    '\n');
-                                      }),
-                                ),
-                                // Expanded(
-                                //   flex: 1,
-                                //   child: IconButton(
-                                //     splashRadius: 20,
-                                //     onPressed: () {
-                                //       //TODO Rest counter
-                                //       //  dbContent.count =  ;
-                                //       // controller.update();
-                                //     },
-                                //     icon: Icon(Icons.repeat),
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                            LinearProgressIndicator(
-                              value: 1,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                MAINCOLOR,
-                              ),
-                              backgroundColor: grey,
-                            ),
-                            Container(
-                              child: Column(
+              body: Container(
+                margin: EdgeInsets.only(bottom: 50),
+                child: ListView.builder(
+                  itemCount: controller.favouriteConent.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    //
+                    late DbContent dbContent =
+                        controller.favouriteConent[index];
+                    //
+                    DbTitle? dbTitle = controller.allTitle
+                        .where((element) => element.id == dbContent.titleId)
+                        .first;
+                    //
+                    return InkWell(
+                      splashColor: MAINCOLOR,
+                      onTap: () {
+                        if (dbContent.count > 0) {
+                          dbContent.count--;
+                          controller.update();
+                        }
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            children: [
+                              Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      appDataController.isTashkelEnabled
-                                          ? dbContent.content
-                                          : dbContent.content.replaceAll(
-                                              //* لحذف التشكيل
-                                              new RegExp(String.fromCharCodes(
-                                                  arabicTashkelChar)),
-                                              ""),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize:
-                                              appDataController.fontSize * 10,
-                                          color: dbContent.count == 0
-                                              ? MAINCOLOR
-                                              : null,
-                                          //fontSize: 20,
-                                          fontWeight: FontWeight.w700),
-                                    ),
+                                  Expanded(
+                                      child: IconButton(
+                                    splashRadius: 20,
+                                    icon: Icon(MdiIcons.camera),
+                                    onPressed: () {
+                                      transitionAnimation.circleReval(
+                                          context: Get.context!,
+                                          goToPage: ShareAsImage(
+                                              dbContent: dbContent));
+                                    },
+                                  )),
+                                  IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.all(0),
+                                      icon: dbContent.favourite
+                                          ? Icon(Icons.favorite,
+                                              color: MAINCOLOR)
+                                          : Icon(Icons.favorite_border,
+                                              color: MAINCOLOR),
+                                      onPressed: () {
+                                        controller.removeContentFromFavourite(
+                                            dbContent);
+                                      }),
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon:
+                                            Icon(Icons.copy, color: MAINCOLOR),
+                                        onPressed: () {
+                                          FlutterClipboard.copy(
+                                                  dbContent.content +
+                                                      "\n" +
+                                                      dbContent.fadl)
+                                              .then((result) {
+                                            // Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
+
+                                            getSnackbar(
+                                                message:
+                                                    'تم النسخ إلى الحافظة');
+                                            // Get..currentState!.showSnackBar(snackBar);
+                                          });
+                                        }),
                                   ),
-                                  dbContent.fadl == ""
-                                      ? SizedBox()
-                                      : Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            dbContent.fadl.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize:
-                                                    appDataController.fontSize *
-                                                        10,
-                                                color: MAINCOLOR,
-                                                //fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon:
+                                            Icon(Icons.share, color: MAINCOLOR),
+                                        onPressed: () {
+                                          Share.share(dbContent.content +
+                                              "\n" +
+                                              dbContent.fadl);
+                                        }),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                        splashRadius: 20,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Icon(Icons.report, color: orange),
+                                        onPressed: () {
+                                          sendEmail(
+                                              toMailId:
+                                                  'hassaneltantawy@gmail.com',
+                                              subject:
+                                                  'تطبيق حصن المسلم: خطأ إملائي ',
+                                              body:
+                                                  ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
+                                                      '\n' +
+                                                      'الموضوع: ' +
+                                                      dbTitle.name +
+                                                      '\n' +
+                                                      'الذكر رقم: ' +
+                                                      '${dbContent.orderId}' +
+                                                      '\n' +
+                                                      'النص: ' +
+                                                      '${dbContent.content}' +
+                                                      '\n' +
+                                                      'والصواب:' +
+                                                      '\n');
+                                        }),
+                                  ),
+                                  // Expanded(
+                                  //   flex: 1,
+                                  //   child: IconButton(
+                                  //     splashRadius: 20,
+                                  //     onPressed: () {
+                                  //       //TODO Rest counter
+                                  //       //  dbContent.count =  ;
+                                  //       // controller.update();
+                                  //     },
+                                  //     icon: Icon(Icons.repeat),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                              LinearProgressIndicator(
+                                value: 1,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  MAINCOLOR,
+                                ),
+                                backgroundColor: grey,
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        dbContent.count.toString(),
-                                        style: TextStyle(color: MAINCOLOR),
+                                        appDataController.isTashkelEnabled
+                                            ? dbContent.content
+                                            : dbContent.content.replaceAll(
+                                                //* لحذف التشكيل
+                                                new RegExp(String.fromCharCodes(
+                                                    arabicTashkelChar)),
+                                                ""),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize:
+                                                appDataController.fontSize * 10,
+                                            color: dbContent.count == 0
+                                                ? MAINCOLOR
+                                                : null,
+                                            //fontSize: 20,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                    dbContent.fadl == ""
+                                        ? SizedBox()
+                                        : Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(
+                                              dbContent.fadl.toString(),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: appDataController
+                                                          .fontSize *
+                                                      10,
+                                                  color: MAINCOLOR,
+                                                  //fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
+                              Divider(),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: ListTile(
+                                        tileColor:
+                                            Theme.of(context).primaryColor,
+                                        onTap: () {
+                                          if (!appDataController
+                                              .isCardReadMode) {
+                                            transitionAnimation.circleReval(
+                                                context: Get.context!,
+                                                goToPage: AzkarReadPage(
+                                                    index: dbTitle.id));
+                                          } else {
+                                            transitionAnimation.circleReval(
+                                                context: Get.context!,
+                                                goToPage: AzkarReadCard(
+                                                    index: dbTitle.id));
+                                          }
+                                        },
+                                        title: Text(
+                                          "الذهاب إلى ${dbTitle.name}",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: MAINCOLOR,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      dbContent.count.toString(),
+                                      style: TextStyle(
+                                          color: MAINCOLOR,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )
                                 ],
-                              ),
-                            ),
-                            Divider(),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ListTile(
-                                tileColor: Theme.of(context).backgroundColor,
-                                onTap: () {
-                                  if (!appDataController.isCardReadMode) {
-                                    transitionAnimation.circleReval(
-                                        context: Get.context!,
-                                        goToPage:
-                                            AzkarReadPage(index: dbTitle.id));
-                                  } else {
-                                    transitionAnimation.circleReval(
-                                        context: Get.context!,
-                                        goToPage:
-                                            AzkarReadCard(index: dbTitle.id));
-                                  }
-                                },
-                                title: Text(
-                                  "الذهاب إلى ${dbTitle.name}",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
               bottomSheet: BottomAppBar(
                 child: FontSettingsToolbox(
