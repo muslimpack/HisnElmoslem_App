@@ -4,6 +4,7 @@ import 'package:wakelock/wakelock.dart';
 import '../models/zikr_content.dart';
 import '../models/zikr_title.dart';
 import '../utils/azkar_database_helper.dart';
+import 'sounds_manager_controller.dart';
 
 class AzkarReadCardController extends GetxController {
   /* *************** Constractor *************** */
@@ -70,6 +71,10 @@ class AzkarReadCardController extends GetxController {
       }
     }
     totalProgress = done / totalNum;
+    if (totalProgress == 1) {
+      ///
+      SoundsManagerController().playAllAzkarFinishedSound();
+    }
     update();
   }
 }

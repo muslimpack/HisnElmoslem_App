@@ -35,6 +35,7 @@ dependencies:
   auto_size_text: ^3.0.0
   screenshot: ^1.2.3
   get_storage: ^2.0.3
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:

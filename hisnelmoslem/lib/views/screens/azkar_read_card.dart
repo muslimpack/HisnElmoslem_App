@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
@@ -76,12 +77,17 @@ class AzkarReadCard extends StatelessWidget {
                                 controller.zikrContent[index].count =
                                     (_counter);
 
+                                ///
+                                SoundsManagerController().playTallySound();
                                 if (_counter == 0) {
                                   HapticFeedback.vibrate();
+                                  SoundsManagerController().playZikrDoneSound();
                                 } else if (_counter < 0) {
                                   _counter = 0;
                                 }
                               }
+
+                              ///
                               controller.checkProgress();
                             },
                             onLongPress: () {

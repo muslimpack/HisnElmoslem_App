@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TallyController extends GetxController {
@@ -59,6 +60,8 @@ class TallyController extends GetxController {
     circval = counter.toDouble() - (counter ~/ 33) * 33;
     circvaltimes = counter ~/ 33;
     prefs.setString('counter', counter.toString());
+    //
+    SoundsManagerController().playTallySound();
     //
     update();
   }

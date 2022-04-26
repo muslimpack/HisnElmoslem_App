@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/views/screens/alarms_page.dart';
+import 'package:hisnelmoslem/views/screens/sounds_manager_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/settings_controller.dart';
@@ -69,6 +70,16 @@ class Settings extends StatelessWidget {
                               controller.update();
                             },
                           ),
+                    ListTile(
+                      title: Text("إدارة مؤثرات الصوت"),
+                      leading: Icon(
+                        Icons.speaker_group,
+                      ),
+                      onTap: () {
+                        transitionAnimation.fromBottom2Top(
+                            context: context, goToPage: SoundsManagerPage());
+                      },
+                    ),
                     Divider(),
                     Title(title: 'إعدادت الخط'),
                     TextSample(),

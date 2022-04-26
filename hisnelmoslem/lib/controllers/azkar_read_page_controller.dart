@@ -5,6 +5,7 @@ import 'package:wakelock/wakelock.dart';
 import '../models/zikr_content.dart';
 import '../models/zikr_title.dart';
 import '../utils/azkar_database_helper.dart';
+import 'sounds_manager_controller.dart';
 
 class AzkarReadPageController extends GetxController {
   /* *************** Constractor *************** */
@@ -92,20 +93,32 @@ class AzkarReadPageController extends GetxController {
     int _counter = zikrContent[currentPage].count;
     if (_counter == 0) {
       HapticFeedback.vibrate();
+      SoundsManagerController().playZikrDoneSound();
     } else {
       _counter--;
 
       zikrContent[currentPage].count = ((zikrContent[currentPage].count) - 1);
 
+      ///
+      SoundsManagerController().playTallySound();
       if (_counter > 0) {
       } else if (_counter == 0) {
+        ///
         HapticFeedback.vibrate();
+
+        ///
+        SoundsManagerController().playZikrDoneSound();
+        SoundsManagerController().playTransitionSound();
 
         pageController.nextPage(
             curve: Curves.easeIn, duration: Duration(milliseconds: 500));
       }
     }
+
+    ///
     checkProgress();
+
+    ///
     update();
   }
 
@@ -118,6 +131,11 @@ class AzkarReadPageController extends GetxController {
       }
     }
     totalProgress = done / totalNum;
+    debugPrint(totalProgress.toString());
+    if (totalProgress == 1) {
+      ///
+      SoundsManagerController().playAllAzkarFinishedSound();
+    }
     update();
   }
 }
