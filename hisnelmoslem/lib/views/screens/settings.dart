@@ -4,9 +4,9 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/views/screens/alarms_page.dart';
 import 'package:hisnelmoslem/views/screens/sounds_manager_page.dart';
+import 'package:hisnelmoslem/views/screens/themes_manager_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/settings_controller.dart';
@@ -38,21 +38,21 @@ class Settings extends StatelessWidget {
                   physics: ClampingScrollPhysics(),
                   children: [
                     Title(title: 'عام'),
-                    SwitchListTile(
-                      title: Row(
-                        children: [
-                          Icon(Icons.dark_mode),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 30),
-                            child: Text("الوضع المعتم"),
-                          )
-                        ],
-                      ),
-                      value: ThemeServices.isDarkMode(),
-                      onChanged: (value) {
-                        controller.toggleTheme();
-                      },
-                    ),
+                    // SwitchListTile(
+                    //   title: Row(
+                    //     children: [
+                    //       Icon(Icons.dark_mode),
+                    //       Container(
+                    //         margin: EdgeInsets.symmetric(horizontal: 30),
+                    //         child: Text("الوضع المعتم"),
+                    //       )
+                    //     ],
+                    //   ),
+                    //   value: ThemeServices.isDarkMode(),
+                    //   onChanged: (value) {
+                    //     controller.toggleTheme();
+                    //   },
+                    // ),
                     !appDataController.isCardReadMode
                         ? ListTile(
                             leading: Icon(MdiIcons.bookOpenPageVariant),
@@ -70,6 +70,15 @@ class Settings extends StatelessWidget {
                               controller.update();
                             },
                           ),
+                    ListTile(
+                      title: Text("إدارة ألوان التطبيق"),
+                      leading: Icon(Icons.palette),
+                      onTap: () {
+                        transitionAnimation.fromBottom2Top(
+                            context: context, goToPage: ThemeManagerPage());
+                      },
+                    ),
+
                     ListTile(
                       title: Text("إدارة مؤثرات الصوت"),
                       leading: Icon(

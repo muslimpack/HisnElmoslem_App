@@ -79,9 +79,8 @@ class _MyAppState extends State<MyApp> {
       locale: Locale('ar'),
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
-      theme: Themes.light,
+      theme: ThemeServices.getTheme(),
       darkTheme: Themes.dark,
-      themeMode: ThemeServices.getTheme(),
 
       /// if this is the first open of the app
       /// then show on boardPage

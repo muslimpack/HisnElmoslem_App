@@ -59,7 +59,7 @@ class SoundsManagerPage extends StatelessWidget {
                         leading: Icon(
                           Icons.speaker,
                         ),
-                        title: Text("صوت عند كل تسبيحة"),
+                        title: Text("اشعار عند كل تسبيحة"),
                       ),
                       activeColor: MAINCOLOR,
                       value: controller.isTallySoundAllowed,
@@ -68,10 +68,8 @@ class SoundsManagerPage extends StatelessWidget {
 
                         if (value) {
                           controller.playTallySound();
-                        } else {
-                          // getSnackbar(
-                          //     message: "تم الغاء منبه صيام الإثنين والخميس");
                         }
+
                         controller.update();
                       },
                     ),
@@ -83,7 +81,7 @@ class SoundsManagerPage extends StatelessWidget {
                         leading: Icon(
                           Icons.speaker,
                         ),
-                        title: Text("صوت عند انتهاء كل ذكر"),
+                        title: Text("اشعار عند انتهاء كل ذكر"),
                       ),
                       activeColor: MAINCOLOR,
                       value: controller.isZikrDoneSoundAllowed,
@@ -92,9 +90,6 @@ class SoundsManagerPage extends StatelessWidget {
 
                         if (value) {
                           controller.playZikrDoneSound();
-                        } else {
-                          // getSnackbar(
-                          //     message: "تم الغاء منبه صيام الإثنين والخميس");
                         }
                         controller.update();
                       },
@@ -107,7 +102,7 @@ class SoundsManagerPage extends StatelessWidget {
                         leading: Icon(
                           Icons.speaker,
                         ),
-                        title: Text("صوت عند انتهاء جميع الأذكار"),
+                        title: Text("اشعار عند انتهاء جميع الأذكار"),
                       ),
                       activeColor: MAINCOLOR,
                       value: controller.isAllAzkarFinishedSoundAllowed,
@@ -116,9 +111,6 @@ class SoundsManagerPage extends StatelessWidget {
 
                         if (value) {
                           controller.playAllAzkarFinishedSound();
-                        } else {
-                          // getSnackbar(
-                          //     message: "تم الغاء منبه صيام الإثنين والخميس");
                         }
                         controller.update();
                       },

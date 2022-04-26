@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/themes/theme_services.dart';
 
 class SettingsController extends GetxController {
   /* *************** Variables *************** */
-  //
 
   /* *************** Controller life cycle *************** */
   //
@@ -18,11 +16,6 @@ class SettingsController extends GetxController {
     super.onClose();
   }
 
-  void toggleTheme() {
-    ThemeServices.changeThemeMode();
-    update();
-  }
-
   /* *************** Functions *************** */
-  //
+
 }

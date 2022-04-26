@@ -74,4 +74,7 @@ class Themes {
       backgroundColor: lightColor,
     ),
   );
+
+  ///
+  static final darkDefault = ThemeData.dark();
 }

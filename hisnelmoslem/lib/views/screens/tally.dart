@@ -67,7 +67,7 @@ class Tally extends StatelessWidget {
                           startAngle: 270,
                           infoProperties: InfoProperties(
                             bottomLabelText:
-                                '${controller.circvaltimes}  عدد المرات',
+                                'عدد المرات ${controller.circvaltimes}',
                             bottomLabelStyle: TextStyle(
                               fontSize: 25,
                             ),
@@ -81,7 +81,8 @@ class Tally extends StatelessWidget {
                               progressBarWidth: 40, trackWidth: 40),
                           customColors: CustomSliderColors(
                             // trackColor: grey,
-                            hideShadow: true,
+                            // hideShadow: true,
+                            trackColor: transparent,
                             progressBarColors: [
                               MAINCOLOR,
                               MAINCOLOR,
