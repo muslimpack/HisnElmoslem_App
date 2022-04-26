@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
+import 'package:hisnelmoslem/views/screens/on_boarding.dart';
 import 'Utils/azkar_database_helper.dart';
 import 'utils/notification_manager.dart';
 
@@ -23,7 +24,7 @@ void main() async {
   /// bookmared titles will be deleted in V1.5
   // final box = GetStorage();
   // if (box.read('is_v1.5_first_open') ?? true) {
-  //   await localNotifyManager.cancelAllNotifications();
+  // //   await localNotifyManager.cancelAllNotifications();
   // }
 
   /// Manage Notification feedback
@@ -66,6 +67,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO to be deleted in next update
+    final box = GetStorage();
+    final openOnBoard = box.read('is_v1.7_first_open') ?? true;
+
     /// Keep app in portrait mode and
     /// make it static when phone rotation change
     SystemChrome.setPreferredOrientations([
@@ -77,7 +82,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
       theme: ThemeServices.getTheme(),
-      home: AzkarDashboard(),
+
+      // TODO to be deleted in next update
+      home: openOnBoard ? OnBoardingPage() : AzkarDashboard(),
+      // home: AzkarDashboard(),
     );
   }
 }

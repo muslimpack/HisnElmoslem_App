@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../shared/transition_animation/transition_animation.dart';
 import '../shared/widgets/empty.dart';
 import '../views/screens/dashboard.dart';
@@ -20,7 +19,7 @@ class OnBoardingController extends GetxController {
   //
   final pageList = [
     Empty(
-      title: "حصن المسلم الإصدار 1.5.0",
+      title: "حصن المسلم الإصدار 1.7.0",
       description: '''
 أهلا بك أيها الكريم في هذا اللإصدار الجديد من حصن المسلم 
 قم بتقليب الصفحات لرؤية الميزات الجديدة 
@@ -29,94 +28,48 @@ class OnBoardingController extends GetxController {
     ),
     Empty(
       isImage: false,
-      icon: MdiIcons.phoneRotatePortrait,
-      title: "التطبيق دائما في الوضع الرأسي",
+      icon: Icons.speaker_group,
+      title: "مؤثرات صوتية",
       description: """
-التطبيق الآن لا يستدير مع دوران الهاتف وإنما يحافظ على الوضع الرأسي
-""",
-    ),
-    Empty(
-      isImage: false,
-      icon: MdiIcons.soundbar,
-      title: "التسبح بمفاتيح الصوت",
-      description: """
-- Stable التسبيح بمفاتيح الصوت وسماعات الرأس التي تدعم التحكم بمفاتيح الصوت
-  - التحكم في الأذكار اليومية بمفاتيح الصوت
-  - التحكم بالسبحة بمفاتيح الصوت
-  - تقليب صفحات سورة الكهف
-- كما يمكنك تصفح هذه التحديثات بمفاتيح الصوت
-""",
-    ),
-    Empty(
-      isImage: false,
-      icon: MdiIcons.camera,
-      title: "مشاركة الذكر كصورة",
-      description: """
-يمكنك الآن مشاركة الذكر على وسائل التواصل وغيرها
-وضعين للألوان داكن وفاتح
-تحديد امكانية مشاركة المصدر أو الفضل إن ذكر أو لا
-""",
-    ),
-    Empty(
-      isImage: false,
-      icon: Icons.favorite,
-      title: "اضافة أذكار إلى مفضلة الأذكار",
-      description: '''
-اضافة أي ذكر داخلي إلى مفضلة الأذكار للعودة إليه مباشرة في أي وقت من الصفحة الرئيسية
-''',
-    ),
-    Empty(
-      isImage: false,
-      icon: Icons.alarm,
-      title: "حالة التنبيهات",
-      description: """
-اضافة ألوان لمعرفة حالة المنبه
-منبه فعال "أزرق" - منبه غير فعال "أحمر" - لايوجد منبه "أبيض"
-كل هذا من الواجهة الرئيسية مباشرة
-""",
-    ),
-    Empty(
-      isImage: false,
-      icon: MdiIcons.toolbox,
-      title: "إعدادت الخط",
-      description: """
-اضافة اعدادت الخط إلى صفحة الإعدادت
-يمكنك تكبير وتصغير وإعادة ضبط حجم الخط
-تشغيل وايقاف تشكيل الكلمات
-كل هذا مع معاينة مباشرة
+- اضافة مؤثرات صوتية عند
+- الضغط للتسبيح
+- عند اكتمال الذكر
+- عند اكتمال جميع الأذكار
 
+بشكل افتراضي جميع المؤثرات مغلقة اذهب للإعدادات ومن ثم إدراة مؤثرات الصوت لتفعيلها
 """,
     ),
     Empty(
       isImage: false,
-      icon: MdiIcons.square,
-      title: "شريط التقدم الكلي",
+      icon: Icons.dark_mode,
+      title: "عودة الوضع المعتم القديم",
       description: """
-الآن شريط التقدم الكلي في وضع البطاقات
+- عودة الوضع المعتم القديم للتطبيق ليصبح هناك ثلاثة أوضاع
+- وضع فاتح
+- وضع معتم
+- وضع معتم محسن
+
+اذهب للإعدادات ومن ثم إدراة ألوان التطبيق
 """,
     ),
     Empty(
       isImage: false,
-      title: "وغيره المزيد",
+      icon: Icons.bug_report_sharp,
+      title: "إصلاح بعض المشاكل",
       description: """
-- الشريط العلوي يختفي أثناء تصفح الفهرس والمفضلة
-- تعديل واجهة قراءة الأذكار في وضع الصفحات
-- تعيين الحديث كمقروء
-- اصلاح الألوان الساطعة في صفحة المنبهات
-- اصلاح النمط لبعض النصوص
-- اصلاح بعض الأخطاء
+- إصلاح بعض المشاكل واضافة بعض التحسينات على التطبيقات
 """,
     ),
     Empty(
       isImage: false,
-      icon: Icons.warning_amber_rounded,
-      title: "تنبيه هام",
+      icon: Icons.notifications,
+      title: "كيفية التواصل في حالة وجود مشكلة؟",
       description: """
-سيتم حذف جميع التنبيهات التي قمت بوضعها سابقا
-كما سيتم حذف الأذكار التي تم وضعها في المفضلة
-وجميع الإعدادات التي قمت بتعيينها في وقت سابق
+إذا واجهتك مشكلة بالتطبيق أو لديك فكرة لميزة يمكن اضافتها للتطبيق
+
+اذهب للإعدادات ومن ثم اضغط على الشكاوى والمقترحات وأجب عن الأسئلة وأرسلها لي
 """,
-    )
+    ),
   ];
 
   /* *************** Controller life cycle *************** */
@@ -157,7 +110,7 @@ class OnBoardingController extends GetxController {
   /// and set app fisrt open to false
   goToDashboard() {
     final box = GetStorage();
-    box.write("is_v1.5_first_open", false);
+    box.write("is_v1.7_first_open", false);
     transitionAnimation.circleRevalPushReplacement(
         context: Get.context!, goToPage: AzkarDashboard());
   }

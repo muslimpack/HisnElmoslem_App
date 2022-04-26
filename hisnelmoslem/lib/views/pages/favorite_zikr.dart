@@ -241,18 +241,18 @@ class FavouriteZikr extends StatelessWidget {
                                               color: MAINCOLOR,
                                               fontWeight: FontWeight.bold),
                                         ),
+                                        trailing: Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Text(
+                                            dbContent.count.toString(),
+                                            style: TextStyle(
+                                                color: MAINCOLOR,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      dbContent.count.toString(),
-                                      style: TextStyle(
-                                          color: MAINCOLOR,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )
                                 ],
                               )
                             ],
