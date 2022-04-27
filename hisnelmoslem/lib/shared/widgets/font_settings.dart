@@ -17,56 +17,54 @@ class FontSettingsToolbox extends StatelessWidget {
   static AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        // mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Visibility(
-            visible: showFontResizeControllers,
-            child: Expanded(
-                flex: 1,
-                child: IconButton(
-                    icon: Icon(MdiIcons.restart),
-                    onPressed: () {
-                      appDataController.resetFontSize();
-                      controllerToUpdate.update();
-                    })),
-          ),
-          Visibility(
-            visible: showFontResizeControllers,
-            child: Expanded(
-                flex: 1,
-                child: IconButton(
-                    icon: Icon(MdiIcons.formatFontSizeIncrease),
-                    onPressed: () {
-                      appDataController.increaseFontSize();
-                      controllerToUpdate.update();
-                    })),
-          ),
-          Visibility(
-            visible: showFontResizeControllers,
-            child: Expanded(
-                flex: 1,
-                child: IconButton(
-                    icon: Icon(MdiIcons.formatFontSizeDecrease),
-                    onPressed: () {
-                      appDataController.decreaseFontSize();
-                      controllerToUpdate.update();
-                    })),
-          ),
-          Visibility(
-            visible: showTashkelControllers,
-            child: Expanded(
-                flex: 1,
-                child: IconButton(
-                    icon: Icon(MdiIcons.abjadArabic),
-                    onPressed: () {
-                      appDataController.toggleTashkelStatus();
-                      controllerToUpdate.update();
-                    })),
-          ),
-        ],
-      ),
+    return Row(
+      // mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Visibility(
+          visible: showFontResizeControllers,
+          child: Expanded(
+              flex: 1,
+              child: IconButton(
+                  icon: const Icon(MdiIcons.restart),
+                  onPressed: () {
+                    appDataController.resetFontSize();
+                    controllerToUpdate.update();
+                  })),
+        ),
+        Visibility(
+          visible: showFontResizeControllers,
+          child: Expanded(
+              flex: 1,
+              child: IconButton(
+                  icon: const Icon(MdiIcons.formatFontSizeIncrease),
+                  onPressed: () {
+                    appDataController.increaseFontSize();
+                    controllerToUpdate.update();
+                  })),
+        ),
+        Visibility(
+          visible: showFontResizeControllers,
+          child: Expanded(
+              flex: 1,
+              child: IconButton(
+                  icon: const Icon(MdiIcons.formatFontSizeDecrease),
+                  onPressed: () {
+                    appDataController.decreaseFontSize();
+                    controllerToUpdate.update();
+                  })),
+        ),
+        Visibility(
+          visible: showTashkelControllers,
+          child: Expanded(
+              flex: 1,
+              child: IconButton(
+                  icon: const Icon(MdiIcons.abjadArabic),
+                  onPressed: () {
+                    appDataController.toggleTashkelStatus();
+                    controllerToUpdate.update();
+                  })),
+        ),
+      ],
     );
   }
 }
@@ -78,7 +76,7 @@ class TextSample extends StatelessWidget {
       "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: Card(
         child: Padding(
@@ -88,7 +86,7 @@ class TextSample extends StatelessWidget {
               appDataController.isTashkelEnabled
                   ? text
                   : text.replaceAll(
-                      new RegExp(String.fromCharCodes(arabicTashkelChar)), ""),
+                      RegExp(String.fromCharCodes(arabicTashkelChar)), ""),
               textAlign: TextAlign.center,
               softWrap: true,
               textDirection: TextDirection.rtl,

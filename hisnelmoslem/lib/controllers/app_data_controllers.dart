@@ -110,7 +110,7 @@ class AppDataController extends GetxController {
           title: "صيام غدا الإثنين",
           body:
               "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: Time(21, 00, 0),
+          time: const Time(21, 00, 0),
           day: Day.sunday,
           payload: "555");
       localNotifyManager.addCustomWeeklyReminder(
@@ -119,7 +119,7 @@ class AppDataController extends GetxController {
           title: "صيام غدا الخميس",
           body:
               "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: Time(21, 00, 0),
+          time: const Time(21, 00, 0),
           day: Day.wednesday,
           payload: "666");
     } else {
@@ -137,7 +137,7 @@ class AppDataController extends GetxController {
           title: "سورة الكهف",
           body:
               "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
-          time: Time(9, 00, 0),
+          time: const Time(9, 00, 0),
           day: Day.friday,
           payload: "الكهف");
     } else {

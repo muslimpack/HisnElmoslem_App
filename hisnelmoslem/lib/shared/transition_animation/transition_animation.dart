@@ -9,10 +9,10 @@ class TransitionAnimation {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => goToPage,
-        transitionDuration: Duration(milliseconds: 500),
-        reverseTransitionDuration: Duration(milliseconds: 500),
+        transitionDuration: const Duration(milliseconds: 500),
+        reverseTransitionDuration: const Duration(milliseconds: 500),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var begin = Offset(0.0, 1.0);
+          var begin = const Offset(0.0, 1.0);
           var end = Offset.zero;
           var curve = Curves.ease;
           var tween =
@@ -28,8 +28,8 @@ class TransitionAnimation {
 
   circleReval({required BuildContext context, required Widget goToPage}) {
     Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: 1000),
-      reverseTransitionDuration: Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 1000),
+      reverseTransitionDuration: const Duration(milliseconds: 500),
       opaque: false,
       barrierDismissible: false,
       pageBuilder: (context, animation, secondaryAnimation) => goToPage,
@@ -55,8 +55,8 @@ class TransitionAnimation {
   circleRevalPushReplacement(
       {required BuildContext context, required Widget goToPage}) {
     Navigator.of(context).pushReplacement(PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: 1000),
-      reverseTransitionDuration: Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 1000),
+      reverseTransitionDuration: const Duration(milliseconds: 500),
       opaque: false,
       barrierDismissible: false,
       pageBuilder: (context, animation, secondaryAnimation) => goToPage,

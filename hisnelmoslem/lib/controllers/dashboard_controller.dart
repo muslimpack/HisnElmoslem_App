@@ -126,7 +126,7 @@ class DashboardController extends GetxController {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-          context: Get.context!, goToPage: QuranReadPage());
+          context: Get.context!, goToPage: const QuranReadPage());
     }
 
     /// ignore constant alarms if clicked
@@ -158,8 +158,8 @@ class DashboardController extends GetxController {
     } else {
       debugPrint("else");
       searchedTitle = allTitle.where((zikr) {
-        var zikrTitle = zikr.name.replaceAll(
-            new RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+        var zikrTitle = zikr.name
+            .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
         return zikrTitle.contains(searchController.text);
       }).toList();
     }

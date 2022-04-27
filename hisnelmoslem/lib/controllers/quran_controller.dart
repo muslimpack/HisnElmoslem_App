@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 
-import '../models/json/Quran.dart';
+import '../models/json/quran.dart';
 
 class QuranPageController extends GetxController {
   /* *************** Variables *************** */
@@ -16,7 +16,7 @@ class QuranPageController extends GetxController {
   PageController pageController = PageController(initialPage: 0);
   int currentPage = 0;
   //
-  List<Quran> _quran = <Quran>[];
+  final List<Quran> _quran = <Quran>[];
   List<Quran> quranDisplay = <Quran>[];
   //
   bool isLoading = true;
@@ -37,13 +37,13 @@ class QuranPageController extends GetxController {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
           pageController.nextPage(
-            duration: new Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }
         if (call.arguments == "VOLUME_UP_UP") {
           pageController.previousPage(
-            duration: new Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }

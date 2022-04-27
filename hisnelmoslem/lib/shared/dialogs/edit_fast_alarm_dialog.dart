@@ -1,7 +1,7 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/Utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/functions/show_toast.dart';
@@ -64,15 +64,15 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
+      title: const Text(
         "تعديل تنبيه",
         style: TextStyle(fontFamily: "Uthmanic"),
       ),
-      content: Container(
+      content: SizedBox(
           height: 270,
           width: MediaQuery.of(context).size.width * .9,
           child: ScrollConfiguration(
-              behavior: ScrollBehavior(),
+              behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: black26,
@@ -80,16 +80,16 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                   children: [
                     Text(
                       widget.dbAlarm.title,
-                      style: TextStyle(color: MAINCOLOR, fontSize: 20),
+                      style: const TextStyle(color: mainColor, fontSize: 20),
                     ),
-                    Divider(),
+                    const Divider(),
                     TextField(
-                      style: TextStyle(decorationColor: MAINCOLOR),
+                      style: const TextStyle(decorationColor: mainColor),
                       textAlign: TextAlign.center,
                       controller: bodyController,
                       maxLength: 40,
                       autofocus: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -100,7 +100,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                             left: 15, bottom: 5, top: 5, right: 15),
                       ),
                     ),
-                    Divider(),
+                    const Divider(),
                     InkWell(
                       onTap: () {},
                       child: ListTile(
@@ -131,7 +131,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
                         },
                       ),
                     ),
-                    Divider(),
+                    const Divider(),
                     DropdownButton<String>(
                       value: repeatType,
                       icon: const Icon(Icons.arrow_downward),
@@ -163,14 +163,14 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
               ))),
       actions: [
         Padding(
-          padding: EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 5),
           child: TextButton(
             style: TextButton.styleFrom(
               // minimumSize: Size(_width, _height),
               // backgroundColor: white,
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
             ),
-            child: Text("تم"),
+            child: const Text("تم"),
             onPressed: () {
               setState(() {
                 if (selectedHour != null) {
@@ -198,14 +198,14 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 5),
           child: TextButton(
             style: TextButton.styleFrom(
               // minimumSize: Size(_width, _height),
               // backgroundColor: white,
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
             ),
-            child: Text("اغلاق"),
+            child: const Text("اغلاق"),
             onPressed: () {
               widget.dbAlarm.hasAlarmInside = true;
               Navigator.pop(context, widget.dbAlarm);

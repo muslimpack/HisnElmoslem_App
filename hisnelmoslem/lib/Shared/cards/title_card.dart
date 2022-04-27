@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
@@ -17,7 +17,8 @@ import '../constants/constant.dart';
 class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;
   final DbAlarm dbAlarm;
-  TitleCard({required this.fehrsTitle, required this.dbAlarm});
+  TitleCard({Key? key, required this.fehrsTitle, required this.dbAlarm})
+      : super(key: key);
   final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,9 @@ class TitleCard extends StatelessWidget {
       return ListTile(
         leading: fehrsTitle.favourite
             ? IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.bookmark,
-                  color: MAINCOLOR,
+                  color: mainColor,
                 ),
                 onPressed: () {
                   azkarDatabaseHelper.deleteTitleFromFavourite(
@@ -47,7 +48,7 @@ class TitleCard extends StatelessWidget {
                   controller.update();
                 })
             : IconButton(
-                icon: Icon(Icons.bookmark_border_outlined),
+                icon: const Icon(Icons.bookmark_border_outlined),
                 onPressed: () {
                   //
                   azkarDatabaseHelper.addTitleToFavourite(dbTitle: fehrsTitle);
@@ -61,7 +62,7 @@ class TitleCard extends StatelessWidget {
                 }),
         trailing: !dbAlarm.hasAlarmInside
             ? IconButton(
-                icon: Icon(Icons.alarm_add_rounded),
+                icon: const Icon(Icons.alarm_add_rounded),
                 onPressed: () {
                   dbAlarm.title = fehrsTitle.name;
                   showFastAddAlarmDialog(context: context, dbAlarm: dbAlarm)
@@ -83,9 +84,9 @@ class TitleCard extends StatelessWidget {
                 })
             : tempAlarm.isActive
                 ? IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.alarm,
-                      color: MAINCOLOR,
+                      color: mainColor,
                     ),
                     onPressed: () {
                       dbAlarm.isActive = tempAlarm.isActive = false;
@@ -111,8 +112,8 @@ class TitleCard extends StatelessWidget {
                       controller.update();
                     }),
         title: Text(fehrsTitle.name,
-            style:
-                TextStyle(fontFamily: "Uthmanic", fontWeight: FontWeight.bold)),
+            style: const TextStyle(
+                fontFamily: "Uthmanic", fontWeight: FontWeight.bold)),
         // trailing: Text(zikrList[index]),
         onTap: () {
           if (!appDataController.isCardReadMode) {

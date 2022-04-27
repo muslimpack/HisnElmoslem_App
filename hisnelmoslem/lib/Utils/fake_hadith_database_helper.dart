@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hisnelmoslem/models/fakeHaith.dart';
+import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -12,8 +12,8 @@ FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
 class FakeHadithDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "fake_hadith_database.db";
-  static const int DATABASE_VERSION = 1;
+  static const String dbName = "fake_hadith_database.db";
+  static const int dbVersion = 1;
 
   /* ************* Singelton Constractor ************* */
 
@@ -23,16 +23,12 @@ class FakeHadithDatabaseHelper {
   FakeHadithDatabaseHelper._createInstance();
 
   factory FakeHadithDatabaseHelper() {
-    if (_databaseHelper == null) {
-      _databaseHelper = FakeHadithDatabaseHelper._createInstance();
-    }
+    _databaseHelper ??= FakeHadithDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await _initDatabase();
-    }
+    _database ??= await _initDatabase();
     return _database!;
   }
 
@@ -41,7 +37,7 @@ class FakeHadithDatabaseHelper {
   // init
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, DB_NAME);
+    final path = join(dbPath, dbName);
 
     final exist = await databaseExists(path);
 
@@ -53,7 +49,7 @@ class FakeHadithDatabaseHelper {
 
     return await openDatabase(
       path,
-      version: DATABASE_VERSION,
+      version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
@@ -81,7 +77,7 @@ class FakeHadithDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
+      ByteData data = await rootBundle.load(join("assets", "db", dbName));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

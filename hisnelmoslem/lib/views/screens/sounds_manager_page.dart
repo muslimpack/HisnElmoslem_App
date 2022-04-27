@@ -15,18 +15,18 @@ class SoundsManagerPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("إدارة مؤثرات الصوت",
+              title: const Text("إدارة مؤثرات الصوت",
                   style: TextStyle(fontFamily: "Uthmanic")),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,
             ),
             body: ScrollConfiguration(
-              behavior: ScrollBehavior(),
+              behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: black26,
                 child: ListView(
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
                     /// Transition Sound Allowed
                     // SwitchListTile(
@@ -37,7 +37,7 @@ class SoundsManagerPage extends StatelessWidget {
                     //     ),
                     //     title: Text("صوت عند الانتقال بين الصفحات"),
                     //   ),
-                    //   activeColor: MAINCOLOR,
+                    //   activeColor: mainColor,
                     //   value: controller.isTransitionSoundAllowed,
                     //   onChanged: (value) {
                     //     controller.changeTransitionSoundStatus(value);
@@ -54,14 +54,14 @@ class SoundsManagerPage extends StatelessWidget {
 
                     /// Tally Sound Allowed
                     SwitchListTile(
-                      title: ListTile(
+                      title: const ListTile(
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(
                           Icons.speaker,
                         ),
                         title: Text("اشعار عند كل تسبيحة"),
                       ),
-                      activeColor: MAINCOLOR,
+                      activeColor: mainColor,
                       value: controller.isTallySoundAllowed,
                       onChanged: (value) {
                         controller.changeTallySoundStatus(value);
@@ -76,14 +76,14 @@ class SoundsManagerPage extends StatelessWidget {
 
                     /// Zikr Done Sound Allowed
                     SwitchListTile(
-                      title: ListTile(
+                      title: const ListTile(
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(
                           Icons.speaker,
                         ),
                         title: Text("اشعار عند انتهاء كل ذكر"),
                       ),
-                      activeColor: MAINCOLOR,
+                      activeColor: mainColor,
                       value: controller.isZikrDoneSoundAllowed,
                       onChanged: (value) {
                         controller.changeZikrDoneSoundStatus(value);
@@ -97,14 +97,14 @@ class SoundsManagerPage extends StatelessWidget {
 
                     /// Azkar Done Sound Allowed
                     SwitchListTile(
-                      title: ListTile(
+                      title: const ListTile(
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(
                           Icons.speaker,
                         ),
                         title: Text("اشعار عند انتهاء جميع الأذكار"),
                       ),
-                      activeColor: MAINCOLOR,
+                      activeColor: mainColor,
                       value: controller.isAllAzkarFinishedSoundAllowed,
                       onChanged: (value) {
                         controller.changeAllAzkarFinishedSoundStatus(value);

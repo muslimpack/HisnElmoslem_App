@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import '../../controllers/quran_controller.dart';
@@ -16,11 +16,11 @@ class QuranReadPage extends StatelessWidget {
         init: QuranPageController(),
         builder: (controller) {
           return controller.isLoading
-              ? Loading()
+              ? const Loading()
               : Scaffold(
                   key: controller.quranReadPageScaffoldKey,
                   body: ScrollConfiguration(
-                    behavior: ScrollBehavior(),
+                    behavior: const ScrollBehavior(),
                     child: GlowingOverscrollIndicator(
                       axisDirection: AxisDirection.left,
                       color: black26,
@@ -55,7 +55,7 @@ class QuranReadPage extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Padding(
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     child: Text(
                                       '${controller.page + controller.currentPage}',
                                     ),
@@ -68,8 +68,8 @@ class QuranReadPage extends StatelessWidget {
                                     child: Text(
                                         "سورة " +
                                             controller.quranDisplay[0].surha,
-                                        style:
-                                            TextStyle(fontFamily: "Uthmanic")),
+                                        style: const TextStyle(
+                                            fontFamily: "Uthmanic")),
                                   ),
                                 ),
                                 Align(
@@ -78,7 +78,7 @@ class QuranReadPage extends StatelessWidget {
                                     onPressed: () {
                                       controller.toggleTheme();
                                     },
-                                    icon: Icon(Icons.dark_mode),
+                                    icon: const Icon(Icons.dark_mode),
                                   ),
                                 ),
                               ],
@@ -107,8 +107,8 @@ class BetweenPageEffect extends StatelessWidget {
       alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: 50,
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
           begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
           end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
           colors: [
@@ -136,8 +136,8 @@ class PageSideEffect extends StatelessWidget {
       alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: 5,
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
           begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
           end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
           colors: [

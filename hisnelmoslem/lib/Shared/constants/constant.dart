@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const Color MAINCOLOR = Color.fromARGB(255, 105, 187, 253);
-const Color SCROLLENDCOLOR = Colors.black26;
-const String APP_VERSION = "v1.7.0";
+const Color mainColor = Color.fromARGB(255, 105, 187, 253);
+const Color scrollEndColor = Colors.black26;
+const String appVersion = "v1.7.0";
 // //
 // Color bleuShade200 = Colors.blue.shade200;
 Color transparent = Colors.transparent;
@@ -13,10 +13,10 @@ Color black26 = Colors.black26;
 Color black = Colors.black;
 Color grey = Colors.grey;
 
-Color brwon = Color.fromARGB(255, 92, 71, 61);
-Color red = Color.fromARGB(255, 122, 54, 59);
-Color green = Color.fromARGB(255, 50, 82, 65);
-Color yellow = Color.fromARGB(255, 146, 118, 63);
+Color brwon = const Color.fromARGB(255, 92, 71, 61);
+Color red = const Color.fromARGB(255, 122, 54, 59);
+Color green = const Color.fromARGB(255, 50, 82, 65);
+Color yellow = const Color.fromARGB(255, 146, 118, 63);
 //
 //Invert Image Color
 const ColorFilter invert = ColorFilter.matrix(<double>[

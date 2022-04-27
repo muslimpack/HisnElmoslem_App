@@ -25,12 +25,12 @@ class AlarmCard extends StatelessWidget {
         children: [
           SwitchListTile(
             title: ListTile(
-              contentPadding: EdgeInsets.all(0),
-              leading: Icon(Icons.alarm),
+              contentPadding: const EdgeInsets.all(0),
+              leading: const Icon(Icons.alarm),
               subtitle: Wrap(
                 children: [
                   dbAlarm.body.isEmpty
-                      ? SizedBox()
+                      ? const SizedBox()
                       : RoundTagCard(
                           name: dbAlarm.body,
                           color: brwon,
@@ -49,7 +49,7 @@ class AlarmCard extends StatelessWidget {
               isThreeLine: true,
               title: Text(dbAlarm.title),
             ),
-            activeColor: MAINCOLOR,
+            activeColor: mainColor,
             value: dbAlarm.isActive,
             onChanged: (value) {
               //Update database
@@ -76,7 +76,7 @@ class AlarmCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AlarmsPageController>(builder: (controller) {
-      return new Slidable(
+      return Slidable(
         startActionPane: ActionPane(
           extentRatio: .3,
           motion: const BehindMotion(),

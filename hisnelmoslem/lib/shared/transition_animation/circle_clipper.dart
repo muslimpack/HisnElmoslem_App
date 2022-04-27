@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CircleRevealClipper extends CustomClipper<Path> {
-  final center;
-  final radius;
+  final Offset center;
+  final double radius;
 
-  CircleRevealClipper({this.center, this.radius});
+  CircleRevealClipper({required this.center, required this.radius});
 
   @override
   Path getClip(Size size) {

@@ -10,7 +10,7 @@ class RoundTagCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: Card(
         shape: RoundedRectangleBorder(

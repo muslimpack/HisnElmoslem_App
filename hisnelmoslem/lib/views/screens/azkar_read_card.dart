@@ -2,7 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
@@ -18,7 +18,7 @@ import 'share_as_image.dart';
 class AzkarReadCard extends StatelessWidget {
   final int index;
 
-  AzkarReadCard({required this.index});
+  const AzkarReadCard({Key? key, required this.index}) : super(key: key);
 
   static DashboardController dashboardController =
       Get.put(DashboardController());
@@ -29,26 +29,26 @@ class AzkarReadCard extends StatelessWidget {
         init: AzkarReadCardController(index: index),
         builder: (controller) {
           return controller.isLoading!
-              ? Loading()
+              ? const Loading()
               : Scaffold(
                   key: controller.vReadScaffoldKey,
                   appBar: AppBar(
                     centerTitle: true,
                     title: Text(controller.zikrTitle!.name,
-                        style: TextStyle(fontFamily: "Uthmanic")),
+                        style: const TextStyle(fontFamily: "Uthmanic")),
                     bottom: PreferredSize(
-                      preferredSize: Size(100, 5),
+                      preferredSize: const Size(100, 5),
                       child: LinearProgressIndicator(
                         value: controller.totalProgress,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          MAINCOLOR,
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          mainColor,
                         ),
                         backgroundColor: grey,
                       ),
                     ),
                   ),
                   body: ScrollConfiguration(
-                    behavior: ScrollBehavior(),
+                    behavior: const ScrollBehavior(),
                     child: GlowingOverscrollIndicator(
                       axisDirection: AxisDirection.down,
                       color: black26,
@@ -62,7 +62,7 @@ class AzkarReadCard extends StatelessWidget {
                               : controller.zikrContent[index].content
                                   .replaceAll(
                                       //* لحذف التشكيل
-                                      new RegExp(String.fromCharCodes(
+                                      RegExp(String.fromCharCodes(
                                           arabicTashkelChar)),
                                       "");
                           String source = controller.zikrContent[index].source;
@@ -104,7 +104,8 @@ class AzkarReadCard extends StatelessWidget {
                                       FlutterClipboard.copy(source)
                                           .then((result) {
                                         final snackBar = SnackBar(
-                                          content: Text('تم النسخ إلى الحافظة'),
+                                          content: const Text(
+                                              'تم النسخ إلى الحافظة'),
                                           action: SnackBarAction(
                                             label: 'تم',
                                             onPressed: () {},
@@ -129,7 +130,7 @@ class AzkarReadCard extends StatelessWidget {
                                       Expanded(
                                           child: IconButton(
                                         splashRadius: 20,
-                                        icon: Icon(MdiIcons.camera),
+                                        icon: const Icon(MdiIcons.camera),
                                         onPressed: () {
                                           transitionAnimation.circleReval(
                                               context: Get.context!,
@@ -141,9 +142,10 @@ class AzkarReadCard extends StatelessWidget {
                                       !controller.zikrContent[index].favourite
                                           ? IconButton(
                                               splashRadius: 20,
-                                              padding: EdgeInsets.all(0),
-                                              icon: Icon(Icons.favorite_border,
-                                                  color: MAINCOLOR),
+                                              padding: const EdgeInsets.all(0),
+                                              icon: const Icon(
+                                                  Icons.favorite_border,
+                                                  color: mainColor),
                                               onPressed: () {
                                                 controller.zikrContent[index]
                                                     .favourite = true;
@@ -155,10 +157,10 @@ class AzkarReadCard extends StatelessWidget {
                                               })
                                           : IconButton(
                                               splashRadius: 20,
-                                              padding: EdgeInsets.all(0),
-                                              icon: Icon(
+                                              padding: const EdgeInsets.all(0),
+                                              icon: const Icon(
                                                 Icons.favorite,
-                                                color: MAINCOLOR,
+                                                color: mainColor,
                                               ),
                                               onPressed: () {
                                                 controller.zikrContent[index]
@@ -173,15 +175,15 @@ class AzkarReadCard extends StatelessWidget {
                                         flex: 1,
                                         child: IconButton(
                                             splashRadius: 20,
-                                            padding: EdgeInsets.all(0),
-                                            icon: Icon(Icons.copy,
-                                                color: MAINCOLOR),
+                                            padding: const EdgeInsets.all(0),
+                                            icon: const Icon(Icons.copy,
+                                                color: mainColor),
                                             onPressed: () {
                                               FlutterClipboard.copy(
                                                       text + "\n" + fadl)
                                                   .then((result) {
                                                 final snackBar = SnackBar(
-                                                  content: Text(
+                                                  content: const Text(
                                                       'تم النسخ إلى الحافظة'),
                                                   action: SnackBarAction(
                                                     label: 'تم',
@@ -197,9 +199,9 @@ class AzkarReadCard extends StatelessWidget {
                                         flex: 1,
                                         child: IconButton(
                                             splashRadius: 20,
-                                            padding: EdgeInsets.all(0),
-                                            icon: Icon(Icons.share,
-                                                color: MAINCOLOR),
+                                            padding: const EdgeInsets.all(0),
+                                            icon: const Icon(Icons.share,
+                                                color: mainColor),
                                             onPressed: () {
                                               Share.share(text + "\n" + fadl);
                                             }),
@@ -208,7 +210,7 @@ class AzkarReadCard extends StatelessWidget {
                                         flex: 1,
                                         child: IconButton(
                                             splashRadius: 20,
-                                            padding: EdgeInsets.all(0),
+                                            padding: const EdgeInsets.all(0),
                                             icon: Icon(Icons.report,
                                                 color: orange),
                                             onPressed: () {
@@ -218,9 +220,9 @@ class AzkarReadCard extends StatelessWidget {
                                                   subject:
                                                       'تطبيق حصن المسلم: خطأ إملائي ',
                                                   body:
-                                                      ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
-                                                          '\n' +
-                                                          'الموضوع: ' +
+                                                      ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
+                                                              '\n'
+                                                              'الموضوع: ' +
                                                           controller
                                                               .zikrTitle!.name +
                                                           '\n' +
@@ -228,7 +230,7 @@ class AzkarReadCard extends StatelessWidget {
                                                           '$cardnum' +
                                                           '\n' +
                                                           'النص: ' +
-                                                          '$text' +
+                                                          text +
                                                           '\n' +
                                                           'والصواب:' +
                                                           '\n');
@@ -236,7 +238,7 @@ class AzkarReadCard extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Divider(),
+                                  const Divider(),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         10, 20, 10, 5),
@@ -251,14 +253,14 @@ class AzkarReadCard extends StatelessWidget {
                                           color: controller.zikrContent[index]
                                                       .count ==
                                                   0
-                                              ? MAINCOLOR
+                                              ? mainColor
                                               : null,
                                           //fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   controller.zikrContent[index].fadl == ""
-                                      ? SizedBox()
+                                      ? const SizedBox()
                                       : Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               10, 10, 10, 20),
@@ -271,12 +273,12 @@ class AzkarReadCard extends StatelessWidget {
                                                 fontSize:
                                                     appDataController.fontSize *
                                                         10,
-                                                color: MAINCOLOR,
+                                                color: mainColor,
                                                 //fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                  Divider(),
+                                  const Divider(),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: CircleAvatar(
@@ -285,7 +287,8 @@ class AzkarReadCard extends StatelessWidget {
                                       child: Text(
                                         controller.zikrContent[index].count
                                             .toString(),
-                                        style: TextStyle(color: MAINCOLOR),
+                                        style:
+                                            const TextStyle(color: mainColor),
                                       ),
                                     ),
                                   ),

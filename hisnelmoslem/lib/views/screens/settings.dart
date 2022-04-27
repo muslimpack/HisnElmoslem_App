@@ -15,6 +15,7 @@ import '../../shared/widgets/font_settings.dart';
 import 'about.dart';
 
 class Settings extends StatelessWidget {
+  Settings({Key? key}) : super(key: key);
   final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
@@ -25,19 +26,19 @@ class Settings extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               elevation: 0,
-              title:
-                  Text("الإعدادات", style: TextStyle(fontFamily: "Uthmanic")),
+              title: const Text("الإعدادات",
+                  style: TextStyle(fontFamily: "Uthmanic")),
               // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             body: ScrollConfiguration(
-              behavior: ScrollBehavior(),
+              behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: black26,
                 child: ListView(
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
-                    Title(title: 'عام'),
+                    const Title(title: 'عام'),
                     // SwitchListTile(
                     //   title: Row(
                     //     children: [
@@ -55,68 +56,70 @@ class Settings extends StatelessWidget {
                     // ),
                     !appDataController.isCardReadMode
                         ? ListTile(
-                            leading: Icon(MdiIcons.bookOpenPageVariant),
-                            title: Text("وضعية الصفحات"),
+                            leading: const Icon(MdiIcons.bookOpenPageVariant),
+                            title: const Text("وضعية الصفحات"),
                             onTap: () {
                               appDataController.toggleReadModeStatus();
                               controller.update();
                             },
                           )
                         : ListTile(
-                            leading: Icon(MdiIcons.card),
-                            title: Text("وضعية البطاقات"),
+                            leading: const Icon(MdiIcons.card),
+                            title: const Text("وضعية البطاقات"),
                             onTap: () {
                               appDataController.toggleReadModeStatus();
                               controller.update();
                             },
                           ),
                     ListTile(
-                      title: Text("إدارة ألوان التطبيق"),
-                      leading: Icon(Icons.palette),
+                      title: const Text("إدارة ألوان التطبيق"),
+                      leading: const Icon(Icons.palette),
                       onTap: () {
                         transitionAnimation.fromBottom2Top(
-                            context: context, goToPage: ThemeManagerPage());
+                            context: context,
+                            goToPage: const ThemeManagerPage());
                       },
                     ),
 
                     ListTile(
-                      title: Text("إدارة مؤثرات الصوت"),
-                      leading: Icon(
+                      title: const Text("إدارة مؤثرات الصوت"),
+                      leading: const Icon(
                         Icons.speaker_group,
                       ),
                       onTap: () {
                         transitionAnimation.fromBottom2Top(
-                            context: context, goToPage: SoundsManagerPage());
+                            context: context,
+                            goToPage: const SoundsManagerPage());
                       },
                     ),
-                    Divider(),
-                    Title(title: 'إعدادت الخط'),
-                    TextSample(),
+                    const Divider(),
+                    const Title(title: 'إعدادت الخط'),
+                    const TextSample(),
                     FontSettingsToolbox(
                       controllerToUpdate: controller,
                     ),
-                    Divider(),
+                    const Divider(),
                     /**/
-                    Title(title: 'المنبهات'),
+                    const Title(title: 'المنبهات'),
                     ListTile(
-                      title: Text("إدارة تنبيهات الأذكار"),
-                      leading: Icon(
+                      title: const Text("إدارة تنبيهات الأذكار"),
+                      leading: const Icon(
                         Icons.alarm_add_rounded,
                       ),
                       onTap: () {
                         transitionAnimation.fromBottom2Top(
-                            context: context, goToPage: AlarmsPages());
+                            context: context, goToPage: const AlarmsPages());
                       },
                     ),
                     SwitchListTile(
-                      title: ListTile(
+                      title: const ListTile(
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(
                           Icons.person,
                         ),
                         title: Text("صيام الإثنين والخميس"),
                       ),
-                      activeColor: MAINCOLOR,
+                      activeColor: mainColor,
                       value: appDataController.isFastAlarmEnabled,
                       onChanged: (value) {
                         appDataController.changFastAlarmStatus(value);
@@ -132,14 +135,14 @@ class Settings extends StatelessWidget {
                       },
                     ),
                     SwitchListTile(
-                      title: ListTile(
+                      title: const ListTile(
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(
                           Icons.alarm,
                         ),
                         title: Text("تذكير قراءة سورة الكهف"),
                       ),
-                      activeColor: MAINCOLOR,
+                      activeColor: mainColor,
                       value: appDataController.isCaveAlarmEnabled,
                       onChanged: (value) {
                         appDataController.changCaveAlarmStatus(value);
@@ -152,60 +155,58 @@ class Settings extends StatelessWidget {
                         controller.update();
                       },
                     ),
-                    Divider(),
+                    const Divider(),
                     /**/
-                    Title(title: 'التواصل'),
+                    const Title(title: 'التواصل'),
                     ListTile(
-                      leading: Icon(Icons.star),
-                      title: Text("الشكاوى والمقترحات"),
+                      leading: const Icon(Icons.star),
+                      title: const Text("الشكاوى والمقترحات"),
                       onTap: () {
                         sendEmail(
                             toMailId: 'hassaneltantawy@gmail.com',
                             subject: 'تطبيق حصن المسلم: تقييم التطبيق',
-                            body: 'كم من عشرة تعطي هذا التطبيق؟' +
-                                '\n' +
-                                '\n' +
-                                'ملاحظات:' +
-                                '\n' +
-                                '\n' +
-                                'ما أعجبك في التطبيق:' +
-                                '\n' +
-                                '\n' +
-                                'ما لا يعجبك في التطبيق:' +
-                                '\n' +
-                                '\n' +
-                                'شئ تتمنى وجوده:' +
-                                '\n');
+                            body: 'كم من عشرة تعطي هذا التطبيق؟'
+                                '''
+                                \n\n
+                                'ملاحظات:'
+                                \n\n
+                                'ما أعجبك في التطبيق:'
+                                \n\n
+                                'ما لا يعجبك في التطبيق:'
+                                \n\n
+                                'شئ تتمنى وجوده:'
+                                \n
+                                ''');
                       },
                     ),
                     ListTile(
-                      leading: Icon(Icons.email),
-                      title: Text("راسلنا"),
+                      leading: const Icon(Icons.email),
+                      title: const Text("راسلنا"),
                       onTap: () {
                         sendEmail(
                             toMailId: 'hassaneltantawy@gmail.com',
                             subject: 'تطبيق حصن المسلم: نداء',
-                            body: 'السلام عليكم ورحمة الله وبركاته' + '\n');
+                            body: 'السلام عليكم ورحمة الله وبركاته' '\n');
                       },
                     ),
                     ListTile(
-                      leading: Icon(MdiIcons.github),
-                      trailing: Icon(Icons.keyboard_arrow_left),
-                      title: Text("المشروع"),
+                      leading: const Icon(MdiIcons.github),
+                      trailing: const Icon(Icons.keyboard_arrow_left),
+                      title: const Text("المشروع"),
                       onTap: () {
                         openURL(
                             'https://github.com/HasanEltantawy/HisnElmoslem_App');
                       },
                     ),
                     ListTile(
-                        leading: Icon(MdiIcons.information),
-                        trailing: Icon(Icons.keyboard_arrow_left),
-                        title: Text("عن التطبيق"),
+                        leading: const Icon(MdiIcons.information),
+                        trailing: const Icon(Icons.keyboard_arrow_left),
+                        title: const Text("عن التطبيق"),
                         onTap: () {
                           transitionAnimation.fromBottom2Top(
-                              context: context, goToPage: About());
+                              context: context, goToPage: const About());
                         }),
-                    Divider(),
+                    const Divider(),
                   ],
                 ),
               ),
@@ -218,18 +219,16 @@ class Settings extends StatelessWidget {
 class Title extends StatelessWidget {
   final String title;
 
-  Title({required this.title});
+  const Title({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        // leading: Icon(Icons.bookmark_border),
+    return ListTile(
+      // leading: Icon(Icons.bookmark_border),
 
-        title: Text(
-          title,
-          style: TextStyle(fontSize: 20, color: MAINCOLOR),
-        ),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 20, color: mainColor),
       ),
     );
   }

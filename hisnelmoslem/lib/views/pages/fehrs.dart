@@ -20,15 +20,15 @@ class AzkarFehrs extends StatelessWidget {
         body: Scrollbar(
             controller: controller.fehrsScrollController,
             isAlwaysShown: false,
-            child: titleListToDisplay.length == 0
-                ? Empty(
+            child: titleListToDisplay.isEmpty
+                ? const Empty(
                     isImage: false,
                     icon: Icons.search_outlined,
                     title: "لا يوجد عنوان بهذا الاسم",
                     description: "برجاء قم بمراجعة ما كتبت",
                   )
                 : ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     itemCount: titleListToDisplay.length,
                     itemBuilder: (context, index) {
                       //TODO get rid of this for loop

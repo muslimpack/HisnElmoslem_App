@@ -15,18 +15,18 @@ class ThemeManagerPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("وضع الألوان داخل التطبيق",
+            title: const Text("وضع الألوان داخل التطبيق",
                 style: TextStyle(fontFamily: "Uthmanic")),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
           body: ScrollConfiguration(
-            behavior: ScrollBehavior(),
+            behavior: const ScrollBehavior(),
             child: GlowingOverscrollIndicator(
               axisDirection: AxisDirection.down,
               color: black26,
               child: ListView(
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   RadioImage(
                     controller: controller,
@@ -59,8 +59,8 @@ class ThemeManagerPage extends StatelessWidget {
 class RadioImage extends StatelessWidget {
   final ThemesManagerPageController controller;
   final String title;
-  final imgPath;
-  final appThemeModeValue;
+  final String imgPath;
+  final dynamic appThemeModeValue;
 
   const RadioImage({
     Key? key,
@@ -77,7 +77,7 @@ class RadioImage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -87,7 +87,7 @@ class RadioImage extends StatelessWidget {
       onChanged: (AppThemeMode? value) {
         controller.handleThemeChange(value);
       },
-      subtitle: Container(
+      subtitle: SizedBox(
           height: controller.imageHeight,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20.0),

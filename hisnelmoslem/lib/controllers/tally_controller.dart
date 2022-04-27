@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TallyController extends GetxController {
   /* *************** Variables *************** */
   //
-  Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
+  final Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
   //
   int counter = 0;
   double circval = 0;

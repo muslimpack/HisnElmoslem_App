@@ -6,7 +6,7 @@ class RoundButton extends StatelessWidget {
   final Function onTap;
   final double radius;
   final bool isTransparent;
-  RoundButton(
+  const RoundButton(
       {Key? key,
       required this.text,
       required this.onTap,
@@ -23,9 +23,9 @@ class RoundButton extends StatelessWidget {
             ? ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 backgroundColor: MaterialStateProperty.all(transparent),
-                foregroundColor: MaterialStateProperty.all(MAINCOLOR),
+                foregroundColor: MaterialStateProperty.all(mainColor),
               )
-            : ButtonStyle(),
+            : const ButtonStyle(),
         onPressed: () {
           onTap();
         },

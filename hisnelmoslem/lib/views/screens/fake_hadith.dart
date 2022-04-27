@@ -19,17 +19,17 @@ class FakeHadith extends StatelessWidget {
             key: controller.fakeHadithScaffoldKey,
             appBar: AppBar(
               elevation: 0,
-              title: Text("أحاديث منتشرة لا تصح"),
+              title: const Text("أحاديث منتشرة لا تصح"),
               //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             body: ScrollConfiguration(
-              behavior: ScrollBehavior(),
+              behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: black26,
                 child: ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  padding: EdgeInsets.only(top: 10),
+                  physics: const ClampingScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 10),
                   itemBuilder: (context, index) {
                     return HadithCard(
                       fakeHaith: controller.fakeHadithList[index],
@@ -43,18 +43,16 @@ class FakeHadith extends StatelessWidget {
             bottomNavigationBar: BottomAppBar(
               //elevation: 20,
               color: Theme.of(context).primaryColor,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 3,
-                        child: FontSettingsToolbox(
-                          controllerToUpdate: controller,
-                          showTashkelControllers: false,
-                        )),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                      flex: 3,
+                      child: FontSettingsToolbox(
+                        controllerToUpdate: controller,
+                        showTashkelControllers: false,
+                      )),
+                ],
               ),
             ),
           );

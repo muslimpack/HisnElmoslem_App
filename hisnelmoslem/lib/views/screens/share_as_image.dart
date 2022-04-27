@@ -8,7 +8,7 @@ import 'package:screenshot/screenshot.dart';
 
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
-  ShareAsImage({Key? key, required this.dbContent}) : super(key: key);
+  const ShareAsImage({Key? key, required this.dbContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ShareAsImage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: Text(
+              title: const Text(
                 "مشاركة كصورة",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class ShareAsImage extends StatelessWidget {
                   onPressed: () async {
                     controller.shareImage();
                   },
-                  icon: Icon(Icons.share),
+                  icon: const Icon(Icons.share),
                 ),
               ],
             ),
@@ -54,7 +54,7 @@ class ShareAsImage extends StatelessWidget {
                   minScale: 0.25,
                   maxScale: 3,
                   // clipBehavior: Clip.antiAlias,
-                  boundaryMargin: EdgeInsets.all(5000),
+                  boundaryMargin: const EdgeInsets.all(5000),
                   panEnabled: true,
                   child: Screenshot(
                     controller: controller.screenshotController,
@@ -62,29 +62,27 @@ class ShareAsImage extends StatelessWidget {
                   )),
             ),
             bottomSheet: BottomAppBar(
-                child: Container(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: SwitchListTile(
-                        title: Text("الفضل"),
-                        value: controller.showFadl,
-                        onChanged: (value) {
-                          controller.toggleShowFadl(value: value);
-                        }),
-                  ),
-                  SizedBox(height: 40, child: VerticalDivider()),
-                  Expanded(
-                    child: SwitchListTile(
-                        title: Text("المصدر"),
-                        value: controller.showSource,
-                        onChanged: (value) {
-                          controller.toggleShowSource(value: value);
-                        }),
-                  ),
-                ],
-              ),
+                child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: SwitchListTile(
+                      title: const Text("الفضل"),
+                      value: controller.showFadl,
+                      onChanged: (value) {
+                        controller.toggleShowFadl(value: value);
+                      }),
+                ),
+                const SizedBox(height: 40, child: VerticalDivider()),
+                Expanded(
+                  child: SwitchListTile(
+                      title: const Text("المصدر"),
+                      value: controller.showSource,
+                      onChanged: (value) {
+                        controller.toggleShowSource(value: value);
+                      }),
+                ),
+              ],
             )),
           );
         });
@@ -93,7 +91,7 @@ class ShareAsImage extends StatelessWidget {
 
 class ImageBuilder extends StatelessWidget {
   final DbContent dbContent;
-  ImageBuilder({
+  const ImageBuilder({
     Key? key,
     required this.dbContent,
   }) : super(key: key);
@@ -103,7 +101,7 @@ class ImageBuilder extends StatelessWidget {
     DashboardController dashboardController = Get.put(DashboardController());
     return GetBuilder<ShareAsImageController>(builder: (controller) {
       return Center(
-        child: Container(
+        child: SizedBox(
           width: 1080,
           child: Card(
             margin: EdgeInsets.zero,
@@ -112,7 +110,7 @@ class ImageBuilder extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
                     textAlign: TextAlign.center,
@@ -136,7 +134,8 @@ class ImageBuilder extends StatelessWidget {
                  * Content
                  */
                 Container(
-                  constraints: BoxConstraints(minHeight: 100, maxHeight: 350),
+                  constraints:
+                      const BoxConstraints(minHeight: 100, maxHeight: 350),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: AutoSizeText(
@@ -155,7 +154,8 @@ class ImageBuilder extends StatelessWidget {
                 Visibility(
                   visible: !(dbContent.fadl == "") && controller.showFadl,
                   child: Container(
-                    constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
+                    constraints:
+                        const BoxConstraints(minHeight: 50, maxHeight: 200),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +181,8 @@ class ImageBuilder extends StatelessWidget {
                 Visibility(
                   visible: !(dbContent.source == "") && controller.showSource,
                   child: Container(
-                    constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
+                    constraints:
+                        const BoxConstraints(minHeight: 50, maxHeight: 200),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,7 +210,7 @@ class ImageBuilder extends StatelessWidget {
                 ),
                 //Bottom
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -217,7 +218,7 @@ class ImageBuilder extends StatelessWidget {
                             width: 40,
                             child: Image.asset("assets/images/app_icon.png")),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
                           height: 30,
                           width: 1.5,
                           color: controller.appNameColor,

@@ -25,7 +25,7 @@ class Themes {
       elevation: 0,
       color: lightColor,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: const DialogTheme(
       backgroundColor: lightColor,
     ),
     tabBarTheme: const TabBarTheme(
@@ -33,7 +33,7 @@ class Themes {
       labelColor: darkColor,
     ),
     cardColor: lightColor.withAlpha(220),
-    snackBarTheme: SnackBarThemeData(
+    snackBarTheme: const SnackBarThemeData(
         backgroundColor: lightColor,
         contentTextStyle: TextStyle(color: darkColor)),
     scaffoldBackgroundColor: lightColor,
@@ -62,10 +62,10 @@ class Themes {
       elevation: 0,
       color: darkColor,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: const DialogTheme(
       backgroundColor: darkColor,
     ),
-    snackBarTheme: SnackBarThemeData(
+    snackBarTheme: const SnackBarThemeData(
         backgroundColor: darkColor,
         contentTextStyle: TextStyle(color: lightColor)),
     cardColor: darkColor.withAlpha(220),

@@ -18,50 +18,48 @@ class Empty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            imagePath == ""
-                ? SizedBox()
-                : isImage
-                    ? Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Image.asset(imagePath),
-                      )
-                    : Icon(
-                        icon,
-                        size: iconSize,
-                      ),
-            title == ""
-                ? SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          imagePath == ""
+              ? const SizedBox()
+              : isImage
+                  ? Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(imagePath),
+                    )
+                  : Icon(
+                      icon,
+                      size: iconSize,
+                    ),
+          title == ""
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-            description == ""
-                ? SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(
-                      description,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        wordSpacing: 7,
-                      ),
+                ),
+          description == ""
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Text(
+                    description,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      wordSpacing: 7,
                     ),
                   ),
-          ],
-        ),
+                ),
+        ],
       ),
     );
   }

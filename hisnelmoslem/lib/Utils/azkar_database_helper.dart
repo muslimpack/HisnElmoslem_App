@@ -14,8 +14,8 @@ AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
 class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "hisn_elmoslem_database.db";
-  static const int DATABASE_VERSION = 1;
+  static const String dbName = "hisn_elmoslem_database.db";
+  static const int dbVersion = 1;
 
   /* ************* Singelton Constractor ************* */
 
@@ -25,16 +25,12 @@ class AzkarDatabaseHelper {
   AzkarDatabaseHelper._createInstance();
 
   factory AzkarDatabaseHelper() {
-    if (_databaseHelper == null) {
-      _databaseHelper = AzkarDatabaseHelper._createInstance();
-    }
+    _databaseHelper ??= AzkarDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await _initDatabase();
-    }
+    _database ??= await _initDatabase();
     return _database!;
   }
 
@@ -43,7 +39,7 @@ class AzkarDatabaseHelper {
   // init
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, DB_NAME);
+    final path = join(dbPath, dbName);
 
     final exist = await databaseExists(path);
 
@@ -55,7 +51,7 @@ class AzkarDatabaseHelper {
 
     return await openDatabase(
       path,
-      version: DATABASE_VERSION,
+      version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
@@ -83,7 +79,7 @@ class AzkarDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
+      ByteData data = await rootBundle.load(join("assets", "db", dbName));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

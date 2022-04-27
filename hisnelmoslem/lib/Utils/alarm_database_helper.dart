@@ -12,8 +12,8 @@ AlarmDatabaseHelper alarmDatabaseHelper = AlarmDatabaseHelper();
 class AlarmDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String DB_NAME = "alarms_database.db";
-  static const int DATABASE_VERSION = 1;
+  static const String dbName = "alarms_database.db";
+  static const int dbVersion = 1;
 
   static AlarmDatabaseHelper? _databaseHelper;
   static Database? _database;
@@ -23,16 +23,12 @@ class AlarmDatabaseHelper {
   AlarmDatabaseHelper._createInstance();
 
   factory AlarmDatabaseHelper() {
-    if (_databaseHelper == null) {
-      _databaseHelper = AlarmDatabaseHelper._createInstance();
-    }
+    _databaseHelper ??= AlarmDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await _initDatabase();
-    }
+    _database ??= await _initDatabase();
     return _database!;
   }
 
@@ -41,7 +37,7 @@ class AlarmDatabaseHelper {
   // init
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, DB_NAME);
+    final path = join(dbPath, dbName);
 
     final exist = await databaseExists(path);
 
@@ -53,7 +49,7 @@ class AlarmDatabaseHelper {
 
     return await openDatabase(
       path,
-      version: DATABASE_VERSION,
+      version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
@@ -81,7 +77,7 @@ class AlarmDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", DB_NAME));
+      ByteData data = await rootBundle.load(join("assets", "db", dbName));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

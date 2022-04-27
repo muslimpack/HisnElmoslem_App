@@ -1,15 +1,15 @@
 enum AlarmRepeatType {
-  Daily,
-  WeeklyAtSaturday,
-  WeeklyAtSunday,
-  WeeklyAtMonday,
-  WeeklyAtTuesday,
-  WeeklyAtWednesday,
-  WeeklyAtThursday,
-  WeeklyAtFriday,
+  daily,
+  weeklyAtSaturday,
+  weeklyAtSunday,
+  weeklyAtMonday,
+  weeklyAtTuesday,
+  weeklyAtWednesday,
+  weeklyAtThursday,
+  weeklyAtFriday,
 }
 
-const List<String> AlarmRepeatTypeString = [
+const List<String> alarmRepeatTypeString = [
   "يوميا",
   "كل سبت",
   "كل أحد",
@@ -20,6 +20,4 @@ const List<String> AlarmRepeatTypeString = [
   "كل جمعة",
 ];
 
-class AlarmEnum {
-
-}
+class AlarmEnum {}

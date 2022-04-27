@@ -14,13 +14,13 @@ class ShareAsImageController extends GetxController {
   Uint8List? imageFile;
   //
   TransformationController transformationController =
-      new TransformationController();
+      TransformationController();
   //
   Color textColor = brwon;
   Color titleColor = brwon;
   Color backgroundColor = white;
   Color dividerColor = green;
-  Color appNameColor = MAINCOLOR;
+  Color appNameColor = mainColor;
   //
   bool bInvert = false;
   bool showFadl = true;
@@ -30,11 +30,6 @@ class ShareAsImageController extends GetxController {
   //
 
   /* *************** Controller life cycle *************** */
-  //
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   //
   @override
@@ -49,17 +44,17 @@ class ShareAsImageController extends GetxController {
     bInvert = !bInvert;
     if (bInvert) {
       textColor = Colors.white.withOpacity(.8);
-      titleColor = Color.fromARGB(255, 204, 171, 101);
+      titleColor = const Color.fromARGB(255, 204, 171, 101);
       dividerColor = white.withOpacity(.2);
 
-      backgroundColor = Color.fromARGB(255, 39, 31, 28);
-      appNameColor = Color.fromARGB(255, 204, 171, 101);
+      backgroundColor = const Color.fromARGB(255, 39, 31, 28);
+      appNameColor = const Color.fromARGB(255, 204, 171, 101);
     } else {
       textColor = brwon;
       titleColor = brwon;
       backgroundColor = white;
       dividerColor = green;
-      appNameColor = MAINCOLOR;
+      appNameColor = mainColor;
     }
 
     update();

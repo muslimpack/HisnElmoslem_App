@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class Tally extends StatelessWidget {
-  Tally({Key? key}) : super(key: key);
+  const Tally({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Tally extends StatelessWidget {
       init: TallyController(),
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text("السبحة"),
+          title: const Text("السبحة"),
           centerTitle: true,
         ),
         body: InkWell(
@@ -43,20 +43,20 @@ class Tally extends StatelessWidget {
                   children: <Widget>[
                     Card(
                       elevation: 2,
-                      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                       child: Container(
                         width: MediaQuery.of(context).size.width * .8,
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
                           '${controller.counter}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 40),
+                          style: const TextStyle(fontSize: 40),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     SleekCircularSlider(
@@ -68,13 +68,13 @@ class Tally extends StatelessWidget {
                           infoProperties: InfoProperties(
                             bottomLabelText:
                                 'عدد المرات ${controller.circvaltimes}',
-                            bottomLabelStyle: TextStyle(
+                            bottomLabelStyle: const TextStyle(
                               fontSize: 25,
                             ),
-                            mainLabelStyle: TextStyle(fontSize: 70),
+                            mainLabelStyle: const TextStyle(fontSize: 70),
                             modifier: (double value) {
                               final circval = value.ceil().toInt().toString();
-                              return '$circval';
+                              return circval;
                             },
                           ),
                           customWidths: CustomSliderWidths(
@@ -84,8 +84,8 @@ class Tally extends StatelessWidget {
                             // hideShadow: true,
                             trackColor: transparent,
                             progressBarColors: [
-                              MAINCOLOR,
-                              MAINCOLOR,
+                              mainColor,
+                              mainColor,
                               //  orange
                             ],
                           ),
@@ -100,7 +100,7 @@ class Tally extends StatelessWidget {
         bottomNavigationBar: BottomAppBar(
           //elevation: 20,
           color: Theme.of(context).primaryColor,
-          child: Container(
+          child: SizedBox(
             height: 40,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +108,7 @@ class Tally extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      icon: Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh),
                       onPressed: () {
                         controller.resetCounter();
                       }),
@@ -116,7 +116,7 @@ class Tally extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      icon: Icon(Icons.remove),
+                      icon: const Icon(Icons.remove),
                       onPressed: () {
                         if (controller.counter == 0) {
                         } else {

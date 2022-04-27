@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
@@ -18,23 +18,23 @@ class AlarmsPages extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text("إدارة تنبيهات الأذكار",
+                title: const Text("إدارة تنبيهات الأذكار",
                     style: TextStyle(fontFamily: "Uthmanic")),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
               ),
               body: controller.isLoading
-                  ? Loading()
+                  ? const Loading()
                   : Scrollbar(
                       controller: controller.alarmScrollController,
                       isAlwaysShown: false,
-                      child: new ScrollConfiguration(
-                        behavior: ScrollBehavior(),
+                      child: ScrollConfiguration(
+                        behavior: const ScrollBehavior(),
                         child: GlowingOverscrollIndicator(
                           axisDirection: AxisDirection.down,
                           color: black26,
-                          child: controller.alarms.length == 0
-                              ? Empty(
+                          child: controller.alarms.isEmpty
+                              ? const Empty(
                                   isImage: false,
                                   icon: Icons.alarm_add_rounded,
                                   title: "لا يوجد أي منبهات",
@@ -42,7 +42,7 @@ class AlarmsPages extends StatelessWidget {
                                       "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
                                 )
                               : ListView.builder(
-                                  padding: EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(top: 10),
                                   itemBuilder: (context, index) {
                                     return AlarmCard(
                                       dbAlarm: controller.alarms[index],

@@ -14,7 +14,7 @@ NotificationManager localNotifyManager = NotificationManager.init();
 
 class NotificationManager {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  var initSetting;
+  late InitializationSettings initSetting;
 
   BehaviorSubject<ReceivedNotification>
       get didReceiveLocalNotificationSubject =>
@@ -37,7 +37,7 @@ class NotificationManager {
 
   initializePlatform() {
     var initSettingAndroid =
-        AndroidInitializationSettings('app_notification_icon');
+        const AndroidInitializationSettings('app_notification_icon');
     var initSettingIOS = IOSInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
@@ -90,13 +90,13 @@ class NotificationManager {
       //Add if u need
       //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
       icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
       //timeoutAfter: 5000,
       enableLights: true,
     );
 
     var iosChannel =
-        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
         NotificationDetails(android: androidChannel, iOS: iosChannel);
 
@@ -131,13 +131,13 @@ class NotificationManager {
       //Add if u need
       //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
       icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
       //timeoutAfter: showTime,
       enableLights: true,
     );
 
     var iosChannel =
-        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
         NotificationDetails(android: androidChannel, iOS: iosChannel);
 
@@ -157,7 +157,7 @@ class NotificationManager {
 
   Future<void> showCustomNotification(
       {required String title, String? body, required String payload}) async {
-    var androidChannel = AndroidNotificationDetails(
+    var androidChannel = const AndroidNotificationDetails(
       'CHANNEL_ID',
       'الإشعارات داخل التطبيق',
 
@@ -173,7 +173,7 @@ class NotificationManager {
     );
 
     var iosChannel =
-        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
         NotificationDetails(android: androidChannel, iOS: iosChannel);
 
@@ -182,8 +182,9 @@ class NotificationManager {
   }
 
   Future<void> appOpenNotification() async {
-    var scheduleNotificationDateTime = DateTime.now().add(Duration(days: 3));
-    var androidChannel = AndroidNotificationDetails(
+    var scheduleNotificationDateTime =
+        DateTime.now().add(const Duration(days: 3));
+    var androidChannel = const AndroidNotificationDetails(
       'CHANNEL_ID',
       'إشعار عدم فتح التطبيق',
 
@@ -198,7 +199,7 @@ class NotificationManager {
     );
 
     var iosChannel =
-        IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
     var platformChannel =
         NotificationDetails(android: androidChannel, iOS: iosChannel);
 

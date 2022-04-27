@@ -38,17 +38,6 @@ class SoundsManagerController extends GetxController {
   ///
   final player = AudioCache();
 /* *************** Controller life cycle *************** */
-  // //
-  @override
-  void onInit() async {
-    super.onInit();
-  }
-
-  // //
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
 
   /* *************** Functions *************** */
   //

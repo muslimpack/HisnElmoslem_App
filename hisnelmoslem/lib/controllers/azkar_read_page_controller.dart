@@ -115,7 +115,7 @@ class AzkarReadPageController extends GetxController {
         SoundsManagerController().playTransitionSound();
 
         pageController.nextPage(
-            curve: Curves.easeIn, duration: Duration(milliseconds: 500));
+            curve: Curves.easeIn, duration: const Duration(milliseconds: 500));
       }
     }
 

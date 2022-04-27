@@ -19,12 +19,14 @@ import '../../shared/widgets/font_settings.dart';
 
 class FavouriteZikr extends StatelessWidget {
   final AppDataController appDataController = Get.put(AppDataController());
+
+  FavouriteZikr({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     //
     return GetBuilder<DashboardController>(builder: (controller) {
-      return controller.favouriteConent.length == 0
-          ? Empty(
+      return controller.favouriteConent.isEmpty
+          ? const Empty(
               isImage: false,
               icon: Icons.favorite_outline_rounded,
               title: "لا يوجد شيء في المفضلة",
@@ -33,7 +35,7 @@ class FavouriteZikr extends StatelessWidget {
             )
           : Scaffold(
               body: Container(
-                margin: EdgeInsets.only(bottom: 50),
+                margin: const EdgeInsets.only(bottom: 50),
                 child: ListView.builder(
                   itemCount: controller.favouriteConent.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -46,7 +48,7 @@ class FavouriteZikr extends StatelessWidget {
                         .first;
                     //
                     return InkWell(
-                      splashColor: MAINCOLOR,
+                      splashColor: mainColor,
                       onTap: () {
                         if (dbContent.count > 0) {
                           dbContent.count--;
@@ -63,7 +65,7 @@ class FavouriteZikr extends StatelessWidget {
                                   Expanded(
                                       child: IconButton(
                                     splashRadius: 20,
-                                    icon: Icon(MdiIcons.camera),
+                                    icon: const Icon(MdiIcons.camera),
                                     onPressed: () {
                                       transitionAnimation.circleReval(
                                           context: Get.context!,
@@ -73,12 +75,12 @@ class FavouriteZikr extends StatelessWidget {
                                   )),
                                   IconButton(
                                       splashRadius: 20,
-                                      padding: EdgeInsets.all(0),
+                                      padding: const EdgeInsets.all(0),
                                       icon: dbContent.favourite
-                                          ? Icon(Icons.favorite,
-                                              color: MAINCOLOR)
-                                          : Icon(Icons.favorite_border,
-                                              color: MAINCOLOR),
+                                          ? const Icon(Icons.favorite,
+                                              color: mainColor)
+                                          : const Icon(Icons.favorite_border,
+                                              color: mainColor),
                                       onPressed: () {
                                         controller.removeContentFromFavourite(
                                             dbContent);
@@ -87,9 +89,9 @@ class FavouriteZikr extends StatelessWidget {
                                     flex: 1,
                                     child: IconButton(
                                         splashRadius: 20,
-                                        padding: EdgeInsets.all(0),
-                                        icon:
-                                            Icon(Icons.copy, color: MAINCOLOR),
+                                        padding: const EdgeInsets.all(0),
+                                        icon: const Icon(Icons.copy,
+                                            color: mainColor),
                                         onPressed: () {
                                           FlutterClipboard.copy(
                                                   dbContent.content +
@@ -109,9 +111,9 @@ class FavouriteZikr extends StatelessWidget {
                                     flex: 1,
                                     child: IconButton(
                                         splashRadius: 20,
-                                        padding: EdgeInsets.all(0),
-                                        icon:
-                                            Icon(Icons.share, color: MAINCOLOR),
+                                        padding: const EdgeInsets.all(0),
+                                        icon: const Icon(Icons.share,
+                                            color: mainColor),
                                         onPressed: () {
                                           Share.share(dbContent.content +
                                               "\n" +
@@ -122,7 +124,7 @@ class FavouriteZikr extends StatelessWidget {
                                     flex: 1,
                                     child: IconButton(
                                         splashRadius: 20,
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         icon: Icon(Icons.report, color: orange),
                                         onPressed: () {
                                           sendEmail(
@@ -131,16 +133,16 @@ class FavouriteZikr extends StatelessWidget {
                                               subject:
                                                   'تطبيق حصن المسلم: خطأ إملائي ',
                                               body:
-                                                  ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في' +
-                                                      '\n' +
-                                                      'الموضوع: ' +
+                                                  ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
+                                                          '\n'
+                                                          'الموضوع: ' +
                                                       dbTitle.name +
                                                       '\n' +
                                                       'الذكر رقم: ' +
                                                       '${dbContent.orderId}' +
                                                       '\n' +
                                                       'النص: ' +
-                                                      '${dbContent.content}' +
+                                                      dbContent.content +
                                                       '\n' +
                                                       'والصواب:' +
                                                       '\n');
@@ -162,55 +164,53 @@ class FavouriteZikr extends StatelessWidget {
                               ),
                               LinearProgressIndicator(
                                 value: 1,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  MAINCOLOR,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                  mainColor,
                                 ),
                                 backgroundColor: grey,
                               ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Text(
-                                        appDataController.isTashkelEnabled
-                                            ? dbContent.content
-                                            : dbContent.content.replaceAll(
-                                                //* لحذف التشكيل
-                                                new RegExp(String.fromCharCodes(
-                                                    arabicTashkelChar)),
-                                                ""),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize:
-                                                appDataController.fontSize * 10,
-                                            color: dbContent.count == 0
-                                                ? MAINCOLOR
-                                                : null,
-                                            //fontSize: 20,
-                                            fontWeight: FontWeight.w700),
-                                      ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      appDataController.isTashkelEnabled
+                                          ? dbContent.content
+                                          : dbContent.content.replaceAll(
+                                              //* لحذف التشكيل
+                                              RegExp(String.fromCharCodes(
+                                                  arabicTashkelChar)),
+                                              ""),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize:
+                                              appDataController.fontSize * 10,
+                                          color: dbContent.count == 0
+                                              ? mainColor
+                                              : null,
+                                          //fontSize: 20,
+                                          fontWeight: FontWeight.w700),
                                     ),
-                                    dbContent.fadl == ""
-                                        ? SizedBox()
-                                        : Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Text(
-                                              dbContent.fadl.toString(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: appDataController
-                                                          .fontSize *
-                                                      10,
-                                                  color: MAINCOLOR,
-                                                  //fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                  ),
+                                  dbContent.fadl == ""
+                                      ? const SizedBox()
+                                      : Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Text(
+                                            dbContent.fadl.toString(),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize:
+                                                    appDataController.fontSize *
+                                                        10,
+                                                color: mainColor,
+                                                //fontSize: 20,
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                  ],
-                                ),
+                                        ),
+                                ],
                               ),
-                              Divider(),
+                              const Divider(),
                               Row(
                                 children: [
                                   Expanded(
@@ -236,17 +236,17 @@ class FavouriteZikr extends StatelessWidget {
                                         title: Text(
                                           "الذهاب إلى ${dbTitle.name}",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 20,
-                                              color: MAINCOLOR,
+                                              color: mainColor,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         trailing: Padding(
                                           padding: const EdgeInsets.all(10),
                                           child: Text(
                                             dbContent.count.toString(),
-                                            style: TextStyle(
-                                                color: MAINCOLOR,
+                                            style: const TextStyle(
+                                                color: mainColor,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),

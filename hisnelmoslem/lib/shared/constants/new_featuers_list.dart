@@ -1,4 +1,4 @@
-const List<List<String>> updateNewFeature = const [
+const List<List<String>> updateNewFeature = [
   [
     "v1.7.0",
     '''

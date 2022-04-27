@@ -13,11 +13,11 @@ class AppUpdateNews extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("جديد التحديثات"),
+        title: const Text("جديد التحديثات"),
         centerTitle: true,
       ),
       body: ScrollConfiguration(
-        behavior: ScrollBehavior(),
+        behavior: const ScrollBehavior(),
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
           color: black26,
@@ -27,7 +27,7 @@ class AppUpdateNews extends StatelessWidget {
               return ListTile(
                 leading: Icon(
                   Icons.arrow_circle_up,
-                  color: index == 0 ? MAINCOLOR : null,
+                  color: index == 0 ? mainColor : null,
                 ),
                 title: Text(index == 0
                     ? "الإصدار الحالي: " + updateNewFeature[index][0]
@@ -37,7 +37,7 @@ class AppUpdateNews extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              return Divider();
+              return const Divider();
             },
           ),
         ),

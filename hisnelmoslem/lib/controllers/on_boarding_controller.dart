@@ -18,7 +18,7 @@ class OnBoardingController extends GetxController {
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //
   final pageList = [
-    Empty(
+    const Empty(
       title: "حصن المسلم الإصدار 1.7.0",
       description: '''
 أهلا بك أيها الكريم في هذا اللإصدار الجديد من حصن المسلم 
@@ -26,7 +26,7 @@ class OnBoardingController extends GetxController {
 أو اضغط على تخط
 ''',
     ),
-    Empty(
+    const Empty(
       isImage: false,
       icon: Icons.speaker_group,
       title: "مؤثرات صوتية",
@@ -39,7 +39,7 @@ class OnBoardingController extends GetxController {
 بشكل افتراضي جميع المؤثرات مغلقة اذهب للإعدادات ومن ثم إدراة مؤثرات الصوت لتفعيلها
 """,
     ),
-    Empty(
+    const Empty(
       isImage: false,
       icon: Icons.dark_mode,
       title: "عودة الوضع المعتم القديم",
@@ -52,7 +52,7 @@ class OnBoardingController extends GetxController {
 اذهب للإعدادات ومن ثم إدراة ألوان التطبيق
 """,
     ),
-    Empty(
+    const Empty(
       isImage: false,
       icon: Icons.bug_report_sharp,
       title: "إصلاح بعض المشاكل",
@@ -60,7 +60,7 @@ class OnBoardingController extends GetxController {
 - إصلاح بعض المشاكل واضافة بعض التحسينات على التطبيقات
 """,
     ),
-    Empty(
+    const Empty(
       isImage: false,
       icon: Icons.notifications,
       title: "كيفية التواصل في حالة وجود مشكلة؟",
@@ -82,13 +82,13 @@ class OnBoardingController extends GetxController {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
           pageController.nextPage(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }
         if (call.arguments == "VOLUME_UP_UP") {
           pageController.previousPage(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
         }
@@ -112,6 +112,6 @@ class OnBoardingController extends GetxController {
     final box = GetStorage();
     box.write("is_v1.7_first_open", false);
     transitionAnimation.circleRevalPushReplacement(
-        context: Get.context!, goToPage: AzkarDashboard());
+        context: Get.context!, goToPage: const AzkarDashboard());
   }
 }

@@ -18,8 +18,8 @@ class AzkarBookmarks extends StatelessWidget {
         body: Scrollbar(
           controller: controller.bookmarksScrollController,
           isAlwaysShown: false,
-          child: controller.favouriteTitle.length == 0
-              ? Empty(
+          child: controller.favouriteTitle.isEmpty
+              ? const Empty(
                   isImage: false,
                   icon: Icons.bookmark_outline_rounded,
                   title: "لا يوجد شيء في المفضلة",
@@ -27,7 +27,7 @@ class AzkarBookmarks extends StatelessWidget {
                       "لم يتم تحديد أي عنوان من الفهرس كمفضل \nقم بالضغط على علامة المفضلة 🔖 عند أي عنوان فهرس ",
                 )
               : ListView.builder(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   itemBuilder: (context, index) {
                     //TODO get rid of this for loop
                     DbAlarm tempAlarm = DbAlarm(

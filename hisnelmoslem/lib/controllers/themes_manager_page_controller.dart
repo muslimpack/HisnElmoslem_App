@@ -18,12 +18,6 @@ class ThemesManagerPageController extends GetxController {
     appThemeModeEnum = ThemeServices.appThemeMode;
   }
 
-  //
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   /* *************** Functions *************** */
 
   ///

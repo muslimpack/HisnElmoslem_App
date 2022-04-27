@@ -15,14 +15,14 @@ import 'package:hisnelmoslem/views/screens/tally.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AzkarDashboard extends StatelessWidget {
-  AzkarDashboard({Key? key}) : super(key: key);
+  const AzkarDashboard({Key? key}) : super(key: key);
 
   @override
   build(BuildContext context) {
     return GetBuilder<DashboardController>(
       init: DashboardController(),
       builder: (controller) => controller.isLoading
-          ? Loading()
+          ? const Loading()
           : DefaultTabController(
               length: 3,
               child: Scaffold(
@@ -34,7 +34,8 @@ class AzkarDashboard extends StatelessWidget {
                       SliverAppBar(
                         title: controller.isSearching
                             ? TextFormField(
-                                style: TextStyle(decorationColor: MAINCOLOR),
+                                style:
+                                    const TextStyle(decorationColor: mainColor),
                                 textAlign: TextAlign.center,
                                 controller: controller.searchController,
                                 autofocus: true,
@@ -45,10 +46,10 @@ class AzkarDashboard extends StatelessWidget {
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
                                     hintText: "البحث",
-                                    contentPadding: EdgeInsets.only(
+                                    contentPadding: const EdgeInsets.only(
                                         left: 15, bottom: 5, top: 5, right: 15),
                                     prefix: IconButton(
-                                      icon: Icon(Icons.clear_all),
+                                      icon: const Icon(Icons.clear_all),
                                       onPressed: () {
                                         controller.searchController.clear();
                                         controller.searchZikr();
@@ -68,7 +69,7 @@ class AzkarDashboard extends StatelessWidget {
                                 onTap: () {
                                   transitionAnimation.fromBottom2Top(
                                       context: context,
-                                      goToPage: AppUpdateNews());
+                                      goToPage: const AppUpdateNews());
                                 },
                                 child: SizedBox(
                                   width: 40,
@@ -80,8 +81,8 @@ class AzkarDashboard extends StatelessWidget {
                         pinned: true,
                         floating: true,
                         snap: true,
-                        bottom: TabBar(indicatorColor: MAINCOLOR,
-                            // labelColor: MAINCOLOR,
+                        bottom: const TabBar(indicatorColor: mainColor,
+                            // labelColor: mainColor,
                             // unselectedLabelColor: null,
                             // controller: tabController,
                             tabs: [
@@ -114,8 +115,8 @@ class AzkarDashboard extends StatelessWidget {
                           controller.isSearching
                               ? IconButton(
                                   splashRadius: 20,
-                                  padding: EdgeInsets.all(0),
-                                  icon: Icon(Icons.exit_to_app_sharp),
+                                  padding: const EdgeInsets.all(0),
+                                  icon: const Icon(Icons.exit_to_app_sharp),
                                   onPressed: () {
                                     controller.isSearching = false;
                                     controller.searchedTitle =
@@ -125,27 +126,28 @@ class AzkarDashboard extends StatelessWidget {
                                   })
                               : IconButton(
                                   splashRadius: 20,
-                                  padding: EdgeInsets.all(0),
-                                  icon: Icon(Icons.search),
+                                  padding: const EdgeInsets.all(0),
+                                  icon: const Icon(Icons.search),
                                   onPressed: () {
                                     controller.searchZikr();
                                   }),
                           controller.isSearching
-                              ? SizedBox()
+                              ? const SizedBox()
                               : IconButton(
                                   splashRadius: 20,
-                                  padding: EdgeInsets.all(0),
-                                  icon: Icon(Icons.watch_outlined),
+                                  padding: const EdgeInsets.all(0),
+                                  icon: const Icon(Icons.watch_outlined),
                                   onPressed: () {
                                     transitionAnimation.fromBottom2Top(
-                                        context: context, goToPage: Tally());
+                                        context: context,
+                                        goToPage: const Tally());
                                   }),
                           controller.isSearching
-                              ? SizedBox()
+                              ? const SizedBox()
                               : IconButton(
                                   splashRadius: 20,
-                                  padding: EdgeInsets.all(0),
-                                  icon: Icon(
+                                  padding: const EdgeInsets.all(0),
+                                  icon: const Icon(
                                     MdiIcons.bookOpenPageVariant,
                                   ),
                                   onPressed: () {
@@ -155,8 +157,8 @@ class AzkarDashboard extends StatelessWidget {
                                   }),
                           IconButton(
                               splashRadius: 20,
-                              padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.settings),
+                              padding: const EdgeInsets.all(0),
+                              icon: const Icon(Icons.settings),
                               onPressed: () {
                                 transitionAnimation.fromBottom2Top(
                                     context: context, goToPage: Settings());
@@ -168,8 +170,8 @@ class AzkarDashboard extends StatelessWidget {
                   body: TabBarView(
                     // controller: tabController,
                     children: [
-                      AzkarFehrs(),
-                      AzkarBookmarks(),
+                      const AzkarFehrs(),
+                      const AzkarBookmarks(),
                       FavouriteZikr(),
                     ],
                   ),
