@@ -6,14 +6,16 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 import '../../controllers/quran_controller.dart';
 
 class QuranReadPage extends StatelessWidget {
+  final SurahNameEnum surahName;
   const QuranReadPage({
     Key? key,
+    required this.surahName,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<QuranPageController>(
-        init: QuranPageController(),
+        init: QuranPageController(surahName: surahName),
         builder: (controller) {
           return controller.isLoading
               ? const Loading()
@@ -31,12 +33,17 @@ class QuranReadPage extends StatelessWidget {
                         child: PageView.builder(
                           onPageChanged: controller.onPageViewChange,
                           controller: controller.pageController,
-                          itemCount: controller.quranDisplay[0].pages.length,
+                          itemCount:
+                              controller.quranRequiredSurah!.pages.length,
                           itemBuilder: (context, index) {
                             return Stack(
                               children: [
-                                BetweenPageEffect(index: index),
-                                PageSideEffect(index: index),
+                                BetweenPageEffect(
+                                    index: controller.quranRequiredSurah!
+                                        .pages[index].pageNumber),
+                                PageSideEffect(
+                                    index: controller.quranRequiredSurah!
+                                        .pages[index].pageNumber),
                                 Center(
                                   child: ColorFiltered(
                                       colorFilter: greyScale,
@@ -46,9 +53,8 @@ class QuranReadPage extends StatelessWidget {
                                                   ? invert
                                                   : normal,
                                           child: Image.asset(
-                                            controller
-                                                .quranDisplay[0].pages[index]
-                                                .toString(),
+                                            controller.quranRequiredSurah!
+                                                .pages[index].image,
                                             fit: BoxFit.fitWidth,
                                           ))),
                                 ),
@@ -57,7 +63,7 @@ class QuranReadPage extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Text(
-                                      '${controller.page + controller.currentPage}',
+                                      '${controller.quranRequiredSurah!.pages[index].pageNumber}',
                                     ),
                                   ),
                                 ),
@@ -67,7 +73,8 @@ class QuranReadPage extends StatelessWidget {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Text(
                                         "سورة " +
-                                            controller.quranDisplay[0].surha,
+                                            controller
+                                                .quranRequiredSurah!.surah,
                                         style: const TextStyle(
                                             fontFamily: "Uthmanic")),
                                   ),
@@ -104,13 +111,13 @@ class BetweenPageEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: 50,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
-          end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
+          begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+          end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
           colors: [
             transparent,
             black.withOpacity(.05),
@@ -133,13 +140,13 @@ class PageSideEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: 5,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          begin: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
-          end: index.isEven ? Alignment.centerLeft : Alignment.centerRight,
+          begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+          end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
           colors: [
             white,
             black.withAlpha(200),

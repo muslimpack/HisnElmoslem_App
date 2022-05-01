@@ -8,20 +8,40 @@ String quranToJson(List<Quran> data) =>
 
 class Quran {
   Quran({
-    required this.surha,
+    required this.surah,
     required this.pages,
   });
 
-  String surha;
-  List<String> pages;
+  String surah;
+  List<Page> pages;
 
   factory Quran.fromJson(Map<String, dynamic> json) => Quran(
-        surha: json["surha"],
-        pages: List<String>.from(json["pages"].map((x) => x)),
+        surah: json["surah"],
+        pages: List<Page>.from(json["pages"].map((x) => Page.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "surha": surha,
-        "pages": List<dynamic>.from(pages.map((x) => x)),
+        "surah": surah,
+        "pages": List<dynamic>.from(pages.map((x) => x.toJson())),
+      };
+}
+
+class Page {
+  Page({
+    required this.image,
+    required this.pageNumber,
+  });
+
+  String image;
+  int pageNumber;
+
+  factory Page.fromJson(Map<String, dynamic> json) => Page(
+        image: json["image"],
+        pageNumber: json["pageNumber"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "image": image,
+        "pageNumber": pageNumber,
       };
 }

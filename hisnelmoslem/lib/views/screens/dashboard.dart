@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/controllers/quran_controller.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
@@ -64,7 +65,9 @@ class AzkarDashboard extends StatelessWidget {
                                 onLongPress: () {
                                   transitionAnimation.fromBottom2Top(
                                       context: context,
-                                      goToPage: const QuranReadPage());
+                                      goToPage: const QuranReadPage(
+                                        surahName: SurahNameEnum.alKahf,
+                                      ));
                                 },
                                 onTap: () {
                                   transitionAnimation.fromBottom2Top(

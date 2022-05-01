@@ -7,8 +7,13 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 
 import '../models/json/quran.dart';
 
+enum SurahNameEnum { alMulk, alKahf }
+
 class QuranPageController extends GetxController {
   /* *************** Variables *************** */
+  //
+  final SurahNameEnum surahName;
+  QuranPageController({required this.surahName});
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   //
@@ -18,10 +23,10 @@ class QuranPageController extends GetxController {
   //
   final List<Quran> _quran = <Quran>[];
   List<Quran> quranDisplay = <Quran>[];
+  Quran? quranRequiredSurah;
   //
   bool isLoading = true;
   //
-  int page = 293;
 
   /* *************** Controller life cycle *************** */
   //
@@ -33,6 +38,8 @@ class QuranPageController extends GetxController {
     //
     await preparePages();
     //
+    perpareRequiredPages(surahName);
+
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
@@ -67,6 +74,15 @@ class QuranPageController extends GetxController {
   }
 
   /* *************** Functions *************** */
+  ///
+  perpareRequiredPages(SurahNameEnum surahName) {
+    if (surahName == SurahNameEnum.alKahf) {
+      quranRequiredSurah = quranDisplay[0];
+    } else if (surahName == SurahNameEnum.alMulk) {
+      quranRequiredSurah = quranDisplay[1];
+    }
+  }
+
   ///
   preparePages() async {
     await fetchAzkar().then((value) {

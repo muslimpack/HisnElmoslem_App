@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
+import 'package:hisnelmoslem/controllers/quran_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
@@ -126,7 +127,10 @@ class DashboardController extends GetxController {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-          context: Get.context!, goToPage: const QuranReadPage());
+          context: Get.context!,
+          goToPage: const QuranReadPage(
+            surahName: SurahNameEnum.alKahf,
+          ));
     }
 
     /// ignore constant alarms if clicked

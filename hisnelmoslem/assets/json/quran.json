@@ -1,19 +1,72 @@
 [
   {
-    "surha": "الكهف",
+    "surah": "الكهف",
     "pages": [
-      "assets/quran/page293.png",
-      "assets/quran/page294.png",
-      "assets/quran/page295.png",
-      "assets/quran/page296.png",
-      "assets/quran/page297.png",
-      "assets/quran/page298.png",
-      "assets/quran/page299.png",
-      "assets/quran/page300.png",
-      "assets/quran/page301.png",
-      "assets/quran/page302.png",
-      "assets/quran/page303.png",
-      "assets/quran/page304.png"
+      {
+        "image": "assets/quran/page293.png",
+        "pageNumber": 293
+      },
+      {
+        "image": "assets/quran/page294.png",
+        "pageNumber": 294
+      },
+      {
+        "image": "assets/quran/page295.png",
+        "pageNumber": 295
+      },
+      {
+        "image": "assets/quran/page296.png",
+        "pageNumber": 296
+      },
+      {
+        "image": "assets/quran/page297.png",
+        "pageNumber": 297
+      },
+      {
+        "image": "assets/quran/page298.png",
+        "pageNumber": 298
+      },
+      {
+        "image": "assets/quran/page299.png",
+        "pageNumber": 299
+      },
+      {
+        "image": "assets/quran/page300.png",
+        "pageNumber": 300
+      },
+      {
+        "image": "assets/quran/page301.png",
+        "pageNumber": 301
+      },
+      {
+        "image": "assets/quran/page302.png",
+        "pageNumber": 302
+      },
+      {
+        "image": "assets/quran/page303.png",
+        "pageNumber": 303
+      },
+      {
+        "image": "assets/quran/page304.png",
+        "pageNumber": 304
+      }
+    ]
+  },
+  {
+    "surah": "الملك",
+    "pages": [
+      {
+        "image": "assets/quran/page562.png",
+        "pageNumber": 562
+      },
+      {
+        "image": "assets/quran/page563.png",
+        "pageNumber": 563
+      },
+      {
+        "image": "assets/quran/page564.png",
+        "pageNumber": 564
+      }
     ]
   }
 ]
