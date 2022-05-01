@@ -11,7 +11,7 @@ import 'package:hisnelmoslem/views/screens/app_update_news.dart';
 import 'package:hisnelmoslem/views/screens/fake_hadith.dart';
 import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
 import 'package:hisnelmoslem/views/screens/settings.dart';
-import 'package:hisnelmoslem/views/screens/tally.dart';
+import 'package:hisnelmoslem/views/tally/tally_dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AzkarDashboard extends StatelessWidget {

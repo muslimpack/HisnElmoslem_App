@@ -8,8 +8,10 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
+import 'package:intl/intl.dart';
 import 'utils/azkar_database_helper.dart';
 import 'utils/notification_manager.dart';
+import 'utils/tally_database_helper.dart';
 
 void main() async {
   /// Make sure all stuff are initialized
@@ -17,14 +19,6 @@ void main() async {
 
   ///
   await GetStorage.init();
-
-  /// If user have old version of hisnElmoslem consider
-  /// to disable all notification as all alrams and
-  /// bookmared titles will be deleted in V1.5
-  // final box = GetStorage();
-  // if (box.read('is_v1.5_first_open') ?? true) {
-  // //   await localNotifyManager.cancelAllNotifications();
-  // }
 
   /// Manage Notification feedback
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -45,6 +39,17 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
 
+  /// Keep app in portrait mode and
+  /// make it static when phone rotation change
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  ///
+  Intl.defaultLocale = 'ar';
+
+  ///
   runApp(const MyApp());
 }
 
@@ -61,17 +66,12 @@ class _MyAppState extends State<MyApp> {
     await azkarDatabaseHelper.close();
     await fakeHadithDatabaseHelper.close();
     await alarmDatabaseHelper.close();
+    await tallyDatabaseHelper.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    /// Keep app in portrait mode and
-    /// make it static when phone rotation change
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     return GetMaterialApp(
       locale: const Locale('ar'),
       debugShowCheckedModeBanner: false,
