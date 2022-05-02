@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
 
 class DialogMaker extends StatelessWidget {
   final Widget header;
@@ -12,7 +13,7 @@ class DialogMaker extends StatelessWidget {
     required this.content,
     required this.footer,
     this.contentPadding =
-        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
   }) : super(key: key);
 
   @override
@@ -38,11 +39,16 @@ class DialogMaker extends StatelessWidget {
             const Divider(),
 
             /// Content
-            Padding(
-              padding: contentPadding,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: content,
+            Flexible(
+              child: Padding(
+                padding: contentPadding,
+                child: ScrollGlowRemover(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: content,
+                  ),
+                ),
               ),
             ),
 

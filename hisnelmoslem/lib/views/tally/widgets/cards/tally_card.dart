@@ -17,77 +17,78 @@ class TallyCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ListTile(
-          leading: !dbTally.isActivated
-              ? IconButton(
-                  icon: const Icon(Icons.watch_outlined),
-                  onPressed: () {
-                    tallyController.activateTally(dbTally);
-                  },
-                  iconSize: 40,
-                )
-              : IconButton(
-                  icon: const Icon(
-                    Icons.watch_outlined,
-                    color: mainColor,
-                  ),
-                  onPressed: () {
-                    tallyController.deactivateTally(dbTally: dbTally);
-                  },
-                  iconSize: 40,
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: !dbTally.isActivated
+                  ? IconButton(
+                      icon: const Icon(Icons.watch_outlined),
+                      onPressed: () {
+                        tallyController.activateTally(dbTally);
+                      },
+                      iconSize: 40,
+                    )
+                  : IconButton(
+                      icon: const Icon(
+                        Icons.watch_outlined,
+                        color: mainColor,
+                      ),
+                      onPressed: () {
+                        tallyController.deactivateTally(dbTally: dbTally);
+                      },
+                      iconSize: 40,
+                    ),
+              title: Text(
+                dbTally.title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: "uthmanic",
+                  fontWeight: FontWeight.bold,
                 ),
-          title: Text(
-            dbTally.title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontFamily: "uthmanic",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Column(
-            children: [
-              Text(DateFormat('EEEE - dd-MM-yyyy – kk:mm')
+              ),
+              subtitle: Text(DateFormat('EEEE - dd-MM-yyyy – kk:mm')
                   .format(dbTally.lastUpdate!)),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: ListTile(
-                      leading: const Icon(Icons.edit),
-                      title: const Text(
-                        "تعديل",
-                        textAlign: TextAlign.center,
-                      ),
-                      onTap: () {
-                        tallyController.updateTallyById(dbTally);
-                      },
-                    ),
-                  ),
-                  const VerticalDivider(),
-                  Expanded(
-                    child: ListTile(
-                      leading: const Icon(Icons.delete),
-                      title: const Text(
-                        "حذف",
-                        textAlign: TextAlign.center,
-                      ),
-                      onTap: () {
-                        tallyController.deleteTallyById(dbTally);
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          trailing: Text(
-            dbTally.count.toString(),
-            style: const TextStyle(
-              color: mainColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
+              trailing: Text(
+                dbTally.count.toString(),
+                style: const TextStyle(
+                  color: mainColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
             ),
-          ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(Icons.edit),
+                    title: const Text(
+                      "تعديل",
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      tallyController.updateTallyById(dbTally);
+                    },
+                  ),
+                ),
+                const VerticalDivider(),
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: const Text(
+                      "حذف",
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      tallyController.deleteTallyById(dbTally);
+                    },
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ],
     );
