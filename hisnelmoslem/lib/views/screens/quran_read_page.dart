@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import '../../controllers/quran_controller.dart';
 
@@ -21,77 +22,70 @@ class QuranReadPage extends StatelessWidget {
               ? const Loading()
               : Scaffold(
                   key: controller.quranReadPageScaffoldKey,
-                  body: ScrollConfiguration(
-                    behavior: const ScrollBehavior(),
-                    child: GlowingOverscrollIndicator(
-                      axisDirection: AxisDirection.left,
-                      color: black26,
-                      child: GestureDetector(
-                        onDoubleTap: () {
-                          controller.onDoubleTap();
+                  body: ScrollGlowCustom(
+                    axisDirection: AxisDirection.left,
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        controller.onDoubleTap();
+                      },
+                      child: PageView.builder(
+                        onPageChanged: controller.onPageViewChange,
+                        controller: controller.pageController,
+                        itemCount: controller.quranRequiredSurah!.pages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              BetweenPageEffect(
+                                  index: controller.quranRequiredSurah!
+                                      .pages[index].pageNumber),
+                              PageSideEffect(
+                                  index: controller.quranRequiredSurah!
+                                      .pages[index].pageNumber),
+                              Center(
+                                child: ColorFiltered(
+                                    colorFilter: greyScale,
+                                    child: ColorFiltered(
+                                        colorFilter: ThemeServices.isDarkMode()
+                                            ? invert
+                                            : normal,
+                                        child: Image.asset(
+                                          controller.quranRequiredSurah!
+                                              .pages[index].image,
+                                          fit: BoxFit.fitWidth,
+                                        ))),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(
+                                    '${controller.quranRequiredSurah!.pages[index].pageNumber}',
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                      "سورة " +
+                                          controller.quranRequiredSurah!.surah,
+                                      style: const TextStyle(
+                                          fontFamily: "Uthmanic")),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: IconButton(
+                                  onPressed: () {
+                                    controller.toggleTheme();
+                                  },
+                                  icon: const Icon(Icons.dark_mode),
+                                ),
+                              ),
+                            ],
+                          );
                         },
-                        child: PageView.builder(
-                          onPageChanged: controller.onPageViewChange,
-                          controller: controller.pageController,
-                          itemCount:
-                              controller.quranRequiredSurah!.pages.length,
-                          itemBuilder: (context, index) {
-                            return Stack(
-                              children: [
-                                BetweenPageEffect(
-                                    index: controller.quranRequiredSurah!
-                                        .pages[index].pageNumber),
-                                PageSideEffect(
-                                    index: controller.quranRequiredSurah!
-                                        .pages[index].pageNumber),
-                                Center(
-                                  child: ColorFiltered(
-                                      colorFilter: greyScale,
-                                      child: ColorFiltered(
-                                          colorFilter:
-                                              ThemeServices.isDarkMode()
-                                                  ? invert
-                                                  : normal,
-                                          child: Image.asset(
-                                            controller.quranRequiredSurah!
-                                                .pages[index].image,
-                                            fit: BoxFit.fitWidth,
-                                          ))),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      '${controller.quranRequiredSurah!.pages[index].pageNumber}',
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(
-                                        "سورة " +
-                                            controller
-                                                .quranRequiredSurah!.surah,
-                                        style: const TextStyle(
-                                            fontFamily: "Uthmanic")),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      controller.toggleTheme();
-                                    },
-                                    icon: const Icon(Icons.dark_mode),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
                       ),
                     ),
                   ),

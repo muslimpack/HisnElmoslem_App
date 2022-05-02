@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
@@ -6,6 +7,7 @@ import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
@@ -40,7 +42,7 @@ class DashboardController extends GetxController {
   List<DbContent> favouriteConent = <DbContent>[];
   // List<DbContent> zikrContent = <DbContent>[];
   //
-
+  ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   /* *************** Controller life cycle *************** */
   //
   @override
@@ -188,6 +190,19 @@ class DashboardController extends GetxController {
     //
     await getFavouriteContent();
     //
+    update();
+  }
+
+  ///
+  void toggleDrawer() {
+    debugPrint("Toggle drawer");
+    zoomDrawerController.toggle?.call();
+    update();
+  }
+
+  ///
+  void toggleTheme() {
+    ThemeServices.changeThemeMode();
     update();
   }
   /* ****************************** */

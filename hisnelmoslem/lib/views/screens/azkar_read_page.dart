@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 import '../../controllers/app_data_controllers.dart';
@@ -164,108 +165,99 @@ class AzkarReadPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  body: ScrollConfiguration(
-                    behavior: const ScrollBehavior(),
-                    child: GlowingOverscrollIndicator(
-                      axisDirection: AxisDirection.left,
-                      color: black26,
-                      child: PageView.builder(
-                        onPageChanged: controller.onPageViewChange,
-                        controller: controller.pageController,
-                        itemCount: controller.zikrContent.length.isNaN
-                            ? 0
-                            : controller.zikrContent.length,
-                        itemBuilder: (context, index) {
-                          /* I repeated this code here to prevent text to be look like
-                           the text in the next page when we swipe */
-                          String text = appDataController.isTashkelEnabled
-                              ? controller.zikrContent[index].content
-                              : controller.zikrContent[index].content
-                                  .replaceAll(
-                                      //* لحذف التشكيل
-                                      RegExp(String.fromCharCodes(
-                                          arabicTashkelChar)),
-                                      "");
-                          return InkWell(
-                            onTap: () {
-                              controller.decreaseCount();
-                            },
-                            onLongPress: () {
-                              final snackBar = SnackBar(
-                                content: Text(
-                                  source!,
+                  body: ScrollGlowCustom(
+                    child: PageView.builder(
+                      onPageChanged: controller.onPageViewChange,
+                      controller: controller.pageController,
+                      itemCount: controller.zikrContent.length.isNaN
+                          ? 0
+                          : controller.zikrContent.length,
+                      itemBuilder: (context, index) {
+                        /* I repeated this code here to prevent text to be look like
+                         the text in the next page when we swipe */
+                        String text = appDataController.isTashkelEnabled
+                            ? controller.zikrContent[index].content
+                            : controller.zikrContent[index].content.replaceAll(
+                                //* لحذف التشكيل
+                                RegExp(String.fromCharCodes(arabicTashkelChar)),
+                                "");
+                        return InkWell(
+                          onTap: () {
+                            controller.decreaseCount();
+                          },
+                          onLongPress: () {
+                            final snackBar = SnackBar(
+                              content: Text(
+                                source!,
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                              ),
+                              action: SnackBarAction(
+                                  label: 'نسخ',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                    FlutterClipboard.copy(source!)
+                                        .then((result) {
+                                      final snackBar = SnackBar(
+                                        content:
+                                            const Text('تم النسخ إلى الحافظة'),
+                                        action: SnackBarAction(
+                                          label: 'تم',
+                                          onPressed: () {},
+                                        ),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    });
+                                  }),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          },
+                          child: ListView(
+                            physics: const ClampingScrollPhysics(),
+                            padding: const EdgeInsets.only(top: 10),
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                                child: Text(
+                                  text,
                                   textAlign: TextAlign.center,
                                   softWrap: true,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                      fontSize: appDataController.fontSize * 10,
+                                      color:
+                                          controller.zikrContent[index].count ==
+                                                  0
+                                              ? mainColor
+                                              : null,
+                                      // fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                action: SnackBarAction(
-                                    label: 'نسخ',
-                                    onPressed: () {
-                                      // Some code to undo the change.
-                                      FlutterClipboard.copy(source!)
-                                          .then((result) {
-                                        final snackBar = SnackBar(
-                                          content: const Text(
-                                              'تم النسخ إلى الحافظة'),
-                                          action: SnackBarAction(
-                                            label: 'تم',
-                                            onPressed: () {},
-                                          ),
-                                        );
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      });
-                                    }),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            },
-                            child: ListView(
-                              physics: const ClampingScrollPhysics(),
-                              padding: const EdgeInsets.only(top: 10),
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 20, 10, 5),
-                                  child: Text(
-                                    text,
-                                    textAlign: TextAlign.center,
-                                    softWrap: true,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                        fontSize:
-                                            appDataController.fontSize * 10,
-                                        color: controller
-                                                    .zikrContent[index].count ==
-                                                0
-                                            ? mainColor
-                                            : null,
-                                        // fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 10, 10, 20),
+                                child: Text(
+                                  controller.zikrContent[index].fadl,
+                                  textAlign: TextAlign.center,
+                                  textDirection: TextDirection.rtl,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      fontSize: appDataController.fontSize * 10,
+                                      color: mainColor,
+                                      //fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                                  child: Text(
-                                    controller.zikrContent[index].fadl,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize:
-                                            appDataController.fontSize * 10,
-                                        color: mainColor,
-                                        //fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                   bottomNavigationBar: BottomAppBar(

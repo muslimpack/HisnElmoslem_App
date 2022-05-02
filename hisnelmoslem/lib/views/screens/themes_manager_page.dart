@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:hisnelmoslem/controllers/themes_manager_page_controller.dart';
-import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/themes/themes_enum.dart';
 
 class ThemeManagerPage extends StatelessWidget {
@@ -20,34 +20,29 @@ class ThemeManagerPage extends StatelessWidget {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
-          body: ScrollConfiguration(
-            behavior: const ScrollBehavior(),
-            child: GlowingOverscrollIndicator(
-              axisDirection: AxisDirection.down,
-              color: black26,
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  RadioImage(
-                    controller: controller,
-                    title: "الوضع الفاتح",
-                    imgPath: "assets/images/theme_light.png",
-                    appThemeModeValue: AppThemeMode.light,
-                  ),
-                  RadioImage(
-                    controller: controller,
-                    title: "الوضع المعتم",
-                    imgPath: "assets/images/theme_dark_default.png",
-                    appThemeModeValue: AppThemeMode.defaultDark,
-                  ),
-                  RadioImage(
-                    controller: controller,
-                    title: "الوضع المعتم المحسن",
-                    imgPath: "assets/images/theme_dark.png",
-                    appThemeModeValue: AppThemeMode.dark,
-                  ),
-                ],
-              ),
+          body: ScrollGlowCustom(
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                RadioImage(
+                  controller: controller,
+                  title: "الوضع الفاتح",
+                  imgPath: "assets/images/theme_light.png",
+                  appThemeModeValue: AppThemeMode.light,
+                ),
+                RadioImage(
+                  controller: controller,
+                  title: "الوضع المعتم",
+                  imgPath: "assets/images/theme_dark_default.png",
+                  appThemeModeValue: AppThemeMode.defaultDark,
+                ),
+                RadioImage(
+                  controller: controller,
+                  title: "الوضع المعتم المحسن",
+                  imgPath: "assets/images/theme_dark.png",
+                  appThemeModeValue: AppThemeMode.dark,
+                ),
+              ],
             ),
           ),
         );

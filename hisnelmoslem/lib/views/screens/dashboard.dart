@@ -5,6 +5,8 @@ import 'package:hisnelmoslem/controllers/quran_controller.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/views/pages/bookmarks.dart';
 import 'package:hisnelmoslem/views/pages/favorite_zikr.dart';
 import 'package:hisnelmoslem/views/pages/fehrs.dart';
@@ -14,9 +16,14 @@ import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
 import 'package:hisnelmoslem/views/screens/settings.dart';
 import 'package:hisnelmoslem/views/tally/tally_dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
+import 'about.dart';
 
 class AzkarDashboard extends StatelessWidget {
-  const AzkarDashboard({Key? key}) : super(key: key);
+  const AzkarDashboard({
+    Key? key,
+  }) : super(key: key);
 
   @override
   build(BuildContext context) {
@@ -24,163 +31,301 @@ class AzkarDashboard extends StatelessWidget {
       init: DashboardController(),
       builder: (controller) => controller.isLoading
           ? const Loading()
-          : DefaultTabController(
-              length: 3,
-              child: Scaffold(
-                body: NestedScrollView(
-                  floatHeaderSlivers: true,
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      SliverAppBar(
-                        title: controller.isSearching
-                            ? TextFormField(
-                                style:
-                                    const TextStyle(decorationColor: mainColor),
-                                textAlign: TextAlign.center,
-                                controller: controller.searchController,
-                                autofocus: true,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    hintText: "البحث",
-                                    contentPadding: const EdgeInsets.only(
-                                        left: 15, bottom: 5, top: 5, right: 15),
-                                    prefix: IconButton(
-                                      icon: const Icon(Icons.clear_all),
-                                      onPressed: () {
-                                        controller.searchController.clear();
-                                        controller.searchZikr();
-                                        controller.update();
-                                      },
-                                    )),
-                                onChanged: (value) {
+          : ZoomDrawer(
+              isRtl: true,
+              controller: controller.zoomDrawerController,
+              menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              menuScreen: MenuScreen(
+                controller: controller,
+              ),
+              mainScreen: MainScreen(
+                controller: controller,
+              ),
+              borderRadius: 24.0,
+              showShadow: true,
+              angle: 0.0,
+              drawerShadowsBackgroundColor: Colors.grey,
+              slideWidth: 250,
+            ),
+    );
+  }
+}
+
+class MainScreen extends StatelessWidget {
+  final DashboardController controller;
+  const MainScreen({Key? key, required this.controller}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        body: ScrollGlowRemover(
+          child: NestedScrollView(
+            floatHeaderSlivers: true,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  title: controller.isSearching
+                      ? TextFormField(
+                          style: const TextStyle(decorationColor: mainColor),
+                          textAlign: TextAlign.center,
+                          controller: controller.searchController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "البحث",
+                              contentPadding: const EdgeInsets.only(
+                                  left: 15, bottom: 5, top: 5, right: 15),
+                              prefix: IconButton(
+                                icon: const Icon(Icons.clear_all),
+                                onPressed: () {
+                                  controller.searchController.clear();
                                   controller.searchZikr();
+                                  controller.update();
                                 },
-                              )
-                            : GestureDetector(
-                                onLongPress: () {
-                                  transitionAnimation.fromBottom2Top(
-                                      context: context,
-                                      goToPage: const QuranReadPage(
-                                        surahName: SurahNameEnum.alKahf,
-                                      ));
-                                },
-                                onTap: () {
-                                  transitionAnimation.fromBottom2Top(
-                                      context: context,
-                                      goToPage: const AppUpdateNews());
-                                },
-                                child: SizedBox(
-                                  width: 40,
-                                  child: Image.asset(
-                                    'assets/images/app_icon.png',
-                                  ),
-                                ),
-                              ),
-                        pinned: true,
-                        floating: true,
-                        snap: true,
-                        bottom: const TabBar(indicatorColor: mainColor,
-                            // labelColor: mainColor,
-                            // unselectedLabelColor: null,
-                            // controller: tabController,
-                            tabs: [
-                              Tab(
-                                child: Text(
-                                  "الفهرس",
-                                  style: TextStyle(
-                                      fontFamily: "Uthmanic",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "المفضلة",
-                                  style: TextStyle(
-                                      fontFamily: "Uthmanic",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "مفضلة الأذكار ",
-                                  style: TextStyle(
-                                      fontFamily: "Uthmanic",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ]),
-                        actions: [
-                          controller.isSearching
-                              ? IconButton(
-                                  splashRadius: 20,
-                                  padding: const EdgeInsets.all(0),
-                                  icon: const Icon(Icons.exit_to_app_sharp),
-                                  onPressed: () {
-                                    controller.isSearching = false;
-                                    controller.searchedTitle =
-                                        controller.allTitle;
-                                    // controller.searchController.clear();
-                                    controller.update();
-                                  })
-                              : IconButton(
-                                  splashRadius: 20,
-                                  padding: const EdgeInsets.all(0),
-                                  icon: const Icon(Icons.search),
-                                  onPressed: () {
-                                    controller.searchZikr();
-                                  }),
-                          controller.isSearching
-                              ? const SizedBox()
-                              : IconButton(
-                                  splashRadius: 20,
-                                  padding: const EdgeInsets.all(0),
-                                  icon: const Icon(Icons.watch_outlined),
-                                  onPressed: () {
-                                    transitionAnimation.fromBottom2Top(
-                                        context: context,
-                                        goToPage: const Tally());
-                                  }),
-                          controller.isSearching
-                              ? const SizedBox()
-                              : IconButton(
-                                  splashRadius: 20,
-                                  padding: const EdgeInsets.all(0),
-                                  icon: const Icon(
-                                    MdiIcons.bookOpenPageVariant,
-                                  ),
-                                  onPressed: () {
-                                    transitionAnimation.fromBottom2Top(
-                                        context: context,
-                                        goToPage: FakeHadith());
-                                  }),
-                          IconButton(
-                              splashRadius: 20,
-                              padding: const EdgeInsets.all(0),
-                              icon: const Icon(Icons.settings),
-                              onPressed: () {
-                                transitionAnimation.fromBottom2Top(
-                                    context: context, goToPage: Settings());
-                              }),
-                        ],
-                      ),
-                    ];
-                  },
-                  body: TabBarView(
-                    // controller: tabController,
-                    children: [
-                      const AzkarFehrs(),
-                      const AzkarBookmarks(),
-                      FavouriteZikr(),
-                    ],
-                  ),
+                              )),
+                          onChanged: (value) {
+                            controller.searchZikr();
+                          },
+                        )
+                      : SizedBox(
+                          width: 40,
+                          child: Image.asset(
+                            'assets/images/app_icon.png',
+                          ),
+                        ),
+                  pinned: true,
+                  floating: true,
+                  snap: true,
+                  bottom: const TabBar(indicatorColor: mainColor,
+                      // labelColor: mainColor,
+                      // unselectedLabelColor: null,
+                      // controller: tabController,
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            "الفهرس",
+                            style: TextStyle(
+                                fontFamily: "Uthmanic",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "المفضلة",
+                            style: TextStyle(
+                                fontFamily: "Uthmanic",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "مفضلة الأذكار ",
+                            style: TextStyle(
+                                fontFamily: "Uthmanic",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ]),
+                  actions: [
+                    controller.isSearching
+                        ? IconButton(
+                            splashRadius: 20,
+                            padding: const EdgeInsets.all(0),
+                            icon: const Icon(Icons.exit_to_app_sharp),
+                            onPressed: () {
+                              controller.isSearching = false;
+                              controller.searchedTitle = controller.allTitle;
+                              // controller.searchController.clear();
+                              controller.update();
+                            })
+                        : IconButton(
+                            splashRadius: 20,
+                            padding: const EdgeInsets.all(0),
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              controller.searchZikr();
+                            }),
+                    controller.isSearching
+                        ? const SizedBox()
+                        : IconButton(
+                            splashRadius: 20,
+                            padding: const EdgeInsets.all(0),
+                            icon: const Icon(Icons.vertical_split_rounded),
+                            onPressed: () {
+                              controller.toggleDrawer();
+                            }),
+                  ],
                 ),
+              ];
+            },
+            body: ScrollGlowCustom(
+              axisDirection: AxisDirection.right,
+              child: TabBarView(
+                // controller: tabController,
+                children: [
+                  const AzkarFehrs(),
+                  const AzkarBookmarks(),
+                  FavouriteZikr(),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuScreen extends StatelessWidget {
+  final DashboardController controller;
+
+  const MenuScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/app_icon.png',
+                scale: 1.5,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Version " + appVersion,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Divider(),
+            ],
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: ScrollGlowRemover(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        ListTile(
+                          leading: const Icon(
+                            Icons.dark_mode,
+                          ),
+                          title: const Text("تغيير الألوان"),
+                          onTap: () {
+                            controller.toggleTheme();
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.watch_rounded,
+                          ),
+                          title: const Text("السبحة"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context, goToPage: const Tally());
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: const Text("سورة الكهف"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const QuranReadPage(
+                                  surahName: SurahNameEnum.alKahf,
+                                ));
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: const Text("سورة الملك"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const QuranReadPage(
+                                  surahName: SurahNameEnum.alMulk,
+                                ));
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.menu_book),
+                          title: const Text("أحاديث لا تصح"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context, goToPage: FakeHadith());
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.settings),
+                          title: const Text("الإعدادات"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context, goToPage: Settings());
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.history),
+                          title: const Text("تاريخ التحديثات"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const AppUpdateNews());
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.info),
+                          title: const Text("عنا"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context, goToPage: const About());
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text("إغلاق"),
+                onTap: () {
+                  controller.toggleDrawer();
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

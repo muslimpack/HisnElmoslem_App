@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/shared/cards/hadith_card.dart';
-import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 import '../../controllers/app_data_controllers.dart';
 import '../../shared/widgets/font_settings.dart';
@@ -18,26 +18,22 @@ class FakeHadith extends StatelessWidget {
           return Scaffold(
             key: controller.fakeHadithScaffoldKey,
             appBar: AppBar(
+              centerTitle: true,
               elevation: 0,
               title: const Text("أحاديث منتشرة لا تصح"),
               //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
-            body: ScrollConfiguration(
-              behavior: const ScrollBehavior(),
-              child: GlowingOverscrollIndicator(
-                axisDirection: AxisDirection.down,
-                color: black26,
-                child: ListView.builder(
-                  physics: const ClampingScrollPhysics(),
-                  padding: const EdgeInsets.only(top: 10),
-                  itemBuilder: (context, index) {
-                    return HadithCard(
-                      fakeHaith: controller.fakeHadithList[index],
-                      scaffoldKey: controller.fakeHadithScaffoldKey,
-                    );
-                  },
-                  itemCount: controller.fakeHadithList.length,
-                ),
+            body: ScrollGlowCustom(
+              child: ListView.builder(
+                physics: const ClampingScrollPhysics(),
+                padding: const EdgeInsets.only(top: 10),
+                itemBuilder: (context, index) {
+                  return HadithCard(
+                    fakeHaith: controller.fakeHadithList[index],
+                    scaffoldKey: controller.fakeHadithScaffoldKey,
+                  );
+                },
+                itemCount: controller.fakeHadithList.length,
               ),
             ),
             bottomNavigationBar: BottomAppBar(

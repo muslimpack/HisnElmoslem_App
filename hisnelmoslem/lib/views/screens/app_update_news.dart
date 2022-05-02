@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 import '../../shared/constants/new_featuers_list.dart';
 
@@ -13,33 +14,29 @@ class AppUpdateNews extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text("جديد التحديثات"),
         centerTitle: true,
+        title: const Text("جديد التحديثات"),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: ScrollConfiguration(
-        behavior: const ScrollBehavior(),
-        child: GlowingOverscrollIndicator(
-          axisDirection: AxisDirection.down,
-          color: black26,
-          child: ListView.separated(
-            itemCount: updateNewFeature.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: Icon(
-                  Icons.arrow_circle_up,
-                  color: index == 0 ? mainColor : null,
-                ),
-                title: Text(index == 0
-                    ? "الإصدار الحالي: " + updateNewFeature[index][0]
-                    : updateNewFeature[index][0]),
-                subtitle: Text(updateNewFeature[index][1]),
-                onTap: () {},
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-          ),
+      body: ScrollGlowCustom(
+        child: ListView.separated(
+          itemCount: updateNewFeature.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: Icon(
+                Icons.arrow_circle_up,
+                color: index == 0 ? mainColor : null,
+              ),
+              title: Text(index == 0
+                  ? "الإصدار الحالي: " + updateNewFeature[index][0]
+                  : updateNewFeature[index][0]),
+              subtitle: Text(updateNewFeature[index][1]),
+              onTap: () {},
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const Divider();
+          },
         ),
       ),
     );

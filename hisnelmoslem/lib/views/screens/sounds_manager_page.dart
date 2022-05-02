@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 import '../../shared/constants/constant.dart';
 
@@ -20,103 +21,98 @@ class SoundsManagerPage extends StatelessWidget {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,
             ),
-            body: ScrollConfiguration(
-              behavior: const ScrollBehavior(),
-              child: GlowingOverscrollIndicator(
-                axisDirection: AxisDirection.down,
-                color: black26,
-                child: ListView(
-                  physics: const ClampingScrollPhysics(),
-                  children: [
-                    /// Transition Sound Allowed
-                    // SwitchListTile(
-                    //   title: ListTile(
-                    //     contentPadding: EdgeInsets.all(0),
-                    //     leading: Icon(
-                    //       Icons.speaker,
-                    //     ),
-                    //     title: Text("صوت عند الانتقال بين الصفحات"),
-                    //   ),
-                    //   activeColor: mainColor,
-                    //   value: controller.isTransitionSoundAllowed,
-                    //   onChanged: (value) {
-                    //     controller.changeTransitionSoundStatus(value);
+            body: ScrollGlowCustom(
+              child: ListView(
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  /// Transition Sound Allowed
+                  // SwitchListTile(
+                  //   title: ListTile(
+                  //     contentPadding: EdgeInsets.all(0),
+                  //     leading: Icon(
+                  //       Icons.speaker,
+                  //     ),
+                  //     title: Text("صوت عند الانتقال بين الصفحات"),
+                  //   ),
+                  //   activeColor: mainColor,
+                  //   value: controller.isTransitionSoundAllowed,
+                  //   onChanged: (value) {
+                  //     controller.changeTransitionSoundStatus(value);
 
-                    //     if (value) {
-                    //       controller.playTransitionSound();
-                    //     } else {
-                    //       // getSnackbar(
-                    //       //     message: "تم الغاء منبه صيام الإثنين والخميس");
-                    //     }
-                    //     controller.update();
-                    //   },
-                    // ),
+                  //     if (value) {
+                  //       controller.playTransitionSound();
+                  //     } else {
+                  //       // getSnackbar(
+                  //       //     message: "تم الغاء منبه صيام الإثنين والخميس");
+                  //     }
+                  //     controller.update();
+                  //   },
+                  // ),
 
-                    /// Tally Sound Allowed
-                    SwitchListTile(
-                      title: const ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        leading: Icon(
-                          Icons.speaker,
-                        ),
-                        title: Text("اشعار عند كل تسبيحة"),
+                  /// Tally Sound Allowed
+                  SwitchListTile(
+                    title: const ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        Icons.speaker,
                       ),
-                      activeColor: mainColor,
-                      value: controller.isTallySoundAllowed,
-                      onChanged: (value) {
-                        controller.changeTallySoundStatus(value);
-
-                        if (value) {
-                          controller.playTallySound();
-                        }
-
-                        controller.update();
-                      },
+                      title: Text("اشعار عند كل تسبيحة"),
                     ),
+                    activeColor: mainColor,
+                    value: controller.isTallySoundAllowed,
+                    onChanged: (value) {
+                      controller.changeTallySoundStatus(value);
 
-                    /// Zikr Done Sound Allowed
-                    SwitchListTile(
-                      title: const ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        leading: Icon(
-                          Icons.speaker,
-                        ),
-                        title: Text("اشعار عند انتهاء كل ذكر"),
+                      if (value) {
+                        controller.playTallySound();
+                      }
+
+                      controller.update();
+                    },
+                  ),
+
+                  /// Zikr Done Sound Allowed
+                  SwitchListTile(
+                    title: const ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        Icons.speaker,
                       ),
-                      activeColor: mainColor,
-                      value: controller.isZikrDoneSoundAllowed,
-                      onChanged: (value) {
-                        controller.changeZikrDoneSoundStatus(value);
-
-                        if (value) {
-                          controller.playZikrDoneSound();
-                        }
-                        controller.update();
-                      },
+                      title: Text("اشعار عند انتهاء كل ذكر"),
                     ),
+                    activeColor: mainColor,
+                    value: controller.isZikrDoneSoundAllowed,
+                    onChanged: (value) {
+                      controller.changeZikrDoneSoundStatus(value);
 
-                    /// Azkar Done Sound Allowed
-                    SwitchListTile(
-                      title: const ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        leading: Icon(
-                          Icons.speaker,
-                        ),
-                        title: Text("اشعار عند انتهاء جميع الأذكار"),
+                      if (value) {
+                        controller.playZikrDoneSound();
+                      }
+                      controller.update();
+                    },
+                  ),
+
+                  /// Azkar Done Sound Allowed
+                  SwitchListTile(
+                    title: const ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        Icons.speaker,
                       ),
-                      activeColor: mainColor,
-                      value: controller.isAllAzkarFinishedSoundAllowed,
-                      onChanged: (value) {
-                        controller.changeAllAzkarFinishedSoundStatus(value);
-
-                        if (value) {
-                          controller.playAllAzkarFinishedSound();
-                        }
-                        controller.update();
-                      },
+                      title: Text("اشعار عند انتهاء جميع الأذكار"),
                     ),
-                  ],
-                ),
+                    activeColor: mainColor,
+                    value: controller.isAllAzkarFinishedSoundAllowed,
+                    onChanged: (value) {
+                      controller.changeAllAzkarFinishedSoundStatus(value);
+
+                      if (value) {
+                        controller.playAllAzkarFinishedSound();
+                      }
+                      controller.update();
+                    },
+                  ),
+                ],
               ),
             ),
           );

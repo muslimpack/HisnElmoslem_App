@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
 import 'package:hisnelmoslem/shared/cards/alarm_card.dart';
-import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 import '../../shared/widgets/empty.dart';
 
@@ -28,29 +28,24 @@ class AlarmsPages extends StatelessWidget {
                   : Scrollbar(
                       controller: controller.alarmScrollController,
                       isAlwaysShown: false,
-                      child: ScrollConfiguration(
-                        behavior: const ScrollBehavior(),
-                        child: GlowingOverscrollIndicator(
-                          axisDirection: AxisDirection.down,
-                          color: black26,
-                          child: controller.alarms.isEmpty
-                              ? const Empty(
-                                  isImage: false,
-                                  icon: Icons.alarm_add_rounded,
-                                  title: "لا يوجد أي منبهات",
-                                  description:
-                                      "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
-                                )
-                              : ListView.builder(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  itemBuilder: (context, index) {
-                                    return AlarmCard(
-                                      dbAlarm: controller.alarms[index],
-                                    );
-                                  },
-                                  itemCount: controller.alarms.length,
-                                ),
-                        ),
+                      child: ScrollGlowCustom(
+                        child: controller.alarms.isEmpty
+                            ? const Empty(
+                                isImage: false,
+                                icon: Icons.alarm_add_rounded,
+                                title: "لا يوجد أي منبهات",
+                                description:
+                                    "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
+                              )
+                            : ListView.builder(
+                                padding: const EdgeInsets.only(top: 10),
+                                itemBuilder: (context, index) {
+                                  return AlarmCard(
+                                    dbAlarm: controller.alarms[index],
+                                  );
+                                },
+                                itemCount: controller.alarms.length,
+                              ),
                       ),
                     ));
         });
