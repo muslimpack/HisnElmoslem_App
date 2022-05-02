@@ -16,6 +16,7 @@ class Tally extends StatelessWidget {
       builder: (controller) => DefaultTabController(
         length: 2,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: ScrollGlowRemover(
             child: NestedScrollView(
               floatHeaderSlivers: true,

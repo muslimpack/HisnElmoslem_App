@@ -31,6 +31,7 @@ class TallyCounterView extends StatelessWidget {
                       "لتفعيل العداد اذهب إلى عرض التسبيحات واضغط على علامة العداد",
                 )
               : Scaffold(
+                  resizeToAvoidBottomInset: false,
                   body: InkWell(
                     onTap: () {
                       // controller.incrementCounter();

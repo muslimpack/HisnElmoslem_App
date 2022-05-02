@@ -173,39 +173,39 @@ class TallyController extends GetxController {
   }
 
   /// CURD
-  createNewTally() {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: transparent,
-        context: Get.context!,
-        builder: (BuildContext context) {
-          return AddTallyDialog(
-            onSubmit: (value) async {
-              await tallyDatabaseHelper.addNewTally(dbTally: value);
-              getAllListsReady();
-              update();
-            },
-          );
-        });
+  createNewTally() async {
+    await showDialog(
+      barrierDismissible: true,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AddTallyDialog(
+          onSubmit: (value) async {
+            await tallyDatabaseHelper.addNewTally(dbTally: value);
+            getAllListsReady();
+            update();
+          },
+        );
+      },
+    );
   }
 
-  updateTallyById(DbTally dbTally) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: transparent,
-        context: Get.context!,
-        builder: (BuildContext context) {
-          return EditTallyDialog(
-            dbTally: dbTally,
-            onSubmit: (value) async {
-              debugPrint(value.toString());
-              await tallyDatabaseHelper.updateTally(
-                  dbTally: value, updateTime: false);
-              await updateDBTallyToView(dbTally: value);
-              update();
-            },
-          );
-        });
+  updateTallyById(DbTally dbTally) async {
+    await showDialog(
+      barrierDismissible: true,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return EditTallyDialog(
+          dbTally: dbTally,
+          onSubmit: (value) async {
+            debugPrint(value.toString());
+            await tallyDatabaseHelper.updateTally(
+                dbTally: value, updateTime: false);
+            await updateDBTallyToView(dbTally: value);
+            update();
+          },
+        );
+      },
+    );
   }
 
   increaseDBCounter() async {

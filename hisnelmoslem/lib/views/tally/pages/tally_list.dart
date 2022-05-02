@@ -16,6 +16,7 @@ class TallyListView extends StatelessWidget {
       return controller.isLoading
           ? const Loading()
           : Scaffold(
+              resizeToAvoidBottomInset: false,
               body: ScrollGlowCustom(
                 child: ListView.separated(
                   itemCount: controller.allTally.length,
