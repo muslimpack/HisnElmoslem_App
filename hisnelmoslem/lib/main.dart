@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/views/screens/dashboard.dart';
+import 'package:hisnelmoslem/views/screens/on_boarding.dart';
 import 'package:intl/intl.dart';
 import 'utils/azkar_database_helper.dart';
 import 'utils/notification_manager.dart';
@@ -72,12 +73,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO to be deleted in next update
+    final box = GetStorage();
+    final openOnBoard = box.read('is_v1.8_first_open') ?? true;
     return GetMaterialApp(
       locale: const Locale('ar'),
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
       theme: ThemeServices.getTheme(),
-      home: const AzkarDashboard(),
+      // home: const AzkarDashboard(),
+      // TODO to be deleted in next update
+      home: openOnBoard ? const OnBoardingPage() : const AzkarDashboard(),
     );
   }
 }
