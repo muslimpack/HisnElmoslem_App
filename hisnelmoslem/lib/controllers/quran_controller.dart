@@ -69,6 +69,8 @@ class QuranPageController extends GetxController {
     //
     pageController.dispose();
     //
+    _volumeBtnChannel.setMethodCallHandler(null);
+    //
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
   }

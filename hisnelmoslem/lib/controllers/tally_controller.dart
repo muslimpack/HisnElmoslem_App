@@ -85,6 +85,14 @@ class TallyController extends GetxController {
     update();
   }
 
+  @override
+  void onClose() {
+    super.onClose();
+
+    ///
+    _volumeBtnChannel.setMethodCallHandler(null);
+  }
+
   /* *************** Functions *************** */
   //
 

@@ -70,6 +70,7 @@ class AzkarReadPageController extends GetxController {
     super.onClose();
     Wakelock.disable();
     pageController.dispose();
+    _volumeBtnChannel.setMethodCallHandler(null);
   }
 
   /* *************** Functions *************** */

@@ -96,6 +96,9 @@ class OnBoardingController extends GetxController {
     super.onClose();
     //
     pageController.dispose();
+
+    ///
+    _volumeBtnChannel.setMethodCallHandler(null);
   }
 
   /* *************** Functions *************** */
