@@ -33,7 +33,7 @@ class UserTextField extends StatelessWidget {
             disabledBorder: InputBorder.none,
             hintText: hintText,
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: mainColor),
+              borderSide: BorderSide(color: mainColor),
               borderRadius: BorderRadius.circular(10.0),
             ),
             enabledBorder: UnderlineInputBorder(

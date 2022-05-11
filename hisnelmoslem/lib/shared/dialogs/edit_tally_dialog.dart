@@ -30,7 +30,7 @@ class _EditTallyDialogState extends State<EditTallyDialog> {
     resetCounterController =
         TextEditingController(text: widget.dbTally.countReset.toString());
     return DialogMaker(
-      header: const Text(
+      header: Text(
         "تعديل عداد حالي",
         style: TextStyle(
           fontSize: 25,
@@ -56,7 +56,7 @@ class _EditTallyDialogState extends State<EditTallyDialog> {
         ),
       ],
       footer: ListTile(
-        title: const Text(
+        title: Text(
           "تم",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),

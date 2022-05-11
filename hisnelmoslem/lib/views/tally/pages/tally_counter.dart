@@ -34,7 +34,6 @@ class TallyCounterView extends StatelessWidget {
                   resizeToAvoidBottomInset: false,
                   body: InkWell(
                     onTap: () {
-                      // controller.incrementCounter();
                       controller.increaseDBCounter();
                     },
                     child: Center(
@@ -96,7 +95,7 @@ class TallyCounterView extends StatelessWidget {
                                     progressBarWidth: 40, trackWidth: 40),
                                 customColors: CustomSliderColors(
                                   // trackColor: grey,
-                                  // hideShadow: true,
+                                  hideShadow: true,
                                   trackColor: transparent,
                                   progressBarColors: [
                                     mainColor,
@@ -113,7 +112,7 @@ class TallyCounterView extends StatelessWidget {
                   ),
                   bottomNavigationBar: BottomAppBar(
                     //elevation: 20,
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                     child: SizedBox(
                       height: 40,
                       child: Row(

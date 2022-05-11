@@ -79,9 +79,9 @@ class FavouriteZikr extends StatelessWidget {
                                         splashRadius: 20,
                                         padding: const EdgeInsets.all(0),
                                         icon: dbContent.favourite
-                                            ? const Icon(Icons.favorite,
+                                            ? Icon(Icons.favorite,
                                                 color: mainColor)
-                                            : const Icon(Icons.favorite_border,
+                                            : Icon(Icons.favorite_border,
                                                 color: mainColor),
                                         onPressed: () {
                                           controller.removeContentFromFavourite(
@@ -92,7 +92,7 @@ class FavouriteZikr extends StatelessWidget {
                                       child: IconButton(
                                           splashRadius: 20,
                                           padding: const EdgeInsets.all(0),
-                                          icon: const Icon(Icons.copy,
+                                          icon: Icon(Icons.copy,
                                               color: mainColor),
                                           onPressed: () {
                                             FlutterClipboard.copy(
@@ -114,7 +114,7 @@ class FavouriteZikr extends StatelessWidget {
                                       child: IconButton(
                                           splashRadius: 20,
                                           padding: const EdgeInsets.all(0),
-                                          icon: const Icon(Icons.share,
+                                          icon: Icon(Icons.share,
                                               color: mainColor),
                                           onPressed: () {
                                             Share.share(dbContent.content +
@@ -167,8 +167,7 @@ class FavouriteZikr extends StatelessWidget {
                                 ),
                                 LinearProgressIndicator(
                                   value: 1,
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                     mainColor,
                                   ),
                                   backgroundColor: grey,
@@ -221,8 +220,8 @@ class FavouriteZikr extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: ListTile(
-                                          tileColor:
-                                              Theme.of(context).primaryColor,
+                                          // tileColor:
+                                          //     Theme.of(context).primaryColor,
                                           onTap: () {
                                             if (!appDataController
                                                 .isCardReadMode) {
@@ -240,7 +239,7 @@ class FavouriteZikr extends StatelessWidget {
                                           title: Text(
                                             "الذهاب إلى ${dbTitle.name}",
                                             textAlign: TextAlign.center,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontSize: 20,
                                                 color: mainColor,
                                                 fontWeight: FontWeight.bold),
@@ -249,7 +248,7 @@ class FavouriteZikr extends StatelessWidget {
                                             padding: const EdgeInsets.all(10),
                                             child: Text(
                                               dbContent.count.toString(),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   color: mainColor,
                                                   fontWeight: FontWeight.bold),
                                             ),

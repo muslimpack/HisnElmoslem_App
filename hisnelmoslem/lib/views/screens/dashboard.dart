@@ -44,7 +44,7 @@ class AzkarDashboard extends StatelessWidget {
               borderRadius: 24.0,
               showShadow: true,
               angle: 0.0,
-              drawerShadowsBackgroundColor: Colors.grey,
+              drawerShadowsBackgroundColor: mainColor,
               slideWidth: 250,
             ),
     );
@@ -69,7 +69,7 @@ class MainScreen extends StatelessWidget {
                 SliverAppBar(
                   title: controller.isSearching
                       ? TextFormField(
-                          style: const TextStyle(decorationColor: mainColor),
+                          style: TextStyle(decorationColor: mainColor),
                           textAlign: TextAlign.center,
                           controller: controller.searchController,
                           autofocus: true,
@@ -103,11 +103,11 @@ class MainScreen extends StatelessWidget {
                   pinned: true,
                   floating: true,
                   snap: true,
-                  bottom: const TabBar(indicatorColor: mainColor,
+                  bottom: TabBar(indicatorColor: mainColor,
                       // labelColor: mainColor,
                       // unselectedLabelColor: null,
                       // controller: tabController,
-                      tabs: [
+                      tabs: const [
                         Tab(
                           child: Text(
                             "الفهرس",
@@ -205,12 +205,23 @@ class MenuScreen extends StatelessWidget {
                 scale: 1.5,
               ),
               const SizedBox(height: 20),
-              const Text(
-                "Version " + appVersion,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text(
+                    "Version " + appVersion,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.toggleTheme();
+                    },
+                    icon: const Icon(Icons.dark_mode),
+                  ),
+                ],
               ),
               const Divider(),
             ],
@@ -225,16 +236,6 @@ class MenuScreen extends StatelessWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        ListTile(
-                          leading: const Icon(
-                            Icons.dark_mode,
-                          ),
-                          title: const Text("تغيير الألوان"),
-                          onTap: () {
-                            controller.toggleTheme();
-                          },
-                        ),
-                        const Divider(),
                         ListTile(
                           leading: const Icon(
                             Icons.watch_rounded,

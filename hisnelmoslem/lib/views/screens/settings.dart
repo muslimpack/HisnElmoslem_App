@@ -223,7 +223,7 @@ class Title extends StatelessWidget {
 
       title: Text(
         title,
-        style: const TextStyle(fontSize: 20, color: mainColor),
+        style: TextStyle(fontSize: 20, color: mainColor),
       ),
     );
   }

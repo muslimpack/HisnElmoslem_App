@@ -58,7 +58,7 @@ class HadithCard extends StatelessWidget {
                       ? const Icon(
                           Icons.check,
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.checklist,
                           color: mainColor,
                         ),
@@ -68,7 +68,7 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                       splashRadius: 20,
                       padding: const EdgeInsets.all(0),
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.copy,
                         color: mainColor,
                       ),
@@ -93,7 +93,7 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                       splashRadius: 20,
                       padding: const EdgeInsets.all(0),
-                      icon: const Icon(Icons.share, color: mainColor),
+                      icon: Icon(Icons.share, color: mainColor),
                       onPressed: () {
                         Share.share(fakeHaith.text + "\n" + fakeHaith.darga);
                       }),

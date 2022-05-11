@@ -32,6 +32,12 @@ class ThemeManagerPage extends StatelessWidget {
                 ),
                 RadioImage(
                   controller: controller,
+                  title: "الوضع الفاتح المحسن",
+                  imgPath: "assets/images/theme_yellow.png",
+                  appThemeModeValue: AppThemeMode.yellowTheme,
+                ),
+                RadioImage(
+                  controller: controller,
                   title: "الوضع المعتم",
                   imgPath: "assets/images/theme_dark_default.png",
                   appThemeModeValue: AppThemeMode.defaultDark,

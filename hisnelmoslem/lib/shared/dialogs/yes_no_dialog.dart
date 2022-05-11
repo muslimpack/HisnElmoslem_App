@@ -21,8 +21,8 @@ class YesOrNoDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Text("تنويه",
                   style: TextStyle(fontSize: 25, color: mainColor)),
             ),
@@ -35,7 +35,7 @@ class YesOrNoDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListTile(
-                    title: const Text(
+                    title: Text(
                       "نعم",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20, color: mainColor),
@@ -48,7 +48,7 @@ class YesOrNoDialog extends StatelessWidget {
                 ),
                 Expanded(
                     child: ListTile(
-                  title: const Text(
+                  title: Text(
                     "لا",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: mainColor),

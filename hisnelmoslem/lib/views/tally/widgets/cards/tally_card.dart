@@ -30,7 +30,7 @@ class TallyCard extends StatelessWidget {
                       iconSize: 40,
                     )
                   : IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.watch_outlined,
                         color: mainColor,
                       ),
@@ -51,7 +51,7 @@ class TallyCard extends StatelessWidget {
                   .format(dbTally.lastUpdate!)),
               trailing: Text(
                 dbTally.count.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   color: mainColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 15,

@@ -40,7 +40,7 @@ class Tally extends StatelessWidget {
                               icon: const Icon(Icons.settings),
                             ),
                     ],
-                    bottom: const TabBar(indicatorColor: mainColor, tabs: [
+                    bottom: TabBar(indicatorColor: mainColor, tabs: const [
                       Tab(
                         child: Text(
                           "التسبيح",

@@ -24,7 +24,7 @@ class AppUpdateNews extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               leading: Icon(
-                Icons.arrow_circle_up,
+                index == 0 ? Icons.upcoming : Icons.arrow_circle_up,
                 color: index == 0 ? mainColor : null,
               ),
               title: Text(index == 0

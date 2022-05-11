@@ -17,7 +17,7 @@ class AddTallyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogMaker(
-      header: const Text(
+      header: Text(
         "اضافة عداد جديد",
         style: TextStyle(
           fontSize: 25,
@@ -43,7 +43,7 @@ class AddTallyDialog extends StatelessWidget {
         ),
       ],
       footer: ListTile(
-        title: const Text(
+        title: Text(
           "تم",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),

@@ -77,11 +77,11 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
               children: [
                 Text(
                   widget.dbAlarm.title,
-                  style: const TextStyle(color: mainColor, fontSize: 20),
+                  style: TextStyle(color: mainColor, fontSize: 20),
                 ),
                 const Divider(),
                 TextField(
-                  style: const TextStyle(decorationColor: mainColor),
+                  style: TextStyle(decorationColor: mainColor),
                   textAlign: TextAlign.center,
                   controller: bodyController,
                   maxLength: 40,

@@ -27,7 +27,7 @@ class TitleCard extends StatelessWidget {
       return ListTile(
         leading: fehrsTitle.favourite
             ? IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.bookmark,
                   color: mainColor,
                 ),
@@ -84,7 +84,7 @@ class TitleCard extends StatelessWidget {
                 })
             : tempAlarm.isActive
                 ? IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.alarm,
                       color: mainColor,
                     ),

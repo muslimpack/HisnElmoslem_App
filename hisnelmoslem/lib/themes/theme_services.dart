@@ -35,6 +35,8 @@ class ThemeServices {
         Get.changeTheme(Themes.dark);
       } else if (val == AppThemeMode.defaultDark) {
         Get.changeTheme(Themes.darkDefault);
+      } else if (val == AppThemeMode.yellowTheme) {
+        Get.changeTheme(Themes.yellowTheme);
       }
       debugPrint('appThemeMode $appThemeMode}');
     } catch (e) {
@@ -54,12 +56,14 @@ class ThemeServices {
 
   /// toggle all themes
   static changeThemeMode() {
-    if (appThemeMode == AppThemeMode.light) {
+    if (appThemeMode == AppThemeMode.yellowTheme) {
       handleThemeChange(AppThemeMode.dark);
     } else if (appThemeMode == AppThemeMode.dark) {
       handleThemeChange(AppThemeMode.defaultDark);
     } else if (appThemeMode == AppThemeMode.defaultDark) {
       handleThemeChange(AppThemeMode.light);
+    } else if (appThemeMode == AppThemeMode.light) {
+      handleThemeChange(AppThemeMode.yellowTheme);
     }
   }
 
@@ -72,6 +76,8 @@ class ThemeServices {
       return Themes.dark;
     } else if (appThemeMode == AppThemeMode.defaultDark) {
       return Themes.darkDefault;
+    } else if (appThemeMode == AppThemeMode.yellowTheme) {
+      return Themes.yellowTheme;
     } else {
       return Themes.dark;
     }

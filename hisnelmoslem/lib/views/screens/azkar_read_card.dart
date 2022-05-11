@@ -41,7 +41,7 @@ class AzkarReadCard extends StatelessWidget {
                       preferredSize: const Size(100, 5),
                       child: LinearProgressIndicator(
                         value: controller.totalProgress,
-                        valueColor: const AlwaysStoppedAnimation<Color>(
+                        valueColor: AlwaysStoppedAnimation<Color>(
                           mainColor,
                         ),
                         backgroundColor: grey,
@@ -137,8 +137,7 @@ class AzkarReadCard extends StatelessWidget {
                                         ? IconButton(
                                             splashRadius: 20,
                                             padding: const EdgeInsets.all(0),
-                                            icon: const Icon(
-                                                Icons.favorite_border,
+                                            icon: Icon(Icons.favorite_border,
                                                 color: mainColor),
                                             onPressed: () {
                                               controller.zikrContent[index]
@@ -152,7 +151,7 @@ class AzkarReadCard extends StatelessWidget {
                                         : IconButton(
                                             splashRadius: 20,
                                             padding: const EdgeInsets.all(0),
-                                            icon: const Icon(
+                                            icon: Icon(
                                               Icons.favorite,
                                               color: mainColor,
                                             ),
@@ -170,7 +169,7 @@ class AzkarReadCard extends StatelessWidget {
                                       child: IconButton(
                                           splashRadius: 20,
                                           padding: const EdgeInsets.all(0),
-                                          icon: const Icon(Icons.copy,
+                                          icon: Icon(Icons.copy,
                                               color: mainColor),
                                           onPressed: () {
                                             FlutterClipboard.copy(
@@ -194,7 +193,7 @@ class AzkarReadCard extends StatelessWidget {
                                       child: IconButton(
                                           splashRadius: 20,
                                           padding: const EdgeInsets.all(0),
-                                          icon: const Icon(Icons.share,
+                                          icon: Icon(Icons.share,
                                               color: mainColor),
                                           onPressed: () {
                                             Share.share(text + "\n" + fadl);
@@ -276,12 +275,11 @@ class AzkarReadCard extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: CircleAvatar(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
+                                    backgroundColor: transparent,
                                     child: Text(
                                       controller.zikrContent[index].count
                                           .toString(),
-                                      style: const TextStyle(color: mainColor),
+                                      style: TextStyle(color: mainColor),
                                     ),
                                   ),
                                 ),
@@ -294,7 +292,7 @@ class AzkarReadCard extends StatelessWidget {
                   ),
                   bottomNavigationBar: BottomAppBar(
                     //elevation: 20,
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
