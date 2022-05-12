@@ -6,8 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/views/screens/dashboard.dart';
-import 'package:hisnelmoslem/views/screens/on_boarding.dart';
+import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
+import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
 import 'package:intl/intl.dart';
 import 'themes/theme_services.dart';
 import 'utils/azkar_database_helper.dart';
@@ -27,7 +27,6 @@ void main() async {
   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   String? payload = notificationAppLaunchDetails!.payload;
-  debugPrint("main() payload: $payload");
   DashboardController dashboardController = Get.put(DashboardController());
   dashboardController.payload = payload;
 
@@ -75,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // TODO to be deleted in next update
     final box = GetStorage();
-    final openOnBoard = box.read('is_v1.8_first_open') ?? true;
+    final openOnBoard = box.read('is_v1.9_first_open') ?? true;
     return GetMaterialApp(
       locale: const Locale('ar'),
       debugShowCheckedModeBanner: false,

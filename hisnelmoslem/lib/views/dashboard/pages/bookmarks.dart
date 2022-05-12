@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
-import 'package:hisnelmoslem/shared/cards/title_card.dart';
+import 'package:hisnelmoslem/views/dashboard/widgets/title_card.dart';
+import 'package:hisnelmoslem/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
-
-import '../../shared/widgets/empty.dart';
 
 class AzkarBookmarks extends StatelessWidget {
   const AzkarBookmarks({
@@ -35,7 +34,6 @@ class AzkarBookmarks extends StatelessWidget {
                       DbAlarm tempAlarm = DbAlarm(
                           titleId: controller.favouriteTitle[index].orderId);
                       for (var item in controller.alarms) {
-                        // debugPrint(item.toString());
                         if (item.title ==
                             controller.favouriteTitle[index].name) {
                           tempAlarm = item;

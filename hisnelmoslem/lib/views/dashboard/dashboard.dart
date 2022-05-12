@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
+import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
-import 'package:hisnelmoslem/views/pages/bookmarks.dart';
-import 'package:hisnelmoslem/views/pages/favorite_zikr.dart';
-import 'package:hisnelmoslem/views/pages/fehrs.dart';
 import 'package:hisnelmoslem/views/screens/app_update_news.dart';
-import 'package:hisnelmoslem/views/screens/fake_hadith.dart';
-import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
-import 'package:hisnelmoslem/views/screens/settings.dart';
+import 'package:hisnelmoslem/views/fake_hadith/fake_hadith.dart';
+import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
+import 'package:hisnelmoslem/views/settings/settings.dart';
 import 'package:hisnelmoslem/views/tally/tally_dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import 'about.dart';
+import '../screens/about.dart';
+import 'pages/bookmarks.dart';
+import 'pages/favorite_zikr.dart';
+import 'pages/fehrs.dart';
 
 class AzkarDashboard extends StatelessWidget {
   const AzkarDashboard({
@@ -165,13 +166,13 @@ class MainScreen extends StatelessWidget {
                 ),
               ];
             },
-            body: ScrollGlowCustom(
+            body: const ScrollGlowCustom(
               axisDirection: AxisDirection.right,
               child: TabBarView(
                 // controller: tabController,
                 children: [
-                  const AzkarFehrs(),
-                  const AzkarBookmarks(),
+                  AzkarFehrs(),
+                  AzkarBookmarks(),
                   FavouriteZikr(),
                 ],
               ),
@@ -285,6 +286,28 @@ class MenuScreen extends StatelessWidget {
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                                 context: context, goToPage: Settings());
+                          },
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.star),
+                          title: const Text("تواصل مع المطور"),
+                          onTap: () {
+                            sendEmail(
+                                toMailId: 'hassaneltantawy@gmail.com',
+                                subject: 'تطبيق حصن المسلم: تقييم التطبيق',
+                                body: 'كم من عشرة تعطي هذا التطبيق؟'
+                                    '''
+                              \n\n
+                              'ملاحظات:'
+                              \n\n
+                              'ما أعجبك في التطبيق:'
+                              \n\n
+                              'ما لا يعجبك في التطبيق:'
+                              \n\n
+                              'شئ تتمنى وجوده:'
+                              \n
+                              ''');
                           },
                         ),
                         const Divider(),

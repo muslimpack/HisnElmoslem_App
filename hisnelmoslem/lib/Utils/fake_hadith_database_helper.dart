@@ -1,7 +1,6 @@
 import 'dart:io';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

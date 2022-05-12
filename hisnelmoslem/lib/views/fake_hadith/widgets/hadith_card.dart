@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:share/share.dart';
 
-import '../constants/constant.dart';
+import '../../../shared/constants/constant.dart';
 
 class HadithCard extends StatelessWidget {
   final DbFakeHaith fakeHaith;

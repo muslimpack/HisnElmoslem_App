@@ -12,7 +12,7 @@ import 'package:share/share.dart';
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/azkar_read_page_controller.dart';
 import '../../controllers/dashboard_controller.dart';
-import 'share_as_image.dart';
+import '../share_as_image/share_as_image.dart';
 
 class AzkarReadPage extends StatelessWidget {
   final int index;

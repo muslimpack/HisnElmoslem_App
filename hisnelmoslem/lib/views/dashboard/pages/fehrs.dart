@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
-import 'package:hisnelmoslem/shared/cards/title_card.dart';
+import 'package:hisnelmoslem/views/dashboard/widgets/title_card.dart';
+import 'package:hisnelmoslem/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
-
-import '../../shared/widgets/empty.dart';
 
 class AzkarFehrs extends StatelessWidget {
   const AzkarFehrs({
@@ -38,7 +37,6 @@ class AzkarFehrs extends StatelessWidget {
                         DbAlarm tempAlarm =
                             DbAlarm(titleId: titleListToDisplay[index].orderId);
                         for (var item in controller.alarms) {
-                          // debugPrint(item.toString());
                           if (item.title == titleListToDisplay[index].name) {
                             tempAlarm = item;
                           }

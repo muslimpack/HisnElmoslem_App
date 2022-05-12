@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
-import '../functions/get_snackbar.dart';
+import '../../../shared/functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
@@ -83,15 +83,11 @@ class AlarmCard extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (val) {
-                debugPrint(dbAlarm.toString());
-
                 showFastEditAlarmDialog(
                   context: context,
                   dbAlarm: dbAlarm,
                 ).then((value) {
                   if (value is DbAlarm) {
-                    debugPrint(value.toString());
-
                     if (value.hasAlarmInside) {
                       int index = controller.alarms.indexOf(dbAlarm);
                       controller.alarms[index] = value;
@@ -100,8 +96,6 @@ class AlarmCard extends StatelessWidget {
                       dashboardController.update();
                       //
                       controller.update();
-                      //
-                      debugPrint("showFastEditAlarmDialog Done");
                     }
                   }
                 });

@@ -23,35 +23,38 @@ class FontSettingsToolbox extends StatelessWidget {
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-              flex: 1,
-              child: IconButton(
-                  icon: const Icon(MdiIcons.restart),
-                  onPressed: () {
-                    appDataController.resetFontSize();
-                    controllerToUpdate.update();
-                  })),
+            flex: 1,
+            child: IconButton(
+                icon: const Icon(MdiIcons.restart),
+                onPressed: () {
+                  appDataController.resetFontSize();
+                  controllerToUpdate.update();
+                }),
+          ),
         ),
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-              flex: 1,
-              child: IconButton(
-                  icon: const Icon(MdiIcons.formatFontSizeIncrease),
-                  onPressed: () {
-                    appDataController.increaseFontSize();
-                    controllerToUpdate.update();
-                  })),
+            flex: 1,
+            child: IconButton(
+                icon: const Icon(MdiIcons.formatFontSizeIncrease),
+                onPressed: () {
+                  appDataController.increaseFontSize();
+                  controllerToUpdate.update();
+                }),
+          ),
         ),
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-              flex: 1,
-              child: IconButton(
-                  icon: const Icon(MdiIcons.formatFontSizeDecrease),
-                  onPressed: () {
-                    appDataController.decreaseFontSize();
-                    controllerToUpdate.update();
-                  })),
+            flex: 1,
+            child: IconButton(
+                icon: const Icon(MdiIcons.formatFontSizeDecrease),
+                onPressed: () {
+                  appDataController.decreaseFontSize();
+                  controllerToUpdate.update();
+                }),
+          ),
         ),
         Visibility(
           visible: showTashkelControllers,

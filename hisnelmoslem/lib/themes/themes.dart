@@ -7,6 +7,8 @@ class Themes {
   ///
   static ThemeData get light {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
+    scrollEndColor = black26;
+
     return ThemeData.light().copyWith(
       primaryColor: lightColor,
       splashColor: Colors.blue,
@@ -48,6 +50,7 @@ class Themes {
   ///
   static ThemeData get dark {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
+    scrollEndColor = black26;
     return ThemeData.dark().copyWith(
       primaryColor: darkColor,
       appBarTheme: const AppBarTheme(
@@ -85,12 +88,15 @@ class Themes {
   ///
   static ThemeData get darkDefault {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
+    scrollEndColor = black26;
+
     return ThemeData.dark();
   }
 
   ///
   static ThemeData get yellowTheme {
     mainColor = yellowColorSecondary;
+    scrollEndColor = yellowColorSecondary;
     return ThemeData.light().copyWith(
       scaffoldBackgroundColor: yellowColorPrimary,
       appBarTheme: AppBarTheme(
@@ -117,6 +123,7 @@ class Themes {
         elevation: 0,
         color: yellowColorPrimary,
       ),
+      bottomAppBarColor: yellowColorPrimary,
       tabBarTheme: const TabBarTheme().copyWith(
         labelColor: yellowColorSecondary,
       ),

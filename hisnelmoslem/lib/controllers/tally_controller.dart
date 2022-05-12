@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/tally.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
-import 'package:hisnelmoslem/shared/dialogs/add_tally_dialog.dart';
-import 'package:hisnelmoslem/shared/dialogs/edit_tally_dialog.dart';
 import 'package:hisnelmoslem/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/utils/tally_database_helper.dart';
+import 'package:hisnelmoslem/views/tally/dialogs/add_tally_dialog.dart';
+import 'package:hisnelmoslem/views/tally/dialogs/edit_tally_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sounds_manager_controller.dart';
@@ -205,7 +205,6 @@ class TallyController extends GetxController {
         return EditTallyDialog(
           dbTally: dbTally,
           onSubmit: (value) async {
-            debugPrint(value.toString());
             await tallyDatabaseHelper.updateTally(
                 dbTally: value, updateTime: false);
             await updateDBTallyToView(dbTally: value);

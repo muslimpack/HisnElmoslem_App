@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -43,30 +42,22 @@ class SoundsManagerController extends GetxController {
   //
   playTallySound() {
     if (isTallySoundAllowed) {
-      debugPrint("Play Tally Sound");
-      // _audioCache.play('01.mp3');
       player.play('sounds/tally_sound.mp3');
     }
   }
 
   playZikrDoneSound() {
     if (isZikrDoneSoundAllowed) {
-      debugPrint("Play Zikr Done Sound");
       player.play('sounds/zikr_done_sound.mp3');
     }
   }
 
   playTransitionSound() {
-    if (isTransitionSoundAllowed) {
-      debugPrint("Play Transition Sound");
-      // player.play('sounds/tally_sound.mp3');
-
-    }
+    if (isTransitionSoundAllowed) {}
   }
 
   playAllAzkarFinishedSound() {
     if (isAllAzkarFinishedSoundAllowed) {
-      debugPrint("Play All Azkar Finished Sound");
       player.play('sounds/all_azkar_finished_sound.mp3');
     }
   }

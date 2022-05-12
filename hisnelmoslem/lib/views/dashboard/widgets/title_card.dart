@@ -8,11 +8,10 @@ import 'package:hisnelmoslem/shared/dialogs/add_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
-
-import '../../controllers/app_data_controllers.dart';
-import '../constants/constant.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
+import '../../../controllers/app_data_controllers.dart';
+import '../../../shared/constants/constant.dart';
 
 class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;
@@ -76,8 +75,6 @@ class TitleCard extends StatelessWidget {
                           controller.alarms[index] = value;
                         }
                         controller.update();
-
-                        debugPrint(value.toString());
                       }
                     }
                   });

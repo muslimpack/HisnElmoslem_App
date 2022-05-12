@@ -38,9 +38,8 @@ class ThemeServices {
       } else if (val == AppThemeMode.yellowTheme) {
         Get.changeTheme(Themes.yellowTheme);
       }
-      debugPrint('appThemeMode $appThemeMode}');
     } catch (e) {
-      debugPrint("handleThemeChange");
+      debugPrint(e.toString());
     }
   }
 
@@ -69,7 +68,6 @@ class ThemeServices {
 
   /// Get appMode
   static ThemeData? getTheme() {
-    debugPrint('appThemeMode $appThemeMode}');
     if (appThemeMode == AppThemeMode.light) {
       return Themes.light;
     } else if (appThemeMode == AppThemeMode.dark) {

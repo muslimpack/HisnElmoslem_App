@@ -16,7 +16,7 @@ class ScrollGlowCustom extends StatelessWidget {
       behavior: const ScrollBehavior(),
       child: GlowingOverscrollIndicator(
         axisDirection: axisDirection,
-        color: black26,
+        color: scrollEndColor,
         child: child,
       ),
     );

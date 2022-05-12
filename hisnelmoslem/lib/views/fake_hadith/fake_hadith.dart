@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
-import 'package:hisnelmoslem/shared/cards/hadith_card.dart';
+import 'package:hisnelmoslem/views/fake_hadith/widgets/hadith_card.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 import '../../controllers/app_data_controllers.dart';
@@ -21,7 +21,6 @@ class FakeHadith extends StatelessWidget {
               centerTitle: true,
               elevation: 0,
               title: const Text("أحاديث منتشرة لا تصح"),
-              //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             body: ScrollGlowCustom(
               child: ListView.builder(
@@ -37,8 +36,6 @@ class FakeHadith extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: BottomAppBar(
-              //elevation: 20,
-              color: Theme.of(context).primaryColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

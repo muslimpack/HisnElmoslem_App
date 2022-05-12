@@ -5,15 +5,15 @@ import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
-import 'package:hisnelmoslem/views/screens/alarms_page.dart';
-import 'package:hisnelmoslem/views/screens/sounds_manager_page.dart';
-import 'package:hisnelmoslem/views/screens/themes_manager_page.dart';
+import 'package:hisnelmoslem/views/alarms_manager/alarms_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/settings_controller.dart';
 import '../../shared/functions/get_snackbar.dart';
 import '../../shared/widgets/font_settings.dart';
-import 'about.dart';
+import '../screens/about.dart';
+import 'pages/sounds_manager_page.dart';
+import 'pages/themes_manager_page.dart';
 
 class Settings extends StatelessWidget {
   Settings({Key? key}) : super(key: key);

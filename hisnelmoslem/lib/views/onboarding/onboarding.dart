@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/controllers/on_boarding_controller.dart';
+import 'package:hisnelmoslem/controllers/onboarding_controller.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/round_button.dart';
+import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -25,16 +26,19 @@ class OnBoardingPage extends StatelessWidget {
         init: OnBoardingController(),
         builder: (controller) {
           return Scaffold(
-            body: PageView.builder(
-              controller: controller.pageController,
-              itemCount: controller.pageList.length,
-              itemBuilder: (context, index) {
-                return controller.pageList[index];
-              },
-              onPageChanged: (index) {
-                controller.currentPageIndex = index;
-                controller.update();
-              },
+            body: ScrollGlowCustom(
+              axisDirection: AxisDirection.left,
+              child: PageView.builder(
+                controller: controller.pageController,
+                itemCount: controller.pageList.length,
+                itemBuilder: (context, index) {
+                  return controller.pageList[index];
+                },
+                onPageChanged: (index) {
+                  controller.currentPageIndex = index;
+                  controller.update();
+                },
+              ),
             ),
             bottomNavigationBar: BottomAppBar(
               color: Theme.of(context).scaffoldBackgroundColor,

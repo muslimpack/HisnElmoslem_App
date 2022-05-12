@@ -4,90 +4,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/share_as_image_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
-import 'package:screenshot/screenshot.dart';
-
-class ShareAsImage extends StatelessWidget {
-  final DbContent dbContent;
-  const ShareAsImage({Key? key, required this.dbContent}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<ShareAsImageController>(
-        init: ShareAsImageController(),
-        builder: (controller) {
-          return Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              title: const Text(
-                "مشاركة كصورة",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Uthmanic",
-                ),
-              ),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    controller.invertColor();
-                  },
-                  icon: Icon(
-                    controller.bInvert
-                        ? Icons.invert_colors_off_rounded
-                        : Icons.invert_colors_on_rounded,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    controller.shareImage();
-                  },
-                  icon: const Icon(Icons.share),
-                ),
-              ],
-            ),
-            body: GestureDetector(
-              onDoubleTap: () {
-                controller.transformationController.value = Matrix4.identity();
-              },
-              child: InteractiveViewer(
-                  transformationController: controller.transformationController,
-                  minScale: 0.25,
-                  maxScale: 3,
-                  // clipBehavior: Clip.antiAlias,
-                  boundaryMargin: const EdgeInsets.all(5000),
-                  panEnabled: true,
-                  child: Screenshot(
-                    controller: controller.screenshotController,
-                    child: ImageBuilder(dbContent: dbContent),
-                  )),
-            ),
-            bottomSheet: BottomAppBar(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: SwitchListTile(
-                      title: const Text("الفضل"),
-                      value: controller.showFadl,
-                      onChanged: (value) {
-                        controller.toggleShowFadl(value: value);
-                      }),
-                ),
-                const SizedBox(height: 40, child: VerticalDivider()),
-                Expanded(
-                  child: SwitchListTile(
-                      title: const Text("المصدر"),
-                      value: controller.showSource,
-                      onChanged: (value) {
-                        controller.toggleShowSource(value: value);
-                      }),
-                ),
-              ],
-            )),
-          );
-        });
-  }
-}
 
 class ImageBuilder extends StatelessWidget {
   final DbContent dbContent;
@@ -100,9 +16,13 @@ class ImageBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     DashboardController dashboardController = Get.put(DashboardController());
     return GetBuilder<ShareAsImageController>(builder: (controller) {
+      String _titleWithIndex =
+          "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
+      String _titleWithoutIndex =
+          dashboardController.allTitle[dbContent.titleId - 1].name;
       return Center(
         child: SizedBox(
-          width: 1080,
+          width: controller.imageWidth.toDouble(),
           child: Card(
             margin: EdgeInsets.zero,
             color: controller.backgroundColor,
@@ -112,27 +32,21 @@ class ImageBuilder extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    "${dashboardController.allTitle[dbContent.titleId - 1].name} - ذكر رقم ${dbContent.orderId}",
+                    controller.showZikrIndex
+                        ? _titleWithIndex
+                        : _titleWithoutIndex,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Uthmanic",
-                        color: controller.titleColor,
+                        color: controller.titleTextColor,
                         fontSize: 20),
                   ),
                 ),
                 Divider(
-                  color: controller.dividerColor,
-                  height: 3,
+                  color: controller.titleTextColor,
+                  thickness: controller.dividerSize,
                 ),
-
-                /**
-                 * Body
-                 */
-
-                /**
-                 * Content
-                 */
                 Container(
                   constraints:
                       const BoxConstraints(minHeight: 100, maxHeight: 350),
@@ -144,7 +58,7 @@ class ImageBuilder extends StatelessWidget {
                       textAlign: TextAlign.center,
                       minFontSize: 12,
                       style: TextStyle(
-                          color: controller.textColor,
+                          color: controller.bodyTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
@@ -168,7 +82,7 @@ class ImageBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             minFontSize: 10,
                             style: TextStyle(
-                                color: controller.textColor,
+                                color: controller.additionalTextColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
@@ -195,7 +109,7 @@ class ImageBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             minFontSize: 10,
                             style: TextStyle(
-                                color: controller.textColor,
+                                color: controller.additionalTextColor,
                                 // fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
@@ -205,8 +119,8 @@ class ImageBuilder extends StatelessWidget {
                   ),
                 ),
                 Divider(
-                  color: controller.dividerColor,
-                  height: 3,
+                  color: controller.titleTextColor,
+                  thickness: controller.dividerSize,
                 ),
                 //Bottom
                 Container(
@@ -220,8 +134,8 @@ class ImageBuilder extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           height: 30,
-                          width: 1.5,
-                          color: controller.appNameColor,
+                          width: controller.dividerSize,
+                          color: controller.titleTextColor,
                         ),
                         Text(
                           "تطبيق حصن المسلم",
@@ -229,8 +143,8 @@ class ImageBuilder extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: "Uthmanic",
-                              color: controller.appNameColor,
-                              fontSize: 17),
+                              color: controller.titleTextColor,
+                              fontSize: 20),
                         )
                       ]),
                 ),

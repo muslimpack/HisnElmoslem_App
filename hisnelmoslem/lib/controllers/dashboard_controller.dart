@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/models/received_notification.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
-import 'package:hisnelmoslem/views/screens/quran_read_page.dart';
-import '../models/received_notification.dart';
-import '../shared/constants/constant.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
+import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
 
 class DashboardController extends GetxController {
   /* *************** Variables *************** */
@@ -124,8 +124,6 @@ class DashboardController extends GetxController {
 
   //
   onNotificationClick(String payload) {
-    debugPrint('payload = $payload');
-
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
@@ -160,9 +158,7 @@ class DashboardController extends GetxController {
     update();
     if (searchController.text.isEmpty || searchController.text == "") {
       searchedTitle = allTitle;
-      debugPrint("Controller.searchTxt.isEmpty || controller.searchTxt == ");
     } else {
-      debugPrint("else");
       searchedTitle = allTitle.where((zikr) {
         var zikrTitle = zikr.name
             .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
@@ -195,7 +191,6 @@ class DashboardController extends GetxController {
 
   ///
   void toggleDrawer() {
-    debugPrint("Toggle drawer");
     zoomDrawerController.toggle?.call();
     update();
   }

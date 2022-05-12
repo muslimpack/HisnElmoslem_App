@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/models/zikr_content.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
-import '../models/zikr_content.dart';
-import '../models/zikr_title.dart';
-import '../utils/azkar_database_helper.dart';
 import 'sounds_manager_controller.dart';
 
 class AzkarReadCardController extends GetxController {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
-
-import '../../shared/constants/constant.dart';
 
 class SoundsManagerPage extends StatelessWidget {
   const SoundsManagerPage({Key? key}) : super(key: key);

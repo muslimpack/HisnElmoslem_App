@@ -1,8 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../utils/notification_manager.dart';
+import 'package:hisnelmoslem/utils/notification_manager.dart';
 
 class AppDataController extends GetxController {
   final box = GetStorage();

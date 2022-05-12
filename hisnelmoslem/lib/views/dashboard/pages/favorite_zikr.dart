@@ -1,29 +1,28 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/views/screens/azkar_read_page.dart';
-import 'package:hisnelmoslem/views/screens/share_as_image.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
+import 'package:hisnelmoslem/views/share_as_image/share_as_image.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
-import '../../controllers/app_data_controllers.dart';
-import '../../shared/functions/get_snackbar.dart';
-import '../../shared/widgets/font_settings.dart';
 
 class FavouriteZikr extends StatelessWidget {
-  final AppDataController appDataController = Get.put(AppDataController());
-
-  FavouriteZikr({Key? key}) : super(key: key);
+  const FavouriteZikr({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final AppDataController appDataController = Get.put(AppDataController());
     //
     return GetBuilder<DashboardController>(builder: (controller) {
       return controller.favouriteConent.isEmpty
@@ -218,7 +217,7 @@ class FavouriteZikr extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(0.0),
                                         child: ListTile(
                                           // tileColor:
                                           //     Theme.of(context).primaryColor,
