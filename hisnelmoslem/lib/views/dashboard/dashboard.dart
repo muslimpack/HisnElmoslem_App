@@ -262,6 +262,17 @@ class MenuScreen extends StatelessWidget {
                         ),
                         ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: const Text("سورة السجدة"),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const QuranReadPage(
+                                  surahName: SurahNameEnum.assajdah,
+                                ));
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
                           title: const Text("سورة الملك"),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(

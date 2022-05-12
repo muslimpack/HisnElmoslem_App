@@ -53,6 +53,23 @@
     ]
   },
   {
+    "surah": "السجدة",
+    "pages": [
+      {
+        "image": "assets/quran/page415.png",
+        "pageNumber": 415
+      },
+      {
+        "image": "assets/quran/page416.png",
+        "pageNumber": 416
+      },
+      {
+        "image": "assets/quran/page417.png",
+        "pageNumber": 417
+      }
+    ]
+  },
+  {
     "surah": "الملك",
     "pages": [
       {
