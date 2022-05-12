@@ -70,7 +70,8 @@ class MainScreen extends StatelessWidget {
                 SliverAppBar(
                   title: controller.isSearching
                       ? TextFormField(
-                          style: TextStyle(decorationColor: mainColor),
+                          style: TextStyle(
+                              color: mainColor, decorationColor: mainColor),
                           textAlign: TextAlign.center,
                           controller: controller.searchController,
                           autofocus: true,
