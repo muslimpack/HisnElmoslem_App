@@ -306,7 +306,7 @@ class MenuScreen extends StatelessWidget {
                           title: const Text("تواصل مع المطور"),
                           onTap: () {
                             sendEmail(
-                                toMailId: 'hassaneltantawy@gmail.com',
+                                toMailId: 'hasaneltantawy@gmail.com',
                                 subject: 'تطبيق حصن المسلم: تقييم التطبيق',
                                 body: 'كم من عشرة تعطي هذا التطبيق؟'
                                     '''

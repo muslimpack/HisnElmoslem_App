@@ -159,7 +159,7 @@ class Settings extends StatelessWidget {
                     title: const Text("الشكاوى والمقترحات"),
                     onTap: () {
                       sendEmail(
-                          toMailId: 'hassaneltantawy@gmail.com',
+                          toMailId: 'hasaneltantawy@gmail.com',
                           subject: 'تطبيق حصن المسلم: تقييم التطبيق',
                           body: 'كم من عشرة تعطي هذا التطبيق؟'
                               '''
@@ -180,7 +180,7 @@ class Settings extends StatelessWidget {
                     title: const Text("راسلنا"),
                     onTap: () {
                       sendEmail(
-                          toMailId: 'hassaneltantawy@gmail.com',
+                          toMailId: 'hasaneltantawy@gmail.com',
                           subject: 'تطبيق حصن المسلم: نداء',
                           body: 'السلام عليكم ورحمة الله وبركاته' '\n');
                     },

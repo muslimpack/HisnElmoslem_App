@@ -300,7 +300,7 @@ class AzkarReadPage extends StatelessWidget {
                               icon: Icon(Icons.report, color: orange),
                               onPressed: () {
                                 sendEmail(
-                                    toMailId: 'hassaneltantawy@gmail.com',
+                                    toMailId: 'hasaneltantawy@gmail.com',
                                     subject: 'تطبيق حصن المسلم: خطأ إملائي ',
                                     body:
                                         ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'

@@ -209,7 +209,7 @@ class AzkarReadCard extends StatelessWidget {
                                           onPressed: () {
                                             sendEmail(
                                                 toMailId:
-                                                    'hassaneltantawy@gmail.com',
+                                                    'hasaneltantawy@gmail.com',
                                                 subject:
                                                     'تطبيق حصن المسلم: خطأ إملائي ',
                                                 body:
