@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
-import 'package:hisnelmoslem/shared/functions/send_email.dart';
+import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:share/share.dart';
 
 import '../../../shared/constants/constant.dart';
@@ -105,24 +105,8 @@ class HadithCard extends StatelessWidget {
                       padding: const EdgeInsets.all(0),
                       icon: Icon(Icons.report, color: orange),
                       onPressed: () {
-                        sendEmail(
-                          toMailId: 'hasaneltantawy@gmail.com',
-                          subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-                          body:
-                              ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
-                              '\n'
-                              'الموضوع: '
-                              'أحاديث لا تصح'
-                              '\n'
-                              'البطاقة رقم: '
-                              '${(fakeHaith.id) + 1}'
-                              '\n'
-                              'النص: '
-                              "${fakeHaith.text}"
-                              '\n'
-                              'والصواب:'
-                              '\n',
-                        );
+                        EmailManager.sendMisspelledInFakeHadith(
+                            fakeHaith: fakeHaith);
                       }),
                 ),
               ],

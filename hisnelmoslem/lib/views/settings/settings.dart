@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
-import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/alarms_manager/alarms_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
@@ -158,31 +158,14 @@ class Settings extends StatelessWidget {
                     leading: const Icon(Icons.star),
                     title: const Text("الشكاوى والمقترحات"),
                     onTap: () {
-                      sendEmail(
-                          toMailId: 'hasaneltantawy@gmail.com',
-                          subject: 'تطبيق حصن المسلم: تقييم التطبيق',
-                          body: 'كم من عشرة تعطي هذا التطبيق؟'
-                              '''
-                              \n\n
-                              'ملاحظات:'
-                              \n\n
-                              'ما أعجبك في التطبيق:'
-                              \n\n
-                              'ما لا يعجبك في التطبيق:'
-                              \n\n
-                              'شئ تتمنى وجوده:'
-                              \n
-                              ''');
+                      EmailManager.sendFeedback();
                     },
                   ),
                   ListTile(
                     leading: const Icon(Icons.email),
                     title: const Text("راسلنا"),
                     onTap: () {
-                      sendEmail(
-                          toMailId: 'hasaneltantawy@gmail.com',
-                          subject: 'تطبيق حصن المسلم: نداء',
-                          body: 'السلام عليكم ورحمة الله وبركاته' '\n');
+                      EmailManager.messageUS();
                     },
                   ),
                   ListTile(

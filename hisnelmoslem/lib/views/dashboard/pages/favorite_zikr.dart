@@ -7,11 +7,11 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
 import 'package:hisnelmoslem/views/share_as_image/share_as_image.dart';
@@ -129,25 +129,11 @@ class FavouriteZikr extends StatelessWidget {
                                           icon:
                                               Icon(Icons.report, color: orange),
                                           onPressed: () {
-                                            sendEmail(
-                                                toMailId:
-                                                    'hasaneltantawy@gmail.com',
-                                                subject:
-                                                    'تطبيق حصن المسلم: خطأ إملائي ',
-                                                body:
-                                                    ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
-                                                            '\n'
-                                                            'الموضوع: ' +
-                                                        dbTitle.name +
-                                                        '\n' +
-                                                        'الذكر رقم: ' +
-                                                        '${dbContent.orderId}' +
-                                                        '\n' +
-                                                        'النص: ' +
-                                                        dbContent.content +
-                                                        '\n' +
-                                                        'والصواب:' +
-                                                        '\n');
+                                            EmailManager
+                                                .sendMisspelledInZikrWithDbModel(
+                                              dbTitle: dbTitle,
+                                              dbContent: dbContent,
+                                            );
                                           }),
                                     ),
                                     // Expanded(

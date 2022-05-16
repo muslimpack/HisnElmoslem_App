@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 import '../../controllers/app_data_controllers.dart';
@@ -299,23 +299,11 @@ class AzkarReadPage extends StatelessWidget {
                               padding: const EdgeInsets.all(0),
                               icon: Icon(Icons.report, color: orange),
                               onPressed: () {
-                                sendEmail(
-                                    toMailId: 'hasaneltantawy@gmail.com',
-                                    subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-                                    body:
-                                        ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
-                                                '\n'
-                                                'الموضوع: ' +
-                                            controller.zikrTitle!.name +
-                                            '\n' +
-                                            'الذكر رقم: ' +
-                                            '$cardnum' +
-                                            '\n' +
-                                            'النص: ' +
-                                            '$text' +
-                                            '\n' +
-                                            'والصواب:' +
-                                            '\n');
+                                EmailManager.sendMisspelledInZikrWithText(
+                                  subject: controller.zikrTitle!.name,
+                                  cardNumber: cardnum.toString(),
+                                  text: text!,
+                                );
                               }),
                         ),
                       ],

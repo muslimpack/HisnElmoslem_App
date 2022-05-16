@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
-import 'package:hisnelmoslem/shared/functions/send_email.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
+import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/screens/app_update_news.dart';
 import 'package:hisnelmoslem/views/fake_hadith/fake_hadith.dart';
 import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
@@ -305,21 +305,7 @@ class MenuScreen extends StatelessWidget {
                           leading: const Icon(Icons.star),
                           title: const Text("تواصل مع المطور"),
                           onTap: () {
-                            sendEmail(
-                                toMailId: 'hasaneltantawy@gmail.com',
-                                subject: 'تطبيق حصن المسلم: تقييم التطبيق',
-                                body: 'كم من عشرة تعطي هذا التطبيق؟'
-                                    '''
-                              \n\n
-                              'ملاحظات:'
-                              \n\n
-                              'ما أعجبك في التطبيق:'
-                              \n\n
-                              'ما لا يعجبك في التطبيق:'
-                              \n\n
-                              'شئ تتمنى وجوده:'
-                              \n
-                              ''');
+                            EmailManager.sendFeedback();
                           },
                         ),
                         const Divider(),
