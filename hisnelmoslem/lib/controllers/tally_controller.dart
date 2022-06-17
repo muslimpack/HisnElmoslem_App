@@ -217,10 +217,9 @@ class TallyController extends GetxController {
 
   increaseDBCounter() async {
     if (currentDBTally != null) {
-      HapticFeedback.vibrate();
       //
       if (circval == circleResetEvery - 1) {
-        SoundsManagerController().playZikrDoneSound();
+        SoundsManagerController().playZikrDoneEffects();
       }
       // int index = allTally.indexOf(currentDBTally!);
       currentDBTally!.count += 1;
@@ -228,7 +227,7 @@ class TallyController extends GetxController {
           dbTally: currentDBTally!, updateTime: true);
       updateDBTallyToView(dbTally: currentDBTally!);
       // currentDBTally = allTally[index];
-      SoundsManagerController().playTallySound();
+      SoundsManagerController().playTallyEffects();
 
       update();
     }

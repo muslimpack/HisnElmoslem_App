@@ -78,7 +78,7 @@ class Settings extends StatelessWidget {
                   ),
 
                   ListTile(
-                    title: const Text("إدارة مؤثرات الصوت"),
+                    title: const Text("إدارة المؤثرات"),
                     leading: const Icon(
                       Icons.speaker_group,
                     ),

@@ -72,10 +72,9 @@ class AzkarReadCard extends StatelessWidget {
                               controller.zikrContent[index].count = (_counter);
 
                               ///
-                              SoundsManagerController().playTallySound();
+                              SoundsManagerController().playTallyEffects();
                               if (_counter == 0) {
-                                HapticFeedback.vibrate();
-                                SoundsManagerController().playZikrDoneSound();
+                                SoundsManagerController().playZikrDoneEffects();
                               } else if (_counter < 0) {
                                 _counter = 0;
                               }

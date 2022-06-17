@@ -73,7 +73,7 @@ class AzkarReadCardController extends GetxController {
     totalProgress = done / totalNum;
     if (totalProgress == 1) {
       ///
-      SoundsManagerController().playAllAzkarFinishedSound();
+      SoundsManagerController().playAllAzkarFinishedEffects();
     }
     update();
   }

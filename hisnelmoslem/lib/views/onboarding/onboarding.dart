@@ -42,46 +42,51 @@ class OnBoardingPage extends StatelessWidget {
             ),
             bottomNavigationBar: BottomAppBar(
               color: Theme.of(context).scaffoldBackgroundColor,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        controller.pageList.length,
-                        (index) => buildDot(
-                          index,
-                          controller.currentPageIndex,
+              child: SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          controller.pageList.length,
+                          (index) => buildDot(
+                            index,
+                            controller.currentPageIndex,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  controller.isFinalPage
-                      ? Expanded(
-                          child: RoundButton(
-                          radius: 10,
-                          text: const Text(
-                            "بدء",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          onTap: () {
-                            controller.goToDashboard();
-                          },
-                        ))
-                      : Expanded(
-                          child: RoundButton(
-                          radius: 10,
-                          isTransparent: true,
-                          text: const Text(
-                            "تخط",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          onTap: () {
-                            controller.goToDashboard();
-                          },
-                        )),
-                ],
+                    controller.isFinalPage
+                        ? Expanded(
+                            child: RoundButton(
+                            radius: 10,
+                            text: const Text(
+                              "بدء",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              controller.goToDashboard();
+                            },
+                          ))
+                        : !controller.showSkipBtn
+                            ? const SizedBox()
+                            : Expanded(
+                                child: RoundButton(
+                                radius: 10,
+                                isTransparent: true,
+                                text: const Text(
+                                  "تخط",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                onTap: () {
+                                  controller.goToDashboard();
+                                },
+                              )),
+                  ],
+                ),
               ),
             ),
           );

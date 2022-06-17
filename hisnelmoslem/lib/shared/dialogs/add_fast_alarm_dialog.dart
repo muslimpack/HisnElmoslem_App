@@ -59,7 +59,7 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text(
-        "اضافة تنبيه لـ",
+        "إضافة  تنبيه لـ",
         style: TextStyle(fontFamily: "Uthmanic"),
       ),
       content: SizedBox(

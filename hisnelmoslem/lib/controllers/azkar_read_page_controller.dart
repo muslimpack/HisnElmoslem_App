@@ -97,23 +97,19 @@ class AzkarReadPageController extends GetxController {
   decreaseCount() {
     int _counter = zikrContent[currentPage].count;
     if (_counter == 0) {
-      HapticFeedback.vibrate();
-      SoundsManagerController().playZikrDoneSound();
+      SoundsManagerController().playZikrDoneEffects();
     } else {
       _counter--;
 
       zikrContent[currentPage].count = ((zikrContent[currentPage].count) - 1);
 
       ///
-      SoundsManagerController().playTallySound();
+      SoundsManagerController().playTallyEffects();
       if (_counter > 0) {
       } else if (_counter == 0) {
         ///
-        HapticFeedback.vibrate();
-
-        ///
-        SoundsManagerController().playZikrDoneSound();
-        SoundsManagerController().playTransitionSound();
+        SoundsManagerController().playZikrDoneEffects();
+        SoundsManagerController().playTransitionEffects();
 
         pageController.nextPage(
             curve: Curves.easeIn, duration: const Duration(milliseconds: 500));
@@ -138,7 +134,7 @@ class AzkarReadPageController extends GetxController {
     totalProgress = done / totalNum;
     if (totalProgress == 1) {
       ///
-      SoundsManagerController().playAllAzkarFinishedSound();
+      SoundsManagerController().playAllAzkarFinishedEffects();
     }
     update();
   }

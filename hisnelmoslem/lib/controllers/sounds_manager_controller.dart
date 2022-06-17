@@ -1,10 +1,15 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:vibration/vibration.dart';
 
 class SoundsManagerController extends GetxController {
   /* *************** Variables *************** */
   final box = GetStorage();
+
+  /////////////////////////////
+  /// Sounds
 
   /// get Tally Sound mode
   bool get isTallySoundAllowed => box.read('tally_sound') ?? false;
@@ -12,27 +17,59 @@ class SoundsManagerController extends GetxController {
   /// set Tally Sound mode
   void changeTallySoundStatus(bool val) => box.write('tally_sound', val);
 
-  /// get Tally Sound mode
+  /// get Tally Done Sound mode
   bool get isZikrDoneSoundAllowed => box.read('zikr_done_sound') ?? false;
 
-  /// set Tally Sound mode
+  /// set Tally Done Sound mode
   void changeZikrDoneSoundStatus(bool val) => box.write('zikr_done_sound', val);
 
-  /// get Tally Sound mode
+  /// get Tally Transition Sound mode
   bool get isTransitionSoundAllowed =>
       box.read('tally_transition_sound') ?? false;
 
-  /// set Tally Sound mode
+  /// set Tally  Transition Sound mode
   void changeTransitionSoundStatus(bool val) =>
       box.write('tally_transition_sound', val);
 
-  /// get Tally Sound mode
+  /// get Tally Finished Sound mode
   bool get isAllAzkarFinishedSoundAllowed =>
       box.read('all_azkar_finished_sound') ?? false;
 
-  /// set Tally Sound mode
+  /// set Tally Finished Sound mode
   void changeAllAzkarFinishedSoundStatus(bool val) =>
       box.write('all_azkar_finished_sound', val);
+
+  /////////////////////////////
+  /// Vibration
+
+  /// get Tally Vibrate mode
+  bool get isTallyVibrateAllowed => box.read('tally_vibrate') ?? false;
+
+  /// set Tally Vibrate mode
+  void changeTallyVibrateStatus(bool val) => box.write('tally_vibrate', val);
+
+  /// get Tally Done Vibrate mode
+  bool get isZikrDoneVibrateAllowed => box.read('zikr_done_vibrate') ?? false;
+
+  /// set Tally Done Vibrate mode
+  void changeZikrDoneVibrateStatus(bool val) =>
+      box.write('zikr_done_vibrate', val);
+
+  /// get Tally Transition Vibrate mode
+  bool get isTransitionVibrateAllowed =>
+      box.read('tally_transition_vibrate') ?? false;
+
+  /// set Tally  Transition Vibrate mode
+  void changeTransitionVibrateStatus(bool val) =>
+      box.write('tally_transition_vibrate', val);
+
+  /// get Tally Finished Vibrate mode
+  bool get isAllAzkarFinishedVibrateAllowed =>
+      box.read('all_azkar_finished_vibrate') ?? false;
+
+  /// set Tally Finished Vibrate mode
+  void changeAllAzkarFinishedVibrateStatus(bool val) =>
+      box.write('all_azkar_finished_vibrate', val);
 
   ///
   final player = AudioCache();
@@ -40,25 +77,99 @@ class SoundsManagerController extends GetxController {
 
   /* *************** Functions *************** */
   //
-  playTallySound() {
+
+  /////////////////////
+  /// Play Sound
+
+  simulateTallySound() {
+    player.play('sounds/tally_sound.mp3');
+  }
+
+  simulateZikrDoneSound() {
+    player.play('sounds/zikr_done_sound.mp3');
+  }
+
+  simulateTransitionSound() {
+    //TODO
+  }
+
+  simulateAllAzkarSoundFinished() {
+    player.play('sounds/all_azkar_finished_sound.mp3');
+  }
+
+  /////////////////////
+  /// Play vibration
+
+  simulateTallyVibrate() async {
+    await Vibration.hasCustomVibrationsSupport().then((value) => {
+          if (value!)
+            {Vibration.vibrate(duration: 100)}
+          else
+            {HapticFeedback.lightImpact()}
+        });
+  }
+
+  simulateZikrDoneVibrate() async {
+    await Vibration.hasCustomVibrationsSupport().then((value) => {
+          if (value!)
+            {Vibration.vibrate(duration: 300)}
+          else
+            {HapticFeedback.mediumImpact()}
+        });
+  }
+
+  simulateTransitionVibrate() async {
+    await Vibration.hasCustomVibrationsSupport().then((value) => {
+          if (value!)
+            {Vibration.vibrate(duration: 25)}
+          else
+            {HapticFeedback.vibrate()}
+        });
+  }
+
+  simulateAllAzkarVibrateFinished() async {
+    await Vibration.hasCustomVibrationsSupport().then((value) => {
+          if (value!)
+            {Vibration.vibrate(duration: 500)}
+          else
+            {HapticFeedback.heavyImpact()}
+        });
+  }
+
+  //////////////////////////////
+  playTallyEffects() {
     if (isTallySoundAllowed) {
-      player.play('sounds/tally_sound.mp3');
+      simulateTallySound();
+    }
+    if (isTallyVibrateAllowed) {
+      simulateTallyVibrate();
     }
   }
 
-  playZikrDoneSound() {
+  playZikrDoneEffects() {
     if (isZikrDoneSoundAllowed) {
-      player.play('sounds/zikr_done_sound.mp3');
+      simulateZikrDoneSound();
+    }
+    if (isZikrDoneVibrateAllowed) {
+      simulateZikrDoneVibrate();
     }
   }
 
-  playTransitionSound() {
-    if (isTransitionSoundAllowed) {}
+  playTransitionEffects() {
+    if (isTransitionSoundAllowed) {
+      simulateTransitionSound();
+    }
+    if (isTransitionVibrateAllowed) {
+      simulateTransitionVibrate();
+    }
   }
 
-  playAllAzkarFinishedSound() {
+  playAllAzkarFinishedEffects() {
     if (isAllAzkarFinishedSoundAllowed) {
-      player.play('sounds/all_azkar_finished_sound.mp3');
+      simulateAllAzkarSoundFinished();
+    }
+    if (isAllAzkarFinishedVibrateAllowed) {
+      simulateAllAzkarVibrateFinished();
     }
   }
 }

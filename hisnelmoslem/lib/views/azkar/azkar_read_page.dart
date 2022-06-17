@@ -164,6 +164,7 @@ class AzkarReadPage extends StatelessWidget {
                     ),
                   ),
                   body: ScrollGlowCustom(
+                    axisDirection: AxisDirection.right,
                     child: PageView.builder(
                       onPageChanged: controller.onPageViewChange,
                       controller: controller.pageController,
