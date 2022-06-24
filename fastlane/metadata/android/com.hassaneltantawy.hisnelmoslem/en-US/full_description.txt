@@ -1,0 +1,7 @@
+- With a simple interface and completely without ads
+- It supports many color mode.
+- Search Zikr.
+- Add or remove zikr from favourites.
+- Add alarm to each zikr.
+- Sound and vibrate on zikr finish.
+
