@@ -225,7 +225,9 @@ class MenuScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(),
+              const Divider(
+                height: 5,
+              ),
             ],
           ),
           Expanded(
@@ -238,93 +240,121 @@ class MenuScreen extends StatelessWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        ListTile(
-                          leading: const Icon(
-                            Icons.watch_rounded,
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.watch_rounded,
+                            ),
+                            title: const Text("السبحة"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const Tally(),
+                              );
+                            },
                           ),
-                          title: const Text("السبحة"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: const Tally());
-                          },
                         ),
-                        const Divider(),
-                        ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: const Text("سورة الكهف"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
+                        const DrawerDivider(),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(MdiIcons.bookOpenPageVariant),
+                            title: const Text("سورة الكهف"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
                                 context: context,
                                 goToPage: const QuranReadPage(
                                   surahName: SurahNameEnum.alKahf,
-                                ));
-                          },
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: const Text("سورة السجدة"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(MdiIcons.bookOpenPageVariant),
+                            title: const Text("سورة السجدة"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
                                 context: context,
                                 goToPage: const QuranReadPage(
                                   surahName: SurahNameEnum.assajdah,
-                                ));
-                          },
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: const Text("سورة الملك"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(MdiIcons.bookOpenPageVariant),
+                            title: const Text("سورة الملك"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
+                                  context: context,
+                                  goToPage: const QuranReadPage(
+                                    surahName: SurahNameEnum.alMulk,
+                                  ));
+                            },
+                          ),
+                        ),
+                        const DrawerDivider(),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.menu_book),
+                            title: const Text("أحاديث لا تصح"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
                                 context: context,
-                                goToPage: const QuranReadPage(
-                                  surahName: SurahNameEnum.alMulk,
-                                ));
-                          },
+                                goToPage: FakeHadith(),
+                              );
+                            },
+                          ),
                         ),
-                        const Divider(),
-                        ListTile(
-                          leading: const Icon(Icons.menu_book),
-                          title: const Text("أحاديث لا تصح"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: FakeHadith());
-                          },
-                        ),
-                        const Divider(),
-                        ListTile(
-                          leading: const Icon(Icons.settings),
-                          title: const Text("الإعدادات"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: Settings());
-                          },
-                        ),
-                        const Divider(),
-                        ListTile(
-                          leading: const Icon(Icons.star),
-                          title: const Text("تواصل مع المطور"),
-                          onTap: () {
-                            EmailManager.sendFeedback();
-                          },
-                        ),
-                        const Divider(),
-                        ListTile(
-                          leading: const Icon(Icons.history),
-                          title: const Text("تاريخ التحديثات"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
+                        const DrawerDivider(),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.settings),
+                            title: const Text("الإعدادات"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
                                 context: context,
-                                goToPage: const AppUpdateNews());
-                          },
+                                goToPage: Settings(),
+                              );
+                            },
+                          ),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.info),
-                          title: const Text("عنا"),
-                          onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                                context: context, goToPage: const About());
-                          },
+                        const DrawerDivider(),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.star),
+                            title: const Text("تواصل مع المطور"),
+                            onTap: () {
+                              EmailManager.sendFeedback();
+                            },
+                          ),
+                        ),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.history),
+                            title: const Text("تاريخ التحديثات"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const AppUpdateNews(),
+                              );
+                            },
+                          ),
+                        ),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.info),
+                            title: const Text("عنا"),
+                            onTap: () {
+                              transitionAnimation.fromBottom2Top(
+                                context: context,
+                                goToPage: const About(),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -336,18 +366,44 @@ class MenuScreen extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text("إغلاق"),
-                onTap: () {
-                  controller.toggleDrawer();
-                },
+              const DrawerDivider(),
+              DrawerCard(
+                child: ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text("إغلاق"),
+                  onTap: () {
+                    controller.toggleDrawer();
+                  },
+                ),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class DrawerCard extends StatelessWidget {
+  final Widget? child;
+  const DrawerCard({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.hardEdge,
+      child: child,
+    );
+  }
+}
+
+class DrawerDivider extends StatelessWidget {
+  const DrawerDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider(
+      height: 1,
     );
   }
 }
