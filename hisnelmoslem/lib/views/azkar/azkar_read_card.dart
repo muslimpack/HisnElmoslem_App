@@ -1,6 +1,5 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';

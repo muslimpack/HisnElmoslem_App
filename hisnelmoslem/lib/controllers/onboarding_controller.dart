@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
-import 'package:hisnelmoslem/shared/functions/show_toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../shared/transition_animation/transition_animation.dart';
 import '../shared/widgets/empty.dart';
