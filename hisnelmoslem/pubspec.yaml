@@ -41,11 +41,18 @@ dependencies:
   flutter_zoom_drawer: ^3.0.1
   flutter_colorpicker: ^1.0.3
   vibration: ^1.7.4-nullsafety.0
+  flutter_native_splash: ^2.1.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.4
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+  color: "#303030"
 
 flutter:
   uses-material-design: true
