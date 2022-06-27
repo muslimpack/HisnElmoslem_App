@@ -82,7 +82,7 @@ class TitleCard extends StatelessWidget {
             : tempAlarm.isActive
                 ? IconButton(
                     icon: Icon(
-                      Icons.alarm,
+                      Icons.notifications_active,
                       color: mainColor,
                     ),
                     onPressed: () {
@@ -96,7 +96,7 @@ class TitleCard extends StatelessWidget {
                     })
                 : IconButton(
                     icon: Icon(
-                      Icons.alarm,
+                      Icons.notifications_off,
                       color: redAccent,
                     ),
                     onPressed: () {
