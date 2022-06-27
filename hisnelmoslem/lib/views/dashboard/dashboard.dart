@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/controllers/rearrange_dashboard_page_controller.dart';
+import 'package:hisnelmoslem/shared/constants/app_dashboard.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
@@ -8,9 +10,6 @@ import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/views/dashboard/screen_appbar.dart';
 import 'package:hisnelmoslem/views/dashboard/screen_menu.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'pages/bookmarks.dart';
-import 'pages/favorite_zikr.dart';
-import 'pages/fehrs.dart';
 
 class AzkarDashboard extends StatelessWidget {
   const AzkarDashboard({
@@ -50,7 +49,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: appDashboardItem.length,
       child: Scaffold(
         body: ScrollGlowRemover(
           child: NestedScrollView(
@@ -61,16 +60,25 @@ class MainScreen extends StatelessWidget {
                 ScreenAppBar(controller: controller),
               ];
             },
-            body: const ScrollGlowCustom(
+            body: ScrollGlowCustom(
               axisDirection: AxisDirection.right,
-              child: TabBarView(
-                // controller: tabController,
-                children: [
-                  AzkarFehrs(),
-                  AzkarBookmarks(),
-                  FavouriteZikr(),
-                ],
-              ),
+              child: GetBuilder<RearrangeDashboardPageController>(
+                  init: RearrangeDashboardPageController(),
+                  builder: (rearrangeController) {
+                    return TabBarView(
+                      // controller: tabController,
+                      children: [
+                        ...List.generate(
+                          appDashboardItem.length,
+                          (index) {
+                            return appDashboardItem[
+                                    rearrangeController.list[index]]
+                                .widget;
+                          },
+                        ),
+                      ],
+                    );
+                  }),
             ),
           ),
         ),

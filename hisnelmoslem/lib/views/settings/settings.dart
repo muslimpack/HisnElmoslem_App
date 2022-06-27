@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/shared/transition_animation/transition_animation.da
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/alarms_manager/alarms_page.dart';
+import 'package:hisnelmoslem/views/settings/pages/rearrange_dashboard_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/settings_controller.dart';
@@ -73,7 +74,9 @@ class Settings extends StatelessWidget {
                     leading: const Icon(Icons.palette),
                     onTap: () {
                       transitionAnimation.fromBottom2Top(
-                          context: context, goToPage: const ThemeManagerPage());
+                        context: context,
+                        goToPage: const ThemeManagerPage(),
+                      );
                     },
                   ),
 
@@ -84,8 +87,21 @@ class Settings extends StatelessWidget {
                     ),
                     onTap: () {
                       transitionAnimation.fromBottom2Top(
-                          context: context,
-                          goToPage: const SoundsManagerPage());
+                        context: context,
+                        goToPage: const SoundsManagerPage(),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("ترتيب الشاشة"),
+                    leading: const Icon(
+                      Icons.view_array,
+                    ),
+                    onTap: () {
+                      transitionAnimation.fromBottom2Top(
+                        context: context,
+                        goToPage: const RearrangeDashboardPage(),
+                      );
                     },
                   ),
                   const Divider(),

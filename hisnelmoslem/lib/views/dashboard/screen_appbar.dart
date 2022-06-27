@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
+import 'package:hisnelmoslem/controllers/rearrange_dashboard_page_controller.dart';
+import 'package:hisnelmoslem/shared/constants/app_dashboard.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 
 class ScreenAppBar extends StatelessWidget {
@@ -45,33 +48,36 @@ class ScreenAppBar extends StatelessWidget {
       pinned: true,
       floating: true,
       snap: true,
-      bottom: TabBar(indicatorColor: mainColor,
-          // labelColor: mainColor,
-          // unselectedLabelColor: null,
-          // controller: tabController,
-          tabs: const [
-            Tab(
-              child: Text(
-                "الفهرس",
-                style: TextStyle(
-                    fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
-              ),
-            ),
-            Tab(
-              child: Text(
-                "المفضلة",
-                style: TextStyle(
-                    fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
-              ),
-            ),
-            Tab(
-              child: Text(
-                "مفضلة الأذكار ",
-                style: TextStyle(
-                    fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
-              ),
-            ),
-          ]),
+      bottom: PreferredSize(
+        preferredSize: const Size(0, 50),
+        child: GetBuilder<RearrangeDashboardPageController>(
+            init: RearrangeDashboardPageController(),
+            builder: (rearrangeController) {
+              return TabBar(
+                indicatorColor: mainColor,
+                // labelColor: mainColor,
+                // unselectedLabelColor: null,
+                // controller: tabController,
+                tabs: [
+                  ...List.generate(
+                    appDashboardItem.length,
+                    (index) {
+                      debugPrint("rebuild");
+                      return Tab(
+                        child: Text(
+                          appDashboardItem[rearrangeController.list[index]]
+                              .title,
+                          style: const TextStyle(
+                              fontFamily: "Uthmanic",
+                              fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            }),
+      ),
       actions: [
         controller.isSearching
             ? IconButton(
