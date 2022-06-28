@@ -1,21 +1,26 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
-
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import '../shared/functions/get_snackbar.dart';
-import 'notification_manager.dart';
 
 AlarmManager alarmManager = AlarmManager();
 
 class AlarmManager {
-  alarmState({required DbAlarm dbAlarm}) {
+  alarmState({required DbAlarm dbAlarm, bool showMsg = true}) async {
     if (dbAlarm.isActive) {
       // Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
-      getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
+      if (showMsg) {
+        getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
+      }
+      debugPrint(dbAlarm.repeatType);
       switch (dbAlarm.repeatType) {
         case "Daily":
-          localNotifyManager.addCustomDailyReminder(
+          await awesomeNotification.addCustomDailyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -25,7 +30,7 @@ class AlarmManager {
           );
           break;
         case "AtSaturday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -36,7 +41,7 @@ class AlarmManager {
           );
           break;
         case "AtSunday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -47,7 +52,7 @@ class AlarmManager {
           );
           break;
         case "AtMonday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -58,7 +63,7 @@ class AlarmManager {
           );
           break;
         case "AtTuesday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -69,7 +74,7 @@ class AlarmManager {
           );
           break;
         case "AtWednesday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -80,7 +85,7 @@ class AlarmManager {
           );
           break;
         case "AtThursday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -91,7 +96,7 @@ class AlarmManager {
           );
           break;
         case "AtFriday":
-          localNotifyManager.addCustomWeeklyReminder(
+          await awesomeNotification.addCustomWeeklyReminder(
             channelName: "تنبيهات الأذكار",
             id: dbAlarm.id,
             title: dbAlarm.title,
@@ -106,9 +111,27 @@ class AlarmManager {
       // Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
-      getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
+      if (showMsg) {
+        getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
+      }
 
-      localNotifyManager.cancelNotificationById(id: dbAlarm.id);
+      awesomeNotification.cancelNotificationById(id: dbAlarm.id);
+    }
+  }
+
+  Future<void> checkAllAlarmsInDb() async {
+    final box = GetStorage();
+    bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
+    if (!isAwesomeSet) {
+      debugPrint("Setup Awesome from database ....");
+      await alarmDatabaseHelper.getAlarms().then((value) {
+        List<DbAlarm> alarms = value;
+        for (var i = 0; i < alarms.length; i++) {
+          DbAlarm alarm = alarms[i];
+          alarmState(dbAlarm: alarm, showMsg: false);
+        }
+      });
+      box.write('is_awesome_set', true);
     }
   }
 }

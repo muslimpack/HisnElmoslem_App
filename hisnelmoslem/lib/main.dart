@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_manager.dart';
+import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
 import 'package:intl/intl.dart';
 import 'themes/theme_services.dart';
 import 'utils/azkar_database_helper.dart';
-import 'utils/notification_manager.dart';
 import 'utils/tally_database_helper.dart';
 
 void main() async {
@@ -21,17 +21,17 @@ void main() async {
   ///
   await GetStorage.init();
 
+  /// Init Awesome Notification
+  awesomeNotification.init();
+
   /// Manage Notification feedback
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  String? payload = notificationAppLaunchDetails!.payload;
-  DashboardController dashboardController = Get.put(DashboardController());
-  dashboardController.payload = payload;
+
+  /// Disable all notification from local_notification
+  await localNotifyManager.cancelAllNotifications();
 
   /// U Doesn't open app for long time notification
-  await localNotifyManager.appOpenNotification();
+  await awesomeNotification.appOpenNotification();
+  await alarmManager.checkAllAlarmsInDb();
 
   /// Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
@@ -75,6 +75,7 @@ class _MyAppState extends State<MyApp> {
     // TODO to be deleted in next update
     final box = GetStorage();
     final openOnBoard = box.read('is_v2.0_first_open') ?? true;
+
     return GetMaterialApp(
       locale: const Locale('ar'),
       debugShowCheckedModeBanner: false,

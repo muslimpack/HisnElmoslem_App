@@ -45,7 +45,8 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
     });
   }
 
-  TextEditingController bodyController = TextEditingController();
+  TextEditingController bodyController = TextEditingController(
+      text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ');
 
   String repeatType = 'يوميا';
 

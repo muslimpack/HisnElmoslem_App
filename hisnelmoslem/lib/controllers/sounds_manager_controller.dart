@@ -89,9 +89,7 @@ class SoundsManagerController extends GetxController {
     player.play('sounds/zikr_done_sound.mp3');
   }
 
-  simulateTransitionSound() {
-    //TODO
-  }
+  simulateTransitionSound() {}
 
   simulateAllAzkarSoundFinished() {
     player.play('sounds/all_azkar_finished_sound.mp3');

@@ -1,26 +1,26 @@
+import 'dart:io';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
-import 'package:hisnelmoslem/models/received_notification.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
 import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
 
 class DashboardController extends GetxController {
   /* *************** Variables *************** */
-  //
-  String? payload = "";
   //
   int currentIndex = 0;
   bool isLoading = false;
@@ -58,17 +58,38 @@ class DashboardController extends GetxController {
     //
     await getAllListsReady();
 
-    //Manage Notification feedback
-    if (payload != "" && payload != null) {
-      onNotificationClick(payload!);
-    }
-
-    localNotifyManager.setOnNotificationReceive(onNotificationReceive);
-    localNotifyManager.setOnNotificationClick(onNotificationClick);
-
     isLoading = false;
     //
     update();
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+
+    /// Check if awesome notification is allowed
+    await awesomeNotification.checkIfAllowed(Get.context!);
+
+    ///
+    AwesomeNotifications().createdStream.listen((notification) async {});
+
+    ///
+    AwesomeNotifications().actionStream.listen((notification) async {
+      if (notification.channelKey == 'in_app_notification' ||
+          notification.channelKey == 'scheduled_channel' && Platform.isIOS) {
+        await AwesomeNotifications().getGlobalBadgeCounter().then(
+          (value) async {
+            await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
+          },
+        );
+      }
+      String payload = notification.payload?["Open"] ?? "";
+
+      if (payload.isNotEmpty) {
+        debugPrint(payload);
+        onNotificationClick(payload);
+      }
+    });
   }
 
   //
@@ -79,6 +100,7 @@ class DashboardController extends GetxController {
     tabController.dispose();
     fehrsScrollController.dispose();
     bookmarksScrollController.dispose();
+    awesomeNotification.dispose();
   }
 
   /* *************** Functions *************** */
@@ -119,10 +141,7 @@ class DashboardController extends GetxController {
     update();
   }
 
-  //
-  onNotificationReceive(ReceivedNotification notification) {}
-
-  //
+  ///
   onNotificationClick(String payload) {
     /// go to quran page if clicked
     if (payload == "الكهف") {

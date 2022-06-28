@@ -65,152 +65,126 @@ class NotificationManager {
     });
   }
 
-  Future<void> cancelNotificationById({required int id}) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
-  }
+  // Future<void> cancelNotificationById({required int id}) async {
+  //   await flutterLocalNotificationsPlugin.cancel(id);
+  // }
 
   Future<void> cancelAllNotifications() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  Future<void> addCustomDailyReminder(
-      {required String channelName,
-      required int id,
-      required String title,
-      String? body,
-      required Time time,
-      required String payload}) async {
-    //Time time = Time(24, 12, 0);
-    var androidChannel = AndroidNotificationDetails(
-      'CHANNEL_ID', channelName,
+  // Future<void> addCustomDailyReminder(
+  //     {required String channelName,
+  //     required int id,
+  //     required String title,
+  //     String? body,
+  //     required Time time,
+  //     required String payload}) async {
+  //   //Time time = Time(24, 12, 0);
+  //   var androidChannel = AndroidNotificationDetails(
+  //     'CHANNEL_ID', channelName,
 
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      //Add if u need
-      //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
-      icon: '@mipmap/ic_launcher',
-      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      //timeoutAfter: 5000,
-      enableLights: true,
-    );
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //     playSound: true,
+  //     //Add if u need
+  //     //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
+  //     icon: '@mipmap/ic_launcher',
+  //     largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+  //     //timeoutAfter: 5000,
+  //     enableLights: true,
+  //   );
 
-    var iosChannel =
-        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
-    var platformChannel =
-        NotificationDetails(android: androidChannel, iOS: iosChannel);
+  //   var iosChannel =
+  //       const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+  //   var platformChannel =
+  //       NotificationDetails(android: androidChannel, iOS: iosChannel);
 
-    // ignore: deprecated_member_use
-    await flutterLocalNotificationsPlugin.showDailyAtTime(
-      id,
-      title,
-      body,
-      time,
-      platformChannel,
-      payload: payload,
-    );
-  }
+  //   // ignore: deprecated_member_use
+  //   await flutterLocalNotificationsPlugin.showDailyAtTime(
+  //     id,
+  //     title,
+  //     body,
+  //     time,
+  //     platformChannel,
+  //     payload: payload,
+  //   );
+  // }
 
-  Future<void> addCustomWeeklyReminder(
-      {required String channelName,
-      required int id,
-      int showTime = 5000,
-      required String title,
-      String? body,
-      required String payload,
-      required Time time,
-      required Day day}) async {
-    //var time = Time(24, 12, 0);
-    var androidChannel = AndroidNotificationDetails(
-      'CHANNEL_ID',
-      channelName,
+  // Future<void> addCustomWeeklyReminder(
+  //     {required String channelName,
+  //     required int id,
+  //     int showTime = 5000,
+  //     required String title,
+  //     String? body,
+  //     required String payload,
+  //     required Time time,
+  //     required Day day}) async {
+  //   //var time = Time(24, 12, 0);
+  //   var androidChannel = AndroidNotificationDetails(
+  //     'CHANNEL_ID',
+  //     channelName,
 
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      //Add if u need
-      //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
-      icon: '@mipmap/ic_launcher',
-      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      //timeoutAfter: showTime,
-      enableLights: true,
-    );
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //     playSound: true,
+  //     //Add if u need
+  //     //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
+  //     icon: '@mipmap/ic_launcher',
+  //     largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+  //     //timeoutAfter: showTime,
+  //     enableLights: true,
+  //   );
 
-    var iosChannel =
-        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
-    var platformChannel =
-        NotificationDetails(android: androidChannel, iOS: iosChannel);
+  //   var iosChannel =
+  //       const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+  //   var platformChannel =
+  //       NotificationDetails(android: androidChannel, iOS: iosChannel);
 
-    //day: Day.Friday
-    //time: Time(24,00,0)
-    // ignore: deprecated_member_use
-    await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
-      id,
-      title,
-      body,
-      day,
-      time,
-      platformChannel,
-      payload: payload,
-    );
-  }
+  //   //day: Day.Friday
+  //   //time: Time(24,00,0)
+  //   // ignore: deprecated_member_use
+  //   await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
+  //     id,
+  //     title,
+  //     body,
+  //     day,
+  //     time,
+  //     platformChannel,
+  //     payload: payload,
+  //   );
+  // }
 
-  Future<void> showCustomNotification(
-      {required String title, String? body, required String payload}) async {
-    var androidChannel = const AndroidNotificationDetails(
-      'CHANNEL_ID',
-      'الإشعارات داخل التطبيق',
+  // Future<void> appOpenNotification() async {
+  //   var scheduleNotificationDateTime =
+  //       DateTime.now().add(const Duration(days: 3));
+  //   var androidChannel = const AndroidNotificationDetails(
+  //     'CHANNEL_ID',
+  //     'إشعار عدم فتح التطبيق',
 
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      //Add if u need
-      //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
-      icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      timeoutAfter: 1000,
-      enableLights: true,
-    );
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //     playSound: true,
+  //     //Add if u need
+  //     //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
+  //     icon: '@mipmap/ic_launcher',
+  //     largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+  //     enableLights: true,
+  //   );
 
-    var iosChannel =
-        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
-    var platformChannel =
-        NotificationDetails(android: androidChannel, iOS: iosChannel);
+  //   var iosChannel =
+  //       const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
+  //   var platformChannel =
+  //       NotificationDetails(android: androidChannel, iOS: iosChannel);
 
-    await flutterLocalNotificationsPlugin
-        .show(999, title, body, platformChannel, payload: payload);
-  }
-
-  Future<void> appOpenNotification() async {
-    var scheduleNotificationDateTime =
-        DateTime.now().add(const Duration(days: 3));
-    var androidChannel = const AndroidNotificationDetails(
-      'CHANNEL_ID',
-      'إشعار عدم فتح التطبيق',
-
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      //Add if u need
-      //sound: RawResourceAndroidNotificationSound('notification_sound.mp3'),
-      icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      enableLights: true,
-    );
-
-    var iosChannel =
-        const IOSNotificationDetails(/*sound: 'notification_sound.mp3'*/);
-    var platformChannel =
-        NotificationDetails(android: androidChannel, iOS: iosChannel);
-
-    // ignore: deprecated_member_use
-    await flutterLocalNotificationsPlugin.schedule(
-      1000,
-      'لم تفتح التطبيق منذ فنرة 😀',
-      'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
-      scheduleNotificationDateTime,
-      platformChannel,
-      payload: '2',
-    );
-  }
+  //   // ignore: deprecated_member_use
+  //   await flutterLocalNotificationsPlugin.schedule(
+  //     1000,
+  //     'لم تفتح التطبيق منذ فنرة 😀',
+  //     'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
+  //     scheduleNotificationDateTime,
+  //     platformChannel,
+  //     payload: '2',
+  //   );
+  // }
 }

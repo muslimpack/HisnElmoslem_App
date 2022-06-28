@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 
 class AppDataController extends GetxController {
   final box = GetStorage();
@@ -103,34 +103,34 @@ class AppDataController extends GetxController {
   ///
   _activateCaveAlarm({required bool value}) {
     if (value) {
-      localNotifyManager.addCustomWeeklyReminder(
+      awesomeNotification.addCustomWeeklyReminder(
           channelName: "تنبيهات الأذكار",
           id: 555,
           title: "صيام غدا الإثنين",
           body:
               "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: const Time(21, 00, 0),
+          time: const Time(20, 00, 0),
           day: Day.sunday,
           payload: "555");
-      localNotifyManager.addCustomWeeklyReminder(
+      awesomeNotification.addCustomWeeklyReminder(
           channelName: "تنبيهات الأذكار",
           id: 777,
           title: "صيام غدا الخميس",
           body:
               "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: const Time(21, 00, 0),
+          time: const Time(20, 00, 0),
           day: Day.wednesday,
           payload: "666");
     } else {
-      localNotifyManager.cancelNotificationById(id: 555);
-      localNotifyManager.cancelNotificationById(id: 666);
+      awesomeNotification.cancelNotificationById(id: 555);
+      awesomeNotification.cancelNotificationById(id: 666);
     }
   }
 
   ///
   _activateFastAlarm({required bool value}) {
     if (value) {
-      localNotifyManager.addCustomWeeklyReminder(
+      awesomeNotification.addCustomWeeklyReminder(
           channelName: "تنبيهات الأذكار",
           id: 777,
           title: "سورة الكهف",
@@ -140,7 +140,7 @@ class AppDataController extends GetxController {
           day: Day.friday,
           payload: "الكهف");
     } else {
-      localNotifyManager.cancelNotificationById(id: 777);
+      awesomeNotification.cancelNotificationById(id: 777);
     }
   }
 }
