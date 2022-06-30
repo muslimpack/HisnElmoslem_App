@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
-import 'package:hisnelmoslem/temp_utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 
 class FakeHadithController extends GetxController {
   /* *************** Variables *************** */

@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/dialogs/edit_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
-import 'package:hisnelmoslem/temp_utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import '../../../shared/functions/get_snackbar.dart';

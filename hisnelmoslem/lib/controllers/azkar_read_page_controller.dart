@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
-import 'package:hisnelmoslem/temp_utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
 import 'sounds_manager_controller.dart';
 

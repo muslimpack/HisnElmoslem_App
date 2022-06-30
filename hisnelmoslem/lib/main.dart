@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/temp_utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
-import 'package:hisnelmoslem/temp_utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
 import 'package:intl/intl.dart';
 import 'themes/theme_services.dart';
-import 'temp_utils/azkar_database_helper.dart';
+import 'utils/azkar_database_helper.dart';
 import 'utils/tally_database_helper.dart';
 
 void main() async {

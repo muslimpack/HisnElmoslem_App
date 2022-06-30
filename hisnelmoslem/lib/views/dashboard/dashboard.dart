@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
-import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/views/dashboard/screen_appbar.dart';
 import 'package:hisnelmoslem/views/dashboard/screen_menu.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
