@@ -22,7 +22,6 @@ class FavouriteZikr extends StatelessWidget {
   const FavouriteZikr({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final AppDataController appDataController = Get.put(AppDataController());
     //
     return GetBuilder<DashboardController>(builder: (controller) {
       return controller.favouriteConent.isEmpty
@@ -162,7 +161,7 @@ class FavouriteZikr extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        appDataController.isTashkelEnabled
+                                        appData.isTashkelEnabled
                                             ? dbContent.content
                                             : dbContent.content.replaceAll(
                                                 //* لحذف التشكيل
@@ -171,8 +170,7 @@ class FavouriteZikr extends StatelessWidget {
                                                 ""),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize:
-                                                appDataController.fontSize * 10,
+                                            fontSize: appData.fontSize * 10,
                                             color: dbContent.count == 0
                                                 ? mainColor
                                                 : null,
@@ -188,9 +186,8 @@ class FavouriteZikr extends StatelessWidget {
                                               dbContent.fadl.toString(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  fontSize: appDataController
-                                                          .fontSize *
-                                                      10,
+                                                  fontSize:
+                                                      appData.fontSize * 10,
                                                   color: mainColor,
                                                   //fontSize: 20,
                                                   fontWeight: FontWeight.bold),
@@ -208,8 +205,7 @@ class FavouriteZikr extends StatelessWidget {
                                           // tileColor:
                                           //     Theme.of(context).primaryColor,
                                           onTap: () {
-                                            if (!appDataController
-                                                .isCardReadMode) {
+                                            if (!appData.isCardReadMode) {
                                               transitionAnimation.circleReval(
                                                   context: Get.context!,
                                                   goToPage: AzkarReadPage(

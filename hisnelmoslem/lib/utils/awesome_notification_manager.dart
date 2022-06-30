@@ -2,7 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-AwesomeNotificationManager awesomeNotification = AwesomeNotificationManager();
+AwesomeNotificationManager awesomeNotificationManager =
+    AwesomeNotificationManager();
 
 class AwesomeNotificationManager {
   Future<void> checkIfAllowed(BuildContext context) async {
@@ -129,15 +130,15 @@ class AwesomeNotificationManager {
   }
 
   /// Add weekly notification
-  Future<void> addCustomWeeklyReminder(
-      {required String channelName,
-      required int id,
-      required String title,
-      String? body,
-      required String payload,
-      int showTime = 5000,
-      required Time time,
-      required Day day}) async {
+  Future<void> addCustomWeeklyReminder({
+    required int id,
+    required String title,
+    String? body,
+    required String payload,
+    required Time time,
+    required Day day,
+    bool needToOpen = true,
+  }) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
@@ -158,27 +159,36 @@ class AwesomeNotificationManager {
         second: 0,
         millisecond: 0,
       ),
-      actionButtons: [
-        NotificationActionButton(
-          key: 'Dismiss',
-          label: 'تفويت',
-        ),
-        NotificationActionButton(
-          key: 'Start',
-          label: 'الشروع في الذكر',
-        ),
-      ],
+      actionButtons: needToOpen
+          ? [
+              NotificationActionButton(
+                key: 'Dismiss',
+                label: 'تفويت',
+                buttonType: ActionButtonType.DisabledAction,
+              ),
+              NotificationActionButton(
+                key: 'Start',
+                label: 'الشروع في الذكر',
+              ),
+            ]
+          : [
+              NotificationActionButton(
+                key: 'Dismiss',
+                label: 'تفويت',
+                buttonType: ActionButtonType.DisabledAction,
+              ),
+            ],
     );
   }
 
   /// Add Daily notification
   Future<void> addCustomDailyReminder({
-    required String channelName,
     required int id,
     required String title,
     String? body,
     required Time time,
     required String payload,
+    bool needToOpen = true,
   }) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -199,24 +209,30 @@ class AwesomeNotificationManager {
         millisecond: 0,
         repeats: true,
       ),
-      actionButtons: [
-        NotificationActionButton(
-          key: 'Dismiss',
-          label: 'تفويت',
-          buttonType: ActionButtonType.DisabledAction,
-        ),
-        NotificationActionButton(
-          key: 'Start',
-          label: 'الشروع في الذكر',
-        ),
-      ],
+      actionButtons: needToOpen
+          ? [
+              NotificationActionButton(
+                key: 'Dismiss',
+                label: 'تفويت',
+                buttonType: ActionButtonType.DisabledAction,
+              ),
+              NotificationActionButton(
+                key: 'Start',
+                label: 'الشروع في الذكر',
+              ),
+            ]
+          : [
+              NotificationActionButton(
+                key: 'Dismiss',
+                label: 'تفويت',
+                buttonType: ActionButtonType.DisabledAction,
+              ),
+            ],
     );
   }
 
   void dispose() {
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
-    AwesomeNotifications().dismissedSink.close();
-    AwesomeNotifications().displayedSink.close();
   }
 }

@@ -14,7 +14,7 @@ class FontSettingsToolbox extends StatelessWidget {
     this.showFontResizeControllers = true,
     this.showTashkelControllers = true,
   }) : super(key: key);
-  static AppDataController appDataController = Get.put(AppDataController());
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -27,7 +27,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
                 icon: const Icon(MdiIcons.restart),
                 onPressed: () {
-                  appDataController.resetFontSize();
+                  appData.resetFontSize();
                   controllerToUpdate.update();
                 }),
           ),
@@ -39,7 +39,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
                 icon: const Icon(MdiIcons.formatFontSizeIncrease),
                 onPressed: () {
-                  appDataController.increaseFontSize();
+                  appData.increaseFontSize();
                   controllerToUpdate.update();
                 }),
           ),
@@ -51,7 +51,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
                 icon: const Icon(MdiIcons.formatFontSizeDecrease),
                 onPressed: () {
-                  appDataController.decreaseFontSize();
+                  appData.decreaseFontSize();
                   controllerToUpdate.update();
                 }),
           ),
@@ -63,7 +63,7 @@ class FontSettingsToolbox extends StatelessWidget {
               child: IconButton(
                   icon: const Icon(MdiIcons.abjadArabic),
                   onPressed: () {
-                    appDataController.toggleTashkelStatus();
+                    appData.toggleTashkelStatus();
                     controllerToUpdate.update();
                   })),
         ),
@@ -73,8 +73,9 @@ class FontSettingsToolbox extends StatelessWidget {
 }
 
 class TextSample extends StatelessWidget {
-  const TextSample({Key? key}) : super(key: key);
-  static AppDataController appDataController = Get.put(AppDataController());
+  final GetxController controllerToUpdate;
+  const TextSample({Key? key, required this.controllerToUpdate})
+      : super(key: key);
   static String text =
       "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
   @override
@@ -86,7 +87,7 @@ class TextSample extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Center(
             child: Text(
-              appDataController.isTashkelEnabled
+              appData.isTashkelEnabled
                   ? text
                   : text.replaceAll(
                       RegExp(String.fromCharCodes(arabicTashkelChar)), ""),
@@ -94,8 +95,7 @@ class TextSample extends StatelessWidget {
               softWrap: true,
               textDirection: TextDirection.rtl,
               style: TextStyle(
-                  fontSize: appDataController.fontSize * 10,
-                  fontWeight: FontWeight.bold),
+                  fontSize: appData.fontSize * 10, fontWeight: FontWeight.bold),
             ),
           ),
         ),

@@ -22,7 +22,7 @@ void main() async {
   await GetStorage.init();
 
   /// Init Awesome Notification
-  awesomeNotification.init();
+  awesomeNotificationManager.init();
 
   /// Manage Notification feedback
 
@@ -30,7 +30,7 @@ void main() async {
   await localNotifyManager.cancelAllNotifications();
 
   /// U Doesn't open app for long time notification
-  await awesomeNotification.appOpenNotification();
+  await awesomeNotificationManager.appOpenNotification();
   await alarmManager.checkAllAlarmsInDb();
 
   /// Make Phone StatusBar Transparent
@@ -67,12 +67,13 @@ class _MyAppState extends State<MyApp> {
     await fakeHadithDatabaseHelper.close();
     await alarmDatabaseHelper.close();
     await tallyDatabaseHelper.close();
+    awesomeNotificationManager.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO to be deleted in next update
+    // TODO to be deleted in next update 01
     final box = GetStorage();
     final openOnBoard = box.read('is_v2.0_first_open') ?? true;
 
@@ -83,7 +84,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeServices.getTheme(),
       // theme: Themes.yellowTheme,
       // home: const AzkarDashboard(),
-      // TODO to be deleted in next update
+      // TODO to be deleted in next update 02
       home: openOnBoard ? const OnBoardingPage() : const AzkarDashboard(),
     );
   }

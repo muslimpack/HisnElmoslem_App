@@ -21,7 +21,6 @@ class AzkarReadPage extends StatelessWidget {
   static DashboardController dashboardController =
       Get.put(DashboardController());
 
-  static AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AzkarReadPageController>(
@@ -32,7 +31,7 @@ class AzkarReadPage extends StatelessWidget {
           String? fadl = "";
           int? cardnum = 0;
           if (!controller.isLoading) {
-            text = appDataController.isTashkelEnabled
+            text = appData.isTashkelEnabled
                 ? controller.zikrContent[controller.currentPage].content
                 : controller.zikrContent[controller.currentPage].content
                     .replaceAll(
@@ -174,7 +173,7 @@ class AzkarReadPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         /* I repeated this code here to prevent text to be look like
                          the text in the next page when we swipe */
-                        String text = appDataController.isTashkelEnabled
+                        String text = appData.isTashkelEnabled
                             ? controller.zikrContent[index].content
                             : controller.zikrContent[index].content.replaceAll(
                                 //* لحذف التشكيل
@@ -228,7 +227,7 @@ class AzkarReadPage extends StatelessWidget {
                                   softWrap: true,
                                   textDirection: TextDirection.rtl,
                                   style: TextStyle(
-                                      fontSize: appDataController.fontSize * 10,
+                                      fontSize: appData.fontSize * 10,
                                       color:
                                           controller.zikrContent[index].count ==
                                                   0
@@ -247,7 +246,7 @@ class AzkarReadPage extends StatelessWidget {
                                   textDirection: TextDirection.rtl,
                                   softWrap: true,
                                   style: TextStyle(
-                                      fontSize: appDataController.fontSize * 10,
+                                      fontSize: appData.fontSize * 10,
                                       color: mainColor,
                                       //fontSize: 20,
                                       fontWeight: FontWeight.bold),

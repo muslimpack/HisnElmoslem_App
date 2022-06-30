@@ -17,8 +17,8 @@ import 'pages/sounds_manager_page.dart';
 import 'pages/themes_manager_page.dart';
 
 class Settings extends StatelessWidget {
-  Settings({Key? key}) : super(key: key);
-  final AppDataController appDataController = Get.put(AppDataController());
+  const Settings({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SettingsController>(
@@ -37,27 +37,12 @@ class Settings extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 children: [
                   const Title(title: 'عام'),
-                  // SwitchListTile(
-                  //   title: Row(
-                  //     children: [
-                  //       Icon(Icons.dark_mode),
-                  //       Container(
-                  //         margin: EdgeInsets.symmetric(horizontal: 30),
-                  //         child: Text("الوضع المعتم"),
-                  //       )
-                  //     ],
-                  //   ),
-                  //   value: ThemeServices.isDarkMode(),
-                  //   onChanged: (value) {
-                  //     controller.toggleTheme();
-                  //   },
-                  // ),
-                  !appDataController.isCardReadMode
+                  !appData.isCardReadMode
                       ? ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
                           title: const Text("وضعية الصفحات"),
                           onTap: () {
-                            appDataController.toggleReadModeStatus();
+                            appData.toggleReadModeStatus();
                             controller.update();
                           },
                         )
@@ -65,7 +50,7 @@ class Settings extends StatelessWidget {
                           leading: const Icon(MdiIcons.card),
                           title: const Text("وضعية البطاقات"),
                           onTap: () {
-                            appDataController.toggleReadModeStatus();
+                            appData.toggleReadModeStatus();
                             controller.update();
                           },
                         ),
@@ -79,7 +64,6 @@ class Settings extends StatelessWidget {
                       );
                     },
                   ),
-
                   ListTile(
                     title: const Text("إدارة المؤثرات"),
                     leading: const Icon(
@@ -106,7 +90,9 @@ class Settings extends StatelessWidget {
                   ),
                   const Divider(),
                   const Title(title: 'إعدادت الخط'),
-                  const TextSample(),
+                  TextSample(
+                    controllerToUpdate: controller,
+                  ),
                   FontSettingsToolbox(
                     controllerToUpdate: controller,
                   ),
@@ -132,11 +118,11 @@ class Settings extends StatelessWidget {
                       title: Text("صيام الإثنين والخميس"),
                     ),
                     activeColor: mainColor,
-                    value: appDataController.isFastAlarmEnabled,
+                    value: appData.isFastAlarmEnabled,
                     onChanged: (value) {
-                      appDataController.changFastAlarmStatus(value);
+                      appData.changFastAlarmStatus(value);
 
-                      if (appDataController.isFastAlarmEnabled) {
+                      if (appData.isFastAlarmEnabled) {
                         getSnackbar(
                             message: "تم تفعيل منبه صيام الإثنين والخميس");
                       } else {
@@ -155,11 +141,11 @@ class Settings extends StatelessWidget {
                       title: Text("تذكير قراءة سورة الكهف"),
                     ),
                     activeColor: mainColor,
-                    value: appDataController.isCaveAlarmEnabled,
+                    value: appData.isCaveAlarmEnabled,
                     onChanged: (value) {
-                      appDataController.changCaveAlarmStatus(value);
+                      appData.changCaveAlarmStatus(value);
 
-                      if (appDataController.isCaveAlarmEnabled) {
+                      if (appData.isCaveAlarmEnabled) {
                         getSnackbar(message: "تم تفعيل تذكير سورة الكهف");
                       } else {
                         getSnackbar(message: "تم الغاء تذكير سورة الكهف");

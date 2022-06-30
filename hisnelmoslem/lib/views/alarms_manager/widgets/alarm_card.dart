@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
+import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import '../../../shared/functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
@@ -112,18 +113,15 @@ class AlarmCard extends StatelessWidget {
           motion: const BehindMotion(),
           children: [
             SlidableAction(
-              // An action can be bigger than the others.
-
-              onPressed: (val) {
-                alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
+              onPressed: (val) async {
+                await awesomeNotificationManager.cancelNotificationById(
+                    id: dbAlarm.id);
+                await alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
                 controller.alarms.removeWhere((item) => item == dbAlarm);
-                controller.update();
                 dashboardController.alarms = controller.alarms;
-                dashboardController.update();
-                // Get.snackbar("رسالة", "تم حذف منبه ${dbAlarm.title}",
-                //     duration: const Duration(seconds: 1),
-                //     icon: Image.asset("assets/images/app_icon.png"));
 
+                controller.update();
+                dashboardController.update();
                 getSnackbar(message: "تم حذف منبه ${dbAlarm.title}");
               },
               backgroundColor: red,

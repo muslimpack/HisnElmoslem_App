@@ -16,9 +16,8 @@ import '../../../shared/constants/constant.dart';
 class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;
   final DbAlarm dbAlarm;
-  TitleCard({Key? key, required this.fehrsTitle, required this.dbAlarm})
+  const TitleCard({Key? key, required this.fehrsTitle, required this.dbAlarm})
       : super(key: key);
-  final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: (controller) {
@@ -113,7 +112,7 @@ class TitleCard extends StatelessWidget {
                 fontFamily: "Uthmanic", fontWeight: FontWeight.bold)),
         // trailing: Text(zikrList[index]),
         onTap: () {
-          if (!appDataController.isCardReadMode) {
+          if (!appData.isCardReadMode) {
             transitionAnimation.circleReval(
                 context: Get.context!,
                 goToPage: AzkarReadPage(index: fehrsTitle.id));

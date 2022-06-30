@@ -22,7 +22,6 @@ class AzkarReadCard extends StatelessWidget {
 
   static DashboardController dashboardController =
       Get.put(DashboardController());
-  static AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AzkarReadCardController>(
@@ -53,7 +52,7 @@ class AzkarReadCard extends StatelessWidget {
                           ? 0
                           : controller.zikrContent.length,
                       itemBuilder: (context, index) {
-                        String text = appDataController.isTashkelEnabled
+                        String text = appData.isTashkelEnabled
                             ? controller.zikrContent[index].content
                             : controller.zikrContent[index].content.replaceAll(
                                 //* لحذف التشكيل
@@ -226,8 +225,7 @@ class AzkarReadCard extends StatelessWidget {
                                     softWrap: true,
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
-                                        fontSize:
-                                            appDataController.fontSize * 10,
+                                        fontSize: appData.fontSize * 10,
                                         color: controller
                                                     .zikrContent[index].count ==
                                                 0
@@ -248,9 +246,7 @@ class AzkarReadCard extends StatelessWidget {
                                           textDirection: TextDirection.rtl,
                                           softWrap: true,
                                           style: TextStyle(
-                                              fontSize:
-                                                  appDataController.fontSize *
-                                                      10,
+                                              fontSize: appData.fontSize * 10,
                                               color: mainColor,
                                               //fontSize: 20,
                                               fontWeight: FontWeight.bold),

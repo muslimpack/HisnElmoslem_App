@@ -1,9 +1,10 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 
-class AppDataController extends GetxController {
+AppData appData = AppData();
+
+class AppData {
   final box = GetStorage();
 
   /* ******* Azkar Read Mode ******* */
@@ -103,44 +104,47 @@ class AppDataController extends GetxController {
   ///
   _activateCaveAlarm({required bool value}) {
     if (value) {
-      awesomeNotification.addCustomWeeklyReminder(
-          channelName: "تنبيهات الأذكار",
-          id: 555,
-          title: "صيام غدا الإثنين",
-          body:
-              "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: const Time(20, 00, 0),
-          day: Day.sunday,
-          payload: "555");
-      awesomeNotification.addCustomWeeklyReminder(
-          channelName: "تنبيهات الأذكار",
-          id: 777,
-          title: "صيام غدا الخميس",
-          body:
-              "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-          time: const Time(20, 00, 0),
-          day: Day.wednesday,
-          payload: "666");
+      awesomeNotificationManager.addCustomWeeklyReminder(
+        id: 555,
+        title: "صيام غدا الإثنين",
+        body:
+            "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
+        time: const Time(20, 00, 0),
+        day: Day.sunday,
+        payload: "555",
+        needToOpen: false,
+      );
+      awesomeNotificationManager.addCustomWeeklyReminder(
+        id: 777,
+        title: "صيام غدا الخميس",
+        body:
+            "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
+        time: const Time(20, 00, 0),
+        day: Day.wednesday,
+        payload: "666",
+        needToOpen: false,
+      );
     } else {
-      awesomeNotification.cancelNotificationById(id: 555);
-      awesomeNotification.cancelNotificationById(id: 666);
+      awesomeNotificationManager.cancelNotificationById(id: 555);
+      awesomeNotificationManager.cancelNotificationById(id: 666);
     }
   }
 
   ///
   _activateFastAlarm({required bool value}) {
     if (value) {
-      awesomeNotification.addCustomWeeklyReminder(
-          channelName: "تنبيهات الأذكار",
-          id: 777,
-          title: "سورة الكهف",
-          body:
-              "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
-          time: const Time(9, 00, 0),
-          day: Day.friday,
-          payload: "الكهف");
+      awesomeNotificationManager.addCustomWeeklyReminder(
+        id: 777,
+        title: "سورة الكهف",
+        body:
+            "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
+        time: const Time(9, 00, 0),
+        day: Day.friday,
+        payload: "الكهف",
+        needToOpen: false,
+      );
     } else {
-      awesomeNotification.cancelNotificationById(id: 777);
+      awesomeNotificationManager.cancelNotificationById(id: 777);
     }
   }
 }

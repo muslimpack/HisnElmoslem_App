@@ -24,7 +24,6 @@ class HadithCard extends StatelessWidget {
 
   final FakeHadithController fakeHadithController =
       Get.put(FakeHadithController());
-  final AppDataController appDataController = Get.put(AppDataController());
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -121,7 +120,7 @@ class HadithCard extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
                     color: fakeHaith.isRead ? mainColor : null,
-                    fontSize: appDataController.fontSize * 10,
+                    fontSize: appData.fontSize * 10,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -133,7 +132,7 @@ class HadithCard extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 softWrap: true,
                 style: TextStyle(
-                    fontSize: appDataController.fontSize * 10,
+                    fontSize: appData.fontSize * 10,
                     color: mainColor,
                     //fontSize: 20,
                     fontWeight: FontWeight.bold),

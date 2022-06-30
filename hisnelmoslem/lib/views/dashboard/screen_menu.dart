@@ -132,7 +132,7 @@ class ScreenMenu extends StatelessWidget {
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
-                                goToPage: FakeHadith(),
+                                goToPage: const FakeHadith(),
                               );
                             },
                           ),
@@ -145,7 +145,7 @@ class ScreenMenu extends StatelessWidget {
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
-                                goToPage: Settings(),
+                                goToPage: const Settings(),
                               );
                             },
                           ),

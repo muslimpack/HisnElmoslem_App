@@ -33,8 +33,6 @@ class DashboardController extends GetxController {
   final ScrollController fehrsScrollController = ScrollController();
   final ScrollController bookmarksScrollController = ScrollController();
   //
-  final AppDataController appDataController = Get.put(AppDataController());
-  //
   List<DbTitle> favouriteTitle = <DbTitle>[];
   List<DbTitle> allTitle = <DbTitle>[];
   List<DbTitle> searchedTitle = <DbTitle>[];
@@ -68,26 +66,34 @@ class DashboardController extends GetxController {
     super.onReady();
 
     /// Check if awesome notification is allowed
-    await awesomeNotification.checkIfAllowed(Get.context!);
+    await awesomeNotificationManager.checkIfAllowed(Get.context!);
 
     ///
-    AwesomeNotifications().createdStream.listen((notification) async {});
+    AwesomeNotifications().createdStream.listen((notification) async {
+      debugPrint("createdStream: " + notification.payload.toString());
+    });
 
     ///
     AwesomeNotifications().actionStream.listen((notification) async {
-      if (notification.channelKey == 'in_app_notification' ||
-          notification.channelKey == 'scheduled_channel' && Platform.isIOS) {
+      List<String> payloadsList = notification.payload!.values.toList();
+      String payload = payloadsList[0];
+      debugPrint("actionStream: " + notification.payload.toString());
+      debugPrint("actionStream: " + payload);
+      if ((notification.channelKey == 'in_app_notification' ||
+              notification.channelKey == 'scheduled_channel') &&
+          Platform.isIOS) {
         await AwesomeNotifications().getGlobalBadgeCounter().then(
           (value) async {
             await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
           },
         );
       }
-      String payload = notification.payload?["Open"] ?? "";
 
       if (payload.isNotEmpty) {
         debugPrint(payload);
         onNotificationClick(payload);
+      } else {
+        debugPrint("actionStream: Else");
       }
     });
   }
@@ -100,7 +106,6 @@ class DashboardController extends GetxController {
     tabController.dispose();
     fehrsScrollController.dispose();
     bookmarksScrollController.dispose();
-    awesomeNotification.dispose();
   }
 
   /* *************** Functions *************** */
@@ -160,7 +165,7 @@ class DashboardController extends GetxController {
     else {
       int? pageIndex = int.parse(payload);
       //
-      if (appDataController.isCardReadMode) {
+      if (appData.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
             context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
       } else {

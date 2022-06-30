@@ -20,8 +20,7 @@ class AlarmManager {
       debugPrint(dbAlarm.repeatType);
       switch (dbAlarm.repeatType) {
         case "Daily":
-          await awesomeNotification.addCustomDailyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomDailyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -30,8 +29,7 @@ class AlarmManager {
           );
           break;
         case "AtSaturday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -41,8 +39,7 @@ class AlarmManager {
           );
           break;
         case "AtSunday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -52,8 +49,7 @@ class AlarmManager {
           );
           break;
         case "AtMonday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -63,8 +59,7 @@ class AlarmManager {
           );
           break;
         case "AtTuesday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -74,8 +69,7 @@ class AlarmManager {
           );
           break;
         case "AtWednesday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -85,8 +79,7 @@ class AlarmManager {
           );
           break;
         case "AtThursday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -96,8 +89,7 @@ class AlarmManager {
           );
           break;
         case "AtFriday":
-          await awesomeNotification.addCustomWeeklyReminder(
-            channelName: "تنبيهات الأذكار",
+          await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.id,
             title: dbAlarm.title,
             body: dbAlarm.body,
@@ -115,7 +107,7 @@ class AlarmManager {
         getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
       }
 
-      awesomeNotification.cancelNotificationById(id: dbAlarm.id);
+      awesomeNotificationManager.cancelNotificationById(id: dbAlarm.id);
     }
   }
 
