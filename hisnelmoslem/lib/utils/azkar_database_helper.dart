@@ -224,8 +224,9 @@ class AzkarDatabaseHelper {
           ,contents.source ,favourite_contents.favourite
           FROM contents
           INNER JOIN favourite_contents
-          on favourite_contents.content_id = contents._id 
+          on favourite_contents.content_id = contents._id
           WHERE title_id = ?
+          ORDER BY order_id ASC
           ''',
       [titleId],
     );
