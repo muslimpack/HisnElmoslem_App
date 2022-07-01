@@ -1,11 +1,11 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
-import 'package:hisnelmoslem/utils/data_database_helper.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/utils/migration/azkar_old_db.dart';
 import 'package:hisnelmoslem/utils/migration/fake_hadith_old_db.dart';
 import 'package:path/path.dart';
@@ -59,7 +59,7 @@ class Migration {
 
       await File(path).writeAsBytes(bytes, flush: true);
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 
@@ -89,15 +89,15 @@ class Migration {
 
       for (var i = 0; i < contents.length; i++) {
         if (contents[i].favourite) {
-          await dataDatabaseHelper.addContentToFavourite(
+          await azkarDatabaseHelper.addContentToFavourite(
               dbContent: contents[i]);
         } else {
-          await dataDatabaseHelper.removeContentFromFavourite(
+          await azkarDatabaseHelper.removeContentFromFavourite(
               dbContent: contents[i]);
         }
       }
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint("content error: " + e.toString());
     }
   }
 
@@ -119,13 +119,14 @@ class Migration {
 
       for (var i = 0; i < titles.length; i++) {
         if (titles[i].favourite) {
-          await dataDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
+          await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
         } else {
-          await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: titles[i]);
+          await azkarDatabaseHelper.deleteTitleFromFavourite(
+              dbTitle: titles[i]);
         }
       }
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint("Title error: " + e.toString());
     }
   }
 
@@ -148,13 +149,15 @@ class Migration {
 
       for (var i = 0; i < fakeHadiths.length; i++) {
         if (fakeHadiths[i].isRead) {
-          await fakeHadithOldDBHelper.markAsRead(dbFakeHaith: fakeHadiths[i]);
+          await fakeHadithDatabaseHelper.markFakeHadithAsRead(
+              dbFakeHaith: fakeHadiths[i]);
         } else {
-          await fakeHadithOldDBHelper.markAsUnRead(dbFakeHaith: fakeHadiths[i]);
+          await fakeHadithDatabaseHelper.markFakeHadithAsUnRead(
+              dbFakeHaith: fakeHadiths[i]);
         }
       }
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint("FakeHadith error: " + e.toString());
     }
   }
 
@@ -171,7 +174,7 @@ class Migration {
     try {
       await databaseFactory.deleteDatabase(path);
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 
@@ -194,7 +197,7 @@ class Migration {
 
       await File(path).writeAsBytes(bytes, flush: true);
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 }

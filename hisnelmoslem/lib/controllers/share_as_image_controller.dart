@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/views/share_as_image/dialogs/image_width_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -108,8 +109,8 @@ class ShareAsImageController extends GetxController {
   /* *************** Functions *************** */
 
   updateTextColor(Color color) async {
-    debugPrint(color.toString());
-    debugPrint(Color(color.value).value.toString());
+    hisnPrint(color.toString());
+    hisnPrint(Color(color.value).value.toString());
     await box.write(bodyTextColorBoxKey, color.value);
     update();
   }
@@ -177,7 +178,7 @@ class ShareAsImageController extends GetxController {
       //
 
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 

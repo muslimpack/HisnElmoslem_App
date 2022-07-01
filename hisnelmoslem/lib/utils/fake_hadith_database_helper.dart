@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/utils/data_database_helper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -83,7 +83,7 @@ class FakeHadithDatabaseHelper {
 
       await File(path).writeAsBytes(bytes, flush: true);
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 
@@ -153,14 +153,14 @@ class FakeHadithDatabaseHelper {
 
   // Mark haduth as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
-    debugPrint("markFakeHadithAs Read");
+    hisnPrint("markFakeHadithAs Read");
     await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Mark hadith as unread
   Future<void> markFakeHadithAsUnRead(
       {required DbFakeHaith dbFakeHaith}) async {
-    debugPrint("markFakeHadithAs Unread");
+    hisnPrint("markFakeHadithAs Unread");
     await dataDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: dbFakeHaith);
   }
 

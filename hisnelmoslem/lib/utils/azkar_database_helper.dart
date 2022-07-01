@@ -1,10 +1,9 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/zikr_chapters.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/utils/data_database_helper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -86,7 +85,7 @@ class AzkarDatabaseHelper {
 
       await File(path).writeAsBytes(bytes, flush: true);
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 
@@ -140,7 +139,7 @@ class AzkarDatabaseHelper {
     List<DbTitle> titles = [];
     await dataDatabaseHelper.getAllFavoriteTitles().then((value) async {
       for (var i = 0; i < value.length; i++) {
-        debugPrint(value.length.toString());
+        hisnPrint(value.length.toString());
         await getTitleById(id: value[i].titleId).then((title) {
           titles.add(title);
         });

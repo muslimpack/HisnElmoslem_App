@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 
 class RearrangeDashboardPageController extends GetxController {
   /* *************** Variables *************** */
@@ -55,7 +56,7 @@ class RearrangeDashboardPageController extends GetxController {
     list.insert(newIndex, item);
     changeListArrange(list.toString());
     buildListFromString();
-    debugPrint(list.toString());
+    hisnPrint(list.toString());
     update();
   }
 }

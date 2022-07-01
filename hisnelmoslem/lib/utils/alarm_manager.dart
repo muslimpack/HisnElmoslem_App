@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import '../shared/functions/get_snackbar.dart';
@@ -17,7 +17,7 @@ class AlarmManager {
       if (showMsg) {
         getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
       }
-      debugPrint(dbAlarm.repeatType);
+      hisnPrint(dbAlarm.repeatType);
       switch (dbAlarm.repeatType) {
         case "Daily":
           await awesomeNotificationManager.addCustomDailyReminder(
@@ -115,7 +115,7 @@ class AlarmManager {
     final box = GetStorage();
     bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
-      debugPrint("Setup Awesome from database ....");
+      hisnPrint("Setup Awesome from database ....");
       await alarmDatabaseHelper.getAlarms().then((value) {
         List<DbAlarm> alarms = value;
         for (var i = 0; i < alarms.length; i++) {

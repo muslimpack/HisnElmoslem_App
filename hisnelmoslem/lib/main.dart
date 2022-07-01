@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
+import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
@@ -24,9 +26,6 @@ void main() async {
 
   /// Init Awesome Notification
   awesomeNotificationManager.init();
-
-  /// Start Migration steps
-  await Migration.start();
 
   /// Disable all notification from local_notification
   await localNotifyManager.cancelAllNotifications();
@@ -62,6 +61,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// Start Migration steps
+    Migration.start();
+    hisnPrint("Hello");
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   void dispose() async {
     //Close databases
@@ -87,7 +100,11 @@ class _MyAppState extends State<MyApp> {
       // theme: Themes.yellowTheme,
       // home: const AzkarDashboard(),
       // TODO to be deleted in next update 02
-      home: openOnBoard ? const OnBoardingPage() : const AzkarDashboard(),
+      home: isLoading
+          ? const Loading()
+          : openOnBoard
+              ? const OnBoardingPage()
+              : const AzkarDashboard(),
     );
   }
 }

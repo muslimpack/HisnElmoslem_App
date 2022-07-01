@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/rearrange_dashboard_page_controller.dart';
 import 'package:hisnelmoslem/shared/constants/app_dashboard.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 
 class ScreenAppBar extends StatelessWidget {
   final DashboardController controller;
@@ -62,7 +63,7 @@ class ScreenAppBar extends StatelessWidget {
                   ...List.generate(
                     appDashboardItem.length,
                     (index) {
-                      debugPrint("rebuild");
+                      hisnPrint("rebuild");
                       return Tab(
                         child: Text(
                           appDashboardItem[rearrangeController.list[index]]

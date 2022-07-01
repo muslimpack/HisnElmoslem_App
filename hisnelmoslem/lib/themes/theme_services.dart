@@ -2,6 +2,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 
 import 'themes.dart';
 import 'themes_enum.dart';
@@ -13,8 +14,12 @@ class ThemeServices {
 
   /// Get appMode from storage
   static AppThemeMode? get appThemeMode {
-    final stringVal = box.read<String>(storeKey) ??
-        EnumToString.convertToString(AppThemeMode.dark);
+    String? stringVal = box.read<String>(storeKey);
+    if (stringVal == null) {
+      stringVal = EnumToString.convertToString(AppThemeMode.defaultDark);
+      changeAppThemeModeStatus(
+          EnumToString.fromString(AppThemeMode.values, stringVal));
+    }
     return EnumToString.fromString(AppThemeMode.values, stringVal);
   }
 
@@ -39,7 +44,7 @@ class ThemeServices {
         Get.changeTheme(Themes.yellowTheme);
       }
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 

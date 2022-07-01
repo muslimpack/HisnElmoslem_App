@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 sendEmail(
@@ -13,6 +13,6 @@ sendEmail(
       throw 'Could not launch $url';
     }
   } catch (e) {
-    debugPrint(e.toString());
+    hisnPrint(e.toString());
   }
 }

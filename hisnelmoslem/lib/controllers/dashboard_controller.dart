@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
@@ -70,15 +71,15 @@ class DashboardController extends GetxController {
 
     ///
     AwesomeNotifications().createdStream.listen((notification) async {
-      debugPrint("createdStream: " + notification.payload.toString());
+      hisnPrint("createdStream: " + notification.payload.toString());
     });
 
     ///
     AwesomeNotifications().actionStream.listen((notification) async {
       List<String> payloadsList = notification.payload!.values.toList();
       String payload = payloadsList[0];
-      debugPrint("actionStream: " + notification.payload.toString());
-      debugPrint("actionStream: " + payload);
+      hisnPrint("actionStream: " + notification.payload.toString());
+      hisnPrint("actionStream: " + payload);
       if ((notification.channelKey == 'in_app_notification' ||
               notification.channelKey == 'scheduled_channel') &&
           Platform.isIOS) {
@@ -90,10 +91,10 @@ class DashboardController extends GetxController {
       }
 
       if (payload.isNotEmpty) {
-        debugPrint(payload);
+        hisnPrint(payload);
         onNotificationClick(payload);
       } else {
-        debugPrint("actionStream: Else");
+        hisnPrint("actionStream: Else");
       }
     });
   }

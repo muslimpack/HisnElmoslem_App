@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
@@ -115,7 +115,7 @@ class EmailManager {
         throw 'Could not launch $url';
       }
     } catch (e) {
-      debugPrint(e.toString());
+      hisnPrint(e.toString());
     }
   }
 }
