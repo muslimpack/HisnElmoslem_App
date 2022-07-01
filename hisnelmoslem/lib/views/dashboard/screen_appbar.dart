@@ -50,7 +50,7 @@ class ScreenAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       bottom: PreferredSize(
-        preferredSize: const Size(0, 50),
+        preferredSize: const Size(0, 48),
         child: GetBuilder<RearrangeDashboardPageController>(
             init: RearrangeDashboardPageController(),
             builder: (rearrangeController) {
