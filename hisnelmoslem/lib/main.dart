@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/utils/migration/migration.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
@@ -24,7 +25,8 @@ void main() async {
   /// Init Awesome Notification
   awesomeNotificationManager.init();
 
-  /// Manage Notification feedback
+  /// Start Migration steps
+  await Migration.start();
 
   /// Disable all notification from local_notification
   await localNotifyManager.cancelAllNotifications();
