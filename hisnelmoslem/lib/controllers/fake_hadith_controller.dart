@@ -72,13 +72,6 @@ class FakeHadithController extends GetxController {
       fakeHadithDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: fakeHaith);
     }
 
-    fakeHadithList.sort((a, b) {
-      if (b.isRead) {
-        return -1;
-      }
-      return 1;
-    });
-
     update();
   }
 }
