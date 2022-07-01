@@ -65,8 +65,8 @@ class Migration {
 
   /// Starting to copy old data to new db
   static Future<void> _copyDataFromCurrentDataDBs() async {
-    await _copyDataFromFavoriteContentInHisElmosels();
     await _copyDataFromFavoriteTitlesInHisElmosels();
+    await _copyDataFromFavoriteContentInHisElmosels();
     await _copyDataFromFakeHadith();
   }
 
@@ -84,17 +84,11 @@ class Migration {
     try {
       List<DbContent> contents = [];
       await azkarOldDBHelper
-          .getAllContents()
+          .getFavouriteContents()
           .then((value) => contents.addAll(value));
 
       for (var i = 0; i < contents.length; i++) {
-        if (contents[i].favourite) {
-          await azkarDatabaseHelper.addContentToFavourite(
-              dbContent: contents[i]);
-        } else {
-          await azkarDatabaseHelper.removeContentFromFavourite(
-              dbContent: contents[i]);
-        }
+        await azkarDatabaseHelper.addContentToFavourite(dbContent: contents[i]);
       }
     } catch (e) {
       hisnPrint("content error: " + e.toString());

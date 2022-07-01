@@ -175,7 +175,7 @@ class DataDatabaseHelper {
     final Database db = await database;
     dbContent.favourite = true;
     await db.rawUpdate(
-        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+        'UPDATE favourite_contents SET favourite = ? WHERE content_id = ?',
         [1, dbContent.id]);
   }
 
@@ -186,7 +186,7 @@ class DataDatabaseHelper {
     dbContent.favourite = false;
 
     await db.rawUpdate(
-        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+        'UPDATE favourite_contents SET favourite = ? WHERE content_id = ?',
         [0, dbContent.id]);
   }
 
