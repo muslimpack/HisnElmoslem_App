@@ -108,16 +108,11 @@ class Migration {
       ///
       List<DbTitle> titles = [];
       await azkarOldDBHelper
-          .getAllTitles()
+          .getAllFavoriteTitles()
           .then((value) => titles.addAll(value));
 
       for (var i = 0; i < titles.length; i++) {
-        if (titles[i].favourite) {
-          await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
-        } else {
-          await azkarDatabaseHelper.deleteTitleFromFavourite(
-              dbTitle: titles[i]);
-        }
+        await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
       }
     } catch (e) {
       hisnPrint("Title error: " + e.toString());
