@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/views/dashboard/widgets/title_card.dart';
 import 'package:hisnelmoslem/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
@@ -32,19 +33,19 @@ class AzkarFehrs extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10),
                       itemCount: titleListToDisplay.length,
                       itemBuilder: (context, index) {
-                        //TODO get rid of this for loop
-
-                        DbAlarm tempAlarm =
-                            DbAlarm(titleId: titleListToDisplay[index].orderId);
-                        for (var item in controller.alarms) {
-                          if (item.title == titleListToDisplay[index].name) {
-                            tempAlarm = item;
-                          }
-                        }
-                        return TitleCard(
-                          fehrsTitle: titleListToDisplay[index],
-                          dbAlarm: tempAlarm,
-                        );
+                        return FutureBuilder(
+                            future: alarmDatabaseHelper.getAlarmByZikrTitle(
+                                dbTitle: titleListToDisplay[index]),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return TitleCard(
+                                  fehrsTitle: titleListToDisplay[index],
+                                  dbAlarm: snapshot.data as DbAlarm,
+                                );
+                              } else {
+                                return const ListTile();
+                              }
+                            });
                       },
                     ),
                   )),

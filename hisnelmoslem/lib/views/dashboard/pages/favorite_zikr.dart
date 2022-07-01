@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/shared/transition_animation/transition_animation.da
 import 'package:hisnelmoslem/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
@@ -135,18 +136,6 @@ class FavouriteZikr extends StatelessWidget {
                                             );
                                           }),
                                     ),
-                                    // Expanded(
-                                    //   flex: 1,
-                                    //   child: IconButton(
-                                    //     splashRadius: 20,
-                                    //     onPressed: () {
-                                    //       //TODO Rest counter
-                                    //       //  dbContent.count =  ;
-                                    //       // controller.update();
-                                    //     },
-                                    //     icon: Icon(Icons.repeat),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                                 LinearProgressIndicator(
@@ -204,6 +193,20 @@ class FavouriteZikr extends StatelessWidget {
                                         child: ListTile(
                                           // tileColor:
                                           //     Theme.of(context).primaryColor,
+                                          leading: IconButton(
+                                            splashRadius: 20,
+                                            onPressed: () async {
+                                              await azkarDatabaseHelper
+                                                  .getContentsByContentId(
+                                                      contentId: dbContent.id)
+                                                  .then((value) {
+                                                controller.favouriteConent[
+                                                    index] = value;
+                                                controller.update();
+                                              });
+                                            },
+                                            icon: const Icon(Icons.repeat),
+                                          ),
                                           onTap: () {
                                             if (!appData.isCardReadMode) {
                                               transitionAnimation.circleReval(

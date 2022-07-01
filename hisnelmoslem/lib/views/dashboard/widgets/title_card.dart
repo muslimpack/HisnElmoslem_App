@@ -42,6 +42,9 @@ class TitleCard extends StatelessWidget {
                   //
                   controller.favouriteTitle.removeWhere(
                       (item) => item.orderId == fehrsTitle.orderId);
+
+                  controller.favouriteTitle
+                      .sort((a, b) => a.orderId.compareTo(b.orderId));
                   //
                   controller.update();
                 })
@@ -54,6 +57,8 @@ class TitleCard extends StatelessWidget {
                   //
                   controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;
                   controller.favouriteTitle.add(fehrsTitle);
+                  controller.favouriteTitle
+                      .sort((a, b) => a.orderId.compareTo(b.orderId));
                   //
                   controller.update();
                   //

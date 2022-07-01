@@ -101,7 +101,7 @@ class DataDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * from favourite_titles WHERE favourite = 1''',
+      '''SELECT * from favourite_titles WHERE favourite = 1 order by title_id asc''',
     );
 
     return List.generate(maps.length, (i) {
