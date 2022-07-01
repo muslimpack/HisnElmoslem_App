@@ -49,8 +49,8 @@ class AwesomeNotificationManager {
     );
   }
 
-  void init() {
-    AwesomeNotifications().initialize(
+  Future<void> init() async {
+    await AwesomeNotifications().initialize(
       'resource://drawable/notification_app_icon',
       [
         NotificationChannel(

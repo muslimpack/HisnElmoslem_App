@@ -24,8 +24,11 @@ void main() async {
   ///
   await GetStorage.init();
 
+  /// Start Migration steps
+  await Migration.start();
+
   /// Init Awesome Notification
-  awesomeNotificationManager.init();
+  await awesomeNotificationManager.init();
 
   /// Disable all notification from local_notification
   await localNotifyManager.cancelAllNotifications();
@@ -67,9 +70,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    /// Start Migration steps
-    Migration.start();
-    hisnPrint("Hello");
     setState(() {
       isLoading = false;
     });
