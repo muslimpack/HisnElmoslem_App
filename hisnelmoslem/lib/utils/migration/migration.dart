@@ -83,7 +83,9 @@ class Migration {
     ///
     try {
       List<DbContent> contents = [];
-      await azkarOldDBHelper.getAllContents().then((value) => contents = value);
+      await azkarOldDBHelper
+          .getAllContents()
+          .then((value) => contents.addAll(value));
 
       for (var i = 0; i < contents.length; i++) {
         if (contents[i].favourite) {
@@ -111,7 +113,9 @@ class Migration {
     try {
       ///
       List<DbTitle> titles = [];
-      await azkarOldDBHelper.getAllTitles().then((value) => titles = value);
+      await azkarOldDBHelper
+          .getAllTitles()
+          .then((value) => titles.addAll(value));
 
       for (var i = 0; i < titles.length; i++) {
         if (titles[i].favourite) {
@@ -140,7 +144,7 @@ class Migration {
       List<DbFakeHaith> fakeHadiths = [];
       await fakeHadithOldDBHelper
           .getAllFakeHadiths()
-          .then((value) => fakeHadiths = value);
+          .then((value) => fakeHadiths.addAll(value));
 
       for (var i = 0; i < fakeHadiths.length; i++) {
         if (fakeHadiths[i].isRead) {
