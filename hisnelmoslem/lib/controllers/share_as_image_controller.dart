@@ -249,7 +249,7 @@ class ShareAsImageController extends GetxController {
     _fitMatrix[12] = 0;
 
     /// set y
-    /// TODO center vertically
+    /// center vertically
     // _fitMatrix[13] = _screenHeight / 4;
 
     /// set fitMatrix to transformation

@@ -14,7 +14,7 @@ class OnBoardingController extends GetxController {
   PageController pageController = PageController(initialPage: 0);
   //
   bool get isFinalPage => currentPageIndex + 1 == pageList.length;
-  //TODO show skip button
+  // show skip button
   bool get showSkipBtn => false;
   //
   int currentPageIndex = 0;

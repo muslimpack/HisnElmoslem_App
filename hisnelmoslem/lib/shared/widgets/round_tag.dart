@@ -10,19 +10,23 @@ class RoundTagCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: FittedBox(
-            child: Text(name ?? "",
-                style: TextStyle(fontSize: 12, color: white),
-                textDirection: TextDirection.ltr),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      color: color,
+      child: SizedBox(
+        height: 30,
+        child: Center(
+          child: Text(
+            name ?? "",
+            style: TextStyle(
+              fontSize: 15,
+              color: white,
+              overflow: TextOverflow.ellipsis,
+            ),
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
           ),
         ),
       ),

@@ -20,7 +20,7 @@ class AzkarFehrs extends StatelessWidget {
       return Scaffold(
         body: Scrollbar(
             controller: controller.fehrsScrollController,
-            isAlwaysShown: false,
+            thumbVisibility: false,
             child: titleListToDisplay.isEmpty
                 ? const Empty(
                     isImage: false,

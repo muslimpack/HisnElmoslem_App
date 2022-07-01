@@ -18,7 +18,7 @@ class AzkarBookmarks extends StatelessWidget {
       return Scaffold(
         body: Scrollbar(
           controller: controller.bookmarksScrollController,
-          isAlwaysShown: false,
+          thumbVisibility: false,
           child: controller.favouriteTitle.isEmpty
               ? const Empty(
                   isImage: false,

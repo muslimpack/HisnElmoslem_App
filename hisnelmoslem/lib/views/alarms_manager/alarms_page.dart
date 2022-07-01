@@ -27,7 +27,7 @@ class AlarmsPages extends StatelessWidget {
                   ? const Loading()
                   : Scrollbar(
                       controller: controller.alarmScrollController,
-                      isAlwaysShown: false,
+                      thumbVisibility: false,
                       child: ScrollGlowCustom(
                         child: controller.alarms.isEmpty
                             ? const Empty(
