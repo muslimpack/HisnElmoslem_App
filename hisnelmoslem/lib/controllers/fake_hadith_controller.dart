@@ -9,7 +9,29 @@ class FakeHadithController extends GetxController {
   final fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();
   //
   List<DbFakeHaith> fakeHadithList = <DbFakeHaith>[];
-  //
+  List<DbFakeHaith> get fakeHadithReadList {
+    List<DbFakeHaith> fake = [];
+    for (var i = 0; i < fakeHadithList.length; i++) {
+      if (fakeHadithList[i].isRead) {
+        fake.add(fakeHadithList[i]);
+      }
+    }
+
+    return fake;
+  }
+
+  List<DbFakeHaith> get fakeHadithUnReadList {
+    List<DbFakeHaith> fake = [];
+    for (var i = 0; i < fakeHadithList.length; i++) {
+      if (!fakeHadithList[i].isRead) {
+        fake.add(fakeHadithList[i]);
+      }
+    }
+
+    return fake;
+  }
+
+  //get
   bool isLoading = false;
   //
 
