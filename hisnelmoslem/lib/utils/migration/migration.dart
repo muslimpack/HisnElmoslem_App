@@ -84,13 +84,16 @@ class Migration {
     try {
       List<DbContent> contents = [];
       await azkarOldDBHelper.getAllContents().then((value) => contents = value);
-      contents.map((e) async {
-        if (e.favourite) {
-          await dataDatabaseHelper.addContentToFavourite(dbContent: e);
+
+      for (var i = 0; i < contents.length; i++) {
+        if (contents[i].favourite) {
+          await dataDatabaseHelper.addContentToFavourite(
+              dbContent: contents[i]);
         } else {
-          await dataDatabaseHelper.removeContentFromFavourite(dbContent: e);
+          await dataDatabaseHelper.removeContentFromFavourite(
+              dbContent: contents[i]);
         }
-      });
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -109,13 +112,14 @@ class Migration {
       ///
       List<DbTitle> titles = [];
       await azkarOldDBHelper.getAllTitles().then((value) => titles = value);
-      titles.map((e) async {
-        if (e.favourite) {
-          await dataDatabaseHelper.addTitleToFavourite(dbTitle: e);
+
+      for (var i = 0; i < titles.length; i++) {
+        if (titles[i].favourite) {
+          await dataDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
         } else {
-          await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: e);
+          await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: titles[i]);
         }
-      });
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -133,17 +137,18 @@ class Migration {
 
     ///
     try {
-      List<DbFakeHaith> titles = [];
+      List<DbFakeHaith> fakeHadiths = [];
       await fakeHadithOldDBHelper
           .getAllFakeHadiths()
-          .then((value) => titles = value);
-      titles.map((e) async {
-        if (e.isRead) {
-          await fakeHadithOldDBHelper.markAsRead(dbFakeHaith: e);
+          .then((value) => fakeHadiths = value);
+
+      for (var i = 0; i < fakeHadiths.length; i++) {
+        if (fakeHadiths[i].isRead) {
+          await fakeHadithOldDBHelper.markAsRead(dbFakeHaith: fakeHadiths[i]);
         } else {
-          await fakeHadithOldDBHelper.markAsUnRead(dbFakeHaith: e);
+          await fakeHadithOldDBHelper.markAsUnRead(dbFakeHaith: fakeHadiths[i]);
         }
-      });
+      }
     } catch (e) {
       debugPrint(e.toString());
     }

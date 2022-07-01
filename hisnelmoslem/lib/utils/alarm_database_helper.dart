@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/alarm.dart';
+import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -88,7 +89,7 @@ class AlarmDatabaseHelper {
 
   /* ************* Functions ************* */
 
-  // Get all alarms from database
+  /// Get all alarms from database
   Future<List<DbAlarm>> getAlarms() async {
     final Database db = await database;
 
@@ -97,6 +98,25 @@ class AlarmDatabaseHelper {
     return List.generate(maps.length, (i) {
       return DbAlarm.fromMap(maps[i]);
     });
+  }
+
+  /// Get alarm by zikr title from database
+  Future<DbAlarm> getAlarmByZikrTitle({required DbTitle dbTitle}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      'select * from alarms where title = ?',
+      [dbTitle.name],
+    );
+
+    if (maps.isNotEmpty) {
+      DbAlarm dbAlarm = DbAlarm.fromMap(maps[0]);
+
+      return dbAlarm;
+    } else {
+      DbAlarm tempAlarm = DbAlarm(titleId: dbTitle.orderId);
+      return tempAlarm;
+    }
   }
 
   // Add new alarm to database

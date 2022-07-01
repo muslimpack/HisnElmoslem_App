@@ -101,7 +101,7 @@ class DataDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * favourite_titles WHERE favourite = 1''',
+      '''SELECT * from favourite_titles WHERE favourite = 1''',
     );
 
     return List.generate(maps.length, (i) {
@@ -109,18 +109,17 @@ class DataDatabaseHelper {
     });
   }
 
-  Future<DbTitleFavourite> getFavoriteTitleById({required int titleId}) async {
+  Future<bool> isTitleInFavourites({required int titleId}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-        '''SELECT * favourite_titles WHERE title_id = ?''', [titleId]);
+        '''SELECT * from favourite_titles WHERE title_id = ?''', [titleId]);
 
     DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
-          return DbTitleFavourite.fromMap(maps[i]);
-        }).first ??
-        DbTitleFavourite(titleId: titleId);
+      return DbTitleFavourite.fromMap(maps[i]);
+    }).first;
 
-    return dbTitleFavourite;
+    return dbTitleFavourite.favourite;
   }
 
   /// Add title to favourite
@@ -150,13 +149,26 @@ class DataDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * favourite_contents WHERE favourite = 1''',
+      '''SELECT * from favourite_contents WHERE favourite = 1''',
     );
 
     return List.generate(maps.length, (i) {
-      //TODO
       return DbContentFavourite.fromMap(maps[i]);
     });
+  }
+
+  Future<bool> isContentInFavourites({required int contentId}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        '''SELECT *  from favourite_contents WHERE content_id = ?''',
+        [contentId]);
+
+    DbContentFavourite dbContentFavourite = List.generate(maps.length, (i) {
+      return DbContentFavourite.fromMap(maps[i]);
+    }).first;
+
+    return dbContentFavourite.favourite;
   }
 
   /// Add content to favourite
@@ -205,13 +217,34 @@ class DataDatabaseHelper {
     });
   }
 
+  ///
+  Future<bool> isFakeHadithWereRead({required int fakeHadithId}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        '''SELECT *  from fake_hadith_is_read WHERE hadith_id = ?''',
+        [fakeHadithId]);
+    DbFakeHadithRead dbFakeHadithRead;
+    if (maps.isNotEmpty) {
+      dbFakeHadithRead = List.generate(maps.length, (i) {
+        return DbFakeHadithRead.fromMap(maps[i]);
+      }).first;
+      return dbFakeHadithRead.isRead;
+    } else {
+      return false;
+    }
+  }
+
   /// Mark haduth as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
     final db = await database;
 
-    await db.rawUpdate(
-        'UPDATE fake_hadith_is_read SET isRead = ? WHERE _id = ?',
-        [1, dbFakeHaith.id]);
+    await db.rawUpdate('''
+        insert or IGNORE into fake_hadith_is_read (hadith_id , isRead) values (?,?);
+        ''', [dbFakeHaith.id, 1]);
+    await db.rawUpdate('''
+        UPDATE fake_hadith_is_read SET isRead = ? WHERE hadith_id =?
+        ''', [1, dbFakeHaith.id]);
   }
 
   /// Mark hadith as unread
@@ -219,9 +252,12 @@ class DataDatabaseHelper {
       {required DbFakeHaith dbFakeHaith}) async {
     final db = await database;
 
-    await db.rawUpdate(
-        'UPDATE fake_hadith_is_read SET isRead = ? WHERE _id = ?',
-        [0, dbFakeHaith.id]);
+    await db.rawUpdate('''
+        insert or IGNORE into fake_hadith_is_read (hadith_id , isRead) values (?,?);
+        ''', [dbFakeHaith.id, 0]);
+    await db.rawUpdate('''
+        UPDATE fake_hadith_is_read SET isRead = ? WHERE hadith_id =?
+        ''', [0, dbFakeHaith.id]);
   }
 
   Future close() async {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
+import 'package:hisnelmoslem/utils/data_database_helper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -87,53 +88,80 @@ class FakeHadithDatabaseHelper {
   }
 
   /* ************* Functions ************* */
-  // Get all hadith from database
+  /// Get all hadith from database
   Future<List<DbFakeHaith>> getAllFakeHadiths() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
-    return List.generate(maps.length, (i) {
-      return DbFakeHaith.fromMap(maps[i]);
-    });
+    List<DbFakeHaith> fakeHadiths = [];
+
+    for (var i = 0; i < maps.length; i++) {
+      DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
+      await dataDatabaseHelper
+          .isFakeHadithWereRead(fakeHadithId: fakeHadith.id)
+          .then((value) => fakeHadith.isRead = value);
+      fakeHadiths.add(fakeHadith);
+    }
+
+    return fakeHadiths;
+  }
+
+  /// Get fakehadith by id
+  Future<DbFakeHaith> getFakeHadithById({required int fakeHadithId}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT * FROM fakeHadith  WHERE _id = ?''',
+      [fakeHadithId],
+    );
+    DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
+    await dataDatabaseHelper
+        .isFakeHadithWereRead(fakeHadithId: dbFakeHaith.id)
+        .then((value) => dbFakeHaith.isRead = value);
+
+    return dbFakeHaith;
   }
 
   // Get read hadith only
   Future<List<DbFakeHaith>> getReadFakeHadiths() async {
-    final Database db = await database;
+    List<DbFakeHaith> fakeHadiths = [];
+    await dataDatabaseHelper.getReadFakeHadiths().then((value) async {
+      for (var i = 0; i < value.length; i++) {
+        await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
+          fakeHadiths.add(title);
+        });
+      }
+    });
 
-    final List<Map<String, dynamic>> maps = await db.query('fakehadith');
-
-    return List.generate(maps.length, (i) {
-      return DbFakeHaith.fromMap(maps[i]);
-    }).where((element) => element.isRead = true).toList();
+    return fakeHadiths;
   }
 
   // Get unread hadith only
   Future<List<DbFakeHaith>> getUnreadFakeHadiths() async {
-    final Database db = await database;
+    List<DbFakeHaith> fakeHadiths = [];
+    await dataDatabaseHelper.getUnreadFakeHadiths().then((value) async {
+      for (var i = 0; i < value.length; i++) {
+        await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
+          fakeHadiths.add(title);
+        });
+      }
+    });
 
-    final List<Map<String, dynamic>> maps = await db.query('fakehadith');
-
-    return List.generate(maps.length, (i) {
-      return DbFakeHaith.fromMap(maps[i]);
-    }).where((element) => element.isRead = false).toList();
+    return fakeHadiths;
   }
 
   // Mark haduth as read
-  Future<void> markAsRead({required DbFakeHaith dbFakeHaith}) async {
-    final db = await database;
-
-    await db.rawUpdate(
-        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [1, dbFakeHaith.id]);
+  Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
+    debugPrint("markFakeHadithAs Read");
+    await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Mark hadith as unread
-  Future<void> markAsUnRead({required DbFakeHaith dbFakeHaith}) async {
-    final db = await database;
-
-    await db.rawUpdate(
-        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [0, dbFakeHaith.id]);
+  Future<void> markFakeHadithAsUnRead(
+      {required DbFakeHaith dbFakeHaith}) async {
+    debugPrint("markFakeHadithAs Unread");
+    await dataDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Close database
