@@ -25,20 +25,14 @@ class Migration {
     final path = join(dbPath, "data.db");
     final exist = await databaseExists(path);
 
+    ///
+    final pathHisn = join(dbPath, "hisn_elmoslem_database.db");
+    final existHisn = await databaseExists(pathHisn);
+
     //Check if database is already in that Directory
-    if (!exist) {
+    if (!exist || existHisn) {
       // Database isn't exist > Create new Database
       await _copyFromAssets(path: path);
-
-      /// Check if hisnelmoslem db is exist or not
-      /// If hisn elmoslem not exist that mean the app is in first open
-      /// or app data where deleted before
-      /// and no need for all code below
-      final pathHisn = join(dbPath, "hisn_elmoslem_database.db");
-      final existHisn = await databaseExists(pathHisn);
-      if (!existHisn) {
-        return;
-      }
 
       /// Start Copying data from current databases
       await _copyDataFromCurrentDataDBs();
@@ -78,43 +72,81 @@ class Migration {
 
   /// Copy favourite content data
   static Future<void> _copyDataFromFavoriteContentInHisElmosels() async {
-    List<DbContent> contents = [];
-    await azkarOldDBHelper.getAllContents().then((value) => contents = value);
-    contents.map((e) async {
-      if (e.favourite) {
-        await dataDatabaseHelper.addContentToFavourite(dbContent: e);
-      } else {
-        await dataDatabaseHelper.removeContentFromFavourite(dbContent: e);
-      }
-    });
+    ///
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, "hisn_elmoslem_database.db");
+    final exist = await databaseExists(path);
+    if (!exist) {
+      return;
+    }
+
+    ///
+    try {
+      List<DbContent> contents = [];
+      await azkarOldDBHelper.getAllContents().then((value) => contents = value);
+      contents.map((e) async {
+        if (e.favourite) {
+          await dataDatabaseHelper.addContentToFavourite(dbContent: e);
+        } else {
+          await dataDatabaseHelper.removeContentFromFavourite(dbContent: e);
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   /// Copy favorite title data
   static Future<void> _copyDataFromFavoriteTitlesInHisElmosels() async {
-    List<DbTitle> titles = [];
-    await azkarOldDBHelper.getAllTitles().then((value) => titles = value);
-    titles.map((e) async {
-      if (e.favourite) {
-        await dataDatabaseHelper.addTitleToFavourite(dbTitle: e);
-      } else {
-        await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: e);
-      }
-    });
+    ///
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, "hisn_elmoslem_database.db");
+    final exist = await databaseExists(path);
+    if (!exist) {
+      return;
+    }
+    try {
+      ///
+      List<DbTitle> titles = [];
+      await azkarOldDBHelper.getAllTitles().then((value) => titles = value);
+      titles.map((e) async {
+        if (e.favourite) {
+          await dataDatabaseHelper.addTitleToFavourite(dbTitle: e);
+        } else {
+          await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: e);
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   /// Copy Fake hadith data
   static Future<void> _copyDataFromFakeHadith() async {
-    List<DbFakeHaith> titles = [];
-    await fakeHadithOldDBHelper
-        .getAllFakeHadiths()
-        .then((value) => titles = value);
-    titles.map((e) async {
-      if (e.isRead) {
-        await fakeHadithOldDBHelper.markAsRead(dbFakeHaith: e);
-      } else {
-        await fakeHadithOldDBHelper.markAsUnRead(dbFakeHaith: e);
-      }
-    });
+    ///
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, "fake_hadith.db");
+    final exist = await databaseExists(path);
+    if (!exist) {
+      return;
+    }
+
+    ///
+    try {
+      List<DbFakeHaith> titles = [];
+      await fakeHadithOldDBHelper
+          .getAllFakeHadiths()
+          .then((value) => titles = value);
+      titles.map((e) async {
+        if (e.isRead) {
+          await fakeHadithOldDBHelper.markAsRead(dbFakeHaith: e);
+        } else {
+          await fakeHadithOldDBHelper.markAsUnRead(dbFakeHaith: e);
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   /// Deleting DB from databases path
@@ -127,7 +159,11 @@ class Migration {
   static Future<void> deleteFromDBPath({required String dbName}) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
-    await databaseFactory.deleteDatabase(path);
+    try {
+      await databaseFactory.deleteDatabase(path);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   /// Copying new databases

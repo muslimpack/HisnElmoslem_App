@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/models/fake_hadith_read.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
-import 'package:hisnelmoslem/models/zikr_favourite.dart';
+import 'package:hisnelmoslem/models/zikr_content_favourite.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
+import 'package:hisnelmoslem/models/zikr_title_favourite.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -95,7 +97,7 @@ class DataDatabaseHelper {
   /* ************* HisnElmoslem Titles ************* */
 
   /// Get all favourite titles
-  Future<List<DbTitle>> getAllFavoriteTitles() async {
+  Future<List<DbTitleFavourite>> getAllFavoriteTitles() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -103,8 +105,22 @@ class DataDatabaseHelper {
     );
 
     return List.generate(maps.length, (i) {
-      return DbTitle.fromMap(maps[i]);
+      return DbTitleFavourite.fromMap(maps[i]);
     });
+  }
+
+  Future<DbTitleFavourite> getFavoriteTitleById({required int titleId}) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        '''SELECT * favourite_titles WHERE title_id = ?''', [titleId]);
+
+    DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
+          return DbTitleFavourite.fromMap(maps[i]);
+        }).first ??
+        DbTitleFavourite(titleId: titleId);
+
+    return dbTitleFavourite;
   }
 
   /// Add title to favourite
@@ -130,7 +146,7 @@ class DataDatabaseHelper {
   /* ************* HisnElmoslem Contents ************* */
 
   /// Get favourite content
-  Future<List<DbFavourite>> getFavouriteContents() async {
+  Future<List<DbContentFavourite>> getFavouriteContents() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -139,7 +155,7 @@ class DataDatabaseHelper {
 
     return List.generate(maps.length, (i) {
       //TODO
-      return DbFavourite.fromMap(maps[i]);
+      return DbContentFavourite.fromMap(maps[i]);
     });
   }
 
@@ -166,26 +182,26 @@ class DataDatabaseHelper {
   /* ************* FakeHaidth Read ************* */
 
   /// Get read hadith only
-  Future<List<DbFavourite>> getReadFakeHadiths() async {
+  Future<List<DbFakeHadithRead>> getReadFakeHadiths() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db
         .rawQuery('''Select * from fake_hadith_is_read where isRead = 1''');
 
     return List.generate(maps.length, (i) {
-      return DbFavourite.fromMap(maps[i]);
+      return DbFakeHadithRead.fromMap(maps[i]);
     });
   }
 
   /// Get unread hadith only
-  Future<List<DbFavourite>> getUnreadFakeHadiths() async {
+  Future<List<DbFakeHadithRead>> getUnreadFakeHadiths() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db
         .rawQuery('''Select * from fake_hadith_is_read where isRead = 0''');
 
     return List.generate(maps.length, (i) {
-      return DbFavourite.fromMap(maps[i]);
+      return DbFakeHadithRead.fromMap(maps[i]);
     });
   }
 

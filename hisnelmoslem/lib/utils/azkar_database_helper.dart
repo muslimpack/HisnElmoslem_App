@@ -14,7 +14,7 @@ AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
 class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
-  static const String dbName = "hisn_elmoslem_database.db";
+  static const String dbName = "hisn_elmoslem.db";
   static const int dbVersion = 1;
 
   /* ************* Singelton Constractor ************* */
