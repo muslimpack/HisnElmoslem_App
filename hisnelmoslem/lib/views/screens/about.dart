@@ -42,9 +42,9 @@ class About extends StatelessWidget {
               const Divider(),
               ListTile(
                 leading: const Icon(MdiIcons.bookOpenPageVariant),
-                title: const Text("صفحات المصحف من خلال موقع tafsir.app"),
+                title: const Text("صفحات المصحف من خلال موقع android quran"),
                 onTap: () {
-                  openURL("https://tafsir.app/");
+                  openURL("https://android.quran.com/");
                 },
               ),
               const Divider(),
