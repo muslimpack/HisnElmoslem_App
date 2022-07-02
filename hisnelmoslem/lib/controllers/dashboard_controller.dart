@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
@@ -10,11 +7,9 @@ import 'package:hisnelmoslem/models/alarm.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
-import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
@@ -60,43 +55,6 @@ class DashboardController extends GetxController {
     isLoading = false;
     //
     update();
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-
-    /// Check if awesome notification is allowed
-    await awesomeNotificationManager.checkIfAllowed(Get.context!);
-
-    ///
-    AwesomeNotifications().createdStream.listen((notification) async {
-      hisnPrint("createdStream: " + notification.payload.toString());
-    });
-
-    ///
-    AwesomeNotifications().actionStream.listen((notification) async {
-      List<String> payloadsList = notification.payload!.values.toList();
-      String payload = payloadsList[0];
-      hisnPrint("actionStream: " + notification.payload.toString());
-      hisnPrint("actionStream: " + payload);
-      if ((notification.channelKey == 'in_app_notification' ||
-              notification.channelKey == 'scheduled_channel') &&
-          Platform.isIOS) {
-        await AwesomeNotifications().getGlobalBadgeCounter().then(
-          (value) async {
-            await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
-          },
-        );
-      }
-
-      if (payload.isNotEmpty) {
-        hisnPrint(payload);
-        onNotificationClick(payload);
-      } else {
-        hisnPrint("actionStream: Else");
-      }
-    });
   }
 
   //

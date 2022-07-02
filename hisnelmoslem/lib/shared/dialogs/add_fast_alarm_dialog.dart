@@ -28,10 +28,10 @@ class AddAlarmDialog extends StatefulWidget {
   const AddAlarmDialog({Key? key, required this.dbAlarm}) : super(key: key);
 
   @override
-  _AddAlarmDialogState createState() => _AddAlarmDialogState();
+  AddAlarmDialogState createState() => AddAlarmDialogState();
 }
 
-class _AddAlarmDialogState extends State<AddAlarmDialog> {
+class AddAlarmDialogState extends State<AddAlarmDialog> {
   TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;

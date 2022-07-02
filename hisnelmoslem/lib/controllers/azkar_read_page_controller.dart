@@ -95,18 +95,19 @@ class AzkarReadPageController extends GetxController {
   }
 
   decreaseCount() {
-    int _counter = zikrContent[currentPage].count;
-    if (_counter == 0) {
+    int
+    counter = zikrContent[currentPage].count;
+    if (counter == 0) {
       SoundsManagerController().playZikrDoneEffects();
     } else {
-      _counter--;
+      counter--;
 
       zikrContent[currentPage].count = ((zikrContent[currentPage].count) - 1);
 
       ///
       SoundsManagerController().playTallyEffects();
-      if (_counter > 0) {
-      } else if (_counter == 0) {
+      if (counter > 0) {
+      } else if (counter == 0) {
         ///
         SoundsManagerController().playZikrDoneEffects();
         SoundsManagerController().playTransitionEffects();

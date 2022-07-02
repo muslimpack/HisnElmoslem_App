@@ -2,7 +2,7 @@ import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/shared/functions/print.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class EmailManager {
   static const String emailOwner = "hasaneltantawy@gmail.com";
@@ -65,19 +65,7 @@ class EmailManager {
     sendEmail(
       toMailId: emailOwner,
       subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-      body: ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في'
-              '\n'
-              'الموضوع: ' +
-          subject +
-          '\n' +
-          'الذكر رقم: ' +
-          cardNumber +
-          '\n' +
-          'النص: ' +
-          text +
-          '\n' +
-          'والصواب:' +
-          '\n',
+      body: ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في\nالموضوع: $subject\nالذكر رقم: $cardNumber\nالنص: $text\nوالصواب:\n',
     );
   }
 
@@ -109,8 +97,8 @@ class EmailManager {
   }) async {
     var url = 'mailto:$toMailId?subject=$subject&body=$body';
     try {
-      if (await canLaunch(url)) {
-        await launch(url);
+      if (await canLaunchUrlString(url)) {
+        await launchUrlString(url);
       } else {
         throw 'Could not launch $url';
       }

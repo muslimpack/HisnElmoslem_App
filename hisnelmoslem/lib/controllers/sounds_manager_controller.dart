@@ -72,7 +72,7 @@ class SoundsManagerController extends GetxController {
       box.write('all_azkar_finished_vibrate', val);
 
   ///
-  final player = AudioCache();
+  final player = AudioPlayer();
 /* *************** Controller life cycle *************** */
 
   /* *************** Functions *************** */
@@ -81,18 +81,19 @@ class SoundsManagerController extends GetxController {
   /////////////////////
   /// Play Sound
 
-  simulateTallySound() {
-    player.play('sounds/tally_sound.mp3');
+  simulateTallySound() async{
+    // player.play('sounds/tally_sound.mp3');
+    await player.play(UrlSource('sounds/tally_sound.mp3'));
   }
 
-  simulateZikrDoneSound() {
-    player.play('sounds/zikr_done_sound.mp3');
+  simulateZikrDoneSound() async{
+   await player.play(UrlSource('sounds/zikr_done_sound.mp3'));
   }
 
   simulateTransitionSound() {}
 
-  simulateAllAzkarSoundFinished() {
-    player.play('sounds/all_azkar_finished_sound.mp3');
+  simulateAllAzkarSoundFinished() async{
+    await player.play(UrlSource('sounds/all_azkar_finished_sound.mp3'));
   }
 
   /////////////////////

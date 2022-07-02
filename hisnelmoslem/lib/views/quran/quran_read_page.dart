@@ -68,8 +68,7 @@ class QuranReadPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Text(
-                                      "سورة " +
-                                          controller.quranRequiredSurah!.surah,
+                                      "سورة ${controller.quranRequiredSurah!.surah}",
                                       style: const TextStyle(
                                           fontFamily: "Uthmanic")),
                                 ),

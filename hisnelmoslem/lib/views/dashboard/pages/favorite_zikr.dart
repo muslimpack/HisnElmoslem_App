@@ -95,9 +95,7 @@ class FavouriteZikr extends StatelessWidget {
                                               color: mainColor),
                                           onPressed: () {
                                             FlutterClipboard.copy(
-                                                    dbContent.content +
-                                                        "\n" +
-                                                        dbContent.fadl)
+                                                    "${dbContent.content}\n${dbContent.fadl}")
                                                 .then((result) {
                                               // Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
 
@@ -116,9 +114,7 @@ class FavouriteZikr extends StatelessWidget {
                                           icon: Icon(Icons.share,
                                               color: mainColor),
                                           onPressed: () {
-                                            Share.share(dbContent.content +
-                                                "\n" +
-                                                dbContent.fadl);
+                                            Share.share("${dbContent.content}\n${dbContent.fadl}");
                                           }),
                                     ),
                                     Expanded(

@@ -28,7 +28,7 @@ class AppUpdateNews extends StatelessWidget {
                 color: index == 0 ? mainColor : null,
               ),
               title: Text(index == 0
-                  ? "الإصدار الحالي: " + updateNewFeature[index][0]
+                  ? "الإصدار الحالي: ${updateNewFeature[index][0]}"
                   : updateNewFeature[index][0]),
               subtitle: Text(updateNewFeature[index][1]),
               onTap: () {},

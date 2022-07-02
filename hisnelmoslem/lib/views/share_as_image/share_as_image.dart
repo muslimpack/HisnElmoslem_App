@@ -38,6 +38,8 @@ class ShareAsImage extends StatelessWidget {
                 ),
               ],
               bottom: PreferredSize(
+                  preferredSize:
+                      Size.fromHeight(!controller.isLoading ? 0 : 20),
                   child: !controller.isLoading
                       ? const SizedBox()
                       : LinearProgressIndicator(
@@ -45,9 +47,7 @@ class ShareAsImage extends StatelessWidget {
                               Theme.of(context).scaffoldBackgroundColor,
                           color: mainColor,
                           minHeight: 15,
-                        ),
-                  preferredSize:
-                      Size.fromHeight(!controller.isLoading ? 0 : 20)),
+                        )),
             ),
             body: GestureDetector(
               onDoubleTap: () {

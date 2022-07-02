@@ -40,9 +40,9 @@ class RearrangeDashboardPageController extends GetxController {
     if (listArrangeString == "") {
       list = [0, 1, 2];
     } else {
-      String _list = listArrangeString.replaceAll('[', '').replaceAll(']', '');
+      String tempList = listArrangeString.replaceAll('[', '').replaceAll(']', '');
       list.clear();
-      list.addAll(_list.split(",").map<int>((e) => int.parse(e)).toList());
+      list.addAll(tempList.split(",").map<int>((e) => int.parse(e)).toList());
     }
 
     return list;

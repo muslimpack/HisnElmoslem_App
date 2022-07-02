@@ -125,7 +125,7 @@ class AzkarReadPage extends StatelessWidget {
                                       padding: const EdgeInsets.all(0),
                                       icon: Icon(Icons.share, color: mainColor),
                                       onPressed: () {
-                                        Share.share(text! + "\n" + fadl!);
+                                        Share.share("${text!}\n${fadl!}");
                                       }),
                                 ),
                                 Expanded(
@@ -272,7 +272,7 @@ class AzkarReadPage extends StatelessWidget {
                               padding: const EdgeInsets.all(0),
                               icon: Icon(Icons.copy, color: mainColor),
                               onPressed: () {
-                                FlutterClipboard.copy(text! + "\n" + fadl!)
+                                FlutterClipboard.copy("${text!}\n${fadl!}")
                                     .then((result) {
                                   final snackBar = SnackBar(
                                     content: const Text('تم النسخ إلى الحافظة'),

@@ -73,7 +73,7 @@ class HadithCard extends StatelessWidget {
                       ),
                       onPressed: () {
                         FlutterClipboard.copy(
-                                fakeHaith.text + "\n" + fakeHaith.darga)
+                                "${fakeHaith.text}\n${fakeHaith.darga}")
                             .then((result) {
                           final snackBar = SnackBar(
                             content: const Text('تم النسخ إلى الحافظة'),
@@ -94,7 +94,7 @@ class HadithCard extends StatelessWidget {
                       padding: const EdgeInsets.all(0),
                       icon: Icon(Icons.share, color: mainColor),
                       onPressed: () {
-                        Share.share(fakeHaith.text + "\n" + fakeHaith.darga);
+                        Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
                       }),
                 ),
                 Expanded(

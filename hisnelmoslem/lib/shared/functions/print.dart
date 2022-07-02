@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 
 void hisnPrint(Object? object) {
   if (kDebugMode) {
-    print(stylizeText(text: "[HISN ELMOSLEM] " + object!.toString()));
+    print(stylizeText(text: "[HISN ELMOSLEM] ${object!}"));
   }
 }
 
 String? stylizeText({required String? text}) {
-  return "\x1B[32m" + text!;
+  return "\x1B[32m${text!}";
 }
 
 // Black:   \x1B[30m

@@ -61,20 +61,20 @@ class AzkarReadCard extends StatelessWidget {
                         String source = controller.zikrContent[index].source;
                         String fadl = controller.zikrContent[index].fadl;
                         int cardnum = index + 1;
-                        int _counter = controller.zikrContent[index].count;
+                        int counter = controller.zikrContent[index].count;
                         return InkWell(
                           onTap: () {
-                            if (_counter > 0) {
-                              _counter--;
+                            if (counter > 0) {
+                              counter--;
 
-                              controller.zikrContent[index].count = (_counter);
+                              controller.zikrContent[index].count = (counter);
 
                               ///
                               SoundsManagerController().playTallyEffects();
-                              if (_counter == 0) {
+                              if (counter == 0) {
                                 SoundsManagerController().playZikrDoneEffects();
-                              } else if (_counter < 0) {
-                                _counter = 0;
+                              } else if (counter < 0) {
+                                counter = 0;
                               }
                             }
 
@@ -170,7 +170,7 @@ class AzkarReadCard extends StatelessWidget {
                                               color: mainColor),
                                           onPressed: () {
                                             FlutterClipboard.copy(
-                                                    text + "\n" + fadl)
+                                                    "$text\n$fadl")
                                                 .then((result) {
                                               final snackBar = SnackBar(
                                                 content: const Text(
@@ -193,7 +193,7 @@ class AzkarReadCard extends StatelessWidget {
                                           icon: Icon(Icons.share,
                                               color: mainColor),
                                           onPressed: () {
-                                            Share.share(text + "\n" + fadl);
+                                            Share.share("$text\n$fadl");
                                           }),
                                     ),
                                     Expanded(

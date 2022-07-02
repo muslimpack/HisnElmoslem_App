@@ -91,7 +91,7 @@ class Migration {
         await azkarDatabaseHelper.addContentToFavourite(dbContent: contents[i]);
       }
     } catch (e) {
-      hisnPrint("content error: " + e.toString());
+      hisnPrint("content error: $e");
     }
   }
 
@@ -115,7 +115,7 @@ class Migration {
         await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
       }
     } catch (e) {
-      hisnPrint("Title error: " + e.toString());
+      hisnPrint("Title error: $e");
     }
   }
 
@@ -146,7 +146,7 @@ class Migration {
         }
       }
     } catch (e) {
-      hisnPrint("FakeHadith error: " + e.toString());
+      hisnPrint("FakeHadith error: $e");
     }
   }
 

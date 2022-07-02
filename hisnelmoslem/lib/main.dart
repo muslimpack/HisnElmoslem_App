@@ -1,7 +1,15 @@
+import 'dart:io';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
+import 'package:hisnelmoslem/controllers/quran_controller.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
@@ -9,8 +17,11 @@ import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/utils/migration/migration.dart';
 import 'package:hisnelmoslem/utils/notification_manager.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
 import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
+import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
 import 'package:intl/intl.dart';
 import 'themes/theme_services.dart';
 import 'utils/azkar_database_helper.dart';
@@ -59,19 +70,81 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      /// Check if awesome notification is allowed
+      await awesomeNotificationManager.checkIfAllowed(Get.context!);
+    });
+
+    ///
+    AwesomeNotifications().createdStream.listen((notification) async {
+      hisnPrint("createdStream: ${notification.payload}");
+    });
+
+    ///
+    AwesomeNotifications().actionStream.listen((notification) async {
+      List<String> payloadsList = notification.payload!.values.toList();
+      String payload = payloadsList[0];
+      hisnPrint("actionStream: ${notification.payload}");
+      hisnPrint("actionStream: $payload");
+      if ((notification.channelKey == 'in_app_notification' ||
+              notification.channelKey == 'scheduled_channel') &&
+          Platform.isIOS) {
+        await AwesomeNotifications().getGlobalBadgeCounter().then(
+          (value) async {
+            await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
+          },
+        );
+      }
+
+      if (payload.isNotEmpty) {
+        hisnPrint(payload);
+        onNotificationClick(payload);
+      } else {
+        hisnPrint("actionStream: Else");
+      }
+    });
 
     setState(() {
       isLoading = false;
     });
+  }
+
+  ///
+  onNotificationClick(String payload) {
+    /// go to quran page if clicked
+    if (payload == "الكهف") {
+      transitionAnimation.fromBottom2Top(
+          context: Get.context!,
+          goToPage: const QuranReadPage(
+            surahName: SurahNameEnum.alKahf,
+          ));
+    }
+
+    /// ignore constant alarms if clicked
+    else if (payload == "555" || payload == "666") {
+    }
+
+    /// go to zikr page if clicked
+    else {
+      int? pageIndex = int.parse(payload);
+      //
+      if (appData.isCardReadMode) {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
+      } else {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+      }
+    }
   }
 
   @override
@@ -93,6 +166,11 @@ class _MyAppState extends State<MyApp> {
 
     return GetMaterialApp(
       locale: const Locale('ar'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
       title: 'حصن المسلم',
       theme: ThemeServices.getTheme(),

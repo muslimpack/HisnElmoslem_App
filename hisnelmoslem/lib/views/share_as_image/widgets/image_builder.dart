@@ -16,9 +16,9 @@ class ImageBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     DashboardController dashboardController = Get.put(DashboardController());
     return GetBuilder<ShareAsImageController>(builder: (controller) {
-      String _titleWithIndex =
+      String titleWithIndex =
           "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
-      String _titleWithoutIndex =
+      String titleWithoutIndex =
           dashboardController.allTitle[dbContent.titleId - 1].name;
       return Center(
         child: SizedBox(
@@ -33,8 +33,8 @@ class ImageBuilder extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Text(
                     controller.showZikrIndex
-                        ? _titleWithIndex
-                        : _titleWithoutIndex,
+                        ? titleWithIndex
+                        : titleWithoutIndex,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,

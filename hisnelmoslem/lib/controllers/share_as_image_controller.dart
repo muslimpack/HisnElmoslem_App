@@ -223,9 +223,9 @@ class ShareAsImageController extends GetxController {
           initialValue: imageWidth.toString(),
           onSubmit: (width) async {
             try {
-              int _width = 0;
-              _width = int.tryParse(width)!;
-              updateImageWidth(value: _width);
+              int tempWidth = 0;
+              tempWidth = int.tryParse(width)!;
+              updateImageWidth(value: tempWidth);
             } catch (e) {
               updateImageWidth(value: imageWidth);
             }
@@ -237,22 +237,22 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   void fitImageToScreen() {
-    double _screenWidth = MediaQuery.of(Get.context!).size.width;
+    double screenWidth = MediaQuery.of(Get.context!).size.width;
     // double _screenHeight = MediaQuery.of(Get.context!).size.height;
-    double _scale = 0;
-    _scale = _screenWidth / imageWidth;
+    double scale = 0;
+    scale = screenWidth / imageWidth;
 
     /// create fitMatrix
-    Matrix4 _fitMatrix = Matrix4.diagonal3Values(_scale, _scale, _scale);
+    Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);
 
     /// set x
-    _fitMatrix[12] = 0;
+    fitMatrix[12] = 0;
 
     /// set y
     /// center vertically
     // _fitMatrix[13] = _screenHeight / 4;
 
     /// set fitMatrix to transformation
-    transformationController.value = _fitMatrix;
+    transformationController.value = fitMatrix;
   }
 }

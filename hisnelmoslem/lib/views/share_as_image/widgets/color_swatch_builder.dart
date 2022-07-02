@@ -29,9 +29,9 @@ class ColorSwatchBuilder extends StatelessWidget {
 
     bool isPickedColor = false;
     isPickedColor = checkIfColorIsPicked();
-    Color _tempColor = colorToTrack;
+    Color tempColor = colorToTrack;
     void changeColor(Color color) {
-      _tempColor = color;
+      tempColor = color;
     }
 
     return SizedBox(
@@ -70,7 +70,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                                 ListTile(
                                   tileColor: mainColor,
                                   onTap: () {
-                                    apply(_tempColor);
+                                    apply(tempColor);
                                     Navigator.pop(context);
                                   },
                                   title: const Text(

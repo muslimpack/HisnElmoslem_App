@@ -30,7 +30,7 @@ class About extends StatelessWidget {
                   'assets/images/app_icon.png',
                   scale: 3,
                 ),
-                title: const Text("تطبيق حصن المسلم الإصدار " + appVersion),
+                title: const Text("تطبيق حصن المسلم الإصدار $appVersion"),
                 subtitle:
                     const Text("تطبيق مجاني خالي من الإعلانات ومفتوح المصدر"),
               ),
