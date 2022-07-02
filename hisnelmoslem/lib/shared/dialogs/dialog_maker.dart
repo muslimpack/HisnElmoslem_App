@@ -3,6 +3,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_remover.dart';
 
 class DialogMaker extends StatelessWidget {
+  final double height;
   final Widget header;
   final List<Widget> content;
   final Widget footer;
@@ -14,6 +15,7 @@ class DialogMaker extends StatelessWidget {
     required this.footer,
     this.contentPadding =
         const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -21,41 +23,45 @@ class DialogMaker extends StatelessWidget {
     return AlertDialog(
       backgroundColor: transparent,
       contentPadding: EdgeInsets.zero,
-      content: Card(
-        clipBehavior: Clip.hardEdge,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        ),
-        margin: const EdgeInsets.all(0.0),
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            /// Header
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: header,
-            ),
-            const Divider(),
+      content: SizedBox(
+        height: height,
+        width: 350.0,
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          margin: const EdgeInsets.all(0.0),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /// Header
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: header,
+              ),
+              const Divider(),
 
-            /// Content
-            Flexible(
-              child: Padding(
-                padding: contentPadding,
-                child: ScrollGlowRemover(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: content,
+              /// Content
+              Flexible(
+                child: Padding(
+                  padding: contentPadding,
+                  child: ScrollGlowRemover(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      children: content,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            /// Footer
-            const Divider(),
-            footer,
-          ],
+              /// Footer
+              const Divider(),
+              footer,
+            ],
+          ),
         ),
       ),
     );

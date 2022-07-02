@@ -17,6 +17,7 @@ class AddTallyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogMaker(
+      height: 400,
       header: Text(
         "إضافة  عداد جديد",
         style: TextStyle(

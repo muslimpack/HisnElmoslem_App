@@ -37,7 +37,7 @@ class UserTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: const BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.circular(10.0),
             ),
             contentPadding:

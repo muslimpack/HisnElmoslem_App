@@ -17,6 +17,7 @@ class ImageWidthDialog extends StatelessWidget {
     TextEditingController widthController =
         TextEditingController(text: initialValue);
     return DialogMaker(
+      height: 270,
       header: Text(
         "تعديل عرض الصورة",
         style: TextStyle(
