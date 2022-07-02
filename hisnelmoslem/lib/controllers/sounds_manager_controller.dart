@@ -81,19 +81,19 @@ class SoundsManagerController extends GetxController {
   /////////////////////
   /// Play Sound
 
-  simulateTallySound() async{
+  simulateTallySound() async {
     // player.play('sounds/tally_sound.mp3');
-    await player.play(UrlSource('sounds/tally_sound.mp3'));
+    await player.play(AssetSource('sounds/tally_sound.mp3'));
   }
 
-  simulateZikrDoneSound() async{
-   await player.play(UrlSource('sounds/zikr_done_sound.mp3'));
+  simulateZikrDoneSound() async {
+    await player.play(AssetSource('sounds/zikr_done_sound.mp3'));
   }
 
   simulateTransitionSound() {}
 
-  simulateAllAzkarSoundFinished() async{
-    await player.play(UrlSource('sounds/all_azkar_finished_sound.mp3'));
+  simulateAllAzkarSoundFinished() async {
+    await player.play(AssetSource('sounds/all_azkar_finished_sound.mp3'));
   }
 
   /////////////////////
