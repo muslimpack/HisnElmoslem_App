@@ -196,51 +196,62 @@ class _AddAlarmDialogState extends State<AddAlarmDialog> {
             ),
           )),
       actions: [
-        ListTile(
-          title: const Text(
-            "تم",
-            textAlign: TextAlign.center,
-          ),
-          onTap: () {
-            setState(() {
-              if (selectedHour != null) {
-                DbAlarm updateAlarm = DbAlarm(
-                  titleId: widget.dbAlarm.id,
-                  id: widget.dbAlarm.id,
-                  title: widget.dbAlarm.title,
-                  body: bodyController.text,
-                  hour: selectedHour!,
-                  hasAlarmInside: true,
-                  minute: selectedMinute!,
-                  repeatType: HandleRepeatType()
-                      .getNameToPutInDatabase(chosenValue: repeatType),
-                  isActive: widget.dbAlarm.isActive,
-                );
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    "تم",
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      if (selectedHour != null) {
+                        DbAlarm updateAlarm = DbAlarm(
+                          titleId: widget.dbAlarm.id,
+                          id: widget.dbAlarm.id,
+                          title: widget.dbAlarm.title,
+                          body: bodyController.text,
+                          hour: selectedHour!,
+                          hasAlarmInside: true,
+                          minute: selectedMinute!,
+                          repeatType: HandleRepeatType()
+                              .getNameToPutInDatabase(chosenValue: repeatType),
+                          isActive: widget.dbAlarm.isActive,
+                        );
 
-                alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
-                alarmManager.alarmState(dbAlarm: updateAlarm);
-                Navigator.pop(context, updateAlarm);
-              } else {
-                showToast(msg: "اختر وقتا للتذكير");
-              }
-            });
-          },
-        ),
-        ListTile(
-          title: const Text(
-            "اغلاق",
-            textAlign: TextAlign.center,
-          ),
-          onTap: () {
-            Navigator.pop(
-              context,
-              DbAlarm(
-                id: widget.dbAlarm.id,
-                titleId: widget.dbAlarm.titleId,
+                        alarmDatabaseHelper.updateAlarmInfo(
+                            dbAlarm: updateAlarm);
+                        alarmManager.alarmState(dbAlarm: updateAlarm);
+                        Navigator.pop(context, updateAlarm);
+                      } else {
+                        showToast(msg: "اختر وقتا للتذكير");
+                      }
+                    });
+                  },
+                ),
               ),
-            );
-          },
-        ),
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    "إغلاق",
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () {
+                    Navigator.pop(
+                      context,
+                      DbAlarm(
+                        id: widget.dbAlarm.id,
+                        titleId: widget.dbAlarm.titleId,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

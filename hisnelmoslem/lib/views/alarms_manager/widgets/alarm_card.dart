@@ -36,15 +36,25 @@ class AlarmCard extends StatelessWidget {
                           name: dbAlarm.body,
                           color: brwon,
                         ),
-                  RoundTagCard(
-                    name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
-                    color: green,
-                  ),
-                  RoundTagCard(
-                    name: HandleRepeatType()
-                        .getNameToUser(chosenValue: dbAlarm.repeatType),
-                    color: yellow,
-                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: RoundTagCard(
+                            name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
+                            color: green,
+                          ),
+                        ),
+                        Expanded(
+                          child: RoundTagCard(
+                            name: HandleRepeatType()
+                                .getNameToUser(chosenValue: dbAlarm.repeatType),
+                            color: yellow,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
               isThreeLine: true,
