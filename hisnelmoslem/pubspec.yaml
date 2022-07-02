@@ -43,6 +43,7 @@ dependencies:
   vibration: ^1.7.4-nullsafety.0
   flutter_native_splash: ^2.1.6
   awesome_notifications: ^0.6.21
+  timelines: ^0.1.0
 
 dev_dependencies:
   flutter_test:
