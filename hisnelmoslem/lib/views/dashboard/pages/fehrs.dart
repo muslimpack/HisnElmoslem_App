@@ -39,6 +39,7 @@ class AzkarFehrs extends StatelessWidget {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return TitleCard(
+                                  index: index,
                                   fehrsTitle: titleListToDisplay[index],
                                   dbAlarm: snapshot.data as DbAlarm,
                                 );

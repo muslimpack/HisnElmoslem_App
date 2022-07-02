@@ -37,6 +37,7 @@ class AzkarBookmarks extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return TitleCard(
+                                index: index,
                                 fehrsTitle: controller.favouriteTitle[index],
                                 dbAlarm: snapshot.data as DbAlarm,
                               );

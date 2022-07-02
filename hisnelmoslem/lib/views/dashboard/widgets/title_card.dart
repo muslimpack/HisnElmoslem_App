@@ -14,15 +14,21 @@ import '../../../controllers/app_data_controllers.dart';
 import '../../../shared/constants/constant.dart';
 
 class TitleCard extends StatelessWidget {
+  final int index;
   final DbTitle fehrsTitle;
   final DbAlarm dbAlarm;
-  const TitleCard({Key? key, required this.fehrsTitle, required this.dbAlarm})
+  const TitleCard(
+      {Key? key,
+      required this.fehrsTitle,
+      required this.dbAlarm,
+      required this.index})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: (controller) {
       DbAlarm tempAlarm = dbAlarm;
       return ListTile(
+        tileColor: index % 2 != 0 ? mainColor.withOpacity(.05) : null,
         leading: fehrsTitle.favourite
             ? IconButton(
                 icon: Icon(
