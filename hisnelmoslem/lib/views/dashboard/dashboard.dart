@@ -53,45 +53,38 @@ class MainScreen extends StatelessWidget {
     return DefaultTabController(
       length: appDashboardItem.length,
       child: Scaffold(
-          body: ScrollGlowRemover(
-            child: NestedScrollView(
-              floatHeaderSlivers: true,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return [
-                  ScreenAppBar(controller: controller),
-                ];
-              },
-              body: ScrollGlowCustom(
-                axisDirection: AxisDirection.right,
-                child: GetBuilder<RearrangeDashboardPageController>(
-                    init: RearrangeDashboardPageController(),
-                    builder: (rearrangeController) {
-                      return TabBarView(
-                        // controller: tabController,
-                        children: [
-                          ...List.generate(
-                            appDashboardItem.length,
-                            (index) {
-                              return appDashboardItem[
-                                      rearrangeController.list[index]]
-                                  .widget;
-                            },
-                          ),
-                        ],
-                      );
-                    }),
-              ),
+        body: ScrollGlowRemover(
+          child: NestedScrollView(
+            floatHeaderSlivers: true,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                ScreenAppBar(controller: controller),
+              ];
+            },
+            body: ScrollGlowCustom(
+              axisDirection: AxisDirection.right,
+              child: GetBuilder<RearrangeDashboardPageController>(
+                  init: RearrangeDashboardPageController(),
+                  builder: (rearrangeController) {
+                    return TabBarView(
+                      // controller: tabController,
+                      children: [
+                        ...List.generate(
+                          appDashboardItem.length,
+                          (index) {
+                            return appDashboardItem[
+                                    rearrangeController.list[index]]
+                                .widget;
+                          },
+                        ),
+                      ],
+                    );
+                  }),
             ),
           ),
-          bottomNavigationBar: Card(
-            child: ListTile(onTap: () {
-              awesomeNotificationManager.showCustomNotification(
-                title: "title",
-                payload: "29",
-              );
-            }),
-          )),
+        ),
+      ),
     );
   }
 }
