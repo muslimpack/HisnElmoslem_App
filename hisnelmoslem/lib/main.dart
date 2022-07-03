@@ -1,12 +1,8 @@
-import 'dart:io';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
@@ -41,39 +37,6 @@ void main() async {
   await awesomeNotificationManager.appOpenNotification();
   await alarmManager.checkAllAlarmsInDb();
 
-  WidgetsBinding.instance.addPostFrameCallback((_) async {
-    /// Check if awesome notification is allowed
-    await awesomeNotificationManager.checkIfAllowed(Get.context!);
-
-    ///
-    AwesomeNotifications().createdStream.listen((notification) async {
-      hisnPrint("createdStream: ${notification.payload}");
-    });
-
-    ///
-    AwesomeNotifications().actionStream.listen((notification) async {
-      List<String> payloadsList = notification.payload!.values.toList();
-      String payload = payloadsList[0];
-      hisnPrint("actionStream: ${notification.payload}");
-      hisnPrint("actionStream: $payload");
-      bool channelCheck = notification.channelKey == 'in_app_notification' ||
-          notification.channelKey == 'scheduled_channel';
-      if (channelCheck && Platform.isIOS) {
-        await AwesomeNotifications().getGlobalBadgeCounter().then(
-          (value) async {
-            await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
-          },
-        );
-      }
-
-      if (payload.isNotEmpty) {
-        awesomeNotificationManager.onNotificationClick(payload);
-      } else {
-        hisnPrint("actionStream: Else");
-      }
-    });
-  });
-
   /// Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -102,6 +65,12 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    awesomeNotificationManager.listen();
+  }
+
   @override
   void dispose() async {
     //Close databases

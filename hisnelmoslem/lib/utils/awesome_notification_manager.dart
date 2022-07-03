@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/controllers/quran_controller.dart';
+import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
 import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
@@ -58,7 +60,10 @@ class AwesomeNotificationManager {
 
   Future<void> init() async {
     await AwesomeNotifications().initialize(
-      'resource://drawable/notification_app_icon',
+      /// using null here mean it will use app icon for notification icon
+      /// If u want use custom one replace null with below
+      /// 'resource://drawable/res_app_icon',
+      null,
       [
         NotificationChannel(
           channelKey: 'in_app_notification',
@@ -83,6 +88,49 @@ class AwesomeNotificationManager {
       ],
       debug: true,
     );
+  }
+
+  void listen() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      /// Check if awesome notification is allowed
+      await awesomeNotificationManager.checkIfAllowed(Get.context!);
+
+      ///
+      AwesomeNotifications()
+          .createdStream
+          .listen((ReceivedNotification receivedNotification) async {
+        List<String> payloadsList =
+            receivedNotification.payload!.values.toList();
+        String payload = payloadsList[0];
+        hisnPrint("createdStream: $payload");
+      });
+
+      ///
+      AwesomeNotifications()
+          .actionStream
+          .listen((ReceivedNotification receivedNotification) async {
+        List<String> payloadsList =
+            receivedNotification.payload!.values.toList();
+        String payload = payloadsList[0];
+        hisnPrint("actionStream: $payload");
+        bool channelCheck =
+            receivedNotification.channelKey == 'in_app_notification' ||
+                receivedNotification.channelKey == 'scheduled_channel';
+        if (channelCheck && Platform.isIOS) {
+          await AwesomeNotifications().getGlobalBadgeCounter().then(
+            (value) async {
+              await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
+            },
+          );
+        }
+
+        if (payload.isNotEmpty) {
+          onNotificationClick(payload);
+        } else {
+          hisnPrint("actionStream: Else");
+        }
+      });
+    });
   }
 
   Future<void> cancelAllNotifications() async {
@@ -112,6 +160,17 @@ class AwesomeNotificationManager {
         payload: {'Open': payload},
         fullScreenIntent: true,
       ),
+      actionButtons: [
+        NotificationActionButton(
+          key: 'Dismiss',
+          label: 'تفويت',
+          buttonType: ActionButtonType.DisabledAction,
+        ),
+        NotificationActionButton(
+          key: 'Start',
+          label: 'الشروع في الذكر',
+        ),
+      ],
     );
   }
 
