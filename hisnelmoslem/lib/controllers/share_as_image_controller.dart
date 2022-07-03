@@ -109,8 +109,6 @@ class ShareAsImageController extends GetxController {
   /* *************** Functions *************** */
 
   updateTextColor(Color color) async {
-    hisnPrint(color.toString());
-    hisnPrint(Color(color.value).value.toString());
     await box.write(bodyTextColorBoxKey, color.value);
     update();
   }

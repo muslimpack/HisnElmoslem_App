@@ -1,6 +1,13 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
+import 'package:hisnelmoslem/controllers/quran_controller.dart';
+import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_card.dart';
+import 'package:hisnelmoslem/views/azkar/azkar_read_page.dart';
+import 'package:hisnelmoslem/views/quran/quran_read_page.dart';
 
 AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();
@@ -17,7 +24,7 @@ class AwesomeNotificationManager {
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               title: const Text('هل تريد السماح بتشغيل الإشعارات؟'),
               content: const Text(
-                  'التطبيق يحتاج إلى أخذ إذن بتشغيل الإشعارات لتعمل معك التنبيهات بشكل سليم'),
+                  'التطبيق يحتاج إلى أخذ الإذن لتشغيل الإشعارات لتعمل معك التنبيهات بشكل سليم'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -74,6 +81,7 @@ class AwesomeNotificationManager {
           playSound: true,
         ),
       ],
+      debug: true,
     );
   }
 
@@ -101,7 +109,8 @@ class AwesomeNotificationManager {
         title: title,
         body: body,
         notificationLayout: NotificationLayout.BigText,
-        payload: {'payload': payload},
+        payload: {'Open': payload},
+        fullScreenIntent: true,
       ),
     );
   }
@@ -229,6 +238,35 @@ class AwesomeNotificationManager {
               ),
             ],
     );
+  }
+
+  ///
+  onNotificationClick(String payload) {
+    /// go to quran page if clicked
+    if (payload == "الكهف") {
+      transitionAnimation.fromBottom2Top(
+          context: Get.context!,
+          goToPage: const QuranReadPage(
+            surahName: SurahNameEnum.alKahf,
+          ));
+    }
+
+    /// ignore constant alarms if clicked
+    else if (payload == "555" || payload == "666") {
+    }
+
+    /// go to zikr page if clicked
+    else {
+      int? pageIndex = int.parse(payload);
+      //
+      if (appData.isCardReadMode) {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
+      } else {
+        transitionAnimation.fromBottom2Top(
+            context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+      }
+    }
   }
 
   void dispose() {

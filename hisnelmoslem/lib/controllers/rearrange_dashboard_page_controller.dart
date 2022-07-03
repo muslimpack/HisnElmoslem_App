@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/shared/functions/print.dart';
 
 class RearrangeDashboardPageController extends GetxController {
   /* *************** Variables *************** */
@@ -40,7 +39,8 @@ class RearrangeDashboardPageController extends GetxController {
     if (listArrangeString == "") {
       list = [0, 1, 2];
     } else {
-      String tempList = listArrangeString.replaceAll('[', '').replaceAll(']', '');
+      String tempList =
+          listArrangeString.replaceAll('[', '').replaceAll(']', '');
       list.clear();
       list.addAll(tempList.split(",").map<int>((e) => int.parse(e)).toList());
     }
@@ -56,7 +56,6 @@ class RearrangeDashboardPageController extends GetxController {
     list.insert(newIndex, item);
     changeListArrange(list.toString());
     buildListFromString();
-    hisnPrint(list.toString());
     update();
   }
 }

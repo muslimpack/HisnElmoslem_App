@@ -17,7 +17,6 @@ class AlarmManager {
       if (showMsg) {
         getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
       }
-      hisnPrint(dbAlarm.repeatType);
       switch (dbAlarm.repeatType) {
         case "Daily":
           await awesomeNotificationManager.addCustomDailyReminder(

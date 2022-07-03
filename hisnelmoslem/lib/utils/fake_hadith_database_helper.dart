@@ -153,14 +153,12 @@ class FakeHadithDatabaseHelper {
 
   // Mark haduth as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
-    hisnPrint("markFakeHadithAs Read");
     await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Mark hadith as unread
   Future<void> markFakeHadithAsUnRead(
       {required DbFakeHaith dbFakeHaith}) async {
-    hisnPrint("markFakeHadithAs Unread");
     await dataDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: dbFakeHaith);
   }
 

@@ -139,7 +139,6 @@ class AzkarDatabaseHelper {
     List<DbTitle> titles = [];
     await dataDatabaseHelper.getAllFavoriteTitles().then((value) async {
       for (var i = 0; i < value.length; i++) {
-        hisnPrint(value.length.toString());
         await getTitleById(id: value[i].titleId).then((title) {
           titles.add(title);
         });
