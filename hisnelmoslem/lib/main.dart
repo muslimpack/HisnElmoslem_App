@@ -86,7 +86,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // TODO to be deleted in next update 01
     final box = GetStorage();
-    final openOnBoard = box.read('is_v2.0_first_open') ?? true;
+    final openOnBoard = box.read('is_v2.1_first_open') ?? true;
 
     return GetMaterialApp(
       locale: const Locale('ar'),

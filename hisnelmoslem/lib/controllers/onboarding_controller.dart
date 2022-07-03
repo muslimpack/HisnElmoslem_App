@@ -29,7 +29,7 @@ class OnBoardingController extends GetxController {
   //
   final pageList = [
     const Empty(
-      title: "حصن المسلم الإصدار 2.0.0",
+      title: "حصن المسلم الإصدار 2.1.0",
       description: '''
 أهلا بك أيها الكريم في هذا الإصدار الجديد من حصن المسلم 
 قم بتقليب الصفحات
@@ -128,7 +128,7 @@ class OnBoardingController extends GetxController {
   /// and set app fisrt open to false
   goToDashboard() {
     final box = GetStorage();
-    box.write("is_v2.0_first_open", false);
+    box.write("is_v2.1_first_open", false);
     transitionAnimation.circleRevalPushReplacement(
         context: Get.context!, goToPage: const AzkarDashboard());
   }
