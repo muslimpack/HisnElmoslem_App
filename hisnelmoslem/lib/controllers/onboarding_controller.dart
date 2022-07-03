@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import '../shared/transition_animation/transition_animation.dart';
 import '../shared/widgets/empty.dart';
 import '../views/dashboard/dashboard.dart';
@@ -12,14 +13,19 @@ class OnBoardingController extends GetxController {
   /* *************** Variables *************** */
   //
   PageController pageController = PageController(initialPage: 0);
+
   //
   bool get isFinalPage => currentPageIndex + 1 == pageList.length;
+
   // show skip button
   bool get showSkipBtn => false;
+
   //
   int currentPageIndex = 0;
+
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
+
   //
   final pageList = [
     const Empty(
@@ -117,6 +123,7 @@ class OnBoardingController extends GetxController {
   }
 
   /* *************** Functions *************** */
+
   /// Go to dashboard
   /// and set app fisrt open to false
   goToDashboard() {

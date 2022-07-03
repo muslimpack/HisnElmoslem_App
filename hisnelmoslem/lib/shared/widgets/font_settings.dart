@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import '../../controllers/app_data_controllers.dart';
 import '../constants/constant.dart';
 
@@ -8,6 +9,7 @@ class FontSettingsToolbox extends StatelessWidget {
   final GetxController controllerToUpdate;
   final bool showFontResizeControllers;
   final bool showTashkelControllers;
+
   const FontSettingsToolbox({
     Key? key,
     required this.controllerToUpdate,
@@ -74,10 +76,12 @@ class FontSettingsToolbox extends StatelessWidget {
 
 class TextSample extends StatelessWidget {
   final GetxController controllerToUpdate;
+
   const TextSample({Key? key, required this.controllerToUpdate})
       : super(key: key);
   static String text =
       "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

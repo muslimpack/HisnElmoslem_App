@@ -8,8 +8,10 @@ import 'package:intl/intl.dart';
 
 class TallyCard extends StatelessWidget {
   final DbTally dbTally;
+
   TallyCard({Key? key, required this.dbTally}) : super(key: key);
   final TallyController tallyController = Get.put(TallyController());
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting("ar");

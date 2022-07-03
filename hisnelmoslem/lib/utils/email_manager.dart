@@ -65,7 +65,8 @@ class EmailManager {
     sendEmail(
       toMailId: emailOwner,
       subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-      body: ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في\nالموضوع: $subject\nالذكر رقم: $cardNumber\nالنص: $text\nوالصواب:\n',
+      body:
+          ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في\nالموضوع: $subject\nالذكر رقم: $cardNumber\nالنص: $text\nوالصواب:\n',
     );
   }
 

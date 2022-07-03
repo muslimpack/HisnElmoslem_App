@@ -4,12 +4,14 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
+
 import 'sounds_manager_controller.dart';
 
 class AzkarReadCardController extends GetxController {
   /* *************** Constractor *************** */
   //
   final int index;
+
   AzkarReadCardController({required this.index});
 
   /* *************** Variables *************** */
@@ -17,9 +19,11 @@ class AzkarReadCardController extends GetxController {
   final vReadScaffoldKey = GlobalKey<ScaffoldState>();
   bool? isLoading = true;
   double? totalProgress = 0.0;
+
   //
   List<DbContent> zikrContent = <DbContent>[];
   DbTitle? zikrTitle;
+
   //
 
   /* *************** Controller life cycle *************** */

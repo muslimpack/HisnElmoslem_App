@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
@@ -10,7 +12,6 @@ import 'package:hisnelmoslem/utils/migration/azkar_old_db.dart';
 import 'package:hisnelmoslem/utils/migration/fake_hadith_old_db.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:async';
 
 class Migration {
   /* ************* Database Creation ************* */

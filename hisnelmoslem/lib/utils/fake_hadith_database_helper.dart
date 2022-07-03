@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/models/fake_haith.dart';
 import 'package:hisnelmoslem/shared/functions/print.dart';
 import 'package:hisnelmoslem/utils/data_database_helper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:async';
 
 FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
 
@@ -88,6 +89,7 @@ class FakeHadithDatabaseHelper {
   }
 
   /* ************* Functions ************* */
+
   /// Get all hadith from database
   Future<List<DbFakeHaith>> getAllFakeHadiths() async {
     final Database db = await database;

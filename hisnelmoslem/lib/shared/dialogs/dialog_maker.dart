@@ -8,6 +8,7 @@ class DialogMaker extends StatelessWidget {
   final List<Widget> content;
   final Widget footer;
   final EdgeInsetsGeometry contentPadding;
+
   const DialogMaker({
     Key? key,
     required this.header,

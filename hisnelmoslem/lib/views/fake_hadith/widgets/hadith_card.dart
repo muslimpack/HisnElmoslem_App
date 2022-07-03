@@ -11,6 +11,7 @@ import '../../../shared/constants/constant.dart';
 
 class HadithCard extends StatelessWidget {
   final DbFakeHaith fakeHaith;
+
   // final double fontSize;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -24,6 +25,7 @@ class HadithCard extends StatelessWidget {
 
   final FakeHadithController fakeHadithController =
       Get.put(FakeHadithController());
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

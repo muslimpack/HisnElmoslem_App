@@ -4,10 +4,12 @@ import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';
+
 import '../../controllers/quran_controller.dart';
 
 class QuranReadPage extends StatelessWidget {
   final SurahNameEnum surahName;
+
   const QuranReadPage({
     Key? key,
     required this.surahName,

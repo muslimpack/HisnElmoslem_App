@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/models/tally.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
-import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/shared/dialogs/dialog_maker.dart';

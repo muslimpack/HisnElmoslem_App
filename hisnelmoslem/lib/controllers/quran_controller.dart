@@ -7,25 +7,31 @@ import 'package:hisnelmoslem/themes/theme_services.dart';
 
 import '../models/json/quran.dart';
 
-enum SurahNameEnum { alMulk, assajdah,alKahf }
+enum SurahNameEnum { alMulk, assajdah, alKahf }
 
 class QuranPageController extends GetxController {
   /* *************** Variables *************** */
   //
   final SurahNameEnum surahName;
+
   QuranPageController({required this.surahName});
+
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
+
   //
   final quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
   PageController pageController = PageController(initialPage: 0);
   int currentPage = 0;
+
   //
   final List<Quran> _quran = <Quran>[];
   List<Quran> quranDisplay = <Quran>[];
   Quran? quranRequiredSurah;
+
   //
   bool isLoading = true;
+
   //
 
   /* *************** Controller life cycle *************** */
@@ -76,13 +82,13 @@ class QuranPageController extends GetxController {
   }
 
   /* *************** Functions *************** */
+
   ///
   perpareRequiredPages(SurahNameEnum surahName) {
     if (surahName == SurahNameEnum.alKahf) {
       quranRequiredSurah = quranDisplay[0];
     } else if (surahName == SurahNameEnum.assajdah) {
       quranRequiredSurah = quranDisplay[1];
-    
     } else if (surahName == SurahNameEnum.alMulk) {
       quranRequiredSurah = quranDisplay[2];
     }

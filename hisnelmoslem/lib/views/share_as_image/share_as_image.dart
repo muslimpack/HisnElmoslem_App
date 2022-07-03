@@ -5,12 +5,14 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:screenshot/screenshot.dart';
+
 import 'widgets/image_builder.dart';
 import 'widgets/image_var_font_builder.dart';
 import 'widgets/settings_sheet.dart';
 
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
+
   const ShareAsImage({Key? key, required this.dbContent}) : super(key: key);
 
   @override

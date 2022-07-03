@@ -14,6 +14,7 @@ import 'sounds_manager_controller.dart';
 
 class TallyController extends GetxController {
   /* *************** Variables *************** */
+
   ///
   final Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
 

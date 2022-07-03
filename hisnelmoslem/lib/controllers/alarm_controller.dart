@@ -7,9 +7,11 @@ class AlarmsPageController extends GetxController {
   /* *************** Variables *************** */
   //
   ScrollController alarmScrollController = ScrollController();
+
   //
   List<DbAlarm> alarms = <DbAlarm>[];
   bool isLoading = false;
+
   //
 
   /* *************** Controller life cycle *************** */
@@ -28,6 +30,7 @@ class AlarmsPageController extends GetxController {
   }
 
   /* *************** Functions *************** */
+
   ///
   getAllListsReady() async {
     alarms = <DbAlarm>[];

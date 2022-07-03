@@ -7,6 +7,7 @@ class Empty extends StatelessWidget {
   final IconData icon;
   final double iconSize;
   final Function()? onButtonCLick;
+
   const Empty({
     Key? key,
     this.imagePath = "assets/images/app_icon.png",

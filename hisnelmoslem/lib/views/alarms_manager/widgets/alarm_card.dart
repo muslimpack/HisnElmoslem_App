@@ -11,15 +11,18 @@ import 'package:hisnelmoslem/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
+
 import '../../../shared/functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
+
   AlarmCard({Key? key, required this.dbAlarm}) : super(key: key);
 
   //
   final DashboardController dashboardController =
       Get.put(DashboardController());
+
   Widget alarmCardBody() {
     return GetBuilder<AlarmsPageController>(builder: (controller) {
       return Column(

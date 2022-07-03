@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 
 class ImageBuilder extends StatelessWidget {
   final DbContent dbContent;
+
   const ImageBuilder({
     Key? key,
     required this.dbContent,

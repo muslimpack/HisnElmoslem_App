@@ -21,6 +21,7 @@ import 'package:share/share.dart';
 
 class FavouriteZikr extends StatelessWidget {
   const FavouriteZikr({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     //
@@ -114,7 +115,8 @@ class FavouriteZikr extends StatelessWidget {
                                           icon: Icon(Icons.share,
                                               color: mainColor),
                                           onPressed: () {
-                                            Share.share("${dbContent.content}\n${dbContent.fadl}");
+                                            Share.share(
+                                                "${dbContent.content}\n${dbContent.fadl}");
                                           }),
                                     ),
                                     Expanded(

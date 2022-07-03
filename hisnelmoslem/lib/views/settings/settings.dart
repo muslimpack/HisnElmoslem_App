@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:hisnelmoslem/views/alarms_manager/alarms_page.dart';
 import 'package:hisnelmoslem/views/settings/pages/rearrange_dashboard_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/settings_controller.dart';
 import '../../shared/functions/get_snackbar.dart';

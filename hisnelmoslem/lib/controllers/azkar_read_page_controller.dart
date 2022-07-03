@@ -6,33 +6,40 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
+
 import 'sounds_manager_controller.dart';
 
 class AzkarReadPageController extends GetxController {
   /* *************** Constractor *************** */
   //
   final int index;
+
   AzkarReadPageController({required this.index});
 
   /* *************** Variables *************** */
   //
   bool isLoading = true;
+
   //
   //
   final hReadScaffoldKey = GlobalKey<ScaffoldState>();
   PageController pageController = PageController(initialPage: 0);
+
   //
   List<DbContent> zikrContent = <DbContent>[];
   DbTitle? zikrTitle;
+
   //
   int currentPage = 0;
   double? totalProgress = 0.0;
+
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
   String? text = "";
   String? source = "";
   String? fadl = "";
   int? cardnum = 0;
+
   //
 
   /* *************** Controller life cycle *************** */
@@ -95,8 +102,7 @@ class AzkarReadPageController extends GetxController {
   }
 
   decreaseCount() {
-    int
-    counter = zikrContent[currentPage].count;
+    int counter = zikrContent[currentPage].count;
     if (counter == 0) {
       SoundsManagerController().playZikrDoneEffects();
     } else {

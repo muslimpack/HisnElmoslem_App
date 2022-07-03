@@ -7,8 +7,10 @@ class FakeHadithController extends GetxController {
   /* *************** Variables *************** */
   //
   final fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();
+
   //
   List<DbFakeHaith> fakeHadithList = <DbFakeHaith>[];
+
   List<DbFakeHaith> get fakeHadithReadList {
     List<DbFakeHaith> fake = [];
     for (var i = 0; i < fakeHadithList.length; i++) {
@@ -33,6 +35,7 @@ class FakeHadithController extends GetxController {
 
   //get
   bool isLoading = false;
+
   //
 
   /* *************** Controller life cycle *************** */

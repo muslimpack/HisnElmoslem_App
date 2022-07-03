@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/alarm_controller.dart';
-import 'package:hisnelmoslem/views/alarms_manager/widgets/alarm_card.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/views/alarms_manager/widgets/alarm_card.dart';
 
 import '../../shared/widgets/empty.dart';
 

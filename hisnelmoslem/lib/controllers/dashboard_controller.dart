@@ -20,23 +20,29 @@ class DashboardController extends GetxController {
   //
   int currentIndex = 0;
   bool isLoading = false;
+
   //
   bool isSearching = false;
+
   //
   TextEditingController searchController = TextEditingController();
   late TabController tabController;
+
   //
   final ScrollController fehrsScrollController = ScrollController();
   final ScrollController bookmarksScrollController = ScrollController();
+
   //
   List<DbTitle> favouriteTitle = <DbTitle>[];
   List<DbTitle> allTitle = <DbTitle>[];
   List<DbTitle> searchedTitle = <DbTitle>[];
   List<DbAlarm> alarms = <DbAlarm>[];
   List<DbContent> favouriteConent = <DbContent>[];
+
   // List<DbContent> zikrContent = <DbContent>[];
   //
   ZoomDrawerController zoomDrawerController = ZoomDrawerController();
+
   /* *************** Controller life cycle *************** */
   //
   @override
@@ -90,9 +96,9 @@ class DashboardController extends GetxController {
 
     searchedTitle = allTitle;
 
-    /**  
-      * Update isLoading to start show views and widgets
-      */
+    /**
+     * Update isLoading to start show views and widgets
+     */
     isLoading = false;
     update();
   }
@@ -183,5 +189,5 @@ class DashboardController extends GetxController {
     ThemeServices.changeThemeMode();
     update();
   }
-  /* ****************************** */
+/* ****************************** */
 }

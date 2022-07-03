@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/utils/email_manager.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
+
 import '../../controllers/app_data_controllers.dart';
 import '../../controllers/azkar_read_card_controller.dart';
 import '../../shared/widgets/font_settings.dart';
@@ -22,6 +23,7 @@ class AzkarReadCard extends StatelessWidget {
 
   static DashboardController dashboardController =
       Get.put(DashboardController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AzkarReadCardController>(

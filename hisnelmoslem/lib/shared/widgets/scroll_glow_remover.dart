@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ScrollGlowRemover extends StatelessWidget {
   final Widget child;
+
   const ScrollGlowRemover({Key? key, required this.child}) : super(key: key);
 
   @override

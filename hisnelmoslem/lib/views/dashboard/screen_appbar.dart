@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/shared/functions/print.dart';
 
 class ScreenAppBar extends StatelessWidget {
   final DashboardController controller;
+
   const ScreenAppBar({Key? key, required this.controller}) : super(key: key);
 
   @override

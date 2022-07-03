@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/models/zikr_content.dart';
 
 class ImageVarFontBuilder extends StatelessWidget {
   final DbContent dbContent;
+
   const ImageVarFontBuilder({
     Key? key,
     required this.dbContent,
@@ -36,9 +37,7 @@ class ImageVarFontBuilder extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: Text(
-                  controller.showZikrIndex
-                      ? titleWithIndex
-                      : titleWithoutIndex,
+                  controller.showZikrIndex ? titleWithIndex : titleWithoutIndex,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

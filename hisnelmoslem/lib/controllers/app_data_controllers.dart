@@ -98,7 +98,7 @@ class AppData {
   }
 
   /**
-   * Function to active and disable constant alarms 
+   * Function to active and disable constant alarms
    */
 
   ///

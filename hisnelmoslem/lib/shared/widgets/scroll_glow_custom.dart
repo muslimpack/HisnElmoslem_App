@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/shared/constants/constant.dart';
 class ScrollGlowCustom extends StatelessWidget {
   final Widget child;
   final AxisDirection axisDirection;
+
   const ScrollGlowCustom({
     Key? key,
     required this.child,

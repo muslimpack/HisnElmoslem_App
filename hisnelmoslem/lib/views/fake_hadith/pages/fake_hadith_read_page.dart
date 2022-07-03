@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/views/fake_hadith/widgets/hadith_card.dart';
 
 class FakeHadithReadPage extends StatelessWidget {
   final FakeHadithController controller;
+
   const FakeHadithReadPage({Key? key, required this.controller})
       : super(key: key);
 

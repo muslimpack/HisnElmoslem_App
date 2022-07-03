@@ -7,6 +7,7 @@ import 'color_swatch_builder.dart';
 
 class SettingsSheet extends StatelessWidget {
   final ShareAsImageController shareAsImageController;
+
   const SettingsSheet({
     Key? key,
     required this.shareAsImageController,

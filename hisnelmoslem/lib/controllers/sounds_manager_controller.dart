@@ -73,6 +73,7 @@ class SoundsManagerController extends GetxController {
 
   ///
   final player = AudioPlayer();
+
 /* *************** Controller life cycle *************** */
 
   /* *************** Functions *************** */

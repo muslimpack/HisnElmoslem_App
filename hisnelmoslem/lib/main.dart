@@ -16,6 +16,7 @@ import 'package:hisnelmoslem/utils/notification_manager.dart';
 import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
 import 'package:intl/intl.dart';
+
 import 'themes/theme_services.dart';
 import 'utils/azkar_database_helper.dart';
 import 'utils/tally_database_helper.dart';
@@ -95,6 +96,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   MyAppState createState() => MyAppState();
 }

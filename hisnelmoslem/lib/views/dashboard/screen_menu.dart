@@ -214,6 +214,7 @@ class ScreenMenu extends StatelessWidget {
 
 class DrawerCard extends StatelessWidget {
   final Widget? child;
+
   const DrawerCard({Key? key, required this.child}) : super(key: key);
 
   @override
