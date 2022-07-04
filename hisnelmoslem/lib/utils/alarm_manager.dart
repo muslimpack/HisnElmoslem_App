@@ -21,7 +21,7 @@ class AlarmManager {
       switch (dbAlarm.repeatType) {
         case "Daily":
           await awesomeNotificationManager.addCustomDailyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -30,7 +30,7 @@ class AlarmManager {
           break;
         case "AtSaturday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -40,7 +40,7 @@ class AlarmManager {
           break;
         case "AtSunday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -50,7 +50,7 @@ class AlarmManager {
           break;
         case "AtMonday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -60,7 +60,7 @@ class AlarmManager {
           break;
         case "AtTuesday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -70,7 +70,7 @@ class AlarmManager {
           break;
         case "AtWednesday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -80,7 +80,7 @@ class AlarmManager {
           break;
         case "AtThursday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -90,7 +90,7 @@ class AlarmManager {
           break;
         case "AtFriday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
-            id: dbAlarm.id,
+            id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
@@ -107,7 +107,7 @@ class AlarmManager {
         getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
       }
 
-      awesomeNotificationManager.cancelNotificationById(id: dbAlarm.id);
+      awesomeNotificationManager.cancelNotificationById(id: dbAlarm.titleId);
     }
   }
 

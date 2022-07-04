@@ -138,8 +138,8 @@ class AlarmDatabaseHelper {
     await db.update(
       'alarms',
       dbAlarm.toMap(),
-      where: "id = ?",
-      whereArgs: [dbAlarm.id],
+      where: "titleId = ?",
+      whereArgs: [dbAlarm.titleId],
     );
   }
 

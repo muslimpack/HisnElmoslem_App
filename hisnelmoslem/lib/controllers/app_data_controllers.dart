@@ -115,7 +115,7 @@ class AppData {
         needToOpen: false,
       );
       awesomeNotificationManager.addCustomWeeklyReminder(
-        id: 777,
+        id: 666,
         title: "صيام غدا الخميس",
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",

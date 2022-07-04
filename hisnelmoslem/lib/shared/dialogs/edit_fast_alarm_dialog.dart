@@ -186,7 +186,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                 setState(() {
                   if (selectedHour != null) {
                     DbAlarm updateAlarm = DbAlarm(
-                      titleId: widget.dbAlarm.id,
+                      titleId: widget.dbAlarm.titleId,
                       id: widget.dbAlarm.id,
                       title: widget.dbAlarm.title,
                       body: bodyController.text,

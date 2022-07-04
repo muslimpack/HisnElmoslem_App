@@ -126,7 +126,8 @@ class AlarmCard extends StatelessWidget {
             SlidableAction(
               onPressed: (val) async {
                 await awesomeNotificationManager.cancelNotificationById(
-                    id: dbAlarm.id);
+                  id: dbAlarm.titleId,
+                );
                 await alarmDatabaseHelper.deleteAlarm(dbAlarm: dbAlarm);
                 controller.alarms.removeWhere((item) => item == dbAlarm);
                 dashboardController.alarms = controller.alarms;
