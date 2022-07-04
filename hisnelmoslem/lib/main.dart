@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
@@ -84,10 +85,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    /// TODO to be Edited in next update 01
-    final box = GetStorage();
-    final openOnBoard = box.read('is_v2.1_first_open') ?? true;
-
     return GetMaterialApp(
       locale: const Locale('ar'),
       localizationsDelegates: const [
@@ -100,8 +97,9 @@ class MyAppState extends State<MyApp> {
       theme: ThemeServices.getTheme(),
       // theme: Themes.yellowTheme,
       // home: const AzkarDashboard(),
-      /// TODO to be Edited in next update 02
-      home: openOnBoard ? const OnBoardingPage() : const AzkarDashboard(),
+      home: appData.isFirstOpenToThisRelease
+          ? const OnBoardingPage()
+          : const AzkarDashboard(),
     );
   }
 }

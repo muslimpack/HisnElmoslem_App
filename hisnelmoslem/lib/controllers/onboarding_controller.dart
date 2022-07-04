@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
 import 'package:hisnelmoslem/shared/functions/open_url.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -148,9 +148,7 @@ class OnBoardingController extends GetxController {
   /// Go to dashboard
   /// and set app fisrt open to false
   goToDashboard() {
-    /// TODO to be Edited in next update 03
-    final box = GetStorage();
-    box.write("is_v2.1_first_open", false);
+    appData.changIsFirstOpenToThisRelease(false);
     transitionAnimation.circleRevalPushReplacement(
         context: Get.context!, goToPage: const AzkarDashboard());
   }

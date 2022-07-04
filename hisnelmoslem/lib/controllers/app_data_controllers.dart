@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
 
 AppData appData = AppData();
@@ -95,6 +96,17 @@ class AppData {
   ///
   void toggleFastAlarmStatus() {
     changFastAlarmStatus(!isFastAlarmEnabled);
+  }
+
+  /* ******* is first open to this release ******* */
+  /// TODO to be Edited in next update
+  /// Check is first open to this release
+  bool get isFirstOpenToThisRelease =>
+      box.read("is_${appVersion}_first_open") ?? true;
+
+  /// Change is first open to this release
+  void changIsFirstOpenToThisRelease(bool value) {
+    box.write("is_${appVersion}_first_open", value);
   }
 
   /**
