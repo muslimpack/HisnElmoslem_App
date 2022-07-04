@@ -84,7 +84,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO to be deleted in next update 01
+    /// TODO to be Edited in next update 01
     final box = GetStorage();
     final openOnBoard = box.read('is_v2.1_first_open') ?? true;
 
@@ -100,7 +100,7 @@ class MyAppState extends State<MyApp> {
       theme: ThemeServices.getTheme(),
       // theme: Themes.yellowTheme,
       // home: const AzkarDashboard(),
-      // TODO to be deleted in next update 02
+      /// TODO to be Edited in next update 02
       home: openOnBoard ? const OnBoardingPage() : const AzkarDashboard(),
     );
   }

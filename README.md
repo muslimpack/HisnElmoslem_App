@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/50374022/146823940-a0949157-9c06-4457-9c79-69176fe7788e.png" alt='HisnElmoslem logo'/>
+<img src="https://user-images.githubusercontent.com/50374022/177197673-54958322-b5aa-4ae2-81df-107bcc91fb61.png" alt='HisnElmoslem logo'/>
 
 # تطبيق حصن المسلم
 
-[![version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+[![version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
 [![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
@@ -38,6 +38,25 @@
 # مميزات التطبيق
 
 <details open>
+<summary>v2.1.0</summary>
+
+- إمكانية ترتيب النوافذ على الواجهة
+- إضافة ذكر أستغفر الله وأتوب إليه في أذكار المساء
+- إمكانية إعادة تعيين العداد في بطاقات الذكر المفضل
+- إعادة كتابة الإشعارات
+- تحسين صفحة تاريخ الميزات
+- تحسين في القائمة الجانبية في الشاشة الرئيسية
+- تحسين في شكل حالة التنبيهات على الواجهة
+- تحسين في شكل إضافة وتعديل التنبيهات
+- تحسين في بطاقات التنبيهات في إدارة التنبيهات
+- حفظ ثيم التطبيق عند أول مرة لفتحة وجعل الوضع المعتم هو الوضع الإفتراضي للتطبيق
+- حل مشكلة عدم تحديث معاينة الخط في الإعدادات
+- حل مشكلة اللون الأبيض عند فتح البرنامج
+- حل مشكلة ظهور التنبيهات بعد حذفها
+
+</details>
+
+<details close>
 <summary>v2.0.0</summary>
 
 - إضافة سورة السجدة برواية حفص عن عاصم

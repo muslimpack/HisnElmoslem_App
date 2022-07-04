@@ -148,6 +148,7 @@ class OnBoardingController extends GetxController {
   /// Go to dashboard
   /// and set app fisrt open to false
   goToDashboard() {
+    /// TODO to be Edited in next update 03
     final box = GetStorage();
     box.write("is_v2.1_first_open", false);
     transitionAnimation.circleRevalPushReplacement(
