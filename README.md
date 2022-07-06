@@ -9,12 +9,16 @@
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
 
-[<img src="https://user-images.githubusercontent.com/50374022/152713461-d367ec7a-687b-40ca-a881-30e49d69821c.png"
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
       alt='Get it on Google Play'
       height="80">](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
-[<img src="https://user-images.githubusercontent.com/50374022/152713265-c54cec69-9583-4ecd-bc7c-35b227c4a8cf.png"
+[<img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Huawei_AppGallery_white_badge_EN.png"
       alt='Get it on AppGallery'
       height="80">](https://appgallery.huawei.com/app/C105465105)
+[<img src="https://user-images.githubusercontent.com/69304392/148696068-0cfea65d-b18f-4685-82b5-329a330b1c0d.png"
+      alt='Get it on GitHub'
+      height="80">](https://github.com/muslimpack/HisnElmoslem_App/releases/latest)
+
 
 # قال رسول الله صلى الله عليه وسلم
 
