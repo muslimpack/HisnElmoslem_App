@@ -49,16 +49,6 @@ class DbAlarm {
 
   @override
   String toString() {
-    return '''
-       "id": $id,
-      "title": $title,
-      "titleId": $titleId,
-      "body": $body,
-      "repeatType": $repeatType,
-      "hour": $hour,
-      "minute": $minute,
-      "isActive": $isActive,
-      "hasAlarmInside": $hasAlarmInside, 
-    ''';
+    return toMap().toString();
   }
 }

@@ -36,8 +36,6 @@ class DbTitle {
 
   @override
   String toString() {
-    return '''
-      '_id': $id |'name': $name |'chapter_id': $chapterId |'order_id': $orderId |'favourite': $favourite,
-    ''';
+    return toMap().toString();
   }
 }

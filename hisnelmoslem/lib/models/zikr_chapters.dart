@@ -17,12 +17,16 @@ class DbChapter {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      '_id': id,
+      'name': name,
+      'order_id': orderId,
+    };
+  }
+
   @override
   String toString() {
-    return '''
-      "id": $id,
-      "name": $name,
-      "orderId": $orderId
-    ''';
+    return toMap().toString();
   }
 }

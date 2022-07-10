@@ -42,14 +42,6 @@ class DbTally {
 
   @override
   String toString() {
-    return '''
-       "id": $id,
-      "title": $title,
-      "count": $count,
-      "countReset": $countReset,
-      "isActivated": $isActivated,
-      "lastUpdate": $lastUpdate,
-      "created": $created,
-    ''';
+    return toMap().toString();
   }
 }

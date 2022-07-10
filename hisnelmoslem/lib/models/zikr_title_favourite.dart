@@ -27,6 +27,6 @@ class DbTitleFavourite {
 
   @override
   String toString() {
-    return ''''_id': $id |'title_id': $titleId |'favourite': $favourite''';
+    return toMap().toString();
   }
 }

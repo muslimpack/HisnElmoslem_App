@@ -35,12 +35,6 @@ class DbFakeHaith {
 
   @override
   String toString() {
-    return '''
-      '_id': $id,
-      'text': $text,
-      'darga': $darga,
-      'source': $source,
-      'isRead': $isRead,
-    ''';
+    return toMap().toString();
   }
 }

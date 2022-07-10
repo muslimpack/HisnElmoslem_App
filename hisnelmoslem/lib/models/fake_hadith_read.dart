@@ -27,6 +27,6 @@ class DbFakeHadithRead {
 
   @override
   String toString() {
-    return ''''_id': $id |'hadith_id': $hadithId |'isRead': $isRead''';
+    return toMap().toString();
   }
 }

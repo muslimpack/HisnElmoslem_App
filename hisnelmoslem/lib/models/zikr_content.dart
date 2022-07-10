@@ -51,6 +51,6 @@ class DbContent {
 
   @override
   String toString() {
-    return "'_id': $id |'content': $content | 'chapter_id': $chapterId |'title_id': $titleId |'count': $count |'fadl': $fadl,|'source': $source,|'order_id': $orderId,|'favourite': $favourite";
+    return toMap().toString();
   }
 }
