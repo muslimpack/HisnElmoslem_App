@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/shared/Widgets/Loading.dart';
+import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/shared/widgets/font_settings.dart';

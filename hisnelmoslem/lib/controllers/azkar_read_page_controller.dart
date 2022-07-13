@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/models/zikr_content.dart';
 import 'package:hisnelmoslem/models/zikr_title.dart';
 import 'package:hisnelmoslem/utils/azkar_database_helper.dart';
