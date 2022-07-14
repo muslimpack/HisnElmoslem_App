@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
+import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
 import 'package:hisnelmoslem/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/themes/theme_services.dart';

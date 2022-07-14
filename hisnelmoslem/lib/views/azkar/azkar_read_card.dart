@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/Shared/Widgets/loading.dart';
+import 'package:hisnelmoslem/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/controllers/dashboard_controller.dart';
 import 'package:hisnelmoslem/controllers/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/shared/constants/constant.dart';
