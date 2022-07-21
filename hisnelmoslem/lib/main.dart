@@ -3,20 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/controllers/app_data_controllers.dart';
-import 'package:hisnelmoslem/utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/utils/alarm_manager.dart';
-import 'package:hisnelmoslem/utils/awesome_notification_manager.dart';
-import 'package:hisnelmoslem/utils/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/utils/migration/migration.dart';
-import 'package:hisnelmoslem/utils/notification_manager.dart';
-import 'package:hisnelmoslem/views/dashboard/dashboard.dart';
-import 'package:hisnelmoslem/views/onboarding/onboarding.dart';
+import 'package:hisnelmoslem/app/data/app_data.dart';
+import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
+import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/core/utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/core/utils/migration/migration.dart';
+import 'package:hisnelmoslem/core/utils/notification_manager.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
+import 'package:hisnelmoslem/app/modules/onboarding/onboarding.dart';
 import 'package:intl/intl.dart';
 
-import 'themes/theme_services.dart';
-import 'utils/azkar_database_helper.dart';
-import 'utils/tally_database_helper.dart';
+import 'core/themes/theme_services.dart';
+import 'core/utils/azkar_database_helper.dart';
+import 'core/utils/tally_database_helper.dart';
 
 void main() async {
   /// Make sure all stuff are initialized
