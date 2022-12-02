@@ -1,0 +1,16 @@
+IssueTracker: https://github.com/muslimpack/HisnElmoslem_App/issues
+Changelog: https://github.com/muslimpack/HisnElmoslem_App/releases
+
+AutoName: حصن المسلم
+
+RepoType: git
+Repo: https://github.com/muslimpack/HisnElmoslem_App.git
+
+Builds:
+  - versionName: 2.1.0
+    versionCode: 13
+    commit: v2.1.0-Fdroid
+    subdir: hisnelmoslem
+    output: build/app/outputs/flutter-apk/app-release.apk
+    srclibs:
+      - flutter@3.3.8
