@@ -4,7 +4,7 @@
 
 # تطبيق حصن المسلم
 
-[![version](https://img.shields.io/badge/version-2.1.0-cyan.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+[![version](https://img.shields.io/badge/version-2.2.0-cyan.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
 [![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
@@ -18,7 +18,6 @@
 [<img src="https://user-images.githubusercontent.com/69304392/148696068-0cfea65d-b18f-4685-82b5-329a330b1c0d.png"
       alt='Get it on GitHub'
       height="80">](https://github.com/muslimpack/HisnElmoslem_App/releases/latest)
-
 
 # قال رسول الله صلى الله عليه وسلم
 
@@ -42,6 +41,16 @@
 # مميزات التطبيق
 
 <details open>
+<summary>v2.2.0</summary>
+
+- امكانية تغيير الخط داخل التطبيق قرابة خمسة عشر خطا للاختيار بينها
+- الخط يظهر عند مشاركة الذكر كصورة
+- حل بعض المشاكل المتعلقة بالاشعارات والجدولة
+- حل مشاكل اختفاء الأزرار وشرائط الأدوات خلف أزرار التنقل في بعض الهواتف
+
+</details>
+
+<details close>
 <summary>v2.1.0</summary>
 
 - إمكانية ترتيب النوافذ على الواجهة
