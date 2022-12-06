@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/core/values/new_featuers_list.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
@@ -15,7 +16,7 @@ class AppUpdateNews extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text("جديد التحديثات"),
+        title: Text("updates history".tr),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: ScrollGlowRemover(

@@ -1,61 +1,67 @@
 const Map<String, String> en = {
+//**
+  // Phase 01
+  // */
   ///
-  "البدء": "",
+  "start": "Start",
 
   /// Dashboard
-  "الفهرس": "",
-  "المفضلة": "",
-  "مفضلة الأذكار": "",
-  "البحث": "",
+  "index": "Index",
+  "favourites content": "Favourites",
+  "favourites zikr": "Favourite Zikr",
+  "search": "Search",
 
   /// Empty pgae
-  "لا يوجد شيء في المفضلة": "",
-  "لم يتم تحديد أي ذكر كمفضل قم بالضغط على علامة القلب عند أي ذكر داخلي": "",
-  "لم يتم تحديد أي عنوان من الفهرس كمفضل قم بالضغط على علامة المفضلة عند أي عنوان فهرس":
-      "",
-  "لا يوجد عنوان بهذا الاسم": "",
-  "برجاء قم بمراجعة الكتاب": "",
+  "nothing found in favourites": "Nothing found in favourites",
+  "no zikr has been selected as a favorite Click on the heart icon on any internal zikr":
+      "No zikr has been selected as a favorite Click on the heart icon on any internal zikr",
+  "no title from the index is marked as a favourite. Click on the Favorites icon at any index title":
+      "No title from the index is marked as a favourite. Click on the Favorites icon at any index title",
+  "no title with this name": "No title with this name",
+  "please review the index of the book": "Please review the index of the book",
 
   /// Drawer
   //
-  "السبحة": "",
-  "التسبيح": "",
-  "عدد المرات": "",
-  "عرض التسبيحات": "",
-  "تعديل": "",
-  "حذف": "",
+  "tally": "Tally",
+  "active tallly": "Active tallly",
+  "times": "Times",
+  "Tallies": "Tallies",
+  "edit": "Edit",
+  "delete": "Delete",
   //
-  "سورة الكهف": "",
-  "سورة السجدة": "",
-  "سورة الملك": "",
-  "أحاديث لا تصح": "",
-  "الإعددات": "",
-  "تواصل مع المطور": "",
-  "تاريخ التحديثات": "",
-  "عنا": "",
-  "إغلاق": "",
+  "sura Al-Kahf": "Sura Al-Kahf",
+  "sura As-Sajdah": "Sura As-Sajdah",
+  "sura Al-Mulk": "Sura Al-Mulk",
+  "fake hadith": "Fake Hadith",
+  "settings": "Settings",
+  "contact to dev": "Contact to Dev",
+  "updates history": "Updates History",
+  "about us": "About Us",
+  "close": "Close",
 
   /// Settings
-  "عام": "",
-  "وضعية الصفحات": "",
-  "وضعية البطاقات": "",
-  "إدارة ألوان التطبيق": "",
-  "إدارة المؤثرات": "",
-  "ترتيب الشاشة": "",
-  "نوع الخط": "",
+  "general": "General",
+  "page mode": "Page Mode",
+  "card mode": "Card Mode",
+  "theme manager": "Theme Manager",
+  "effect manager": "Effect Manager",
+  "dashboard arrangement": "Dashboard Arrangement",
+  "app language": "App Language",
+  "font type": "Font Type",
   //
-  "إعدادات الخط": "",
+  "font settings": "Font Settings",
   //
-  "المنبهات": "",
-  "إدارة تنبيهات الأذكار": "",
-  "صيام الاثنين والخميس": "",
-  "تذكير قراءة سورة الكهف": "",
+  "reminders": "Reminders",
+  "reminders manager": "Reminders Manager",
+  "fasting mondays and thursdays reminder":
+      "Fasting Mondays and Thursdays Reminder",
+  "sura Al-Kahf reminder": "Sura Al-Kahf Reminder",
   //
-  "التواصل": "",
-  "الشكاوى والمقترحات": "",
-  "راسلنا": "",
-  "المشروع": "",
-  "عن التطبيق": "",
+  "contact": "Contact",
+  "report bugs and request new features":
+      "Report bugs and request new features",
+  "send email": "Send Email",
+  "Github": "Github",
 
   ///
 };

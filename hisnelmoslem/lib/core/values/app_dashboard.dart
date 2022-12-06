@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/app_component.dart';
 import 'package:hisnelmoslem/app/views/dashboard/pages/bookmarks.dart';
 import 'package:hisnelmoslem/app/views/dashboard/pages/favorite_zikr.dart';
@@ -5,15 +6,15 @@ import 'package:hisnelmoslem/app/views/dashboard/pages/fehrs.dart';
 
 final List<AppComponent> appDashboardItem = [
   AppComponent(
-    title: "الفهرس",
+    title: "index".tr,
     widget: const AzkarFehrs(),
   ),
   AppComponent(
-    title: "المفضلة",
+    title: "favourites content".tr,
     widget: const AzkarBookmarks(),
   ),
   AppComponent(
-    title: "مفضلة الأذكار",
+    title: "favourites zikr".tr,
     widget: const FavouriteZikr(),
   ),
 ];

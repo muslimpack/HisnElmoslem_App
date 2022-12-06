@@ -31,19 +31,19 @@ class Settings extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               elevation: 0,
-              title: const Text("الإعدادات",
-                  style: TextStyle(fontFamily: "Uthmanic")),
+              title: Text("settings".tr,
+                  style: const TextStyle(fontFamily: "Uthmanic")),
               // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             body: ScrollGlowCustom(
               child: ListView(
                 physics: const ClampingScrollPhysics(),
                 children: [
-                  const Title(title: 'عام'),
+                  Title(title: "general".tr),
                   !appData.isCardReadMode
                       ? ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: const Text("وضعية الصفحات"),
+                          title: Text("page mode".tr),
                           onTap: () {
                             appData.toggleReadModeStatus();
                             controller.update();
@@ -51,14 +51,14 @@ class Settings extends StatelessWidget {
                         )
                       : ListTile(
                           leading: const Icon(MdiIcons.card),
-                          title: const Text("وضعية البطاقات"),
+                          title: Text("card mode".tr),
                           onTap: () {
                             appData.toggleReadModeStatus();
                             controller.update();
                           },
                         ),
                   ListTile(
-                    title: const Text("إدارة ألوان التطبيق"),
+                    title: Text("theme manager".tr),
                     leading: const Icon(Icons.palette),
                     onTap: () {
                       transitionAnimation.fromBottom2Top(
@@ -68,7 +68,7 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text("إدارة المؤثرات"),
+                    title: Text("effect manager".tr),
                     leading: const Icon(
                       Icons.speaker_group,
                     ),
@@ -80,7 +80,7 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text("ترتيب الشاشة"),
+                    title: Text("dashboard arrangement".tr),
                     leading: const Icon(
                       Icons.view_array,
                     ),
@@ -92,7 +92,7 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text("لغة التطبيق"),
+                    title: Text("app language".tr),
                     leading: const Icon(
                       Icons.translate,
                     ),
@@ -104,7 +104,7 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text("نوع الخط"),
+                    title: Text("font type".tr),
                     leading: const Icon(
                       Icons.font_download,
                     ),
@@ -116,7 +116,7 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   const Divider(),
-                  const Title(title: 'إعدادت الخط'),
+                  Title(title: "font settings".tr),
                   TextSample(
                     controllerToUpdate: controller,
                   ),
@@ -125,9 +125,9 @@ class Settings extends StatelessWidget {
                   ),
                   const Divider(),
                   /**/
-                  const Title(title: 'المنبهات'),
+                  Title(title: "reminders".tr),
                   ListTile(
-                    title: const Text("إدارة تنبيهات الأذكار"),
+                    title: Text("reminders manager".tr),
                     leading: const Icon(
                       Icons.alarm_add_rounded,
                     ),
@@ -137,12 +137,12 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.person,
                       ),
-                      title: Text("صيام الإثنين والخميس"),
+                      title: Text("fasting mondays and thursdays reminder".tr),
                     ),
                     activeColor: mainColor,
                     value: appData.isFastAlarmEnabled,
@@ -160,12 +160,12 @@ class Settings extends StatelessWidget {
                     },
                   ),
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.alarm,
                       ),
-                      title: Text("تذكير قراءة سورة الكهف"),
+                      title: Text("sura Al-Kahf reminder".tr),
                     ),
                     activeColor: mainColor,
                     value: appData.isCaveAlarmEnabled,
@@ -182,17 +182,17 @@ class Settings extends StatelessWidget {
                   ),
                   const Divider(),
                   /**/
-                  const Title(title: 'التواصل'),
+                  Title(title: 'contact'.tr),
                   ListTile(
                     leading: const Icon(Icons.star),
-                    title: const Text("الشكاوى والمقترحات"),
+                    title: Text("report bugs and request new features".tr),
                     onTap: () {
                       EmailManager.sendFeedback();
                     },
                   ),
                   ListTile(
                     leading: const Icon(Icons.email),
-                    title: const Text("راسلنا"),
+                    title: Text("send email".tr),
                     onTap: () {
                       EmailManager.messageUS();
                     },
@@ -200,7 +200,7 @@ class Settings extends StatelessWidget {
                   ListTile(
                     leading: const Icon(MdiIcons.github),
                     trailing: const Icon(Icons.keyboard_arrow_left),
-                    title: const Text("المشروع"),
+                    title: Text("Github".tr),
                     onTap: () {
                       openURL(
                           'https://github.com/HasanEltantawy/HisnElmoslem_App');
@@ -209,7 +209,7 @@ class Settings extends StatelessWidget {
                   ListTile(
                       leading: const Icon(MdiIcons.information),
                       trailing: const Icon(Icons.keyboard_arrow_left),
-                      title: const Text("عن التطبيق"),
+                      title: Text("about us".tr),
                       onTap: () {
                         transitionAnimation.fromBottom2Top(
                             context: context, goToPage: const About());

@@ -26,7 +26,7 @@ class ScreenAppBar extends StatelessWidget {
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
-                  hintText: "البحث",
+                  hintText: "search".tr,
                   contentPadding: const EdgeInsets.only(
                       left: 15, bottom: 5, top: 5, right: 15),
                   prefix: IconButton(
