@@ -21,6 +21,7 @@ class ShareAsImage extends StatelessWidget {
         init: ShareAsImageController(),
         builder: (controller) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
               title: const Text(

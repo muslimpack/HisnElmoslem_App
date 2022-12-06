@@ -52,51 +52,62 @@ class ImageVarFontBuilder extends StatelessWidget {
                 thickness: controller.dividerSize,
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  dbContent.content,
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: controller.bodyTextColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: controller.fontSize,
-                  ),
-                ),
-              ),
-              // Fadl
-              Visibility(
-                visible: !(dbContent.fadl == "") && controller.showFadl,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    dbContent.fadl,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: controller.additionalTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: controller.fontSize * controller.fadlFactor,
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        dbContent.content,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: controller.bodyTextColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: controller.fontSize,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              // Source
-              Visibility(
-                visible: !(dbContent.source == "") && controller.showSource,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    dbContent.source,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: controller.additionalTextColor,
-                      fontSize: controller.fontSize * controller.sourceFactor,
+                    // Fadl
+                    Visibility(
+                      visible: !(dbContent.fadl == "") && controller.showFadl,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          dbContent.fadl,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: controller.additionalTextColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                controller.fontSize * controller.fadlFactor,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    // Source
+                    Visibility(
+                      visible:
+                          !(dbContent.source == "") && controller.showSource,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          dbContent.source,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: controller.additionalTextColor,
+                            fontSize:
+                                controller.fontSize * controller.sourceFactor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+
               Divider(
                 color: controller.titleTextColor,
                 thickness: controller.dividerSize,
