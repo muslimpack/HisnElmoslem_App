@@ -69,6 +69,20 @@ class AppData {
   void resetFontFamily() {
     changFontFamily("Amiri");
   }
+  /* ******* App Locale ******* */
+
+  /// get font size default value is 2.6
+  String get appLocale => box.read('app_locale') ?? "ar";
+
+  /// set font size
+  void changAppLocale(String value) {
+    box.write('app_locale', value);
+  }
+
+  /// increase font size by .2
+  void resetAppLocale() {
+    changFontFamily("ar");
+  }
 
   /* ******* Tashkel ******* */
 

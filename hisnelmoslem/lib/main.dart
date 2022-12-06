@@ -90,8 +90,8 @@ class MyAppState extends State<MyApp> {
     return GetMaterialApp(
         // Translation
         translations: HisnAppTranslation(),
-        locale: const Locale('ar'),
-        fallbackLocale: const Locale('ar'),
+        locale: Locale(appData.appLocale),
+        fallbackLocale: Locale(appData.appLocale),
         //
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

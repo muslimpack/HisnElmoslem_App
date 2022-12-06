@@ -26,6 +26,7 @@ class AppLanguagePageController extends GetxController {
   /// set Tally  Transition Vibrate mode
   void changeAppLanguage(String val) {
     Get.updateLocale(Locale(val));
+    appData.changAppLocale(val);
     update();
   }
 }
