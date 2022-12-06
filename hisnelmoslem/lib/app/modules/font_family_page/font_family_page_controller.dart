@@ -19,6 +19,11 @@ class FontFamilyPageController extends GetxController {
     "Lateef",
     "Mada",
     "Arial",
+    "Changa",
+    "ArefRuqaa",
+    "Tajawal",
+    "NotoNastaliqUrdu",
+    "Lalezar",
     "Uthmanic"
   ];
 

@@ -97,3 +97,18 @@ flutter:
     - family: Arial
       fonts:
         - asset: assets/fonts/Arial.ttf
+    - family: Changa
+      fonts:
+        - asset: assets/fonts/Changa-Regular.ttf
+    - family: ArefRuqaa
+      fonts:
+        - asset: assets/fonts/ArefRuqaa-Regular.ttf
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Regular.ttf
+    - family: NotoNastaliqUrdu
+      fonts:
+        - asset: assets/fonts/NotoNastaliqUrdu-Regular.ttf
+    - family: Lalezar
+      fonts:
+        - asset: assets/fonts/Lalezar-Regular.ttf

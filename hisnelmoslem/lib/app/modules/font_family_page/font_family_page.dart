@@ -15,8 +15,9 @@ class FontFamilyPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: const Text("نوع الخط",
-                  style: TextStyle(fontFamily: "Uthmanic")),
+              title: const Text(
+                "نوع الخط",
+              ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,
             ),
