@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
+import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
@@ -66,6 +67,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  FontFamilyPageController familyPageController =
+      Get.put(FontFamilyPageController());
   @override
   void initState() {
     super.initState();
@@ -86,20 +89,26 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      locale: const Locale('ar'),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      debugShowCheckedModeBanner: false,
-      title: 'حصن المسلم',
-      theme: ThemeServices.getTheme(),
-      // theme: Themes.yellowTheme,
-      // home: const AzkarDashboard(),
-      home: appData.isFirstOpenToThisRelease
-          ? const OnBoardingPage()
-          : const AzkarDashboard(),
-    );
+        locale: const Locale('ar'),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        debugShowCheckedModeBanner: false,
+        title: 'حصن المسلم',
+        theme: ThemeServices.getTheme().copyWith(
+          textTheme: ThemeServices.getTheme().textTheme.apply(
+                fontFamily: appData.fontFamily,
+              ),
+          primaryTextTheme: ThemeServices.getTheme().textTheme.apply(
+                fontFamily: appData.fontFamily,
+              ),
+        ),
+        // theme: Themes.yellowTheme,
+        // home: const AzkarDashboard(),
+        home: (appData.isFirstOpenToThisRelease
+            ? const OnBoardingPage()
+            : const AzkarDashboard()));
   }
 }

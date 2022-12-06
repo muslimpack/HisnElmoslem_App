@@ -54,6 +54,21 @@ class AppData {
     changFontSize(fontSize - .2);
   }
 
+  /* ******* Font Size ******* */
+
+  /// get font size default value is 2.6
+  String get fontFamily => box.read('font_family') ?? "Amiri";
+
+  /// set font size
+  void changFontFamily(String value) {
+    box.write('font_family', value);
+  }
+
+  /// increase font size by .2
+  void resetFontFamily() {
+    changFontFamily("Amiri");
+  }
+
   /* ******* Tashkel ******* */
 
   /// get tashkel status

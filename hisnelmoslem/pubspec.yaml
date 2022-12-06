@@ -70,3 +70,30 @@ flutter:
     - family: Uthmanic
       fonts:
         - asset: assets/fonts/uthmanic_hafs_ver12.otf
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri-Regular.ttf
+    - family: Marhey
+      fonts:
+        - asset: assets/fonts/Marhey-Regular.ttf
+    - family: Vazirmatn
+      fonts:
+        - asset: assets/fonts/Vazirmatn-Regular.ttf
+    - family: ElMessiri
+      fonts:
+        - asset: assets/fonts/ElMessiri-Regular.ttf
+    - family: Harmattan
+      fonts:
+        - asset: assets/fonts/Harmattan-Regular.ttf
+    - family: Lateef
+      fonts:
+        - asset: assets/fonts/Lateef-Regular.ttf
+    - family: Mada
+      fonts:
+        - asset: assets/fonts/Mada-Regular.ttf
+    - family: Arial
+      fonts:
+        - asset: assets/fonts/Arial.ttf

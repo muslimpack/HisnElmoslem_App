@@ -72,7 +72,7 @@ class ThemeServices {
   }
 
   /// Get appMode
-  static ThemeData? getTheme() {
+  static ThemeData getTheme() {
     if (appThemeMode == AppThemeMode.light) {
       return Themes.light;
     } else if (appThemeMode == AppThemeMode.dark) {

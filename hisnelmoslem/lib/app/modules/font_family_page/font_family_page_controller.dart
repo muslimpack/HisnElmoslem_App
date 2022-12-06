@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/app/data/app_data.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
+import 'package:hisnelmoslem/core/themes/theme_services.dart';
+
+class FontFamilyPageController extends GetxController {
+  /* *************** Variables *************** */
+  final box = GetStorage();
+
+  List<int> list = <int>[].obs;
+
+  List<String> fontFamiles = [
+    "Cairo",
+    "Amiri",
+    "Marhey",
+    "Vazirmatn",
+    "ElMessiri",
+    "Harmattan",
+    "Lateef",
+    "Mada",
+    "Arial",
+    "Uthmanic"
+  ];
+
+  late final ColorScheme colorScheme = Theme.of(Get.context!).colorScheme;
+  late final Color activeColor = colorScheme.primary.withOpacity(0.05);
+
+  /* *************** Functions *************** */
+
+  /// get Tally Transition Vibrate mode
+  String get activeFont => appData.fontFamily;
+
+  /// set Tally  Transition Vibrate mode
+  void changeFontFamily(String val) {
+    appData.changFontFamily(val);
+    Get.forceAppUpdate();
+    update();
+  }
+}
