@@ -35,13 +35,12 @@ class ImageVarFontBuilder extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(20),
                 child: Text(
                   controller.showZikrIndex ? titleWithIndex : titleWithoutIndex,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Uthmanic",
                     color: controller.titleTextColor,
                     fontSize: controller.fontSize * controller.titleFactor,
                   ),
@@ -133,7 +132,6 @@ class ImageVarFontBuilder extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontFamily: "Uthmanic",
                         color: controller.titleTextColor,
                         fontSize: 20,
                       ),
