@@ -94,9 +94,6 @@ flutter:
     - family: Mada
       fonts:
         - asset: assets/fonts/Mada-Regular.ttf
-    - family: Arial
-      fonts:
-        - asset: assets/fonts/Arial.ttf
     - family: Changa
       fonts:
         - asset: assets/fonts/Changa-Regular.ttf
