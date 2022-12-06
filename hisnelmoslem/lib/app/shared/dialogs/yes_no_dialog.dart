@@ -10,63 +10,58 @@ class YesOrNoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: Card(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        ),
+        margin: const EdgeInsets.all(0.0),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("تنويه",
+                  style: TextStyle(fontSize: 25, color: mainColor)),
             ),
-            margin: const EdgeInsets.all(0.0),
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            const Divider(),
+            Text(
+              msg,
+            ),
+            const Divider(),
+            Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text("تنويه",
-                      style: TextStyle(fontSize: 25, color: mainColor)),
-                ),
-                const Divider(),
-                Text(
-                  msg,
-                ),
-                const Divider(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ListTile(
-                        title: Text(
-                          "نعم",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: mainColor),
-                        ),
-                        onTap: () {
-                          onYes();
-                          Navigator.pop<bool>(context, true);
-                        },
-                      ),
+                Expanded(
+                  child: ListTile(
+                    title: Text(
+                      "نعم",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, color: mainColor),
                     ),
-                    Expanded(
-                        child: ListTile(
-                      title: Text(
-                        "لا",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20, color: mainColor),
-                      ),
-                      onTap: () {
-                        Navigator.pop<bool>(context, false);
-                      },
-                    )),
-                  ],
+                    onTap: () {
+                      onYes();
+                      Navigator.pop<bool>(context, true);
+                    },
+                  ),
                 ),
+                Expanded(
+                    child: ListTile(
+                  title: Text(
+                    "لا",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, color: mainColor),
+                  ),
+                  onTap: () {
+                    Navigator.pop<bool>(context, false);
+                  },
+                )),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

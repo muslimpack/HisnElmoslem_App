@@ -42,8 +42,6 @@ void main() async {
   /// Make Phone StatusBar Transparent
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top]);
 
   /// Keep app in portrait mode and
   /// make it static when phone rotation change
