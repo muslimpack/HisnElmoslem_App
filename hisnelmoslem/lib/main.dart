@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
+import 'package:hisnelmoslem/core/translations/translation.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
@@ -87,14 +88,18 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        // Translation
+        translations: HisnAppTranslation(),
         locale: const Locale('ar'),
+        fallbackLocale: const Locale('ar'),
+        //
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         debugShowCheckedModeBanner: false,
-        title: 'حصن المسلم',
+        title: 'حصن المسلم'.tr,
         theme: ThemeServices.getTheme().copyWith(
           textTheme: ThemeServices.getTheme().textTheme.apply(
                 fontFamily: appData.fontFamily,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/modules/app_language_page/app_language_page.dart';
 import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
@@ -87,6 +88,18 @@ class Settings extends StatelessWidget {
                       transitionAnimation.fromBottom2Top(
                         context: context,
                         goToPage: const RearrangeDashboardPage(),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("لغة التطبيق"),
+                    leading: const Icon(
+                      Icons.translate,
+                    ),
+                    onTap: () {
+                      transitionAnimation.fromBottom2Top(
+                        context: context,
+                        goToPage: const AppLanguagePage(),
                       );
                     },
                   ),
