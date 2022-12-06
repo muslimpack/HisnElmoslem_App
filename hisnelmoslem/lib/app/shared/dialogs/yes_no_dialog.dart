@@ -10,58 +10,63 @@ class YesOrNoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-        ),
-        margin: const EdgeInsets.all(0.0),
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text("تنويه",
-                  style: TextStyle(fontSize: 25, color: mainColor)),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
             ),
-            const Divider(),
-            Text(
-              msg,
-            ),
-            const Divider(),
-            Row(
+            margin: const EdgeInsets.all(0.0),
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: ListTile(
-                    title: Text(
-                      "نعم",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: mainColor),
-                    ),
-                    onTap: () {
-                      onYes();
-                      Navigator.pop<bool>(context, true);
-                    },
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text("تنويه",
+                      style: TextStyle(fontSize: 25, color: mainColor)),
                 ),
-                Expanded(
-                    child: ListTile(
-                  title: Text(
-                    "لا",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: mainColor),
-                  ),
-                  onTap: () {
-                    Navigator.pop<bool>(context, false);
-                  },
-                )),
+                const Divider(),
+                Text(
+                  msg,
+                ),
+                const Divider(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                        title: Text(
+                          "نعم",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: mainColor),
+                        ),
+                        onTap: () {
+                          onYes();
+                          Navigator.pop<bool>(context, true);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                        child: ListTile(
+                      title: Text(
+                        "لا",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20, color: mainColor),
+                      ),
+                      onTap: () {
+                        Navigator.pop<bool>(context, false);
+                      },
+                    )),
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
