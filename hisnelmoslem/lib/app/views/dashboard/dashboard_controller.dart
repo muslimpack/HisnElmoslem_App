@@ -187,6 +187,7 @@ class DashboardController extends GetxController {
   ///
   void toggleTheme() {
     ThemeServices.changeThemeMode();
+    Get.forceAppUpdate();
     update();
   }
 /* ****************************** */

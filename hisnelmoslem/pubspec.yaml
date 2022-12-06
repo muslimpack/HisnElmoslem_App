@@ -31,7 +31,7 @@ dependencies:
   day_night_time_picker: ^1.0.5
   flutter_slidable: ^1.2.0
   fluttertoast: ^8.0.8
-  get: ^4.6.1
+  get: ^4.6.5
   auto_size_text: ^3.0.0
   screenshot: ^1.2.3
   get_storage: ^2.0.3
