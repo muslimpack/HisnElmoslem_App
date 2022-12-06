@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
@@ -35,7 +36,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.saturday,
+            weekday: AwesomeDay.saturday.value,
           );
           break;
         case "AtSunday":
@@ -45,7 +46,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.sunday,
+            weekday: AwesomeDay.sunday.value,
           );
           break;
         case "AtMonday":
@@ -55,7 +56,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.monday,
+            weekday: AwesomeDay.monday.value,
           );
           break;
         case "AtTuesday":
@@ -65,7 +66,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.tuesday,
+            weekday: AwesomeDay.tuesday.value,
           );
           break;
         case "AtWednesday":
@@ -75,7 +76,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.wednesday,
+            weekday: AwesomeDay.wednesday.value,
           );
           break;
         case "AtThursday":
@@ -85,7 +86,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.thursday,
+            weekday: AwesomeDay.thursday.value,
           );
           break;
         case "AtFriday":
@@ -95,7 +96,7 @@ class AlarmManager {
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute, 0),
             payload: (dbAlarm.titleId).toString(),
-            day: Day.friday,
+            weekday: AwesomeDay.friday.value,
           );
           break;
       }

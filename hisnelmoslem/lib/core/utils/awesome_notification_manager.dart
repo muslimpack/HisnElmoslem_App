@@ -68,7 +68,7 @@ class AwesomeNotificationManager {
         NotificationChannel(
           channelKey: 'in_app_notification',
           channelName: 'In App Notification',
-          channelDescription: '',
+          channelDescription: 'For internal notifications',
           defaultColor: Colors.teal,
           importance: NotificationImportance.High,
           channelShowBadge: true,
@@ -78,7 +78,7 @@ class AwesomeNotificationManager {
         NotificationChannel(
           channelKey: 'scheduled_channel',
           channelName: 'Scheduled Notifications',
-          channelDescription: '',
+          channelDescription: 'For Scheduled notifications',
           defaultColor: Colors.teal,
           importance: NotificationImportance.High,
           locked: true,
@@ -96,41 +96,30 @@ class AwesomeNotificationManager {
       await awesomeNotificationManager.checkIfAllowed(Get.context!);
 
       ///
-      AwesomeNotifications()
-          .createdStream
-          .listen((ReceivedNotification receivedNotification) async {
-        List<String> payloadsList =
-            receivedNotification.payload!.values.toList();
-        String payload = payloadsList[0];
-        hisnPrint("createdStream: $payload");
-      });
-
-      ///
-      AwesomeNotifications()
-          .actionStream
-          .listen((ReceivedNotification receivedNotification) async {
-        List<String> payloadsList =
-            receivedNotification.payload!.values.toList();
-        String payload = payloadsList[0];
-        hisnPrint("actionStream: $payload");
-        bool channelCheck =
-            receivedNotification.channelKey == 'in_app_notification' ||
-                receivedNotification.channelKey == 'scheduled_channel';
-        if (channelCheck && Platform.isIOS) {
-          await AwesomeNotifications().getGlobalBadgeCounter().then(
-            (value) async {
-              await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
-            },
-          );
-        }
-
-        if (payload.isNotEmpty) {
-          onNotificationClick(payload);
-        } else {
-          hisnPrint("actionStream: Else");
-        }
-      });
+      await AwesomeNotifications()
+          .setListeners(onActionReceivedMethod: onActionReceivedMethod);
     });
+  }
+
+  Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
+    List<String?> payloadsList = receivedAction.payload!.values.toList();
+    String? payload = payloadsList[0];
+    hisnPrint("actionStream: $payload");
+    bool channelCheck = receivedAction.channelKey == 'in_app_notification' ||
+        receivedAction.channelKey == 'scheduled_channel';
+    if (channelCheck && Platform.isIOS) {
+      await AwesomeNotifications().getGlobalBadgeCounter().then(
+        (value) async {
+          await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
+        },
+      );
+    }
+
+    if (payload!.isNotEmpty) {
+      onNotificationClick(payload);
+    } else {
+      hisnPrint("actionStream: Else");
+    }
   }
 
   Future<void> cancelAllNotifications() async {
@@ -164,7 +153,7 @@ class AwesomeNotificationManager {
         NotificationActionButton(
           key: 'Dismiss',
           label: 'تفويت',
-          buttonType: ActionButtonType.DisabledAction,
+          actionType: ActionType.DisabledAction,
         ),
         NotificationActionButton(
           key: 'Start',
@@ -204,7 +193,7 @@ class AwesomeNotificationManager {
     String? body,
     required String payload,
     required Time time,
-    required Day day,
+    int? weekday,
     bool needToOpen = true,
   }) async {
     await AwesomeNotifications().createNotification(
@@ -221,7 +210,7 @@ class AwesomeNotificationManager {
         preciseAlarm: true,
         allowWhileIdle: true,
         repeats: true,
-        weekday: day.value,
+        weekday: weekday,
         hour: time.hour,
         minute: time.minute,
         second: 0,
@@ -232,7 +221,7 @@ class AwesomeNotificationManager {
               NotificationActionButton(
                 key: 'Dismiss',
                 label: 'تفويت',
-                buttonType: ActionButtonType.DisabledAction,
+                actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
@@ -243,7 +232,7 @@ class AwesomeNotificationManager {
               NotificationActionButton(
                 key: 'Dismiss',
                 label: 'تفويت',
-                buttonType: ActionButtonType.DisabledAction,
+                actionType: ActionType.DisabledAction,
               ),
             ],
     );
@@ -282,7 +271,7 @@ class AwesomeNotificationManager {
               NotificationActionButton(
                 key: 'Dismiss',
                 label: 'تفويت',
-                buttonType: ActionButtonType.DisabledAction,
+                actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
@@ -293,7 +282,7 @@ class AwesomeNotificationManager {
               NotificationActionButton(
                 key: 'Dismiss',
                 label: 'تفويت',
-                buttonType: ActionButtonType.DisabledAction,
+                actionType: ActionType.DisabledAction,
               ),
             ],
     );
@@ -329,7 +318,7 @@ class AwesomeNotificationManager {
   }
 
   void dispose() {
-    AwesomeNotifications().actionSink.close();
-    AwesomeNotifications().createdSink.close();
+    // AwesomeNotifications().actionSink.close();
+    // AwesomeNotifications().createdSink.close();
   }
 }

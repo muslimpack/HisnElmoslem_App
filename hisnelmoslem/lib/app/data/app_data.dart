@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
 
@@ -122,7 +123,7 @@ class AppData {
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
         time: const Time(20, 00, 0),
-        day: Day.sunday,
+        weekday: AwesomeDay.sunday.value,
         payload: "555",
         needToOpen: false,
       );
@@ -132,7 +133,7 @@ class AppData {
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
         time: const Time(20, 00, 0),
-        day: Day.wednesday,
+        weekday: AwesomeDay.wednesday.value,
         payload: "666",
         needToOpen: false,
       );
@@ -151,7 +152,7 @@ class AppData {
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
         time: const Time(9, 00, 0),
-        day: Day.friday,
+        weekday: AwesomeDay.friday.value,
         payload: "الكهف",
         needToOpen: false,
       );
