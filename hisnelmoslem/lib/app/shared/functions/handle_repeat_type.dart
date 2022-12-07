@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
+
 class HandleRepeatType {
   String getNameToPutInDatabase({required String chosenValue}) {
-    switch (chosenValue) {
-      case "يوميا":
+    /* switch (chosenValue) {
+      case "daily".tr:
         return "Daily";
       case "كل سبت":
         return "AtSaturday";
@@ -19,29 +21,48 @@ class HandleRepeatType {
         return "AtFriday";
       default:
         return "Daily";
+    }*/
+    if (chosenValue == "daily".tr) {
+      return "Daily";
+    } else if (chosenValue == "every saturday".tr) {
+      return "AtSaturday";
+    } else if (chosenValue == "every sunday".tr) {
+      return "AtSunday";
+    } else if (chosenValue == "every monday".tr) {
+      return "AtMonday";
+    } else if (chosenValue == "every tuesday".tr) {
+      return "AtTuesday";
+    } else if (chosenValue == "every wednesday".tr) {
+      return "AtWednesday";
+    } else if (chosenValue == "every thursday".tr) {
+      return "AtThursday";
+    } else if (chosenValue == "every Friday".tr) {
+      return "AtFriday";
+    } else {
+      return "Daily";
     }
   }
 
   String getNameToUser({required String chosenValue}) {
     switch (chosenValue) {
       case "Daily":
-        return "يوميا";
+        return "daily".tr;
       case "AtSaturday":
-        return "كل سبت";
+        return "every saturday".tr;
       case "AtSunday":
-        return "كل أحد";
+        return "every sunday".tr;
       case "AtMonday":
-        return "كل إثنين";
+        return "every monday".tr;
       case "AtTuesday":
-        return "كل ثلاثاء";
+        return "every tuesday".tr;
       case "AtWednesday":
-        return "كل أربعاء";
+        return "every wednesday".tr;
       case "AtThursday":
-        return "كل خميس";
+        return "every thursday".tr;
       case "AtFriday":
-        return "كل جمعة";
+        return "every Friday".tr;
       default:
-        return "يوميا";
+        return "daily".tr;
     }
   }
 }

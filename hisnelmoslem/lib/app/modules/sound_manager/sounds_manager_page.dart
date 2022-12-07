@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
@@ -15,8 +15,8 @@ class SoundsManagerPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: const Text("إدارة المؤثرات",
-                  style: TextStyle(fontFamily: "Uthmanic")),
+              title: Text("effect manager".tr,
+                  style: const TextStyle(fontFamily: "Uthmanic")),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,
             ),
@@ -42,7 +42,7 @@ class SoundsManagerPage extends StatelessWidget {
                   //       controller.playTransitionSound();
                   //     } else {
                   //       // getSnackbar(
-                  //       //     message: "تم الغاء منبه صيام الإثنين والخميس");
+                  //       //     message: "الغاء تفعيل منبه صيام الإثنين والخميس");
                   //     }
                   //     controller.update();
                   //   },
@@ -50,12 +50,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Tally Sound Allowed Vibrate
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.vibration,
                       ),
-                      title: Text("اهتزاز الهاتف عند كل تسبيحة"),
+                      title: Text("phone vibration at every praise".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isTallyVibrateAllowed,
@@ -72,12 +72,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Tally Sound Allowed
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.speaker,
                       ),
-                      title: Text("اشعار صوتي عند كل تسبيحة"),
+                      title: Text("sound effect at every praise".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isTallySoundAllowed,
@@ -94,12 +94,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Zikr Done Sound Allowed Vibrate
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.vibration,
                       ),
-                      title: Text("اهتزاز الهاتف عند انتهاء كل ذكر"),
+                      title: Text("phone vibration at single zikr end".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isZikrDoneVibrateAllowed,
@@ -115,12 +115,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Zikr Done Sound Allowed
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.speaker,
                       ),
-                      title: Text("اشعار صوتي عند انتهاء كل ذكر"),
+                      title: Text("sound effect at single zikr end".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isZikrDoneSoundAllowed,
@@ -136,12 +136,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Azkar Done Sound Allowed vibrate
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.vibration,
                       ),
-                      title: Text("اهتزاز الهاتف عند انتهاء جميع الأذكار"),
+                      title: Text("phone vibration when all zikr end".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isAllAzkarFinishedVibrateAllowed,
@@ -157,12 +157,12 @@ class SoundsManagerPage extends StatelessWidget {
 
                   /// Azkar Done Sound Allowed
                   SwitchListTile(
-                    title: const ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: Icon(
+                    title: ListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      leading: const Icon(
                         Icons.speaker,
                       ),
-                      title: Text("اشعار صوتي عند انتهاء جميع الأذكار"),
+                      title: Text("sound effect when all zikr end".tr),
                     ),
                     activeColor: mainColor,
                     value: controller.isAllAzkarFinishedSoundAllowed,

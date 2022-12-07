@@ -85,7 +85,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                             //   ListTile(
                             //     onTap: () {},
                             //     title: const Text(
-                            //       "تم",
+                            //       "done".tr,
                             //       textAlign: TextAlign.center,
                             //       style: TextStyle(fontSize: 25),
                             //     ),

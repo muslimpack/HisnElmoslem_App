@@ -24,9 +24,9 @@ class ShareAsImage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
-              title: const Text(
-                "مشاركة كصورة",
-                style: TextStyle(
+              title: Text(
+                "share as image".tr,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: "Uthmanic",
                 ),

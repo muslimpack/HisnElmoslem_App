@@ -18,18 +18,18 @@ class FakehadithAppBar extends StatelessWidget {
           preferredSize: const Size(0, 50),
           child: TabBar(
             indicatorColor: mainColor,
-            tabs: const [
+            tabs: [
               Tab(
                 child: Text(
-                  "جديد",
-                  style: TextStyle(
+                  "new".tr,
+                  style: const TextStyle(
                       fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
                 ),
               ),
               Tab(
                 child: Text(
-                  "تمت قراءته",
-                  style: TextStyle(
+                  "have been read".tr,
+                  style: const TextStyle(
                       fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
                 ),
               ),

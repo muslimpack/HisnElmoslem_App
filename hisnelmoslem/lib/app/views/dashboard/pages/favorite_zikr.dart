@@ -103,7 +103,7 @@ class FavouriteZikr extends StatelessWidget {
 
                                               getSnackbar(
                                                   message:
-                                                      'تم النسخ إلى الحافظة');
+                                                      "copied to clipboard".tr);
                                               // Get..currentState!.showSnackBar(snackBar);
                                             });
                                           }),

@@ -18,8 +18,8 @@ class RearrangeDashboardPage extends StatelessWidget {
               : Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    title: const Text("ترتيب الشاشة",
-                        style: TextStyle(fontFamily: "Uthmanic")),
+                    title: Text("dashboard arrangement".tr,
+                        style: const TextStyle(fontFamily: "Uthmanic")),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     elevation: 0,
                   ),

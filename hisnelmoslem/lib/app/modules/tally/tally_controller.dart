@@ -254,8 +254,7 @@ class TallyController extends GetxController {
           context: Get.context!,
           builder: (BuildContext context) {
             return YesOrNoDialog(
-              msg:
-                  "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟",
+              msg: "your progress will be deleted and you can't undo that".tr,
               onYes: () async {
                 currentDBTally!.count = 0;
                 await tallyDatabaseHelper.updateTally(

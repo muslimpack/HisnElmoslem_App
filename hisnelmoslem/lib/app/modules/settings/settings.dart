@@ -151,10 +151,12 @@ class Settings extends StatelessWidget {
 
                       if (appData.isFastAlarmEnabled) {
                         getSnackbar(
-                            message: "تم تفعيل منبه صيام الإثنين والخميس");
+                            message:
+                                "${"activate".tr} | ${"fasting mondays and thursdays reminder".tr}");
                       } else {
                         getSnackbar(
-                            message: "تم الغاء منبه صيام الإثنين والخميس");
+                            message:
+                                "${"deactivate".tr} | ${"fasting mondays and thursdays reminder".tr}");
                       }
                       controller.update();
                     },
@@ -173,9 +175,13 @@ class Settings extends StatelessWidget {
                       appData.changCaveAlarmStatus(value);
 
                       if (appData.isCaveAlarmEnabled) {
-                        getSnackbar(message: "تم تفعيل تذكير سورة الكهف");
+                        getSnackbar(
+                            message:
+                                "${"activate".tr} | ${"sura Al-Kahf reminder".tr}");
                       } else {
-                        getSnackbar(message: "تم الغاء تذكير سورة الكهف");
+                        getSnackbar(
+                            message:
+                                "${"deactivate".tr} | ${"sura Al-Kahf reminder".tr}");
                       }
                       controller.update();
                     },

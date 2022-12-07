@@ -15,8 +15,8 @@ class AppLanguagePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: const Text(
-                "اختر لغة التطبيق",
+              title: Text(
+                "app language".tr,
               ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,

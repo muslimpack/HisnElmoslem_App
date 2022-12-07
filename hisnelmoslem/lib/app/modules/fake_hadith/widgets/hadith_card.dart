@@ -40,7 +40,7 @@ class HadithCard extends StatelessWidget {
             softWrap: true,
           ),
           action: SnackBarAction(
-              label: 'نسخ',
+              label: "copy".tr,
               onPressed: () {
                 // Some code to undo the change.
                 FlutterClipboard.copy(fakeHaith.source);
@@ -78,9 +78,9 @@ class HadithCard extends StatelessWidget {
                                 "${fakeHaith.text}\n${fakeHaith.darga}")
                             .then((result) {
                           final snackBar = SnackBar(
-                            content: const Text('تم النسخ إلى الحافظة'),
+                            content: Text("copied to clipboard".tr),
                             action: SnackBarAction(
-                              label: 'تم',
+                              label: "done".tr,
                               onPressed: () {},
                             ),
                           );

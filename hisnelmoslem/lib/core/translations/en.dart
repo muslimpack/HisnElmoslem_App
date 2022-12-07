@@ -25,7 +25,7 @@ const Map<String, String> en = {
   "tally": "Tally",
   "active tallly": "Active tallly",
   "times": "Times",
-  "Tallies": "Tallies",
+  "counters": "Counters",
   "edit": "Edit",
   "delete": "Delete",
   //
@@ -64,4 +64,115 @@ const Map<String, String> en = {
   "Github": "Github",
 
   ///
+
+  //**
+  // Phase 02
+  // */
+
+  /// Theme manager
+  "light theme": "Light Theme",
+  "optimize light theme": "Optimized Light Theme",
+  "dark theme": "Dark Theme",
+  "optimize dark theme": "Optimized Dark Theme",
+
+  /// Effect manager
+  "phone vibration at every praise": "Phone vibration at every praise",
+  "sound effect at every praise": "Sound effect at every praise",
+  "phone vibration at single zikr end": "Phone vibration at single zikr end",
+  "sound effect at single zikr end": "Sound effect at single zikr end",
+  "phone vibration when all zikr end": "Phone vibration when all zikr end",
+  "sound effect when all zikr end": "Sound effect when all zikr end",
+
+  /// Reminders manager
+  "no reminders found": "No reminders found",
+  "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title":
+      "No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title",
+
+  /// About page
+  "Hisn ELmoslem App Version": "Hisn ELmoslem App Version",
+  "Free, ad-free and open source app": "Free, ad-free and open source app",
+  "Pray for us and our parents.": "Pray for us and our parents.",
+  "Quran pages is from android quran": "Quran pages is from android quran",
+  "A digital copy of Hisn Elmoslem was used from the Aloka Network.":
+      "A digital copy of Hisn Elmoslem was used from the Aloka Network.",
+  "Dr. Saeed bin Ali bin Wahf Al-Qahtani":
+      "Dr. Saeed bin Ali bin Wahf Al-Qahtani",
+
+  ///
+  "message": "Message",
+  "activate": "Activate",
+  "deactivate": "Deactivate",
+  "done": "Done",
+
+  "set message for you": "Set message for yourself",
+  "click to choose time": "Click to choose time",
+  "daily": "Daily",
+  "every saturday": "Every saturday",
+  "every sunday": "Every sunday",
+  "every monday": "Every monday",
+  "every tuesday": "Every tuesday",
+  "every wednesday": "Every wednesday",
+  "every thursday": "Every thursday",
+  "every Friday": "Every Friday",
+
+  "please choose time for the reminder": "Please choose time for the reminder",
+  "edit reminder": "Edit reminder",
+  "add reminder": "Add reminder",
+
+  "yes": "Yes",
+  "no": "No",
+  "are you sure?": "Are you sure?",
+
+  "add new counter": "Add new counter",
+  "edit counter": "Edit counter",
+  "counter name": "Counter name",
+  "circle every": "Complete circle every",
+  "the counter circle is set to zero when reach this number":
+      "The counter circle is set to zero when reach this number",
+  "add a name to your counter": "Add a name to your counter",
+
+  "no active counter": "No active counter",
+  "to activate counter go to counters then click to counter icon beside the counter you want":
+      "To activate counter go to counters then click to counter icon beside the counter you want",
+  "your progress will be deleted and you can't undo that":
+      "Your progress will be deleted and you can't undo that",
+
+  /// Share as image
+  "share as image": "Share as image",
+  "title color": "Title color",
+  "text color": "Text color",
+  "subtitle color": "Subtitle color",
+  "background color": "Background color",
+  "image quality": "Image quality",
+  "show zikr index": "Show zikr index",
+  "show fadl": "Show fadl",
+  "show source of zikr": "Show source of zikr",
+  "fixed size mode": "Fixed size mode",
+  "new": "New",
+  "have been read": "Read",
+  "you haven't read anything yet": "You haven't read anything yet",
+  'The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."':
+      'The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."',
+
+  "copy": "Copy",
+  "copied to clipboard": 'Copied to clipboard',
+
+  ///
+  "Hisn ELmoslem App | Rate the app": "Hisn ELmoslem App | Rate the app",
+  "notes": "Notes",
+  "I like about this app:": "I like about this app:",
+  "I don't like about this app:": "I don't like about this app:",
+  "Features I hope to be added:": "Features I hope to be added:",
+
+  "Hisn ELmoslem App | Chat": "Hisn ELmoslem App | Chat",
+
+  "Hisn ELmoslem App | Misspelled": "Hisn ELmoslem App | Misspelled",
+
+  "There is a spelling error in": "There is a spelling error in",
+  "Title": "Title",
+  "Zikr Index": "Zikr Index",
+  "Text": "Text",
+  "It should be:": "It should be:",
+  "Subject": "Subject",
+  "Card index": "Card index",
 };

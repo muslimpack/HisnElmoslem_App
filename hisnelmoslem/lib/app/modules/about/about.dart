@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
@@ -14,9 +15,9 @@ class About extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            "عن التطبيق",
-            style: TextStyle(fontFamily: "Uthmanic"),
+          title: Text(
+            "about us".tr,
+            style: const TextStyle(fontFamily: "Uthmanic"),
           ),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 0,
@@ -30,19 +31,18 @@ class About extends StatelessWidget {
                   'assets/images/app_icon.png',
                   scale: 3,
                 ),
-                title: const Text("تطبيق حصن المسلم الإصدار $appVersion"),
-                subtitle:
-                    const Text("تطبيق مجاني خالي من الإعلانات ومفتوح المصدر"),
+                title: Text("${"Hisn ELmoslem App Version".tr} $appVersion"),
+                subtitle: Text("Free, ad-free and open source app".tr),
               ),
               const Divider(),
-              const ListTile(
-                leading: Icon(MdiIcons.handClap),
-                title: Text("نسألكم الدعاء لنا ولوالدينا"),
+              ListTile(
+                leading: const Icon(MdiIcons.handClap),
+                title: Text("Pray for us and our parents.".tr),
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(MdiIcons.bookOpenPageVariant),
-                title: const Text("صفحات المصحف من خلال موقع android quran"),
+                title: Text("Quran pages is from android quran".tr),
                 onTap: () {
                   openURL("https://android.quran.com/");
                 },
@@ -50,10 +50,10 @@ class About extends StatelessWidget {
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.menu_book),
-                title: const Text(
-                    "تم الاستعانة بنسخة ديجتال من كتاب حصن المسلم من شبكة الألوكة"),
-                subtitle: const Text(
-                    "للفقير إلى الله تعالى الدكتور سعيد بن علي بن وهف القحطاني"),
+                title: Text(
+                    "A digital copy of Hisn Elmoslem was used from the Aloka Network."
+                        .tr),
+                subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
                 onTap: () {
                   openURL("https://www.alukah.net/library/0/55211/");
                 },

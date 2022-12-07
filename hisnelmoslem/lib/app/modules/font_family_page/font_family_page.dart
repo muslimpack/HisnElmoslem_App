@@ -15,8 +15,8 @@ class FontFamilyPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: const Text(
-                "نوع الخط",
+              title: Text(
+                "font type".tr,
               ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,

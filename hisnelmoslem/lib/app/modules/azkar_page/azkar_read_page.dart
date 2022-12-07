@@ -192,16 +192,15 @@ class AzkarReadPage extends StatelessWidget {
                                 softWrap: true,
                               ),
                               action: SnackBarAction(
-                                  label: 'نسخ',
+                                  label: "copy".tr,
                                   onPressed: () {
                                     // Some code to undo the change.
                                     FlutterClipboard.copy(source!)
                                         .then((result) {
                                       final snackBar = SnackBar(
-                                        content:
-                                            const Text('تم النسخ إلى الحافظة'),
+                                        content: Text("copied to clipboard".tr),
                                         action: SnackBarAction(
-                                          label: 'تم',
+                                          label: "done".tr,
                                           onPressed: () {},
                                         ),
                                       );
@@ -276,9 +275,9 @@ class AzkarReadPage extends StatelessWidget {
                                 FlutterClipboard.copy("${text!}\n${fadl!}")
                                     .then((result) {
                                   final snackBar = SnackBar(
-                                    content: const Text('تم النسخ إلى الحافظة'),
+                                    content: Text("copied to clipboard".tr),
                                     action: SnackBarAction(
-                                      label: 'تم',
+                                      label: "done".tr,
                                       onPressed: () {},
                                     ),
                                   );

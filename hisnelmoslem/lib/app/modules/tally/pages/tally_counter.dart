@@ -23,12 +23,13 @@ class TallyCounterView extends StatelessWidget {
       return controller.isLoading
           ? const Loading()
           : controller.currentDBTally == null
-              ? const Empty(
+              ? Empty(
                   isImage: false,
                   icon: Icons.watch_rounded,
-                  title: "لا يوجد عداد نشط",
+                  title: "no active counter".tr,
                   description:
-                      "لتفعيل العداد اذهب إلى عرض التسبيحات واضغط على علامة العداد",
+                      "to activate counter go to counters then click to counter icon beside the counter you want"
+                          .tr,
                 )
               : Scaffold(
                   resizeToAvoidBottomInset: false,
@@ -80,7 +81,7 @@ class TallyCounterView extends StatelessWidget {
                                 startAngle: 270,
                                 infoProperties: InfoProperties(
                                   bottomLabelText:
-                                      'عدد المرات ${controller.circvaltimes}',
+                                      '${"times".tr} | ${controller.circvaltimes}',
                                   bottomLabelStyle: const TextStyle(
                                     fontSize: 25,
                                   ),

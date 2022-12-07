@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
@@ -38,7 +39,7 @@ class ImageWidthDialog extends StatelessWidget {
       ],
       footer: ListTile(
         title: Text(
-          "تم",
+          "done".tr,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),
         ),

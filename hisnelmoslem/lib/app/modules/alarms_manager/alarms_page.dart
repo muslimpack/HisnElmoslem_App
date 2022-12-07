@@ -18,8 +18,8 @@ class AlarmsPages extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: const Text("إدارة تنبيهات الأذكار",
-                    style: TextStyle(fontFamily: "Uthmanic")),
+                title: Text("reminders manager".tr,
+                    style: const TextStyle(fontFamily: "Uthmanic")),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
               ),
@@ -30,12 +30,13 @@ class AlarmsPages extends StatelessWidget {
                       thumbVisibility: false,
                       child: ScrollGlowCustom(
                         child: controller.alarms.isEmpty
-                            ? const Empty(
+                            ? Empty(
                                 isImage: false,
                                 icon: Icons.alarm_add_rounded,
-                                title: "لا يوجد أي منبهات",
+                                title: "no reminders found".tr,
                                 description:
-                                    "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
+                                    "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title"
+                                        .tr,
                               )
                             : ListView.builder(
                                 padding: const EdgeInsets.only(top: 10),

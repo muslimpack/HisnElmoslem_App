@@ -66,12 +66,12 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
   @override
   Widget build(BuildContext context) {
     return DialogMaker(
-      height: 357,
+      height: 380,
       header: Text(
-        "تعديل تنبيه",
+        "edit reminder".tr,
         style: TextStyle(
-          fontFamily: "Uthmanic",
-          color: Theme.of(context).listTileTheme.textColor,
+          fontSize: 25,
+          color: mainColor,
         ),
         textAlign: TextAlign.center,
       ),
@@ -89,22 +89,22 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           controller: bodyController,
           maxLength: 100,
           autofocus: true,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: "ضع رسالة لنفسك",
+            hintText: "set message for you".tr,
             contentPadding:
-                EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
+                const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
           ),
         ),
         Card(
           child: ListTile(
             title: Text(
               selectedHour == null
-                  ? "اضغط لاختيار التوقيت"
+                  ? "click to choose time".tr
                   : '$selectedHour : $selectedMinute',
               textAlign: TextAlign.center,
               textDirection: TextDirection.ltr,
@@ -149,14 +149,14 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                 });
               },
               items: <String>[
-                "يوميا",
-                "كل سبت",
-                "كل أحد",
-                "كل إثنين",
-                "كل ثلاثاء",
-                "كل أربعاء",
-                "كل خميس",
-                "كل جمعة",
+                "daily".tr,
+                "every saturday".tr,
+                "every sunday".tr,
+                "every monday".tr,
+                "every tuesday".tr,
+                "every wednesday".tr,
+                "every thursday".tr,
+                "every Friday".tr,
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   // alignment: Alignment.center,
@@ -179,8 +179,8 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
         children: [
           Expanded(
             child: ListTile(
-              title: const Text(
-                "تم",
+              title: Text(
+                "done".tr,
                 textAlign: TextAlign.center,
               ),
               onTap: () {
@@ -203,7 +203,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                     alarmManager.alarmState(dbAlarm: updateAlarm);
                     Navigator.pop(context, updateAlarm);
                   } else {
-                    showToast(msg: "اختر وقتا للتذكير");
+                    showToast(msg: "please choose time for the reminder".tr);
                   }
                 });
               },
