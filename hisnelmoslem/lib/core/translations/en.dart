@@ -136,6 +136,7 @@ const Map<String, String> en = {
       "To activate counter go to counters then click to counter icon beside the counter you want",
   "your progress will be deleted and you can't undo that":
       "Your progress will be deleted and you can't undo that",
+  "This counter will be deleted.": "This counter will be deleted.",
 
   /// Share as image
   "share as image": "Share as image",

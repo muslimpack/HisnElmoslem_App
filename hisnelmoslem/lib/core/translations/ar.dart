@@ -137,6 +137,7 @@ const Map<String, String> ar = {
       "لتفعيل العداد اذهب إلى عرض التسبيحات واضغط على علامة العداد",
   "your progress will be deleted and you can't undo that":
       "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟",
+  "This counter will be deleted.": "سيتم حذف هذا العداد بما فيه من انجاز",
 
   /// Share as image
   "share as image": "مشاركة كصورة",

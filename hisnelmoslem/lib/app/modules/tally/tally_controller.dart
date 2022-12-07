@@ -275,8 +275,7 @@ class TallyController extends GetxController {
         context: Get.context!,
         builder: (BuildContext context) {
           return YesOrNoDialog(
-            msg:
-                "سيتم حذف هذا الذكر بما فيه من انجاز\nهل أنت متأكد أنك تريد القيام بهذا؟",
+            msg: "This counter will be deleted.".tr,
             onYes: () async {
               await tallyDatabaseHelper.deleteTally(dbTally: dbTally);
               getAllListsReady();
