@@ -51,8 +51,8 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  ///
-  Intl.defaultLocale = 'ar';
+  // ///
+  // Intl.defaultLocale = 'ar';
 
   ///
   runApp(const MyApp());

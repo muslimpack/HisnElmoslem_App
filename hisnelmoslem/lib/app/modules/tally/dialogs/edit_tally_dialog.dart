@@ -64,6 +64,12 @@ class _EditTallyDialogState extends State<EditTallyDialog> {
           style: TextStyle(fontSize: 20, color: mainColor),
         ),
         onTap: () {
+          if (resetCounterController.text.isEmpty) {
+            resetCounterController.text = "2";
+          }
+          if (int.parse(resetCounterController.text) == 0) {
+            resetCounterController.text = "2";
+          }
           widget.dbTally.title = titleController.text;
           widget.dbTally.countReset = int.parse(resetCounterController.text);
           widget.onSubmit(widget.dbTally);

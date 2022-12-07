@@ -52,6 +52,12 @@ class AddTallyDialog extends StatelessWidget {
           style: TextStyle(fontSize: 20, color: mainColor),
         ),
         onTap: () {
+          if (resetCounterController.text.isEmpty) {
+            resetCounterController.text = "2";
+          }
+          if (int.parse(resetCounterController.text) == 0) {
+            resetCounterController.text = "2";
+          }
           DbTally dbTally = DbTally();
           dbTally.title = titleController.text;
           dbTally.countReset = int.parse(resetCounterController.text);

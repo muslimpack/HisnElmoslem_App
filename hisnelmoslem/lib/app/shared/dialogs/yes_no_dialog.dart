@@ -24,7 +24,7 @@ class YesOrNoDialog extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("are you sure".tr,
+              child: Text("are you sure?".tr,
                   style: TextStyle(fontSize: 25, color: mainColor)),
             ),
             const Divider(),

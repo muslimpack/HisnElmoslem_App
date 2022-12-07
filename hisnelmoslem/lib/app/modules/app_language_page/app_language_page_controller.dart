@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/data/models/translation_data.dart';
+import 'package:intl/intl.dart';
 
 class AppLanguagePageController extends GetxController {
   /* *************** Variables *************** */
@@ -27,6 +28,7 @@ class AppLanguagePageController extends GetxController {
   void changeAppLanguage(String val) {
     Get.updateLocale(Locale(val));
     appData.changAppLocale(val);
+    Intl.defaultLocale = val;
     update();
   }
 }

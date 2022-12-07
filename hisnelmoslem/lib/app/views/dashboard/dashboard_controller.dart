@@ -14,6 +14,7 @@ import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
 import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
+import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController {
   /* *************** Variables *************** */
@@ -49,6 +50,9 @@ class DashboardController extends GetxController {
   void onInit() async {
     super.onInit();
 
+    ///
+
+    Intl.defaultLocale = Get.locale!.countryCode;
     //
     isLoading = true;
 
