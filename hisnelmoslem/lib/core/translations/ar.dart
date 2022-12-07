@@ -129,7 +129,7 @@ const Map<String, String> ar = {
   "counter name": "اسم العداد",
   "circle every": "دورة كل",
   "the counter circle is set to zero when reach this number":
-      "تعاد دورة العداد إلى الصفر عند الوصوصل لهذا الرقم",
+      "تعاد دورة العداد إلى الصفر عند الوصول لهذا الرقم",
   "add a name to your counter":
       "أدخل اسم العداد مثال\nسبحان الله وبحمده سبحان الله العظيم",
   "Counter circle must be greater than zero":
