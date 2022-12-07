@@ -131,6 +131,8 @@ const Map<String, String> en = {
   "the counter circle is set to zero when reach this number":
       "The counter circle is set to zero when reach this number",
   "add a name to your counter": "Add a name to your counter",
+  "Counter circle must be greater than zero":
+      "Counter circle must be greater than zero",
 
   "no active counter": "No active counter",
   "to activate counter go to counters then click to counter icon beside the counter you want":

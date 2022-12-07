@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/tally.dart';
+import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/text_field.dart';
@@ -64,16 +65,16 @@ class _EditTallyDialogState extends State<EditTallyDialog> {
           style: TextStyle(fontSize: 20, color: mainColor),
         ),
         onTap: () {
-          if (resetCounterController.text.isEmpty) {
-            resetCounterController.text = "2";
+          if (resetCounterController.text.isNum &&
+              int.parse(resetCounterController.text) > 0) {
+            widget.dbTally.title = titleController.text;
+            widget.dbTally.countReset = int.parse(resetCounterController.text);
+            widget.onSubmit(widget.dbTally);
+            Navigator.pop<bool>(context, true);
+          } else {
+            //TODO
+            showToast(msg: "Counter circle must be greater than zero".tr);
           }
-          if (int.parse(resetCounterController.text) == 0) {
-            resetCounterController.text = "2";
-          }
-          widget.dbTally.title = titleController.text;
-          widget.dbTally.countReset = int.parse(resetCounterController.text);
-          widget.onSubmit(widget.dbTally);
-          Navigator.pop<bool>(context, true);
         },
       ),
     );

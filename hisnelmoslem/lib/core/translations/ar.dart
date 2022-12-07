@@ -132,6 +132,8 @@ const Map<String, String> ar = {
       "تعاد دورة العداد إلى الصفر عند الوصوصل لهذا الرقم",
   "add a name to your counter":
       "أدخل اسم العداد مثال\nسبحان الله وبحمده سبحان الله العظيم",
+  "Counter circle must be greater than zero":
+      "دورة العداد يجب أن تكون رقم أكبر من الصفر",
 
   "no active counter": "لا يوجد عداد نشط",
   "to activate counter go to counters then click to counter icon beside the counter you want":
