@@ -24,15 +24,15 @@ const Map<String, String> en = {
   /// Drawer
   //
   "tally": "Tally",
-  "active tallly": "Active tallly",
+  "active tallly": "Active tally",
   "times": "Times",
   "counters": "Counters",
   "edit": "Edit",
   "delete": "Delete",
   //
-  "sura Al-Kahf": "Sura Al-Kahf",
-  "sura As-Sajdah": "Sura As-Sajdah",
-  "sura Al-Mulk": "Sura Al-Mulk",
+  "sura Al-Kahf": "Surah Al-Kahf",
+  "sura As-Sajdah": "Surah As-Sajdah",
+  "sura Al-Mulk": "Surah Al-Mulk",
   "fake hadith": "Fake Hadith",
   "settings": "Settings",
   "contact to dev": "Contact to Dev",
@@ -44,8 +44,8 @@ const Map<String, String> en = {
   "general": "General",
   "page mode": "Page Mode",
   "card mode": "Card Mode",
-  "theme manager": "Theme Manager",
-  "effect manager": "Effect Manager",
+  "theme manager": "Theme Control",
+  "effect manager": "Effect Control",
   "dashboard arrangement": "Dashboard Arrangement",
   "app language": "App Language",
   "font type": "Font Type",
@@ -53,10 +53,10 @@ const Map<String, String> en = {
   "font settings": "Font Settings",
   //
   "reminders": "Reminders",
-  "reminders manager": "Reminders Manager",
+  "reminders manager": "Reminders Control",
   "fasting mondays and thursdays reminder":
       "Fasting Mondays and Thursdays Reminder",
-  "sura Al-Kahf reminder": "Sura Al-Kahf Reminder",
+  "sura Al-Kahf reminder": "Surah Al-Kahf Reminder",
   //
   "contact": "Contact",
   "report bugs and request new features":
@@ -93,7 +93,7 @@ const Map<String, String> en = {
   "Hisn ELmoslem App Version": "Hisn ELmoslem App Version",
   "Free, ad-free and open source app": "Free, ad-free and open source app",
   "Pray for us and our parents.": "Pray for us and our parents.",
-  "Quran pages is from android quran": "Quran pages is from android quran",
+  "Quran pages is from android quran": "Quran pages are from android quran",
   "A digital copy of Hisn Elmoslem was used from the Aloka Network.":
       "A digital copy of Hisn Elmoslem was used from the Aloka Network.",
   "Dr. Saeed bin Ali bin Wahf Al-Qahtani":
@@ -106,14 +106,14 @@ const Map<String, String> en = {
   "done": "Done",
 
   "set message for you": "Set message for yourself",
-  "click to choose time": "Click to choose time",
+  "click to choose time": "Click to set the time",
   "daily": "Daily",
-  "every saturday": "Every saturday",
-  "every sunday": "Every sunday",
-  "every monday": "Every monday",
-  "every tuesday": "Every tuesday",
-  "every wednesday": "Every wednesday",
-  "every thursday": "Every thursday",
+  "every saturday": "Every Saturday",
+  "every sunday": "Every Sunday",
+  "every monday": "Every Monday",
+  "every tuesday": "Every Tuesday",
+  "every wednesday": "Every Wednesday",
+  "every thursday": "Every Thursday",
   "every Friday": "Every Friday",
 
   "please choose time for the reminder": "Please choose time for the reminder",
@@ -132,7 +132,7 @@ const Map<String, String> en = {
       "The counter circle is set to zero when reach this number",
   "add a name to your counter": "Add a name to your counter",
   "Counter circle must be greater than zero":
-      "Counter circle must be greater than zero",
+      "Counter circle must be higher than zero",
 
   "no active counter": "No active counter",
   "to activate counter go to counters then click to counter icon beside the counter you want":
