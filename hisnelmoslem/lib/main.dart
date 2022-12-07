@@ -99,7 +99,7 @@ class MyAppState extends State<MyApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         debugShowCheckedModeBanner: false,
-        title: 'حصن المسلم'.tr,
+        title: "Hisn Elmoslem".tr,
         theme: ThemeServices.getTheme().copyWith(
           textTheme: ThemeServices.getTheme().textTheme.apply(
                 fontFamily: appData.fontFamily,

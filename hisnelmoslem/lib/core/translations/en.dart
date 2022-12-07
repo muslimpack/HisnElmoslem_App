@@ -3,6 +3,7 @@ const Map<String, String> en = {
   // Phase 01
   // */
   ///
+  "Hisn Elmoslem": 'حصن المسلم',
   "start": "Start",
 
   /// Dashboard
