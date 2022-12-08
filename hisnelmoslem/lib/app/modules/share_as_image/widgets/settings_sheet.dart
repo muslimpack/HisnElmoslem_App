@@ -117,8 +117,7 @@ class SettingsSheet extends StatelessWidget {
                               },
                               colorSwatchList:
                                   shareAsImageController.backgroundColors,
-                              colorToTrack:
-                                  shareAsImageData.backgroundColor,
+                              colorToTrack: shareAsImageData.backgroundColor,
                             ),
                           ],
                         ),
@@ -183,15 +182,6 @@ class SettingsSheet extends StatelessWidget {
                     value: shareAsImageData.showSource,
                     onChanged: (value) {
                       shareAsImageController.toggleShowSource(value: value!);
-                    },
-                  ),
-                  const Divider(),
-                  CheckboxListTile(
-                    title: Text("fixed size mode".tr),
-                    value: shareAsImageData.fixedFont,
-                    onChanged: (value) {
-                      shareAsImageController.toggleFixedContentStatus(
-                          value: value!);
                     },
                   ),
                   const SizedBox(

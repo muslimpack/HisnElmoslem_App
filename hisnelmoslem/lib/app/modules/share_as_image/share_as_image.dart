@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
-import 'widgets/image_builder.dart';
 import 'widgets/image_var_font_builder.dart';
 import 'widgets/settings_sheet.dart';
 
@@ -71,10 +69,8 @@ class ShareAsImage extends StatelessWidget {
                     scaleEnabled: true,
                     child: Screenshot(
                       controller: controller.screenshotController,
-                      child: shareAsImageData.fixedFont
-                          ? ImageBuilder(dbContent: controller.dbContent)
-                          : ImageVarFontBuilder(
-                              dbContent: controller.dbContent),
+                      child:
+                          ImageVarFontBuilder(dbContent: controller.dbContent),
                     ),
                   ),
                   SettingsSheet(
