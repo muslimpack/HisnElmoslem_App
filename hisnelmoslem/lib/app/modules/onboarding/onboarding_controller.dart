@@ -18,7 +18,7 @@ class OnBoardingController extends GetxController {
   bool get isFinalPage => currentPageIndex + 1 == pageList.length;
 
   // show skip button
-  bool get showSkipBtn => false;
+  bool get showSkipBtn => true;
 
   //
   int currentPageIndex = 0;
@@ -29,7 +29,7 @@ class OnBoardingController extends GetxController {
   //
   final pageList = [
     const Empty(
-      title: "حصن المسلم الإصدار 2.2.0",
+      title: "حصن المسلم الإصدار 2.2.1",
       description: '''
 عدنا إليك أيها الكريم بتحديث جديد من حصن المسلم
 قم بتقليب الصفحات
@@ -65,6 +65,18 @@ class OnBoardingController extends GetxController {
       title: "حل بعض المشكلات",
       description:
           "حل مشكلة عدم ظهور شريط الأدوات والأزار في النوافذ واختفاءها أسفل أزرار التنقل في بعض الهواتف",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.android,
+      title: "حل بعض المشكلات",
+      description: "حل مشكلة ظهور شاشة سوداء عند مستخدمي أندرويد 13",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.mail,
+      title: "حل بعض المشكلات",
+      description: "حل مشكلة إرسال بريد بالأخطاء وخلافه",
     ),
     Empty(
       isImage: true,
