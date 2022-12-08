@@ -47,49 +47,84 @@ class SettingsSheet extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  Text(
-                    "title color".tr,
-                  ),
-                  ColorSwatchBuilder(
-                    apply: (color) {
-                      shareAsImageController.updateTitleColor(color);
-                    },
-                    colorSwatchList: shareAsImageController.titleColorsList,
-                    colorToTrack: shareAsImageController.titleTextColor,
-                  ),
-                  const Divider(),
-                  Text(
-                    "text color".tr,
-                  ),
-                  ColorSwatchBuilder(
-                    apply: (color) {
-                      shareAsImageController.updateTextColor(color);
-                    },
-                    colorSwatchList: shareAsImageController.bodyColorsList,
-                    colorToTrack: shareAsImageController.bodyTextColor,
-                  ),
-                  const Divider(),
-                  Text(
-                    "subtitle color".tr,
-                  ),
-                  ColorSwatchBuilder(
-                    apply: (color) {
-                      shareAsImageController.updateAdditionalTextColor(color);
-                    },
-                    colorSwatchList:
-                        shareAsImageController.additionalTextColorsList,
-                    colorToTrack: shareAsImageController.additionalTextColor,
-                  ),
-                  const Divider(),
-                  Text(
-                    "background color".tr,
-                  ),
-                  ColorSwatchBuilder(
-                    apply: (color) {
-                      shareAsImageController.updateBackgroundColor(color);
-                    },
-                    colorSwatchList: shareAsImageController.backgroundColors,
-                    colorToTrack: shareAsImageController.backgroundColor,
+                  SizedBox(
+                    height: 70,
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "title color".tr,
+                            ),
+                            ColorSwatchBuilder(
+                              apply: (color) {
+                                shareAsImageController.updateTitleColor(color);
+                              },
+                              colorSwatchList:
+                                  shareAsImageController.titleColorsList,
+                              colorToTrack:
+                                  shareAsImageController.titleTextColor,
+                            ),
+                          ],
+                        ),
+                        const VerticalDivider(),
+                        Column(
+                          children: [
+                            Text(
+                              "text color".tr,
+                            ),
+                            ColorSwatchBuilder(
+                              apply: (color) {
+                                shareAsImageController.updateTextColor(color);
+                              },
+                              colorSwatchList:
+                                  shareAsImageController.bodyColorsList,
+                              colorToTrack:
+                                  shareAsImageController.bodyTextColor,
+                            ),
+                          ],
+                        ),
+                        const VerticalDivider(),
+                        Column(
+                          children: [
+                            Text(
+                              "subtitle color".tr,
+                            ),
+                            ColorSwatchBuilder(
+                              apply: (color) {
+                                shareAsImageController
+                                    .updateAdditionalTextColor(color);
+                              },
+                              colorSwatchList: shareAsImageController
+                                  .additionalTextColorsList,
+                              colorToTrack:
+                                  shareAsImageController.additionalTextColor,
+                            ),
+                          ],
+                        ),
+                        const VerticalDivider(),
+                        Column(
+                          children: [
+                            Text(
+                              "background color".tr,
+                            ),
+                            ColorSwatchBuilder(
+                              apply: (color) {
+                                shareAsImageController
+                                    .updateBackgroundColor(color);
+                              },
+                              colorSwatchList:
+                                  shareAsImageController.backgroundColors,
+                              colorToTrack:
+                                  shareAsImageController.backgroundColor,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const Divider(),
                   Text(
@@ -120,7 +155,7 @@ class SettingsSheet extends StatelessWidget {
                                 child: Text(
                                   shareAsImageController.imageQulityList[index]
                                       .toString(),
-                                  style: const TextStyle(fontSize: 20),
+                                  // style: const TextStyle(fontSize: 20),
                                 ),
                               ),
                             ),
