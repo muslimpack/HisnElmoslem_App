@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/fake_haith.dart';
+import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image.dart';
+import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/core/utils/fake_hadith_database_helper.dart';
 
 class FakeHadithController extends GetxController {
@@ -76,5 +79,19 @@ class FakeHadithController extends GetxController {
     }
 
     update();
+  }
+
+  // share as image
+  shareFakehadithAsImage(DbFakeHaith dbFakeHaith) {
+    DbContent dbContent = DbContent();
+    dbContent.titleId = -1;
+    dbContent.orderId = dbFakeHaith.id;
+    //
+    dbContent.content = dbFakeHaith.text;
+    dbContent.fadl = dbFakeHaith.darga;
+    dbContent.source = dbFakeHaith.source;
+    //
+    transitionAnimation.circleReval(
+        context: Get.context!, goToPage: ShareAsImage(dbContent: dbContent));
   }
 }

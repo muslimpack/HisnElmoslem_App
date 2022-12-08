@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 
@@ -15,11 +14,6 @@ class ImageVarFontBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DashboardController dashboardController = Get.put(DashboardController());
-    String titleWithIndex =
-        "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
-    String titleWithoutIndex =
-        dashboardController.allTitle[dbContent.titleId - 1].name;
     return GetBuilder<ShareAsImageController>(builder: (controller) {
       return Card(
         clipBehavior: Clip.hardEdge,
@@ -38,9 +32,7 @@ class ImageVarFontBuilder extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  shareAsImageData.showZikrIndex
-                      ? titleWithIndex
-                      : titleWithoutIndex,
+                  controller.getImageTitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

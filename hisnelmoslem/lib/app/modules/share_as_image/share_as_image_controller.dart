@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
+import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
@@ -27,7 +28,37 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   bool isLoading = false;
+  bool pageIsLoading = true;
   final box = GetStorage();
+  String title = "";
+
+  Future<void> getTitle() async {
+    if (dbContent.titleId >= 0) {
+      await azkarDatabaseHelper
+          .getTitleById(id: dbContent.titleId)
+          .then((value) {
+        title = value.name;
+      });
+    } else {
+      title = "أحاديث منتشرة لا تصح";
+    }
+  }
+
+  String get getImageTitle {
+    if (dbContent.titleId >= 0) {
+      if (shareAsImageData.showZikrIndex) {
+        return "$title | ذكر رقم ${dbContent.orderId}";
+      } else {
+        return title;
+      }
+    } else {
+      if (shareAsImageData.showZikrIndex) {
+        return "$title | موضوع رقم ${dbContent.orderId}";
+      } else {
+        return title;
+      }
+    }
+  }
 
   DbContent get dbContent {
     hisnPrint("ShareAsImageController dbContent");
@@ -62,11 +93,14 @@ class ShareAsImageController extends GetxController {
   /* *************** Controller life cycle *************** */
 //
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await getTitle();
     backgroundColors = titleColorsList = bodyColorsList =
         additionalTextColorsList = colorsListForText = shareAsImageColorsList;
     fitImageToScreen();
+    pageIsLoading = false;
+    update();
   }
 
   //

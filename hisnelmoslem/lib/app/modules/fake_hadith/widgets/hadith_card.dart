@@ -94,6 +94,16 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                       splashRadius: 20,
                       padding: const EdgeInsets.all(0),
+                      icon: Icon(Icons.camera_alt_rounded, color: mainColor),
+                      onPressed: () {
+                        fakeHadithController.shareFakehadithAsImage(fakeHaith);
+                      }),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                      splashRadius: 20,
+                      padding: const EdgeInsets.all(0),
                       icon: Icon(Icons.share, color: mainColor),
                       onPressed: () {
                         Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
