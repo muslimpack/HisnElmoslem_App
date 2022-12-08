@@ -24,26 +24,27 @@ class AwesomeNotificationManager {
             builder: (context) => AlertDialog(
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20))),
-              title: const Text('هل تريد السماح بتشغيل الإشعارات؟'),
-              content: const Text(
-                  'التطبيق يحتاج إلى أخذ الإذن لتشغيل الإشعارات لتعمل معك التنبيهات بشكل سليم'),
+              title: Text("Allow app to send notifications?".tr),
+              content: Text(
+                  "Hisn ELmoslem need notification permission to send zikr reminders."
+                      .tr),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text(
-                    'ذكرني لاحقًا',
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                  child: Text(
+                    "Later".tr,
+                    style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                 ),
                 TextButton(
                   onPressed: () => AwesomeNotifications()
                       .requestPermissionToSendNotifications()
                       .then((_) => Navigator.pop(context)),
-                  child: const Text(
-                    'السماح',
-                    style: TextStyle(
+                  child: Text(
+                    "Allow".tr,
+                    style: const TextStyle(
                       color: Colors.teal,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -152,12 +153,12 @@ class AwesomeNotificationManager {
       actionButtons: [
         NotificationActionButton(
           key: 'Dismiss',
-          label: 'تفويت',
+          label: 'Dismiss'.tr,
           actionType: ActionType.DisabledAction,
         ),
         NotificationActionButton(
           key: 'Start',
-          label: 'الشروع في الذكر',
+          label: 'Start'.tr,
         ),
       ],
     );
@@ -172,7 +173,7 @@ class AwesomeNotificationManager {
       content: NotificationContent(
         id: 1000,
         channelKey: 'scheduled_channel',
-        title: 'لم تفتح التطبيق منذ فنرة 😀',
+        title: "You haven't opened the app for a long time.".tr,
         body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
         notificationLayout: NotificationLayout.BigText,
         payload: {'Open': "2"},
@@ -220,18 +221,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'تفويت',
+                label: 'Dismiss'.tr,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'الشروع في الذكر',
+                label: 'Start'.tr,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'تفويت',
+                label: 'Dismiss'.tr,
                 actionType: ActionType.DisabledAction,
               ),
             ],
@@ -270,18 +271,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'تفويت',
+                label: 'Dismiss'.tr,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'الشروع في الذكر',
+                label: 'Start'.tr,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'تفويت',
+                label: 'Dismiss'.tr,
                 actionType: ActionType.DisabledAction,
               ),
             ],

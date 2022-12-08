@@ -179,4 +179,27 @@ const Map<String, String> en = {
   "It should be:": "It should be:",
   "Subject": "Subject",
   "Card index": "Card index",
+
+  //**
+  // Phase 03
+  // */
+
+  "Allow app to send notifications?": "Allow app to send notifications?",
+  "Hisn ELmoslem need notification permission to send zikr reminders.":
+      "Hisn ELmoslem need notification permission to send zikr reminders.",
+  "Later": "Later",
+  "Allow": "Allow",
+  "ُEdit image size": "ُEdit image size",
+  "Image width": "Image width",
+
+  "Go to": "Go to",
+  'Dismiss': 'Dismiss',
+  'Start': 'Start',
+  "You haven't opened the app for a long time.":
+      "You haven't opened the app for a long time.",
+
+  "Click here": "Click here",
+
+  "Select color": "Select color",
+  "You have read all content": "You have read all content",
 };

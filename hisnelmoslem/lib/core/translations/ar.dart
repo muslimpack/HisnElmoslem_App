@@ -180,4 +180,26 @@ const Map<String, String> ar = {
   "It should be:": "والصواب",
   "Subject": "الموضوع",
   "Card index": "البطاقة رقم",
+
+  //**
+  // Phase 03
+  // */
+
+  "Allow app to send notifications?": 'هل تريد السماح بتشغيل الإشعارات؟',
+  "Hisn ELmoslem need notification permission to send zikr reminders.":
+      'التطبيق يحتاج إلى أخذ الإذن لتشغيل الإشعارات لتعمل معك التنبيهات بشكل سليم',
+  "Later": 'ذكرني لاحقًا',
+  "Allow": 'السماح',
+  "ُEdit image size": "تعديل عرض الصورة",
+  "Image width": "عرض الصورة",
+
+  "Go to": "الذهاب إلى",
+  'Dismiss': "تفويت",
+  'Start': "ابدأ",
+  "You haven't opened the app for a long time.": 'لم تفتح التطبيق منذ فنرة',
+
+  "Click here": "اضغط هنا",
+
+  "Select color": "اختر هذا اللون",
+  "You have read all content": "لقد أتمت قراءة الأحاديث",
 };

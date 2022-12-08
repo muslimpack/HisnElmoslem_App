@@ -220,7 +220,7 @@ class FavouriteZikr extends StatelessWidget {
                                             }
                                           },
                                           title: Text(
-                                            "الذهاب إلى ${dbTitle.name}",
+                                            "${"Go to".tr} | ${dbTitle.name}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,

@@ -62,10 +62,10 @@ class ColorSwatchBuilder extends StatelessWidget {
                                   apply(tempColor);
                                   Navigator.pop(context);
                                 },
-                                title: const Text(
-                                  "اختر هذا اللون",
+                                title: Text(
+                                  "Select color".tr,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25),
+                                  style: const TextStyle(fontSize: 25),
                                 ),
                               ),
                             ],

@@ -21,20 +21,20 @@ class ImageWidthDialog extends StatelessWidget {
     return DialogMaker(
       height: 270,
       header: Text(
-        "تعديل عرض الصورة",
+        "ُEdit image size".tr,
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
         ),
       ),
       content: [
-        const Text(
-          "قم بادخال العرض وعليه يتم تحديد ارتفاع الصورة تلقائيا تبعا لحجم النص وإعدادتك",
+        Text(
+          "Image width".tr,
           textAlign: TextAlign.center,
         ),
         UserNumberField(
           controller: widthController,
-          hintText: "أدخل عرض الصورة",
+          hintText: "Image width".tr,
         ),
       ],
       footer: ListTile(
