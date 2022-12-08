@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
@@ -70,7 +71,7 @@ class ShareAsImage extends StatelessWidget {
                     scaleEnabled: true,
                     child: Screenshot(
                       controller: controller.screenshotController,
-                      child: controller.fixedFont
+                      child: shareAsImageData.fixedFont
                           ? ImageBuilder(dbContent: controller.dbContent)
                           : ImageVarFontBuilder(
                               dbContent: controller.dbContent),

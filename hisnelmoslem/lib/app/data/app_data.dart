@@ -129,6 +129,8 @@ class AppData {
     changFastAlarmStatus(!isFastAlarmEnabled);
   }
 
+  /* ******* Share as image ******* */
+
   /* ******* is first open to this release ******* */
   /// TODO to be Edited in next update
   /// Check is first open to this release

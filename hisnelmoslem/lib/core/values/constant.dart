@@ -57,3 +57,18 @@ const Iterable<int> arabicTashkelChar = [
   124,
   1618
 ];
+
+final List<Color> shareAsImageColorsList = [
+  black,
+  const Color.fromARGB(255, 66, 66, 66),
+  const Color.fromARGB(255, 48, 48, 48),
+  const Color.fromARGB(255, 163, 124, 92),
+  brwon,
+  const Color.fromARGB(255, 25, 26, 33),
+  green,
+  const Color.fromARGB(255, 1, 151, 159),
+  Colors.amber,
+  const Color.fromARGB(255, 255, 248, 238),
+  const Color.fromARGB(255, 244, 246, 248),
+  white,
+];

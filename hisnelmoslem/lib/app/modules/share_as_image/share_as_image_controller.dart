@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
@@ -30,10 +31,10 @@ class ShareAsImageController extends GetxController {
 
   DbContent get dbContent {
     hisnPrint("ShareAsImageController dbContent");
-    hisnPrint(removeTashkel);
+    hisnPrint(shareAsImageData.removeTashkel);
     DbContent temp = initDbContent;
     hisnPrint(temp);
-    if (removeTashkel) {
+    if (shareAsImageData.removeTashkel) {
       temp = removeTashkelDBcontent();
     }
     hisnPrint(temp);
@@ -47,73 +48,9 @@ class ShareAsImageController extends GetxController {
   double sourceFactor = .7;
 
   // ******************************************* //
-  final String titleTextBoxKey = 'share_image_title_text_color';
-
-  Color get titleTextColor =>
-      Color(box.read<int?>(titleTextBoxKey) ?? colorsList[4].value);
-
-  final String bodyTextColorBoxKey = 'share_image_body_text_color';
-
-  Color get bodyTextColor =>
-      Color(box.read<int?>(bodyTextColorBoxKey) ?? colorsList[5].value);
-
-  final String additionalTextColorBoxKey = 'share_image_additional_text_color';
-
-  Color get additionalTextColor =>
-      Color(box.read<int?>(additionalTextColorBoxKey) ?? colorsList[3].value);
-
-  final String backgroundColorBoxKey = 'share_image_background_color';
-
-  Color get backgroundColor =>
-      Color(box.read<int?>(backgroundColorBoxKey) ?? colorsList[9].value);
-
-  final String fontSizeBoxKey = 'share_image_font_size';
-
-  double get fontSize => box.read(fontSizeBoxKey) ?? 25;
-
-  final String showFadlBoxKey = 'share_image_show_fadl';
-
-  bool get showFadl => box.read(showFadlBoxKey) ?? true;
-
-  final String showSourceBoxKey = 'share_image_show_source';
-
-  bool get showSource => box.read(showSourceBoxKey) ?? true;
-
-  final String showZikrIndexBoxKey = 'share_image_show_zikr_index';
-
-  bool get showZikrIndex => box.read(showZikrIndexBoxKey) ?? true;
-
-  final String fixedFontBoxKey = 'share_image_fixed_font';
-
-  bool get fixedFont => box.read(fixedFontBoxKey) ?? false;
-
-  final String removeTashkelKey = 'share_image_remove_tashkel';
-
-  bool get removeTashkel => box.read(removeTashkelKey) ?? false;
-
-  final String imageWidthBoxKey = 'share_image_image_width';
-
-  int get imageWidth => box.read(imageWidthBoxKey) ?? 600;
-
-  final String imageQualityBoxKey = 'share_image_image_quality';
-
-  double get imageQuality => box.read(imageQualityBoxKey) ?? 2;
 
   // ******************************************* //
-  final List<Color> colorsList = [
-    black,
-    const Color.fromARGB(255, 66, 66, 66),
-    const Color.fromARGB(255, 48, 48, 48),
-    const Color.fromARGB(255, 163, 124, 92),
-    brwon,
-    const Color.fromARGB(255, 25, 26, 33),
-    green,
-    const Color.fromARGB(255, 1, 151, 159),
-    Colors.amber,
-    const Color.fromARGB(255, 255, 248, 238),
-    const Color.fromARGB(255, 244, 246, 248),
-    white,
-  ];
+
   late List<Color> colorsListForText,
       backgroundColors,
       titleColorsList,
@@ -128,7 +65,7 @@ class ShareAsImageController extends GetxController {
   void onInit() {
     super.onInit();
     backgroundColors = titleColorsList = bodyColorsList =
-        additionalTextColorsList = colorsListForText = colorsList;
+        additionalTextColorsList = colorsListForText = shareAsImageColorsList;
     fitImageToScreen();
   }
 
@@ -142,22 +79,22 @@ class ShareAsImageController extends GetxController {
   /* *************** Functions *************** */
 
   updateTextColor(Color color) async {
-    await box.write(bodyTextColorBoxKey, color.value);
+    await box.write(shareAsImageData.bodyTextColorBoxKey, color.value);
     update();
   }
 
   updateTitleColor(Color color) async {
-    await box.write(titleTextBoxKey, color.value);
+    await box.write(shareAsImageData.titleTextBoxKey, color.value);
     update();
   }
 
   updateBackgroundColor(Color color) async {
-    await box.write(backgroundColorBoxKey, color.value);
+    await box.write(shareAsImageData.backgroundColorBoxKey, color.value);
     update();
   }
 
   updateAdditionalTextColor(Color color) async {
-    await box.write(additionalTextColorBoxKey, color.value);
+    await box.write(shareAsImageData.additionalTextColorBoxKey, color.value);
     update();
   }
 
@@ -166,16 +103,16 @@ class ShareAsImageController extends GetxController {
   // ******************************************* //
   void changFontSize(double value) async {
     value = value.clamp(10, 70);
-    await box.write(fontSizeBoxKey, value);
+    await box.write(shareAsImageData.fontSizeBoxKey, value);
     update();
   }
 
   increaseFontSize() {
-    changFontSize(fontSize + 1);
+    changFontSize(shareAsImageData.fontSize + 1);
   }
 
   decreaseFontSize() {
-    changFontSize(fontSize - 1);
+    changFontSize(shareAsImageData.fontSize - 1);
   }
 
   resetFontSize() {
@@ -184,7 +121,7 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   void updateImageQuality(double value) async {
-    await box.write(imageQualityBoxKey, value);
+    await box.write(shareAsImageData.imageQualityBoxKey, value);
     update();
   }
 
@@ -193,7 +130,7 @@ class ShareAsImageController extends GetxController {
       isLoading = true;
       update();
       await screenshotController
-          .capture(pixelRatio: imageQuality)
+          .capture(pixelRatio: shareAsImageData.imageQuality)
           .then((Uint8List? image) async {
         final tempDir = await getTemporaryDirectory();
         //
@@ -215,37 +152,38 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   toggleShowFadl({required bool value}) async {
-    await box.write(showFadlBoxKey, value);
+    await box.write(shareAsImageData.showFadlBoxKey, value);
     update();
   }
 
   toggleShowSource({required bool value}) async {
-    await box.write(showSourceBoxKey, value);
+    await box.write(shareAsImageData.showSourceBoxKey, value);
 
     update();
   }
 
   toggleShowZikrIndex({required bool value}) async {
-    await box.write(showZikrIndexBoxKey, value);
+    await box.write(shareAsImageData.showZikrIndexBoxKey, value);
     update();
   }
 
   toggleRemoveTashkel() async {
-    await box.write(removeTashkelKey, !removeTashkel);
-    hisnPrint(removeTashkel);
+    await box.write(
+        shareAsImageData.removeTashkelKey, !shareAsImageData.removeTashkel);
+    hisnPrint(shareAsImageData.removeTashkel);
     update();
   }
 
   // ******************************************* //
   toggleFixedContentStatus({required bool value}) async {
-    await box.write(fixedFontBoxKey, value);
+    await box.write(shareAsImageData.fixedFontBoxKey, value);
     fitImageToScreen();
     update();
   }
 
   // ******************************************* //
   updateImageWidth({required int value}) async {
-    await box.write(imageWidthBoxKey, value);
+    await box.write(shareAsImageData.imageWidthBoxKey, value);
     fitImageToScreen();
     update();
   }
@@ -257,14 +195,14 @@ class ShareAsImageController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return ImageWidthDialog(
-          initialValue: imageWidth.toString(),
+          initialValue: shareAsImageData.imageWidth.toString(),
           onSubmit: (width) async {
             try {
               int tempWidth = 0;
               tempWidth = int.tryParse(width)!;
               updateImageWidth(value: tempWidth);
             } catch (e) {
-              updateImageWidth(value: imageWidth);
+              updateImageWidth(value: shareAsImageData.imageWidth);
             }
           },
         );
@@ -277,7 +215,7 @@ class ShareAsImageController extends GetxController {
     double screenWidth = MediaQuery.of(Get.context!).size.width;
     // double _screenHeight = MediaQuery.of(Get.context!).size.height;
     double scale = 0;
-    scale = screenWidth / imageWidth;
+    scale = screenWidth / shareAsImageData.imageWidth;
 
     /// create fitMatrix
     Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);

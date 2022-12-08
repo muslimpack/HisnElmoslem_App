@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
@@ -23,29 +24,29 @@ class ImageBuilder extends StatelessWidget {
           dashboardController.allTitle[dbContent.titleId - 1].name;
       return Center(
         child: SizedBox(
-          width: controller.imageWidth.toDouble(),
+          width: shareAsImageData.imageWidth.toDouble(),
           child: Card(
             margin: EdgeInsets.zero,
-            color: controller.backgroundColor,
+            color: shareAsImageData.backgroundColor,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    controller.showZikrIndex
+                    shareAsImageData.showZikrIndex
                         ? titleWithIndex
                         : titleWithoutIndex,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Uthmanic",
-                        color: controller.titleTextColor,
+                        color: shareAsImageData.titleTextColor,
                         fontSize: 20),
                   ),
                 ),
                 Divider(
-                  color: controller.titleTextColor,
+                  color: shareAsImageData.titleTextColor,
                   thickness: controller.dividerSize,
                 ),
                 Container(
@@ -59,7 +60,7 @@ class ImageBuilder extends StatelessWidget {
                       textAlign: TextAlign.center,
                       minFontSize: 12,
                       style: TextStyle(
-                          color: controller.bodyTextColor,
+                          color: shareAsImageData.bodyTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
@@ -67,7 +68,7 @@ class ImageBuilder extends StatelessWidget {
                 ),
                 // Fadl
                 Visibility(
-                  visible: !(dbContent.fadl == "") && controller.showFadl,
+                  visible: !(dbContent.fadl == "") && shareAsImageData.showFadl,
                   child: Container(
                     constraints:
                         const BoxConstraints(minHeight: 50, maxHeight: 200),
@@ -83,7 +84,7 @@ class ImageBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             minFontSize: 10,
                             style: TextStyle(
-                                color: controller.additionalTextColor,
+                                color: shareAsImageData.additionalTextColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
@@ -94,7 +95,8 @@ class ImageBuilder extends StatelessWidget {
                 ),
                 // Source
                 Visibility(
-                  visible: !(dbContent.source == "") && controller.showSource,
+                  visible:
+                      !(dbContent.source == "") && shareAsImageData.showSource,
                   child: Container(
                     constraints:
                         const BoxConstraints(minHeight: 50, maxHeight: 200),
@@ -110,7 +112,7 @@ class ImageBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             minFontSize: 10,
                             style: TextStyle(
-                                color: controller.additionalTextColor,
+                                color: shareAsImageData.additionalTextColor,
                                 // fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
@@ -120,7 +122,7 @@ class ImageBuilder extends StatelessWidget {
                   ),
                 ),
                 Divider(
-                  color: controller.titleTextColor,
+                  color: shareAsImageData.titleTextColor,
                   thickness: controller.dividerSize,
                 ),
                 //Bottom
@@ -136,7 +138,7 @@ class ImageBuilder extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           height: 30,
                           width: controller.dividerSize,
-                          color: controller.titleTextColor,
+                          color: shareAsImageData.titleTextColor,
                         ),
                         Text(
                           "تطبيق حصن المسلم",
@@ -144,7 +146,7 @@ class ImageBuilder extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: "Uthmanic",
-                              color: controller.titleTextColor,
+                              color: shareAsImageData.titleTextColor,
                               fontSize: 20),
                         )
                       ]),

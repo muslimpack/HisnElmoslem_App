@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
@@ -65,8 +66,7 @@ class SettingsSheet extends StatelessWidget {
                               },
                               colorSwatchList:
                                   shareAsImageController.titleColorsList,
-                              colorToTrack:
-                                  shareAsImageController.titleTextColor,
+                              colorToTrack: shareAsImageData.titleTextColor,
                             ),
                           ],
                         ),
@@ -82,8 +82,7 @@ class SettingsSheet extends StatelessWidget {
                               },
                               colorSwatchList:
                                   shareAsImageController.bodyColorsList,
-                              colorToTrack:
-                                  shareAsImageController.bodyTextColor,
+                              colorToTrack: shareAsImageData.bodyTextColor,
                             ),
                           ],
                         ),
@@ -101,7 +100,7 @@ class SettingsSheet extends StatelessWidget {
                               colorSwatchList: shareAsImageController
                                   .additionalTextColorsList,
                               colorToTrack:
-                                  shareAsImageController.additionalTextColor,
+                                  shareAsImageData.additionalTextColor,
                             ),
                           ],
                         ),
@@ -119,7 +118,7 @@ class SettingsSheet extends StatelessWidget {
                               colorSwatchList:
                                   shareAsImageController.backgroundColors,
                               colorToTrack:
-                                  shareAsImageController.backgroundColor,
+                                  shareAsImageData.backgroundColor,
                             ),
                           ],
                         ),
@@ -148,7 +147,7 @@ class SettingsSheet extends StatelessWidget {
                             child: Card(
                               color: shareAsImageController
                                           .imageQulityList[index] ==
-                                      shareAsImageController.imageQuality
+                                      shareAsImageData.imageQuality
                                   ? mainColor
                                   : null,
                               child: Center(
@@ -167,21 +166,21 @@ class SettingsSheet extends StatelessWidget {
                   const Divider(),
                   CheckboxListTile(
                     title: Text("show zikr index".tr),
-                    value: shareAsImageController.showZikrIndex,
+                    value: shareAsImageData.showZikrIndex,
                     onChanged: (value) {
                       shareAsImageController.toggleShowZikrIndex(value: value!);
                     },
                   ),
                   CheckboxListTile(
                     title: Text("show fadl".tr),
-                    value: shareAsImageController.showFadl,
+                    value: shareAsImageData.showFadl,
                     onChanged: (value) {
                       shareAsImageController.toggleShowFadl(value: value!);
                     },
                   ),
                   CheckboxListTile(
                     title: Text("show source of zikr".tr),
-                    value: shareAsImageController.showSource,
+                    value: shareAsImageData.showSource,
                     onChanged: (value) {
                       shareAsImageController.toggleShowSource(value: value!);
                     },
@@ -189,7 +188,7 @@ class SettingsSheet extends StatelessWidget {
                   const Divider(),
                   CheckboxListTile(
                     title: Text("fixed size mode".tr),
-                    value: shareAsImageController.fixedFont,
+                    value: shareAsImageData.fixedFont,
                     onChanged: (value) {
                       shareAsImageController.toggleFixedContentStatus(
                           value: value!);
