@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
@@ -12,6 +13,10 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class ShareAsImageController extends GetxController {
+  late DbContent initDbContent;
+  ShareAsImageController({required DbContent dbContent}) {
+    initDbContent = dbContent;
+  }
   /* *************** Variables *************** */
   TransformationController transformationController =
       TransformationController();
@@ -22,6 +27,18 @@ class ShareAsImageController extends GetxController {
   // ******************************************* //
   bool isLoading = false;
   final box = GetStorage();
+
+  DbContent get dbContent {
+    hisnPrint("ShareAsImageController dbContent");
+    hisnPrint(removeTashkel);
+    DbContent temp = initDbContent;
+    hisnPrint(temp);
+    if (removeTashkel) {
+      temp = removeTashkelDBcontent();
+    }
+    hisnPrint(temp);
+    return temp;
+  }
 
   // ******************************************* //
   double dividerSize = 3;
@@ -69,6 +86,10 @@ class ShareAsImageController extends GetxController {
   final String fixedFontBoxKey = 'share_image_fixed_font';
 
   bool get fixedFont => box.read(fixedFontBoxKey) ?? false;
+
+  final String removeTashkelKey = 'share_image_remove_tashkel';
+
+  bool get removeTashkel => box.read(removeTashkelKey) ?? false;
 
   final String imageWidthBoxKey = 'share_image_image_width';
 
@@ -209,6 +230,12 @@ class ShareAsImageController extends GetxController {
     update();
   }
 
+  toggleRemoveTashkel() async {
+    await box.write(removeTashkelKey, !removeTashkel);
+    hisnPrint(removeTashkel);
+    update();
+  }
+
   // ******************************************* //
   toggleFixedContentStatus({required bool value}) async {
     await box.write(fixedFontBoxKey, value);
@@ -264,5 +291,17 @@ class ShareAsImageController extends GetxController {
 
     /// set fitMatrix to transformation
     transformationController.value = fitMatrix;
+  }
+
+  DbContent removeTashkelDBcontent() {
+    DbContent temp = DbContent.fromMap(initDbContent.toMap());
+    temp.content = temp.content
+        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+    temp.fadl = temp.fadl
+        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+    temp.source = temp.source
+        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+
+    return temp;
   }
 }

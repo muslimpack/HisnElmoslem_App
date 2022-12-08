@@ -72,7 +72,6 @@ class _EditTallyDialogState extends State<EditTallyDialog> {
             widget.onSubmit(widget.dbTally);
             Navigator.pop<bool>(context, true);
           } else {
-            //TODO
             showToast(msg: "Counter circle must be greater than zero".tr);
           }
         },

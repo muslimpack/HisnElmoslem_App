@@ -18,7 +18,7 @@ class ShareAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ShareAsImageController>(
-        init: ShareAsImageController(),
+        init: ShareAsImageController(dbContent: dbContent),
         builder: (controller) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -71,8 +71,9 @@ class ShareAsImage extends StatelessWidget {
                     child: Screenshot(
                       controller: controller.screenshotController,
                       child: controller.fixedFont
-                          ? ImageBuilder(dbContent: dbContent)
-                          : ImageVarFontBuilder(dbContent: dbContent),
+                          ? ImageBuilder(dbContent: controller.dbContent)
+                          : ImageVarFontBuilder(
+                              dbContent: controller.dbContent),
                     ),
                   ),
                   SettingsSheet(
@@ -105,6 +106,11 @@ class ShareAsImage extends StatelessWidget {
                       icon: const Icon(MdiIcons.formatFontSizeDecrease),
                       onPressed: () {
                         controller.decreaseFontSize();
+                      }),
+                  IconButton(
+                      icon: const Icon(MdiIcons.abjadArabic),
+                      onPressed: () {
+                        controller.toggleRemoveTashkel();
                       }),
                   IconButton(
                     onPressed: () async {

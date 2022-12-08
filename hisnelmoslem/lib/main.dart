@@ -14,7 +14,6 @@ import 'package:hisnelmoslem/core/utils/migration/migration.dart';
 import 'package:hisnelmoslem/core/utils/notification_manager.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/app/modules/onboarding/onboarding.dart';
-import 'package:intl/intl.dart';
 
 import 'core/themes/theme_services.dart';
 import 'core/utils/azkar_database_helper.dart';
@@ -50,9 +49,6 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
-  // ///
-  // Intl.defaultLocale = 'ar';
 
   ///
   runApp(const MyApp());
