@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/shared/dialogs/edit_fast_alarm_dialog.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
@@ -93,20 +95,38 @@ class TitleCard extends StatelessWidget {
                   });
                 })
             : tempAlarm.isActive
-                ? IconButton(
-                    icon: Icon(
-                      Icons.notifications_active,
-                      color: mainColor,
-                    ),
-                    onPressed: () {
-                      dbAlarm.isActive = tempAlarm.isActive = false;
-                      alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
+                ? GestureDetector(
+                    onLongPress: () {
+                      showFastEditAlarmDialog(
+                        context: context,
+                        dbAlarm: dbAlarm,
+                      ).then((value) {
+                        if (value is DbAlarm) {
+                          if (value.hasAlarmInside) {
+                            // int index = controller.alarms.indexOf(dbAlarm);
+                            tempAlarm = value;
+                            // controller.alarms[index] = value;
+                            controller.update();
+                          }
+                        }
+                      });
+                    },
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: mainColor,
+                      ),
+                      onPressed: () {
+                        dbAlarm.isActive = tempAlarm.isActive = false;
+                        alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
 
-                      //
-                      alarmManager.alarmState(dbAlarm: dbAlarm);
-                      //
-                      controller.update();
-                    })
+                        //
+                        alarmManager.alarmState(dbAlarm: dbAlarm);
+                        //
+                        controller.update();
+                      },
+                    ),
+                  )
                 : IconButton(
                     icon: Icon(
                       Icons.notifications_off,
