@@ -184,6 +184,7 @@ class SettingsSheet extends StatelessWidget {
                       shareAsImageController.toggleShowSource(value: value!);
                     },
                   ),
+
                   const SizedBox(
                     height: 40,
                   ),

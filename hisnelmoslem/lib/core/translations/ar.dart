@@ -180,7 +180,6 @@ const Map<String, String> ar = {
   "It should be:": "والصواب",
   "Subject": "الموضوع",
   "Card index": "البطاقة رقم",
-
   //**
   // Phase 03
   // */

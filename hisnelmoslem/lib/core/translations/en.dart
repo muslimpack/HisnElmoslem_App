@@ -179,7 +179,6 @@ const Map<String, String> en = {
   "It should be:": "It should be:",
   "Subject": "Subject",
   "Card index": "Card index",
-
   //**
   // Phase 03
   // */
