@@ -36,6 +36,9 @@ class QuranReadPage extends StatelessWidget {
                           return 'sura As-Sajdah'.tr;
                       }
                     }()),
+                    style: const TextStyle(
+                      fontFamily: 'Uthmanic',
+                    ),
                   ),
                   actions: [
                     IconButton(
@@ -84,18 +87,6 @@ class QuranReadPage extends StatelessWidget {
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
                                   '${controller.quranRequiredSurah!.pages[index].pageNumber}',
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  'سورة ${controller.quranRequiredSurah!.surah}',
-                                  style: const TextStyle(
-                                    fontFamily: 'Uthmanic',
-                                  ),
                                 ),
                               ),
                             ),
