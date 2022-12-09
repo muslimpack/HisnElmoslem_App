@@ -132,7 +132,6 @@ class AppData {
   /* ******* Share as image ******* */
 
   /* ******* is first open to this release ******* */
-  /// TODO to be Edited in next update
   /// Check is first open to this release
   bool get isFirstOpenToThisRelease =>
       box.read("is_${appVersion}_first_open") ?? true;
