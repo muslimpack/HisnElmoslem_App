@@ -10,10 +10,7 @@ import 'quran_controller.dart';
 class QuranReadPage extends StatelessWidget {
   final SurahNameEnum surahName;
 
-  const QuranReadPage({
-    Key? key,
-    required this.surahName,
-  }) : super(key: key);
+  const QuranReadPage({super.key, required this.surahName});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +36,6 @@ class QuranReadPage extends StatelessWidget {
                           return 'sura As-Sajdah'.tr;
                       }
                     }()),
-                    style: TextStyle(color: Get.isDarkMode ? white : black),
                   ),
                   actions: [
                     IconButton(
