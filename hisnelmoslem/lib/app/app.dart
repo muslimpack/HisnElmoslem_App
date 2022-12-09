@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
 import 'package:hisnelmoslem/app/modules/onboarding/onboarding.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
@@ -21,8 +20,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  FontFamilyPageController familyPageController =
-      Get.put(FontFamilyPageController());
   @override
   void initState() {
     super.initState();
