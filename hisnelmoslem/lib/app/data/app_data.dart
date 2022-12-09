@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
@@ -67,6 +68,20 @@ class AppData {
   /// increase font size by .2
   void resetFontFamily() {
     changFontFamily("Amiri");
+  }
+  /* ******* App Locale ******* */
+
+  /// get font size default value is 2.6
+  String get appLocale => box.read('app_locale') ?? "ar";
+
+  /// set font size
+  void changAppLocale(String value) {
+    box.write('app_locale', value);
+  }
+
+  /// increase font size by .2
+  void resetAppLocale() {
+    changFontFamily("ar");
   }
 
   /* ******* Tashkel ******* */
@@ -163,7 +178,7 @@ class AppData {
     if (value) {
       awesomeNotificationManager.addCustomWeeklyReminder(
         id: 777,
-        title: "سورة الكهف",
+        title: "sura Al-Kahf".tr,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
         time: const Time(9, 00, 0),

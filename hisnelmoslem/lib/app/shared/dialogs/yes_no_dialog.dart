@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class YesOrNoDialog extends StatelessWidget {
@@ -23,7 +24,7 @@ class YesOrNoDialog extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("تنويه",
+              child: Text("are you sure?".tr,
                   style: TextStyle(fontSize: 25, color: mainColor)),
             ),
             const Divider(),
@@ -36,7 +37,7 @@ class YesOrNoDialog extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     title: Text(
-                      "نعم",
+                      "yes".tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20, color: mainColor),
                     ),
@@ -49,7 +50,7 @@ class YesOrNoDialog extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                   title: Text(
-                    "لا",
+                    "no".tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: mainColor),
                   ),

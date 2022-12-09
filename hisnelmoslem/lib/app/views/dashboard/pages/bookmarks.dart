@@ -20,12 +20,13 @@ class AzkarBookmarks extends StatelessWidget {
           controller: controller.bookmarksScrollController,
           thumbVisibility: false,
           child: controller.favouriteTitle.isEmpty
-              ? const Empty(
+              ? Empty(
                   isImage: false,
                   icon: Icons.bookmark_outline_rounded,
-                  title: "لا يوجد شيء في المفضلة",
+                  title: "nothing found in favourites".tr,
                   description:
-                      "لم يتم تحديد أي عنوان من الفهرس كمفضل \nقم بالضغط على علامة المفضلة 🔖 عند أي عنوان فهرس ",
+                      "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
+                          .tr,
                 )
               : ScrollGlowCustom(
                   child: ListView.builder(

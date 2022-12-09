@@ -24,7 +24,7 @@ class Tally extends StatelessWidget {
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
-                    title: const Text("السبحة"),
+                    title: Text("tally".tr),
                     pinned: true,
                     floating: true,
                     snap: true,
@@ -40,19 +40,19 @@ class Tally extends StatelessWidget {
                               icon: const Icon(Icons.settings),
                             ),
                     ],
-                    bottom: TabBar(indicatorColor: mainColor, tabs: const [
+                    bottom: TabBar(indicatorColor: mainColor, tabs: [
                       Tab(
                         child: Text(
-                          "التسبيح",
-                          style: TextStyle(
+                          "active tallly".tr,
+                          style: const TextStyle(
                               fontFamily: "Uthmanic",
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       Tab(
                         child: Text(
-                          "عرض التسبيحات",
-                          style: TextStyle(
+                          "counters".tr,
+                          style: const TextStyle(
                             fontFamily: "Uthmanic",
                             fontWeight: FontWeight.bold,
                           ),

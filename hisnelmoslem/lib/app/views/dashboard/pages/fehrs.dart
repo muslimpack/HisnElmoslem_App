@@ -22,11 +22,11 @@ class AzkarFehrs extends StatelessWidget {
             controller: controller.fehrsScrollController,
             thumbVisibility: false,
             child: titleListToDisplay.isEmpty
-                ? const Empty(
+                ? Empty(
                     isImage: false,
                     icon: Icons.search_outlined,
-                    title: "لا يوجد عنوان بهذا الاسم",
-                    description: "برجاء قم بمراجعة ما كتبت",
+                    title: "no title with this name".tr,
+                    description: "please review the index of the book".tr,
                   )
                 : ScrollGlowCustom(
                     child: ListView.builder(

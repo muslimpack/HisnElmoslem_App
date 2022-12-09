@@ -66,8 +66,8 @@ class TallyCard extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     leading: const Icon(Icons.edit),
-                    title: const Text(
-                      "تعديل",
+                    title: Text(
+                      'edit'.tr,
                       textAlign: TextAlign.center,
                     ),
                     onTap: () {
@@ -79,8 +79,8 @@ class TallyCard extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     leading: const Icon(Icons.delete),
-                    title: const Text(
-                      "حذف",
+                    title: Text(
+                      "delete".tr,
                       textAlign: TextAlign.center,
                     ),
                     onTap: () {

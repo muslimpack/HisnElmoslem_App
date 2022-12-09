@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class FakehadithAppBar extends StatelessWidget {
@@ -7,7 +8,7 @@ class FakehadithAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: const Text("أحاديث منتشرة لا تصح"),
+      title: Text("fake hadith".tr),
       centerTitle: true,
       elevation: 0,
       pinned: true,
@@ -17,18 +18,18 @@ class FakehadithAppBar extends StatelessWidget {
           preferredSize: const Size(0, 50),
           child: TabBar(
             indicatorColor: mainColor,
-            tabs: const [
+            tabs: [
               Tab(
                 child: Text(
-                  "جديد",
-                  style: TextStyle(
+                  "new".tr,
+                  style: const TextStyle(
                       fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
                 ),
               ),
               Tab(
                 child: Text(
-                  "تمت قراءته",
-                  style: TextStyle(
+                  "have been read".tr,
+                  style: const TextStyle(
                       fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
                 ),
               ),

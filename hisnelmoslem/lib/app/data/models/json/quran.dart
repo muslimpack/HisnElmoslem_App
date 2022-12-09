@@ -27,10 +27,7 @@ class Quran {
 }
 
 class Page {
-  Page({
-    required this.image,
-    required this.pageNumber,
-  });
+  Page({required this.image, required this.pageNumber});
 
   String image;
   int pageNumber;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/tally.dart';
+import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/text_field.dart';
@@ -18,44 +20,49 @@ class AddTallyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogMaker(
-      height: 400,
+      height: 350,
       header: Text(
-        "إضافة  عداد جديد",
+        "add new counter".tr,
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
         ),
       ),
       content: [
-        const Text(
-          "أدخل اسم العداد مثال\nصل على محمد\nسبحان الله والحمد لله ولا إاله إلا الله والله أكبر",
+        Text(
+          "add a name to your counter".tr,
           textAlign: TextAlign.center,
         ),
         UserTextField(
           controller: titleController,
-          hintText: "أدخل اسم العداد",
+          hintText: "counter name".tr,
         ),
-        const Text(
-          "عند الوصول إلى هذا الرقم يتم ضبط العداد ليعود إلى الصفر لتتكرر هذه الدورة باستمرار",
+        Text(
+          "the counter circle is set to zero when reach this number".tr,
           textAlign: TextAlign.center,
         ),
         UserNumberField(
           controller: resetCounterController,
-          hintText: "أدخل رقم لضبط العداد",
+          hintText: "circle every".tr,
         ),
       ],
       footer: ListTile(
         title: Text(
-          "تم",
+          "done".tr,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),
         ),
         onTap: () {
-          DbTally dbTally = DbTally();
-          dbTally.title = titleController.text;
-          dbTally.countReset = int.parse(resetCounterController.text);
-          onSubmit(dbTally);
-          Navigator.pop<bool>(context, true);
+          if (resetCounterController.text.isNum &&
+              int.parse(resetCounterController.text) > 0) {
+            DbTally dbTally = DbTally();
+            dbTally.title = titleController.text;
+            dbTally.countReset = int.parse(resetCounterController.text);
+            onSubmit(dbTally);
+            Navigator.pop<bool>(context, true);
+          } else {
+            showToast(msg: "Counter circle must be greater than zero".tr);
+          }
         },
       ),
     );

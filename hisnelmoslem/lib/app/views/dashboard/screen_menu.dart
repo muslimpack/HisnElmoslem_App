@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
@@ -73,7 +74,7 @@ class ScreenMenu extends StatelessWidget {
                             leading: const Icon(
                               Icons.watch_rounded,
                             ),
-                            title: const Text("السبحة"),
+                            title: Text("tally".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -86,7 +87,9 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: const Text("سورة الكهف"),
+                            title: Text(
+                              "sura Al-Kahf".tr,
+                            ),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -100,7 +103,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: const Text("سورة السجدة"),
+                            title: Text("sura As-Sajdah".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -114,7 +117,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: const Text("سورة الملك"),
+                            title: Text("sura Al-Mulk".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                   context: context,
@@ -128,7 +131,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(Icons.menu_book),
-                            title: const Text("أحاديث لا تصح"),
+                            title: Text("fake hadith".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -141,7 +144,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(Icons.settings),
-                            title: const Text("الإعدادات"),
+                            title: Text("settings".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -154,7 +157,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(Icons.star),
-                            title: const Text("تواصل مع المطور"),
+                            title: Text("contact to dev".tr),
                             onTap: () {
                               EmailManager.sendFeedback();
                             },
@@ -163,7 +166,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(Icons.history),
-                            title: const Text("تاريخ التحديثات"),
+                            title: Text("updates history".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -175,7 +178,7 @@ class ScreenMenu extends StatelessWidget {
                         DrawerCard(
                           child: ListTile(
                             leading: const Icon(Icons.info),
-                            title: const Text("عنا"),
+                            title: Text("about us".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
                                 context: context,
@@ -198,7 +201,7 @@ class ScreenMenu extends StatelessWidget {
               DrawerCard(
                 child: ListTile(
                   leading: const Icon(Icons.close),
-                  title: const Text("إغلاق"),
+                  title: Text("close".tr),
                   onTap: () {
                     controller.toggleDrawer();
                   },

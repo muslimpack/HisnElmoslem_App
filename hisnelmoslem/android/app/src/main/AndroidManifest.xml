@@ -34,20 +34,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
     </application>
-
-
-            <queries>
-    <intent>
-        <action android:name="android.intent.action.VIEW" />
-        <data android:scheme="https" />
-    </intent>
-    <intent>
-        <action android:name="android.intent.action.SEND" />
-        <data android:mimeType="*/*" />
-    </intent>
-</queries>
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />

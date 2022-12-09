@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/theme_manager/themes_manager_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/themes/themes_enum.dart';
@@ -15,8 +15,8 @@ class ThemeManagerPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text("وضع الألوان داخل التطبيق",
-                style: TextStyle(fontFamily: "Uthmanic")),
+            title: Text("theme manager".tr,
+                style: const TextStyle(fontFamily: "Uthmanic")),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -26,25 +26,25 @@ class ThemeManagerPage extends StatelessWidget {
               children: [
                 RadioImage(
                   controller: controller,
-                  title: "الوضع الفاتح",
+                  title: "light theme".tr,
                   imgPath: "assets/images/theme_light.png",
                   appThemeModeValue: AppThemeMode.light,
                 ),
                 RadioImage(
                   controller: controller,
-                  title: "الوضع الفاتح المحسن",
+                  title: "optimize light theme".tr,
                   imgPath: "assets/images/theme_yellow.png",
                   appThemeModeValue: AppThemeMode.yellowTheme,
                 ),
                 RadioImage(
                   controller: controller,
-                  title: "الوضع المعتم",
+                  title: "dark theme".tr,
                   imgPath: "assets/images/theme_dark_default.png",
                   appThemeModeValue: AppThemeMode.defaultDark,
                 ),
                 RadioImage(
                   controller: controller,
-                  title: "الوضع المعتم المحسن",
+                  title: "optimize dark theme".tr,
                   imgPath: "assets/images/theme_dark.png",
                   appThemeModeValue: AppThemeMode.dark,
                 ),

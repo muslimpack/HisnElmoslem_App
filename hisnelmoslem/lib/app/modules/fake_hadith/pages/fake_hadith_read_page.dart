@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
@@ -15,12 +16,13 @@ class FakeHadithReadPage extends StatelessWidget {
     return Scaffold(
       body: ScrollGlowCustom(
         child: controller.fakeHadithReadList.isEmpty
-            ? const Empty(
+            ? Empty(
                 isImage: false,
                 icon: Icons.menu_book,
-                title: "لم تقرأ شيئًا بعد",
+                title: "you haven't read anything yet".tr,
                 description:
-                    "قال النبي صلى الله عليه وسلم:\nإنَّ كَذِبًا عليَّ ليس ككذبٍ على أحدٍ ، فمن كذب عليَّ مُتعمِّدًا ، فلْيتبوَّأْ مقعدَه من النَّارِ",
+                    'The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."'
+                        .tr,
               )
             : ListView.builder(
                 physics: const ClampingScrollPhysics(),

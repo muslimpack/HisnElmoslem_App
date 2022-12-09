@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EmailManager {
@@ -10,17 +12,17 @@ class EmailManager {
   static void sendFeedback() {
     sendEmail(
       toMailId: emailOwner,
-      subject: 'تطبيق حصن المسلم: تقييم التطبيق',
+      subject: "Hisn ELmoslem App | Rate the app",
       body: '''
-كم من عشرة تعطي هذا التطبيق؟
+$appVersion
 
-ملاحظات:
+${"notes".tr}
 
-ما أعجبك في التطبيق:
+${"I like about this app:".tr}
 
-ما لا يعجبك في التطبيق:
+${"I don't like about this app:".tr}
 
-شئ تتمنى وجوده:
+${"Features I hope to be added:".tr}
 
 ''',
     );
@@ -29,8 +31,8 @@ class EmailManager {
   static void messageUS() {
     sendEmail(
       toMailId: emailOwner,
-      subject: 'تطبيق حصن المسلم: نداء',
-      body: 'السلام عليكم ورحمة الله وبركاته' '\n',
+      subject: "Hisn ELmoslem App | Chat",
+      body: '',
     );
   }
 
@@ -64,9 +66,15 @@ class EmailManager {
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: 'تطبيق حصن المسلم: خطأ إملائي ',
-      body:
-          ' السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في\nالموضوع: $subject\nالذكر رقم: $cardNumber\nالنص: $text\nوالصواب:\n',
+      subject: "Hisn ELmoslem App | Misspelled".tr,
+      body: '''
+${"There is a spelling error in".tr}
+${"Title".tr}: $subject
+${"Zikr Index".tr}: $cardNumber
+${"Text".tr}: $text
+${"It should be:".tr}:
+
+''',
     );
   }
 
@@ -75,17 +83,17 @@ class EmailManager {
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: 'تطبيق حصن المسلم: خطأ إملائي ',
+      subject: "Hisn ELmoslem App | Misspelled".tr,
       body: '''
-السلام عليكم ورحمة الله وبركاته يوجد خطأ إملائي في
+${"There is a spelling error in".tr}
 
-الموضوع: أحاديث لا تصح
+${"Subject".tr}: ${"fake hadith".tr}
 
-البطاقة رقم: ${(fakeHaith.id) + 1}
+${"Card index".tr}: ${(fakeHaith.id) + 1}
 
-النص: ${fakeHaith.text}
+${"Text".tr}: ${fakeHaith.text}
 
-والصواب:
+${"It should be:".tr}:
 
 ''',
     );

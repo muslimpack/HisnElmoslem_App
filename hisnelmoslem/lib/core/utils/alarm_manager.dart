@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
@@ -13,11 +14,11 @@ AlarmManager alarmManager = AlarmManager();
 class AlarmManager {
   alarmState({required DbAlarm dbAlarm, bool showMsg = true}) async {
     if (dbAlarm.isActive) {
-      // Get.snackbar("رسالة", "تم تفعيل منبه ${dbAlarm.title}",
+      // Get.snackbar("رسالة", "تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
-        getSnackbar(message: "تم تفعيل منبه ${dbAlarm.title}");
+        getSnackbar(message: "${"activate".tr} | ${dbAlarm.title}");
       }
       switch (dbAlarm.repeatType) {
         case "Daily":
@@ -101,11 +102,11 @@ class AlarmManager {
           break;
       }
     } else if (!dbAlarm.isActive) {
-      // Get.snackbar("رسالة", "تم الغاء منبه ${dbAlarm.title}",
+      // Get.snackbar("رسالة", "الغاء تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
-        getSnackbar(message: "تم الغاء منبه ${dbAlarm.title}");
+        getSnackbar(message: "${"deactivate".tr} | ${dbAlarm.title}");
       }
 
       awesomeNotificationManager.cancelNotificationById(id: dbAlarm.titleId);
