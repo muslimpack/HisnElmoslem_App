@@ -3,6 +3,7 @@ const Map<String, String> ar = {
   // Phase 01
   // */
   ///
+  "Hisn Elmoslem App": 'تطبيق حصن المسلم',
   "Hisn Elmoslem": 'حصن المسلم',
   "start": "البدء",
 
@@ -34,7 +35,7 @@ const Map<String, String> ar = {
   "sura As-Sajdah": "سورة السجدة",
   "sura Al-Mulk": "سورة الملك",
   "fake hadith": "أحاديث لا تصح",
-  "settings": "الإعددات",
+  "settings": "الإعدادات",
   "contact to dev": "تواصل مع المطور",
   "updates history": "تاريخ التحديثات",
   "about us": "عن التطبيق",
@@ -201,4 +202,5 @@ const Map<String, String> ar = {
 
   "Select color": "اختر هذا اللون",
   "You have read all content": "لقد أتمت قراءة الأحاديث",
+  "Current version": "الإصدار الحالي",
 };

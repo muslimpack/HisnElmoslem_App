@@ -3,6 +3,7 @@ const Map<String, String> en = {
   // Phase 01
   // */
   ///
+  "Hisn Elmoslem App": "Hisn Elmoslem App",
   "Hisn Elmoslem": 'حصن المسلم',
   "start": "Start",
 
@@ -201,4 +202,5 @@ const Map<String, String> en = {
 
   "Select color": "Select color",
   "You have read all content": "You have read all content",
+  "Current version": "Current version",
 };

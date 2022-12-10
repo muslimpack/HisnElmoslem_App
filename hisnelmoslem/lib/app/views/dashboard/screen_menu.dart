@@ -31,31 +31,48 @@ class ScreenMenu extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/app_icon.png',
-                scale: 1.5,
-              ),
               const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Version $appVersion",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Image.asset(
+                      'assets/images/app_icon.png',
+                      scale: 3,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      controller.toggleTheme();
-                    },
-                    icon: const Icon(Icons.dark_mode),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Hisn Elmoslem App".tr),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            appVersion,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              controller.toggleTheme();
+                            },
+                            icon: const Icon(Icons.dark_mode),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
               const Divider(
-                height: 5,
+                height: 20,
               ),
             ],
           ),
@@ -222,10 +239,7 @@ class DrawerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.hardEdge,
-      child: child,
-    );
+    return child ?? SizedBox();
   }
 }
 

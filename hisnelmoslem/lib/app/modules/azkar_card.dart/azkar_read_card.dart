@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
@@ -99,7 +98,6 @@ class AzkarReadCard extends StatelessWidget {
                                           onPressed: () {},
                                         ),
                                       );
-
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);
                                     });

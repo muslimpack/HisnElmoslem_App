@@ -36,7 +36,7 @@ class AzkarDashboard extends StatelessWidget {
               showShadow: true,
               angle: 0.0,
               drawerShadowsBackgroundColor: mainColor,
-              slideWidth: 250,
+              slideWidth: 270,
             ),
     );
   }

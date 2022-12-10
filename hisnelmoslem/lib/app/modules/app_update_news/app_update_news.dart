@@ -115,7 +115,7 @@ class AppUpdatesHistory extends StatelessWidget {
                   children: [
                     Text(
                       index == 0
-                          ? "الإصدار الحالي: ${updateNewFeature[index][0]}"
+                          ? "${"Current version".tr}: ${updateNewFeature[index][0]}"
                           : updateNewFeature[index][0],
                       style: DefaultTextStyle.of(context).style.copyWith(
                             fontSize: 15.0,
