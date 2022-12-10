@@ -26,7 +26,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   share: ^2.0.4
   sqflite: ^2.0.2
-  path: ^1.8.3
+  path: ^1.8.2
   path_provider: ^2.0.8
   wakelock: ^0.6.1+1
   day_night_time_picker: ^1.0.5

@@ -25,7 +25,7 @@ class DialogMaker extends StatelessWidget {
       backgroundColor: transparent,
       contentPadding: EdgeInsets.zero,
       content: SizedBox(
-        height: height,
+        // height: height,
         width: 350.0,
         child: Card(
           clipBehavior: Clip.hardEdge,
