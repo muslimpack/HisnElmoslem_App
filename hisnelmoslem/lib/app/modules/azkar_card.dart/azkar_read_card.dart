@@ -38,26 +38,24 @@ class AzkarReadCard extends StatelessWidget {
                     title: Text(controller.zikrTitle!.name,
                         style: const TextStyle(fontFamily: "Uthmanic")),
                     bottom: PreferredSize(
-                      preferredSize: const Size(100, 30),
-                      child: Expanded(
-                        child: Stack(
-                          children: [
-                            LinearProgressIndicator(
-                              value: controller.totalProgressForEverySingle,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                mainColor,
-                              ),
-                              backgroundColor: grey,
+                      preferredSize: const Size(100, 5),
+                      child: Stack(
+                        children: [
+                          LinearProgressIndicator(
+                            value: controller.totalProgressForEverySingle,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              mainColor,
                             ),
-                            LinearProgressIndicator(
-                              value: controller.totalProgress,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                mainColor.withGreen(100).withAlpha(100),
-                              ),
-                              backgroundColor: transparent,
+                            backgroundColor: grey,
+                          ),
+                          LinearProgressIndicator(
+                            value: controller.totalProgress,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              mainColor.withGreen(100).withAlpha(100),
                             ),
-                          ],
-                        ),
+                            backgroundColor: transparent,
+                          ),
+                        ],
                       ),
                     ),
                   ),
