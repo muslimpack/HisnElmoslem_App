@@ -23,7 +23,9 @@ class FontFamilyPageController extends GetxController {
     "Tajawal",
     "NotoNastaliqUrdu",
     "Lalezar",
-    "Uthmanic"
+    "Uthmanic",
+    "ReemKufi",
+    "Rakkas",
   ];
 
   late final ColorScheme colorScheme = Theme.of(Get.context!).colorScheme;
