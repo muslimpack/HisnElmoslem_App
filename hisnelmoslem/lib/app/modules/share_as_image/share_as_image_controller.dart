@@ -61,14 +61,10 @@ class ShareAsImageController extends GetxController {
   }
 
   DbContent get dbContent {
-    hisnPrint("ShareAsImageController dbContent");
-    hisnPrint(shareAsImageData.removeTashkel);
     DbContent temp = initDbContent;
-    hisnPrint(temp);
     if (shareAsImageData.removeTashkel) {
       temp = removeTashkelDBcontent();
     }
-    hisnPrint(temp);
     return temp;
   }
 
@@ -204,7 +200,6 @@ class ShareAsImageController extends GetxController {
   toggleRemoveTashkel() async {
     await box.write(
         shareAsImageData.removeTashkelKey, !shareAsImageData.removeTashkel);
-    hisnPrint(shareAsImageData.removeTashkel);
     update();
   }
 
