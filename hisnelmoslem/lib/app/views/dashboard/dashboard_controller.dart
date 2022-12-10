@@ -27,7 +27,6 @@ class DashboardController extends GetxController {
 
   //
   TextEditingController searchController = TextEditingController();
-  late TabController tabController;
 
   //
   final ScrollController fehrsScrollController = ScrollController();
@@ -72,7 +71,6 @@ class DashboardController extends GetxController {
   void onClose() {
     super.onClose();
     searchController.dispose();
-    tabController.dispose();
     fehrsScrollController.dispose();
     bookmarksScrollController.dispose();
   }
