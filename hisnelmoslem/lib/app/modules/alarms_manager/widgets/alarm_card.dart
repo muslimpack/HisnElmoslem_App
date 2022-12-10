@@ -134,7 +134,8 @@ class AlarmCard extends StatelessWidget {
 
                 controller.update();
                 dashboardController.update();
-                getSnackbar(message: "تم حذف منبه ${dbAlarm.title}");
+                getSnackbar(
+                    message: "${"Reminder Removed".tr} | ${dbAlarm.title}");
               },
               backgroundColor: red,
               foregroundColor: white,

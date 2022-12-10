@@ -63,8 +63,8 @@ class OnBoardingPage extends StatelessWidget {
                         ? Expanded(
                             child: RoundButton(
                             radius: 10,
-                            text: const Text(
-                              "بدء",
+                            text: Text(
+                              'Start'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             onTap: () {
@@ -77,8 +77,8 @@ class OnBoardingPage extends StatelessWidget {
                                 child: RoundButton(
                                 radius: 10,
                                 isTransparent: true,
-                                text: const Text(
-                                  "تخط",
+                                text: Text(
+                                  "Skip".tr,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 onTap: () {

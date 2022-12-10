@@ -99,12 +99,9 @@ class FavouriteZikr extends StatelessWidget {
                                             FlutterClipboard.copy(
                                                     "${dbContent.content}\n${dbContent.fadl}")
                                                 .then((result) {
-                                              // Get.snackbar("رسالة", 'تم النسخ إلى الحافظة');
-
                                               getSnackbar(
                                                   message:
                                                       "copied to clipboard".tr);
-                                              // Get..currentState!.showSnackBar(snackBar);
                                             });
                                           }),
                                     ),

@@ -203,4 +203,6 @@ const Map<String, String> en = {
   "Select color": "Select color",
   "You have read all content": "You have read all content",
   "Current version": "Current version",
+  "Reminder Removed": "Reminder Removed",
+  "Skip": "Skip",
 };

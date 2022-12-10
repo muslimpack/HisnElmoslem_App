@@ -203,4 +203,6 @@ const Map<String, String> ar = {
   "Select color": "اختر هذا اللون",
   "You have read all content": "لقد أتمت قراءة الأحاديث",
   "Current version": "الإصدار الحالي",
+  "Reminder Removed": "تم حذف منبه",
+  "Skip": "تخط",
 };
