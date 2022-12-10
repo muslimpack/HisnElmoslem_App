@@ -239,7 +239,7 @@ class DrawerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return child ?? SizedBox();
+    return child ?? const SizedBox();
   }
 }
 
