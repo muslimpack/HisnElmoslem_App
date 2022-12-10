@@ -38,13 +38,26 @@ class AzkarReadCard extends StatelessWidget {
                     title: Text(controller.zikrTitle!.name,
                         style: const TextStyle(fontFamily: "Uthmanic")),
                     bottom: PreferredSize(
-                      preferredSize: const Size(100, 5),
-                      child: LinearProgressIndicator(
-                        value: controller.totalProgress,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          mainColor,
+                      preferredSize: const Size(100, 30),
+                      child: Expanded(
+                        child: Stack(
+                          children: [
+                            LinearProgressIndicator(
+                              value: controller.totalProgressForEverySingle,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                mainColor,
+                              ),
+                              backgroundColor: grey,
+                            ),
+                            LinearProgressIndicator(
+                              value: controller.totalProgress,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                mainColor.withGreen(100).withAlpha(100),
+                              ),
+                              backgroundColor: transparent,
+                            ),
+                          ],
                         ),
-                        backgroundColor: grey,
                       ),
                     ),
                   ),
@@ -66,22 +79,7 @@ class AzkarReadCard extends StatelessWidget {
                         int counter = controller.zikrContent[index].count;
                         return InkWell(
                           onTap: () {
-                            if (counter > 0) {
-                              counter--;
-
-                              controller.zikrContent[index].count = (counter);
-
-                              ///
-                              SoundsManagerController().playTallyEffects();
-                              if (counter == 0) {
-                                SoundsManagerController().playZikrDoneEffects();
-                              } else if (counter < 0) {
-                                counter = 0;
-                              }
-                            }
-
-                            ///
-                            controller.checkProgress();
+                            counter = controller.decreaseCount(counter, index);
                           },
                           onLongPress: () {
                             final snackBar = SnackBar(

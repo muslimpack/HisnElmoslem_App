@@ -32,6 +32,8 @@ class AzkarReadPageController extends GetxController {
   //
   int currentPage = 0;
   double? totalProgress = 0.0;
+  int zikrCountSum = 0;
+  double? totalProgressForEverySingle = 0.0;
 
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
@@ -65,6 +67,7 @@ class AzkarReadPageController extends GetxController {
     });
 
     await getReady();
+    getEveryZikrCount();
     //
     isLoading = false;
     //
@@ -125,6 +128,7 @@ class AzkarReadPageController extends GetxController {
 
     ///
     checkProgress();
+    checkProgressForSingle();
 
     ///
     update();
@@ -143,6 +147,25 @@ class AzkarReadPageController extends GetxController {
       ///
       SoundsManagerController().playAllAzkarFinishedEffects();
     }
+    update();
+  }
+
+  checkProgressForSingle() {
+    int done = 0;
+    for (var i = 0; i < zikrContent.length; i++) {
+      done += zikrContent[i].count;
+    }
+    totalProgressForEverySingle = (zikrCountSum - done) / zikrCountSum;
+    update();
+  }
+
+  getEveryZikrCount() {
+    int sum = 0;
+
+    for (var i = 0; i < zikrContent.length; i++) {
+      sum += zikrContent[i].count;
+    }
+    zikrCountSum = sum;
     update();
   }
 }

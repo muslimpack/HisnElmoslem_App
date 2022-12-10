@@ -19,6 +19,8 @@ class AzkarReadCardController extends GetxController {
   final vReadScaffoldKey = GlobalKey<ScaffoldState>();
   bool? isLoading = true;
   double? totalProgress = 0.0;
+  int zikrCountSum = 0;
+  double? totalProgressForEverySingle = 0.0;
 
   //
   List<DbContent> zikrContent = <DbContent>[];
@@ -37,7 +39,7 @@ class AzkarReadCardController extends GetxController {
 
     //
     await getReady();
-
+    getEveryZikrCount();
     //
     isLoading = false;
     //
@@ -66,6 +68,28 @@ class AzkarReadCardController extends GetxController {
     update();
   }
 
+  int decreaseCount(int counter, int index) {
+    if (counter > 0) {
+      counter--;
+
+      zikrContent[index].count = (counter);
+
+      ///
+      SoundsManagerController().playTallyEffects();
+      if (counter == 0) {
+        SoundsManagerController().playZikrDoneEffects();
+      } else if (counter < 0) {
+        counter = 0;
+      }
+    }
+
+    ///
+    checkProgress();
+    checkProgressForSingle();
+
+    return counter;
+  }
+
   checkProgress() {
     int totalNum = 0, done = 0;
     totalNum = zikrContent.length;
@@ -79,6 +103,26 @@ class AzkarReadCardController extends GetxController {
       ///
       SoundsManagerController().playAllAzkarFinishedEffects();
     }
+    update();
+  }
+
+  checkProgressForSingle() {
+    int done = 0;
+    for (var i = 0; i < zikrContent.length; i++) {
+      done += zikrContent[i].count;
+    }
+    totalProgressForEverySingle = (zikrCountSum - done) / zikrCountSum;
+
+    update();
+  }
+
+  getEveryZikrCount() {
+    int sum = 0;
+
+    for (var i = 0; i < zikrContent.length; i++) {
+      sum += zikrContent[i].count;
+    }
+    zikrCountSum = sum;
     update();
   }
 }

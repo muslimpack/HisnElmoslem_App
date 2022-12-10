@@ -151,12 +151,23 @@ class AzkarReadPage extends StatelessWidget {
                                 )
                               ],
                             )),
-                            LinearProgressIndicator(
-                              value: controller.totalProgress,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                mainColor,
-                              ),
-                              backgroundColor: grey,
+                            Stack(
+                              children: [
+                                LinearProgressIndicator(
+                                  value: controller.totalProgressForEverySingle,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    mainColor,
+                                  ),
+                                  backgroundColor: grey,
+                                ),
+                                LinearProgressIndicator(
+                                  value: controller.totalProgress,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    mainColor.withGreen(100).withAlpha(100),
+                                  ),
+                                  backgroundColor: transparent,
+                                ),
+                              ],
                             ),
                           ],
                         ),
