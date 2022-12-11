@@ -55,7 +55,7 @@ class MyAppState extends State<MyApp> {
       ],
       debugShowCheckedModeBanner: false,
       title: "Hisn Elmoslem".tr,
-      theme: Themes.trueBlack.copyWith(
+      theme: ThemeServices.getTheme().copyWith(
         textTheme: ThemeServices.getTheme()
             .textTheme
             .apply(fontFamily: appData.fontFamily),
