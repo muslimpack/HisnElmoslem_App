@@ -76,6 +76,7 @@ const Map<String, String> en = {
   "optimize light theme": "Optimized Light Theme",
   "dark theme": "Dark Theme",
   "optimize dark theme": "Optimized Dark Theme",
+  "True black theme": "True black Theme",
 
   /// Effect manager
   "phone vibration at every praise": "Phone vibration at every praise",

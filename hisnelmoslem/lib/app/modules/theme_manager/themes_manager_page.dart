@@ -27,26 +27,33 @@ class ThemeManagerPage extends StatelessWidget {
                 RadioImage(
                   controller: controller,
                   title: "light theme".tr,
-                  imgPath: "assets/images/theme_light.png",
+                  icon: Icons.light_mode,
                   appThemeModeValue: AppThemeMode.light,
                 ),
                 RadioImage(
                   controller: controller,
                   title: "optimize light theme".tr,
-                  imgPath: "assets/images/theme_yellow.png",
+                  icon: Icons.light_mode,
                   appThemeModeValue: AppThemeMode.yellowTheme,
                 ),
+                Divider(),
                 RadioImage(
                   controller: controller,
                   title: "dark theme".tr,
-                  imgPath: "assets/images/theme_dark_default.png",
+                  icon: Icons.dark_mode,
                   appThemeModeValue: AppThemeMode.defaultDark,
                 ),
                 RadioImage(
                   controller: controller,
                   title: "optimize dark theme".tr,
-                  imgPath: "assets/images/theme_dark.png",
+                  icon: Icons.dark_mode,
                   appThemeModeValue: AppThemeMode.dark,
+                ),
+                RadioImage(
+                  controller: controller,
+                  title: "True black theme".tr,
+                  icon: Icons.dark_mode,
+                  appThemeModeValue: AppThemeMode.trueblack,
                 ),
               ],
             ),
@@ -60,43 +67,36 @@ class ThemeManagerPage extends StatelessWidget {
 class RadioImage extends StatelessWidget {
   final ThemesManagerPageController controller;
   final String title;
-  final String imgPath;
   final dynamic appThemeModeValue;
+  final IconData icon;
 
   const RadioImage({
     Key? key,
     required this.controller,
     required this.title,
-    required this.imgPath,
     this.appThemeModeValue,
+    required this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RadioListTile<AppThemeMode>(
       title: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            leading: Icon(icon),
+            title: Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )),
       value: appThemeModeValue,
       groupValue: controller.appThemeModeEnum,
       onChanged: (AppThemeMode? value) {
         controller.handleThemeChange(value);
       },
-      subtitle: SizedBox(
-          height: controller.imageHeight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image.asset(
-              imgPath,
-              fit: BoxFit.cover,
-            ),
-          )),
     );
   }
 }

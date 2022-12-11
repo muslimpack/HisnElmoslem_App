@@ -8,3 +8,5 @@ const Color yellowColorPrimary = Color.fromARGB(255, 255, 248, 238);
 const Color yellowColorSecondary = Color.fromARGB(255, 163, 124, 92);
 
 Color textThatHasMainColorBack = Colors.white;
+
+const Color trueBlackColor = Colors.black;

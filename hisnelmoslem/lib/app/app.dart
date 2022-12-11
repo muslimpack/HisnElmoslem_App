@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_contr
 import 'package:hisnelmoslem/app/modules/onboarding/onboarding.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
+import 'package:hisnelmoslem/core/themes/themes.dart';
 import 'package:hisnelmoslem/core/translations/translation.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
@@ -54,7 +55,7 @@ class MyAppState extends State<MyApp> {
       ],
       debugShowCheckedModeBanner: false,
       title: "Hisn Elmoslem".tr,
-      theme: ThemeServices.getTheme().copyWith(
+      theme: Themes.trueBlack.copyWith(
         textTheme: ThemeServices.getTheme()
             .textTheme
             .apply(fontFamily: appData.fontFamily),

@@ -74,6 +74,7 @@ const Map<String, String> ar = {
   "optimize light theme": "الوضع الفاتح المحسن",
   "dark theme": "الوضع المعتم",
   "optimize dark theme": "الوضع المعتم المحسن",
+  "True black theme": "الوضع الأسود الغريب",
 
   /// Effect manager
   "phone vibration at every praise": "اهتزاز الهاتف عند كل تسبيحة",
