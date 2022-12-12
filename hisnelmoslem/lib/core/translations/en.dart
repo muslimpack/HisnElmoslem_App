@@ -206,4 +206,7 @@ const Map<String, String> en = {
   "Current version": "Current version",
   "Reminder Removed": "Reminder Removed",
   "Skip": "Skip",
+
+  "Shuffle Mode Deactivated": "Shuffle Mode Deactivated",
+  "Shuffle Mode Activated": "Shuffle Mode Activated",
 };

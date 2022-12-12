@@ -206,4 +206,7 @@ const Map<String, String> ar = {
   "Current version": "الإصدار الحالي",
   "Reminder Removed": "تم حذف منبه",
   "Skip": "تخط",
+
+  "Shuffle Mode Deactivated": "الغاء تفعيل وضع السبحة المتغيرة",
+  "Shuffle Mode Activated": "تفعيل وضع السبحة المتغيرة",
 };

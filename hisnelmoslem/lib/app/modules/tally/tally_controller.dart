@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/models/tally.dart';
+import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
@@ -21,19 +25,36 @@ class TallyController extends GetxController {
   ///
   int get counter {
     if (currentDBTally != null) {
+      if (isShuffleModeOn) {
+        int temp = 0;
+        for (var element in allTally) {
+          temp += element.count;
+        }
+        return temp;
+      }
       return currentDBTally!.count;
     } else {
       return 0;
     }
   }
 
-  double get circval =>
-      (counter.toDouble() - (counter ~/ circleResetEvery) * circleResetEvery);
+  double get circval {
+    if (isShuffleModeOn) {}
+    return (counter.toDouble() -
+        (counter ~/ circleResetEvery) * circleResetEvery);
+  }
 
-  int? get circvaltimes => counter ~/ circleResetEvery;
+  int? get circvaltimes {
+    return counter ~/ circleResetEvery;
+  }
 
   ///
-  int get circleResetEvery => currentDBTally!.countReset;
+  int get circleResetEvery {
+    if (isShuffleModeOn) {
+      return 33;
+    }
+    return currentDBTally!.countReset;
+  }
 
   ///
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
@@ -229,8 +250,8 @@ class TallyController extends GetxController {
       updateDBTallyToView(dbTally: currentDBTally!);
       // currentDBTally = allTally[index];
       SoundsManagerController().playTallyEffects();
-
       update();
+      shuffle();
     }
   }
 
@@ -291,6 +312,26 @@ class TallyController extends GetxController {
   tallySettings() {
     if (currentDBTally != null) {
       updateTallyById(currentDBTally!);
+    }
+  }
+
+  /* *************** Variables *************** */
+  final box = GetStorage();
+  bool get isShuffleModeOn => box.read('is_tally_shuffle_mode_on') ?? false;
+  void toggleShuffleMode() {
+    box.write('is_tally_shuffle_mode_on', !isShuffleModeOn);
+    if (isShuffleModeOn) {
+      showToast(msg: "Shuffle Mode Activated".tr);
+    } else {
+      showToast(msg: "Shuffle Mode Deactivated".tr);
+    }
+    update();
+  }
+
+  void shuffle() {
+    if (isShuffleModeOn && allTally.length > 1) {
+      Random rng = Random();
+      activateTally(allTally[rng.nextInt(allTally.length)]);
     }
   }
 }

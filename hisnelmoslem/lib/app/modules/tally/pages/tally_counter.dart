@@ -66,7 +66,7 @@ class TallyCounterView extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .8,
                               padding: const EdgeInsets.all(20),
                               child: Text(
-                                '${controller.currentDBTally!.count}',
+                                '${controller.counter}',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(fontSize: 40),
                               ),
