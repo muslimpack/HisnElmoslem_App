@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/models/tally.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/yes_no_dialog.dart';
@@ -163,39 +164,30 @@ class TallyController extends GetxController {
   }
 
   activateTally(DbTally dbTally) async {
-    if (currentDBTally != null) {
-      currentDBTally!.isActivated = false;
-      await deactivateAllTally();
-      // updateDBTallyToView(dbTally: currentDBTally!);
-    }
-    dbTally.isActivated = true;
-    await tallyDatabaseHelper.updateTally(dbTally: dbTally, updateTime: false);
-    updateDBTallyToView(dbTally: dbTally);
-    // getAllListsReady();
-    // currentDBTally = dbTally;
-
-    update();
+    await toggleActivateTally(dbTally);
   }
 
-  deactivateCurrentTally() async {
-    if (currentDBTally != null) {
-      deactivateTally(dbTally: currentDBTally!);
+  toggleActivateTally(DbTally dbTally) async {
+    for (DbTally tally in allTally) {
+      if (dbTally.id == tally.id) {
+        dbTally.isActivated = true;
+        tally.isActivated = true;
+      } else {
+        tally.isActivated = false;
+      }
+      await tallyDatabaseHelper.updateTally(dbTally: tally, updateTime: false);
     }
+    update();
   }
 
   deactivateTally({required DbTally dbTally}) async {
     dbTally.isActivated = false;
-
     await tallyDatabaseHelper.updateTally(dbTally: dbTally, updateTime: false);
     await updateDBTallyToView(dbTally: dbTally);
-
-    update();
   }
 
   deactivateAllTally() async {
     for (DbTally dbTally in allTally) {
-      await tallyDatabaseHelper.updateTally(
-          dbTally: dbTally, updateTime: false);
       dbTally.isActivated = false;
       await tallyDatabaseHelper.updateTally(
           dbTally: dbTally, updateTime: false);
@@ -230,7 +222,6 @@ class TallyController extends GetxController {
             await tallyDatabaseHelper.updateTally(
                 dbTally: value, updateTime: false);
             await updateDBTallyToView(dbTally: value);
-            update();
           },
         );
       },
@@ -242,15 +233,15 @@ class TallyController extends GetxController {
       //
       if (circval == circleResetEvery - 1) {
         SoundsManagerController().playZikrDoneEffects();
+      } else {
+        SoundsManagerController().playTallyEffects();
       }
-      // int index = allTally.indexOf(currentDBTally!);
+
       currentDBTally!.count += 1;
       await tallyDatabaseHelper.updateTally(
           dbTally: currentDBTally!, updateTime: true);
-      updateDBTallyToView(dbTally: currentDBTally!);
-      // currentDBTally = allTally[index];
-      SoundsManagerController().playTallyEffects();
       update();
+
       shuffle();
     }
   }
@@ -260,9 +251,6 @@ class TallyController extends GetxController {
       currentDBTally!.count -= 1;
       await tallyDatabaseHelper.updateTally(
           dbTally: currentDBTally!, updateTime: true);
-
-      updateDBTallyToView(dbTally: currentDBTally!);
-
       update();
     }
   }
@@ -280,8 +268,6 @@ class TallyController extends GetxController {
                 currentDBTally!.count = 0;
                 await tallyDatabaseHelper.updateTally(
                     dbTally: currentDBTally!, updateTime: true);
-                updateDBTallyToView(dbTally: currentDBTally!);
-
                 update();
               },
             );
