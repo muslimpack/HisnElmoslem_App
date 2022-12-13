@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -9,7 +10,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 class EmailManager {
   static const String emailOwner = "muslimpack.org@gmail.com";
 
-  static void sendFeedback() {
+  static void sendFeedbackForm() async {
+    // Feedback form
+    await openURL(
+        'https://docs.google.com/forms/d/e/1FAIpQLSclKHlDGE-rwhllyHavhvx9EhFdwqL1kSCZWPPlpGPCn7o4fQ/viewform?usp=sf_link');
+  }
+
+  static void sendFeedbackEmail() {
     sendEmail(
       toMailId: emailOwner,
       subject: "Hisn ELmoslem App | Rate the app",

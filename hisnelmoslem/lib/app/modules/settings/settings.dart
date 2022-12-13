@@ -193,11 +193,11 @@ class Settings extends StatelessWidget {
                     leading: const Icon(Icons.star),
                     title: Text("report bugs and request new features".tr),
                     onTap: () {
-                      EmailManager.sendFeedback();
+                      EmailManager.sendFeedbackForm();
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.email),
+                    leading: const Icon(MdiIcons.gmail),
                     title: Text("send email".tr),
                     onTap: () {
                       EmailManager.messageUS();
@@ -207,8 +207,9 @@ class Settings extends StatelessWidget {
                     leading: const Icon(MdiIcons.github),
                     trailing: const Icon(Icons.keyboard_arrow_left),
                     title: Text("Github".tr),
-                    onTap: () {
-                      openURL('https://github.com/muslimpack/HisnElmoslem_App');
+                    onTap: () async {
+                      await openURL(
+                          'https://github.com/muslimpack/HisnElmoslem_App');
                     },
                   ),
                   ListTile(

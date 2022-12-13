@@ -173,10 +173,20 @@ class ScreenMenu extends StatelessWidget {
                         const DrawerDivider(),
                         DrawerCard(
                           child: ListTile(
-                            leading: const Icon(Icons.star),
+                            leading: const Icon(MdiIcons.gmail),
                             title: Text("contact to dev".tr),
                             onTap: () {
-                              EmailManager.sendFeedback();
+                              EmailManager.messageUS();
+                            },
+                          ),
+                        ),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.star),
+                            title:
+                                Text("report bugs and request new features".tr),
+                            onTap: () {
+                              EmailManager.sendFeedbackForm();
                             },
                           ),
                         ),
