@@ -36,7 +36,7 @@ class ThemeManagerPage extends StatelessWidget {
                   icon: Icons.light_mode,
                   appThemeModeValue: AppThemeMode.yellowTheme,
                 ),
-                Divider(),
+                const Divider(),
                 RadioImage(
                   controller: controller,
                   title: "dark theme".tr,

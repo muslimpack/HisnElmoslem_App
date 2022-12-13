@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/models/tally.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/yes_no_dialog.dart';

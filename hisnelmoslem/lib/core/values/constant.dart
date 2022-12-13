@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 Color mainColor = const Color.fromARGB(255, 105, 187, 253);
 Color scrollEndColor = Colors.black26;
+//TODO Change every release
 const String appVersion = "v2.2.0";
 Color transparent = Colors.transparent;
 Color white = Colors.white;

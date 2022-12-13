@@ -29,7 +29,6 @@ class AppLanguagePage extends StatelessWidget {
                       index += 1)
                     ListTile(
                       key: Key('$index'),
-                      //TODO Check later
                       tileColor: Get.locale!.languageCode ==
                               controller.languages[index].code
                           ? controller.activeColor
