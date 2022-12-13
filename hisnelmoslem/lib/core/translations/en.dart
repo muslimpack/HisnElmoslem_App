@@ -209,4 +209,8 @@ const Map<String, String> en = {
 
   "Shuffle Mode Deactivated": "Shuffle Mode Deactivated",
   "Shuffle Mode Activated": "Shuffle Mode Activated",
+
+  "Commentary hadith": "Hadith",
+  "Commentary Benefit": "Fadl",
+  "Commentary sharh": "Commentary",
 };

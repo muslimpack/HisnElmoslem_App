@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/shared/dialogs/commentary_dialoge.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
@@ -62,6 +63,18 @@ class AzkarReadPage extends StatelessWidget {
                             Expanded(
                                 child: Row(
                               children: [
+                                Expanded(
+                                    child: IconButton(
+                                  splashRadius: 20,
+                                  icon: const Icon(MdiIcons.comment),
+                                  onPressed: () {
+                                    showCommentaryDialoge(
+                                        context: Get.context!,
+                                        contentId: controller
+                                            .zikrContent[controller.currentPage]
+                                            .id);
+                                  },
+                                )),
                                 Expanded(
                                     child: IconButton(
                                   splashRadius: 20,

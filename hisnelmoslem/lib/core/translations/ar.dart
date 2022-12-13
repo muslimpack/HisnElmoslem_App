@@ -209,4 +209,8 @@ const Map<String, String> ar = {
 
   "Shuffle Mode Deactivated": "الغاء تفعيل وضع السبحة المتغيرة",
   "Shuffle Mode Activated": "تفعيل وضع السبحة المتغيرة",
+
+  "Commentary hadith": "الحديث",
+  "Commentary Benefit": "الفضل",
+  "Commentary sharh": "الشرح",
 };

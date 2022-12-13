@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/app/data/models/commentary.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_chapters.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
@@ -16,7 +17,7 @@ class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 1;
+  static const int dbVersion = 2;
 
   /* ************* Singelton Constractor ************* */
 
@@ -50,13 +51,29 @@ class AzkarDatabaseHelper {
       await _copyFromAssets(path: path);
     }
 
-    return await openDatabase(
+    Database database = await openDatabase(path);
+
+    await database.getVersion().then((currentVersion) async {
+      if (currentVersion < dbVersion) {
+        database.close();
+
+        //delete the old database so you can copy the new one
+        await deleteDatabase(path);
+
+        // Database isn't exist > Create new Database
+        await _copyFromAssets(path: path);
+      }
+    });
+
+    database = await openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
     );
+
+    return database;
   }
 
   /// On create database
@@ -262,6 +279,24 @@ class AzkarDatabaseHelper {
     await dataDatabaseHelper.removeContentFromFavourite(dbContent: dbContent);
   }
 
+  // ************************************************
+  // Commentary
+
+  /// Get Commentary by contentId
+  Future<Commentary> getCommentaryByContentId({
+    required int? contentId,
+  }) async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''SELECT * FROM commentary  WHERE content_id = ?''',
+      [contentId],
+    );
+    Commentary commentary = Commentary.fromMap(maps[0]);
+    return commentary;
+  }
+
+  /// Close database
   Future close() async {
     final db = await database;
     db.close();
