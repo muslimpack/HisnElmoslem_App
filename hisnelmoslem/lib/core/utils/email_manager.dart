@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EmailManager {
-  static const String emailOwner = "hasaneltantawy@gmail.com";
+  static const String emailOwner = "muslimpack.org@gmail.com";
 
   static void sendFeedback() {
     sendEmail(

@@ -208,8 +208,7 @@ class Settings extends StatelessWidget {
                     trailing: const Icon(Icons.keyboard_arrow_left),
                     title: Text("Github".tr),
                     onTap: () {
-                      openURL(
-                          'https://github.com/HasanEltantawy/HisnElmoslem_App');
+                      openURL('https://github.com/muslimpack/HisnElmoslem_App');
                     },
                   ),
                   ListTile(
