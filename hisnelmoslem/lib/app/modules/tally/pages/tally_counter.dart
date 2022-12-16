@@ -87,8 +87,7 @@ class TallyCounterView extends StatelessWidget {
                                   ),
                                   mainLabelStyle: const TextStyle(fontSize: 70),
                                   modifier: (double value) {
-                                    final circval =
-                                        value.ceil().toInt().toString();
+                                    final circval = value.round().toString();
                                     return circval;
                                   },
                                 ),
