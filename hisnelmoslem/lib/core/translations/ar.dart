@@ -26,7 +26,7 @@ const Map<String, String> ar = {
   //
   "tally": "السبحة",
   "active tallly": "التسبيح",
-  "times": "عدد المرات",
+  "times": "دورات",
   "counters": "عرض التسبيحات",
   "edit": "تعديل",
   "delete": "حذف",
