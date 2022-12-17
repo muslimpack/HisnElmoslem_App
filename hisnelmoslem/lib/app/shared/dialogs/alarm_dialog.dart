@@ -11,22 +11,33 @@ import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 
 import '../../../core/values/constant.dart';
 
-Future<dynamic> showFastEditAlarmDialog(
-    {required BuildContext context, required DbAlarm dbAlarm}) async {
+Future<dynamic> showFastAlarmDialog({
+  required BuildContext context,
+  required DbAlarm dbAlarm,
+  required isToEdit,
+}) async {
   // show the dialog
   return await showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AddAlarmDialog(dbAlarm: dbAlarm);
+      return AddAlarmDialog(
+        dbAlarm: dbAlarm,
+        isToEdit: isToEdit,
+      );
     },
   );
 }
 
 class AddAlarmDialog extends StatefulWidget {
   final DbAlarm dbAlarm;
+  final bool isToEdit;
 
-  const AddAlarmDialog({Key? key, required this.dbAlarm}) : super(key: key);
+  const AddAlarmDialog({
+    Key? key,
+    required this.dbAlarm,
+    required this.isToEdit,
+  }) : super(key: key);
 
   @override
   AddAlarmDialogState createState() => AddAlarmDialogState();
@@ -53,14 +64,26 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
   @override
   void initState() {
     super.initState();
-    _time = TimeOfDay.now()
-        .replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
+    if (widget.isToEdit) {
+      _time = TimeOfDay.now()
+          .replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
 
-    bodyController = TextEditingController(text: widget.dbAlarm.body);
-    repeatType = HandleRepeatType()
-        .getNameToUser(chosenValue: widget.dbAlarm.repeatType);
-    selectedHour = widget.dbAlarm.hour;
-    selectedMinute = widget.dbAlarm.minute;
+      bodyController = TextEditingController(text: widget.dbAlarm.body);
+      repeatType = HandleRepeatType()
+          .getNameToUser(chosenValue: widget.dbAlarm.repeatType);
+      selectedHour = widget.dbAlarm.hour;
+      selectedMinute = widget.dbAlarm.minute;
+    } else {
+      bodyController = TextEditingController(
+          text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ');
+      repeatType = "daily".tr;
+    }
+  }
+
+  @override
+  void dispose() {
+    bodyController.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,7 +91,13 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
     return DialogMaker(
       height: 380,
       header: Text(
-        "edit reminder".tr,
+        (() {
+          if (widget.isToEdit) {
+            return "edit reminder".tr;
+          } else {
+            return "add reminder".tr;
+          }
+        }()),
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
@@ -186,7 +215,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
               onTap: () {
                 setState(() {
                   if (selectedHour != null) {
-                    DbAlarm updateAlarm = DbAlarm(
+                    DbAlarm alarm = DbAlarm(
                       titleId: widget.dbAlarm.titleId,
                       id: widget.dbAlarm.id,
                       title: widget.dbAlarm.title,
@@ -199,9 +228,16 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                       isActive: widget.dbAlarm.isActive,
                     );
 
-                    alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
-                    alarmManager.alarmState(dbAlarm: updateAlarm);
-                    Navigator.pop(context, updateAlarm);
+                    if (widget.isToEdit) {
+                      alarmDatabaseHelper.updateAlarmInfo(dbAlarm: alarm);
+                      alarmManager.alarmState(dbAlarm: alarm);
+                      Navigator.pop(context, alarm);
+                    } else {
+                      alarm.isActive = true;
+                      alarmDatabaseHelper.addNewAlarm(dbAlarm: alarm);
+                      alarmManager.alarmState(dbAlarm: alarm);
+                      Navigator.pop(context, alarm);
+                    }
                   } else {
                     showToast(msg: "please choose time for the reminder".tr);
                   }

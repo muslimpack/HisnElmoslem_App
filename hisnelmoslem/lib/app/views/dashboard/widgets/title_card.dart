@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/dialogs/edit_fast_alarm_dialog.dart';
+import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/app/shared/dialogs/add_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
@@ -78,7 +77,8 @@ class TitleCard extends StatelessWidget {
                 icon: const Icon(Icons.alarm_add_rounded),
                 onPressed: () {
                   dbAlarm.title = fehrsTitle.name;
-                  showFastAddAlarmDialog(context: context, dbAlarm: dbAlarm)
+                  showFastAlarmDialog(
+                          context: context, dbAlarm: dbAlarm, isToEdit: false)
                       .then((value) {
                     if (value is DbAlarm) {
                       int index = controller.alarms.indexOf(dbAlarm);
@@ -96,9 +96,10 @@ class TitleCard extends StatelessWidget {
             : tempAlarm.isActive
                 ? GestureDetector(
                     onLongPress: () {
-                      showFastEditAlarmDialog(
+                      showFastAlarmDialog(
                         context: context,
                         dbAlarm: dbAlarm,
+                        isToEdit: true,
                       ).then((value) {
                         if (value is DbAlarm) {
                           if (value.hasAlarmInside) {
