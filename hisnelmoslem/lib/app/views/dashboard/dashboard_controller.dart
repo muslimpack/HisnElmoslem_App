@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
@@ -16,7 +17,8 @@ import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:intl/intl.dart';
 
-class DashboardController extends GetxController {
+class DashboardController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   /* *************** Variables *************** */
   //
   int currentIndex = 0;
@@ -31,6 +33,7 @@ class DashboardController extends GetxController {
   //
   final ScrollController fehrsScrollController = ScrollController();
   final ScrollController bookmarksScrollController = ScrollController();
+  late TabController tabController;
 
   //
   List<DbTitle> favouriteTitle = <DbTitle>[];
@@ -61,6 +64,7 @@ class DashboardController extends GetxController {
     //
     await getAllListsReady();
 
+    tabController = TabController(vsync: this, length: appDashboardItem.length);
     isLoading = false;
     //
     update();

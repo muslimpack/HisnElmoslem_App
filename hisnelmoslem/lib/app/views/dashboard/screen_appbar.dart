@@ -57,6 +57,7 @@ class ScreenAppBar extends StatelessWidget {
             builder: (rearrangeController) {
               return TabBar(
                 indicatorColor: mainColor,
+                controller: controller.tabController,
                 // labelColor: mainColor,
                 // unselectedLabelColor: null,
                 // controller: tabController,
