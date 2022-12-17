@@ -7,22 +7,50 @@ import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
 
-class AddTallyDialog extends StatelessWidget {
+class TallyDialog extends StatefulWidget {
+  final DbTally dbTally;
   final Function(DbTally) onSubmit;
-
-  AddTallyDialog({
+  final bool isToEdit;
+  const TallyDialog({
     Key? key,
+    required this.dbTally,
     required this.onSubmit,
+    required this.isToEdit,
   }) : super(key: key);
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController resetCounterController = TextEditingController();
+
+  @override
+  State<TallyDialog> createState() => _TallyDialogState();
+}
+
+class _TallyDialogState extends State<TallyDialog> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController resetCounterController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isToEdit) {
+      titleController = TextEditingController(text: widget.dbTally.title);
+      resetCounterController =
+          TextEditingController(text: widget.dbTally.countReset.toString());
+    } else {
+      titleController = TextEditingController();
+      resetCounterController = TextEditingController();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return DialogMaker(
       height: 350,
       header: Text(
-        "add new counter".tr,
+        (() {
+          if (widget.isToEdit) {
+            return "edit counter".tr;
+          } else {
+            return "add new counter".tr;
+          }
+        }()),
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
@@ -55,11 +83,19 @@ class AddTallyDialog extends StatelessWidget {
         onTap: () {
           if (resetCounterController.text.isNum &&
               int.parse(resetCounterController.text) > 0) {
-            DbTally dbTally = DbTally();
-            dbTally.title = titleController.text;
-            dbTally.countReset = int.parse(resetCounterController.text);
-            onSubmit(dbTally);
-            Navigator.pop<bool>(context, true);
+            if (widget.isToEdit) {
+              widget.dbTally.title = titleController.text;
+              widget.dbTally.countReset =
+                  int.parse(resetCounterController.text);
+              widget.onSubmit(widget.dbTally);
+              Navigator.pop<bool>(context, true);
+            } else {
+              DbTally dbTally = DbTally();
+              dbTally.title = titleController.text;
+              dbTally.countReset = int.parse(resetCounterController.text);
+              widget.onSubmit(dbTally);
+              Navigator.pop<bool>(context, true);
+            }
           } else {
             showToast(msg: "Counter circle must be greater than zero".tr);
           }
