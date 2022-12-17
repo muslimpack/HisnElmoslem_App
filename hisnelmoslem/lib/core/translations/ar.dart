@@ -213,4 +213,6 @@ const Map<String, String> ar = {
   "Commentary hadith": "الحديث",
   "Commentary Benefit": "الفضل",
   "Commentary sharh": "الشرح",
+
+  "Sound Effect volume": "حجم الصوت",
 };

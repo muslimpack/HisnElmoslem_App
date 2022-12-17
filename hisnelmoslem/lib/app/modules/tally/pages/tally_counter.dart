@@ -92,7 +92,7 @@ class TallyCounterView extends StatelessWidget {
                                   },
                                 ),
                                 customWidths: CustomSliderWidths(
-                                    progressBarWidth: 40, trackWidth: 40),
+                                    progressBarWidth: 20, trackWidth: 20),
                                 customColors: CustomSliderColors(
                                   // trackColor: grey,
                                   hideShadow: true,

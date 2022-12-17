@@ -42,6 +42,13 @@ class SoundsManagerController extends GetxController {
   /////////////////////////////
   /// Vibration
 
+  /// get Sound Effect Volume
+  double get soundEffectVolume => box.read('soundEffectVolume') ?? 1;
+
+  /// set Tally Vibrate mode
+  void changeSoundEffectVolume(double val) =>
+      box.write('soundEffectVolume', val);
+
   /// get Tally Vibrate mode
   bool get isTallyVibrateAllowed => box.read('tally_vibrate') ?? false;
 
@@ -84,17 +91,20 @@ class SoundsManagerController extends GetxController {
 
   simulateTallySound() async {
     // player.play('sounds/tally_sound.mp3');
-    await player.play(AssetSource('sounds/tally_sound.mp3'));
+    await player.play(AssetSource('sounds/tally_sound.mp3'),
+        volume: soundEffectVolume);
   }
 
   simulateZikrDoneSound() async {
-    await player.play(AssetSource('sounds/zikr_done_sound.mp3'));
+    await player.play(AssetSource('sounds/zikr_done_sound.mp3'),
+        volume: soundEffectVolume);
   }
 
   simulateTransitionSound() {}
 
   simulateAllAzkarSoundFinished() async {
-    await player.play(AssetSource('sounds/all_azkar_finished_sound.mp3'));
+    await player.play(AssetSource('sounds/all_azkar_finished_sound.mp3'),
+        volume: soundEffectVolume);
   }
 
   /////////////////////

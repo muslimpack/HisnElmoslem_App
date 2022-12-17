@@ -213,4 +213,6 @@ const Map<String, String> en = {
   "Commentary hadith": "Hadith",
   "Commentary Benefit": "Fadl",
   "Commentary sharh": "Commentary",
+
+  "Sound Effect volume": "Sound Effect volume",
 };
