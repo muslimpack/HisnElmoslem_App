@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class SoundsManagerPage extends StatelessWidget {
-  const SoundsManagerPage({Key? key}) : super(key: key);
+  const SoundsManagerPage({super.key})  ;
 
   @override
   Widget build(BuildContext context) {

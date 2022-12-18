@@ -13,7 +13,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:intl/intl.dart';
 
 class AzkarDashboard extends StatelessWidget {
-  const AzkarDashboard({Key? key}) : super(key: key);
+  const AzkarDashboard({super.key})  ;
 
   @override
   build(BuildContext context) {
@@ -44,7 +44,7 @@ class AzkarDashboard extends StatelessWidget {
 class MainScreen extends StatelessWidget {
   final DashboardController controller;
 
-  const MainScreen({Key? key, required this.controller}) : super(key: key);
+  const MainScreen({super.key, required this.controller})  ;
 
   @override
   Widget build(BuildContext context) {

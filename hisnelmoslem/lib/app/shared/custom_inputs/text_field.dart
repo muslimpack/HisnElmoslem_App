@@ -6,12 +6,12 @@ class UserTextField extends StatelessWidget {
   final String hintText;
   final Function(String)? onChange;
 
-  const UserTextField(
-      {Key? key,
-      required this.controller,
-      required this.hintText,
-      this.onChange})
-      : super(key: key);
+  const UserTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.onChange,
+  });
 
   @override
   Widget build(BuildContext context) {

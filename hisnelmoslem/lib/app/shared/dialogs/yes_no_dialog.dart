@@ -6,8 +6,8 @@ class YesOrNoDialog extends StatelessWidget {
   final String msg;
   final Function onYes;
 
-  const YesOrNoDialog({Key? key, required this.onYes, required this.msg})
-      : super(key: key);
+  const YesOrNoDialog({super.key, required this.onYes, required this.msg})
+       ;
 
   @override
   Widget build(BuildContext context) {

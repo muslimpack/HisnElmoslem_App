@@ -8,11 +8,11 @@ class UserNumberField extends StatelessWidget {
   final Function(String)? onChange;
 
   const UserNumberField(
-      {Key? key,
+      {super.key,
       required this.controller,
       required this.hintText,
       this.onChange})
-      : super(key: key);
+       ;
 
   @override
   Widget build(BuildContext context) {

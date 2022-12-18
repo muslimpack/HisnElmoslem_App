@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 class ImageWidthDialog extends StatelessWidget {
   final Function(String) onSubmit;
   final String initialValue;
 
   const ImageWidthDialog({
-    Key? key,
+    super.key,
     required this.onSubmit,
     required this.initialValue,
-  }) : super(key: key);
+  })  ;
 
   @override
   Widget build(BuildContext context) {

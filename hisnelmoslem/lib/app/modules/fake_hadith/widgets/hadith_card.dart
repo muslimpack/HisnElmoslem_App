@@ -15,13 +15,12 @@ class HadithCard extends StatelessWidget {
   // final double fontSize;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  HadithCard(
-      {Key? key,
-      required this.fakeHaith,
-      /* @required this.fontSize,*/
-
-      required this.scaffoldKey})
-      : super(key: key);
+  HadithCard({
+    super.key,
+    required this.fakeHaith,
+    /* required this.fontSize,*/
+    required this.scaffoldKey,
+  });
 
   final FakeHadithController fakeHadithController =
       Get.put(FakeHadithController());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 class DialogMaker extends StatelessWidget {
   final double height;
@@ -10,14 +10,14 @@ class DialogMaker extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
 
   const DialogMaker({
-    Key? key,
+    super.key,
     required this.header,
     required this.content,
     required this.footer,
     this.contentPadding =
         const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
     required this.height,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

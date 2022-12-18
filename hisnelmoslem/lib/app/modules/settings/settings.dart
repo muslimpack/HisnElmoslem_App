@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/modules/alarms_manager/alarms_page.dart';
 import 'package:hisnelmoslem/app/modules/app_language_page/app_language_page.dart';
 import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/app/modules/alarms_manager/alarms_page.dart';
-import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../data/app_data.dart';
-import 'settings_controller.dart';
 import '../../shared/functions/get_snackbar.dart';
 import '../../shared/widgets/font_settings.dart';
 import '../about/about.dart';
 import '../sound_manager/sounds_manager_page.dart';
 import '../theme_manager/themes_manager_page.dart';
+import 'settings_controller.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({super.key})  ;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class Settings extends StatelessWidget {
 class Title extends StatelessWidget {
   final String title;
 
-  const Title({Key? key, required this.title}) : super(key: key);
+  const Title({super.key, required this.title})  ;
 
   @override
   Widget build(BuildContext context) {

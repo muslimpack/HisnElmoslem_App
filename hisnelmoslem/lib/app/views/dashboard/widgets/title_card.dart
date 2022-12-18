@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
+import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
+import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
-import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 
-import '../../../data/app_data.dart';
 import '../../../../core/values/constant.dart';
+import '../../../data/app_data.dart';
 
 class TitleCard extends StatelessWidget {
   final int index;
@@ -20,11 +20,11 @@ class TitleCard extends StatelessWidget {
   final DbAlarm dbAlarm;
 
   const TitleCard(
-      {Key? key,
+      {super.key,
       required this.fehrsTitle,
       required this.dbAlarm,
       required this.index})
-      : super(key: key);
+       ;
 
   @override
   Widget build(BuildContext context) {

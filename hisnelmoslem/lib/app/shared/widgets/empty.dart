@@ -9,7 +9,7 @@ class Empty extends StatelessWidget {
   final Function()? onButtonCLick;
 
   const Empty({
-    Key? key,
+    super.key,
     this.imagePath = "assets/images/app_icon.png",
     this.title = "",
     this.description = "",
@@ -18,7 +18,7 @@ class Empty extends StatelessWidget {
     this.iconSize = 90,
     this.onButtonCLick,
     this.buttonText = "اضغط هنا",
-  }) : super(key: key);
+  })  ;
 
   @override
   Widget build(BuildContext context) {

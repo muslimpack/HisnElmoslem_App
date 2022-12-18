@@ -29,10 +29,7 @@ class AppUpdateNews extends StatelessWidget {
 }
 
 class InnerTimeline extends StatelessWidget {
-  const InnerTimeline({
-    Key? key,
-    required this.messages,
-  }) : super(key: key);
+  const InnerTimeline({super.key, required this.messages});
 
   final List<String> messages;
 
@@ -78,7 +75,7 @@ class InnerTimeline extends StatelessWidget {
 }
 
 class AppUpdatesHistory extends StatelessWidget {
-  const AppUpdatesHistory({Key? key}) : super(key: key);
+  const AppUpdatesHistory({super.key});
 
   @override
   Widget build(BuildContext context) {

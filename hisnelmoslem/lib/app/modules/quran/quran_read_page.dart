@@ -105,10 +105,7 @@ class QuranReadPage extends StatelessWidget {
 class BetweenPageEffect extends StatelessWidget {
   final int index;
 
-  const BetweenPageEffect({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  const BetweenPageEffect({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -134,10 +131,7 @@ class BetweenPageEffect extends StatelessWidget {
 class PageSideEffect extends StatelessWidget {
   final int index;
 
-  const PageSideEffect({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  const PageSideEffect({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {

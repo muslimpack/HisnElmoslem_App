@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
 
 class ScreenAppBar extends StatelessWidget {
   final DashboardController controller;
 
-  const ScreenAppBar({Key? key, required this.controller}) : super(key: key);
+  const ScreenAppBar({super.key, required this.controller})  ;
 
   @override
   Widget build(BuildContext context) {
