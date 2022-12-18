@@ -63,7 +63,7 @@ const Map<String, String> en = {
   "report bugs and request new features":
       "Report bugs and request new features",
   "send email": "Send Email",
-  "Github": "Github",
+  "Github": "Github source code",
 
   ///
 
@@ -215,4 +215,5 @@ const Map<String, String> en = {
   "Commentary sharh": "Commentary",
 
   "Sound Effect volume": "Sound Effect volume",
+  "Official Website": "Official Website",
 };

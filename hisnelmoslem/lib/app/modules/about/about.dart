@@ -58,6 +58,24 @@ class About extends StatelessWidget {
                   openURL("https://www.alukah.net/library/0/55211/");
                 },
               ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(MdiIcons.web),
+                title: Text("Official Website".tr),
+                subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
+                onTap: () {
+                  openURL("www.binwahaf.com");
+                },
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(MdiIcons.github),
+                title: Text("Github".tr),
+                onTap: () async {
+                  await openURL(
+                      'https://github.com/muslimpack/HisnElmoslem_App');
+                },
+              ),
             ],
           ),
         ));

@@ -61,7 +61,7 @@ const Map<String, String> ar = {
   "contact": "التواصل",
   "report bugs and request new features": "الشكاوى والمقترحات",
   "send email": "راسلنا",
-  "Github": "المشروع",
+  "Github": "الكود المصدري للمشروع",
 
   ///
 
@@ -215,4 +215,5 @@ const Map<String, String> ar = {
   "Commentary sharh": "الشرح",
 
   "Sound Effect volume": "حجم الصوت",
+  "Official Website": "الموقع الرسمي",
 };
