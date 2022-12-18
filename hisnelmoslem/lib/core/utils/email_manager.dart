@@ -4,7 +4,7 @@ import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
   static const String emailOwner = "hasaneltantawy@gmail.com";
@@ -106,13 +106,13 @@ ${"It should be:".tr}:
   }) async {
     var url = 'mailto:$toMailId?subject=$subject&body=$body';
     try {
-      if (await canLaunchUrlString(url)) {
-        await launchUrlString(url);
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url));
       } else {
         throw 'Could not launch $url';
       }
     } catch (e) {
-      hisnPrint(e.toString());
+      hisnPrint(e.toString() + " | " * 88);
     }
   }
 }

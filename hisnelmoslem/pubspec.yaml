@@ -45,6 +45,8 @@ dependencies:
   flutter_native_splash: ^2.1.6
   awesome_notifications: ^0.7.4+1
   timelines: ^0.1.0
+  # package for Text to Speech
+#  flutter_tts: ^3.6.2
 
 dev_dependencies:
   flutter_test:
