@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
+import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/hadith_card.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/hadith_card.dart';
 
 class FakeHadithReadPage extends StatelessWidget {
   final FakeHadithController controller;
 
-  const FakeHadithReadPage({Key? key, required this.controller})
-      : super(key: key);
+  const FakeHadithReadPage({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

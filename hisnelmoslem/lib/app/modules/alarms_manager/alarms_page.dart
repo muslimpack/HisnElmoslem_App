@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/widgets/alarm_card.dart';
+import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
 import '../../shared/widgets/empty.dart';
 
 class AlarmsPages extends StatelessWidget {
-  const AlarmsPages({Key? key}) : super(key: key);
+  const AlarmsPages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,12 @@ class AlarmsPages extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text("reminders manager".tr,
-                    style: const TextStyle(fontFamily: "Uthmanic")),
+                title: Text(
+                  "reminders manager".tr,
+                  style: const TextStyle(
+                    fontFamily: "Uthmanic",
+                  ),
+                ),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
               ),

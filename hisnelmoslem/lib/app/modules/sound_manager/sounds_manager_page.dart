@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 class SoundsManagerPage extends StatelessWidget {
   const SoundsManagerPage({Key? key}) : super(key: key);
@@ -48,18 +48,16 @@ class SoundsManagerPage extends StatelessWidget {
                   //   },
                   // ),
                   ListTile(
-                    leading: const Icon(
-                      Icons.volume_up,
-                    ),
+                    leading: const Icon(Icons.volume_up),
                     title: Text("Sound Effect volume".tr),
                     subtitle: Slider(
-                        value: controller.soundEffectVolume,
-                        onChanged: ((value) {
-                          controller.changeSoundEffectVolume(value);
-                          controller.update();
-                        })),
+                      value: controller.soundEffectVolume,
+                      onChanged: ((value) {
+                        controller.changeSoundEffectVolume(value);
+                        controller.update();
+                      }),
+                    ),
                   ),
-
                   const Divider(),
 
                   /// Tally Sound Allowed Vibrate
@@ -75,11 +73,7 @@ class SoundsManagerPage extends StatelessWidget {
                     value: controller.isTallyVibrateAllowed,
                     onChanged: (value) {
                       controller.changeTallyVibrateStatus(value);
-
-                      if (value) {
-                        controller.simulateTallyVibrate();
-                      }
-
+                      if (value) controller.simulateTallyVibrate();
                       controller.update();
                     },
                   ),
@@ -97,11 +91,7 @@ class SoundsManagerPage extends StatelessWidget {
                     value: controller.isTallySoundAllowed,
                     onChanged: (value) {
                       controller.changeTallySoundStatus(value);
-
-                      if (value) {
-                        controller.simulateTallySound();
-                      }
-
+                      if (value) controller.simulateTallySound();
                       controller.update();
                     },
                   ),

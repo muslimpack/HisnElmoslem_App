@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/data/models/alarm.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/app/shared/widgets/round_tag.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 import '../../../shared/functions/get_snackbar.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
 
-  AlarmCard({Key? key, required this.dbAlarm}) : super(key: key);
-
-  //
+  AlarmCard({super.key, required this.dbAlarm});
   final DashboardController dashboardController =
       Get.put(DashboardController());
 

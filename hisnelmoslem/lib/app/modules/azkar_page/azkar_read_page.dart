@@ -2,26 +2,27 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/commentary_dialoge.dart';
-import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 
 import '../../data/app_data.dart';
-import 'azkar_read_page_controller.dart';
 import '../../views/dashboard/dashboard_controller.dart';
 import '../share_as_image/share_as_image.dart';
+import 'azkar_read_page_controller.dart';
 
 class AzkarReadPage extends StatelessWidget {
   final int index;
 
-  const AzkarReadPage({Key? key, required this.index}) : super(key: key);
   static DashboardController dashboardController =
       Get.put(DashboardController());
+
+  const AzkarReadPage({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {

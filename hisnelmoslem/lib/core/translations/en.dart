@@ -13,7 +13,7 @@ const Map<String, String> en = {
   "favourites zikr": "Favourite Zikr",
   "search": "Search",
 
-  /// Empty pgae
+  /// Empty page
   "nothing found in favourites": "Nothing found in favourites",
   "no zikr has been selected as a favorite Click on the heart icon on any internal zikr":
       "No zikr has been selected as a favorite Click on the heart icon on any internal zikr",

@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'app_language_page_controller.dart';
 
 class AppLanguagePage extends StatelessWidget {
-  const AppLanguagePage({Key? key}) : super(key: key);
+  const AppLanguagePage({super.key});
 
   @override
   Widget build(BuildContext context) {

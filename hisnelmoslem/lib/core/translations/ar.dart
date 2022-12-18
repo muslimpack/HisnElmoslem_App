@@ -13,7 +13,7 @@ const Map<String, String> ar = {
   "favourites zikr": "مفضلة الأذكار",
   "search": "البحث",
 
-  /// Empty pgae
+  /// Empty page
   "nothing found in favourites": "لا يوجد شيء في المفضلة",
   "no zikr has been selected as a favorite Click on the heart icon on any internal zikr":
       "لم يتم تحديد أي ذكر كمفضل قم بالضغط على علامة القلب عند أي ذكر داخلي",
