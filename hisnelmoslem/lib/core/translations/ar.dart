@@ -26,7 +26,7 @@ const Map<String, String> ar = {
   //
   "tally": "السبحة",
   "active tallly": "التسبيح",
-  "times": "عدد المرات",
+  "times": "دورات",
   "counters": "عرض التسبيحات",
   "edit": "تعديل",
   "delete": "حذف",
@@ -206,4 +206,13 @@ const Map<String, String> ar = {
   "Current version": "الإصدار الحالي",
   "Reminder Removed": "تم حذف منبه",
   "Skip": "تخط",
+
+  "Shuffle Mode Deactivated": "الغاء تفعيل وضع السبحة المتغيرة",
+  "Shuffle Mode Activated": "تفعيل وضع السبحة المتغيرة",
+
+  "Commentary hadith": "الحديث",
+  "Commentary Benefit": "الفضل",
+  "Commentary sharh": "الشرح",
+
+  "Sound Effect volume": "حجم الصوت",
 };

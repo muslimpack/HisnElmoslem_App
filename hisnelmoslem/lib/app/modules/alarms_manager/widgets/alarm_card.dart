@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
+import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/app/shared/dialogs/edit_fast_alarm_dialog.dart';
 import 'package:hisnelmoslem/app/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/app/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
@@ -95,9 +95,10 @@ class AlarmCard extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (val) {
-                showFastEditAlarmDialog(
+                showFastAlarmDialog(
                   context: context,
                   dbAlarm: dbAlarm,
+                  isToEdit: true,
                 ).then((value) {
                   if (value is DbAlarm) {
                     if (value.hasAlarmInside) {

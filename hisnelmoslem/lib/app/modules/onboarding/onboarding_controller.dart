@@ -18,7 +18,7 @@ class OnBoardingController extends GetxController {
   bool get isFinalPage => currentPageIndex + 1 == pageList.length;
 
   // show skip button
-  bool get showSkipBtn => false;
+  bool get showSkipBtn => true;
 
   //
   int currentPageIndex = 0;
@@ -29,42 +29,88 @@ class OnBoardingController extends GetxController {
   //
   final pageList = [
     const Empty(
-      title: "حصن المسلم الإصدار 2.2.0",
+      title: "حصن المسلم الإصدار 2.3.0",
       description: '''
-عدنا إليك أيها الكريم بتحديث جديد من حصن المسلم
-قم بتقليب الصفحات
+السلام عليكم أيها الموفق 
+أهلا بك في تحديث جديد من حصن المسلم
+قم بسحب الشاشة لتقليب الصفحات
 أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة 
 ''',
     ),
     const Empty(
       isImage: false,
-      icon: Icons.font_download,
-      title: "15 نوعا من الخط",
+      icon: MdiIcons.comment,
+      title: "إضافة شرح للأذكار",
       description: """
-الآن يمكنك تبديل الخط داخل التطبيق والاختيار من بين 15 خطا حسب رغبتك
-من الاعدادات ادخل على نوع الخط ثم اضغط على الخط الذي تريده
-""",
+شرح للأذكار يتضمن الحديث والفوائد والشرح لكل ذكر من الأذكار""",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.share,
-      title: "الخط يظهر عند مشاركة الذكر كصورة",
+      icon: Icons.palette,
+      title: "أسود غريب",
       description: """
-""",
+وضع جديد لألوان التطبيق "أسود غريب"
+من الاعدادات إدارة ألوان التطبيق""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.translate,
+      title: "ترجمة الواجهة للإنجليزية",
+      description: """
+اضافة ترجمة انجليزية للواجهة
+'يلزم إعادة تشغيل التطبيق لتطبيقها  في بعض الأماكن'""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.shuffle,
+      title: "السبحة المتغيرة",
+      description: """
+اضافة خاصية جديدة للسبحة وهي الأذكار المتغيرة
+بتفعيلها يقوم التطبيق بتديل عشوائي للأذكار أمامك""",
     ),
     const Empty(
       isImage: false,
       icon: Icons.notifications,
-      title: "حل مشاكل خاصة بالاشعارات",
+      title: "تعديل التنبيهات من الواجهة مباشرة",
       description: """
-اصلاح مشكلة تأخر الاشعارات المجدولة مدة يوم عن موعدها""",
+يمكنك الآن تعديل المنبهات من الواجهة مباشرة
+عن طريق الضغط المطول على أيقونة الإشعارات وهي مفعلة""",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.bug_report,
-      title: "حل بعض المشكلات",
-      description:
-          "حل مشكلة عدم ظهور شريط الأدوات والأزار في النوافذ واختفاءها أسفل أزرار التنقل في بعض الهواتف",
+      icon: Icons.brush,
+      title: "شريط تقدم إضافي",
+      description: """
+اضافة شريط اضافي لتقدمك
+عند قراءة الأذكار يقوم بحساب كل تسبيحة""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.brush,
+      title: "تعديلات في الواجهة",
+      description: """
+- بعض التعديلات في القائمة الجانبية في الصفحة الرئيسية
+- بعض التعديلات في واجهة مشاركة الذكر كصورة
+- يمكنك الآن حذف التشكيل عند مشاركة الذكر كصورة
+""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: MdiIcons.camera,
+      title: "مشاركة كصورة",
+      description: """
+مشاركة الأحاديث المنتشرة التي لا تصح كصورة
+""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: MdiIcons.bugOutline,
+      title: "المشاكل التي تم حلها",
+      description: """
+- إصلاح الخلل الذي يسبب توقف التطبيق على هواتف من اصدار أندرويد 13
+- إصلاح الخلل الخاص بارسال الأخطاء الإملائية
+- اصلاح الخلل الذي يظهر عند اضافة عداد جديد في السبحة
+""",
     ),
     Empty(
       isImage: true,

@@ -47,6 +47,20 @@ class SoundsManagerPage extends StatelessWidget {
                   //     controller.update();
                   //   },
                   // ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.volume_up,
+                    ),
+                    title: Text("Sound Effect volume".tr),
+                    subtitle: Slider(
+                        value: controller.soundEffectVolume,
+                        onChanged: ((value) {
+                          controller.changeSoundEffectVolume(value);
+                          controller.update();
+                        })),
+                  ),
+
+                  const Divider(),
 
                   /// Tally Sound Allowed Vibrate
                   SwitchListTile(

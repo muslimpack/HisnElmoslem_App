@@ -16,79 +16,87 @@ AwesomeNotificationManager awesomeNotificationManager =
 
 class AwesomeNotificationManager {
   Future<void> checkIfAllowed(BuildContext context) async {
-    await AwesomeNotifications().isNotificationAllowed().then(
-      (isAllowed) {
-        if (!isAllowed) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              title: Text("Allow app to send notifications?".tr),
-              content: Text(
-                  "Hisn ELmoslem need notification permission to send zikr reminders."
-                      .tr),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "Later".tr,
-                    style: const TextStyle(color: Colors.grey, fontSize: 18),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => AwesomeNotifications()
-                      .requestPermissionToSendNotifications()
-                      .then((_) => Navigator.pop(context)),
-                  child: Text(
-                    "Allow".tr,
-                    style: const TextStyle(
-                      color: Colors.teal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+    try {
+      await AwesomeNotifications().isNotificationAllowed().then(
+        (isAllowed) {
+          if (!isAllowed) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                title: Text("Allow app to send notifications?".tr),
+                content: Text(
+                    "Hisn ELmoslem need notification permission to send zikr reminders."
+                        .tr),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Later".tr,
+                      style: const TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }
-      },
-    );
+                  TextButton(
+                    onPressed: () => AwesomeNotifications()
+                        .requestPermissionToSendNotifications()
+                        .then((_) => Navigator.pop(context)),
+                    child: Text(
+                      "Allow".tr,
+                      style: const TextStyle(
+                        color: Colors.teal,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      hisnPrint(e);
+    }
   }
 
   Future<void> init() async {
-    await AwesomeNotifications().initialize(
-      /// using null here mean it will use app icon for notification icon
-      /// If u want use custom one replace null with below
-      /// 'resource://drawable/res_app_icon',
-      null,
-      [
-        NotificationChannel(
-          channelKey: 'in_app_notification',
-          channelName: 'In App Notification',
-          channelDescription: 'For internal notifications',
-          defaultColor: Colors.teal,
-          importance: NotificationImportance.High,
-          channelShowBadge: true,
-          enableLights: true,
-          playSound: true,
-        ),
-        NotificationChannel(
-          channelKey: 'scheduled_channel',
-          channelName: 'Scheduled Notifications',
-          channelDescription: 'For Scheduled notifications',
-          defaultColor: Colors.teal,
-          importance: NotificationImportance.High,
-          locked: true,
-          channelShowBadge: true,
-          playSound: true,
-        ),
-      ],
-      debug: true,
-    );
+    try {
+      await AwesomeNotifications().initialize(
+        /// using null here mean it will use app icon for notification icon
+        /// If u want use custom one replace null with below
+        /// 'resource://drawable/res_app_icon',
+        null,
+        [
+          NotificationChannel(
+            channelKey: 'in_app_notification',
+            channelName: 'In App Notification',
+            channelDescription: 'For internal notifications',
+            defaultColor: Colors.teal,
+            importance: NotificationImportance.High,
+            channelShowBadge: true,
+            enableLights: true,
+            playSound: true,
+          ),
+          NotificationChannel(
+            channelKey: 'scheduled_channel',
+            channelName: 'Scheduled Notifications',
+            channelDescription: 'For Scheduled notifications',
+            defaultColor: Colors.teal,
+            importance: NotificationImportance.High,
+            locked: true,
+            channelShowBadge: true,
+            playSound: true,
+          ),
+        ],
+        debug: true,
+      );
+    } catch (e) {
+      hisnPrint(e);
+    }
   }
 
   void listen() {

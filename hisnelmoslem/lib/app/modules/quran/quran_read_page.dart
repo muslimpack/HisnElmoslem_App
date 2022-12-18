@@ -40,12 +40,12 @@ class QuranReadPage extends StatelessWidget {
                       fontFamily: 'Uthmanic',
                     ),
                   ),
-                  actions: [
-                    IconButton(
-                      onPressed: () => controller.toggleTheme(),
-                      icon: const Icon(Icons.dark_mode),
-                    ),
-                  ],
+                  // actions: [
+                  //   IconButton(
+                  //     onPressed: () => controller.toggleTheme(),
+                  //     icon: const Icon(Icons.dark_mode),
+                  //   ),
+                  // ],
                 ),
                 body: ScrollGlowCustom(
                   axisDirection: AxisDirection.left,

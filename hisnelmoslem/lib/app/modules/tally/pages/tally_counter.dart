@@ -66,7 +66,7 @@ class TallyCounterView extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .8,
                               padding: const EdgeInsets.all(20),
                               child: Text(
-                                '${controller.currentDBTally!.count}',
+                                '${controller.counter}',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(fontSize: 40),
                               ),
@@ -87,13 +87,12 @@ class TallyCounterView extends StatelessWidget {
                                   ),
                                   mainLabelStyle: const TextStyle(fontSize: 70),
                                   modifier: (double value) {
-                                    final circval =
-                                        value.ceil().toInt().toString();
+                                    final circval = value.round().toString();
                                     return circval;
                                   },
                                 ),
                                 customWidths: CustomSliderWidths(
-                                    progressBarWidth: 40, trackWidth: 40),
+                                    progressBarWidth: 20, trackWidth: 20),
                                 customColors: CustomSliderColors(
                                   // trackColor: grey,
                                   hideShadow: true,

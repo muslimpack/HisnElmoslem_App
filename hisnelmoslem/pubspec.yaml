@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 2.2.0+14
+version: 2.3.0+16
 
 environment:
   #  sdk: ">=2.12.0 <3.0.0"
@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.4
-  url_launcher: ^6.0.18
+  url_launcher: ^6.1.7
   flutter_local_notifications: ^9.2.0
   rxdart: ^0.27.3
   material_design_icons_flutter: ^6.0.7096

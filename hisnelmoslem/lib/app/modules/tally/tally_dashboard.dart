@@ -39,6 +39,15 @@ class Tally extends StatelessWidget {
                               },
                               icon: const Icon(Icons.settings),
                             ),
+                      IconButton(
+                        splashRadius: 20,
+                        onPressed: () {
+                          controller.toggleShuffleMode();
+                        },
+                        icon: Icon(controller.isShuffleModeOn
+                            ? Icons.shuffle_on_rounded
+                            : Icons.shuffle_rounded),
+                      ),
                     ],
                     bottom: TabBar(indicatorColor: mainColor, tabs: [
                       Tab(

@@ -48,13 +48,29 @@ class FakeHadithDatabaseHelper {
       await _copyFromAssets(path: path);
     }
 
-    return await openDatabase(
+    Database database = await openDatabase(path);
+
+    await database.getVersion().then((currentVersion) async {
+      if (currentVersion < dbVersion) {
+        database.close();
+
+        //delete the old database so you can copy the new one
+        await deleteDatabase(path);
+
+        // Database isn't exist > Create new Database
+        await _copyFromAssets(path: path);
+      }
+    });
+
+    database = await openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
     );
+
+    return database;
   }
 
   // On create database
