@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:hisnelmoslem/core/values/app_dashboard.dart';
