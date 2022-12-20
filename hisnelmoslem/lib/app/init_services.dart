@@ -18,6 +18,13 @@ Future<void> initServices() async {
   } catch (e) {
     hisnPrint(e);
   }
+
+  // AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+  //   if (!isAllowed) {
+  //     AwesomeNotifications().requestPermissionToSendNotifications();
+  //   }
+  // });
+
   AwesomeNotifications().initialize(
     'resource://drawable/res_hisnelmoslem',
     [

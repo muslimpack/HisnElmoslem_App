@@ -6,11 +6,6 @@ import 'package:hisnelmoslem/app/init_services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
-  // AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-  //   if (!isAllowed) {
-  //     AwesomeNotifications().requestPermissionToSendNotifications();
-  //   }
-  // });
 
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
