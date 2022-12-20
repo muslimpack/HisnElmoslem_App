@@ -11,8 +11,7 @@ class UserNumberField extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.hintText,
-      this.onChange})
-       ;
+      this.onChange});
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ class ImageVarFontBuilder extends StatelessWidget {
   const ImageVarFontBuilder({
     super.key,
     required this.dbContent,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

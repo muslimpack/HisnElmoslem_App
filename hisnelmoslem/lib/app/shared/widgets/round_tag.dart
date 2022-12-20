@@ -5,8 +5,7 @@ class RoundTagCard extends StatelessWidget {
   final String? name;
   final Color color;
 
-  const RoundTagCard({super.key, required this.name, required this.color})
-       ;
+  const RoundTagCard({super.key, required this.name, required this.color});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 class ScreenAppBar extends StatelessWidget {
   final DashboardController controller;
 
-  const ScreenAppBar({super.key, required this.controller})  ;
+  const ScreenAppBar({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

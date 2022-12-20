@@ -15,7 +15,7 @@ class FontSettingsToolbox extends StatelessWidget {
     required this.controllerToUpdate,
     this.showFontResizeControllers = true,
     this.showTashkelControllers = true,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +77,7 @@ class FontSettingsToolbox extends StatelessWidget {
 class TextSample extends StatelessWidget {
   final GetxController controllerToUpdate;
 
-  const TextSample({super.key, required this.controllerToUpdate})
-       ;
+  const TextSample({super.key, required this.controllerToUpdate});
   static String text =
       "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
 

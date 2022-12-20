@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 class AzkarBookmarks extends StatelessWidget {
   const AzkarBookmarks({
     super.key,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

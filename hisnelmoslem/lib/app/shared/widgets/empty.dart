@@ -18,7 +18,7 @@ class Empty extends StatelessWidget {
     this.iconSize = 90,
     this.onButtonCLick,
     this.buttonText = "اضغط هنا",
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

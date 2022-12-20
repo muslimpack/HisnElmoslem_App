@@ -20,7 +20,7 @@ import '../theme_manager/themes_manager_page.dart';
 import 'settings_controller.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({super.key})  ;
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class Settings extends StatelessWidget {
 class Title extends StatelessWidget {
   final String title;
 
-  const Title({super.key, required this.title})  ;
+  const Title({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

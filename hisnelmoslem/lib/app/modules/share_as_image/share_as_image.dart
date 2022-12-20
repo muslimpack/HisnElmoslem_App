@@ -13,7 +13,7 @@ import 'widgets/settings_sheet.dart';
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
 
-  const ShareAsImage({super.key, required this.dbContent})  ;
+  const ShareAsImage({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {

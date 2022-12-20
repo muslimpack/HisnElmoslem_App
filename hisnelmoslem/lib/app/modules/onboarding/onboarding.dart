@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  const OnBoardingPage({super.key})  ;
+  const OnBoardingPage({super.key});
 
   static Container buildDot(int index, int currentPageIndex) {
     return Container(

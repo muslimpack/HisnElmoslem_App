@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class TallyCounterView extends StatelessWidget {
-  const TallyCounterView({super.key})  ;
+  const TallyCounterView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,7 @@ class ScreenMenu extends StatelessWidget {
   const ScreenMenu({
     super.key,
     required this.controller,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +245,7 @@ class ScreenMenu extends StatelessWidget {
 class DrawerCard extends StatelessWidget {
   final Widget? child;
 
-  const DrawerCard({super.key, required this.child})  ;
+  const DrawerCard({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +254,7 @@ class DrawerCard extends StatelessWidget {
 }
 
 class DrawerDivider extends StatelessWidget {
-  const DrawerDivider({super.key})  ;
+  const DrawerDivider({super.key});
 
   @override
   Widget build(BuildContext context) {

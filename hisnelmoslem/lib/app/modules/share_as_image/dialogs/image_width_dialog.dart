@@ -12,7 +12,7 @@ class ImageWidthDialog extends StatelessWidget {
     super.key,
     required this.onSubmit,
     required this.initialValue,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

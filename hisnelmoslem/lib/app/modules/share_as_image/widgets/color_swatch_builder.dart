@@ -14,7 +14,7 @@ class ColorSwatchBuilder extends StatelessWidget {
     required this.colorSwatchList,
     required this.colorToTrack,
     required this.apply,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

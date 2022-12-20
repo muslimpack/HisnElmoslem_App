@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class TallyCard extends StatelessWidget {
   final DbTally dbTally;
 
-  TallyCard({super.key, required this.dbTally})  ;
+  TallyCard({super.key, required this.dbTally});
   final TallyController tallyController = Get.put(TallyController());
 
   @override

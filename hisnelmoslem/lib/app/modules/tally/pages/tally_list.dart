@@ -8,7 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../widgets/cards/tally_card.dart';
 
 class TallyListView extends StatelessWidget {
-  const TallyListView({super.key})  ;
+  const TallyListView({super.key});
 
   @override
   Widget build(BuildContext context) {

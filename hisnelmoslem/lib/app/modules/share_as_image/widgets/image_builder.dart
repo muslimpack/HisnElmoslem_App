@@ -12,7 +12,7 @@ class ImageBuilder extends StatelessWidget {
   const ImageBuilder({
     super.key,
     required this.dbContent,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

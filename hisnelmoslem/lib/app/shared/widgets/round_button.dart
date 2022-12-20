@@ -12,8 +12,7 @@ class RoundButton extends StatelessWidget {
       required this.text,
       required this.onTap,
       this.radius = 5.0,
-      this.isTransparent = false})
-       ;
+      this.isTransparent = false});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'font_family_page_controller.dart';
 
 class FontFamilyPage extends StatelessWidget {
-  const FontFamilyPage({super.key})  ;
+  const FontFamilyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

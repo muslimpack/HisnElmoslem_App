@@ -9,7 +9,7 @@ class ScrollGlowCustom extends StatelessWidget {
     super.key,
     required this.child,
     this.axisDirection = AxisDirection.down,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

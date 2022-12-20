@@ -15,7 +15,7 @@ class SettingsSheet extends StatelessWidget {
   const SettingsSheet({
     super.key,
     required this.shareAsImageController,
-  })  ;
+  });
 
   @override
   Widget build(BuildContext context) {

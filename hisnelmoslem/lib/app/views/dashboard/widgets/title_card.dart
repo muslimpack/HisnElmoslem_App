@@ -23,8 +23,7 @@ class TitleCard extends StatelessWidget {
       {super.key,
       required this.fehrsTitle,
       required this.dbAlarm,
-      required this.index})
-       ;
+      required this.index});
 
   @override
   Widget build(BuildContext context) {

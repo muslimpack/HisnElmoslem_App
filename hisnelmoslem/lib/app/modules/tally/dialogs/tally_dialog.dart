@@ -16,7 +16,7 @@ class TallyDialog extends StatefulWidget {
     required this.dbTally,
     required this.onSubmit,
     required this.isToEdit,
-  })  ;
+  });
 
   @override
   State<TallyDialog> createState() => _TallyDialogState();
