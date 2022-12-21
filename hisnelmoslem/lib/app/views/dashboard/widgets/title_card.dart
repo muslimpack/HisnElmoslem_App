@@ -19,11 +19,12 @@ class TitleCard extends StatelessWidget {
   final DbTitle fehrsTitle;
   final DbAlarm dbAlarm;
 
-  const TitleCard(
-      {super.key,
-      required this.fehrsTitle,
-      required this.dbAlarm,
-      required this.index});
+  const TitleCard({
+    super.key,
+    required this.fehrsTitle,
+    required this.dbAlarm,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
