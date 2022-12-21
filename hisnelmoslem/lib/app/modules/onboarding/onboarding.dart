@@ -31,9 +31,7 @@ class OnBoardingPage extends StatelessWidget {
               child: PageView.builder(
                 controller: controller.pageController,
                 itemCount: controller.pageList.length,
-                itemBuilder: (context, index) {
-                  return controller.pageList[index];
-                },
+                itemBuilder: (context, index) => controller.pageList[index],
                 onPageChanged: (index) {
                   controller.currentPageIndex = index;
                   controller.update();
@@ -44,50 +42,54 @@ class OnBoardingPage extends StatelessWidget {
               color: Theme.of(context).scaffoldBackgroundColor,
               child: SizedBox(
                 height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          controller.pageList.length,
-                          (index) => buildDot(
-                            index,
-                            controller.currentPageIndex,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      /// for center the dots space
+                      const Expanded(child: SizedBox()),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            controller.pageList.length,
+                            (index) => buildDot(
+                              index,
+                              controller.currentPageIndex,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    controller.isFinalPage
-                        ? Expanded(
-                            child: RoundButton(
-                            radius: 10,
-                            text: Text(
-                              'Start'.tr,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            onTap: () {
-                              controller.goToDashboard();
-                            },
-                          ))
-                        : !controller.showSkipBtn
-                            ? const SizedBox()
-                            : Expanded(
-                                child: RoundButton(
+                      controller.isFinalPage
+                          ? Expanded(
+                              child: RoundButton(
                                 radius: 10,
-                                isTransparent: true,
                                 text: Text(
-                                  "Skip".tr,
+                                  'Start'.tr,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
-                                onTap: () {
-                                  controller.goToDashboard();
-                                },
-                              )),
-                  ],
+                                onTap: () => controller.goToDashboard(),
+                              ),
+                            )
+                          : !controller.showSkipBtn
+                              ? const SizedBox()
+                              : Expanded(
+                                  child: RoundButton(
+                                    radius: 10,
+                                    isTransparent: true,
+                                    text: Text(
+                                      "Skip".tr,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onTap: () => controller.goToDashboard(),
+                                  ),
+                                ),
+                    ],
+                  ),
                 ),
               ),
             ),

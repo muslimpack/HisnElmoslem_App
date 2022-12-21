@@ -26,6 +26,7 @@ class Empty extends StatelessWidget {
       child: ScrollGlowRemover(
         child: ListView(
           shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
           // mainAxisSize: MainAxisSize.min,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -39,10 +40,7 @@ class Empty extends StatelessWidget {
                           width: 50,
                         ),
                       )
-                    : Icon(
-                        icon,
-                        size: iconSize,
-                      ),
+                    : Icon(icon, size: iconSize),
             title == ""
                 ? const SizedBox()
                 : Padding(
@@ -70,7 +68,16 @@ class Empty extends StatelessWidget {
                     ),
                   ),
             onButtonCLick != null
-                ? TextButton(onPressed: onButtonCLick!, child: Text(buttonText))
+                ? TextButton(
+                    onPressed: onButtonCLick!,
+                    child: Text(
+                      buttonText,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                 : const SizedBox()
           ],
         ),
