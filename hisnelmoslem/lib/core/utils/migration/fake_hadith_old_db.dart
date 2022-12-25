@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/app/data/models/fake_haith.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

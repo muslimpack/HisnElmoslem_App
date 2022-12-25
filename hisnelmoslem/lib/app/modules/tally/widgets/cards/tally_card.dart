@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
-import 'package:hisnelmoslem/app/data/models/tally.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';

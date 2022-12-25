@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
 

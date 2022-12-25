@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/models/fake_haith.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_title.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';

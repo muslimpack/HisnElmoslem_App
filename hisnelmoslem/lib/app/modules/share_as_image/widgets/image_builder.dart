@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 
 class ImageBuilder extends StatelessWidget {
   final DbContent dbContent;

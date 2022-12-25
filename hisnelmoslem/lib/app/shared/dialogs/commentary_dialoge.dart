@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/data/models/commentary.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';

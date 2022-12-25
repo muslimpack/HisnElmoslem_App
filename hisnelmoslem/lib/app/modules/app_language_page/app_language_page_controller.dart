@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/data/models/translation_data.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:intl/intl.dart';
 
 class AppLanguagePageController extends GetxController {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/data/models/alarm.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/app/data/models/tally.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/modules/tally/dialogs/tally_dialog.dart';
 import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';

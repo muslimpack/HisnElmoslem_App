@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/data/models/alarm.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/app/shared/widgets/round_tag.dart';

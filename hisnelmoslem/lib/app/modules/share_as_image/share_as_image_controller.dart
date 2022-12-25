@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';

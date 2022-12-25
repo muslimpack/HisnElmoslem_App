@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
-import 'package:hisnelmoslem/app/data/models/zikr_content.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 
 class ImageVarFontBuilder extends StatelessWidget {
   final DbContent dbContent;

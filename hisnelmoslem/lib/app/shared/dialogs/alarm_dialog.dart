@@ -2,7 +2,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/models/alarm.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/app/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
