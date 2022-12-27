@@ -38,6 +38,12 @@
 
 - open pubspec.yaml and hit git pub
 
+# الشاشات داخل التطبيق
+
+تم انشاءه بواسطة [app.diagrams.net](https://app.diagrams.net/)
+
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/repo_media/app_screen_diagram.png" alt='HisnElmoslem_App screen diagram'/>
+
 # مميزات التطبيق
 
 <details open>
