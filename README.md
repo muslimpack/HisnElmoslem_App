@@ -42,7 +42,7 @@
 
 تم انشاءه بواسطة [app.diagrams.net](https://app.diagrams.net/)
 
-<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/repo_media/app_screen_diagram.png" alt='HisnElmoslem_App screen diagram'/>
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/master/repo_media/app_screen_diagram.png" alt='HisnElmoslem_App screen diagram'/>
 
 # مميزات التطبيق
 
