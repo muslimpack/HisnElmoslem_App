@@ -197,7 +197,7 @@ const Map<String, String> ar = {
   "Go to": "الذهاب إلى",
   'Dismiss': "تفويت",
   'Start': "ابدأ",
-  "You haven't opened the app for a long time.": 'لم تفتح التطبيق منذ فنرة',
+  "You haven't opened the app for a long time.": 'لم تفتح التطبيق منذ فترة',
 
   "Click here": "اضغط هنا",
 
