@@ -161,7 +161,6 @@ class Themes {
         elevation: 0,
         color: yellowColorPrimary,
       ),
-      bottomAppBarColor: yellowColorPrimary,
       tabBarTheme: const TabBarTheme().copyWith(
         labelColor: yellowColorSecondary,
       ),
