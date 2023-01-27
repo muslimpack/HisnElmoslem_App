@@ -8,7 +8,6 @@ import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/modules/settings/settings.dart';
 import 'package:hisnelmoslem/app/modules/tally/tally_dashboard.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
@@ -78,141 +77,140 @@ class ScreenMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                  child: ScrollGlowRemover(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(
-                              Icons.watch_rounded,
-                            ),
-                            title: Text("tally".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const Tally(),
-                              );
-                            },
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.watch_rounded,
                           ),
+                          title: Text("tally".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const Tally(),
+                            );
+                          },
                         ),
-                        const DrawerDivider(),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: Text(
-                              "sura Al-Kahf".tr,
-                            ),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const QuranReadPage(
-                                  surahName: SurahNameEnum.alKahf,
-                                ),
-                              );
-                            },
+                      ),
+                      const DrawerDivider(),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: Text(
+                            "sura Al-Kahf".tr,
                           ),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const QuranReadPage(
+                                surahName: SurahNameEnum.alKahf,
+                              ),
+                            );
+                          },
                         ),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: Text("sura As-Sajdah".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const QuranReadPage(
-                                  surahName: SurahNameEnum.assajdah,
-                                ),
-                              );
-                            },
-                          ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: Text("sura As-Sajdah".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const QuranReadPage(
+                                surahName: SurahNameEnum.assajdah,
+                              ),
+                            );
+                          },
                         ),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(MdiIcons.bookOpenPageVariant),
-                            title: Text("sura Al-Mulk".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const QuranReadPage(
-                                  surahName: SurahNameEnum.alMulk,
-                                ),
-                              );
-                            },
-                          ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: Text("sura Al-Mulk".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const QuranReadPage(
+                                surahName: SurahNameEnum.alMulk,
+                              ),
+                            );
+                          },
                         ),
-                        const DrawerDivider(),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(Icons.menu_book),
-                            title: Text("fake hadith".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const FakeHadith(),
-                              );
-                            },
-                          ),
+                      ),
+                      const DrawerDivider(),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(Icons.menu_book),
+                          title: Text("fake hadith".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const FakeHadith(),
+                            );
+                          },
                         ),
-                        const DrawerDivider(),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(Icons.settings),
-                            title: Text("settings".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const Settings(),
-                              );
-                            },
-                          ),
+                      ),
+                      const DrawerDivider(),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(Icons.settings),
+                          title: Text("settings".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const Settings(),
+                            );
+                          },
                         ),
-                        const DrawerDivider(),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(MdiIcons.gmail),
-                            title: Text("contact to dev".tr),
-                            onTap: () {
-                              EmailManager.messageUS();
-                            },
-                          ),
+                      ),
+                      const DrawerDivider(),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(MdiIcons.gmail),
+                          title: Text("contact to dev".tr),
+                          onTap: () {
+                            EmailManager.messageUS();
+                          },
                         ),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(Icons.star),
-                            title:
-                                Text("report bugs and request new features".tr),
-                            onTap: () {
-                              EmailManager.sendFeedbackForm();
-                            },
-                          ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(Icons.star),
+                          title:
+                              Text("report bugs and request new features".tr),
+                          onTap: () {
+                            EmailManager.sendFeedbackForm();
+                          },
                         ),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(Icons.history),
-                            title: Text("updates history".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const AppUpdateNews(),
-                              );
-                            },
-                          ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(Icons.history),
+                          title: Text("updates history".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const AppUpdateNews(),
+                            );
+                          },
                         ),
-                        DrawerCard(
-                          child: ListTile(
-                            leading: const Icon(Icons.info),
-                            title: Text("about us".tr),
-                            onTap: () {
-                              transitionAnimation.fromBottom2Top(
-                                context: context,
-                                goToPage: const About(),
-                              );
-                            },
-                          ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(Icons.info),
+                          title: Text("about us".tr),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const About(),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],

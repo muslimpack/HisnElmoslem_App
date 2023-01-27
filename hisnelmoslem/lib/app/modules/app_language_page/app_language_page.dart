@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/app_language_page/app_language_page_controller.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
 class AppLanguagePage extends StatelessWidget {
   const AppLanguagePage({super.key});
@@ -20,30 +19,29 @@ class AppLanguagePage extends StatelessWidget {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
-          body: ScrollGlowCustom(
-            child: ListView(
-              children: [
-                for (int index = 0;
-                    index < controller.languages.length;
-                    index += 1)
-                  ListTile(
-                    key: Key('$index'),
-                    tileColor: Get.locale!.languageCode ==
-                            controller.languages[index].code
-                        ? controller.activeColor
-                        : null,
-                    title: Text(
-                      controller.languages[index].display,
-                    ),
-                    subtitle: Text(
-                      controller.languages[index].code,
-                    ),
-                    leading: const Icon(Icons.translate_rounded),
-                    onTap: () => controller
-                        .changeAppLanguage(controller.languages[index].code),
+          body: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              for (int index = 0;
+                  index < controller.languages.length;
+                  index += 1)
+                ListTile(
+                  key: Key('$index'),
+                  tileColor: Get.locale!.languageCode ==
+                          controller.languages[index].code
+                      ? controller.activeColor
+                      : null,
+                  title: Text(
+                    controller.languages[index].display,
                   ),
-              ],
-            ),
+                  subtitle: Text(
+                    controller.languages[index].code,
+                  ),
+                  leading: const Icon(Icons.translate_rounded),
+                  onTap: () => controller
+                      .changeAppLanguage(controller.languages[index].code),
+                ),
+            ],
           ),
         );
       },

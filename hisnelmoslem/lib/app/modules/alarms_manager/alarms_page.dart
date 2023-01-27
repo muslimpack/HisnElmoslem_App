@@ -4,7 +4,6 @@ import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/widgets/alarm_card.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
 class AlarmsPages extends StatelessWidget {
   const AlarmsPages({super.key});
@@ -29,26 +28,25 @@ class AlarmsPages extends StatelessWidget {
               : Scrollbar(
                   controller: controller.alarmScrollController,
                   thumbVisibility: false,
-                  child: ScrollGlowCustom(
-                    child: controller.alarms.isEmpty
-                        ? Empty(
-                            isImage: false,
-                            icon: Icons.alarm_add_rounded,
-                            title: "no reminders found".tr,
-                            description:
-                                "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title"
-                                    .tr,
-                          )
-                        : ListView.builder(
-                            padding: const EdgeInsets.only(top: 10),
-                            itemBuilder: (context, index) {
-                              return AlarmCard(
-                                dbAlarm: controller.alarms[index],
-                              );
-                            },
-                            itemCount: controller.alarms.length,
-                          ),
-                  ),
+                  child: controller.alarms.isEmpty
+                      ? Empty(
+                          isImage: false,
+                          icon: Icons.alarm_add_rounded,
+                          title: "no reminders found".tr,
+                          description:
+                              "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title"
+                                  .tr,
+                        )
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(top: 10),
+                          itemBuilder: (context, index) {
+                            return AlarmCard(
+                              dbAlarm: controller.alarms[index],
+                            );
+                          },
+                          itemCount: controller.alarms.length,
+                        ),
                 ),
         );
       },

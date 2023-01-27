@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class DialogMaker extends StatelessWidget {
@@ -47,12 +46,11 @@ class DialogMaker extends StatelessWidget {
               Flexible(
                 child: Padding(
                   padding: contentPadding,
-                  child: ScrollGlowRemover(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: content,
-                    ),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: content,
                   ),
                 ),
               ),

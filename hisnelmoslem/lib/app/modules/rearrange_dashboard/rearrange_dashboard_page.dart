@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/values/app_dashboard.dart';
 
 class RearrangeDashboardPage extends StatelessWidget {
@@ -25,25 +24,24 @@ class RearrangeDashboardPage extends StatelessWidget {
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   elevation: 0,
                 ),
-                body: ScrollGlowCustom(
-                  child: ReorderableListView(
-                    onReorder: controller.onReorder,
-                    children: [
-                      for (int index = 0;
-                          index < controller.list.length;
-                          index += 1)
-                        ListTile(
-                          key: Key('$index'),
-                          tileColor: controller.list[index].isOdd
-                              ? controller.oddItemColor
-                              : controller.evenItemColor,
-                          title: Text(
-                            appDashboardItem[controller.list[index]].title,
-                          ),
-                          trailing: const Icon(Icons.horizontal_rule),
+                body: ReorderableListView(
+                  onReorder: controller.onReorder,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    for (int index = 0;
+                        index < controller.list.length;
+                        index += 1)
+                      ListTile(
+                        key: Key('$index'),
+                        tileColor: controller.list[index].isOdd
+                            ? controller.oddItemColor
+                            : controller.evenItemColor,
+                        title: Text(
+                          appDashboardItem[controller.list[index]].title,
                         ),
-                    ],
-                  ),
+                        trailing: const Icon(Icons.horizontal_rule),
+                      ),
+                  ],
                 ),
               );
       },

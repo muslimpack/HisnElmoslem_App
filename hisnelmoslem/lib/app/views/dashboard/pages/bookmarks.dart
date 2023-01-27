@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/widgets/title_card.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
@@ -28,29 +27,28 @@ class AzkarBookmarks extends StatelessWidget {
                         "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
                             .tr,
                   )
-                : ScrollGlowCustom(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 10),
-                      itemBuilder: (context, index) {
-                        return FutureBuilder(
-                          future: alarmDatabaseHelper.getAlarmByZikrTitle(
-                            dbTitle: controller.favouriteTitle[index],
-                          ),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return TitleCard(
-                                index: index,
-                                fehrsTitle: controller.favouriteTitle[index],
-                                dbAlarm: snapshot.data!,
-                              );
-                            } else {
-                              return const ListTile();
-                            }
-                          },
-                        );
-                      },
-                      itemCount: controller.favouriteTitle.length,
-                    ),
+                : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 10),
+                    itemBuilder: (context, index) {
+                      return FutureBuilder(
+                        future: alarmDatabaseHelper.getAlarmByZikrTitle(
+                          dbTitle: controller.favouriteTitle[index],
+                        ),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return TitleCard(
+                              index: index,
+                              fehrsTitle: controller.favouriteTitle[index],
+                              dbAlarm: snapshot.data!,
+                            );
+                          } else {
+                            return const ListTile();
+                          }
+                        },
+                      );
+                    },
+                    itemCount: controller.favouriteTitle.length,
                   ),
           ),
         );

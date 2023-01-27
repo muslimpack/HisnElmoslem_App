@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
@@ -92,21 +91,19 @@ class _CommentaryDialogeState extends State<CommentaryDialoge> {
                   ),
                 ),
               ),
-              body: ScrollGlowCustom(
-                axisDirection: AxisDirection.right,
-                child: TabBarView(
-                  children: [
-                    CommentaryPageView(
-                      text: commentary!.hadith,
-                    ),
-                    CommentaryPageView(
-                      text: commentary!.benefit,
-                    ),
-                    CommentaryPageView(
-                      text: commentary!.sharh,
-                    ),
-                  ],
-                ),
+              body: TabBarView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  CommentaryPageView(
+                    text: commentary!.hadith,
+                  ),
+                  CommentaryPageView(
+                    text: commentary!.benefit,
+                  ),
+                  CommentaryPageView(
+                    text: commentary!.sharh,
+                  ),
+                ],
               ),
             ),
           );

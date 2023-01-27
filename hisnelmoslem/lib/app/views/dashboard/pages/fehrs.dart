@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/widgets/title_card.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
@@ -28,29 +27,28 @@ class AzkarFehrs extends StatelessWidget {
                     title: "no title with this name".tr,
                     description: "please review the index of the book".tr,
                   )
-                : ScrollGlowCustom(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 10),
-                      itemCount: titleListToDisplay.length,
-                      itemBuilder: (context, index) {
-                        return FutureBuilder(
-                          future: alarmDatabaseHelper.getAlarmByZikrTitle(
-                            dbTitle: titleListToDisplay[index],
-                          ),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return TitleCard(
-                                index: index,
-                                fehrsTitle: titleListToDisplay[index],
-                                dbAlarm: snapshot.data!,
-                              );
-                            } else {
-                              return const ListTile();
-                            }
-                          },
-                        );
-                      },
-                    ),
+                : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 10),
+                    itemCount: titleListToDisplay.length,
+                    itemBuilder: (context, index) {
+                      return FutureBuilder(
+                        future: alarmDatabaseHelper.getAlarmByZikrTitle(
+                          dbTitle: titleListToDisplay[index],
+                        ),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return TitleCard(
+                              index: index,
+                              fehrsTitle: titleListToDisplay[index],
+                              dbAlarm: snapshot.data!,
+                            );
+                          } else {
+                            return const ListTile();
+                          }
+                        },
+                      );
+                    },
                   ),
           ),
         );

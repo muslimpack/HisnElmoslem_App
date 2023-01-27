@@ -8,7 +8,6 @@ import 'package:hisnelmoslem/app/shared/dialogs/commentary_dialoge.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
@@ -60,244 +59,239 @@ class AzkarReadCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                body: ScrollGlowCustom(
-                  child: ListView.builder(
-                    itemCount: controller.zikrContent.length.isNaN
-                        ? 0
-                        : controller.zikrContent.length,
-                    itemBuilder: (context, index) {
-                      final String text = appData.isTashkelEnabled
-                          ? controller.zikrContent[index].content
-                          : controller.zikrContent[index].content.replaceAll(
-                              //* لحذف التشكيل
-                              RegExp(String.fromCharCodes(arabicTashkelChar)),
-                              "",
-                            );
-                      final String source =
-                          controller.zikrContent[index].source;
-                      final String fadl = controller.zikrContent[index].fadl;
-                      final int cardnum = index + 1;
-                      int counter = controller.zikrContent[index].count;
-                      return InkWell(
-                        onTap: () {
-                          counter = controller.decreaseCount(counter, index);
-                        },
-                        onLongPress: () {
-                          final snackBar = SnackBar(
-                            content: Text(
-                              source,
-                              textAlign: TextAlign.center,
-                              softWrap: true,
-                            ),
-                            action: SnackBarAction(
-                              label: "copy".tr,
-                              onPressed: () {
-                                // Some code to undo the change.
-                                FlutterClipboard.copy(source).then((result) {
-                                  final snackBar = SnackBar(
-                                    content: Text("copied to clipboard".tr),
-                                    action: SnackBarAction(
-                                      label: "done".tr,
-                                      onPressed: () {},
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                });
-                              },
-                            ),
+                body: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.zikrContent.length.isNaN
+                      ? 0
+                      : controller.zikrContent.length,
+                  itemBuilder: (context, index) {
+                    final String text = appData.isTashkelEnabled
+                        ? controller.zikrContent[index].content
+                        : controller.zikrContent[index].content.replaceAll(
+                            //* لحذف التشكيل
+                            RegExp(String.fromCharCodes(arabicTashkelChar)),
+                            "",
                           );
-
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        },
-                        child: Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      icon: const Icon(MdiIcons.comment),
-                                      onPressed: () {
-                                        showCommentaryDialoge(
-                                          context: Get.context!,
-                                          contentId:
-                                              controller.zikrContent[index].id,
-                                        );
-                                      },
-                                    ),
+                    final String source = controller.zikrContent[index].source;
+                    final String fadl = controller.zikrContent[index].fadl;
+                    final int cardnum = index + 1;
+                    int counter = controller.zikrContent[index].count;
+                    return InkWell(
+                      onTap: () {
+                        counter = controller.decreaseCount(counter, index);
+                      },
+                      onLongPress: () {
+                        final snackBar = SnackBar(
+                          content: Text(
+                            source,
+                            textAlign: TextAlign.center,
+                            softWrap: true,
+                          ),
+                          action: SnackBarAction(
+                            label: "copy".tr,
+                            onPressed: () {
+                              // Some code to undo the change.
+                              FlutterClipboard.copy(source).then((result) {
+                                final snackBar = SnackBar(
+                                  content: Text("copied to clipboard".tr),
+                                  action: SnackBarAction(
+                                    label: "done".tr,
+                                    onPressed: () {},
                                   ),
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      icon: const Icon(MdiIcons.camera),
-                                      onPressed: () {
-                                        transitionAnimation.circleReval(
-                                          context: Get.context!,
-                                          goToPage: ShareAsImage(
-                                            dbContent:
-                                                controller.zikrContent[index],
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              });
+                            },
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: IconButton(
+                                    splashRadius: 20,
+                                    icon: const Icon(MdiIcons.comment),
+                                    onPressed: () {
+                                      showCommentaryDialoge(
+                                        context: Get.context!,
+                                        contentId:
+                                            controller.zikrContent[index].id,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    splashRadius: 20,
+                                    icon: const Icon(MdiIcons.camera),
+                                    onPressed: () {
+                                      transitionAnimation.circleReval(
+                                        context: Get.context!,
+                                        goToPage: ShareAsImage(
+                                          dbContent:
+                                              controller.zikrContent[index],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                if (!controller.zikrContent[index].favourite)
+                                  IconButton(
+                                    splashRadius: 20,
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.favorite_border,
+                                      color: mainColor,
+                                    ),
+                                    onPressed: () {
+                                      controller.zikrContent[index].favourite =
+                                          true;
+                                      controller.update();
+                                      dashboardController.addContentToFavourite(
+                                        controller.zikrContent[index],
+                                      );
+                                    },
+                                  )
+                                else
+                                  IconButton(
+                                    splashRadius: 20,
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: mainColor,
+                                    ),
+                                    onPressed: () {
+                                      controller.zikrContent[index].favourite =
+                                          false;
+                                      controller.update();
+                                      dashboardController
+                                          .removeContentFromFavourite(
+                                        controller.zikrContent[index],
+                                      );
+                                    },
+                                  ),
+                                Expanded(
+                                  child: IconButton(
+                                    splashRadius: 20,
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.copy,
+                                      color: mainColor,
+                                    ),
+                                    onPressed: () {
+                                      FlutterClipboard.copy(
+                                        "$text\n$fadl",
+                                      ).then((result) {
+                                        final snackBar = SnackBar(
+                                          content: Text(
+                                            "copied to clipboard".tr,
+                                          ),
+                                          action: SnackBarAction(
+                                            label: "done".tr,
+                                            onPressed: () {},
                                           ),
                                         );
-                                      },
-                                    ),
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      });
+                                    },
                                   ),
-                                  if (!controller.zikrContent[index].favourite)
-                                    IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(
-                                        Icons.favorite_border,
-                                        color: mainColor,
-                                      ),
-                                      onPressed: () {
-                                        controller.zikrContent[index]
-                                            .favourite = true;
-                                        controller.update();
-                                        dashboardController
-                                            .addContentToFavourite(
-                                          controller.zikrContent[index],
-                                        );
-                                      },
-                                    )
-                                  else
-                                    IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: mainColor,
-                                      ),
-                                      onPressed: () {
-                                        controller.zikrContent[index]
-                                            .favourite = false;
-                                        controller.update();
-                                        dashboardController
-                                            .removeContentFromFavourite(
-                                          controller.zikrContent[index],
-                                        );
-                                      },
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    splashRadius: 20,
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: mainColor,
                                     ),
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(
-                                        Icons.copy,
-                                        color: mainColor,
-                                      ),
-                                      onPressed: () {
-                                        FlutterClipboard.copy(
-                                          "$text\n$fadl",
-                                        ).then((result) {
-                                          final snackBar = SnackBar(
-                                            content: Text(
-                                              "copied to clipboard".tr,
-                                            ),
-                                            action: SnackBarAction(
-                                              label: "done".tr,
-                                              onPressed: () {},
-                                            ),
-                                          );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                        });
-                                      },
-                                    ),
+                                    onPressed: () {
+                                      Share.share("$text\n$fadl");
+                                    },
                                   ),
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(
-                                        Icons.share,
-                                        color: mainColor,
-                                      ),
-                                      onPressed: () {
-                                        Share.share("$text\n$fadl");
-                                      },
-                                    ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    splashRadius: 20,
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(Icons.report, color: orange),
+                                    onPressed: () {
+                                      EmailManager.sendMisspelledInZikrWithText(
+                                        subject: controller.zikrTitle!.name,
+                                        cardNumber: cardnum.toString(),
+                                        text: text,
+                                      );
+                                    },
                                   ),
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.report, color: orange),
-                                      onPressed: () {
-                                        EmailManager
-                                            .sendMisspelledInZikrWithText(
-                                          subject: controller.zikrTitle!.name,
-                                          cardNumber: cardnum.toString(),
-                                          text: text,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                ),
+                              ],
+                            ),
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                              child: Text(
+                                text,
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                  fontSize: appData.fontSize * 10,
+                                  color:
+                                      controller.zikrContent[index].count == 0
+                                          ? mainColor
+                                          : null,
+                                  //fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              const Divider(),
+                            ),
+                            if (controller.zikrContent[index].fadl == "")
+                              const SizedBox()
+                            else
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                                padding: const EdgeInsets.fromLTRB(
+                                  10,
+                                  10,
+                                  10,
+                                  20,
+                                ),
                                 child: Text(
-                                  text,
+                                  controller.zikrContent[index].fadl,
                                   textAlign: TextAlign.center,
-                                  softWrap: true,
                                   textDirection: TextDirection.rtl,
+                                  softWrap: true,
                                   style: TextStyle(
                                     fontSize: appData.fontSize * 10,
-                                    color:
-                                        controller.zikrContent[index].count == 0
-                                            ? mainColor
-                                            : null,
+                                    color: mainColor,
                                     //fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              if (controller.zikrContent[index].fadl == "")
-                                const SizedBox()
-                              else
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                    10,
-                                    10,
-                                    10,
-                                    20,
-                                  ),
-                                  child: Text(
-                                    controller.zikrContent[index].fadl,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: appData.fontSize * 10,
-                                      color: mainColor,
-                                      //fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              const Divider(),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: CircleAvatar(
-                                  backgroundColor: transparent,
-                                  child: Text(
-                                    controller.zikrContent[index].count
-                                        .toString(),
-                                    style: TextStyle(color: mainColor),
-                                  ),
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: CircleAvatar(
+                                backgroundColor: transparent,
+                                child: Text(
+                                  controller.zikrContent[index].count
+                                      .toString(),
+                                  style: TextStyle(color: mainColor),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 bottomNavigationBar: BottomAppBar(
                   //elevation: 20,

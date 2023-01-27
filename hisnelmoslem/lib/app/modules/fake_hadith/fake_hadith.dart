@@ -5,8 +5,6 @@ import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_read_page
 import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_unread_page.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/fake_hadith_appbar.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 
 class FakeHadith extends StatelessWidget {
   const FakeHadith({super.key});
@@ -19,25 +17,22 @@ class FakeHadith extends StatelessWidget {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
-            body: ScrollGlowRemover(
-              child: NestedScrollView(
-                floatHeaderSlivers: true,
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return [
-                    const FakehadithAppBar(),
-                  ];
-                },
-                body: ScrollGlowCustom(
-                  axisDirection: AxisDirection.right,
-                  child: TabBarView(
-                    // controller: tabController,
-                    children: [
-                      FakeHadithUnreadPage(controller: controller),
-                      FakeHadithReadPage(controller: controller),
-                    ],
-                  ),
-                ),
+            body: NestedScrollView(
+              physics: const BouncingScrollPhysics(),
+              floatHeaderSlivers: true,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  const FakehadithAppBar(),
+                ];
+              },
+              body: TabBarView(
+                // controller: tabController,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  FakeHadithUnreadPage(controller: controller),
+                  FakeHadithReadPage(controller: controller),
+                ],
               ),
             ),
             bottomNavigationBar: BottomAppBar(

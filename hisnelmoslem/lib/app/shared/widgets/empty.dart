@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 
 class Empty extends StatelessWidget {
   final String imagePath;
@@ -26,61 +25,60 @@ class Empty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ScrollGlowRemover(
-        child: ListView(
-          shrinkWrap: true,
-          // mainAxisSize: MainAxisSize.min,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (imagePath == "")
-              const SizedBox()
-            else
-              isImage
-                  ? Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        imagePath,
-                        width: 50,
-                      ),
-                    )
-                  : Icon(
-                      icon,
-                      size: iconSize,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        // mainAxisSize: MainAxisSize.min,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (imagePath == "")
+            const SizedBox()
+          else
+            isImage
+                ? Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      imagePath,
+                      width: 50,
                     ),
-            if (title == "")
-              const SizedBox()
-            else
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+                  )
+                : Icon(
+                    icon,
+                    size: iconSize,
                   ),
+          if (title == "")
+            const SizedBox()
+          else
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            if (description == "")
-              const SizedBox()
-            else
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    wordSpacing: 7,
-                  ),
+            ),
+          if (description == "")
+            const SizedBox()
+          else
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 15,
+                  wordSpacing: 7,
                 ),
               ),
-            if (onButtonCLick != null)
-              TextButton(onPressed: onButtonCLick, child: Text(buttonText))
-            else
-              const SizedBox()
-          ],
-        ),
+            ),
+          if (onButtonCLick != null)
+            TextButton(onPressed: onButtonCLick, child: Text(buttonText))
+          else
+            const SizedBox()
+        ],
       ),
     );
   }

@@ -3,8 +3,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_appbar.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_menu.dart';
@@ -51,34 +49,31 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScrollGlowRemover(
-        child: NestedScrollView(
-          floatHeaderSlivers: true,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              ScreenAppBar(controller: controller),
-            ];
+      body: NestedScrollView(
+        physics: const BouncingScrollPhysics(),
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            ScreenAppBar(controller: controller),
+          ];
+        },
+        body: GetBuilder<RearrangeDashboardPageController>(
+          init: RearrangeDashboardPageController(),
+          builder: (rearrangeController) {
+            return TabBarView(
+              physics: const BouncingScrollPhysics(),
+              controller: controller.tabController,
+              children: [
+                ...List.generate(
+                  appDashboardItem.length,
+                  (index) {
+                    return appDashboardItem[rearrangeController.list[index]]
+                        .widget;
+                  },
+                ),
+              ],
+            );
           },
-          body: ScrollGlowCustom(
-            axisDirection: AxisDirection.right,
-            child: GetBuilder<RearrangeDashboardPageController>(
-              init: RearrangeDashboardPageController(),
-              builder: (rearrangeController) {
-                return TabBarView(
-                  controller: controller.tabController,
-                  children: [
-                    ...List.generate(
-                      appDashboardItem.length,
-                      (index) {
-                        return appDashboardItem[rearrangeController.list[index]]
-                            .widget;
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
         ),
       ),
     );
