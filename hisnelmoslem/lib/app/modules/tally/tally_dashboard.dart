@@ -78,6 +78,7 @@ class Tally extends StatelessWidget {
               ];
             },
             body: const TabBarView(
+              physics: BouncingScrollPhysics(),
               // controller: tabController,
               children: [
                 TallyCounterView(),

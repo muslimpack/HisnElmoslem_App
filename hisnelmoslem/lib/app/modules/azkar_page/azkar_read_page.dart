@@ -251,7 +251,7 @@ class AzkarReadPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: ListView(
-                        physics: const ClampingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(top: 10),
                         children: [
                           Padding(

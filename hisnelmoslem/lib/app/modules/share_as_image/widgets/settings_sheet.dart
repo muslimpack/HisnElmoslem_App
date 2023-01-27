@@ -58,7 +58,7 @@ class SettingsSheet extends StatelessWidget {
                     height: 70,
                     child: ListView(
                       shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       children: [
                         Column(
@@ -137,6 +137,7 @@ class SettingsSheet extends StatelessWidget {
                   SizedBox(
                     height: 50,
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       children: List.generate(
