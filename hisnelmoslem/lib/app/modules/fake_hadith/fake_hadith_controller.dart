@@ -59,7 +59,7 @@ class FakeHadithController extends GetxController {
 
   /* *************** Functions *************** */
   //
-  getReady() async {
+  Future<void> getReady() async {
     await fakeHadithDatabaseHelper
         .getAllFakeHadiths()
         .then((value) => fakeHadithList = value);
@@ -69,7 +69,7 @@ class FakeHadithController extends GetxController {
   }
 
   //
-  toggleReadState({required DbFakeHaith fakeHaith}) {
+  void toggleReadState({required DbFakeHaith fakeHaith}) {
     fakeHaith.isRead = !fakeHaith.isRead;
     if (fakeHaith.isRead) {
       fakeHadithDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: fakeHaith);
@@ -81,7 +81,7 @@ class FakeHadithController extends GetxController {
   }
 
   // share as image
-  shareFakehadithAsImage(DbFakeHaith dbFakeHaith) {
+  void shareFakehadithAsImage(DbFakeHaith dbFakeHaith) {
     final DbContent dbContent = DbContent();
     dbContent.titleId = -1;
     dbContent.orderId = dbFakeHaith.id;

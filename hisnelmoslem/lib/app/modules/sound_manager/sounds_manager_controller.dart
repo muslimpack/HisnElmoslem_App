@@ -89,7 +89,7 @@ class SoundsManagerController extends GetxController {
   /////////////////////
   /// Play Sound
 
-  simulateTallySound() async {
+  Future<void> simulateTallySound() async {
     // player.play('sounds/tally_sound.mp3');
     await player.play(
       AssetSource('sounds/tally_sound.mp3'),
@@ -97,16 +97,16 @@ class SoundsManagerController extends GetxController {
     );
   }
 
-  simulateZikrDoneSound() async {
+  Future<void> simulateZikrDoneSound() async {
     await player.play(
       AssetSource('sounds/zikr_done_sound.mp3'),
       volume: soundEffectVolume,
     );
   }
 
-  simulateTransitionSound() {}
+  void simulateTransitionSound() {}
 
-  simulateAllAzkarSoundFinished() async {
+  Future<void> simulateAllAzkarSoundFinished() async {
     await player.play(
       AssetSource('sounds/all_azkar_finished_sound.mp3'),
       volume: soundEffectVolume,
@@ -116,7 +116,7 @@ class SoundsManagerController extends GetxController {
   /////////////////////
   /// Play vibration
 
-  simulateTallyVibrate() async {
+  Future<void> simulateTallyVibrate() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!)
@@ -127,7 +127,7 @@ class SoundsManagerController extends GetxController {
     );
   }
 
-  simulateZikrDoneVibrate() async {
+  Future<void> simulateZikrDoneVibrate() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!)
@@ -138,7 +138,7 @@ class SoundsManagerController extends GetxController {
     );
   }
 
-  simulateTransitionVibrate() async {
+  Future<void> simulateTransitionVibrate() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!)
@@ -176,7 +176,7 @@ class SoundsManagerController extends GetxController {
     }
   }
 
-  playTransitionEffects() {
+  void playTransitionEffects() {
     if (isTransitionSoundAllowed) {
       simulateTransitionSound();
     }
@@ -185,7 +185,7 @@ class SoundsManagerController extends GetxController {
     }
   }
 
-  playAllAzkarFinishedEffects() {
+  void playAllAzkarFinishedEffects() {
     if (isAllAzkarFinishedSoundAllowed) {
       simulateAllAzkarSoundFinished();
     }

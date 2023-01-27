@@ -85,7 +85,7 @@ class QuranPageController extends GetxController {
   /* *************** Functions *************** */
 
   ///
-  perpareRequiredPages(SurahNameEnum surahName) {
+  void perpareRequiredPages(SurahNameEnum surahName) {
     if (surahName == SurahNameEnum.alKahf) {
       quranRequiredSurah = quranDisplay[0];
     } else if (surahName == SurahNameEnum.assajdah) {
@@ -96,7 +96,7 @@ class QuranPageController extends GetxController {
   }
 
   ///
-  preparePages() async {
+  Future<void> preparePages() async {
     await fetchAzkar().then((value) {
       _quran.addAll(value);
       quranDisplay = _quran;
@@ -118,7 +118,7 @@ class QuranPageController extends GetxController {
   }
 
   ///
-  onPageViewChange(int page) {
+  void onPageViewChange(int page) {
     //  currentPage = page;
     currentPage = page;
     update();

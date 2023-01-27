@@ -84,7 +84,7 @@ class AzkarReadPageController extends GetxController {
   /* *************** Functions *************** */
   //
 
-  getReady() async {
+  Future<void> getReady() async {
     await azkarDatabaseHelper
         .getTitleById(id: index)
         .then((value) => zikrTitle = value);
@@ -97,12 +97,12 @@ class AzkarReadPageController extends GetxController {
     update();
   }
 
-  onPageViewChange(int page) {
+  void onPageViewChange(int page) {
     currentPage = page;
     update();
   }
 
-  decreaseCount() {
+  void decreaseCount() {
     int counter = zikrContent[currentPage].count;
     if (counter == 0) {
       SoundsManagerController().playZikrDoneEffects();
@@ -134,7 +134,7 @@ class AzkarReadPageController extends GetxController {
     update();
   }
 
-  checkProgress() {
+  void checkProgress() {
     int totalNum = 0;
     int done = 0;
     totalNum = zikrContent.length;
@@ -151,7 +151,7 @@ class AzkarReadPageController extends GetxController {
     update();
   }
 
-  checkProgressForSingle() {
+  void checkProgressForSingle() {
     int done = 0;
     for (var i = 0; i < zikrContent.length; i++) {
       done += zikrContent[i].count;
@@ -160,7 +160,7 @@ class AzkarReadPageController extends GetxController {
     update();
   }
 
-  getEveryZikrCount() {
+  void getEveryZikrCount() {
     int sum = 0;
 
     for (var i = 0; i < zikrContent.length; i++) {

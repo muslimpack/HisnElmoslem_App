@@ -32,7 +32,7 @@ class AlarmsPageController extends GetxController {
   /* *************** Functions *************** */
 
   ///
-  getAllListsReady() async {
+  Future<void> getAllListsReady() async {
     alarms = <DbAlarm>[];
 
     isLoading = true;

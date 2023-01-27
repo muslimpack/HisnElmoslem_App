@@ -11,8 +11,10 @@ import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
 AlarmManager alarmManager = AlarmManager();
 
 class AlarmManager {
-  Future<void> alarmState(
-      {required DbAlarm dbAlarm, bool showMsg = true}) async {
+  Future<void> alarmState({
+    required DbAlarm dbAlarm,
+    bool showMsg = true,
+  }) async {
     if (dbAlarm.isActive) {
       // Get.snackbar("رسالة", "تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),

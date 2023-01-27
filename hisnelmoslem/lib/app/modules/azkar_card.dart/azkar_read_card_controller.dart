@@ -54,7 +54,7 @@ class AzkarReadCardController extends GetxController {
   /* *************** Functions *************** */
 
   /// Load all lists from its databases
-  getReady() async {
+  Future<void> getReady() async {
     await azkarDatabaseHelper
         .getTitleById(id: index)
         .then((value) => zikrTitle = value);
@@ -67,17 +67,18 @@ class AzkarReadCardController extends GetxController {
   }
 
   int decreaseCount(int counter, int index) {
-    if (counter > 0) {
-      counter--;
+    int tempCounter = counter;
+    if (tempCounter > 0) {
+      tempCounter--;
 
-      zikrContent[index].count = counter;
+      zikrContent[index].count = tempCounter;
 
       ///
       SoundsManagerController().playTallyEffects();
-      if (counter == 0) {
+      if (tempCounter == 0) {
         SoundsManagerController().playZikrDoneEffects();
-      } else if (counter < 0) {
-        counter = 0;
+      } else if (tempCounter < 0) {
+        tempCounter = 0;
       }
     }
 
@@ -105,7 +106,7 @@ class AzkarReadCardController extends GetxController {
     update();
   }
 
-  checkProgressForSingle() {
+  void checkProgressForSingle() {
     int done = 0;
     for (var i = 0; i < zikrContent.length; i++) {
       done += zikrContent[i].count;
@@ -115,7 +116,7 @@ class AzkarReadCardController extends GetxController {
     update();
   }
 
-  getEveryZikrCount() {
+  void getEveryZikrCount() {
     int sum = 0;
 
     for (var i = 0; i < zikrContent.length; i++) {

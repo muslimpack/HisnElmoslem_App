@@ -57,22 +57,30 @@ class AzkarOldDBHelper {
   }
 
   /// On create database
-  _onCreateDatabase(Database db, int version) async {
+  FutureOr<void> _onCreateDatabase(Database db, int version) async {
     //
   }
 
   /// On upgrade database version
-  _onUpgradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onUpgradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   /// On downgrade database version
-  _onDowngradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onDowngradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   /// Copy database from assets to Database Direcorty of app
-  _copyFromAssets({required String path}) async {
+  Future<void> _copyFromAssets({required String path}) async {
     //
     try {
       await Directory(dirname(path)).create(recursive: true);
@@ -113,12 +121,13 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
-        titles._id,titles.name,titles.chapter_id
-        ,titles.order_id,favourite_titles.favourite
-        FROM titles
-        INNER JOIN favourite_titles
-        on favourite_titles.title_id = titles.order_id
+      '''
+SELECT 
+titles._id,titles.name,titles.chapter_id
+,titles.order_id,favourite_titles.favourite
+FROM titles
+INNER JOIN favourite_titles
+on favourite_titles.title_id = titles.order_id
         ''',
     );
 
@@ -132,7 +141,8 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
+      '''
+SELECT 
         titles._id,titles.name,titles.chapter_id
         ,titles.order_id,favourite_titles.favourite
         FROM titles
@@ -151,7 +161,8 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
+      '''
+SELECT 
           titles._id,titles.name,titles.chapter_id
           ,titles.order_id,favourite_titles.favourite
           FROM titles
@@ -198,7 +209,8 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
+      '''
+SELECT 
         contents._id ,contents.content ,contents.chapter_id 
         ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
         ,contents.source ,favourite_contents.favourite
@@ -218,7 +230,8 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
+      '''
+SELECT 
           contents._id ,contents.content ,contents.chapter_id 
           ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
           ,contents.source ,favourite_contents.favourite
@@ -241,7 +254,8 @@ class AzkarOldDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT 
+      '''
+SELECT 
           contents._id ,contents.content ,contents.chapter_id 
           ,contents.title_id ,contents.order_id ,contents.count ,contents.fadl 
           ,contents.source ,favourite_contents.favourite
@@ -257,7 +271,7 @@ class AzkarOldDBHelper {
   }
 
   /// Add content to favourite
-  addContentToFavourite({required DbContent dbContent}) async {
+  Future<void> addContentToFavourite({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = true;
     await db.rawUpdate(
@@ -267,7 +281,9 @@ class AzkarOldDBHelper {
   }
 
   /// Remove Content from favourite
-  removeContentFromFavourite({required DbContent dbContent}) async {
+  Future<void> removeContentFromFavourite({
+    required DbContent dbContent,
+  }) async {
     final Database db = await database;
     dbContent.favourite = false;
 
@@ -277,7 +293,7 @@ class AzkarOldDBHelper {
     );
   }
 
-  Future close() async {
+  Future<void> close() async {
     final db = await database;
     db.close();
   }

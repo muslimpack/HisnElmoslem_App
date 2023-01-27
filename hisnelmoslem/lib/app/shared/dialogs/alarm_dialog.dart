@@ -13,7 +13,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 Future<dynamic> showFastAlarmDialog({
   required BuildContext context,
   required DbAlarm dbAlarm,
-  required isToEdit,
+  required bool isToEdit,
 }) async {
   // show the dialog
   return showDialog(

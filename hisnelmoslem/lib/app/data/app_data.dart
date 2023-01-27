@@ -36,7 +36,7 @@ class AppData {
 
   /// set font size
   void changFontSize(double value) {
-    value = value.clamp(1.5, 4);
+    value.clamp(1.5, 4);
     box.write('font_size', value);
   }
 
@@ -146,7 +146,7 @@ class AppData {
    */
 
   ///
-  _activateCaveAlarm({required bool value}) {
+  void _activateCaveAlarm({required bool value}) {
     if (value) {
       awesomeNotificationManager.addCustomWeeklyReminder(
         id: 555,

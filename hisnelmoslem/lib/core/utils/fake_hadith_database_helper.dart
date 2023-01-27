@@ -62,15 +62,13 @@ class FakeHadithDatabaseHelper {
       }
     });
 
-    database = await openDatabase(
+    return database = await openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
       onUpgrade: _onUpgradeDatabase,
       onDowngrade: _onDowngradeDatabase,
     );
-
-    return database;
   }
 
   // On create database
@@ -80,13 +78,19 @@ class FakeHadithDatabaseHelper {
 
   // On upgrade database version
   FutureOr<void> _onUpgradeDatabase(
-      Database db, int oldVersion, int newVersion) {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   // On downgrade database version
   FutureOr<void> _onDowngradeDatabase(
-      Database db, int oldVersion, int newVersion) {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 

@@ -273,12 +273,14 @@ class AzkarDatabaseHelper {
   }
 
   /// Add content to favourite
-  addContentToFavourite({required DbContent dbContent}) async {
+  Future<void> addContentToFavourite({required DbContent dbContent}) async {
     await dataDatabaseHelper.addContentToFavourite(dbContent: dbContent);
   }
 
   /// Remove Content from favourite
-  removeContentFromFavourite({required DbContent dbContent}) async {
+  Future<void> removeContentFromFavourite({
+    required DbContent dbContent,
+  }) async {
     await dataDatabaseHelper.removeContentFromFavourite(dbContent: dbContent);
   }
 

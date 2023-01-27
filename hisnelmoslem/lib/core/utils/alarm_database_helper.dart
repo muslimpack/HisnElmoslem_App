@@ -57,22 +57,30 @@ class AlarmDatabaseHelper {
   }
 
   // On create database
-  _onCreateDatabase(Database db, int version) async {
+  FutureOr<void> _onCreateDatabase(Database db, int version) async {
     //
   }
 
   // On upgrade database version
-  _onUpgradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onUpgradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   // On downgrade database version
-  _onDowngradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onDowngradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   // Copy database from assets to Database Direcorty of app
-  _copyFromAssets({required String path}) async {
+  FutureOr<void> _copyFromAssets({required String path}) async {
     //
     try {
       await Directory(dirname(path)).create(recursive: true);

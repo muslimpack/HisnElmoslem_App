@@ -57,17 +57,25 @@ class DataDatabaseHelper {
   }
 
   /// On create database
-  _onCreateDatabase(Database db, int version) async {
+  FutureOr<void> _onCreateDatabase(Database db, int version) async {
     //
   }
 
   /// On upgrade database version
-  _onUpgradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onUpgradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   /// On downgrade database version
-  _onDowngradeDatabase(Database db, int oldVersion, int newVersion) {
+  FutureOr<void> _onDowngradeDatabase(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 

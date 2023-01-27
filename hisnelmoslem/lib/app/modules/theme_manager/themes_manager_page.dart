@@ -69,14 +69,14 @@ class ThemeManagerPage extends StatelessWidget {
 class RadioImage extends StatelessWidget {
   final ThemesManagerPageController controller;
   final String title;
-  final dynamic appThemeModeValue;
+  final AppThemeMode appThemeModeValue;
   final IconData icon;
 
   const RadioImage({
     super.key,
     required this.controller,
     required this.title,
-    this.appThemeModeValue,
+    required this.appThemeModeValue,
     required this.icon,
   });
 

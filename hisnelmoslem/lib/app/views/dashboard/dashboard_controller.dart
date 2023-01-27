@@ -79,7 +79,7 @@ class DashboardController extends GetxController
 
   /* *************** Functions *************** */
   //
-  getAllListsReady() async {
+  Future<void> getAllListsReady() async {
     /* ***** Get All Titles ***** */
     await azkarDatabaseHelper.getAllTitles().then((value) {
       allTitle = value;
@@ -108,7 +108,7 @@ class DashboardController extends GetxController
   }
 
   //
-  getFavouriteContent() async {
+  Future<void> getFavouriteContent() async {
     await azkarDatabaseHelper.getFavouriteContents().then((value) {
       favouriteConent = value;
     });
@@ -116,7 +116,7 @@ class DashboardController extends GetxController
   }
 
   ///
-  onNotificationClick(String payload) {
+  void onNotificationClick(String payload) {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
@@ -150,7 +150,7 @@ class DashboardController extends GetxController
   }
 
   //
-  searchZikr() {
+  void searchZikr() {
     isSearching = true;
     //
     update();
@@ -168,7 +168,7 @@ class DashboardController extends GetxController
   }
 
   //
-  addContentToFavourite(DbContent dbContent) async {
+  Future<void> addContentToFavourite(DbContent dbContent) async {
     //
     await azkarDatabaseHelper.addContentToFavourite(dbContent: dbContent);
     //
@@ -178,7 +178,7 @@ class DashboardController extends GetxController
   }
 
   //
-  removeContentFromFavourite(DbContent dbContent) async {
+  Future<void> removeContentFromFavourite(DbContent dbContent) async {
     //
     await azkarDatabaseHelper.removeContentFromFavourite(dbContent: dbContent);
     //

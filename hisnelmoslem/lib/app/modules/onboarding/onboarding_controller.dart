@@ -169,7 +169,7 @@ class OnBoardingController extends GetxController {
 
   /// Go to dashboard
   /// and set app fisrt open to false
-  goToDashboard() {
+  void goToDashboard() {
     appData.changIsFirstOpenToThisRelease(false);
     transitionAnimation.circleRevalPushReplacement(
       context: Get.context!,

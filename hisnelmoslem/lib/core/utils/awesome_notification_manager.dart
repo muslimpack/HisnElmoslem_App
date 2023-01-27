@@ -302,7 +302,7 @@ class AwesomeNotificationManager {
   }
 
   ///
-  onNotificationClick(String payload) {
+  void onNotificationClick(String payload) {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(

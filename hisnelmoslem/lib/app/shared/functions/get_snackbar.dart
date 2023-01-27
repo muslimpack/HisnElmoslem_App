@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-getSnackbar({String? title, required String message}) {
+void getSnackbar({String? title, required String message}) {
   Get.snackbar(
     title ?? "message".tr,
     message,

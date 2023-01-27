@@ -112,22 +112,22 @@ class ShareAsImageController extends GetxController {
 
   /* *************** Functions *************** */
 
-  updateTextColor(Color color) async {
+  Future<void> updateTextColor(Color color) async {
     await box.write(shareAsImageData.bodyTextColorBoxKey, color.value);
     update();
   }
 
-  updateTitleColor(Color color) async {
+  Future<void> updateTitleColor(Color color) async {
     await box.write(shareAsImageData.titleTextBoxKey, color.value);
     update();
   }
 
-  updateBackgroundColor(Color color) async {
+  Future<void> updateBackgroundColor(Color color) async {
     await box.write(shareAsImageData.backgroundColorBoxKey, color.value);
     update();
   }
 
-  updateAdditionalTextColor(Color color) async {
+  Future<void> updateAdditionalTextColor(Color color) async {
     await box.write(shareAsImageData.additionalTextColorBoxKey, color.value);
     update();
   }
@@ -184,23 +184,23 @@ class ShareAsImageController extends GetxController {
   }
 
   // ******************************************* //
-  toggleShowFadl({required bool value}) async {
+  Future<void> toggleShowFadl({required bool value}) async {
     await box.write(shareAsImageData.showFadlBoxKey, value);
     update();
   }
 
-  toggleShowSource({required bool value}) async {
+  Future<void> toggleShowSource({required bool value}) async {
     await box.write(shareAsImageData.showSourceBoxKey, value);
 
     update();
   }
 
-  toggleShowZikrIndex({required bool value}) async {
+  Future<void> toggleShowZikrIndex({required bool value}) async {
     await box.write(shareAsImageData.showZikrIndexBoxKey, value);
     update();
   }
 
-  toggleRemoveTashkel() async {
+  Future<void> toggleRemoveTashkel() async {
     await box.write(
       shareAsImageData.removeTashkelKey,
       !shareAsImageData.removeTashkel,
@@ -209,21 +209,21 @@ class ShareAsImageController extends GetxController {
   }
 
   // ******************************************* //
-  toggleFixedContentStatus({required bool value}) async {
+  Future<void> toggleFixedContentStatus({required bool value}) async {
     await box.write(shareAsImageData.fixedFontBoxKey, value);
     fitImageToScreen();
     update();
   }
 
   // ******************************************* //
-  updateImageWidth({required int value}) async {
+  Future<void> updateImageWidth({required int value}) async {
     await box.write(shareAsImageData.imageWidthBoxKey, value);
     fitImageToScreen();
     update();
   }
 
   ///
-  showImageWidthDialog() async {
+  Future<void> showImageWidthDialog() async {
     await showDialog(
       barrierDismissible: true,
       context: Get.context!,

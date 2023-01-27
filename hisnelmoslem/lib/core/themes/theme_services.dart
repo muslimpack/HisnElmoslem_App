@@ -63,7 +63,7 @@ class ThemeServices {
   }
 
   /// toggle all themes
-  static changeThemeMode() {
+  static void changeThemeMode() {
     if (appThemeMode == AppThemeMode.yellowTheme) {
       handleThemeChange(AppThemeMode.dark);
     } else if (appThemeMode == AppThemeMode.dark) {

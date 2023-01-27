@@ -4,7 +4,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 
 class YesOrNoDialog extends StatelessWidget {
   final String msg;
-  final Function onYes;
+  final Function() onYes;
 
   const YesOrNoDialog({super.key, required this.onYes, required this.msg});
 

@@ -49,11 +49,12 @@ class RearrangeDashboardPageController extends GetxController {
   }
 
   void onReorder(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
+    int tempNewIndex = newIndex;
+    if (oldIndex < tempNewIndex) {
+      tempNewIndex -= 1;
     }
     final int item = list.removeAt(oldIndex);
-    list.insert(newIndex, item);
+    list.insert(tempNewIndex, item);
     changeListArrange(list.toString());
     buildListFromString();
     update();

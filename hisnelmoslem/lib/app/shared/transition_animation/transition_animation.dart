@@ -5,7 +5,10 @@ import 'package:hisnelmoslem/app/shared/transition_animation/circle_clipper.dart
 TransitionAnimation transitionAnimation = TransitionAnimation();
 
 class TransitionAnimation {
-  fromBottom2Top({required BuildContext context, required Widget goToPage}) {
+  void fromBottom2Top({
+    required BuildContext context,
+    required Widget goToPage,
+  }) {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => goToPage,

@@ -128,7 +128,7 @@ class TallyController extends GetxController {
     update();
   }
 
-  updateDBTallyToView({required DbTally dbTally}) {
+  void updateDBTallyToView({required DbTally dbTally}) {
     for (DbTally item in allTally) {
       if (item.id == dbTally.id) {
         item = dbTally;
@@ -177,13 +177,13 @@ class TallyController extends GetxController {
     update();
   }
 
-  deactivateTally({required DbTally dbTally}) async {
+  Future<void> deactivateTally({required DbTally dbTally}) async {
     dbTally.isActivated = false;
     await tallyDatabaseHelper.updateTally(dbTally: dbTally, updateTime: false);
-    await updateDBTallyToView(dbTally: dbTally);
+    updateDBTallyToView(dbTally: dbTally);
   }
 
-  deactivateAllTally() async {
+  Future<void> deactivateAllTally() async {
     for (final DbTally dbTally in allTally) {
       dbTally.isActivated = false;
       await tallyDatabaseHelper.updateTally(
@@ -194,7 +194,7 @@ class TallyController extends GetxController {
   }
 
   /// CURD
-  createNewTally() async {
+  Future<void> createNewTally() async {
     await showDialog(
       barrierDismissible: true,
       context: Get.context!,
@@ -212,7 +212,7 @@ class TallyController extends GetxController {
     );
   }
 
-  updateTallyById(DbTally dbTally) async {
+  Future<void> updateTallyById(DbTally dbTally) async {
     await showDialog(
       barrierDismissible: true,
       context: Get.context!,
@@ -225,14 +225,14 @@ class TallyController extends GetxController {
               dbTally: value,
               updateTime: false,
             );
-            await updateDBTallyToView(dbTally: value);
+            updateDBTallyToView(dbTally: value);
           },
         );
       },
     );
   }
 
-  increaseDBCounter() async {
+  Future<void> increaseDBCounter() async {
     if (currentDBTally != null) {
       //
       if (circval == circleResetEvery - 1) {
@@ -252,7 +252,7 @@ class TallyController extends GetxController {
     }
   }
 
-  decreaseDBCounter() async {
+  Future<void> decreaseDBCounter() async {
     if (currentDBTally != null) {
       currentDBTally!.count -= 1;
       await tallyDatabaseHelper.updateTally(
@@ -263,7 +263,7 @@ class TallyController extends GetxController {
     }
   }
 
-  resetDBCounter() {
+  void resetDBCounter() {
     if (currentDBTally != null) {
       showModalBottomSheet(
         isScrollControlled: true,
@@ -286,7 +286,7 @@ class TallyController extends GetxController {
     }
   }
 
-  deleteTallyById(DbTally dbTally) {
+  void deleteTallyById(DbTally dbTally) {
     showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: transparent,
@@ -307,7 +307,7 @@ class TallyController extends GetxController {
     );
   }
 
-  tallySettings() {
+  void tallySettings() {
     if (currentDBTally != null) {
       updateTallyById(currentDBTally!);
     }

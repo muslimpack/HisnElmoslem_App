@@ -18,7 +18,7 @@ class AzkarDashboard extends StatelessWidget {
   });
 
   @override
-  build(BuildContext context) {
+  GetBuilder<DashboardController> build(BuildContext context) {
     return GetBuilder<DashboardController>(
       init: DashboardController(),
       builder: (controller) => controller.isLoading

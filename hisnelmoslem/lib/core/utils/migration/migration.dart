@@ -153,7 +153,7 @@ class Migration {
   }
 
   /// Deleting DB from databases path
-  static deleteOldDBs() async {
+  static FutureOr<void> deleteOldDBs() async {
     await deleteFromDBPath(dbName: "hisn_elmoslem_database.db");
     await deleteFromDBPath(dbName: "fake_hadith_database.db");
   }
