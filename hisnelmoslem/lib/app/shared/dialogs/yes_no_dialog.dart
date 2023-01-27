@@ -6,8 +6,7 @@ class YesOrNoDialog extends StatelessWidget {
   final String msg;
   final Function onYes;
 
-  const YesOrNoDialog({Key? key, required this.onYes, required this.msg})
-      : super(key: key);
+  const YesOrNoDialog({super.key, required this.onYes, required this.msg});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,10 @@ class YesOrNoDialog extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("are you sure?".tr,
-                  style: TextStyle(fontSize: 25, color: mainColor)),
+              child: Text(
+                "are you sure?".tr,
+                style: TextStyle(fontSize: 25, color: mainColor),
+              ),
             ),
             const Divider(),
             Text(
@@ -48,16 +49,17 @@ class YesOrNoDialog extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                    child: ListTile(
-                  title: Text(
-                    "no".tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: mainColor),
+                  child: ListTile(
+                    title: Text(
+                      "no".tr,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, color: mainColor),
+                    ),
+                    onTap: () {
+                      Navigator.pop<bool>(context, false);
+                    },
                   ),
-                  onTap: () {
-                    Navigator.pop<bool>(context, false);
-                  },
-                )),
+                ),
               ],
             ),
           ],

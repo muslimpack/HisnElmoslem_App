@@ -2,24 +2,24 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
+import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image.dart';
 import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
-import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 
 class FavouriteZikr extends StatelessWidget {
-  const FavouriteZikr({Key? key}) : super(key: key);
+  const FavouriteZikr({super.key});
 
   @override
   Widget build(BuildContext context) {

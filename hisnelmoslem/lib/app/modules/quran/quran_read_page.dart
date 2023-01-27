@@ -106,9 +106,9 @@ class BetweenPageEffect extends StatelessWidget {
   final int index;
 
   const BetweenPageEffect({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,15 +117,16 @@ class BetweenPageEffect extends StatelessWidget {
       child: Container(
         width: 50,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
-          end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
-          colors: [
-            transparent,
-            black.withOpacity(.05),
-            black.withOpacity(.1),
-          ],
-        )),
+          gradient: LinearGradient(
+            begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+            end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
+            colors: [
+              transparent,
+              black.withOpacity(.05),
+              black.withOpacity(.1),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -135,9 +136,9 @@ class PageSideEffect extends StatelessWidget {
   final int index;
 
   const PageSideEffect({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -146,14 +147,15 @@ class PageSideEffect extends StatelessWidget {
       child: Container(
         width: 5,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
-          end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
-          colors: [
-            white,
-            black.withAlpha(200),
-          ],
-        )),
+          gradient: LinearGradient(
+            begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
+            end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
+            colors: [
+              white,
+              black.withAlpha(200),
+            ],
+          ),
+        ),
       ),
     );
   }

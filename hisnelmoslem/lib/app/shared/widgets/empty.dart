@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 
 class Empty extends StatelessWidget {
-  final String imagePath, title, description, buttonText;
+  final String imagePath;
+  final String title;
+  final String description;
+  final String buttonText;
   final bool isImage;
   final IconData icon;
   final double iconSize;
   final Function()? onButtonCLick;
 
   const Empty({
-    Key? key,
+    super.key,
     this.imagePath = "assets/images/app_icon.png",
     this.title = "",
     this.description = "",
@@ -18,7 +21,7 @@ class Empty extends StatelessWidget {
     this.iconSize = 90,
     this.onButtonCLick,
     this.buttonText = "اضغط هنا",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

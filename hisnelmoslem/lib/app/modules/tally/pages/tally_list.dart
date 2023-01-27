@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
+import 'package:hisnelmoslem/app/modules/tally/widgets/cards/tally_card.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../widgets/cards/tally_card.dart';
-
 class TallyListView extends StatelessWidget {
-  const TallyListView({Key? key}) : super(key: key);
+  const TallyListView({super.key});
 
   @override
   Widget build(BuildContext context) {

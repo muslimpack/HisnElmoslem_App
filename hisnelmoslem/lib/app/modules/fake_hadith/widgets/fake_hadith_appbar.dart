@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
 class FakehadithAppBar extends StatelessWidget {
-  const FakehadithAppBar({Key? key}) : super(key: key);
+  const FakehadithAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

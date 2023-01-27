@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
+import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_read_page.dart';
+import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_unread_page.dart';
+import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/fake_hadith_appbar.dart';
+import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_unread_page.dart';
-
-import '../../shared/widgets/font_settings.dart';
-import 'pages/fake_hadith_read_page.dart';
-import 'widgets/fake_hadith_appbar.dart';
 
 class FakeHadith extends StatelessWidget {
-  const FakeHadith({Key? key}) : super(key: key);
+  const FakeHadith({super.key});
 
   @override
   Widget build(BuildContext context) {

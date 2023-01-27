@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
-import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith.dart';
-import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/modules/about/about.dart';
 import 'package:hisnelmoslem/app/modules/app_update_news/app_update_news.dart';
+import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/modules/settings/settings.dart';
 import 'package:hisnelmoslem/app/modules/tally/tally_dashboard.dart';
+import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
+import 'package:hisnelmoslem/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ScreenMenu extends StatelessWidget {
   final DashboardController controller;
 
   const ScreenMenu({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +245,7 @@ class ScreenMenu extends StatelessWidget {
 class DrawerCard extends StatelessWidget {
   final Widget? child;
 
-  const DrawerCard({Key? key, required this.child}) : super(key: key);
+  const DrawerCard({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +254,7 @@ class DrawerCard extends StatelessWidget {
 }
 
 class DrawerDivider extends StatelessWidget {
-  const DrawerDivider({Key? key}) : super(key: key);
+  const DrawerDivider({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,12 +8,11 @@ class RoundButton extends StatelessWidget {
   final bool isTransparent;
 
   const RoundButton(
-      {Key? key,
+      {super.key,
       required this.text,
       required this.onTap,
       this.radius = 5.0,
-      this.isTransparent = false})
-      : super(key: key);
+      this.isTransparent = false});
 
   @override
   Widget build(BuildContext context) {

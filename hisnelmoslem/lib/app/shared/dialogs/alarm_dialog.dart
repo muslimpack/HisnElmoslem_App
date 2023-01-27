@@ -34,10 +34,10 @@ class AddAlarmDialog extends StatefulWidget {
   final bool isToEdit;
 
   const AddAlarmDialog({
-    Key? key,
+    super.key,
     required this.dbAlarm,
     required this.isToEdit,
-  }) : super(key: key);
+  });
 
   @override
   AddAlarmDialogState createState() => AddAlarmDialogState();

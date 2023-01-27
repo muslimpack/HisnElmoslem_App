@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
-import "package:hisnelmoslem/app/data/models/models.dart";
 
 class ImageVarFontBuilder extends StatelessWidget {
   final DbContent dbContent;
 
   const ImageVarFontBuilder({
-    Key? key,
+    super.key,
     required this.dbContent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

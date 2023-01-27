@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/widgets/image_var_font_builder.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/widgets/settings_sheet.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
-import 'widgets/image_var_font_builder.dart';
-import 'widgets/settings_sheet.dart';
-
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
 
-  const ShareAsImage({Key? key, required this.dbContent}) : super(key: key);
+  const ShareAsImage({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {

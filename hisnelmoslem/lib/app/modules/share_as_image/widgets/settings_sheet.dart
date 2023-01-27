@@ -4,18 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/widgets/color_swatch_builder.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
-
-import 'color_swatch_builder.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 class SettingsSheet extends StatelessWidget {
   final ShareAsImageController shareAsImageController;
 
   const SettingsSheet({
-    Key? key,
+    super.key,
     required this.shareAsImageController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

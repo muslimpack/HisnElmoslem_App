@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/modules/alarms_manager/widgets/alarm_card.dart';
-
-import '../../shared/widgets/empty.dart';
+import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
 class AlarmsPages extends StatelessWidget {
-  const AlarmsPages({Key? key}) : super(key: key);
+  const AlarmsPages({super.key});
 
   @override
   Widget build(BuildContext context) {

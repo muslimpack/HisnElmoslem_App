@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/themes/themes_enum.dart';
 
 class ThemeManagerPage extends StatelessWidget {
-  const ThemeManagerPage({Key? key}) : super(key: key);
+  const ThemeManagerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +71,12 @@ class RadioImage extends StatelessWidget {
   final IconData icon;
 
   const RadioImage({
-    Key? key,
+    super.key,
     required this.controller,
     required this.title,
     this.appThemeModeValue,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

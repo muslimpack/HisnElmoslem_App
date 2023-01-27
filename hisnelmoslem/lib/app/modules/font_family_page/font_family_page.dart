@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
-import 'font_family_page_controller.dart';
-
 class FontFamilyPage extends StatelessWidget {
-  const FontFamilyPage({Key? key}) : super(key: key);
+  const FontFamilyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

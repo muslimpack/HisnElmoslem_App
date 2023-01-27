@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
-import 'package:hisnelmoslem/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_appbar.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_menu.dart';
+import 'package:hisnelmoslem/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:intl/intl.dart';
 
 class AzkarDashboard extends StatelessWidget {
   const AzkarDashboard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   build(BuildContext context) {
@@ -46,7 +46,7 @@ class AzkarDashboard extends StatelessWidget {
 class MainScreen extends StatelessWidget {
   final DashboardController controller;
 
-  const MainScreen({Key? key, required this.controller}) : super(key: key);
+  const MainScreen({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

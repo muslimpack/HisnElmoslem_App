@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/modules/app_language_page/app_language_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 
-import 'app_language_page_controller.dart';
-
 class AppLanguagePage extends StatelessWidget {
-  const AppLanguagePage({Key? key}) : super(key: key);
+  const AppLanguagePage({super.key});
 
   @override
   Widget build(BuildContext context) {

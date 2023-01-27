@@ -10,11 +10,11 @@ class ColorSwatchBuilder extends StatelessWidget {
   final void Function(Color color) apply;
 
   const ColorSwatchBuilder({
-    Key? key,
+    super.key,
     required this.colorSwatchList,
     required this.colorToTrack,
     required this.apply,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

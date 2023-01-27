@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
 import 'package:hisnelmoslem/app/modules/tally/pages/tally_counter.dart';
 import 'package:hisnelmoslem/app/modules/tally/pages/tally_list.dart';
+import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
+import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_remover.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 class Tally extends StatelessWidget {
-  const Tally({Key? key}) : super(key: key);
+  const Tally({super.key});
 
   @override
   Widget build(BuildContext context) {

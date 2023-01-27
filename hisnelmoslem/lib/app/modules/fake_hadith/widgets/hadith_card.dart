@@ -2,12 +2,11 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:share/share.dart';
-
-import '../../../../core/values/constant.dart';
 
 class HadithCard extends StatelessWidget {
   final DbFakeHaith fakeHaith;
@@ -15,13 +14,13 @@ class HadithCard extends StatelessWidget {
   // final double fontSize;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  HadithCard(
-      {Key? key,
-      required this.fakeHaith,
-      /* @required this.fontSize,*/
+  HadithCard({
+    super.key,
+    required this.fakeHaith,
+    /* @required this.fontSize,*/
 
-      required this.scaffoldKey})
-      : super(key: key);
+    required this.scaffoldKey,
+  });
 
   final FakeHadithController fakeHadithController =
       Get.put(FakeHadithController());
@@ -40,11 +39,12 @@ class HadithCard extends StatelessWidget {
             softWrap: true,
           ),
           action: SnackBarAction(
-              label: "copy".tr,
-              onPressed: () {
-                // Some code to undo the change.
-                FlutterClipboard.copy(fakeHaith.source);
-              }),
+            label: "copy".tr,
+            onPressed: () {
+              // Some code to undo the change.
+              FlutterClipboard.copy(fakeHaith.source);
+            },
+          ),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -67,58 +67,63 @@ class HadithCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      splashRadius: 20,
-                      padding: const EdgeInsets.all(0),
-                      icon: Icon(
-                        Icons.copy,
-                        color: mainColor,
-                      ),
-                      onPressed: () {
-                        FlutterClipboard.copy(
-                                "${fakeHaith.text}\n${fakeHaith.darga}")
-                            .then((result) {
-                          final snackBar = SnackBar(
-                            content: Text("copied to clipboard".tr),
-                            action: SnackBarAction(
-                              label: "done".tr,
-                              onPressed: () {},
-                            ),
-                          );
+                    splashRadius: 20,
+                    padding: const EdgeInsets.all(0),
+                    icon: Icon(
+                      Icons.copy,
+                      color: mainColor,
+                    ),
+                    onPressed: () {
+                      FlutterClipboard.copy(
+                        "${fakeHaith.text}\n${fakeHaith.darga}",
+                      ).then((result) {
+                        final snackBar = SnackBar(
+                          content: Text("copied to clipboard".tr),
+                          action: SnackBarAction(
+                            label: "done".tr,
+                            onPressed: () {},
+                          ),
+                        );
 
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        });
-                      }),
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      });
+                    },
+                  ),
                 ),
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      splashRadius: 20,
-                      padding: const EdgeInsets.all(0),
-                      icon: Icon(Icons.camera_alt_rounded, color: mainColor),
-                      onPressed: () {
-                        fakeHadithController.shareFakehadithAsImage(fakeHaith);
-                      }),
+                    splashRadius: 20,
+                    padding: const EdgeInsets.all(0),
+                    icon: Icon(Icons.camera_alt_rounded, color: mainColor),
+                    onPressed: () {
+                      fakeHadithController.shareFakehadithAsImage(fakeHaith);
+                    },
+                  ),
                 ),
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      splashRadius: 20,
-                      padding: const EdgeInsets.all(0),
-                      icon: Icon(Icons.share, color: mainColor),
-                      onPressed: () {
-                        Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
-                      }),
+                    splashRadius: 20,
+                    padding: const EdgeInsets.all(0),
+                    icon: Icon(Icons.share, color: mainColor),
+                    onPressed: () {
+                      Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
+                    },
+                  ),
                 ),
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                      splashRadius: 20,
-                      padding: const EdgeInsets.all(0),
-                      icon: Icon(Icons.report, color: orange),
-                      onPressed: () {
-                        EmailManager.sendMisspelledInFakeHadith(
-                            fakeHaith: fakeHaith);
-                      }),
+                    splashRadius: 20,
+                    padding: const EdgeInsets.all(0),
+                    icon: Icon(Icons.report, color: orange),
+                    onPressed: () {
+                      EmailManager.sendMisspelledInFakeHadith(
+                        fakeHaith: fakeHaith,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -131,9 +136,10 @@ class HadithCard extends StatelessWidget {
                 softWrap: true,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                    color: fakeHaith.isRead ? mainColor : null,
-                    fontSize: appData.fontSize * 10,
-                    fontWeight: FontWeight.bold),
+                  color: fakeHaith.isRead ? mainColor : null,
+                  fontSize: appData.fontSize * 10,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Padding(
@@ -144,10 +150,11 @@ class HadithCard extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 softWrap: true,
                 style: TextStyle(
-                    fontSize: appData.fontSize * 10,
-                    color: mainColor,
-                    //fontSize: 20,
-                    fontWeight: FontWeight.bold),
+                  fontSize: appData.fontSize * 10,
+                  color: mainColor,
+                  //fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
