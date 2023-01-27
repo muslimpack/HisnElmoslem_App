@@ -113,7 +113,9 @@ class AwesomeNotificationManager {
     });
   }
 
-  Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
+  static Future<void> onActionReceivedMethod(
+    ReceivedAction receivedAction,
+  ) async {
     final List<String?> payloadsList = receivedAction.payload!.values.toList();
     final String? payload = payloadsList[0];
     hisnPrint("actionStream: $payload");
@@ -302,7 +304,7 @@ class AwesomeNotificationManager {
   }
 
   ///
-  void onNotificationClick(String payload) {
+  static void onNotificationClick(String payload) {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
