@@ -43,10 +43,10 @@ class FavouriteZikr extends StatelessWidget {
                       itemCount: controller.favouriteConent.length,
                       itemBuilder: (BuildContext context, int index) {
                         //
-                        late DbContent dbContent =
+                        final DbContent dbContent =
                             controller.favouriteConent[index];
                         //
-                        DbTitle? dbTitle = controller.allTitle
+                        final DbTitle dbTitle = controller.allTitle
                             .where((element) => element.id == dbContent.titleId)
                             .first;
                         //
@@ -81,7 +81,7 @@ class FavouriteZikr extends StatelessWidget {
                                       ),
                                       IconButton(
                                         splashRadius: 20,
-                                        padding: const EdgeInsets.all(0),
+                                        padding: EdgeInsets.zero,
                                         icon: dbContent.favourite
                                             ? Icon(
                                                 Icons.favorite,
@@ -183,22 +183,22 @@ class FavouriteZikr extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      dbContent.fadl == ""
-                                          ? const SizedBox()
-                                          : Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Text(
-                                                dbContent.fadl.toString(),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      appData.fontSize * 10,
-                                                  color: mainColor,
-                                                  //fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
+                                      if (dbContent.fadl == "")
+                                        const SizedBox()
+                                      else
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Text(
+                                            dbContent.fadl,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: appData.fontSize * 10,
+                                              color: mainColor,
+                                              //fontSize: 20,
+                                              fontWeight: FontWeight.bold,
                                             ),
+                                          ),
+                                        ),
                                     ],
                                   ),
                                   const Divider(),
@@ -206,7 +206,7 @@ class FavouriteZikr extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(0.0),
+                                          padding: EdgeInsets.zero,
                                           child: ListTile(
                                             // tileColor:
                                             //     Theme.of(context).primaryColor,

@@ -89,7 +89,7 @@ class TitleCard extends StatelessWidget {
                       isToEdit: false,
                     ).then((value) {
                       if (value is DbAlarm) {
-                        int index = controller.alarms.indexOf(dbAlarm);
+                        final int index = controller.alarms.indexOf(dbAlarm);
                         if (value.hasAlarmInside) {
                           if (index == -1) {
                             controller.alarms.add(value);

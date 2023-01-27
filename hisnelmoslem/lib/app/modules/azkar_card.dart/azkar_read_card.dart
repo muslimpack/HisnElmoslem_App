@@ -66,16 +66,17 @@ class AzkarReadCard extends StatelessWidget {
                         ? 0
                         : controller.zikrContent.length,
                     itemBuilder: (context, index) {
-                      String text = appData.isTashkelEnabled
+                      final String text = appData.isTashkelEnabled
                           ? controller.zikrContent[index].content
                           : controller.zikrContent[index].content.replaceAll(
                               //* لحذف التشكيل
                               RegExp(String.fromCharCodes(arabicTashkelChar)),
                               "",
                             );
-                      String source = controller.zikrContent[index].source;
-                      String fadl = controller.zikrContent[index].fadl;
-                      int cardnum = index + 1;
+                      final String source =
+                          controller.zikrContent[index].source;
+                      final String fadl = controller.zikrContent[index].fadl;
+                      final int cardnum = index + 1;
                       int counter = controller.zikrContent[index].count;
                       return InkWell(
                         onTap: () {
@@ -143,41 +144,42 @@ class AzkarReadCard extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                  !controller.zikrContent[index].favourite
-                                      ? IconButton(
-                                          splashRadius: 20,
-                                          padding: const EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.favorite_border,
-                                            color: mainColor,
-                                          ),
-                                          onPressed: () {
-                                            controller.zikrContent[index]
-                                                .favourite = true;
-                                            controller.update();
-                                            dashboardController
-                                                .addContentToFavourite(
-                                              controller.zikrContent[index],
-                                            );
-                                          },
-                                        )
-                                      : IconButton(
-                                          splashRadius: 20,
-                                          padding: const EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.favorite,
-                                            color: mainColor,
-                                          ),
-                                          onPressed: () {
-                                            controller.zikrContent[index]
-                                                .favourite = false;
-                                            controller.update();
-                                            dashboardController
-                                                .removeContentFromFavourite(
-                                              controller.zikrContent[index],
-                                            );
-                                          },
-                                        ),
+                                  if (!controller.zikrContent[index].favourite)
+                                    IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        Icons.favorite_border,
+                                        color: mainColor,
+                                      ),
+                                      onPressed: () {
+                                        controller.zikrContent[index]
+                                            .favourite = true;
+                                        controller.update();
+                                        dashboardController
+                                            .addContentToFavourite(
+                                          controller.zikrContent[index],
+                                        );
+                                      },
+                                    )
+                                  else
+                                    IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: mainColor,
+                                      ),
+                                      onPressed: () {
+                                        controller.zikrContent[index]
+                                            .favourite = false;
+                                        controller.update();
+                                        dashboardController
+                                            .removeContentFromFavourite(
+                                          controller.zikrContent[index],
+                                        );
+                                      },
+                                    ),
                                   Expanded(
                                     child: IconButton(
                                       splashRadius: 20,
@@ -208,7 +210,7 @@ class AzkarReadCard extends StatelessWidget {
                                   Expanded(
                                     child: IconButton(
                                       splashRadius: 20,
-                                      padding:  EdgeInsets.zero,
+                                      padding: EdgeInsets.zero,
                                       icon: Icon(
                                         Icons.share,
                                         color: mainColor,
@@ -221,7 +223,7 @@ class AzkarReadCard extends StatelessWidget {
                                   Expanded(
                                     child: IconButton(
                                       splashRadius: 20,
-                                      padding:  EdgeInsets.zero,
+                                      padding: EdgeInsets.zero,
                                       icon: Icon(Icons.report, color: orange),
                                       onPressed: () {
                                         EmailManager
@@ -255,28 +257,29 @@ class AzkarReadCard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              controller.zikrContent[index].fadl == ""
-                                  ? const SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        10,
-                                        10,
-                                        10,
-                                        20,
-                                      ),
-                                      child: Text(
-                                        controller.zikrContent[index].fadl,
-                                        textAlign: TextAlign.center,
-                                        textDirection: TextDirection.rtl,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                          fontSize: appData.fontSize * 10,
-                                          color: mainColor,
-                                          //fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                              if (controller.zikrContent[index].fadl == "")
+                                const SizedBox()
+                              else
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    10,
+                                    10,
+                                    10,
+                                    20,
+                                  ),
+                                  child: Text(
+                                    controller.zikrContent[index].fadl,
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontSize: appData.fontSize * 10,
+                                      color: mainColor,
+                                      //fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
+                                  ),
+                                ),
                               const Divider(),
                               Padding(
                                 padding: const EdgeInsets.all(10),

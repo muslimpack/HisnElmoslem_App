@@ -14,7 +14,7 @@ class FakeHadithController extends GetxController {
   List<DbFakeHaith> fakeHadithList = <DbFakeHaith>[];
 
   List<DbFakeHaith> get fakeHadithReadList {
-    List<DbFakeHaith> fake = [];
+    final List<DbFakeHaith> fake = [];
     for (var i = 0; i < fakeHadithList.length; i++) {
       if (fakeHadithList[i].isRead) {
         fake.add(fakeHadithList[i]);
@@ -25,7 +25,7 @@ class FakeHadithController extends GetxController {
   }
 
   List<DbFakeHaith> get fakeHadithUnReadList {
-    List<DbFakeHaith> fake = [];
+    final List<DbFakeHaith> fake = [];
     for (var i = 0; i < fakeHadithList.length; i++) {
       if (!fakeHadithList[i].isRead) {
         fake.add(fakeHadithList[i]);
@@ -82,7 +82,7 @@ class FakeHadithController extends GetxController {
 
   // share as image
   shareFakehadithAsImage(DbFakeHaith dbFakeHaith) {
-    DbContent dbContent = DbContent();
+    final DbContent dbContent = DbContent();
     dbContent.titleId = -1;
     dbContent.orderId = dbFakeHaith.id;
     //

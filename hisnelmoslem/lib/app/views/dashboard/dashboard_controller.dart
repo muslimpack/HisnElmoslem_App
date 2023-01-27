@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
+import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
-import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
-import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
+import 'package:hisnelmoslem/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController
@@ -133,7 +133,7 @@ class DashboardController extends GetxController
 
     /// go to zikr page if clicked
     else {
-      int? pageIndex = int.parse(payload);
+      final int pageIndex = int.parse(payload);
       //
       if (appData.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
@@ -158,7 +158,7 @@ class DashboardController extends GetxController
       searchedTitle = allTitle;
     } else {
       searchedTitle = allTitle.where((zikr) {
-        var zikrTitle = zikr.name
+        final zikrTitle = zikr.name
             .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
         return zikrTitle.contains(searchController.text);
       }).toList();

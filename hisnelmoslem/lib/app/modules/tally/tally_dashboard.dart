@@ -30,15 +30,16 @@ class Tally extends StatelessWidget {
                     snap: true,
                     centerTitle: true,
                     actions: [
-                      controller.currentDBTally == null
-                          ? const SizedBox()
-                          : IconButton(
-                              splashRadius: 20,
-                              onPressed: () {
-                                controller.tallySettings();
-                              },
-                              icon: const Icon(Icons.settings),
-                            ),
+                      if (controller.currentDBTally == null)
+                        const SizedBox()
+                      else
+                        IconButton(
+                          splashRadius: 20,
+                          onPressed: () {
+                            controller.tallySettings();
+                          },
+                          icon: const Icon(Icons.settings),
+                        ),
                       IconButton(
                         splashRadius: 20,
                         onPressed: () {

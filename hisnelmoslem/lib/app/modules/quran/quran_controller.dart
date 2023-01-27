@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/core/themes/theme_services.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/core/themes/theme_services.dart';
 
 enum SurahNameEnum { alMulk, assajdah, alKahf }
 
@@ -105,12 +105,12 @@ class QuranPageController extends GetxController {
 
   ///
   Future<List<Quran>> fetchAzkar() async {
-    String data = await rootBundle.loadString('assets/json/quran.json');
+    final String data = await rootBundle.loadString('assets/json/quran.json');
 
-    var quran = <Quran>[];
+    final quran = <Quran>[];
 
-    var quranJson = json.decode(data);
-    for (var quranJson in quranJson) {
+    final quranJson = json.decode(data);
+    for (final quranJson in quranJson) {
       quran.add(Quran.fromJson(quranJson));
     }
 

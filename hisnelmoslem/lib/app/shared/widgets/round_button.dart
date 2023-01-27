@@ -3,7 +3,7 @@ import 'package:hisnelmoslem/core/values/constant.dart';
 
 class RoundButton extends StatelessWidget {
   final Widget text;
-  final Function onTap;
+  final Function() onTap;
   final double radius;
   final bool isTransparent;
 
@@ -27,9 +27,7 @@ class RoundButton extends StatelessWidget {
                 foregroundColor: MaterialStateProperty.all(mainColor),
               )
             : const ButtonStyle(),
-        onPressed: () {
-          onTap();
-        },
+        onPressed: onTap,
         child: text,
       ),
     );

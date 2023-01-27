@@ -16,7 +16,7 @@ class ImageWidthDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController widthController =
+    final TextEditingController widthController =
         TextEditingController(text: initialValue);
     return DialogMaker(
       height: 270,

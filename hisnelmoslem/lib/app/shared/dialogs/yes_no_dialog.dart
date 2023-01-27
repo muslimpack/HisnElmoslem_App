@@ -16,7 +16,7 @@ class YesOrNoDialog extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
         ),
-        margin: const EdgeInsets.all(0.0),
+        margin: EdgeInsets.zero,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,

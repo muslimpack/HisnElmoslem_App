@@ -21,12 +21,12 @@ class FakeHadithDatabaseHelper {
   static FakeHadithDatabaseHelper? _databaseHelper;
   static Database? _database;
 
-  FakeHadithDatabaseHelper._createInstance();
-
   factory FakeHadithDatabaseHelper() {
     _databaseHelper ??= FakeHadithDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
+
+  FakeHadithDatabaseHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -96,8 +96,8 @@ class FakeHadithDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
@@ -114,10 +114,10 @@ class FakeHadithDatabaseHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
-    List<DbFakeHaith> fakeHadiths = [];
+    final List<DbFakeHaith> fakeHadiths = [];
 
     for (var i = 0; i < maps.length; i++) {
-      DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
+      final DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
       await dataDatabaseHelper
           .isFakeHadithWereRead(fakeHadithId: fakeHadith.id)
           .then((value) => fakeHadith.isRead = value);
@@ -135,7 +135,7 @@ class FakeHadithDatabaseHelper {
       '''SELECT * FROM fakeHadith  WHERE _id = ?''',
       [fakeHadithId],
     );
-    DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
+    final DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
     await dataDatabaseHelper
         .isFakeHadithWereRead(fakeHadithId: dbFakeHaith.id)
         .then((value) => dbFakeHaith.isRead = value);
@@ -145,7 +145,7 @@ class FakeHadithDatabaseHelper {
 
   // Get read hadith only
   Future<List<DbFakeHaith>> getReadFakeHadiths() async {
-    List<DbFakeHaith> fakeHadiths = [];
+    final List<DbFakeHaith> fakeHadiths = [];
     await dataDatabaseHelper.getReadFakeHadiths().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
@@ -159,7 +159,7 @@ class FakeHadithDatabaseHelper {
 
   // Get unread hadith only
   Future<List<DbFakeHaith>> getUnreadFakeHadiths() async {
-    List<DbFakeHaith> fakeHadiths = [];
+    final List<DbFakeHaith> fakeHadiths = [];
     await dataDatabaseHelper.getUnreadFakeHadiths().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {

@@ -20,12 +20,12 @@ class AlarmDatabaseHelper {
 
   /* ************* Singelton Constractor ************* */
 
-  AlarmDatabaseHelper._createInstance();
-
   factory AlarmDatabaseHelper() {
     _databaseHelper ??= AlarmDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
+
+  AlarmDatabaseHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -77,8 +77,8 @@ class AlarmDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
@@ -110,11 +110,11 @@ class AlarmDatabaseHelper {
     );
 
     if (maps.isNotEmpty) {
-      DbAlarm dbAlarm = DbAlarm.fromMap(maps[0]);
+      final DbAlarm dbAlarm = DbAlarm.fromMap(maps[0]);
 
       return dbAlarm;
     } else {
-      DbAlarm tempAlarm = DbAlarm(titleId: dbTitle.orderId);
+      final DbAlarm tempAlarm = DbAlarm(titleId: dbTitle.orderId);
       return tempAlarm;
     }
   }

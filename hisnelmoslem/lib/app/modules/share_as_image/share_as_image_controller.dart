@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
+import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
@@ -78,11 +78,15 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
 
-  late List<Color> colorsListForText,
-      backgroundColors,
-      titleColorsList,
-      bodyColorsList,
-      additionalTextColorsList;
+  late List<Color> colorsListForText;
+
+  late List<Color> backgroundColors;
+
+  late List<Color> titleColorsList;
+
+  late List<Color> bodyColorsList;
+
+  late List<Color> additionalTextColorsList;
 
   final List<double> imageQulityList = [1.0, 1.5, 2.0, 2.5, 3];
 
@@ -164,7 +168,7 @@ class ShareAsImageController extends GetxController {
           .then((Uint8List? image) async {
         final tempDir = await getTemporaryDirectory();
         //
-        File file =
+        final File file =
             await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
         //
         file.writeAsBytesSync(image!);
@@ -242,13 +246,13 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   void fitImageToScreen() {
-    double screenWidth = MediaQuery.of(Get.context!).size.width;
+    final double screenWidth = MediaQuery.of(Get.context!).size.width;
     // double _screenHeight = MediaQuery.of(Get.context!).size.height;
     double scale = 0;
     scale = screenWidth / shareAsImageData.imageWidth;
 
     /// create fitMatrix
-    Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);
+    final Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);
 
     /// set x
     fitMatrix[12] = 0;
@@ -262,7 +266,7 @@ class ShareAsImageController extends GetxController {
   }
 
   DbContent removeTashkelDBcontent() {
-    DbContent temp = DbContent.fromMap(initDbContent.toMap());
+    final DbContent temp = DbContent.fromMap(initDbContent.toMap());
     temp.content = temp.content
         .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
     temp.fadl = temp.fadl

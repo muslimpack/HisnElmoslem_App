@@ -94,60 +94,60 @@ class AzkarReadPage extends StatelessWidget {
                                     },
                                   ),
                                 ),
-                                !controller.zikrContent[controller.currentPage]
-                                        .favourite
-                                    ? Expanded(
-                                        child: IconButton(
-                                          splashRadius: 20,
-                                          padding: const EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.favorite_border,
-                                            color: mainColor,
-                                          ),
-                                          onPressed: () {
-                                            controller
-                                                .zikrContent[
-                                                    controller.currentPage]
-                                                .favourite = true;
-                                            controller.update();
-                                            //
-                                            dashboardController
-                                                .addContentToFavourite(
-                                              controller.zikrContent[
-                                                  controller.currentPage],
-                                            );
-                                            //
-                                            // dashboardController.update();
-                                          },
-                                        ),
-                                      )
-                                    : Expanded(
-                                        child: IconButton(
-                                          splashRadius: 20,
-                                          padding: const EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.favorite,
-                                            color: mainColor,
-                                          ),
-                                          onPressed: () {
-                                            controller
-                                                .zikrContent[
-                                                    controller.currentPage]
-                                                .favourite = false;
-                                            controller.update();
-
-                                            dashboardController
-                                                .removeContentFromFavourite(
-                                              controller.zikrContent[
-                                                  controller.currentPage],
-                                            );
-                                          },
-                                        ),
+                                if (!controller
+                                    .zikrContent[controller.currentPage]
+                                    .favourite)
+                                  Expanded(
+                                    child: IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        Icons.favorite_border,
+                                        color: mainColor,
                                       ),
+                                      onPressed: () {
+                                        controller
+                                            .zikrContent[controller.currentPage]
+                                            .favourite = true;
+                                        controller.update();
+                                        //
+                                        dashboardController
+                                            .addContentToFavourite(
+                                          controller.zikrContent[
+                                              controller.currentPage],
+                                        );
+                                        //
+                                        // dashboardController.update();
+                                      },
+                                    ),
+                                  )
+                                else
+                                  Expanded(
+                                    child: IconButton(
+                                      splashRadius: 20,
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: mainColor,
+                                      ),
+                                      onPressed: () {
+                                        controller
+                                            .zikrContent[controller.currentPage]
+                                            .favourite = false;
+                                        controller.update();
+
+                                        dashboardController
+                                            .removeContentFromFavourite(
+                                          controller.zikrContent[
+                                              controller.currentPage],
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 Expanded(
                                   child: IconButton(
                                     splashRadius: 20,
-                                    padding: const EdgeInsets.all(0),
+                                    padding: EdgeInsets.zero,
                                     icon: Icon(Icons.share, color: mainColor),
                                     onPressed: () {
                                       Share.share("${text!}\n${fadl!}");
@@ -212,7 +212,7 @@ class AzkarReadPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       /* I repeated this code here to prevent text to be look like
                          the text in the next page when we swipe */
-                      String text = appData.isTashkelEnabled
+                      final String text = appData.isTashkelEnabled
                           ? controller.zikrContent[index].content
                           : controller.zikrContent[index].content.replaceAll(
                               //* لحذف التشكيل

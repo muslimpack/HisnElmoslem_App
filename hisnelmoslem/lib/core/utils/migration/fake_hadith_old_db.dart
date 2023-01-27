@@ -20,12 +20,12 @@ class FakeHadithOldDBHelper {
   static FakeHadithOldDBHelper? _databaseHelper;
   static Database? _database;
 
-  FakeHadithOldDBHelper._createInstance();
-
   factory FakeHadithOldDBHelper() {
     _databaseHelper ??= FakeHadithOldDBHelper._createInstance();
     return _databaseHelper!;
   }
+
+  FakeHadithOldDBHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -47,7 +47,7 @@ class FakeHadithOldDBHelper {
       await _copyFromAssets(path: path);
     }
 
-    return  openDatabase(
+    return openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
@@ -77,8 +77,8 @@ class FakeHadithOldDBHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);

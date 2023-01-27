@@ -16,7 +16,7 @@ class AzkarFehrs extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       builder: (controller) {
-        List<DbTitle> titleListToDisplay = controller.searchedTitle;
+        final List<DbTitle> titleListToDisplay = controller.searchedTitle;
         return Scaffold(
           body: Scrollbar(
             controller: controller.fehrsScrollController,
@@ -42,7 +42,7 @@ class AzkarFehrs extends StatelessWidget {
                               return TitleCard(
                                 index: index,
                                 fehrsTitle: titleListToDisplay[index],
-                                dbAlarm: snapshot.data as DbAlarm,
+                                dbAlarm: snapshot.data!,
                               );
                             } else {
                               return const ListTile();

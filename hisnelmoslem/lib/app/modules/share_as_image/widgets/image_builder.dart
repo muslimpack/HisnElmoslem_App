@@ -16,12 +16,13 @@ class ImageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DashboardController dashboardController = Get.put(DashboardController());
+    final DashboardController dashboardController =
+        Get.put(DashboardController());
     return GetBuilder<ShareAsImageController>(
       builder: (controller) {
-        String titleWithIndex =
+        final String titleWithIndex =
             "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
-        String titleWithoutIndex =
+        final String titleWithoutIndex =
             dashboardController.allTitle[dbContent.titleId - 1].name;
         return Center(
           child: SizedBox(

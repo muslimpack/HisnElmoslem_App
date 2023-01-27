@@ -135,7 +135,8 @@ class AzkarReadPageController extends GetxController {
   }
 
   checkProgress() {
-    int totalNum = 0, done = 0;
+    int totalNum = 0;
+    int done = 0;
     totalNum = zikrContent.length;
     for (var i = 0; i < zikrContent.length; i++) {
       if (zikrContent[i].count == 0) {

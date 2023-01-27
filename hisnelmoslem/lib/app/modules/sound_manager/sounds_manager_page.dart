@@ -68,7 +68,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Tally Sound Allowed Vibrate
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.vibration,
                     ),
@@ -90,7 +90,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Tally Sound Allowed
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.speaker,
                     ),
@@ -112,7 +112,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Zikr Done Sound Allowed Vibrate
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.vibration,
                     ),
@@ -133,7 +133,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Zikr Done Sound Allowed
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.speaker,
                     ),
@@ -154,7 +154,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Azkar Done Sound Allowed vibrate
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.vibration,
                     ),
@@ -175,7 +175,7 @@ class SoundsManagerPage extends StatelessWidget {
                 /// Azkar Done Sound Allowed
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.speaker,
                     ),

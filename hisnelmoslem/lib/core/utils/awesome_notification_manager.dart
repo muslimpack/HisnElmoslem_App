@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
-import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
 import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
+import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 
 AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();
@@ -113,11 +114,12 @@ class AwesomeNotificationManager {
   }
 
   Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
-    List<String?> payloadsList = receivedAction.payload!.values.toList();
-    String? payload = payloadsList[0];
+    final List<String?> payloadsList = receivedAction.payload!.values.toList();
+    final String? payload = payloadsList[0];
     hisnPrint("actionStream: $payload");
-    bool channelCheck = receivedAction.channelKey == 'in_app_notification' ||
-        receivedAction.channelKey == 'scheduled_channel';
+    final bool channelCheck =
+        receivedAction.channelKey == 'in_app_notification' ||
+            receivedAction.channelKey == 'scheduled_channel';
     if (channelCheck && Platform.isIOS) {
       await AwesomeNotifications().getGlobalBadgeCounter().then(
         (value) async {
@@ -176,7 +178,7 @@ class AwesomeNotificationManager {
 
   /// Show Notification
   Future<void> appOpenNotification() async {
-    var scheduleNotificationDateTime =
+    final scheduleNotificationDateTime =
         DateTime.now().add(const Duration(days: 3));
     // int id = createUniqueId();c
     await AwesomeNotifications().createNotification(
@@ -317,7 +319,7 @@ class AwesomeNotificationManager {
 
     /// go to zikr page if clicked
     else {
-      int? pageIndex = int.parse(payload);
+      final int pageIndex = int.parse(payload);
       //
       if (appData.isCardReadMode) {
         transitionAnimation.fromBottom2Top(

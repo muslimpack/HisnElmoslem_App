@@ -64,7 +64,7 @@ class InnerTimeline extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    messages[index].toString(),
+                    messages[index],
                   ),
                 ],
               ),

@@ -20,12 +20,12 @@ class DataDatabaseHelper {
   static DataDatabaseHelper? _databaseHelper;
   static Database? _database;
 
-  DataDatabaseHelper._createInstance();
-
   factory DataDatabaseHelper() {
     _databaseHelper ??= DataDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
+
+  DataDatabaseHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -77,8 +77,8 @@ class DataDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
@@ -112,7 +112,7 @@ class DataDatabaseHelper {
       [titleId],
     );
 
-    DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
+    final DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
       return DbTitleFavourite.fromMap(maps[i]);
     }).first;
 
@@ -164,7 +164,8 @@ class DataDatabaseHelper {
       [contentId],
     );
 
-    DbContentFavourite dbContentFavourite = List.generate(maps.length, (i) {
+    final DbContentFavourite dbContentFavourite =
+        List.generate(maps.length, (i) {
       return DbContentFavourite.fromMap(maps[i]);
     }).first;
 

@@ -110,7 +110,7 @@ ${"It should be:".tr}:
     required String subject,
     required String body,
   }) async {
-    var url = 'mailto:$toMailId?subject=$subject&body=$body';
+    final url = 'mailto:$toMailId?subject=$subject&body=$body';
     try {
       if (await canLaunchUrl(Uri.parse(url))) {
         await launchUrl(Uri.parse(url));

@@ -52,8 +52,9 @@ class Migration {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", "data.db"));
-      List<int> bytes =
+      final ByteData data =
+          await rootBundle.load(join("assets", "db", "data.db"));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
@@ -81,7 +82,7 @@ class Migration {
 
     ///
     try {
-      List<DbContent> contents = [];
+      final List<DbContent> contents = [];
       await azkarOldDBHelper
           .getFavouriteContents()
           .then((value) => contents.addAll(value));
@@ -105,7 +106,7 @@ class Migration {
     }
     try {
       ///
-      List<DbTitle> titles = [];
+      final List<DbTitle> titles = [];
       await azkarOldDBHelper
           .getAllFavoriteTitles()
           .then((value) => titles.addAll(value));
@@ -130,7 +131,7 @@ class Migration {
 
     ///
     try {
-      List<DbFakeHaith> fakeHadiths = [];
+      final List<DbFakeHaith> fakeHadiths = [];
       await fakeHadithOldDBHelper
           .getAllFakeHadiths()
           .then((value) => fakeHadiths.addAll(value));
@@ -181,8 +182,8 @@ class Migration {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);

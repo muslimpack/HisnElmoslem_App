@@ -90,7 +90,7 @@ class _TallyDialogState extends State<TallyDialog> {
               widget.onSubmit(widget.dbTally);
               Navigator.pop<bool>(context, true);
             } else {
-              DbTally dbTally = DbTally();
+              final DbTally dbTally = DbTally();
               dbTally.title = titleController.text;
               dbTally.countReset = int.parse(resetCounterController.text);
               widget.onSubmit(dbTally);

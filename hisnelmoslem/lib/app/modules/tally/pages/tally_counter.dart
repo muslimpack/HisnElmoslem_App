@@ -11,8 +11,8 @@ class TallyCounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width * .75;
-    double height = MediaQuery.of(context).size.height * .75;
+    final double width = MediaQuery.of(context).size.width * .75;
+    final double height = MediaQuery.of(context).size.height * .75;
     late double smalLenght;
     if (width > height) {
       smalLenght = height;

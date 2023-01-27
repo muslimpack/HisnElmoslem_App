@@ -2,8 +2,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/awesome_day.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 AppData appData = AppData();
 

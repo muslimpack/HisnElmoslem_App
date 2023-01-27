@@ -25,7 +25,7 @@ class TallyController extends GetxController {
     if (currentDBTally != null) {
       if (isShuffleModeOn) {
         int temp = 0;
-        for (var element in allTally) {
+        for (final element in allTally) {
           temp += element.count;
         }
         return temp;
@@ -63,7 +63,7 @@ class TallyController extends GetxController {
 
   ///
   DbTally? get currentDBTally {
-    for (DbTally item in allTally) {
+    for (final DbTally item in allTally) {
       if (item.isActivated) {
         return item;
       }
@@ -137,12 +137,12 @@ class TallyController extends GetxController {
     }
   }
 
-  checkSharedPrefs() async {
+  Future<void> checkSharedPrefs() async {
     final SharedPreferences prefs = await _sprefs;
     if (prefs.getString('counter') != null) {
       if (prefs.getString('counter') != "0") {
-        int count = int.parse(prefs.getString('counter')!);
-        DbTally dbTally = DbTally(
+        final int count = int.parse(prefs.getString('counter')!);
+        final DbTally dbTally = DbTally(
           title: "عام",
           count: count,
           created: DateTime.now(),
@@ -160,12 +160,12 @@ class TallyController extends GetxController {
     }
   }
 
-  activateTally(DbTally dbTally) async {
+  Future<void> activateTally(DbTally dbTally) async {
     await toggleActivateTally(dbTally);
   }
 
-  toggleActivateTally(DbTally dbTally) async {
-    for (DbTally tally in allTally) {
+  Future<void> toggleActivateTally(DbTally dbTally) async {
+    for (final DbTally tally in allTally) {
       if (dbTally.id == tally.id) {
         dbTally.isActivated = true;
         tally.isActivated = true;
@@ -184,7 +184,7 @@ class TallyController extends GetxController {
   }
 
   deactivateAllTally() async {
-    for (DbTally dbTally in allTally) {
+    for (final DbTally dbTally in allTally) {
       dbTally.isActivated = false;
       await tallyDatabaseHelper.updateTally(
         dbTally: dbTally,
@@ -328,7 +328,7 @@ class TallyController extends GetxController {
 
   void shuffle() {
     if (isShuffleModeOn && allTally.length > 1) {
-      Random rng = Random();
+      final Random rng = Random();
       activateTally(allTally[rng.nextInt(allTally.length)]);
     }
   }

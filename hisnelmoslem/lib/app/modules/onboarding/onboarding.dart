@@ -59,37 +59,37 @@ class OnBoardingPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  controller.isFinalPage
-                      ? Expanded(
-                          child: RoundButton(
-                            radius: 10,
-                            text: Text(
-                              'Start'.tr,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            onTap: () {
-                              controller.goToDashboard();
-                            },
-                          ),
-                        )
-                      : !controller.showSkipBtn
-                          ? const SizedBox()
-                          : Expanded(
-                              child: RoundButton(
-                                radius: 10,
-                                isTransparent: true,
-                                text: Text(
-                                  "Skip".tr,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                  if (controller.isFinalPage)
+                    Expanded(
+                      child: RoundButton(
+                        radius: 10,
+                        text: Text(
+                          'Start'.tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onTap: () {
+                          controller.goToDashboard();
+                        },
+                      ),
+                    )
+                  else
+                    !controller.showSkipBtn
+                        ? const SizedBox()
+                        : Expanded(
+                            child: RoundButton(
+                              radius: 10,
+                              isTransparent: true,
+                              text: Text(
+                                "Skip".tr,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                onTap: () {
-                                  controller.goToDashboard();
-                                },
                               ),
+                              onTap: () {
+                                controller.goToDashboard();
+                              },
                             ),
+                          ),
                 ],
               ),
             ),

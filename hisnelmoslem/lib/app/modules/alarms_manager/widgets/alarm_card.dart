@@ -29,16 +29,17 @@ class AlarmCard extends StatelessWidget {
           children: [
             SwitchListTile(
               title: ListTile(
-                contentPadding: const EdgeInsets.all(0),
+                contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.alarm),
                 subtitle: Wrap(
                   children: [
-                    dbAlarm.body.isEmpty
-                        ? const SizedBox()
-                        : RoundTagCard(
-                            name: dbAlarm.body,
-                            color: brwon,
-                          ),
+                    if (dbAlarm.body.isEmpty)
+                      const SizedBox()
+                    else
+                      RoundTagCard(
+                        name: dbAlarm.body,
+                        color: brwon,
+                      ),
                     Row(
                       children: [
                         Expanded(
@@ -65,7 +66,7 @@ class AlarmCard extends StatelessWidget {
               value: dbAlarm.isActive,
               onChanged: (value) {
                 //Update database
-                DbAlarm updateAlarm = dbAlarm;
+                final DbAlarm updateAlarm = dbAlarm;
                 updateAlarm.isActive = value;
                 alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updateAlarm);
                 // update view
@@ -104,7 +105,7 @@ class AlarmCard extends StatelessWidget {
                   ).then((value) {
                     if (value is DbAlarm) {
                       if (value.hasAlarmInside) {
-                        int index = controller.alarms.indexOf(dbAlarm);
+                        final int index = controller.alarms.indexOf(dbAlarm);
                         controller.alarms[index] = value;
                         //
                         dashboardController.alarms = controller.alarms;

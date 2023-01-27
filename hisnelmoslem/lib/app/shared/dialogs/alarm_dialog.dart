@@ -1,5 +1,4 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:day_night_time_picker/lib/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
@@ -212,7 +211,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
               onTap: () {
                 setState(() {
                   if (selectedHour != null) {
-                    DbAlarm alarm = DbAlarm(
+                    final DbAlarm alarm = DbAlarm(
                       titleId: widget.dbAlarm.titleId,
                       id: widget.dbAlarm.id,
                       title: widget.dbAlarm.title,

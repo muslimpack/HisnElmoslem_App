@@ -32,49 +32,53 @@ class Empty extends StatelessWidget {
           // mainAxisSize: MainAxisSize.min,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            imagePath == ""
-                ? const SizedBox()
-                : isImage
-                    ? Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Image.asset(
-                          imagePath,
-                          width: 50,
-                        ),
-                      )
-                    : Icon(
-                        icon,
-                        size: iconSize,
+            if (imagePath == "")
+              const SizedBox()
+            else
+              isImage
+                  ? Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(
+                        imagePath,
+                        width: 50,
                       ),
-            title == ""
-                ? const SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    )
+                  : Icon(
+                      icon,
+                      size: iconSize,
                     ),
+            if (title == "")
+              const SizedBox()
+            else
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
-            description == ""
-                ? const SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(
-                      description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        wordSpacing: 7,
-                      ),
-                    ),
+                ),
+              ),
+            if (description == "")
+              const SizedBox()
+            else
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    wordSpacing: 7,
                   ),
-            onButtonCLick != null
-                ? TextButton(onPressed: onButtonCLick, child: Text(buttonText))
-                : const SizedBox()
+                ),
+              ),
+            if (onButtonCLick != null)
+              TextButton(onPressed: onButtonCLick, child: Text(buttonText))
+            else
+              const SizedBox()
           ],
         ),
       ),

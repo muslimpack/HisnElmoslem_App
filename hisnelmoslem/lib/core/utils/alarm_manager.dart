@@ -118,13 +118,13 @@ class AlarmManager {
 
   Future<void> checkAllAlarmsInDb() async {
     final box = GetStorage();
-    bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
+    final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
       hisnPrint("Setup Awesome from database ....");
       await alarmDatabaseHelper.getAlarms().then((value) {
-        List<DbAlarm> alarms = value;
+        final List<DbAlarm> alarms = value;
         for (var i = 0; i < alarms.length; i++) {
-          DbAlarm alarm = alarms[i];
+          final DbAlarm alarm = alarms[i];
           alarmState(dbAlarm: alarm, showMsg: false);
         }
       });

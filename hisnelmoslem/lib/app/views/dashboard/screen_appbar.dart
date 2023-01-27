@@ -88,36 +88,38 @@ class ScreenAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        controller.isSearching
-            ? IconButton(
-                splashRadius: 20,
-                padding: const EdgeInsets.all(0),
-                icon: const Icon(Icons.exit_to_app_sharp),
-                onPressed: () {
-                  controller.isSearching = false;
-                  controller.searchedTitle = controller.allTitle;
-                  // controller.searchController.clear();
-                  controller.update();
-                },
-              )
-            : IconButton(
-                splashRadius: 20,
-                padding: const EdgeInsets.all(0),
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  controller.searchZikr();
-                },
-              ),
-        controller.isSearching
-            ? const SizedBox()
-            : IconButton(
-                splashRadius: 20,
-                padding: const EdgeInsets.all(0),
-                icon: const Icon(Icons.vertical_split_rounded),
-                onPressed: () {
-                  controller.toggleDrawer();
-                },
-              ),
+        if (controller.isSearching)
+          IconButton(
+            splashRadius: 20,
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.exit_to_app_sharp),
+            onPressed: () {
+              controller.isSearching = false;
+              controller.searchedTitle = controller.allTitle;
+              // controller.searchController.clear();
+              controller.update();
+            },
+          )
+        else
+          IconButton(
+            splashRadius: 20,
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              controller.searchZikr();
+            },
+          ),
+        if (controller.isSearching)
+          const SizedBox()
+        else
+          IconButton(
+            splashRadius: 20,
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.vertical_split_rounded),
+            onPressed: () {
+              controller.toggleDrawer();
+            },
+          ),
       ],
     );
   }

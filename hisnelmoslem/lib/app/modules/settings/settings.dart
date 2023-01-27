@@ -41,23 +41,24 @@ class Settings extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               children: [
                 Title(title: "general".tr),
-                !appData.isCardReadMode
-                    ? ListTile(
-                        leading: const Icon(MdiIcons.bookOpenPageVariant),
-                        title: Text("page mode".tr),
-                        onTap: () {
-                          appData.toggleReadModeStatus();
-                          controller.update();
-                        },
-                      )
-                    : ListTile(
-                        leading: const Icon(MdiIcons.card),
-                        title: Text("card mode".tr),
-                        onTap: () {
-                          appData.toggleReadModeStatus();
-                          controller.update();
-                        },
-                      ),
+                if (!appData.isCardReadMode)
+                  ListTile(
+                    leading: const Icon(MdiIcons.bookOpenPageVariant),
+                    title: Text("page mode".tr),
+                    onTap: () {
+                      appData.toggleReadModeStatus();
+                      controller.update();
+                    },
+                  )
+                else
+                  ListTile(
+                    leading: const Icon(MdiIcons.card),
+                    title: Text("card mode".tr),
+                    onTap: () {
+                      appData.toggleReadModeStatus();
+                      controller.update();
+                    },
+                  ),
                 ListTile(
                   title: Text("theme manager".tr),
                   leading: const Icon(Icons.palette),
@@ -141,7 +142,7 @@ class Settings extends StatelessWidget {
                 ),
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.person,
                     ),
@@ -168,7 +169,7 @@ class Settings extends StatelessWidget {
                 ),
                 SwitchListTile(
                   title: ListTile(
-                    contentPadding: const EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.zero,
                     leading: const Icon(
                       Icons.alarm,
                     ),

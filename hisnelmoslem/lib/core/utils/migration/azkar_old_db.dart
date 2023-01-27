@@ -20,12 +20,12 @@ class AzkarOldDBHelper {
   static AzkarOldDBHelper? _databaseHelper;
   static Database? _database;
 
-  AzkarOldDBHelper._createInstance();
-
   factory AzkarOldDBHelper() {
     _databaseHelper ??= AzkarOldDBHelper._createInstance();
     return _databaseHelper!;
   }
+
+  AzkarOldDBHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -77,8 +77,8 @@ class AzkarOldDBHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);

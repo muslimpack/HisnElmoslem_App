@@ -20,12 +20,12 @@ class TallyDatabaseHelper {
 
   /* ************* Singelton Constractor ************* */
 
-  TallyDatabaseHelper._createInstance();
-
   factory TallyDatabaseHelper() {
     _databaseHelper ??= TallyDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
+
+  TallyDatabaseHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -63,13 +63,19 @@ class TallyDatabaseHelper {
 
   // On upgrade database version
   FutureOr<void> _onUpgradeDatabase(
-      Database db, int oldVersion, int newVersion) {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
   // On downgrade database version
   FutureOr<void> _onDowngradeDatabase(
-      Database db, int oldVersion, int newVersion) {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) {
     //
   }
 
@@ -79,8 +85,8 @@ class TallyDatabaseHelper {
     try {
       await Directory(dirname(path)).create(recursive: true);
 
-      ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      List<int> bytes =
+      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
+      final List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
