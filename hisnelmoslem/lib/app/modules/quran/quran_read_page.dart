@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/shared/widgets/scroll_glow_custom.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-
-import 'quran_controller.dart';
 
 class QuranReadPage extends StatelessWidget {
   final SurahNameEnum surahName;
@@ -26,7 +25,7 @@ class QuranReadPage extends StatelessWidget {
                   centerTitle: true,
                   backgroundColor: Colors.transparent,
                   title: Text(
-                    (() {
+                    () {
                       switch (controller.surahName) {
                         case SurahNameEnum.alKahf:
                           return 'sura Al-Kahf'.tr;
@@ -35,7 +34,7 @@ class QuranReadPage extends StatelessWidget {
                         case SurahNameEnum.assajdah:
                           return 'sura As-Sajdah'.tr;
                       }
-                    }()),
+                    }(),
                     style: const TextStyle(
                       fontFamily: 'Uthmanic',
                     ),

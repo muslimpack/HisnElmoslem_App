@@ -56,10 +56,10 @@ class SoundsManagerPage extends StatelessWidget {
                   title: Text("Sound Effect volume".tr),
                   subtitle: Slider(
                     value: controller.soundEffectVolume,
-                    onChanged: ((value) {
+                    onChanged: (value) {
                       controller.changeSoundEffectVolume(value);
                       controller.update();
-                    }),
+                    },
                   ),
                 ),
 

@@ -65,10 +65,9 @@ class HadithCard extends StatelessWidget {
                         ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: IconButton(
                     splashRadius: 20,
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.copy,
                       color: mainColor,
@@ -91,10 +90,9 @@ class HadithCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: IconButton(
                     splashRadius: 20,
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                     icon: Icon(Icons.camera_alt_rounded, color: mainColor),
                     onPressed: () {
                       fakeHadithController.shareFakehadithAsImage(fakeHaith);
@@ -102,10 +100,9 @@ class HadithCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: IconButton(
                     splashRadius: 20,
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                     icon: Icon(Icons.share, color: mainColor),
                     onPressed: () {
                       Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
@@ -113,10 +110,9 @@ class HadithCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: IconButton(
                     splashRadius: 20,
-                    padding: const EdgeInsets.all(0),
+                    padding: EdgeInsets.zero,
                     icon: Icon(Icons.report, color: orange),
                     onPressed: () {
                       EmailManager.sendMisspelledInFakeHadith(

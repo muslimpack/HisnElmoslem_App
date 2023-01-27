@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
-
-import '../sound_manager/sounds_manager_controller.dart';
 
 class AzkarReadCardController extends GetxController {
   /* *************** Constractor *************** */
@@ -30,7 +29,7 @@ class AzkarReadCardController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
 
     //
@@ -71,7 +70,7 @@ class AzkarReadCardController extends GetxController {
     if (counter > 0) {
       counter--;
 
-      zikrContent[index].count = (counter);
+      zikrContent[index].count = counter;
 
       ///
       SoundsManagerController().playTallyEffects();
@@ -89,8 +88,9 @@ class AzkarReadCardController extends GetxController {
     return counter;
   }
 
-  checkProgress() {
-    int totalNum = 0, done = 0;
+  void checkProgress() {
+    int totalNum = 0;
+    int done = 0;
     totalNum = zikrContent.length;
     for (var i = 0; i < zikrContent.length; i++) {
       if (zikrContent[i].count == 0) {

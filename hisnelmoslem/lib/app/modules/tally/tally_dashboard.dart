@@ -44,30 +44,36 @@ class Tally extends StatelessWidget {
                         onPressed: () {
                           controller.toggleShuffleMode();
                         },
-                        icon: Icon(controller.isShuffleModeOn
-                            ? Icons.shuffle_on_rounded
-                            : Icons.shuffle_rounded),
+                        icon: Icon(
+                          controller.isShuffleModeOn
+                              ? Icons.shuffle_on_rounded
+                              : Icons.shuffle_rounded,
+                        ),
                       ),
                     ],
-                    bottom: TabBar(indicatorColor: mainColor, tabs: [
-                      Tab(
-                        child: Text(
-                          "active tallly".tr,
-                          style: const TextStyle(
+                    bottom: TabBar(
+                      indicatorColor: mainColor,
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            "active tallly".tr,
+                            style: const TextStyle(
                               fontFamily: "Uthmanic",
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "counters".tr,
-                          style: const TextStyle(
-                            fontFamily: "Uthmanic",
-                            fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ]),
+                        Tab(
+                          child: Text(
+                            "counters".tr,
+                            style: const TextStyle(
+                              fontFamily: "Uthmanic",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ];
               },

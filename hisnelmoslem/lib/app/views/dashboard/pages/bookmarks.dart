@@ -34,7 +34,7 @@ class AzkarBookmarks extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return FutureBuilder(
                           future: alarmDatabaseHelper.getAlarmByZikrTitle(
-                              dbTitle: controller.favouriteTitle[index]),
+                              dbTitle: controller.favouriteTitle[index],),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return TitleCard(
@@ -45,13 +45,13 @@ class AzkarBookmarks extends StatelessWidget {
                             } else {
                               return const ListTile();
                             }
-                          });
+                          },);
                     },
                     itemCount: controller.favouriteTitle.length,
                   ),
                 ),
         ),
       );
-    });
+    },);
   }
 }

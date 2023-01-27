@@ -9,7 +9,7 @@ import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
 
-import '../../../core/values/constant.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 
 Future<dynamic> showFastAlarmDialog({
   required BuildContext context,
@@ -17,7 +17,7 @@ Future<dynamic> showFastAlarmDialog({
   required isToEdit,
 }) async {
   // show the dialog
-  return await showDialog(
+  return showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
@@ -47,7 +47,8 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
   late TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;
-  int? selectedHour, selectedMinute;
+  int? selectedHour;
+  int? selectedMinute;
 
   void onTimeChanged(TimeOfDay newTime) {
     setState(() {
@@ -75,7 +76,8 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
       selectedMinute = widget.dbAlarm.minute;
     } else {
       bodyController = TextEditingController(
-          text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ');
+        text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
+      );
       repeatType = "daily".tr;
     }
   }
@@ -91,13 +93,13 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
     return DialogMaker(
       height: 380,
       header: Text(
-        (() {
+        () {
           if (widget.isToEdit) {
             return "edit reminder".tr;
           } else {
             return "add reminder".tr;
           }
-        }()),
+        }(),
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
@@ -144,11 +146,6 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                   context: context,
                   value: _time,
                   onChange: onTimeChanged,
-                  minuteInterval: MinuteInterval.ONE,
-                  disableHour: false,
-                  disableMinute: false,
-                  minMinute: 0,
-                  maxMinute: 59,
                   // Optional onChange to receive value as DateTime
                   onChangeDateTime: (DateTime dateTime) {},
                 ),

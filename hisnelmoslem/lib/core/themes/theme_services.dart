@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 
-import 'themes.dart';
-import 'themes_enum.dart';
+import 'package:hisnelmoslem/core/themes/themes.dart';
+import 'package:hisnelmoslem/core/themes/themes_enum.dart';
 
 class ThemeServices {
   ///
@@ -18,7 +18,8 @@ class ThemeServices {
     if (stringVal == null) {
       stringVal = EnumToString.convertToString(AppThemeMode.defaultDark);
       changeAppThemeModeStatus(
-          EnumToString.fromString(AppThemeMode.values, stringVal));
+        EnumToString.fromString(AppThemeMode.values, stringVal),
+      );
     }
     return EnumToString.fromString(AppThemeMode.values, stringVal);
   }

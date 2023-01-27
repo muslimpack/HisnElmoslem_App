@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
-
-import '../sound_manager/sounds_manager_controller.dart';
 
 class AzkarReadPageController extends GetxController {
   /* *************** Constractor *************** */
@@ -22,7 +21,7 @@ class AzkarReadPageController extends GetxController {
   //
   //
   final hReadScaffoldKey = GlobalKey<ScaffoldState>();
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController();
 
   //
   List<DbContent> zikrContent = <DbContent>[];
@@ -46,7 +45,7 @@ class AzkarReadPageController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     //
     Wakelock.enable();
@@ -62,7 +61,7 @@ class AzkarReadPageController extends GetxController {
         }
       }
 
-      return Future.value(null);
+      return Future.value();
     });
 
     await getReady();
@@ -110,7 +109,7 @@ class AzkarReadPageController extends GetxController {
     } else {
       counter--;
 
-      zikrContent[currentPage].count = ((zikrContent[currentPage].count) - 1);
+      zikrContent[currentPage].count = (zikrContent[currentPage].count) - 1;
 
       ///
       SoundsManagerController().playTallyEffects();
@@ -121,7 +120,9 @@ class AzkarReadPageController extends GetxController {
         SoundsManagerController().playTransitionEffects();
 
         pageController.nextPage(
-            curve: Curves.easeIn, duration: const Duration(milliseconds: 500));
+          curve: Curves.easeIn,
+          duration: const Duration(milliseconds: 500),
+        );
       }
     }
 

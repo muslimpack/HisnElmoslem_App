@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/core/themes/const_colors.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
-
-import 'const_colors.dart';
 
 class Themes {
   ///
@@ -39,11 +38,14 @@ class Themes {
       ),
       cardColor: lightColor.withAlpha(220),
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: lightColor,
-          contentTextStyle: TextStyle(color: darkColor)),
+        backgroundColor: lightColor,
+        contentTextStyle: TextStyle(color: darkColor),
+      ),
       scaffoldBackgroundColor: lightColor,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: darkColor, splashColor: Colors.blue),
+        backgroundColor: darkColor,
+        splashColor: Colors.blue,
+      ),
     );
   }
 
@@ -75,8 +77,9 @@ class Themes {
         backgroundColor: darkColor,
       ),
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: darkColor,
-          contentTextStyle: TextStyle(color: lightColor)),
+        backgroundColor: darkColor,
+        contentTextStyle: TextStyle(color: lightColor),
+      ),
       cardColor: darkColor.withAlpha(220),
       scaffoldBackgroundColor: darkColor,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -113,8 +116,9 @@ class Themes {
         backgroundColor: trueBlackColor,
       ),
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: trueBlackColor,
-          contentTextStyle: TextStyle(color: lightColor)),
+        backgroundColor: trueBlackColor,
+        contentTextStyle: TextStyle(color: lightColor),
+      ),
       cardColor: trueBlackColor.withAlpha(220),
       scaffoldBackgroundColor: trueBlackColor,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(

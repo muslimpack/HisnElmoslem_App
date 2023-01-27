@@ -46,7 +46,6 @@ class ColorSwatchBuilder extends StatelessWidget {
                           child: Column(
                             children: [
                               ColorPicker(
-                                colorPickerWidth: 300,
                                 displayThumbColor: true,
                                 paletteType: PaletteType.hsvWithSaturation,
                                 colorHistory: colorSwatchList,

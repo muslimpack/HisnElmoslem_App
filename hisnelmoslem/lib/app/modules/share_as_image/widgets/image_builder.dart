@@ -17,123 +17,129 @@ class ImageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DashboardController dashboardController = Get.put(DashboardController());
-    return GetBuilder<ShareAsImageController>(builder: (controller) {
-      String titleWithIndex =
-          "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
-      String titleWithoutIndex =
-          dashboardController.allTitle[dbContent.titleId - 1].name;
-      return Center(
-        child: SizedBox(
-          width: shareAsImageData.imageWidth.toDouble(),
-          child: Card(
-            margin: EdgeInsets.zero,
-            color: shareAsImageData.backgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    shareAsImageData.showZikrIndex
-                        ? titleWithIndex
-                        : titleWithoutIndex,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
+    return GetBuilder<ShareAsImageController>(
+      builder: (controller) {
+        String titleWithIndex =
+            "${dashboardController.allTitle[dbContent.titleId - 1].name} | ذكر رقم ${dbContent.orderId}";
+        String titleWithoutIndex =
+            dashboardController.allTitle[dbContent.titleId - 1].name;
+        return Center(
+          child: SizedBox(
+            width: shareAsImageData.imageWidth.toDouble(),
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: shareAsImageData.backgroundColor,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      shareAsImageData.showZikrIndex
+                          ? titleWithIndex
+                          : titleWithoutIndex,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Uthmanic",
                         color: shareAsImageData.titleTextColor,
-                        fontSize: 20),
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                ),
-                Divider(
-                  color: shareAsImageData.titleTextColor,
-                  thickness: controller.dividerSize,
-                ),
-                Container(
-                  constraints:
-                      const BoxConstraints(minHeight: 100, maxHeight: 350),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: AutoSizeText(
-                      dbContent.content,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      minFontSize: 12,
-                      style: TextStyle(
+                  Divider(
+                    color: shareAsImageData.titleTextColor,
+                    thickness: controller.dividerSize,
+                  ),
+                  Container(
+                    constraints:
+                        const BoxConstraints(minHeight: 100, maxHeight: 350),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: AutoSizeText(
+                        dbContent.content,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                           color: shareAsImageData.bodyTextColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                // Fadl
-                Visibility(
-                  visible: !(dbContent.fadl == "") && shareAsImageData.showFadl,
-                  child: Container(
-                    constraints:
-                        const BoxConstraints(minHeight: 50, maxHeight: 200),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: AutoSizeText(
-                            dbContent.fadl,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            minFontSize: 10,
-                            style: TextStyle(
+                  // Fadl
+                  Visibility(
+                    visible:
+                        !(dbContent.fadl == "") && shareAsImageData.showFadl,
+                    child: Container(
+                      constraints:
+                          const BoxConstraints(minHeight: 50, maxHeight: 200),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: AutoSizeText(
+                              dbContent.fadl,
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                              minFontSize: 10,
+                              style: TextStyle(
                                 color: shareAsImageData.additionalTextColor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 20,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                // Source
-                Visibility(
-                  visible:
-                      !(dbContent.source == "") && shareAsImageData.showSource,
-                  child: Container(
-                    constraints:
-                        const BoxConstraints(minHeight: 50, maxHeight: 200),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: AutoSizeText(
-                            dbContent.source,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            minFontSize: 10,
-                            style: TextStyle(
+                  // Source
+                  Visibility(
+                    visible: !(dbContent.source == "") &&
+                        shareAsImageData.showSource,
+                    child: Container(
+                      constraints:
+                          const BoxConstraints(minHeight: 50, maxHeight: 200),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: AutoSizeText(
+                              dbContent.source,
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                              minFontSize: 10,
+                              style: TextStyle(
                                 color: shareAsImageData.additionalTextColor,
                                 // fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Divider(
-                  color: shareAsImageData.titleTextColor,
-                  thickness: controller.dividerSize,
-                ),
-                //Bottom
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
+                  Divider(
+                    color: shareAsImageData.titleTextColor,
+                    thickness: controller.dividerSize,
+                  ),
+                  //Bottom
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                            width: 40,
-                            child: Image.asset("assets/images/app_icon.png")),
+                          width: 40,
+                          child: Image.asset("assets/images/app_icon.png"),
+                        ),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           height: 30,
@@ -144,18 +150,21 @@ class ImageBuilder extends StatelessWidget {
                           "تطبيق حصن المسلم",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Uthmanic",
-                              color: shareAsImageData.titleTextColor,
-                              fontSize: 20),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Uthmanic",
+                            color: shareAsImageData.titleTextColor,
+                            fontSize: 20,
+                          ),
                         )
-                      ]),
-                ),
-              ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

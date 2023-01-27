@@ -89,7 +89,7 @@ class ShareAsImageController extends GetxController {
   /* *************** Controller life cycle *************** */
 //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     await getTitle();
     backgroundColors = titleColorsList = bodyColorsList =
@@ -131,31 +131,31 @@ class ShareAsImageController extends GetxController {
   void showColorPicker({required Color initialColor}) {}
 
   // ******************************************* //
-  void changFontSize(double value) async {
-    value = value.clamp(10, 70);
+  Future<void> changFontSize(double value) async {
+    value.clamp(10, 70);
     await box.write(shareAsImageData.fontSizeBoxKey, value);
     update();
   }
 
-  increaseFontSize() {
+  void increaseFontSize() {
     changFontSize(shareAsImageData.fontSize + 1);
   }
 
-  decreaseFontSize() {
+  void decreaseFontSize() {
     changFontSize(shareAsImageData.fontSize - 1);
   }
 
-  resetFontSize() {
+  void resetFontSize() {
     changFontSize(25);
   }
 
   // ******************************************* //
-  void updateImageQuality(double value) async {
+  Future<void> updateImageQuality(double value) async {
     await box.write(shareAsImageData.imageQualityBoxKey, value);
     update();
   }
 
-  shareImage() async {
+  Future<void> shareImage() async {
     try {
       isLoading = true;
       update();
@@ -174,7 +174,6 @@ class ShareAsImageController extends GetxController {
         update();
       }).catchError((onError) {});
       //
-
     } catch (e) {
       hisnPrint(e.toString());
     }
@@ -199,7 +198,9 @@ class ShareAsImageController extends GetxController {
 
   toggleRemoveTashkel() async {
     await box.write(
-        shareAsImageData.removeTashkelKey, !shareAsImageData.removeTashkel);
+      shareAsImageData.removeTashkelKey,
+      !shareAsImageData.removeTashkel,
+    );
     update();
   }
 

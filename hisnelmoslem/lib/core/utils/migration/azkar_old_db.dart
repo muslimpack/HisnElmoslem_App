@@ -47,7 +47,7 @@ class AzkarOldDBHelper {
       await _copyFromAssets(path: path);
     }
 
-    return await openDatabase(
+    return openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
@@ -173,8 +173,9 @@ class AzkarOldDBHelper {
     dbTitle.favourite = true;
 
     await db.rawUpdate(
-        'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
-        [1, dbTitle.id]);
+      'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
+      [1, dbTitle.id],
+    );
   }
 
   /// Remove title from favourite
@@ -183,8 +184,9 @@ class AzkarOldDBHelper {
     dbTitle.favourite = false;
 
     await db.rawUpdate(
-        'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
-        [0, dbTitle.id]);
+      'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
+      [0, dbTitle.id],
+    );
   }
 
   /**
@@ -259,8 +261,9 @@ class AzkarOldDBHelper {
     final Database db = await database;
     dbContent.favourite = true;
     await db.rawUpdate(
-        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
-        [1, dbContent.id]);
+      'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+      [1, dbContent.id],
+    );
   }
 
   /// Remove Content from favourite
@@ -269,8 +272,9 @@ class AzkarOldDBHelper {
     dbContent.favourite = false;
 
     await db.rawUpdate(
-        'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
-        [0, dbContent.id]);
+      'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
+      [0, dbContent.id],
+    );
   }
 
   Future close() async {

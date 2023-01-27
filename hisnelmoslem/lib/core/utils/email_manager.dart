@@ -8,10 +8,11 @@ import 'package:url_launcher/url_launcher.dart';
 class EmailManager {
   static const String emailOwner = "muslimpack.org@gmail.com";
 
-  static void sendFeedbackForm() async {
+  static Future<void> sendFeedbackForm() async {
     // Feedback form
     await openURL(
-        'https://docs.google.com/forms/d/e/1FAIpQLSclKHlDGE-rwhllyHavhvx9EhFdwqL1kSCZWPPlpGPCn7o4fQ/viewform?usp=sf_link');
+      'https://docs.google.com/forms/d/e/1FAIpQLSclKHlDGE-rwhllyHavhvx9EhFdwqL1kSCZWPPlpGPCn7o4fQ/viewform?usp=sf_link',
+    );
   }
 
   static void sendFeedbackEmail() {
@@ -104,7 +105,7 @@ ${"It should be:".tr}:
     );
   }
 
-  static void sendEmail({
+  static Future<void> sendEmail({
     required String toMailId,
     required String subject,
     required String body,

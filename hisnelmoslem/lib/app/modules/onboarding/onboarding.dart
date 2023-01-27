@@ -23,45 +23,45 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OnBoardingController>(
-        init: OnBoardingController(),
-        builder: (controller) {
-          return Scaffold(
-            body: ScrollGlowCustom(
-              axisDirection: AxisDirection.left,
-              child: PageView.builder(
-                controller: controller.pageController,
-                itemCount: controller.pageList.length,
-                itemBuilder: (context, index) {
-                  return controller.pageList[index];
-                },
-                onPageChanged: (index) {
-                  controller.currentPageIndex = index;
-                  controller.update();
-                },
-              ),
+      init: OnBoardingController(),
+      builder: (controller) {
+        return Scaffold(
+          body: ScrollGlowCustom(
+            axisDirection: AxisDirection.left,
+            child: PageView.builder(
+              controller: controller.pageController,
+              itemCount: controller.pageList.length,
+              itemBuilder: (context, index) {
+                return controller.pageList[index];
+              },
+              onPageChanged: (index) {
+                controller.currentPageIndex = index;
+                controller.update();
+              },
             ),
-            bottomNavigationBar: BottomAppBar(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              child: SizedBox(
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          controller.pageList.length,
-                          (index) => buildDot(
-                            index,
-                            controller.currentPageIndex,
-                          ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: SizedBox(
+              height: 50,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        controller.pageList.length,
+                        (index) => buildDot(
+                          index,
+                          controller.currentPageIndex,
                         ),
                       ),
                     ),
-                    controller.isFinalPage
-                        ? Expanded(
-                            child: RoundButton(
+                  ),
+                  controller.isFinalPage
+                      ? Expanded(
+                          child: RoundButton(
                             radius: 10,
                             text: Text(
                               'Start'.tr,
@@ -71,27 +71,31 @@ class OnBoardingPage extends StatelessWidget {
                             onTap: () {
                               controller.goToDashboard();
                             },
-                          ))
-                        : !controller.showSkipBtn
-                            ? const SizedBox()
-                            : Expanded(
-                                child: RoundButton(
+                          ),
+                        )
+                      : !controller.showSkipBtn
+                          ? const SizedBox()
+                          : Expanded(
+                              child: RoundButton(
                                 radius: 10,
                                 isTransparent: true,
                                 text: Text(
                                   "Skip".tr,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 onTap: () {
                                   controller.goToDashboard();
                                 },
-                              )),
-                  ],
-                ),
+                              ),
+                            ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

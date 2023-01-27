@@ -19,64 +19,66 @@ class TallyCounterView extends StatelessWidget {
     } else {
       smalLenght = width;
     }
-    return GetBuilder<TallyController>(builder: (controller) {
-      return controller.isLoading
-          ? const Loading()
-          : controller.currentDBTally == null
-              ? Empty(
-                  isImage: false,
-                  icon: Icons.watch_rounded,
-                  title: "no active counter".tr,
-                  description:
-                      "to activate counter go to counters then click to counter icon beside the counter you want"
-                          .tr,
-                )
-              : Scaffold(
-                  resizeToAvoidBottomInset: false,
-                  body: InkWell(
-                    onTap: () {
-                      controller.increaseDBCounter();
-                    },
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              controller.currentDBTally!.title,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "uthmanic",
-                              ),
+    return GetBuilder<TallyController>(
+      builder: (controller) {
+        return controller.isLoading
+            ? const Loading()
+            : controller.currentDBTally == null
+                ? Empty(
+                    isImage: false,
+                    icon: Icons.watch_rounded,
+                    title: "no active counter".tr,
+                    description:
+                        "to activate counter go to counters then click to counter icon beside the counter you want"
+                            .tr,
+                  )
+                : Scaffold(
+                    resizeToAvoidBottomInset: false,
+                    body: InkWell(
+                      onTap: () {
+                        controller.increaseDBCounter();
+                      },
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const SizedBox(
+                              height: 40,
                             ),
-                          ),
-                          Card(
-                            elevation: 2,
-                            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * .8,
-                              padding: const EdgeInsets.all(20),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                '${controller.counter}',
+                                controller.currentDBTally!.title,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 40),
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "uthmanic",
+                                ),
                               ),
                             ),
-                          ),
-                          const Spacer(),
-                          SleekCircularSlider(
-                            initialValue: controller.circval,
-                            max: controller.circleResetEvery.toDouble(),
-                            appearance: CircularSliderAppearance(
+                            Card(
+                              elevation: 2,
+                              margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * .8,
+                                padding: const EdgeInsets.all(20),
+                                child: Text(
+                                  '${controller.counter}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontSize: 40),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            SleekCircularSlider(
+                              initialValue: controller.circval,
+                              max: controller.circleResetEvery.toDouble(),
+                              appearance: CircularSliderAppearance(
                                 angleRange: 360,
                                 startAngle: 270,
                                 infoProperties: InfoProperties(
@@ -92,7 +94,9 @@ class TallyCounterView extends StatelessWidget {
                                   },
                                 ),
                                 customWidths: CustomSliderWidths(
-                                    progressBarWidth: 20, trackWidth: 20),
+                                  progressBarWidth: 20,
+                                  trackWidth: 20,
+                                ),
                                 customColors: CustomSliderColors(
                                   // trackColor: grey,
                                   hideShadow: true,
@@ -103,33 +107,33 @@ class TallyCounterView extends StatelessWidget {
                                     //  orange
                                   ],
                                 ),
-                                size: smalLenght),
-                          ),
-                          const Spacer(),
-                        ],
+                                size: smalLenght,
+                              ),
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  bottomNavigationBar: BottomAppBar(
-                    //elevation: 20,
-                    // color: Theme.of(context).primaryColor,
-                    child: SizedBox(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
+                    bottomNavigationBar: BottomAppBar(
+                      //elevation: 20,
+                      // color: Theme.of(context).primaryColor,
+                      child: SizedBox(
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: IconButton(
                                 icon: const Icon(Icons.refresh),
                                 onPressed: () {
                                   // controller.resetCounter();
                                   controller.resetDBCounter();
-                                }),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
                                 icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   if (controller.counter == 0) {
@@ -137,13 +141,15 @@ class TallyCounterView extends StatelessWidget {
                                     // controller.minusCounter();
                                     controller.decreaseDBCounter();
                                   }
-                                }),
-                          ),
-                        ],
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-    });
+                  );
+      },
+    );
   }
 }

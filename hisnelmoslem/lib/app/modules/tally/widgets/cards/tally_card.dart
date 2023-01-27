@@ -50,7 +50,7 @@ class TallyCard extends StatelessWidget {
                 ),
               ),
               subtitle: Text(DateFormat('EEEE - dd-MM-yyyy – kk:mm')
-                  .format(dbTally.lastUpdate!)),
+                  .format(dbTally.lastUpdate!),),
               trailing: Text(
                 dbTally.count.toString(),
                 style: TextStyle(

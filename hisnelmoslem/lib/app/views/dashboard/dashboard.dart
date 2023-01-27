@@ -62,22 +62,22 @@ class MainScreen extends StatelessWidget {
           body: ScrollGlowCustom(
             axisDirection: AxisDirection.right,
             child: GetBuilder<RearrangeDashboardPageController>(
-                init: RearrangeDashboardPageController(),
-                builder: (rearrangeController) {
-                  return TabBarView(
-                    controller: controller.tabController,
-                    children: [
-                      ...List.generate(
-                        appDashboardItem.length,
-                        (index) {
-                          return appDashboardItem[
-                                  rearrangeController.list[index]]
-                              .widget;
-                        },
-                      ),
-                    ],
-                  );
-                }),
+              init: RearrangeDashboardPageController(),
+              builder: (rearrangeController) {
+                return TabBarView(
+                  controller: controller.tabController,
+                  children: [
+                    ...List.generate(
+                      appDashboardItem.length,
+                      (index) {
+                        return appDashboardItem[rearrangeController.list[index]]
+                            .widget;
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

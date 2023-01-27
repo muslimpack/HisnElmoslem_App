@@ -17,110 +17,115 @@ class ShareAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ShareAsImageController>(
-        init: ShareAsImageController(dbContent: dbContent),
-        builder: (controller) {
-          return controller.pageIsLoading
-              ? const Loading()
-              : Scaffold(
-                  resizeToAvoidBottomInset: false,
-                  appBar: AppBar(
-                    elevation: 0,
-                    title: Text(
-                      "share as image".tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Uthmanic",
-                      ),
+      init: ShareAsImageController(dbContent: dbContent),
+      builder: (controller) {
+        return controller.pageIsLoading
+            ? const Loading()
+            : Scaffold(
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  elevation: 0,
+                  title: Text(
+                    "share as image".tr,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Uthmanic",
                     ),
-                    centerTitle: true,
-                    actions: [
+                  ),
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        controller.shareImage();
+                      },
+                      icon: const Icon(Icons.share),
+                    ),
+                  ],
+                  bottom: PreferredSize(
+                    preferredSize:
+                        Size.fromHeight(!controller.isLoading ? 0 : 20),
+                    child: !controller.isLoading
+                        ? const SizedBox()
+                        : LinearProgressIndicator(
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            color: mainColor,
+                            minHeight: 15,
+                          ),
+                  ),
+                ),
+                body: GestureDetector(
+                  onDoubleTap: () {
+                    controller.fitImageToScreen();
+                  },
+                  child: Stack(
+                    children: [
+                      InteractiveViewer(
+                        constrained: false,
+                        // clipBehavior: Clip.none,
+                        transformationController:
+                            controller.transformationController,
+                        minScale: 0.25,
+                        maxScale: 3,
+                        boundaryMargin: const EdgeInsets.all(5000),
+                        child: Screenshot(
+                          controller: controller.screenshotController,
+                          child: ImageVarFontBuilder(
+                            dbContent: controller.dbContent,
+                          ),
+                        ),
+                      ),
+                      SettingsSheet(
+                        shareAsImageController: controller,
+                      ),
+                    ],
+                  ),
+                ),
+                bottomSheet: BottomAppBar(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
                       IconButton(
                         onPressed: () async {
                           controller.shareImage();
                         },
                         icon: const Icon(Icons.share),
                       ),
+                      IconButton(
+                        icon: const Icon(MdiIcons.restart),
+                        onPressed: () {
+                          controller.resetFontSize();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(MdiIcons.formatFontSizeIncrease),
+                        onPressed: () {
+                          controller.increaseFontSize();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(MdiIcons.formatFontSizeDecrease),
+                        onPressed: () {
+                          controller.decreaseFontSize();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(MdiIcons.abjadArabic),
+                        onPressed: () {
+                          controller.toggleRemoveTashkel();
+                        },
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          controller.showImageWidthDialog();
+                        },
+                        icon: const Icon(MdiIcons.resize),
+                      ),
                     ],
-                    bottom: PreferredSize(
-                        preferredSize:
-                            Size.fromHeight(!controller.isLoading ? 0 : 20),
-                        child: !controller.isLoading
-                            ? const SizedBox()
-                            : LinearProgressIndicator(
-                                backgroundColor:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                color: mainColor,
-                                minHeight: 15,
-                              )),
                   ),
-                  body: GestureDetector(
-                    onDoubleTap: () {
-                      controller.fitImageToScreen();
-                    },
-                    child: Stack(
-                      children: [
-                        InteractiveViewer(
-                          constrained: false,
-                          // clipBehavior: Clip.none,
-                          transformationController:
-                              controller.transformationController,
-                          minScale: 0.25,
-                          maxScale: 3,
-                          boundaryMargin: const EdgeInsets.all(5000),
-                          panEnabled: true,
-                          scaleEnabled: true,
-                          child: Screenshot(
-                            controller: controller.screenshotController,
-                            child: ImageVarFontBuilder(
-                                dbContent: controller.dbContent),
-                          ),
-                        ),
-                        SettingsSheet(
-                          shareAsImageController: controller,
-                        ),
-                      ],
-                    ),
-                  ),
-                  bottomSheet: BottomAppBar(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () async {
-                            controller.shareImage();
-                          },
-                          icon: const Icon(Icons.share),
-                        ),
-                        IconButton(
-                            icon: const Icon(MdiIcons.restart),
-                            onPressed: () {
-                              controller.resetFontSize();
-                            }),
-                        IconButton(
-                            icon: const Icon(MdiIcons.formatFontSizeIncrease),
-                            onPressed: () {
-                              controller.increaseFontSize();
-                            }),
-                        IconButton(
-                            icon: const Icon(MdiIcons.formatFontSizeDecrease),
-                            onPressed: () {
-                              controller.decreaseFontSize();
-                            }),
-                        IconButton(
-                            icon: const Icon(MdiIcons.abjadArabic),
-                            onPressed: () {
-                              controller.toggleRemoveTashkel();
-                            }),
-                        IconButton(
-                          onPressed: () async {
-                            controller.showImageWidthDialog();
-                          },
-                          icon: const Icon(MdiIcons.resize),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-        });
+                ),
+              );
+      },
+    );
   }
 }

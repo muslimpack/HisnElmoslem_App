@@ -15,8 +15,10 @@ class ThemeManagerPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("theme manager".tr,
-                style: const TextStyle(fontFamily: "Uthmanic")),
+            title: Text(
+              "theme manager".tr,
+              style: const TextStyle(fontFamily: "Uthmanic"),
+            ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -82,16 +84,17 @@ class RadioImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return RadioListTile<AppThemeMode>(
       title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: Icon(icon),
-            title: Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          leading: Icon(icon),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-          )),
+          ),
+        ),
+      ),
       value: appThemeModeValue,
       groupValue: controller.appThemeModeEnum,
       onChanged: (AppThemeMode? value) {

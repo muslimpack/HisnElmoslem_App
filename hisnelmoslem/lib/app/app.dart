@@ -30,7 +30,7 @@ class MyAppState extends State<MyApp> {
   }
 
   @override
-  void dispose() async {
+  Future<void> dispose() async {
     await azkarDatabaseHelper.close();
     await fakeHadithDatabaseHelper.close();
     await alarmDatabaseHelper.close();
@@ -64,9 +64,9 @@ class MyAppState extends State<MyApp> {
       ),
       // theme: Themes.yellowTheme,
       // home: const AzkarDashboard(),
-      home: (appData.isFirstOpenToThisRelease
+      home: appData.isFirstOpenToThisRelease
           ? const OnBoardingPage()
-          : const AzkarDashboard()),
+          : const AzkarDashboard(),
     );
   }
 }

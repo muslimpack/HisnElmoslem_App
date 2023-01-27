@@ -153,7 +153,7 @@ class AppData {
         title: "صيام غدا الإثنين",
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: const Time(20, 00, 0),
+        time: const Time(20),
         weekday: AwesomeDay.sunday.value,
         payload: "555",
         needToOpen: false,
@@ -163,7 +163,7 @@ class AppData {
         title: "صيام غدا الخميس",
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: const Time(20, 00, 0),
+        time: const Time(20),
         weekday: AwesomeDay.wednesday.value,
         payload: "666",
         needToOpen: false,
@@ -175,14 +175,16 @@ class AppData {
   }
 
   ///
-  _activateFastAlarm({required bool value}) {
+  void _activateFastAlarm({required bool value}) {
     if (value) {
       awesomeNotificationManager.addCustomWeeklyReminder(
         id: 777,
         title: "sura Al-Kahf".tr,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
-        time: const Time(9, 00, 0),
+        time: const Time(
+          9,
+        ),
         weekday: AwesomeDay.friday.value,
         payload: "الكهف",
         needToOpen: false,

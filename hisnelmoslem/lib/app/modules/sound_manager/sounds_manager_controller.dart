@@ -91,63 +91,74 @@ class SoundsManagerController extends GetxController {
 
   simulateTallySound() async {
     // player.play('sounds/tally_sound.mp3');
-    await player.play(AssetSource('sounds/tally_sound.mp3'),
-        volume: soundEffectVolume);
+    await player.play(
+      AssetSource('sounds/tally_sound.mp3'),
+      volume: soundEffectVolume,
+    );
   }
 
   simulateZikrDoneSound() async {
-    await player.play(AssetSource('sounds/zikr_done_sound.mp3'),
-        volume: soundEffectVolume);
+    await player.play(
+      AssetSource('sounds/zikr_done_sound.mp3'),
+      volume: soundEffectVolume,
+    );
   }
 
   simulateTransitionSound() {}
 
   simulateAllAzkarSoundFinished() async {
-    await player.play(AssetSource('sounds/all_azkar_finished_sound.mp3'),
-        volume: soundEffectVolume);
+    await player.play(
+      AssetSource('sounds/all_azkar_finished_sound.mp3'),
+      volume: soundEffectVolume,
+    );
   }
 
   /////////////////////
   /// Play vibration
 
   simulateTallyVibrate() async {
-    await Vibration.hasCustomVibrationsSupport().then((value) => {
-          if (value!)
-            {Vibration.vibrate(duration: 100)}
-          else
-            {HapticFeedback.lightImpact()}
-        });
+    await Vibration.hasCustomVibrationsSupport().then(
+      (value) => {
+        if (value!)
+          {Vibration.vibrate(duration: 100)}
+        else
+          {HapticFeedback.lightImpact()}
+      },
+    );
   }
 
   simulateZikrDoneVibrate() async {
-    await Vibration.hasCustomVibrationsSupport().then((value) => {
-          if (value!)
-            {Vibration.vibrate(duration: 300)}
-          else
-            {HapticFeedback.mediumImpact()}
-        });
+    await Vibration.hasCustomVibrationsSupport().then(
+      (value) => {
+        if (value!)
+          {Vibration.vibrate(duration: 300)}
+        else
+          {HapticFeedback.mediumImpact()}
+      },
+    );
   }
 
   simulateTransitionVibrate() async {
-    await Vibration.hasCustomVibrationsSupport().then((value) => {
-          if (value!)
-            {Vibration.vibrate(duration: 25)}
-          else
-            {HapticFeedback.vibrate()}
-        });
+    await Vibration.hasCustomVibrationsSupport().then(
+      (value) => {
+        if (value!)
+          {Vibration.vibrate(duration: 25)}
+        else
+          {HapticFeedback.vibrate()}
+      },
+    );
   }
 
-  simulateAllAzkarVibrateFinished() async {
-    await Vibration.hasCustomVibrationsSupport().then((value) => {
-          if (value!)
-            {Vibration.vibrate(duration: 500)}
-          else
-            {HapticFeedback.heavyImpact()}
-        });
+  Future<void> simulateAllAzkarVibrateFinished() async {
+    await Vibration.hasCustomVibrationsSupport().then(
+      (value) => {
+        if (value!) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()}
+      },
+    );
   }
 
   //////////////////////////////
-  playTallyEffects() {
+  void playTallyEffects() {
     if (isTallySoundAllowed) {
       simulateTallySound();
     }
@@ -156,7 +167,7 @@ class SoundsManagerController extends GetxController {
     }
   }
 
-  playZikrDoneEffects() {
+  void playZikrDoneEffects() {
     if (isZikrDoneSoundAllowed) {
       simulateZikrDoneSound();
     }

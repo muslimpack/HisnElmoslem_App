@@ -138,10 +138,12 @@ class Migration {
       for (var i = 0; i < fakeHadiths.length; i++) {
         if (fakeHadiths[i].isRead) {
           await fakeHadithDatabaseHelper.markFakeHadithAsRead(
-              dbFakeHaith: fakeHadiths[i]);
+            dbFakeHaith: fakeHadiths[i],
+          );
         } else {
           await fakeHadithDatabaseHelper.markFakeHadithAsUnRead(
-              dbFakeHaith: fakeHadiths[i]);
+            dbFakeHaith: fakeHadiths[i],
+          );
         }
       }
     } catch (e) {

@@ -15,26 +15,31 @@ class FakehadithAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       bottom: PreferredSize(
-          preferredSize: const Size(0, 50),
-          child: TabBar(
-            indicatorColor: mainColor,
-            tabs: [
-              Tab(
-                child: Text(
-                  "new".tr,
-                  style: const TextStyle(
-                      fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
+        preferredSize: const Size(0, 50),
+        child: TabBar(
+          indicatorColor: mainColor,
+          tabs: [
+            Tab(
+              child: Text(
+                "new".tr,
+                style: const TextStyle(
+                  fontFamily: "Uthmanic",
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Tab(
-                child: Text(
-                  "have been read".tr,
-                  style: const TextStyle(
-                      fontFamily: "Uthmanic", fontWeight: FontWeight.bold),
+            ),
+            Tab(
+              child: Text(
+                "have been read".tr,
+                style: const TextStyle(
+                  fontFamily: "Uthmanic",
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

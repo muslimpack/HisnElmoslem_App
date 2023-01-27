@@ -14,47 +14,49 @@ class FakeHadith extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FakeHadithController>(
-        init: FakeHadithController(),
-        builder: (controller) {
-          return DefaultTabController(
-            length: 2,
-            child: Scaffold(
-              body: ScrollGlowRemover(
-                child: NestedScrollView(
-                  floatHeaderSlivers: true,
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      const FakehadithAppBar(),
-                    ];
-                  },
-                  body: ScrollGlowCustom(
-                    axisDirection: AxisDirection.right,
-                    child: TabBarView(
-                      // controller: tabController,
-                      children: [
-                        FakeHadithUnreadPage(controller: controller),
-                        FakeHadithReadPage(controller: controller),
-                      ],
-                    ),
+      init: FakeHadithController(),
+      builder: (controller) {
+        return DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            body: ScrollGlowRemover(
+              child: NestedScrollView(
+                floatHeaderSlivers: true,
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return [
+                    const FakehadithAppBar(),
+                  ];
+                },
+                body: ScrollGlowCustom(
+                  axisDirection: AxisDirection.right,
+                  child: TabBarView(
+                    // controller: tabController,
+                    children: [
+                      FakeHadithUnreadPage(controller: controller),
+                      FakeHadithReadPage(controller: controller),
+                    ],
                   ),
                 ),
               ),
-              bottomNavigationBar: BottomAppBar(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 3,
-                        child: FontSettingsToolbox(
-                          controllerToUpdate: controller,
-                          showTashkelControllers: false,
-                        )),
-                  ],
-                ),
+            ),
+            bottomNavigationBar: BottomAppBar(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    flex: 3,
+                    child: FontSettingsToolbox(
+                      controllerToUpdate: controller,
+                      showTashkelControllers: false,
+                    ),
+                  ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

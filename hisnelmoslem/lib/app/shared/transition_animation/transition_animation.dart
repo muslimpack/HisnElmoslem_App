@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'circle_clipper.dart';
+import 'package:hisnelmoslem/app/shared/transition_animation/circle_clipper.dart';
 
 TransitionAnimation transitionAnimation = TransitionAnimation();
 
@@ -26,56 +26,64 @@ class TransitionAnimation {
     );
   }
 
-  circleReval({required BuildContext context, required Widget goToPage}) {
-    Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 1000),
-      reverseTransitionDuration: const Duration(milliseconds: 500),
-      opaque: false,
-      barrierDismissible: false,
-      pageBuilder: (context, animation, secondaryAnimation) => goToPage,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var screenSize = MediaQuery.of(context).size;
-        // Offset center = Offset(screenSize.width - 40, screenSize.height - 40);
-        Offset center = Offset(screenSize.width / 2, screenSize.height / 2);
-        double beginRadius = 0.0;
-        double endRadius = screenSize.height * 1.2;
+  void circleReval({required BuildContext context, required Widget goToPage}) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 1000),
+        reverseTransitionDuration: const Duration(milliseconds: 500),
+        opaque: false,
+        pageBuilder: (context, animation, secondaryAnimation) => goToPage,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var screenSize = MediaQuery.of(context).size;
+          // Offset center = Offset(screenSize.width - 40, screenSize.height - 40);
+          Offset center = Offset(screenSize.width / 2, screenSize.height / 2);
+          double beginRadius = 0.0;
+          double endRadius = screenSize.height * 1.2;
 
-        var tween = Tween(begin: beginRadius, end: endRadius);
-        var radiusTweenAnimation = animation.drive(tween);
+          var tween = Tween(begin: beginRadius, end: endRadius);
+          var radiusTweenAnimation = animation.drive(tween);
 
-        return ClipPath(
-          clipper: CircleRevealClipper(
-              radius: radiusTweenAnimation.value, center: center),
-          child: child,
-        );
-      },
-    ));
+          return ClipPath(
+            clipper: CircleRevealClipper(
+              radius: radiusTweenAnimation.value,
+              center: center,
+            ),
+            child: child,
+          );
+        },
+      ),
+    );
   }
 
-  circleRevalPushReplacement(
-      {required BuildContext context, required Widget goToPage}) {
-    Navigator.of(context).pushReplacement(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 1000),
-      reverseTransitionDuration: const Duration(milliseconds: 500),
-      opaque: false,
-      barrierDismissible: false,
-      pageBuilder: (context, animation, secondaryAnimation) => goToPage,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var screenSize = MediaQuery.of(context).size;
-        // Offset center = Offset(screenSize.width - 40, screenSize.height - 40);
-        Offset center = Offset(screenSize.width / 2, screenSize.height / 2);
-        double beginRadius = 0.0;
-        double endRadius = screenSize.height * 1.2;
+  void circleRevalPushReplacement({
+    required BuildContext context,
+    required Widget goToPage,
+  }) {
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 1000),
+        reverseTransitionDuration: const Duration(milliseconds: 500),
+        opaque: false,
+        pageBuilder: (context, animation, secondaryAnimation) => goToPage,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var screenSize = MediaQuery.of(context).size;
+          // Offset center = Offset(screenSize.width - 40, screenSize.height - 40);
+          Offset center = Offset(screenSize.width / 2, screenSize.height / 2);
+          double beginRadius = 0.0;
+          double endRadius = screenSize.height * 1.2;
 
-        var tween = Tween(begin: beginRadius, end: endRadius);
-        var radiusTweenAnimation = animation.drive(tween);
+          var tween = Tween(begin: beginRadius, end: endRadius);
+          var radiusTweenAnimation = animation.drive(tween);
 
-        return ClipPath(
-          clipper: CircleRevealClipper(
-              radius: radiusTweenAnimation.value, center: center),
-          child: child,
-        );
-      },
-    ));
+          return ClipPath(
+            clipper: CircleRevealClipper(
+              radius: radiusTweenAnimation.value,
+              center: center,
+            ),
+            child: child,
+          );
+        },
+      ),
+    );
   }
 }

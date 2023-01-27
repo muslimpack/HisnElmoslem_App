@@ -91,6 +91,8 @@ class FakeHadithController extends GetxController {
     dbContent.source = dbFakeHaith.source;
     //
     transitionAnimation.circleReval(
-        context: Get.context!, goToPage: ShareAsImage(dbContent: dbContent));
+      context: Get.context!,
+      goToPage: ShareAsImage(dbContent: dbContent),
+    );
   }
 }

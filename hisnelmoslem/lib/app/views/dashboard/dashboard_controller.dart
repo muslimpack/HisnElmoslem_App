@@ -47,7 +47,7 @@ class DashboardController extends GetxController
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
 
     ///
@@ -120,10 +120,11 @@ class DashboardController extends GetxController
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-          context: Get.context!,
-          goToPage: const QuranReadPage(
-            surahName: SurahNameEnum.alKahf,
-          ));
+        context: Get.context!,
+        goToPage: const QuranReadPage(
+          surahName: SurahNameEnum.alKahf,
+        ),
+      );
     }
 
     /// ignore constant alarms if clicked
@@ -136,10 +137,14 @@ class DashboardController extends GetxController
       //
       if (appData.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
-            context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
+          context: Get.context!,
+          goToPage: AzkarReadCard(index: pageIndex),
+        );
       } else {
         transitionAnimation.fromBottom2Top(
-            context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+          context: Get.context!,
+          goToPage: AzkarReadPage(index: pageIndex),
+        );
       }
     }
   }

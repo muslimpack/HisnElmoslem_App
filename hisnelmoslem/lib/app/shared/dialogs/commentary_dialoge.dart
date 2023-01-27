@@ -12,7 +12,7 @@ Future<dynamic> showCommentaryDialoge({
   required int contentId,
 }) async {
   // show the dialog
-  return await showDialog(
+  return showDialog(
     barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
@@ -66,44 +66,47 @@ class _CommentaryDialogeState extends State<CommentaryDialoge> {
                 ),
                 centerTitle: true,
                 bottom: PreferredSize(
-                    preferredSize: const Size(0, 48),
-                    child: TabBar(
-                      indicatorColor: mainColor,
-                      tabs: [
-                        Tab(
-                          child: Text(
-                            "Commentary hadith".tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                  preferredSize: const Size(0, 48),
+                  child: TabBar(
+                    indicatorColor: mainColor,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Commentary hadith".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Tab(
-                          child: Text(
-                            "Commentary Benefit".tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Commentary Benefit".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Tab(
-                          child: Text(
-                            "Commentary sharh".tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Commentary sharh".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               body: ScrollGlowCustom(
                 axisDirection: AxisDirection.right,
-                child: TabBarView(children: [
-                  CommentaryPageView(
-                    text: commentary!.hadith,
-                  ),
-                  CommentaryPageView(
-                    text: commentary!.benefit,
-                  ),
-                  CommentaryPageView(
-                    text: commentary!.sharh,
-                  ),
-                ]),
+                child: TabBarView(
+                  children: [
+                    CommentaryPageView(
+                      text: commentary!.hadith,
+                    ),
+                    CommentaryPageView(
+                      text: commentary!.benefit,
+                    ),
+                    CommentaryPageView(
+                      text: commentary!.sharh,
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -44,13 +44,13 @@ class _TallyDialogState extends State<TallyDialog> {
     return DialogMaker(
       height: 350,
       header: Text(
-        (() {
+        () {
           if (widget.isToEdit) {
             return "edit counter".tr;
           } else {
             return "add new counter".tr;
           }
-        }()),
+        }(),
         style: TextStyle(
           fontSize: 25,
           color: mainColor,

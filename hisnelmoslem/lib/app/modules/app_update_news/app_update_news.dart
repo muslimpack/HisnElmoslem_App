@@ -41,41 +41,42 @@ class InnerTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: FixedTimeline.tileBuilder(
-          theme: TimelineTheme.of(context).copyWith(
-            nodePosition: 0,
-            connectorTheme: TimelineTheme.of(context).connectorTheme.copyWith(
-                  thickness: 2.0,
-                ),
-            indicatorTheme: TimelineTheme.of(context).indicatorTheme.copyWith(
-                  size: 10.0,
-                  position: 0.5,
-                ),
-          ),
-          builder: TimelineTileBuilder.connected(
-            connectionDirection: ConnectionDirection.before,
-            itemCount: messages.length,
-            contentsBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      messages[index].toString(),
-                    ),
-                  ],
-                ),
-              );
-            },
-            indicatorBuilder: (_, index) {
-              return const OutlinedDotIndicator(borderWidth: 2);
-            },
-            connectorBuilder: (_, index, ___) => const SolidLineConnector(),
-          ),
-        ));
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: FixedTimeline.tileBuilder(
+        theme: TimelineTheme.of(context).copyWith(
+          nodePosition: 0,
+          connectorTheme: TimelineTheme.of(context).connectorTheme.copyWith(
+                thickness: 2.0,
+              ),
+          indicatorTheme: TimelineTheme.of(context).indicatorTheme.copyWith(
+                size: 10.0,
+                position: 0.5,
+              ),
+        ),
+        builder: TimelineTileBuilder.connected(
+          connectionDirection: ConnectionDirection.before,
+          itemCount: messages.length,
+          contentsBuilder: (_, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    messages[index].toString(),
+                  ),
+                ],
+              ),
+            );
+          },
+          indicatorBuilder: (_, index) {
+            return const OutlinedDotIndicator();
+          },
+          connectorBuilder: (_, index, ___) => const SolidLineConnector(),
+        ),
+      ),
+    );
   }
 }
 
@@ -122,7 +123,8 @@ class AppUpdatesHistory extends StatelessWidget {
                           ),
                     ),
                     InnerTimeline(
-                        messages: updateNewFeature[index][1].split("\n")),
+                      messages: updateNewFeature[index][1].split("\n"),
+                    ),
                   ],
                 ),
               );

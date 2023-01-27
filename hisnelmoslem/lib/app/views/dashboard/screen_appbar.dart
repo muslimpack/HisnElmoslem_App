@@ -21,22 +21,27 @@ class ScreenAppBar extends StatelessWidget {
               controller: controller.searchController,
               autofocus: true,
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  hintText: "search".tr,
-                  contentPadding: const EdgeInsets.only(
-                      left: 15, bottom: 5, top: 5, right: 15),
-                  prefix: IconButton(
-                    icon: const Icon(Icons.clear_all),
-                    onPressed: () {
-                      controller.searchController.clear();
-                      controller.searchZikr();
-                      controller.update();
-                    },
-                  )),
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                hintText: "search".tr,
+                contentPadding: const EdgeInsets.only(
+                  left: 15,
+                  bottom: 5,
+                  top: 5,
+                  right: 15,
+                ),
+                prefix: IconButton(
+                  icon: const Icon(Icons.clear_all),
+                  onPressed: () {
+                    controller.searchController.clear();
+                    controller.searchZikr();
+                    controller.update();
+                  },
+                ),
+              ),
               onChanged: (value) {
                 controller.searchZikr();
               },
@@ -53,33 +58,34 @@ class ScreenAppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: const Size(0, 48),
         child: GetBuilder<RearrangeDashboardPageController>(
-            init: RearrangeDashboardPageController(),
-            builder: (rearrangeController) {
-              return TabBar(
-                indicatorColor: mainColor,
-                controller: controller.tabController,
-                // labelColor: mainColor,
-                // unselectedLabelColor: null,
-                // controller: tabController,
-                tabs: [
-                  ...List.generate(
-                    appDashboardItem.length,
-                    (index) {
-                      hisnPrint("rebuild");
-                      return Tab(
-                        child: Text(
-                          appDashboardItem[rearrangeController.list[index]]
-                              .title,
-                          style: const TextStyle(
-                              fontFamily: "Uthmanic",
-                              fontWeight: FontWeight.bold),
+          init: RearrangeDashboardPageController(),
+          builder: (rearrangeController) {
+            return TabBar(
+              indicatorColor: mainColor,
+              controller: controller.tabController,
+              // labelColor: mainColor,
+              // unselectedLabelColor: null,
+              // controller: tabController,
+              tabs: [
+                ...List.generate(
+                  appDashboardItem.length,
+                  (index) {
+                    hisnPrint("rebuild");
+                    return Tab(
+                      child: Text(
+                        appDashboardItem[rearrangeController.list[index]].title,
+                        style: const TextStyle(
+                          fontFamily: "Uthmanic",
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    },
-                  ),
-                ],
-              );
-            }),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
       actions: [
         controller.isSearching
@@ -92,14 +98,16 @@ class ScreenAppBar extends StatelessWidget {
                   controller.searchedTitle = controller.allTitle;
                   // controller.searchController.clear();
                   controller.update();
-                })
+                },
+              )
             : IconButton(
                 splashRadius: 20,
                 padding: const EdgeInsets.all(0),
                 icon: const Icon(Icons.search),
                 onPressed: () {
                   controller.searchZikr();
-                }),
+                },
+              ),
         controller.isSearching
             ? const SizedBox()
             : IconButton(
@@ -108,7 +116,8 @@ class ScreenAppBar extends StatelessWidget {
                 icon: const Icon(Icons.vertical_split_rounded),
                 onPressed: () {
                   controller.toggleDrawer();
-                }),
+                },
+              ),
       ],
     );
   }

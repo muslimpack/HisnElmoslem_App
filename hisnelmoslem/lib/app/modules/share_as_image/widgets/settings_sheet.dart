@@ -38,7 +38,8 @@ class SettingsSheet extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child: Container(
               decoration: BoxDecoration(
-                  color: Get.theme.scaffoldBackgroundColor.withOpacity(0.5)),
+                color: Get.theme.scaffoldBackgroundColor.withOpacity(0.5),
+              ),
               padding: const EdgeInsets.all(10),
               child: ScrollGlowRemover(
                 child: ListView(
@@ -143,11 +144,11 @@ class SettingsSheet extends StatelessWidget {
                         children: List.generate(
                           shareAsImageController.imageQulityList.length,
                           (index) => GestureDetector(
-                            onTap: (() {
+                            onTap: () {
                               shareAsImageController.updateImageQuality(
-                                  shareAsImageController
-                                      .imageQulityList[index]);
-                            }),
+                                shareAsImageController.imageQulityList[index],
+                              );
+                            },
                             child: Container(
                               width: 60,
                               padding:
@@ -178,7 +179,8 @@ class SettingsSheet extends StatelessWidget {
                       value: shareAsImageData.showZikrIndex,
                       onChanged: (value) {
                         shareAsImageController.toggleShowZikrIndex(
-                            value: value!);
+                          value: value!,
+                        );
                       },
                     ),
                     CheckboxListTile(

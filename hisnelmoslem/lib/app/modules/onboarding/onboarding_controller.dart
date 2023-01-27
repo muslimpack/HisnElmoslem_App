@@ -3,16 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
+import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import '../../shared/transition_animation/transition_animation.dart';
-import '../../shared/widgets/empty.dart';
-import '../../views/dashboard/dashboard.dart';
 
 class OnBoardingController extends GetxController {
   /* *************** Variables *************** */
   //
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController();
 
   //
   bool get isFinalPage => currentPageIndex + 1 == pageList.length;
@@ -113,7 +112,6 @@ class OnBoardingController extends GetxController {
 """,
     ),
     Empty(
-      isImage: true,
       imagePath: "assets/images/qadaa.png",
       icon: MdiIcons.bug,
       title: "تطبيق قضاء",
@@ -124,7 +122,8 @@ class OnBoardingController extends GetxController {
 """,
       onButtonCLick: () => {
         openURL(
-            "https://play.google.com/store/apps/details?id=com.hassaneltantawy.qadaa")
+          "https://play.google.com/store/apps/details?id=com.hassaneltantawy.qadaa",
+        )
       },
       buttonText: "افتح متجر بلاي",
     ),
@@ -133,7 +132,7 @@ class OnBoardingController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     //
     _volumeBtnChannel.setMethodCallHandler((call) {
@@ -152,7 +151,7 @@ class OnBoardingController extends GetxController {
         }
       }
 
-      return Future.value(null);
+      return Future.value();
     });
   }
 
@@ -173,6 +172,8 @@ class OnBoardingController extends GetxController {
   goToDashboard() {
     appData.changIsFirstOpenToThisRelease(false);
     transitionAnimation.circleRevalPushReplacement(
-        context: Get.context!, goToPage: const AzkarDashboard());
+      context: Get.context!,
+      goToPage: const AzkarDashboard(),
+    );
   }
 }

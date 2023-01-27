@@ -24,11 +24,13 @@ class AwesomeNotificationManager {
               context: context,
               builder: (context) => AlertDialog(
                 shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
                 title: Text("Allow app to send notifications?".tr),
                 content: Text(
-                    "Hisn ELmoslem need notification permission to send zikr reminders."
-                        .tr),
+                  "Hisn ELmoslem need notification permission to send zikr reminders."
+                      .tr,
+                ),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -302,10 +304,11 @@ class AwesomeNotificationManager {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-          context: Get.context!,
-          goToPage: const QuranReadPage(
-            surahName: SurahNameEnum.alKahf,
-          ));
+        context: Get.context!,
+        goToPage: const QuranReadPage(
+          surahName: SurahNameEnum.alKahf,
+        ),
+      );
     }
 
     /// ignore constant alarms if clicked
@@ -318,10 +321,14 @@ class AwesomeNotificationManager {
       //
       if (appData.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
-            context: Get.context!, goToPage: AzkarReadCard(index: pageIndex));
+          context: Get.context!,
+          goToPage: AzkarReadCard(index: pageIndex),
+        );
       } else {
         transitionAnimation.fromBottom2Top(
-            context: Get.context!, goToPage: AzkarReadPage(index: pageIndex));
+          context: Get.context!,
+          goToPage: AzkarReadPage(index: pageIndex),
+        );
       }
     }
   }

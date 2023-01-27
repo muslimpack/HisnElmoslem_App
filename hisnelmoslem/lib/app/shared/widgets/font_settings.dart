@@ -24,49 +24,50 @@ class FontSettingsToolbox extends StatelessWidget {
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-            flex: 1,
             child: IconButton(
-                icon: const Icon(MdiIcons.restart),
-                onPressed: () {
-                  appData.resetFontSize();
-                  controllerToUpdate.update();
-                }),
+              icon: const Icon(MdiIcons.restart),
+              onPressed: () {
+                appData.resetFontSize();
+                controllerToUpdate.update();
+              },
+            ),
           ),
         ),
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-            flex: 1,
             child: IconButton(
-                icon: const Icon(MdiIcons.formatFontSizeIncrease),
-                onPressed: () {
-                  appData.increaseFontSize();
-                  controllerToUpdate.update();
-                }),
+              icon: const Icon(MdiIcons.formatFontSizeIncrease),
+              onPressed: () {
+                appData.increaseFontSize();
+                controllerToUpdate.update();
+              },
+            ),
           ),
         ),
         Visibility(
           visible: showFontResizeControllers,
           child: Expanded(
-            flex: 1,
             child: IconButton(
-                icon: const Icon(MdiIcons.formatFontSizeDecrease),
-                onPressed: () {
-                  appData.decreaseFontSize();
-                  controllerToUpdate.update();
-                }),
+              icon: const Icon(MdiIcons.formatFontSizeDecrease),
+              onPressed: () {
+                appData.decreaseFontSize();
+                controllerToUpdate.update();
+              },
+            ),
           ),
         ),
         Visibility(
           visible: showTashkelControllers,
           child: Expanded(
-              flex: 1,
-              child: IconButton(
-                  icon: const Icon(MdiIcons.abjadArabic),
-                  onPressed: () {
-                    appData.toggleTashkelStatus();
-                    controllerToUpdate.update();
-                  })),
+            child: IconButton(
+              icon: const Icon(MdiIcons.abjadArabic),
+              onPressed: () {
+                appData.toggleTashkelStatus();
+                controllerToUpdate.update();
+              },
+            ),
+          ),
         ),
       ],
     );
@@ -92,12 +93,16 @@ class TextSample extends StatelessWidget {
               appData.isTashkelEnabled
                   ? text
                   : text.replaceAll(
-                      RegExp(String.fromCharCodes(arabicTashkelChar)), ""),
+                      RegExp(String.fromCharCodes(arabicTashkelChar)),
+                      "",
+                    ),
               textAlign: TextAlign.center,
               softWrap: true,
               textDirection: TextDirection.rtl,
               style: TextStyle(
-                  fontSize: appData.fontSize * 10, fontWeight: FontWeight.bold),
+                fontSize: appData.fontSize * 10,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

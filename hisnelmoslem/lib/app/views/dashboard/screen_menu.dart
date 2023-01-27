@@ -36,7 +36,6 @@ class ScreenMenu extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/images/app_icon.png',
@@ -44,12 +43,10 @@ class ScreenMenu extends StatelessWidget {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text("Hisn Elmoslem App".tr),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
                               appVersion,
@@ -79,7 +76,6 @@ class ScreenMenu extends StatelessWidget {
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
                   child: ScrollGlowRemover(
@@ -137,10 +133,11 @@ class ScreenMenu extends StatelessWidget {
                             title: Text("sura Al-Mulk".tr),
                             onTap: () {
                               transitionAnimation.fromBottom2Top(
-                                  context: context,
-                                  goToPage: const QuranReadPage(
-                                    surahName: SurahNameEnum.alMulk,
-                                  ));
+                                context: context,
+                                goToPage: const QuranReadPage(
+                                  surahName: SurahNameEnum.alMulk,
+                                ),
+                              );
                             },
                           ),
                         ),

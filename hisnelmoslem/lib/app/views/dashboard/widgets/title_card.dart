@@ -65,7 +65,8 @@ class TitleCard extends StatelessWidget {
                   onPressed: () {
                     //
                     azkarDatabaseHelper.addTitleToFavourite(
-                        dbTitle: fehrsTitle);
+                      dbTitle: fehrsTitle,
+                    );
                     fehrsTitle.favourite = true;
                     //
                     controller.allTitle[fehrsTitle.orderId - 1] = fehrsTitle;

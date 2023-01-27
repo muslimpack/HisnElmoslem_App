@@ -10,9 +10,10 @@ class Loading extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-          mainColor,
-        )),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            mainColor,
+          ),
+        ),
       ),
     );
   }

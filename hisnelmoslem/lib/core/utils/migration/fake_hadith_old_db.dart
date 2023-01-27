@@ -47,7 +47,7 @@ class FakeHadithOldDBHelper {
       await _copyFromAssets(path: path);
     }
 
-    return await openDatabase(
+    return  openDatabase(
       path,
       version: dbVersion,
       onCreate: _onCreateDatabase,
@@ -126,7 +126,9 @@ class FakeHadithOldDBHelper {
     final db = await database;
 
     await db.rawUpdate(
-        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [1, dbFakeHaith.id]);
+      'UPDATE fakehadith SET isRead = ? WHERE _id = ?',
+      [1, dbFakeHaith.id],
+    );
   }
 
   // Mark hadith as unread
@@ -134,7 +136,9 @@ class FakeHadithOldDBHelper {
     final db = await database;
 
     await db.rawUpdate(
-        'UPDATE fakehadith SET isRead = ? WHERE _id = ?', [0, dbFakeHaith.id]);
+      'UPDATE fakehadith SET isRead = ? WHERE _id = ?',
+      [0, dbFakeHaith.id],
+    );
   }
 
   // Close database

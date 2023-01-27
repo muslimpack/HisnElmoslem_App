@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
+import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
 
-import '../../app/shared/functions/get_snackbar.dart';
-
 AlarmManager alarmManager = AlarmManager();
 
 class AlarmManager {
-  alarmState({required DbAlarm dbAlarm, bool showMsg = true}) async {
+  Future<void> alarmState(
+      {required DbAlarm dbAlarm, bool showMsg = true}) async {
     if (dbAlarm.isActive) {
       // Get.snackbar("رسالة", "تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
@@ -26,7 +26,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
           );
           break;
@@ -35,7 +35,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.saturday.value,
           );
@@ -45,7 +45,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.sunday.value,
           );
@@ -55,7 +55,10 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(
+              dbAlarm.hour,
+              dbAlarm.minute,
+            ),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.monday.value,
           );
@@ -65,7 +68,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.tuesday.value,
           );
@@ -75,7 +78,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.wednesday.value,
           );
@@ -85,7 +88,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.thursday.value,
           );
@@ -95,7 +98,7 @@ class AlarmManager {
             id: dbAlarm.titleId,
             title: dbAlarm.title,
             body: dbAlarm.body,
-            time: Time(dbAlarm.hour, dbAlarm.minute, 0),
+            time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.friday.value,
           );

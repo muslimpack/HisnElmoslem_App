@@ -14,10 +14,11 @@ class AzkarFehrs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashboardController>(builder: (controller) {
-      List<DbTitle> titleListToDisplay = controller.searchedTitle;
-      return Scaffold(
-        body: Scrollbar(
+    return GetBuilder<DashboardController>(
+      builder: (controller) {
+        List<DbTitle> titleListToDisplay = controller.searchedTitle;
+        return Scaffold(
+          body: Scrollbar(
             controller: controller.fehrsScrollController,
             thumbVisibility: false,
             child: titleListToDisplay.isEmpty
@@ -33,23 +34,27 @@ class AzkarFehrs extends StatelessWidget {
                       itemCount: titleListToDisplay.length,
                       itemBuilder: (context, index) {
                         return FutureBuilder(
-                            future: alarmDatabaseHelper.getAlarmByZikrTitle(
-                                dbTitle: titleListToDisplay[index]),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return TitleCard(
-                                  index: index,
-                                  fehrsTitle: titleListToDisplay[index],
-                                  dbAlarm: snapshot.data as DbAlarm,
-                                );
-                              } else {
-                                return const ListTile();
-                              }
-                            });
+                          future: alarmDatabaseHelper.getAlarmByZikrTitle(
+                            dbTitle: titleListToDisplay[index],
+                          ),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return TitleCard(
+                                index: index,
+                                fehrsTitle: titleListToDisplay[index],
+                                dbAlarm: snapshot.data as DbAlarm,
+                              );
+                            } else {
+                              return const ListTile();
+                            }
+                          },
+                        );
                       },
                     ),
-                  )),
-      );
-    });
+                  ),
+          ),
+        );
+      },
+    );
   }
 }

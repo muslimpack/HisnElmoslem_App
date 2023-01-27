@@ -16,18 +16,22 @@ class ShareAsImageData {
   final String bodyTextColorBoxKey = 'share_image_body_text_color';
 
   Color get bodyTextColor => Color(
-      box.read<int?>(bodyTextColorBoxKey) ?? shareAsImageColorsList[5].value);
+        box.read<int?>(bodyTextColorBoxKey) ?? shareAsImageColorsList[5].value,
+      );
 
   final String additionalTextColorBoxKey = 'share_image_additional_text_color';
 
-  Color get additionalTextColor =>
-      Color(box.read<int?>(additionalTextColorBoxKey) ??
-          shareAsImageColorsList[3].value);
+  Color get additionalTextColor => Color(
+        box.read<int?>(additionalTextColorBoxKey) ??
+            shareAsImageColorsList[3].value,
+      );
 
   final String backgroundColorBoxKey = 'share_image_background_color';
 
   Color get backgroundColor => Color(
-      box.read<int?>(backgroundColorBoxKey) ?? shareAsImageColorsList[9].value);
+        box.read<int?>(backgroundColorBoxKey) ??
+            shareAsImageColorsList[9].value,
+      );
 
   final String fontSizeBoxKey = 'share_image_font_size';
 
@@ -61,5 +65,4 @@ class ShareAsImageData {
 
   double get imageQuality => box.read(imageQualityBoxKey) ?? 2;
   /////////////////////
-
 }

@@ -20,7 +20,7 @@ class QuranPageController extends GetxController {
 
   //
   final quranReadPageScaffoldKey = GlobalKey<ScaffoldState>();
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController();
   int currentPage = 0;
 
   //
@@ -36,7 +36,7 @@ class QuranPageController extends GetxController {
   /* *************** Controller life cycle *************** */
   //
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     // hide status bar
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -61,7 +61,7 @@ class QuranPageController extends GetxController {
         }
       }
 
-      return Future.value(null);
+      return Future.value();
     });
 
     isLoading = false;
@@ -76,8 +76,10 @@ class QuranPageController extends GetxController {
     //
     _volumeBtnChannel.setMethodCallHandler(null);
     //
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
   }
 
   /* *************** Functions *************** */

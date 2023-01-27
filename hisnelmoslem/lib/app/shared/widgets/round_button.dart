@@ -7,12 +7,13 @@ class RoundButton extends StatelessWidget {
   final double radius;
   final bool isTransparent;
 
-  const RoundButton(
-      {super.key,
-      required this.text,
-      required this.onTap,
-      this.radius = 5.0,
-      this.isTransparent = false});
+  const RoundButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.radius = 5.0,
+    this.isTransparent = false,
+  });
 
   @override
   Widget build(BuildContext context) {

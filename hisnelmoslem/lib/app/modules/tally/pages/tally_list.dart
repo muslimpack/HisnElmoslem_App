@@ -11,35 +11,37 @@ class TallyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<TallyController>(builder: (controller) {
-      return controller.isLoading
-          ? const Loading()
-          : Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: ScrollGlowCustom(
-                child: ListView.separated(
-                  itemCount: controller.allTally.length,
-                  itemBuilder: (context, index) {
-                    return TallyCard(dbTally: controller.allTally[index]);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
-                ),
-              ),
-              floatingActionButton: Align(
-                alignment: Alignment.bottomCenter,
-                child: FloatingActionButton(
-                  child: const Icon(
-                    MdiIcons.plus,
-                    size: 40,
+    return GetBuilder<TallyController>(
+      builder: (controller) {
+        return controller.isLoading
+            ? const Loading()
+            : Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: ScrollGlowCustom(
+                  child: ListView.separated(
+                    itemCount: controller.allTally.length,
+                    itemBuilder: (context, index) {
+                      return TallyCard(dbTally: controller.allTally[index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider();
+                    },
                   ),
-                  onPressed: () {
-                    controller.createNewTally();
-                  },
                 ),
-              ),
-            );
-    });
+                floatingActionButton: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FloatingActionButton(
+                    child: const Icon(
+                      MdiIcons.plus,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      controller.createNewTally();
+                    },
+                  ),
+                ),
+              );
+      },
+    );
   }
 }
