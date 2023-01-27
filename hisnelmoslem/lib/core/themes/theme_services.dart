@@ -25,25 +25,24 @@ class ThemeServices {
   }
 
   /// Save Changes to storage
-  static void changeAppThemeModeStatus(AppThemeMode? val) {
-    final stringfyVal = EnumToString.convertToString(val);
+  static void changeAppThemeModeStatus(AppThemeMode? value) {
+    final stringfyVal = EnumToString.convertToString(value);
     box.write(storeKey, stringfyVal);
-    // box.write(storeKey, val);
   }
 
   /// Get AppTheme and change themes depend on its values
-  static void handleThemeChange(AppThemeMode? val) {
+  static void handleThemeChange(AppThemeMode? value) {
     try {
-      changeAppThemeModeStatus(val);
-      if (val == AppThemeMode.light) {
+      changeAppThemeModeStatus(value);
+      if (value == AppThemeMode.light) {
         Get.changeTheme(Themes.light);
-      } else if (val == AppThemeMode.dark) {
+      } else if (value == AppThemeMode.dark) {
         Get.changeTheme(Themes.dark);
-      } else if (val == AppThemeMode.defaultDark) {
+      } else if (value == AppThemeMode.defaultDark) {
         Get.changeTheme(Themes.darkDefault);
-      } else if (val == AppThemeMode.yellowTheme) {
+      } else if (value == AppThemeMode.yellowTheme) {
         Get.changeTheme(Themes.yellowTheme);
-      } else if (val == AppThemeMode.trueblack) {
+      } else if (value == AppThemeMode.trueblack) {
         Get.changeTheme(Themes.trueBlack);
       }
     } catch (e) {

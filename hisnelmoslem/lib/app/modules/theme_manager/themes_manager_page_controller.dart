@@ -21,9 +21,9 @@ class ThemesManagerPageController extends GetxController {
   /* *************** Functions *************** */
 
   ///
-  void handleThemeChange(AppThemeMode? val) {
-    appThemeModeEnum = val;
-    ThemeServices.handleThemeChange(val);
+  void handleThemeChange(AppThemeMode? value) {
+    appThemeModeEnum = value;
+    ThemeServices.handleThemeChange(value);
     Get.forceAppUpdate();
     update();
   }

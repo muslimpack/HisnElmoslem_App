@@ -22,11 +22,12 @@ class AppData {
   /// If it is true then
   /// page mode will be card mode
   /// if not page mode will be page
-  void changeReadModeStatus(bool val) => box.write('is_card_read_mode', val);
+  void changeReadModeStatus({required bool value}) =>
+      box.write('is_card_read_mode', value);
 
   ///
   void toggleReadModeStatus() {
-    changeReadModeStatus(!isCardReadMode);
+    changeReadModeStatus(value: !isCardReadMode);
   }
 
   /* ******* Font Size ******* */
@@ -36,8 +37,7 @@ class AppData {
 
   /// set font size
   void changFontSize(double value) {
-    value.clamp(1.5, 4);
-    box.write('font_size', value);
+    box.write('font_size', value.clamp(1.5, 4));
   }
 
   /// increase font size by .2
@@ -90,11 +90,12 @@ class AppData {
   bool get isTashkelEnabled => box.read('tashkel_status') ?? true;
 
   /// set tashkel status
-  void changTashkelStatus(bool value) => box.write('tashkel_status', value);
+  void changTashkelStatus({required bool value}) =>
+      box.write('tashkel_status', value);
 
   ///
   void toggleTashkelStatus() {
-    changTashkelStatus(!isTashkelEnabled);
+    changTashkelStatus(value: !isTashkelEnabled);
   }
 
   /* ******* Surat al kahf alarm ******* */
@@ -103,14 +104,14 @@ class AppData {
   bool get isCaveAlarmEnabled => box.read('cave_status') ?? false;
 
   /// set Surat al kahf alarm status
-  void changCaveAlarmStatus(bool value) {
+  void changCaveAlarmStatus({required bool value}) {
     box.write('cave_status', value);
     _activateCaveAlarm(value: value);
   }
 
   ///
   void toggleCaveAlarmStatus() {
-    changCaveAlarmStatus(!isCaveAlarmEnabled);
+    changCaveAlarmStatus(value: !isCaveAlarmEnabled);
   }
 
   /* ******* monday and thursday fast alarm ******* */
@@ -119,14 +120,14 @@ class AppData {
   bool get isFastAlarmEnabled => box.read('fast_status') ?? false;
 
   /// set monday and thursday fast alarm alarm status
-  void changFastAlarmStatus(bool value) {
+  void changFastAlarmStatus({required bool value}) {
     box.write('fast_status', value);
     _activateFastAlarm(value: value);
   }
 
   ///
   void toggleFastAlarmStatus() {
-    changFastAlarmStatus(!isFastAlarmEnabled);
+    changFastAlarmStatus(value: !isFastAlarmEnabled);
   }
 
   /* ******* Share as image ******* */
@@ -137,7 +138,7 @@ class AppData {
       box.read("is_${appVersion}_first_open") ?? true;
 
   /// Change is first open to this release
-  void changIsFirstOpenToThisRelease(bool value) {
+  void changIsFirstOpenToThisRelease({required bool value}) {
     box.write("is_${appVersion}_first_open", value);
   }
 

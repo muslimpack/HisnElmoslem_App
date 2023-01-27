@@ -77,7 +77,7 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isTallyVibrateAllowed,
                   onChanged: (value) {
-                    controller.changeTallyVibrateStatus(value);
+                    controller.changeTallyVibrateStatus(value: value);
 
                     if (value) {
                       controller.simulateTallyVibrate();
@@ -99,7 +99,7 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isTallySoundAllowed,
                   onChanged: (value) {
-                    controller.changeTallySoundStatus(value);
+                    controller.changeTallySoundStatus(value: value);
 
                     if (value) {
                       controller.simulateTallySound();
@@ -121,7 +121,7 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isZikrDoneVibrateAllowed,
                   onChanged: (value) {
-                    controller.changeZikrDoneVibrateStatus(value);
+                    controller.changeZikrDoneVibrateStatus(value: value);
 
                     if (value) {
                       controller.simulateZikrDoneVibrate();
@@ -142,7 +142,7 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isZikrDoneSoundAllowed,
                   onChanged: (value) {
-                    controller.changeZikrDoneSoundStatus(value);
+                    controller.changeZikrDoneSoundStatus(value: value);
 
                     if (value) {
                       controller.simulateZikrDoneSound();
@@ -163,7 +163,9 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isAllAzkarFinishedVibrateAllowed,
                   onChanged: (value) {
-                    controller.changeAllAzkarFinishedVibrateStatus(value);
+                    controller.changeAllAzkarFinishedVibrateStatus(
+                      value: value,
+                    );
 
                     if (value) {
                       controller.simulateAllAzkarVibrateFinished();
@@ -184,7 +186,7 @@ class SoundsManagerPage extends StatelessWidget {
                   activeColor: mainColor,
                   value: controller.isAllAzkarFinishedSoundAllowed,
                   onChanged: (value) {
-                    controller.changeAllAzkarFinishedSoundStatus(value);
+                    controller.changeAllAzkarFinishedSoundStatus(value: value);
 
                     if (value) {
                       controller.simulateAllAzkarSoundFinished();

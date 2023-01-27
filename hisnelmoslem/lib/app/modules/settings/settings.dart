@@ -151,7 +151,7 @@ class Settings extends StatelessWidget {
                   activeColor: mainColor,
                   value: appData.isFastAlarmEnabled,
                   onChanged: (value) {
-                    appData.changFastAlarmStatus(value);
+                    appData.changFastAlarmStatus(value: value);
 
                     if (appData.isFastAlarmEnabled) {
                       getSnackbar(
@@ -178,7 +178,7 @@ class Settings extends StatelessWidget {
                   activeColor: mainColor,
                   value: appData.isCaveAlarmEnabled,
                   onChanged: (value) {
-                    appData.changCaveAlarmStatus(value);
+                    appData.changCaveAlarmStatus(value: value);
 
                     if (appData.isCaveAlarmEnabled) {
                       getSnackbar(

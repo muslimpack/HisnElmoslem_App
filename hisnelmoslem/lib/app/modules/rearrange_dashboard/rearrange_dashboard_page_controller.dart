@@ -30,8 +30,8 @@ class RearrangeDashboardPageController extends GetxController {
   String get listArrangeString => box.read('list_arrange') ?? "";
 
   /// set Tally  Transition Vibrate mode
-  void changeListArrange(String val) {
-    box.write('list_arrange', val);
+  void changeListArrange(String value) {
+    box.write('list_arrange', value);
     update();
   }
 

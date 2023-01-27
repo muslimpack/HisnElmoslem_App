@@ -37,8 +37,8 @@ class FontFamilyPageController extends GetxController {
   String get activeFont => appData.fontFamily;
 
   /// set Tally  Transition Vibrate mode
-  void changeFontFamily(String val) {
-    appData.changFontFamily(val);
+  void changeFontFamily(String value) {
+    appData.changFontFamily(value);
     Get.forceAppUpdate();
     update();
   }
