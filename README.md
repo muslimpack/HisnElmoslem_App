@@ -4,7 +4,7 @@
 
 # تطبيق حصن المسلم
 
-[![version](https://img.shields.io/badge/version-2.3.0-cyan.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
+[![version](https://img.shields.io/badge/version-2.4.0-cyan.svg)](https://github.com/HasanEltantawy/HisnElmoslem_App/tree/master/hisnelmoslem)
 [![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
@@ -47,6 +47,17 @@
 # مميزات التطبيق
 
 <details open>
+<summary>v2.4.0</summary>
+
+- التحكم في مستوى الصوت للمؤثرات
+- القائمة الجانبية تتغير مع تغير لغة التطبيق
+- حل مشكلة عداد المئة في السبحة
+- حل مشكلة عدم توجه التطبيق للذكر عند الضغط على البدء من الإشعارات
+- بعض التحسينات على الأداء
+
+</details>
+
+<details close>
 <summary>v2.3.0</summary>
 
 - اضافة شرح للأذكار يتضمن الحديث والفوائد والشرح لكل ذكر من الأذكار

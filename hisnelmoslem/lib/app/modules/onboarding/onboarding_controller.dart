@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
+import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class OnBoardingController extends GetxController {
@@ -28,7 +29,7 @@ class OnBoardingController extends GetxController {
   //
   final pageList = [
     const Empty(
-      title: "حصن المسلم الإصدار 2.3.0",
+      title: "حصن المسلم الإصدار $appVersion",
       description: '''
 السلام عليكم أيها الموفق 
 أهلا بك في تحديث جديد من حصن المسلم
@@ -38,78 +39,28 @@ class OnBoardingController extends GetxController {
     ),
     const Empty(
       isImage: false,
-      icon: MdiIcons.comment,
-      title: "إضافة شرح للأذكار",
-      description: """
-شرح للأذكار يتضمن الحديث والفوائد والشرح لكل ذكر من الأذكار""",
+      icon: MdiIcons.volumeSource,
+      title: "التحكم في مستوى صوت التأثيرات",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.palette,
-      title: "أسود غريب",
-      description: """
-وضع جديد لألوان التطبيق "أسود غريب"
-من الاعدادات إدارة ألوان التطبيق""",
+      icon: Icons.vertical_split_rounded,
+      title: "القائمة الجانبية تتغير مع تغير لغة التطبيق",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.translate,
-      title: "ترجمة الواجهة للإنجليزية",
-      description: """
-اضافة ترجمة انجليزية للواجهة
-'يلزم إعادة تشغيل التطبيق لتطبيقها  في بعض الأماكن'""",
-    ),
-    const Empty(
-      isImage: false,
-      icon: Icons.shuffle,
-      title: "السبحة المتغيرة",
-      description: """
-اضافة خاصية جديدة للسبحة وهي الأذكار المتغيرة
-بتفعيلها يقوم التطبيق بتديل عشوائي للأذكار أمامك""",
+      icon: Icons.watch,
+      title: "حل مشكلة عداد المئة في السبحة",
     ),
     const Empty(
       isImage: false,
       icon: Icons.notifications,
-      title: "تعديل التنبيهات من الواجهة مباشرة",
-      description: """
-يمكنك الآن تعديل المنبهات من الواجهة مباشرة
-عن طريق الضغط المطول على أيقونة الإشعارات وهي مفعلة""",
+      title: "حل مشكلة عدم توجه التطبيق للذكر عند الضغط على البدء من الإشعارات",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.brush,
-      title: "شريط تقدم إضافي",
-      description: """
-اضافة شريط اضافي لتقدمك
-عند قراءة الأذكار يقوم بحساب كل تسبيحة""",
-    ),
-    const Empty(
-      isImage: false,
-      icon: Icons.brush,
-      title: "تعديلات في الواجهة",
-      description: """
-- بعض التعديلات في القائمة الجانبية في الصفحة الرئيسية
-- بعض التعديلات في واجهة مشاركة الذكر كصورة
-- يمكنك الآن حذف التشكيل عند مشاركة الذكر كصورة
-""",
-    ),
-    const Empty(
-      isImage: false,
-      icon: MdiIcons.camera,
-      title: "مشاركة كصورة",
-      description: """
-مشاركة الأحاديث المنتشرة التي لا تصح كصورة
-""",
-    ),
-    const Empty(
-      isImage: false,
-      icon: MdiIcons.bugOutline,
-      title: "المشاكل التي تم حلها",
-      description: """
-- إصلاح الخلل الذي يسبب توقف التطبيق على هواتف من اصدار أندرويد 13
-- إصلاح الخلل الخاص بارسال الأخطاء الإملائية
-- اصلاح الخلل الذي يظهر عند اضافة عداد جديد في السبحة
-""",
+      icon: MdiIcons.toolbox,
+      title: "بعض التحسينات على الأداء",
     ),
     Empty(
       imagePath: "assets/images/qadaa.png",
