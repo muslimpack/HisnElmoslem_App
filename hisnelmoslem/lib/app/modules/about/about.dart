@@ -64,7 +64,7 @@ class About extends StatelessWidget {
             title: Text("Official Website".tr),
             subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
             onTap: () {
-              openURL("www.binwahaf.com");
+              openURL("https://www.binwahaf.com/");
             },
           ),
           const Divider(),

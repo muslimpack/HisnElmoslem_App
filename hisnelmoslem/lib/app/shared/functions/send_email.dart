@@ -10,8 +10,6 @@ Future<void> sendEmail({
   try {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
     }
   } catch (e) {
     hisnPrint(e.toString());
