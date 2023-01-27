@@ -15,8 +15,8 @@ class Commentary {
 
   factory Commentary.fromMap(Map<String, dynamic> map) {
     return Commentary(
-      id: map['_id'],
-      contentId: map['content_id'],
+      id: map['_id'] as int,
+      contentId: map['content_id'] as int,
       sharh: (map['sharh'] as String).replaceAll("\\n", "\n"),
       hadith: ((map['hadith'] ?? "") as String).replaceAll("\\n", "\n"),
       benefit: ((map['benefit'] ?? "") as String).replaceAll("\\n", "\n"),

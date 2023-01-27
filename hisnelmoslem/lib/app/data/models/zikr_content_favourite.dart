@@ -10,10 +10,16 @@ class DbContentFavourite {
   });
 
   factory DbContentFavourite.fromMap(Map<String, dynamic> map) {
+    bool favourite;
+    if ((map['favourite'] ?? 0) == 0) {
+      favourite = false;
+    } else {
+      favourite = true;
+    }
     return DbContentFavourite(
-      id: map['_id'],
-      contentId: map['content_id'],
-      favourite: (map['favourite'] ?? 0) == 0 ? false : true,
+      id: map['_id'] as int,
+      contentId: map['content_id'] as int,
+      favourite: favourite,
     );
   }
 

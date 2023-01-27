@@ -111,7 +111,7 @@ class QuranPageController extends GetxController {
 
     final quranJson = json.decode(data);
     for (final quranJson in quranJson) {
-      quran.add(Quran.fromJson(quranJson));
+      quran.add(Quran.fromJson(quranJson as Map<String, dynamic>));
     }
 
     return quran;

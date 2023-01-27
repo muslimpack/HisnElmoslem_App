@@ -10,10 +10,16 @@ class DbFakeHadithRead {
   });
 
   factory DbFakeHadithRead.fromMap(Map<String, dynamic> map) {
+    bool isRead;
+    if ((map['isRead'] ?? 0) == 0) {
+      isRead = false;
+    } else {
+      isRead = true;
+    }
     return DbFakeHadithRead(
-      id: map['_id'],
-      hadithId: map['hadith_id'],
-      isRead: (map['isRead'] ?? 0) == 0 ? false : true,
+      id: map['_id'] as int,
+      hadithId: map['hadith_id'] as int,
+      isRead: isRead,
     );
   }
 

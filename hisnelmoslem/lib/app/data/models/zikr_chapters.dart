@@ -11,9 +11,9 @@ class DbChapter {
 
   factory DbChapter.fromMap(Map<String, dynamic> map) {
     return DbChapter(
-      id: map['_id'],
-      name: map['name'],
-      orderId: map['order_id'],
+      id: map['_id'] as int,
+      name: map['name'] as String,
+      orderId: map['order_id'] as int,
     );
   }
 

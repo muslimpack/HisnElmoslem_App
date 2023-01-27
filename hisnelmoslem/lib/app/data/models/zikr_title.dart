@@ -14,13 +14,19 @@ class DbTitle {
   });
 
   factory DbTitle.fromMap(Map<String, dynamic> map) {
+    bool favourite;
+    if ((map['favourite'] ?? 0) == 0) {
+      favourite = false;
+    } else {
+      favourite = true;
+    }
     return DbTitle(
-      id: map['_id'],
-      name: map['name'],
-      chapterId: map['chapter_id'],
-      orderId: map['order_id'],
+      id: map['_id'] as int,
+      name: map['name'] as String,
+      chapterId: map['chapter_id'] as int,
+      orderId: map['order_id'] as int,
       // favourite: false,
-      favourite: (map['favourite'] ?? 0) == 0 ? false : true,
+      favourite: favourite,
     );
   }
 

@@ -18,14 +18,20 @@ class DbTally {
   });
 
   factory DbTally.fromMap(Map<String, dynamic> map) {
+    bool isActivated;
+    if ((map['isActivated'] ?? 0) == 0) {
+      isActivated = false;
+    } else {
+      isActivated = true;
+    }
     return DbTally(
-      id: map['id'],
-      title: map['title'],
-      count: map['count'],
-      countReset: map['countReset'],
-      isActivated: (map['isActivated'] ?? 0) == 0 ? false : true,
-      created: DateTime.parse(map['created']),
-      lastUpdate: DateTime.parse(map['lastUpdate']),
+      id: map['id'] as int,
+      title: map['title'] as String,
+      count: map['count'] as int,
+      countReset: map['countReset'] as int,
+      isActivated: isActivated,
+      created: DateTime.parse(map['created'] as String),
+      lastUpdate: DateTime.parse(map['lastUpdate'] as String),
     );
   }
 

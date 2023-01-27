@@ -22,16 +22,22 @@ class DbContent {
   });
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
+    bool favourite;
+    if ((map['favourite'] ?? 0) == 0) {
+      favourite = false;
+    } else {
+      favourite = true;
+    }
     return DbContent(
-      id: map['_id'],
+      id: map['_id'] as int,
       content: (map['content'] as String).replaceAll("\\n", "\n"),
-      chapterId: map['chapter_id'],
-      titleId: map['title_id'],
-      orderId: map['order_id'],
-      count: map['count'],
+      chapterId: map['chapter_id'] as int,
+      titleId: map['title_id'] as int,
+      orderId: map['order_id'] as int,
+      count: map['count'] as int,
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: (map['favourite'] ?? 0) == 0 ? false : true,
+      favourite: favourite,
     );
   }
 

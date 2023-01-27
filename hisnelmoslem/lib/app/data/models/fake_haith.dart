@@ -14,12 +14,18 @@ class DbFakeHaith {
   });
 
   factory DbFakeHaith.fromMap(Map<String, dynamic> map) {
+    bool isRead;
+    if ((map['isRead'] ?? 0) == 0) {
+      isRead = false;
+    } else {
+      isRead = true;
+    }
     return DbFakeHaith(
-      id: map['_id'],
-      source: map['source'],
+      id: map['_id'] as int,
+      source: map['source'] as String,
       text: (map['text'] as String).replaceAll("\\n", "\n"),
       darga: (map['darga'] as String).replaceAll("\\n", "\n"),
-      isRead: (map['isRead'] ?? 0) == 0 ? false : true,
+      isRead: isRead,
     );
   }
 

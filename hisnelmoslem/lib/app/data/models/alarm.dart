@@ -22,15 +22,21 @@ class DbAlarm {
   });
 
   factory DbAlarm.fromMap(Map<String, dynamic> map) {
+    bool isActive;
+    if ((map['isActive'] ?? 0) == 0) {
+      isActive = false;
+    } else {
+      isActive = true;
+    }
     return DbAlarm(
-      id: map['id'],
-      title: map['title'],
-      titleId: map['titleId'],
+      id: map['id'] as int,
+      title: map['title'] as String,
+      titleId: map['titleId'] as int,
       body: (map['body'] ?? "") as String,
-      repeatType: map['repeatType'],
-      hour: map['hour'],
-      minute: map['minute'],
-      isActive: (map['isActive'] ?? 0) == 0 ? false : true,
+      repeatType: map['repeatType'] as String,
+      hour: map['hour'] as int,
+      minute: map['minute'] as int,
+      isActive: isActive,
       hasAlarmInside: true,
     );
   }
