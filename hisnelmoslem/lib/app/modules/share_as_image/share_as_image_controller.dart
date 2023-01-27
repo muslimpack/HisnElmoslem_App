@@ -136,7 +136,8 @@ class ShareAsImageController extends GetxController {
 
   // ******************************************* //
   Future<void> changFontSize(double value) async {
-    await box.write(shareAsImageData.fontSizeBoxKey, value.clamp(10, 70));
+    final double tempValue = value.clamp(10, 70);
+    await box.write(shareAsImageData.fontSizeBoxKey, tempValue);
     update();
   }
 

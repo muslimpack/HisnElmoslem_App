@@ -22,7 +22,7 @@ class AppData {
   /// If it is true then
   /// page mode will be card mode
   /// if not page mode will be page
-  void changeReadModeStatus({required bool value}) =>
+  Future<void> changeReadModeStatus({required bool value}) async =>
       box.write('is_card_read_mode', value);
 
   ///
@@ -33,11 +33,12 @@ class AppData {
   /* ******* Font Size ******* */
 
   /// get font size default value is 2.6
-  double get fontSize => box.read('font_size') ?? 2.6;
+  double get fontSize => box.read<double>('font_size') ?? 2.6;
 
   /// set font size
-  void changFontSize(double value) {
-    box.write('font_size', value.clamp(1.5, 4));
+  Future<void> changFontSize(double value) async {
+    final double tempValue = value.clamp(1.5, 4);
+    await box.write('font_size', tempValue);
   }
 
   /// increase font size by .2
@@ -61,7 +62,7 @@ class AppData {
   String get fontFamily => box.read('font_family') ?? "Amiri";
 
   /// set font size
-  void changFontFamily(String value) {
+  Future<void> changFontFamily(String value) async {
     box.write('font_family', value);
   }
 
@@ -75,7 +76,7 @@ class AppData {
   String get appLocale => box.read('app_locale') ?? "ar";
 
   /// set font size
-  void changAppLocale(String value) {
+  Future<void> changAppLocale(String value) async {
     box.write('app_locale', value);
   }
 
@@ -90,7 +91,7 @@ class AppData {
   bool get isTashkelEnabled => box.read('tashkel_status') ?? true;
 
   /// set tashkel status
-  void changTashkelStatus({required bool value}) =>
+  Future<void> changTashkelStatus({required bool value}) async =>
       box.write('tashkel_status', value);
 
   ///
@@ -104,8 +105,8 @@ class AppData {
   bool get isCaveAlarmEnabled => box.read('cave_status') ?? false;
 
   /// set Surat al kahf alarm status
-  void changCaveAlarmStatus({required bool value}) {
-    box.write('cave_status', value);
+  Future<void> changCaveAlarmStatus({required bool value}) async {
+    await box.write('cave_status', value);
     _activateCaveAlarm(value: value);
   }
 
@@ -120,8 +121,8 @@ class AppData {
   bool get isFastAlarmEnabled => box.read('fast_status') ?? false;
 
   /// set monday and thursday fast alarm alarm status
-  void changFastAlarmStatus({required bool value}) {
-    box.write('fast_status', value);
+  Future<void> changFastAlarmStatus({required bool value}) async {
+    await box.write('fast_status', value);
     _activateFastAlarm(value: value);
   }
 
@@ -138,8 +139,8 @@ class AppData {
       box.read("is_${appVersion}_first_open") ?? true;
 
   /// Change is first open to this release
-  void changIsFirstOpenToThisRelease({required bool value}) {
-    box.write("is_${appVersion}_first_open", value);
+  Future<void> changIsFirstOpenToThisRelease({required bool value}) async {
+    await box.write("is_${appVersion}_first_open", value);
   }
 
   /**
