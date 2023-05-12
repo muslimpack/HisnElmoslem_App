@@ -145,6 +145,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                   context: context,
                   value: _time,
                   onChange: onTimeChanged,
+                  iosStylePicker: true,
                   // Optional onChange to receive value as DateTime
                   onChangeDateTime: (DateTime dateTime) {},
                 ),
