@@ -16,7 +16,7 @@ class FakeHadithDatabaseHelper {
   static const String dbName = "fake_hadith.db";
   static const int dbVersion = 1;
 
-  /* ************* Singelton Constractor ************* */
+  /* ************* Singleton Constructor ************* */
 
   static FakeHadithDatabaseHelper? _databaseHelper;
   static Database? _database;
@@ -94,7 +94,7 @@ class FakeHadithDatabaseHelper {
     //
   }
 
-  // Copy database from assets to Database Direcorty of app
+  // Copy database from assets to Database Directory of app
   FutureOr<void> _copyFromAssets({required String path}) async {
     //
     try {

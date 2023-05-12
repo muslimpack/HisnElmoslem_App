@@ -46,7 +46,7 @@ class Migration {
     }
   }
 
-  /// Copy database from assets to Database Direcorty of app
+  /// Copy database from assets to Database Directory of app
   static Future<void> _copyFromAssets({required String path}) async {
     //
     try {

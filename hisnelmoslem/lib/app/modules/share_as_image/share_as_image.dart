@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/app/modules/share_as_image/widgets/settings_sheet.d
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:screenshot/screenshot.dart';
 
 class ShareAsImage extends StatelessWidget {
   final DbContent dbContent;
@@ -68,9 +67,10 @@ class ShareAsImage extends StatelessWidget {
                         minScale: 0.25,
                         maxScale: 3,
                         boundaryMargin: const EdgeInsets.all(5000),
-                        child: Screenshot(
-                          controller: controller.screenshotController,
+                        child: RepaintBoundary(
+                          key: controller.imageKey,
                           child: ImageVarFontBuilder(
+                            key: GlobalKey(),
                             dbContent: controller.dbContent,
                           ),
                         ),

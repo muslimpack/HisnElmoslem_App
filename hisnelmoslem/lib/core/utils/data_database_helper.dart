@@ -15,7 +15,7 @@ class DataDatabaseHelper {
   static const String dbName = "data.db";
   static const int dbVersion = 1;
 
-  /* ************* Singelton Constractor ************* */
+  /* ************* Singleton Constructor ************* */
 
   static DataDatabaseHelper? _databaseHelper;
   static Database? _database;
@@ -79,7 +79,7 @@ class DataDatabaseHelper {
     //
   }
 
-  /// Copy database from assets to Database Direcorty of app
+  /// Copy database from assets to Database Directory of app
   Future<void> _copyFromAssets({required String path}) async {
     //
     try {

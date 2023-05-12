@@ -16,7 +16,7 @@ class AzkarDatabaseHelper {
   static const String dbName = "hisn_elmoslem.db";
   static const int dbVersion = 2;
 
-  /* ************* Singelton Constractor ************* */
+  /* ************* Singleton Constructor ************* */
 
   static AzkarDatabaseHelper? _databaseHelper;
   static Database? _database;
@@ -94,7 +94,7 @@ class AzkarDatabaseHelper {
     //
   }
 
-  /// Copy database from assets to Database Direcorty of app
+  /// Copy database from assets to Database Directory of app
   FutureOr<void> _copyFromAssets({required String path}) async {
     //
     try {

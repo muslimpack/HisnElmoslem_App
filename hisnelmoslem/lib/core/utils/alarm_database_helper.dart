@@ -18,7 +18,7 @@ class AlarmDatabaseHelper {
   static AlarmDatabaseHelper? _databaseHelper;
   static Database? _database;
 
-  /* ************* Singelton Constractor ************* */
+  /* ************* Singleton Constructor ************* */
 
   factory AlarmDatabaseHelper() {
     _databaseHelper ??= AlarmDatabaseHelper._createInstance();
@@ -79,7 +79,7 @@ class AlarmDatabaseHelper {
     //
   }
 
-  // Copy database from assets to Database Direcorty of app
+  // Copy database from assets to Database Directory of app
   FutureOr<void> _copyFromAssets({required String path}) async {
     //
     try {

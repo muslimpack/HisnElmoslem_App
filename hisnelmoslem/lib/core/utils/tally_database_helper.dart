@@ -18,7 +18,7 @@ class TallyDatabaseHelper {
   static TallyDatabaseHelper? _databaseHelper;
   static Database? _database;
 
-  /* ************* Singelton Constractor ************* */
+  /* ************* Singleton Constructor ************* */
 
   factory TallyDatabaseHelper() {
     _databaseHelper ??= TallyDatabaseHelper._createInstance();
@@ -79,7 +79,7 @@ class TallyDatabaseHelper {
     //
   }
 
-  // Copy database from assets to Database Direcorty of app
+  // Copy database from assets to Database Directory of app
   FutureOr<void> _copyFromAssets({required String path}) async {
     //
     try {

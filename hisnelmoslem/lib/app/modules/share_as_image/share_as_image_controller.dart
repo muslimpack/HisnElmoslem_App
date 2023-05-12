@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
@@ -11,7 +12,6 @@ import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class ShareAsImageController extends GetxController {
@@ -24,7 +24,7 @@ class ShareAsImageController extends GetxController {
       TransformationController();
   final DraggableScrollableController draggableScrollableController =
       DraggableScrollableController();
-  final ScreenshotController screenshotController = ScreenshotController();
+  final GlobalKey imageKey = GlobalKey();
 
   // ******************************************* //
   bool isLoading = false;
@@ -160,24 +160,51 @@ class ShareAsImageController extends GetxController {
   }
 
   Future<void> shareImage() async {
+    // try {
+    //   isLoading = true;
+    //   update();
+    //   await screenshotController
+    //       .capture(pixelRatio: shareAsImageData.imageQuality)
+    //       .then((Uint8List? image) async {
+    //     final tempDir = await getTemporaryDirectory();
+    //     //
+    //     final File file =
+    //         await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
+    //     //
+    //     file.writeAsBytesSync(image!);
+    //     //
+    //     await Share.shareFiles([file.path]);
+    //     isLoading = false;
+    //     update();
+    //   }).catchError((onError) {});
+    //   //
+    // } catch (e) {
+    //   hisnPrint(e.toString());
+    // }
+
     try {
       isLoading = true;
       update();
-      await screenshotController
-          .capture(pixelRatio: shareAsImageData.imageQuality)
-          .then((Uint8List? image) async {
-        final tempDir = await getTemporaryDirectory();
-        //
-        final File file =
-            await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
-        //
-        file.writeAsBytesSync(image!);
-        //
-        await Share.shareFiles([file.path]);
-        isLoading = false;
-        update();
-      }).catchError((onError) {});
-      //
+
+      final RenderRepaintBoundary boundary = (imageKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary?)!;
+
+      final double pixelRatio = shareAsImageData.imageQuality;
+      final image = await boundary.toImage(pixelRatio: pixelRatio);
+
+      final byteData = await image.toByteData(format: ImageByteFormat.png);
+      final tempDir = await getTemporaryDirectory();
+
+      final File file =
+          await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
+      await file.writeAsBytes(byteData!.buffer.asUint8List());
+
+      await Share.shareFiles([file.path]);
+
+      await file.delete();
+
+      isLoading = false;
+      update();
     } catch (e) {
       hisnPrint(e.toString());
     }
