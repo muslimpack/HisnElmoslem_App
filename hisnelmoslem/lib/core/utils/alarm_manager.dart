@@ -31,7 +31,6 @@ class AlarmManager {
             time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: (dbAlarm.titleId).toString(),
           );
-          break;
         case "AtSaturday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -41,7 +40,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.saturday.value,
           );
-          break;
         case "AtSunday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -51,7 +49,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.sunday.value,
           );
-          break;
         case "AtMonday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -64,7 +61,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.monday.value,
           );
-          break;
         case "AtTuesday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -74,7 +70,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.tuesday.value,
           );
-          break;
         case "AtWednesday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -84,7 +79,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.wednesday.value,
           );
-          break;
         case "AtThursday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -94,7 +88,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.thursday.value,
           );
-          break;
         case "AtFriday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
@@ -104,7 +97,6 @@ class AlarmManager {
             payload: (dbAlarm.titleId).toString(),
             weekday: AwesomeDay.friday.value,
           );
-          break;
       }
     } else if (!dbAlarm.isActive) {
       // Get.snackbar("رسالة", "الغاء تفعيل منبه ${dbAlarm.title}",
