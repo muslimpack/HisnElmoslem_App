@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
 
-enum SurahNameEnum { alMulk, assajdah, alKahf }
+enum SurahNameEnum { alMulk, assajdah, alKahf, endofAliImran }
 
 class QuranPageController extends GetxController {
   /* *************** Variables *************** */
@@ -86,12 +86,14 @@ class QuranPageController extends GetxController {
 
   ///
   void perpareRequiredPages(SurahNameEnum surahName) {
-    if (surahName == SurahNameEnum.alKahf) {
+    if (surahName == SurahNameEnum.endofAliImran) {
       quranRequiredSurah = quranDisplay[0];
-    } else if (surahName == SurahNameEnum.assajdah) {
+    } else if (surahName == SurahNameEnum.alKahf) {
       quranRequiredSurah = quranDisplay[1];
-    } else if (surahName == SurahNameEnum.alMulk) {
+    } else if (surahName == SurahNameEnum.assajdah) {
       quranRequiredSurah = quranDisplay[2];
+    } else if (surahName == SurahNameEnum.alMulk) {
+      quranRequiredSurah = quranDisplay[3];
     }
   }
 

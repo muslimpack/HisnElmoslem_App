@@ -100,6 +100,22 @@ class ScreenMenu extends StatelessWidget {
                         child: ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
+                            "end sura Ali 'Imran".tr,
+                          ),
+                          onTap: () {
+                            transitionAnimation.fromBottom2Top(
+                              context: context,
+                              goToPage: const QuranReadPage(
+                                surahName: SurahNameEnum.endofAliImran,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      DrawerCard(
+                        child: ListTile(
+                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          title: Text(
                             "sura Al-Kahf".tr,
                           ),
                           onTap: () {

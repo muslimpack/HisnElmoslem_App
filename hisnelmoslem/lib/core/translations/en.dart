@@ -31,6 +31,7 @@ const Map<String, String> en = {
   "edit": "Edit",
   "delete": "Delete",
   //
+  "end sura Ali 'Imran": "End of Surah Ali 'Imran",
   "sura Al-Kahf": "Surah Al-Kahf",
   "sura As-Sajdah": "Surah As-Sajdah",
   "sura Al-Mulk": "Surah Al-Mulk",

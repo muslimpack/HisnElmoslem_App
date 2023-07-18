@@ -32,6 +32,8 @@ class QuranReadPage extends StatelessWidget {
                           return 'sura Al-Mulk'.tr;
                         case SurahNameEnum.assajdah:
                           return 'sura As-Sajdah'.tr;
+                        case SurahNameEnum.endofAliImran:
+                          return "end sura Ali 'Imran".tr;
                       }
                     }(),
                     style: const TextStyle(
