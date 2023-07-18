@@ -5,6 +5,7 @@
 # تطبيق حصن المسلم
 
 ![Badge](https://img.shields.io/github/v/release/muslimpack/HisnElmoslem_App)
+![GitHub all releases](https://img.shields.io/github/downloads/muslimpack/HisnElmoslem_App/total?color=blue&label=Total%20Downloads)
 [![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=com.hassaneltantawy.hisnelmoslem)](https://play.google.com/store/apps/details?id=com.hassaneltantawy.hisnelmoslem)
 
 يحتوي التطبيق على كتاب حصن المسلم كاملا مع خاصية البحث في الفهرس و ميزات أخرى
