@@ -39,28 +39,33 @@ class OnBoardingController extends GetxController {
     ),
     const Empty(
       isImage: false,
-      icon: MdiIcons.volumeSource,
-      title: "التحكم في مستوى صوت التأثيرات",
+      icon: MdiIcons.spellcheck,
+      title: "إصلاح الأخطاء الإملائية التي وصلتنا",
     ),
     const Empty(
       isImage: false,
-      icon: Icons.vertical_split_rounded,
-      title: "القائمة الجانبية تتغير مع تغير لغة التطبيق",
+      icon: MdiIcons.book,
+      title: "إضافة أواخر سورة آل عمران",
     ),
-    const Empty(
-      isImage: false,
-      icon: Icons.watch,
-      title: "حل مشكلة عداد المئة في السبحة",
-    ),
-    const Empty(
-      isImage: false,
-      icon: Icons.notifications,
-      title: "حل مشكلة عدم توجه التطبيق للذكر عند الضغط على البدء من الإشعارات",
-    ),
-    const Empty(
-      isImage: false,
-      icon: MdiIcons.toolbox,
-      title: "بعض التحسينات على الأداء",
+    Empty(
+      imagePath: "assets/images/rukia.png",
+      icon: MdiIcons.bug,
+      title: "تطبيق رقية",
+      description: """
+الرقية الشرعية من القرآن الكريم والسنة النبوية للدكتور خالد بن عبدالرحمن الجريسي
+
+محتويات التطبيق
+-آداب وإرشادات عامة تراعى عند الرقية
+-الرقية المختصرة  -الرقية المتوسطة  -الرقية المطولة
+
+- من إصداراتنا -
+""",
+      onButtonCLick: () => {
+        openURL(
+          "https://play.google.com/store/apps/details?id=com.hassaneltantawy.ruqayyah",
+        )
+      },
+      buttonText: "افتح متجر بلاي",
     ),
     Empty(
       imagePath: "assets/images/qadaa.png",
