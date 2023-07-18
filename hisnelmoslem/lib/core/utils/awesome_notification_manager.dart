@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -122,12 +120,21 @@ class AwesomeNotificationManager {
     final bool channelCheck =
         receivedAction.channelKey == 'in_app_notification' ||
             receivedAction.channelKey == 'scheduled_channel';
-    if (channelCheck && Platform.isIOS) {
-      await AwesomeNotifications().getGlobalBadgeCounter().then(
-        (value) async {
-          await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
-        },
-      );
+
+    try {
+      if (channelCheck) {
+        await AwesomeNotifications().getGlobalBadgeCounter().then(
+          (value) async {
+            if (value > 10) {
+              await AwesomeNotifications().setGlobalBadgeCounter(0);
+            } else {
+              await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
+            }
+          },
+        );
+      }
+    } catch (e) {
+      hisnPrint(e);
     }
 
     if (payload!.isNotEmpty) {
