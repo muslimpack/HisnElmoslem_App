@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 2.5.0+18
+version: 2.5.1+19
 
 environment:
   # sdk: ">=2.12.0 <3.0.0"
@@ -41,7 +41,7 @@ dependencies:
   path_provider: ^2.0.8
   rxdart: ^0.27.3
   share: ^2.0.4
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.2.2
   sleek_circular_slider: ^2.0.1
   sqflite: ^2.0.2
   timelines: ^0.1.0
