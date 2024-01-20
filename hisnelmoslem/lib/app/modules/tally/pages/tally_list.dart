@@ -30,6 +30,7 @@ class TallyListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FloatingActionButton(
+                      heroTag: "add",
                       child: const Icon(
                         MdiIcons.plus,
                         size: 40,
@@ -39,6 +40,7 @@ class TallyListView extends StatelessWidget {
                       },
                     ),
                     FloatingActionButton(
+                      heroTag: "reset",
                       child: const Icon(
                         Icons.restart_alt,
                         size: 40,
