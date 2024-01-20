@@ -29,7 +29,7 @@ class AzkarReadPage extends StatelessWidget {
         String? text = "";
         String? source = "";
         String? fadl = "";
-        int? cardnum = 0;
+        int? cardNumber = 0;
         if (!controller.isLoading) {
           text = appData.isTashkelEnabled
               ? controller.zikrContent[controller.currentPage].content
@@ -42,7 +42,7 @@ class AzkarReadPage extends StatelessWidget {
 
           source = controller.zikrContent[controller.currentPage].source;
           fadl = controller.zikrContent[controller.currentPage].fadl;
-          cardnum = controller.currentPage + 1;
+          cardNumber = controller.currentPage + 1;
         }
 
         return controller.isLoading
@@ -333,7 +333,7 @@ class AzkarReadPage extends StatelessWidget {
                           onPressed: () {
                             EmailManager.sendMisspelledInZikrWithText(
                               subject: controller.zikrTitle!.name,
-                              cardNumber: cardnum.toString(),
+                              cardNumber: cardNumber.toString(),
                               text: text!,
                             );
                           },

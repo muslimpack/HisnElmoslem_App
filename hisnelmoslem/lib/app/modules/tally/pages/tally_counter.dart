@@ -13,11 +13,11 @@ class TallyCounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width * .75;
     final double height = MediaQuery.of(context).size.height * .75;
-    late double smalLenght;
+    late double smallLength;
     if (width > height) {
-      smalLenght = height;
+      smallLength = height;
     } else {
-      smalLenght = width;
+      smallLength = width;
     }
     return GetBuilder<TallyController>(
       builder: (controller) {
@@ -88,8 +88,8 @@ class TallyCounterView extends StatelessWidget {
                                   ),
                                   mainLabelStyle: const TextStyle(fontSize: 70),
                                   modifier: (double value) {
-                                    final circval = value.round().toString();
-                                    return circval;
+                                    final circValue = value.round().toString();
+                                    return circValue;
                                   },
                                 ),
                                 customWidths: CustomSliderWidths(
@@ -106,7 +106,7 @@ class TallyCounterView extends StatelessWidget {
                                     //  orange
                                   ],
                                 ),
-                                size: smalLenght,
+                                size: smallLength,
                               ),
                             ),
                             const Spacer(),
