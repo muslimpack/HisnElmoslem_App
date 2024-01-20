@@ -10,11 +10,11 @@ final List<AppComponent> appDashboardItem = [
     widget: const AzkarFehrs(),
   ),
   AppComponent(
-    title: "favourites content".tr,
+    title: "favorites content".tr,
     widget: const AzkarBookmarks(),
   ),
   AppComponent(
-    title: "favourites zikr".tr,
+    title: "favorites zikr".tr,
     widget: const FavouriteZikr(),
   ),
 ];

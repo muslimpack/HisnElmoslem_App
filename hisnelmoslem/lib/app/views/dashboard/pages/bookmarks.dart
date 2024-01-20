@@ -22,7 +22,7 @@ class AzkarBookmarks extends StatelessWidget {
                 ? Empty(
                     isImage: false,
                     icon: Icons.bookmark_outline_rounded,
-                    title: "nothing found in favourites".tr,
+                    title: "nothing found in favorites".tr,
                     description:
                         "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
                             .tr,

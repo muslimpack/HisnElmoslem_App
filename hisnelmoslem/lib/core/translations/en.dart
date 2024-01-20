@@ -9,12 +9,12 @@ const Map<String, String> en = {
 
   /// Dashboard
   "index": "Index",
-  "favourites content": "Favourites",
-  "favourites zikr": "Favourite Zikr",
+  "favorites content": "favorites",
+  "favorites zikr": "Favourite Zikr",
   "search": "Search",
 
   /// Empty pgae
-  "nothing found in favourites": "Nothing found in favourites",
+  "nothing found in favorites": "Nothing found in favorites",
   "no zikr has been selected as a favorite Click on the heart icon on any internal zikr":
       "No zikr has been selected as a favorite Click on the heart icon on any internal zikr",
   "no title from the index is marked as a favourite. Click on the Favorites icon at any index title":
