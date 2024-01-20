@@ -56,6 +56,11 @@ class OnBoardingController extends GetxController {
       icon: Icons.format_bold,
       title: "التخلص من الخط السميك",
     ),
+    const Empty(
+      isImage: false,
+      icon: Icons.bug_report,
+      title: "حل مشكلة نافذة الإشعارات في بداية التطبيق",
+    ),
     Empty(
       isImage: false,
       icon: MdiIcons.googlePlay,

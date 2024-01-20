@@ -219,4 +219,5 @@ const Map<String, String> ar = {
   "Official Website": "الموقع الرسمي",
 
   "Reset all counters?.": "إعادة ضبط جميع العدادات؟",
+  "Our Products": "إصداراتنا",
 };
