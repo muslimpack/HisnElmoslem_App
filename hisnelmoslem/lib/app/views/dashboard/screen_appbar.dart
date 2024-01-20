@@ -15,8 +15,26 @@ class ScreenAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: controller.isSearching
-          ? TextFormField(
+      leading: !controller.isSearching
+          ? Image.asset(
+              'assets/images/app_icon.png',
+              width: 20,
+              height: 20,
+            )
+          : IconButton(
+              splashRadius: 20,
+              padding: EdgeInsets.zero,
+              icon: const Icon(MdiIcons.close),
+              onPressed: () {
+                controller.isSearching = false;
+                controller.searchedTitle = controller.allTitle;
+                // controller.searchController.clear();
+                controller.update();
+              },
+            ),
+      title: !controller.isSearching
+          ? null
+          : TextFormField(
               style: TextStyle(color: mainColor, decorationColor: mainColor),
               textAlign: TextAlign.center,
               controller: controller.searchController,
@@ -34,7 +52,7 @@ class ScreenAppBar extends StatelessWidget {
                   top: 5,
                   right: 15,
                 ),
-                prefix: IconButton(
+                suffix: IconButton(
                   icon: const Icon(MdiIcons.eraser),
                   onPressed: () {
                     controller.searchController.clear();
@@ -46,12 +64,6 @@ class ScreenAppBar extends StatelessWidget {
               onChanged: (value) {
                 controller.searchZikr();
               },
-            )
-          : SizedBox(
-              width: 40,
-              child: Image.asset(
-                'assets/images/app_icon.png',
-              ),
             ),
       pinned: true,
       floating: true,
@@ -88,19 +100,7 @@ class ScreenAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        if (controller.isSearching)
-          IconButton(
-            splashRadius: 20,
-            padding: EdgeInsets.zero,
-            icon: const Icon(MdiIcons.close),
-            onPressed: () {
-              controller.isSearching = false;
-              controller.searchedTitle = controller.allTitle;
-              // controller.searchController.clear();
-              controller.update();
-            },
-          )
-        else
+        if (!controller.isSearching)
           IconButton(
             splashRadius: 20,
             padding: EdgeInsets.zero,
@@ -109,9 +109,7 @@ class ScreenAppBar extends StatelessWidget {
               controller.searchZikr();
             },
           ),
-        if (controller.isSearching)
-          const SizedBox()
-        else
+        if (!controller.isSearching)
           IconButton(
             splashRadius: 20,
             padding: EdgeInsets.zero,
