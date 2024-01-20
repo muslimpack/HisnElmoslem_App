@@ -18,7 +18,7 @@ class TallyController extends GetxController {
   /* *************** Variables *************** */
 
   ///
-  final Future<SharedPreferences> _sprefs = SharedPreferences.getInstance();
+  late final SharedPreferences prefs;
 
   ///
   int get counter {
@@ -138,7 +138,8 @@ class TallyController extends GetxController {
   }
 
   Future<void> checkSharedPrefs() async {
-    final SharedPreferences prefs = await _sprefs;
+    prefs = await SharedPreferences.getInstance();
+
     if (prefs.getString('counter') != null) {
       if (prefs.getString('counter') != "0") {
         final int count = int.parse(prefs.getString('counter')!);
