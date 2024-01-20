@@ -46,9 +46,7 @@ class Empty extends StatelessWidget {
                     icon,
                     size: iconSize,
                   ),
-          if (title == "")
-            const SizedBox()
-          else
+          if (title.isNotEmpty)
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
@@ -59,9 +57,7 @@ class Empty extends StatelessWidget {
                 ),
               ),
             ),
-          if (description == "")
-            const SizedBox()
-          else
+          if (description.isNotEmpty)
             Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
@@ -69,7 +65,7 @@ class Empty extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 15,
-                  wordSpacing: 7,
+                  height: 2,
                 ),
               ),
             ),

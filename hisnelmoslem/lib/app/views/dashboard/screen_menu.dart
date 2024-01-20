@@ -82,7 +82,7 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(
-                            Icons.watch_rounded,
+                            MdiIcons.counter,
                           ),
                           title: Text("tally".tr),
                           onTap: () {

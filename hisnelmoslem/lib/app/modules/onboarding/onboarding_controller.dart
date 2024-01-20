@@ -44,41 +44,31 @@ class OnBoardingController extends GetxController {
     ),
     const Empty(
       isImage: false,
-      icon: MdiIcons.book,
-      title: "إضافة أواخر سورة آل عمران",
+      icon: MdiIcons.counter,
+      title: "تحسينات في السبحة",
+      description: """
+- إعادة ضبط جميع العدادات
+- التنقل بين العدادات
+""",
+    ),
+    const Empty(
+      isImage: false,
+      icon: Icons.format_bold,
+      title: "التخلص من الخط السميك",
     ),
     Empty(
-      imagePath: "assets/images/rukia.png",
-      icon: MdiIcons.bug,
-      title: "تطبيق رقية",
+      isImage: false,
+      icon: MdiIcons.googlePlay,
+      title: "المزيد من التطبيقات من إصداراتنا",
       description: """
-الرقية الشرعية من القرآن الكريم والسنة النبوية للدكتور خالد بن عبدالرحمن الجريسي
-
-محتويات التطبيق
--آداب وإرشادات عامة تراعى عند الرقية
--الرقية المختصرة  -الرقية المتوسطة  -الرقية المطولة
-
-- من إصداراتنا -
+- تطبيق قرآن
+- تطبيق قضاء
+- تطبيق الأذكار النووية
+- تطبيق رقية
 """,
       onButtonCLick: () => {
         openURL(
-          "https://play.google.com/store/apps/details?id=com.hassaneltantawy.ruqayyah",
-        ),
-      },
-      buttonText: "افتح متجر بلاي",
-    ),
-    Empty(
-      imagePath: "assets/images/qadaa.png",
-      icon: MdiIcons.bug,
-      title: "تطبيق قضاء",
-      description: """
-تطبيق يعينك على قضاء ما فاتك من صلوات
-التطبيق مجاني وخالي من الإعلانات
-- من إصداراتنا -
-""",
-      onButtonCLick: () => {
-        openURL(
-          "https://play.google.com/store/apps/details?id=com.hassaneltantawy.qadaa",
+          "https://play.google.com/store/apps/dev?id=4949997098744780639",
         ),
       },
       buttonText: "افتح متجر بلاي",
