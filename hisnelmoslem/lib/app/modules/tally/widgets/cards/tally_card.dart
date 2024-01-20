@@ -56,30 +56,19 @@ class TallyCard extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(
-                        child: ListTile(
-                          leading: const Icon(Icons.edit),
-                          title: Text(
-                            'edit'.tr,
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () {
-                            tallyController.updateTallyById(dbTally);
-                          },
-                        ),
+                      IconButton(
+                        tooltip: 'edit'.tr,
+                        onPressed: () {
+                          tallyController.updateTallyById(dbTally);
+                        },
+                        icon: const Icon(Icons.edit),
                       ),
-                      const VerticalDivider(),
-                      Expanded(
-                        child: ListTile(
-                          leading: const Icon(Icons.delete),
-                          title: Text(
-                            "delete".tr,
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () {
-                            tallyController.deleteTallyById(dbTally);
-                          },
-                        ),
+                      IconButton(
+                        tooltip: "delete".tr,
+                        onPressed: () {
+                          tallyController.deleteTallyById(dbTally);
+                        },
+                        icon: const Icon(Icons.delete),
                       ),
                     ],
                   ),
