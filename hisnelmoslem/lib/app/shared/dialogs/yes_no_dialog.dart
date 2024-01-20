@@ -25,12 +25,13 @@ class YesOrNoDialog extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 "are you sure?".tr,
-                style: TextStyle(fontSize: 25, color: mainColor),
+                style: TextStyle(fontSize: 20, color: mainColor),
               ),
             ),
             const Divider(),
             Text(
               msg,
+              style: const TextStyle(fontSize: 15),
             ),
             const Divider(),
             Row(
@@ -40,7 +41,7 @@ class YesOrNoDialog extends StatelessWidget {
                     title: Text(
                       "yes".tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: mainColor),
+                      style: TextStyle(fontSize: 15, color: mainColor),
                     ),
                     onTap: () {
                       onYes();
@@ -53,7 +54,7 @@ class YesOrNoDialog extends StatelessWidget {
                     title: Text(
                       "no".tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: mainColor),
+                      style: TextStyle(fontSize: 15, color: mainColor),
                     ),
                     onTap: () {
                       Navigator.pop<bool>(context, false);

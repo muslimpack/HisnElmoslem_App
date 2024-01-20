@@ -217,4 +217,6 @@ const Map<String, String> en = {
 
   "Sound Effect volume": "Sound Effect volume",
   "Official Website": "Official Website",
+
+  "Reset all counters?.": "Reset all counters?.",
 };

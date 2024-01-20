@@ -36,13 +36,13 @@ class TallyController extends GetxController {
     }
   }
 
-  double get circval {
+  double get circleValue {
     if (isShuffleModeOn) {}
     return counter.toDouble() -
         (counter ~/ circleResetEvery) * circleResetEvery;
   }
 
-  int? get circvaltimes {
+  int? get circleValueTimes {
     return counter ~/ circleResetEvery;
   }
 
@@ -235,7 +235,7 @@ class TallyController extends GetxController {
   Future<void> increaseDBCounter() async {
     if (currentDBTally != null) {
       //
-      if (circval == circleResetEvery - 1) {
+      if (circleValue == circleResetEvery - 1) {
         SoundsManagerController().playZikrDoneEffects();
       } else {
         SoundsManagerController().playTallyEffects();
@@ -300,6 +300,29 @@ class TallyController extends GetxController {
             // if (currentDBTally == dbTally) {
             //   currentDBTally = null;
             // }
+            update();
+          },
+        );
+      },
+    );
+  }
+
+  void resetAllTally() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: transparent,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return YesOrNoDialog(
+          msg: "Reset all counters?.".tr,
+          onYes: () async {
+            for (var i = 0; i < allTally.length; i++) {
+              await tallyDatabaseHelper.updateTally(
+                dbTally: allTally[i]..count = 0,
+                updateTime: true,
+              );
+            }
+            await getAllListsReady();
             update();
           },
         );

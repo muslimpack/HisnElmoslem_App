@@ -75,14 +75,14 @@ class TallyCounterView extends StatelessWidget {
                             ),
                             const Spacer(),
                             SleekCircularSlider(
-                              initialValue: controller.circval,
+                              initialValue: controller.circleValue,
                               max: controller.circleResetEvery.toDouble(),
                               appearance: CircularSliderAppearance(
                                 angleRange: 360,
                                 startAngle: 270,
                                 infoProperties: InfoProperties(
                                   bottomLabelText:
-                                      '${"times".tr} | ${controller.circvaltimes}',
+                                      '${"times".tr} | ${controller.circleValueTimes}',
                                   bottomLabelStyle: const TextStyle(
                                     fontSize: 25,
                                   ),

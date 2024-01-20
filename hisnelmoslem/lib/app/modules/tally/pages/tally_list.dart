@@ -26,17 +26,28 @@ class TallyListView extends StatelessWidget {
                     return const Divider();
                   },
                 ),
-                floatingActionButton: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FloatingActionButton(
-                    child: const Icon(
-                      MdiIcons.plus,
-                      size: 40,
+                floatingActionButton: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FloatingActionButton(
+                      child: const Icon(
+                        MdiIcons.plus,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        controller.createNewTally();
+                      },
                     ),
-                    onPressed: () {
-                      controller.createNewTally();
-                    },
-                  ),
+                    FloatingActionButton(
+                      child: const Icon(
+                        Icons.restart_alt,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        controller.resetAllTally();
+                      },
+                    ),
+                  ],
                 ),
               );
       },
