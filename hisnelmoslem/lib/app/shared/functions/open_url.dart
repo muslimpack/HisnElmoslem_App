@@ -5,7 +5,7 @@ Future<void> openURL(String url) async {
   final parsed = Uri.parse(customURL);
   try {
     if (await canLaunchUrl(parsed)) {
-      await launchUrl(parsed);
+      await launchUrl(parsed, mode: LaunchMode.externalApplication);
     }
   } catch (_) {}
 }
