@@ -49,8 +49,10 @@ class TallyCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(DateFormat('EEEE - dd-MM-yyyy – kk:mm')
-                  .format(dbTally.lastUpdate!),),
+              subtitle: Text(
+                DateFormat('EEEE - dd-MM-yyyy – kk:mm')
+                    .format(dbTally.lastUpdate!),
+              ),
               trailing: Text(
                 dbTally.count.toString(),
                 style: TextStyle(
@@ -89,7 +91,7 @@ class TallyCard extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ],

@@ -7,9 +7,9 @@ import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-DataDatabaseHelper dataDatabaseHelper = DataDatabaseHelper();
+FakeHadith dataDatabaseHelper = FakeHadith();
 
-class DataDatabaseHelper {
+class FakeHadith {
   /* ************* Variables ************* */
 
   static const String dbName = "data.db";
@@ -17,15 +17,15 @@ class DataDatabaseHelper {
 
   /* ************* Singleton Constructor ************* */
 
-  static DataDatabaseHelper? _databaseHelper;
+  static FakeHadith? _databaseHelper;
   static Database? _database;
 
-  factory DataDatabaseHelper() {
-    _databaseHelper ??= DataDatabaseHelper._createInstance();
+  factory FakeHadith() {
+    _databaseHelper ??= FakeHadith._createInstance();
     return _databaseHelper!;
   }
 
-  DataDatabaseHelper._createInstance();
+  FakeHadith._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -112,7 +112,7 @@ class DataDatabaseHelper {
     });
   }
 
-  Future<bool> isTitleInFavourites({required int titleId}) async {
+  Future<bool> isTitleInFavorites({required int titleId}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -164,7 +164,7 @@ class DataDatabaseHelper {
     });
   }
 
-  Future<bool> isContentInFavourites({required int contentId}) async {
+  Future<bool> isContentInFavorites({required int contentId}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -203,7 +203,7 @@ class DataDatabaseHelper {
     );
   }
 
-  /* ************* FakeHaidth Read ************* */
+  /* ************* FakeHadith Read ************* */
 
   /// Get read hadith only
   Future<List<DbFakeHadithRead>> getReadFakeHadiths() async {
@@ -248,7 +248,7 @@ class DataDatabaseHelper {
     }
   }
 
-  /// Mark haduth as read
+  /// Mark hadith as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
     final db = await database;
 

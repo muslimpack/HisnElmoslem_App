@@ -25,7 +25,7 @@ class FavouriteZikr extends StatelessWidget {
     //
     return GetBuilder<DashboardController>(
       builder: (controller) {
-        return controller.favouriteConent.isEmpty
+        return controller.favouriteContent.isEmpty
             ? Empty(
                 isImage: false,
                 icon: Icons.favorite_outline_rounded,
@@ -39,11 +39,11 @@ class FavouriteZikr extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 50),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: controller.favouriteConent.length,
+                    itemCount: controller.favouriteContent.length,
                     itemBuilder: (BuildContext context, int index) {
                       //
                       final DbContent dbContent =
-                          controller.favouriteConent[index];
+                          controller.favouriteContent[index];
                       //
                       final DbTitle dbTitle = controller.allTitle
                           .where((element) => element.id == dbContent.titleId)
@@ -215,7 +215,7 @@ class FavouriteZikr extends StatelessWidget {
                                                 contentId: dbContent.id,
                                               )
                                                   .then((value) {
-                                                controller.favouriteConent[
+                                                controller.favouriteContent[
                                                     index] = value;
                                                 controller.update();
                                               });
@@ -262,7 +262,7 @@ class FavouriteZikr extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),

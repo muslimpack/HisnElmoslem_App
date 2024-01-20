@@ -125,7 +125,7 @@ class SoundsManagerController extends GetxController {
         if (value!)
           {Vibration.vibrate(duration: 100)}
         else
-          {HapticFeedback.lightImpact()}
+          {HapticFeedback.lightImpact()},
       },
     );
   }
@@ -136,7 +136,7 @@ class SoundsManagerController extends GetxController {
         if (value!)
           {Vibration.vibrate(duration: 300)}
         else
-          {HapticFeedback.mediumImpact()}
+          {HapticFeedback.mediumImpact()},
       },
     );
   }
@@ -147,7 +147,7 @@ class SoundsManagerController extends GetxController {
         if (value!)
           {Vibration.vibrate(duration: 25)}
         else
-          {HapticFeedback.vibrate()}
+          {HapticFeedback.vibrate()},
       },
     );
   }
@@ -155,7 +155,7 @@ class SoundsManagerController extends GetxController {
   Future<void> simulateAllAzkarVibrateFinished() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
-        if (value!) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()}
+        if (value!) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()},
       },
     );
   }

@@ -12,7 +12,7 @@ Color black26 = Colors.black26;
 Color black = Colors.black;
 Color grey = Colors.grey;
 
-Color brwon = const Color.fromARGB(255, 92, 71, 61);
+Color brown = const Color.fromARGB(255, 92, 71, 61);
 Color red = const Color.fromARGB(255, 122, 54, 59);
 Color green = const Color.fromARGB(255, 50, 82, 65);
 Color yellow = const Color.fromARGB(255, 146, 118, 63);
@@ -62,7 +62,7 @@ const Iterable<int> arabicTashkelChar = [
   124,
   1613,
   124,
-  1618
+  1618,
 ];
 
 final List<Color> shareAsImageColorsList = [
@@ -70,7 +70,7 @@ final List<Color> shareAsImageColorsList = [
   const Color.fromARGB(255, 66, 66, 66),
   const Color.fromARGB(255, 48, 48, 48),
   const Color.fromARGB(255, 163, 124, 92),
-  brwon,
+  brown,
   const Color.fromARGB(255, 25, 26, 33),
   green,
   const Color.fromARGB(255, 1, 151, 159),

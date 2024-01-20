@@ -156,7 +156,7 @@ class ImageBuilder extends StatelessWidget {
                             color: shareAsImageData.titleTextColor,
                             fontSize: 20,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

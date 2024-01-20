@@ -31,7 +31,7 @@ class AwesomeDay {
         thursday,
         friday,
         saturday,
-        sunday
+        sunday,
       ];
 
   /// The integer representation.

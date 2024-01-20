@@ -144,7 +144,7 @@ class AzkarDatabaseHelper {
     for (int i = 0; i < maps.length; i++) {
       final DbTitle dbTitle = DbTitle.fromMap(maps[i]);
       await dataDatabaseHelper
-          .isTitleInFavourites(titleId: dbTitle.id)
+          .isTitleInFavorites(titleId: dbTitle.id)
           .then((value) {
         dbTitle.favourite = value;
       });
@@ -179,7 +179,7 @@ class AzkarDatabaseHelper {
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
     await dataDatabaseHelper
-        .isTitleInFavourites(titleId: dbTitle.id)
+        .isTitleInFavorites(titleId: dbTitle.id)
         .then((value) => dbTitle.favourite = value);
 
     return dbTitle;
@@ -212,7 +212,7 @@ class AzkarDatabaseHelper {
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
       await dataDatabaseHelper
-          .isContentInFavourites(contentId: dbContent.id)
+          .isContentInFavorites(contentId: dbContent.id)
           .then((value) => dbContent.favourite = value);
       contents.add(dbContent);
     }
@@ -234,7 +234,7 @@ class AzkarDatabaseHelper {
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
       await dataDatabaseHelper
-          .isContentInFavourites(contentId: dbContent.id)
+          .isContentInFavorites(contentId: dbContent.id)
           .then((value) => dbContent.favourite = value);
       contents.add(dbContent);
     }
@@ -253,7 +253,7 @@ class AzkarDatabaseHelper {
     );
     final DbContent dbContent = DbContent.fromMap(maps[0]);
     await dataDatabaseHelper
-        .isContentInFavourites(contentId: dbContent.id)
+        .isContentInFavorites(contentId: dbContent.id)
         .then((value) => dbContent.favourite = value);
 
     return dbContent;

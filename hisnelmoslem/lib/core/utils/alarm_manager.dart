@@ -29,7 +29,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
           );
         case "AtSaturday":
           await awesomeNotificationManager.addCustomWeeklyReminder(
@@ -37,7 +37,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.saturday.value,
           );
         case "AtSunday":
@@ -46,7 +46,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.sunday.value,
           );
         case "AtMonday":
@@ -58,7 +58,7 @@ class AlarmManager {
               dbAlarm.hour,
               dbAlarm.minute,
             ),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.monday.value,
           );
         case "AtTuesday":
@@ -67,7 +67,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.tuesday.value,
           );
         case "AtWednesday":
@@ -76,7 +76,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.wednesday.value,
           );
         case "AtThursday":
@@ -85,7 +85,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.thursday.value,
           );
         case "AtFriday":
@@ -94,7 +94,7 @@ class AlarmManager {
             title: dbAlarm.title,
             body: dbAlarm.body,
             time: Time(dbAlarm.hour, dbAlarm.minute),
-            payload: (dbAlarm.titleId).toString(),
+            payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.friday.value,
           );
       }

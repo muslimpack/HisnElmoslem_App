@@ -63,7 +63,7 @@ class OnBoardingController extends GetxController {
       onButtonCLick: () => {
         openURL(
           "https://play.google.com/store/apps/details?id=com.hassaneltantawy.ruqayyah",
-        )
+        ),
       },
       buttonText: "افتح متجر بلاي",
     ),
@@ -79,7 +79,7 @@ class OnBoardingController extends GetxController {
       onButtonCLick: () => {
         openURL(
           "https://play.google.com/store/apps/details?id=com.hassaneltantawy.qadaa",
-        )
+        ),
       },
       buttonText: "افتح متجر بلاي",
     ),

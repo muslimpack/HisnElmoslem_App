@@ -173,7 +173,7 @@ class AzkarReadPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -285,7 +285,7 @@ class AzkarReadPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     );

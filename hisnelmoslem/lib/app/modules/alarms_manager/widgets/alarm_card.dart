@@ -38,7 +38,7 @@ class AlarmCard extends StatelessWidget {
                     else
                       RoundTagCard(
                         name: dbAlarm.body,
-                        color: brwon,
+                        color: brown,
                       ),
                     Row(
                       children: [
@@ -56,7 +56,7 @@ class AlarmCard extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
                 isThreeLine: true,

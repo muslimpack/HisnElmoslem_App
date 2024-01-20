@@ -38,7 +38,7 @@ class DashboardController extends GetxController
   List<DbTitle> allTitle = <DbTitle>[];
   List<DbTitle> searchedTitle = <DbTitle>[];
   List<DbAlarm> alarms = <DbAlarm>[];
-  List<DbContent> favouriteConent = <DbContent>[];
+  List<DbContent> favouriteContent = <DbContent>[];
 
   // List<DbContent> zikrContent = <DbContent>[];
   //
@@ -110,7 +110,7 @@ class DashboardController extends GetxController
   //
   Future<void> getFavouriteContent() async {
     await azkarDatabaseHelper.getFavouriteContents().then((value) {
-      favouriteConent = value;
+      favouriteContent = value;
     });
     update();
   }
