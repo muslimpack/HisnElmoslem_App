@@ -55,7 +55,14 @@ class AzkarReadPage extends StatelessWidget {
                     controller.zikrTitle!.name,
                     style: const TextStyle(fontFamily: "Uthmanic"),
                   ),
-                  actions: const [],
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "${controller.currentPage + 1}::${controller.zikrContent.length}",
+                      ),
+                    ),
+                  ],
                   bottom: PreferredSize(
                     preferredSize: const Size(100, 30),
                     child: Expanded(
