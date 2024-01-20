@@ -287,6 +287,26 @@ class TallyController extends GetxController {
     }
   }
 
+  void nextCounter() {
+    if (currentDBTally == null) return;
+
+    final index = allTally.indexOf(currentDBTally!);
+    if (index == -1) return;
+
+    final newIndex = (index + 1) % allTally.length;
+    activateTally(allTally[newIndex]);
+  }
+
+  void previousCounter() {
+    if (currentDBTally == null) return;
+
+    final index = allTally.indexOf(currentDBTally!);
+    if (index == -1) return;
+
+    final newIndex = (index - 1) % allTally.length;
+    activateTally(allTally[newIndex]);
+  }
+
   void deleteTallyById(DbTally dbTally) {
     showModalBottomSheet(
       isScrollControlled: true,

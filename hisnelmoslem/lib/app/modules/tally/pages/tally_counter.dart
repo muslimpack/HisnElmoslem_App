@@ -120,28 +120,40 @@ class TallyCounterView extends StatelessWidget {
                       child: SizedBox(
                         height: 40,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(Icons.refresh),
-                                onPressed: () {
-                                  // controller.resetCounter();
-                                  controller.resetDBCounter();
-                                },
-                              ),
+                            IconButton(
+                              icon:
+                                  const Icon(Icons.keyboard_double_arrow_right),
+                              onPressed: () {
+                                // controller.resetCounter();
+                                controller.previousCounter();
+                              },
                             ),
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(Icons.remove),
-                                onPressed: () {
-                                  if (controller.counter == 0) {
-                                  } else {
-                                    // controller.minusCounter();
-                                    controller.decreaseDBCounter();
-                                  }
-                                },
-                              ),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                // controller.resetCounter();
+                                controller.resetDBCounter();
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              onPressed: () {
+                                if (controller.counter == 0) {
+                                } else {
+                                  // controller.minusCounter();
+                                  controller.decreaseDBCounter();
+                                }
+                              },
+                            ),
+                            IconButton(
+                              icon:
+                                  const Icon(Icons.keyboard_double_arrow_left),
+                              onPressed: () {
+                                // controller.resetCounter();
+                                controller.nextCounter();
+                              },
                             ),
                           ],
                         ),
