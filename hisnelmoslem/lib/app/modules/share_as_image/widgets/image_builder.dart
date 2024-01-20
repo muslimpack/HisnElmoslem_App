@@ -41,7 +41,6 @@ class ImageBuilder extends StatelessWidget {
                           : titleWithoutIndex,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
                         fontFamily: "Uthmanic",
                         color: shareAsImageData.titleTextColor,
                         fontSize: 20,
@@ -63,7 +62,6 @@ class ImageBuilder extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: shareAsImageData.bodyTextColor,
-                          fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
@@ -89,7 +87,6 @@ class ImageBuilder extends StatelessWidget {
                               minFontSize: 10,
                               style: TextStyle(
                                 color: shareAsImageData.additionalTextColor,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
                             ),
@@ -118,7 +115,7 @@ class ImageBuilder extends StatelessWidget {
                               minFontSize: 10,
                               style: TextStyle(
                                 color: shareAsImageData.additionalTextColor,
-                                // fontWeight: FontWeight.bold,
+                                //
                                 fontSize: 15,
                               ),
                             ),
@@ -151,7 +148,6 @@ class ImageBuilder extends StatelessWidget {
                           "تطبيق حصن المسلم",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
                             fontFamily: "Uthmanic",
                             color: shareAsImageData.titleTextColor,
                             fontSize: 20,

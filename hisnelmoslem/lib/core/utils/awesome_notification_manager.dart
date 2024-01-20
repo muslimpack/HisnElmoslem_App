@@ -49,7 +49,6 @@ class AwesomeNotificationManager {
                       style: const TextStyle(
                         color: Colors.teal,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

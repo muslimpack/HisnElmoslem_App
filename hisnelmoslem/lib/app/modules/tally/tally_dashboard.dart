@@ -59,7 +59,6 @@ class Tally extends StatelessWidget {
                           "active tallly".tr,
                           style: const TextStyle(
                             fontFamily: "Uthmanic",
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -68,7 +67,6 @@ class Tally extends StatelessWidget {
                           "counters".tr,
                           style: const TextStyle(
                             fontFamily: "Uthmanic",
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

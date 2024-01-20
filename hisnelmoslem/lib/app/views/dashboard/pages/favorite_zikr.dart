@@ -192,7 +192,6 @@ class FavouriteZikr extends StatelessWidget {
                                             fontSize: appData.fontSize * 10,
                                             color: mainColor,
                                             //fontSize: 20,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ),
@@ -245,7 +244,6 @@ class FavouriteZikr extends StatelessWidget {
                                             style: TextStyle(
                                               fontSize: 20,
                                               color: mainColor,
-                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           trailing: Padding(
@@ -254,7 +252,6 @@ class FavouriteZikr extends StatelessWidget {
                                               dbContent.count.toString(),
                                               style: TextStyle(
                                                 color: mainColor,
-                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ),

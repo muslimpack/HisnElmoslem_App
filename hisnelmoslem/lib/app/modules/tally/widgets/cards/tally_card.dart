@@ -43,7 +43,6 @@ class TallyCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 20,
                   fontFamily: "uthmanic",
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               subtitle: Column(
@@ -78,7 +77,6 @@ class TallyCard extends StatelessWidget {
                 dbTally.count.toString(),
                 style: TextStyle(
                   color: mainColor,
-                  fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),
               ),

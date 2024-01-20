@@ -101,7 +101,6 @@ class TextSample extends StatelessWidget {
               textDirection: TextDirection.rtl,
               style: TextStyle(
                 fontSize: appData.fontSize * 10,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ),

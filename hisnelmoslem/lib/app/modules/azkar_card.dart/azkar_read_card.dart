@@ -119,7 +119,7 @@ class AzkarReadCard extends StatelessWidget {
                                     splashRadius: 20,
                                     icon: const Icon(MdiIcons.comment),
                                     onPressed: () {
-                                      showCommentaryDialoge(
+                                      showCommentaryDialog(
                                         context: Get.context!,
                                         contentId:
                                             controller.zikrContent[index].id,
@@ -248,7 +248,6 @@ class AzkarReadCard extends StatelessWidget {
                                           ? mainColor
                                           : null,
                                   //fontSize: 20,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -271,7 +270,6 @@ class AzkarReadCard extends StatelessWidget {
                                     fontSize: appData.fontSize * 10,
                                     color: mainColor,
                                     //fontSize: 20,
-                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),

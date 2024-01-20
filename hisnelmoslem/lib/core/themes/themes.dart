@@ -22,7 +22,6 @@ class Themes {
           color: darkColor,
           fontSize: 20,
           fontFamily: "Uthmanic",
-          fontWeight: FontWeight.bold,
         ),
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
@@ -66,7 +65,6 @@ class Themes {
           color: lightColor,
           fontSize: 20,
           fontFamily: "Uthmanic",
-          fontWeight: FontWeight.bold,
         ),
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
@@ -105,7 +103,6 @@ class Themes {
           color: lightColor,
           fontSize: 20,
           fontFamily: "Uthmanic",
-          fontWeight: FontWeight.bold,
         ),
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
@@ -154,7 +151,6 @@ class Themes {
           color: yellowColorSecondary,
           fontSize: 20,
           fontFamily: "Uthmanic",
-          fontWeight: FontWeight.bold,
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(

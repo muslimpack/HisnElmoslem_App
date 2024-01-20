@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
 
-Future<dynamic> showCommentaryDialoge({
+Future<dynamic> showCommentaryDialog({
   required BuildContext context,
   required int contentId,
 }) async {
@@ -15,22 +15,22 @@ Future<dynamic> showCommentaryDialoge({
     barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
-      return CommentaryDialoge(
+      return CommentaryDialog(
         contentId: contentId,
       );
     },
   );
 }
 
-class CommentaryDialoge extends StatefulWidget {
+class CommentaryDialog extends StatefulWidget {
   final int contentId;
-  const CommentaryDialoge({super.key, required this.contentId});
+  const CommentaryDialog({super.key, required this.contentId});
 
   @override
-  State<CommentaryDialoge> createState() => _CommentaryDialogeState();
+  State<CommentaryDialog> createState() => _CommentaryDialogState();
 }
 
-class _CommentaryDialogeState extends State<CommentaryDialoge> {
+class _CommentaryDialogState extends State<CommentaryDialog> {
   bool isLoading = true;
   late Commentary? commentary;
 

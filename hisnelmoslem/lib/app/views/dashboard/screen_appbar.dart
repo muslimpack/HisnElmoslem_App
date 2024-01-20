@@ -77,7 +77,6 @@ class ScreenAppBar extends StatelessWidget {
                         appDashboardItem[rearrangeController.list[index]].title,
                         style: const TextStyle(
                           fontFamily: "Uthmanic",
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     );

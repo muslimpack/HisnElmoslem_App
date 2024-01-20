@@ -56,7 +56,6 @@ class Empty extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

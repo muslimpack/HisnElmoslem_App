@@ -53,7 +53,6 @@ class TallyCounterView extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 30,
-                                  fontWeight: FontWeight.bold,
                                   fontFamily: "uthmanic",
                                 ),
                               ),

@@ -155,7 +155,6 @@ class TitleCard extends StatelessWidget {
             fehrsTitle.name,
             style: const TextStyle(
               fontFamily: "Uthmanic",
-              fontWeight: FontWeight.bold,
             ),
           ),
           // trailing: Text(zikrList[index]),

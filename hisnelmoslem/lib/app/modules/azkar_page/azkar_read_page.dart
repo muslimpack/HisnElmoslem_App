@@ -69,7 +69,7 @@ class AzkarReadPage extends StatelessWidget {
                                     splashRadius: 20,
                                     icon: const Icon(MdiIcons.comment),
                                     onPressed: () {
-                                      showCommentaryDialoge(
+                                      showCommentaryDialog(
                                         context: Get.context!,
                                         contentId: controller
                                             .zikrContent[controller.currentPage]
@@ -167,7 +167,6 @@ class AzkarReadPage extends StatelessWidget {
                                             .toString(),
                                         style: TextStyle(
                                           color: mainColor,
-                                          fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
                                       ),
@@ -263,11 +262,11 @@ class AzkarReadPage extends StatelessWidget {
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
                                 fontSize: appData.fontSize * 10,
+                                height: 2,
                                 color: controller.zikrContent[index].count == 0
                                     ? mainColor
                                     : null,
                                 // fontSize: 20,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -280,9 +279,9 @@ class AzkarReadPage extends StatelessWidget {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: appData.fontSize * 10,
+                                height: 2,
                                 color: mainColor,
                                 //fontSize: 20,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

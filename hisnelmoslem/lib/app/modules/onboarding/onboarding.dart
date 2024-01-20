@@ -62,7 +62,6 @@ class OnBoardingPage extends StatelessWidget {
                         radius: 10,
                         text: Text(
                           'Start'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         onTap: () {
                           controller.goToDashboard();
@@ -78,9 +77,7 @@ class OnBoardingPage extends StatelessWidget {
                               isTransparent: true,
                               text: Text(
                                 "Skip".tr,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: const TextStyle(),
                               ),
                               onTap: () {
                                 controller.goToDashboard();

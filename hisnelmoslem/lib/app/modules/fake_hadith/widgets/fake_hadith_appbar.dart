@@ -24,7 +24,6 @@ class FakehadithAppBar extends StatelessWidget {
                 "new".tr,
                 style: const TextStyle(
                   fontFamily: "Uthmanic",
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -33,7 +32,6 @@ class FakehadithAppBar extends StatelessWidget {
                 "have been read".tr,
                 style: const TextStyle(
                   fontFamily: "Uthmanic",
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

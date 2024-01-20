@@ -50,9 +50,7 @@ class ScreenMenu extends StatelessWidget {
                             const Text(
                               appVersion,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(),
                             ),
                             IconButton(
                               onPressed: () {

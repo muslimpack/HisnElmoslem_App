@@ -134,7 +134,6 @@ class HadithCard extends StatelessWidget {
                 style: TextStyle(
                   color: fakeHaith.isRead ? mainColor : null,
                   fontSize: appData.fontSize * 10,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -149,7 +148,6 @@ class HadithCard extends StatelessWidget {
                   fontSize: appData.fontSize * 10,
                   color: mainColor,
                   //fontSize: 20,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

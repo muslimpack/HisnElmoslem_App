@@ -36,7 +36,6 @@ class ImageVarFontBuilder extends StatelessWidget {
                     controller.getImageTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       color: shareAsImageData.titleTextColor,
                       fontSize:
                           shareAsImageData.fontSize * controller.titleFactor,
@@ -59,7 +58,6 @@ class ImageVarFontBuilder extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: shareAsImageData.bodyTextColor,
-                            fontWeight: FontWeight.bold,
                             fontSize: shareAsImageData.fontSize,
                           ),
                         ),
@@ -76,7 +74,6 @@ class ImageVarFontBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: shareAsImageData.additionalTextColor,
-                              fontWeight: FontWeight.bold,
                               fontSize: shareAsImageData.fontSize *
                                   controller.fadlFactor,
                             ),
@@ -129,7 +126,6 @@ class ImageVarFontBuilder extends StatelessWidget {
                         "تطبيق حصن المسلم",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
                           color: shareAsImageData.titleTextColor,
                           fontSize: 20,
                         ),

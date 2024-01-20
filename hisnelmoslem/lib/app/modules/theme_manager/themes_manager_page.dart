@@ -86,9 +86,7 @@ class RadioImage extends StatelessWidget {
           leading: Icon(icon),
           title: Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(),
           ),
         ),
       ),
