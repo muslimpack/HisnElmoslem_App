@@ -194,16 +194,6 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(Icons.star),
-                          title:
-                              Text("report bugs and request new features".tr),
-                          onTap: () {
-                            EmailManager.sendFeedbackForm();
-                          },
-                        ),
-                      ),
-                      DrawerCard(
-                        child: ListTile(
                           leading: const Icon(Icons.history),
                           title: Text("updates history".tr),
                           onTap: () {
