@@ -14,7 +14,7 @@ class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 3;
+  static const int dbVersion = 4;
 
   /* ************* Singleton Constructor ************* */
 
