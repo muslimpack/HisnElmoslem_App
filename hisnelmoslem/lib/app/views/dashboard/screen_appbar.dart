@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ScreenAppBar extends StatelessWidget {
   final DashboardController controller;
@@ -34,7 +35,7 @@ class ScreenAppBar extends StatelessWidget {
                   right: 15,
                 ),
                 prefix: IconButton(
-                  icon: const Icon(Icons.clear_all),
+                  icon: const Icon(MdiIcons.eraser),
                   onPressed: () {
                     controller.searchController.clear();
                     controller.searchZikr();
@@ -92,7 +93,7 @@ class ScreenAppBar extends StatelessWidget {
           IconButton(
             splashRadius: 20,
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.exit_to_app_sharp),
+            icon: const Icon(MdiIcons.close),
             onPressed: () {
               controller.isSearching = false;
               controller.searchedTitle = controller.allTitle;
