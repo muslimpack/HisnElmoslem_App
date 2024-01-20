@@ -38,7 +38,6 @@ class About extends StatelessWidget {
             leading: const Icon(MdiIcons.handClap),
             title: Text("Pray for us and our parents.".tr),
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(MdiIcons.bookOpenPageVariant),
             title: Text("Quran pages is from android quran".tr),
@@ -46,7 +45,6 @@ class About extends StatelessWidget {
               openURL("https://android.quran.com/");
             },
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(Icons.menu_book),
             title: Text(
@@ -58,7 +56,6 @@ class About extends StatelessWidget {
               openURL("https://www.alukah.net/library/0/55211/");
             },
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(MdiIcons.web),
             title: Text("Official Website".tr),
@@ -67,7 +64,6 @@ class About extends StatelessWidget {
               openURL("https://www.binwahaf.com/");
             },
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(MdiIcons.github),
             title: Text("Github".tr),
