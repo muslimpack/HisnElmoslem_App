@@ -51,7 +51,8 @@ class AzkarDatabaseHelper {
     Database database = await openDatabase(path);
 
     await database.getVersion().then((currentVersion) async {
-      if (currentVersion < dbVersion) {
+      if (currentVersion != dbVersion) {
+        hisnPrint("[DB] New version detected");
         database.close();
 
         //delete the old database so you can copy the new one
