@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/themes/const_colors.dart';
+import 'package:hisnelmoslem/src/core/values/const_colors.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class Themes {
