@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/shared/managers/local_repo.dart';
+import 'package:hisnelmoslem/src/core/managers/local_repo.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';

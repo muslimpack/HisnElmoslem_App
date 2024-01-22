@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/shared/managers/email_manager.dart';
+import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/open_url.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';

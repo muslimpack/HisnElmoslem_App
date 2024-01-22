@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/managers/alarm_manager.dart';
+import 'package:hisnelmoslem/src/core/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
-import 'package:hisnelmoslem/src/core/shared/managers/alarm_manager.dart';
-import 'package:hisnelmoslem/src/core/shared/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/src/core/utils/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/utils/handle_repeat_type.dart';

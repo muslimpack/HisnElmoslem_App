@@ -1,8 +1,8 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/managers/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
-import 'package:hisnelmoslem/src/core/shared/managers/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/utils/show_toast.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
