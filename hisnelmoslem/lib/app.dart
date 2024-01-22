@@ -54,6 +54,7 @@ class MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: "Hisn Elmoslem".tr,
       theme: ThemeServices.getTheme().copyWith(
