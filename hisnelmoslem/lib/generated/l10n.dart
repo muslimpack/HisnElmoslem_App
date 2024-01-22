@@ -68,10 +68,10 @@ class S {
   }
 
   /// `Active tally`
-  String get active_tallly {
+  String get active_tally {
     return Intl.message(
       'Active tally',
-      name: 'active_tallly',
+      name: 'active_tally',
       desc: '',
       args: [],
     );
