@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/app/shared/custom_inputs/number_field.dart';
+import 'package:hisnelmoslem/src/app/shared/dialogs/dialog_maker.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
+
+class ImageWidthDialog extends StatelessWidget {
+  final Function(String) onSubmit;
+  final String initialValue;
+
+  const ImageWidthDialog({
+    super.key,
+    required this.onSubmit,
+    required this.initialValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController widthController =
+        TextEditingController(text: initialValue);
+    return DialogMaker(
+      height: 270,
+      header: Text(
+        "ُEdit image size".tr,
+        style: TextStyle(
+          fontSize: 25,
+          color: mainColor,
+        ),
+      ),
+      content: [
+        Text(
+          "Image width".tr,
+          textAlign: TextAlign.center,
+        ),
+        UserNumberField(
+          controller: widthController,
+          hintText: "Image width".tr,
+        ),
+      ],
+      footer: ListTile(
+        title: Text(
+          "done".tr,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, color: mainColor),
+        ),
+        onTap: () {
+          onSubmit(widthController.text);
+          Navigator.pop<bool>(context, true);
+        },
+      ),
+    );
+  }
+}
