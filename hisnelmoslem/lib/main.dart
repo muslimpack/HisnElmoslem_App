@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/app/app.dart';
-import 'package:hisnelmoslem/app/init_services.dart';
+import 'package:hisnelmoslem/app.dart';
+import 'package:hisnelmoslem/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
