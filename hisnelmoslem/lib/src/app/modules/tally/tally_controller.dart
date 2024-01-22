@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/app/data/models/models.dart';
-import 'package:hisnelmoslem/src/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/app/modules/tally/dialogs/tally_dialog.dart';
 import 'package:hisnelmoslem/src/app/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/app/shared/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/utils/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TallyController extends GetxController {

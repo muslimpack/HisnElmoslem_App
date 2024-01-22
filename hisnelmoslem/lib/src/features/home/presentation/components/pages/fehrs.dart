@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/app/data/models/models.dart';
 import 'package:hisnelmoslem/src/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/title_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/title_card.dart';
+import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 
-class AzkarBookmarks extends StatelessWidget {
-  const AzkarBookmarks({
+class AzkarFehrs extends StatelessWidget {
+  const AzkarFehrs({
     super.key,
   });
 
@@ -14,32 +15,32 @@ class AzkarBookmarks extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       builder: (controller) {
+        final List<DbTitle> titleListToDisplay = controller.searchedTitle;
         return Scaffold(
           body: Scrollbar(
-            controller: controller.bookmarksScrollController,
+            controller: controller.fehrsScrollController,
             thumbVisibility: false,
-            child: controller.favouriteTitle.isEmpty
+            child: titleListToDisplay.isEmpty
                 ? Empty(
                     isImage: false,
-                    icon: Icons.bookmark_outline_rounded,
-                    title: "nothing found in favorites".tr,
-                    description:
-                        "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
-                            .tr,
+                    icon: Icons.search_outlined,
+                    title: "no title with this name".tr,
+                    description: "please review the index of the book".tr,
                   )
                 : ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(top: 10),
+                    itemCount: titleListToDisplay.length,
                     itemBuilder: (context, index) {
                       return FutureBuilder(
                         future: alarmDatabaseHelper.getAlarmByZikrTitle(
-                          dbTitle: controller.favouriteTitle[index],
+                          dbTitle: titleListToDisplay[index],
                         ),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return TitleCard(
                               index: index,
-                              fehrsTitle: controller.favouriteTitle[index],
+                              fehrsTitle: titleListToDisplay[index],
                               dbAlarm: snapshot.data!,
                             );
                           } else {
@@ -48,7 +49,6 @@ class AzkarBookmarks extends StatelessWidget {
                         },
                       );
                     },
-                    itemCount: controller.favouriteTitle.length,
                   ),
           ),
         );

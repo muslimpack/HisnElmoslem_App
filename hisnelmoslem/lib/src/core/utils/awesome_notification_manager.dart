@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/app/data/app_data.dart';
-import 'package:hisnelmoslem/src/app/modules/azkar_card.dart/azkar_read_card.dart';
-import 'package:hisnelmoslem/src/app/modules/azkar_page/azkar_read_page.dart';
-import 'package:hisnelmoslem/src/app/modules/quran/quran_controller.dart';
-import 'package:hisnelmoslem/src/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/src/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/src/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/local_repo.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/azkar_card.dart/azkar_read_card.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/azkar_page/azkar_read_page.dart';
 
 AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();

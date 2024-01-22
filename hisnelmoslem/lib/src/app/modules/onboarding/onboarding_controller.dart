@@ -5,8 +5,8 @@ import 'package:hisnelmoslem/src/app/data/app_data.dart';
 import 'package:hisnelmoslem/src/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/src/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/src/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class OnBoardingController extends GetxController {
