@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/app/data/models/models.dart';
-import 'package:hisnelmoslem/src/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/src/core/utils/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/data/data_source/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 
 class FakeHadithController extends GetxController {

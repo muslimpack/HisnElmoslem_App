@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/app/modules/fake_hadith/widgets/fake_hadith_appbar.dart';
-import 'package:hisnelmoslem/src/app/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/pages/fake_hadith_read_page.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/pages/fake_hadith_unread_page.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/fake_hadith_controller.dart';

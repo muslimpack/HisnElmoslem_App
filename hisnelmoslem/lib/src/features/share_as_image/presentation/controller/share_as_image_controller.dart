@@ -6,11 +6,11 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/app/data/models/models.dart';
-import 'package:hisnelmoslem/src/app/data/share_as_image_data.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/dialogs/image_width_dialog.dart';
-import 'package:hisnelmoslem/src/app/shared/functions/print.dart';
-import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/data_source/share_as_image_data.dart';
+import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/features/home/data/data_source/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/dialogs/image_width_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 

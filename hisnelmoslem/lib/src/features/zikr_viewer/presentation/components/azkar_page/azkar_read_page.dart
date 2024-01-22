@@ -1,11 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/app/data/app_data.dart';
-import 'package:hisnelmoslem/src/app/shared/dialogs/commentary_dialoge.dart';
-import 'package:hisnelmoslem/src/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/src/app/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/src/app/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/core/repo/app_data.dart';
+import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialoge.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';

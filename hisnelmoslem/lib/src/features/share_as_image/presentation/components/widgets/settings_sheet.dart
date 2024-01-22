@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/data_source/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
 
