@@ -2,7 +2,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/print.dart';
 
 import 'package:hisnelmoslem/src/features/theme/data/models/themes.dart';
 import 'package:hisnelmoslem/src/features/theme/data/models/themes_enum.dart';

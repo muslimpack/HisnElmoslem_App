@@ -2,12 +2,12 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repo/app_data.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/local_repo.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
+import 'package:hisnelmoslem/src/features/settings/data/data_source/app_data.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/azkar_card.dart/azkar_read_card.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/azkar_page/azkar_read_page.dart';
 

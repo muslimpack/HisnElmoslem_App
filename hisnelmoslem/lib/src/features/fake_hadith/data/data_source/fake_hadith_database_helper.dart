@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/features/bookmarks/data/data_source/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:path/path.dart';

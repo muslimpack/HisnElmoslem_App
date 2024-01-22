@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/screen_menu.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/components/screen_appbar.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/components/screen_menu.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:intl/intl.dart';
 

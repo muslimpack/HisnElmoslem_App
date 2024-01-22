@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/app_component.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/pages/bookmarks.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/pages/favorite_zikr.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/pages/fehrs.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/app_component.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/components/pages/bookmarks.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/components/pages/favorite_zikr.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/components/pages/fehrs.dart';
 
 final List<AppComponent> appDashboardItem = [
   AppComponent(

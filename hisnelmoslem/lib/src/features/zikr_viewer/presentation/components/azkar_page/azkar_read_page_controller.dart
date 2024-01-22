@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/src/features/home/data/data_source/azkar_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/core/utils/get_snackbar.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/data_source/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_controller.dart';
 import 'package:wakelock/wakelock.dart';
 

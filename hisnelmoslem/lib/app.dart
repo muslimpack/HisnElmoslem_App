@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repo/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/translations/translation.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/data_source/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/screens/dashboard.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/data_source/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/data/data_source/azkar_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding.dart';
+import 'package:hisnelmoslem/src/features/settings/data/data_source/app_data.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page_controller.dart';
 import 'package:hisnelmoslem/src/features/tally/data/data_source/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/theme/data/data_source/theme_services.dart';

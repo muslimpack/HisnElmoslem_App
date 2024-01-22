@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/core/utils/show_toast.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 

@@ -1,4 +1,4 @@
-import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> sendEmail({

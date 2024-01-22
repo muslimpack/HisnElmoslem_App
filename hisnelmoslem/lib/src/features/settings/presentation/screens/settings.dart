@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repo/app_data.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/core/utils/get_snackbar.dart';
+import 'package:hisnelmoslem/src/core/utils/open_url.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
+import 'package:hisnelmoslem/src/features/settings/data/data_source/app_data.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/alarms_manager/alarms_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/app_language_page/app_language_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page.dart';

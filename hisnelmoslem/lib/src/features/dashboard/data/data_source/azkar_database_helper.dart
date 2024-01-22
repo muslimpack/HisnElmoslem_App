@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/features/bookmarks/data/data_source/data_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_chapters.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_chapters.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

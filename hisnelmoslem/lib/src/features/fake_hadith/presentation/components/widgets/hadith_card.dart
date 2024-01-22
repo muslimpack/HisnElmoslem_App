@@ -1,11 +1,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repo/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/fake_hadith_controller.dart';
+import 'package:hisnelmoslem/src/features/settings/data/data_source/app_data.dart';
 import 'package:share/share.dart';
 
 class HadithCard extends StatelessWidget {

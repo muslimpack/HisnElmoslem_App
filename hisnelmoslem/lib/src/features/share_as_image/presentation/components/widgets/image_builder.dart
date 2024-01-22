@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
+import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/dashboard/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/data_source/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
 
