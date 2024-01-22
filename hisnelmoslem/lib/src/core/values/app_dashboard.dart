@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/app/data/models/models.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/app_component.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/bookmarks.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/favorite_zikr.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/fehrs.dart';

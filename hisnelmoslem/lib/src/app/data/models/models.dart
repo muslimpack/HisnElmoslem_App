@@ -1,9 +1,0 @@
-export '../../../features/alarm/data/models/alarm.dart';
-export '../../../features/alarm/data/models/received_notification.dart';
-export '../../../features/fake_hadith/data/models/fake_hadith_read.dart';
-export '../../../features/fake_hadith/data/models/fake_haith.dart';
-export '../../../features/home/data/models/app_component.dart';
-export '../../../features/quran/data/models/quran.dart';
-export '../../../features/settings/data/models/translation_data.dart';
-export '../../../features/tally/data/models/tally.dart';
-export '../../../features/zikr_viewer/data/models/commentary.dart';

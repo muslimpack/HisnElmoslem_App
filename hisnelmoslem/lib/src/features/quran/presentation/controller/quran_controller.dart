@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/app/data/models/models.dart';
+import 'package:hisnelmoslem/src/features/quran/data/models/quran.dart';
 import 'package:hisnelmoslem/src/features/theme/data/data_source/theme_services.dart';
 
 enum SurahNameEnum { alMulk, assajdah, alKahf, endofAliImran }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/app/data/models/models.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/alarm/data/models/alarm.dart';
 
 class AlarmsPageController extends GetxController {
   /* *************** Variables *************** */
