@@ -63,6 +63,7 @@ flutter_native_splash:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/json/
@@ -120,3 +121,6 @@ flutter:
     - family: Rakkas
       fonts:
         - asset: assets/fonts/Rakkas-Regular.ttf
+
+flutter_intl:
+  enabled: true
