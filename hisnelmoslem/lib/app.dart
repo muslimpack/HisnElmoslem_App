@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/translations/translation.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
@@ -48,6 +49,7 @@ class MyAppState extends State<MyApp> {
       fallbackLocale: Locale(appData.appLocale),
       //
       localizationsDelegates: const [
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
