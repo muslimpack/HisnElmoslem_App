@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/managers/awesome_notification_manager.dart';
-import 'package:hisnelmoslem/src/core/translations/translation.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/data_source/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/dashboard/presentation/screens/dashboard.dart';
@@ -43,11 +42,6 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // Translation
-      translations: HisnAppTranslation(),
-      locale: Locale(appData.appLocale),
-      fallbackLocale: Locale(appData.appLocale),
-      //
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -55,6 +49,8 @@ class MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      fallbackLocale: const Locale("en"),
+      locale: Locale(appData.appLocale),
       debugShowCheckedModeBanner: false,
       title: "Hisn Elmoslem".tr,
       theme: ThemeServices.getTheme().copyWith(
@@ -65,8 +61,6 @@ class MyAppState extends State<MyApp> {
             .textTheme
             .apply(fontFamily: appData.fontFamily),
       ),
-      // theme: Themes.yellowTheme,
-      // home: const AzkarDashboard(),
       home: appData.isFirstOpenToThisRelease
           ? const OnBoardingPage()
           : const AzkarDashboard(),
