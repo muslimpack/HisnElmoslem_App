@@ -12,7 +12,7 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/dashboard/presentation/controller/dashboard_controller.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/alarms_manager/alarm_controller.dart';
+import 'package:hisnelmoslem/src/features/alarm/presentation/controller/alarm_controller.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
