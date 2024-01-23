@@ -1,14 +1,18 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer' as developer;
 
 void hisnPrint(Object? object) {
-  printColor("[HISN ELMOSLEM]$object", color: PrintColors.yellow);
+  printColor(object, color: PrintColors.green);
 }
 
 void printColor(Object? object, {int color = 0}) {
-  final orangeText = '\u001b[${color}m$object\u001b[0m';
-  if (kDebugMode) {
-    print(orangeText);
-  }
+  developer.log(
+    colorText(object, color: color),
+    name: colorText("HISN ELMOSLEM", color: color),
+  );
+}
+
+String colorText(Object? object, {int color = 0}) {
+  return '\u001b[${color}m$object\u001b[0m';
 }
 
 class PrintColors {
