@@ -42,6 +42,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -49,9 +50,7 @@ class MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      fallbackLocale: const Locale("en"),
-      locale: Locale(appData.appLocale),
-      debugShowCheckedModeBanner: false,
+      locale: appData.appLocale,
       onGenerateTitle: (context) => S.of(context).hisn_elmoslem,
       theme: ThemeServices.getTheme().copyWith(
         textTheme: ThemeServices.getTheme()

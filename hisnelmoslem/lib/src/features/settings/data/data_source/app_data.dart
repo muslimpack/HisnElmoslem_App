@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
@@ -73,7 +74,10 @@ class AppData {
   /* ******* App Locale ******* */
 
   /// get font size default value is 2.6
-  String get appLocale => box.read('app_locale') ?? "ar";
+  Locale get appLocale {
+    final String langCode = box.read<String>('app_locale') ?? "ar";
+    return Locale(langCode);
+  }
 
   /// set font size
   Future<void> changAppLocale(String value) async {
