@@ -758,10 +758,10 @@ class S {
   }
 
   /// `I don't like about this app:`
-  String get i_dont_like_about_this_app {
+  String get i_do_not_like_about_this_app {
     return Intl.message(
       'I don\'t like about this app:',
-      name: 'i_dont_like_about_this_app',
+      name: 'i_do_not_like_about_this_app',
       desc: '',
       args: [],
     );
@@ -1487,31 +1487,31 @@ class S {
     );
   }
 
-  /// `You have read all content`
-  String get you_have_read_all_content {
-    return Intl.message(
-      'You have read all content',
-      name: 'you_have_read_all_content',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `You haven't opened the app for a long time.`
-  String get you_havent_opened_app_for_long_time {
+  String get you_have_not_opened_app_for_long_time {
     return Intl.message(
       'You haven\'t opened the app for a long time.',
-      name: 'you_havent_opened_app_for_long_time',
+      name: 'you_have_not_opened_app_for_long_time',
       desc: '',
       args: [],
     );
   }
 
   /// `You haven't read anything yet`
-  String get you_havent_read_anything_yet {
+  String get you_have_not_read_anything_yet {
     return Intl.message(
       'You haven\'t read anything yet',
-      name: 'you_havent_read_anything_yet',
+      name: 'you_have_not_read_anything_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have read all content`
+  String get you_have_read_all_content {
+    return Intl.message(
+      'You have read all content',
+      name: 'you_have_read_all_content',
       desc: '',
       args: [],
     );
