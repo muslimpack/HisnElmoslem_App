@@ -29,7 +29,6 @@ class AppLanguagePage extends StatelessWidget {
               hisnPrint(appData.appLocale.languageCode);
               hisnPrint(controller.languages[index].code);
               return ListTile(
-                key: Key('$index'),
                 tileColor: appData.appLocale.languageCode ==
                         controller.languages[index].code
                     ? controller.activeColor
