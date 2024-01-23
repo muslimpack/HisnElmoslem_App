@@ -126,6 +126,7 @@ class AwesomeNotificationManager {
     });
   }
 
+  @pragma("vm:entry-point")
   static Future<void> onActionReceivedMethod(
     ReceivedAction receivedAction,
   ) async {
