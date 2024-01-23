@@ -71,7 +71,7 @@
   "hisn_elmoslem_app_rate_the_app": "تطبيق حصن المسلم: تقييم التطبيق",
   "hisn_elmoslem_app_version": "تطبيق حصن المسلم الإصدار",
   "hisn_elmoslem_need_notification_permission_to_send_zikr_reminders": "التطبيق يحتاج إلى أخذ الإذن لتشغيل الإشعارات لتعمل معك التنبيهات بشكل سليم",
-  "i_dont_like_about_this_app": "ما أعجبك في التطبيق:",
+  "i_do_not_like_about_this_app": "ما أعجبك في التطبيق:",
   "i_like_about_this_app": "ما أعجبك في التطبيق:",
   "image_quality": "جودة الصورة",
   "image_width": "عرض الصورة",
@@ -144,9 +144,9 @@
   "true_black_theme": "الوضع الأسود الغريب",
   "updates_history": "تاريخ التحديثات",
   "yes": "نعم",
+  "you_have_not_opened_app_for_long_time": "لم تفتح التطبيق منذ فترة",
+  "you_have_not_read_anything_yet": "لم تقرأ شيئًا بعد",
   "you_have_read_all_content": "لقد أتمت قراءة الأحاديث",
-  "you_havent_opened_app_for_long_time": "لم تفتح التطبيق منذ فترة",
-  "you_havent_read_anything_yet": "لم تقرأ شيئًا بعد",
   "your_progress_will_be_deleted_and_cant_undo_that": "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟",
   "zikr_index": "الذكر رقم"
 }

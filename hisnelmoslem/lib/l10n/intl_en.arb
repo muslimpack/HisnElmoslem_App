@@ -71,7 +71,7 @@
   "hisn_elmoslem_app_rate_the_app": "Hisn ELmoslem App | Rate the app",
   "hisn_elmoslem_app_version": "Hisn ELmoslem App Version",
   "hisn_elmoslem_need_notification_permission_to_send_zikr_reminders": "Hisn ELmoslem need notification permission to send zikr reminders.",
-  "i_dont_like_about_this_app": "I don't like about this app:",
+  "i_do_not_like_about_this_app": "I don't like about this app:",
   "i_like_about_this_app": "I like about this app:",
   "image_quality": "Image quality",
   "image_width": "Image width",
@@ -144,9 +144,9 @@
   "true_black_theme": "True black Theme",
   "updates_history": "Updates History",
   "yes": "Yes",
+  "you_have_not_opened_app_for_long_time": "You haven't opened the app for a long time.",
+  "you_have_not_read_anything_yet": "You haven't read anything yet",
   "you_have_read_all_content": "You have read all content",
-  "you_havent_opened_app_for_long_time": "You haven't opened the app for a long time.",
-  "you_havent_read_anything_yet": "You haven't read anything yet",
   "your_progress_will_be_deleted_and_cant_undo_that": "Your progress will be deleted and you can't undo that",
   "zikr_index": "Zikr Index"
 }
