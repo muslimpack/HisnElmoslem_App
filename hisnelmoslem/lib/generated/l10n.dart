@@ -18,28 +18,31 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null,
+        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
-  static const AppLocalizationDelegate delegate =
-    AppLocalizationDelegate();
+  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name); 
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       final instance = S();
       S._current = instance;
- 
+
       return instance;
     });
-  } 
+  }
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null,
+        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -848,10 +851,10 @@ class S {
   }
 
   /// `New`
-  String get new {
+  String get new_ {
     return Intl.message(
       'New',
-      name: 'new',
+      name: 'new_',
       desc: '',
       args: [],
     );
@@ -878,10 +881,12 @@ class S {
   }
 
   /// `No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title`
-  String get no_alarm_set_for_any_zikr_if_you_want_set_alarm_click_on_alarm_sign_next_to_zikr_title {
+  String
+      get no_alarm_set_for_any_zikr_if_you_want_set_alarm_click_on_alarm_sign_next_to_zikr_title {
     return Intl.message(
       'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title',
-      name: 'no_alarm_set_for_any_zikr_if_you_want_set_alarm_click_on_alarm_sign_next_to_zikr_title',
+      name:
+          'no_alarm_set_for_any_zikr_if_you_want_set_alarm_click_on_alarm_sign_next_to_zikr_title',
       desc: '',
       args: [],
     );
@@ -898,10 +903,12 @@ class S {
   }
 
   /// `No title from the index is marked as a favourite. Click on the Favorites icon at any index title`
-  String get no_title_from_index_marked_as_favorite_click_favorites_icon_at_any_index_title {
+  String
+      get no_title_from_index_marked_as_favorite_click_favorites_icon_at_any_index_title {
     return Intl.message(
       'No title from the index is marked as a favourite. Click on the Favorites icon at any index title',
-      name: 'no_title_from_index_marked_as_favorite_click_favorites_icon_at_any_index_title',
+      name:
+          'no_title_from_index_marked_as_favorite_click_favorites_icon_at_any_index_title',
       desc: '',
       args: [],
     );
@@ -918,10 +925,12 @@ class S {
   }
 
   /// `No zikr has been selected as a favorite Click on the heart icon on any internal zikr`
-  String get no_zikr_selected_as_favorite_click_heart_icon_on_any_internal_zikr {
+  String
+      get no_zikr_selected_as_favorite_click_heart_icon_on_any_internal_zikr {
     return Intl.message(
       'No zikr has been selected as a favorite Click on the heart icon on any internal zikr',
-      name: 'no_zikr_selected_as_favorite_click_heart_icon_on_any_internal_zikr',
+      name:
+          'no_zikr_selected_as_favorite_click_heart_icon_on_any_internal_zikr',
       desc: '',
       args: [],
     );
@@ -1378,10 +1387,12 @@ class S {
   }
 
   /// `The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."`
-  String get the_prophet_said_whoever_tells_lies_about_me_intentionally_should_take_his_seat_in_hellfire {
+  String
+      get the_prophet_said_whoever_tells_lies_about_me_intentionally_should_take_his_seat_in_hellfire {
     return Intl.message(
       'The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."',
-      name: 'the_prophet_said_whoever_tells_lies_about_me_intentionally_should_take_his_seat_in_hellfire',
+      name:
+          'the_prophet_said_whoever_tells_lies_about_me_intentionally_should_take_his_seat_in_hellfire',
       desc: '',
       args: [],
     );
@@ -1448,10 +1459,12 @@ class S {
   }
 
   /// `To activate counter go to counters then click to counter icon beside the counter you want`
-  String get to_activate_counter_go_to_counters_then_click_counter_icon_beside_counter_you_want {
+  String
+      get to_activate_counter_go_to_counters_then_click_counter_icon_beside_counter_you_want {
     return Intl.message(
       'To activate counter go to counters then click to counter icon beside the counter you want',
-      name: 'to_activate_counter_go_to_counters_then_click_counter_icon_beside_counter_you_want',
+      name:
+          'to_activate_counter_go_to_counters_then_click_counter_icon_beside_counter_you_want',
       desc: '',
       args: [],
     );

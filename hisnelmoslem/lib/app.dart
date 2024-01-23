@@ -52,7 +52,7 @@ class MyAppState extends State<MyApp> {
       fallbackLocale: const Locale("en"),
       locale: Locale(appData.appLocale),
       debugShowCheckedModeBanner: false,
-      title: "Hisn Elmoslem".tr,
+      onGenerateTitle: (context) => S.of(context).hisn_elmoslem,
       theme: ThemeServices.getTheme().copyWith(
         textTheme: ThemeServices.getTheme()
             .textTheme

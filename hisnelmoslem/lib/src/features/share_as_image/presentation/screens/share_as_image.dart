@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_content.dart';
@@ -25,7 +26,7 @@ class ShareAsImage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   title: Text(
-                    "share as image".tr,
+                    S.of(context).share_as_image,
                     style: const TextStyle(
                       fontFamily: "Uthmanic",
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/dashboard/presentation/components/widgets/title_card.dart';
@@ -22,10 +23,10 @@ class AzkarBookmarks extends StatelessWidget {
                 ? Empty(
                     isImage: false,
                     icon: Icons.bookmark_outline_rounded,
-                    title: "nothing found in favorites".tr,
-                    description:
-                        "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
-                            .tr,
+                    title: S.of(context).nothing_found_in_favorites,
+                    description: S
+                        .of(context)
+                        .no_title_from_index_marked_as_favorite_click_favorites_icon_at_any_index_title,
                   )
                 : ListView.builder(
                     physics: const BouncingScrollPhysics(),

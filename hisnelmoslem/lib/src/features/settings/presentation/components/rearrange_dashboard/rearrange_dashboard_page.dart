@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/models/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
@@ -18,7 +19,7 @@ class RearrangeDashboardPage extends StatelessWidget {
                 appBar: AppBar(
                   centerTitle: true,
                   title: Text(
-                    "dashboard arrangement".tr,
+                    S.of(context).dashboard_arrangement,
                     style: const TextStyle(fontFamily: "Uthmanic"),
                   ),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,

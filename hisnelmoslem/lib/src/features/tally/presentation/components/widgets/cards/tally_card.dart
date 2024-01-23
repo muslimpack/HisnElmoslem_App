@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
@@ -56,14 +57,14 @@ class TallyCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        tooltip: 'edit'.tr,
+                        tooltip: S.of(context).edit,
                         onPressed: () {
                           tallyController.updateTallyById(dbTally);
                         },
                         icon: const Icon(Icons.edit),
                       ),
                       IconButton(
-                        tooltip: "delete".tr,
+                        tooltip: S.of(context).delete,
                         onPressed: () {
                           tallyController.deleteTallyById(dbTally);
                         },

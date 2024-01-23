@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_controller.dart';
 
@@ -15,7 +16,7 @@ class SoundsManagerPage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "effect manager".tr,
+              S.of(context).effect_manager,
               style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -28,7 +29,7 @@ class SoundsManagerPage extends StatelessWidget {
                 leading: const Icon(
                   Icons.volume_up,
                 ),
-                title: Text("Sound Effect volume".tr),
+                title: Text(S.of(context).sound_effect_volume),
                 subtitle: Slider(
                   value: controller.soundEffectVolume,
                   onChanged: (value) {
@@ -47,7 +48,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration at every praise".tr),
+                  title: Text(
+                    S.of(context).phone_vibration_at_every_praise,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isTallyVibrateAllowed,
@@ -69,7 +72,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect at every praise".tr),
+                  title: Text(
+                    S.of(context).sound_effect_at_every_praise,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isTallySoundAllowed,
@@ -91,7 +96,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration at single zikr end".tr),
+                  title: Text(
+                    S.of(context).phone_vibration_at_single_zikr_end,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isZikrDoneVibrateAllowed,
@@ -112,7 +119,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect at single zikr end".tr),
+                  title: Text(
+                    S.of(context).sound_effect_at_single_zikr_end,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isZikrDoneSoundAllowed,
@@ -133,7 +142,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration when all zikr end".tr),
+                  title: Text(
+                    S.of(context).phone_vibration_when_all_zikr_end,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isAllAzkarFinishedVibrateAllowed,
@@ -156,7 +167,9 @@ class SoundsManagerPage extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect when all zikr end".tr),
+                  title: Text(
+                    S.of(context).sound_effect_when_all_zikr_end,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: controller.isAllAzkarFinishedSoundAllowed,

@@ -1,42 +1,22 @@
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 
 class HandleRepeatType {
   String getNameToPutInDatabase({required String chosenValue}) {
-    /* switch (chosenValue) {
-      case "daily".tr:
-        return "Daily";
-      case "كل سبت":
-        return "AtSaturday";
-      case "كل أحد":
-        return "AtSunday";
-      case "كل إثنين":
-        return "AtMonday";
-      case "كل ثلاثاء":
-        return "AtTuesday";
-      case "كل أربعاء":
-        return "AtWednesday";
-      case "كل خميس":
-        return "AtThursday";
-      case "كل جمعة":
-        return "AtFriday";
-      default:
-        return "Daily";
-    }*/
-    if (chosenValue == "daily".tr) {
+    if (chosenValue == S.current.daily) {
       return "Daily";
-    } else if (chosenValue == "every saturday".tr) {
+    } else if (chosenValue == S.current.every_saturday) {
       return "AtSaturday";
-    } else if (chosenValue == "every sunday".tr) {
+    } else if (chosenValue == S.current.every_sunday) {
       return "AtSunday";
-    } else if (chosenValue == "every monday".tr) {
+    } else if (chosenValue == S.current.every_monday) {
       return "AtMonday";
-    } else if (chosenValue == "every tuesday".tr) {
+    } else if (chosenValue == S.current.every_tuesday) {
       return "AtTuesday";
-    } else if (chosenValue == "every wednesday".tr) {
+    } else if (chosenValue == S.current.every_wednesday) {
       return "AtWednesday";
-    } else if (chosenValue == "every thursday".tr) {
+    } else if (chosenValue == S.current.every_thursday) {
       return "AtThursday";
-    } else if (chosenValue == "every Friday".tr) {
+    } else if (chosenValue == S.current.every_friday) {
       return "AtFriday";
     } else {
       return "Daily";
@@ -46,23 +26,23 @@ class HandleRepeatType {
   String getNameToUser({required String chosenValue}) {
     switch (chosenValue) {
       case "Daily":
-        return "daily".tr;
+        return S.current.daily;
       case "AtSaturday":
-        return "every saturday".tr;
+        return S.current.every_saturday;
       case "AtSunday":
-        return "every sunday".tr;
+        return S.current.every_sunday;
       case "AtMonday":
-        return "every monday".tr;
+        return S.current.every_monday;
       case "AtTuesday":
-        return "every tuesday".tr;
+        return S.current.every_tuesday;
       case "AtWednesday":
-        return "every wednesday".tr;
+        return S.current.every_wednesday;
       case "AtThursday":
-        return "every thursday".tr;
+        return S.current.every_thursday;
       case "AtFriday":
-        return "every Friday".tr;
+        return S.current.every_friday;
       default:
-        return "daily".tr;
+        return S.current.daily;
     }
   }
 }

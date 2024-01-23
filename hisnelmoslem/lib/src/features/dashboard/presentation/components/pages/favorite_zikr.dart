@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
@@ -30,10 +31,10 @@ class FavouriteZikr extends StatelessWidget {
             ? Empty(
                 isImage: false,
                 icon: Icons.favorite_outline_rounded,
-                title: "nothing found in favorites".tr,
-                description:
-                    "no zikr has been selected as a favorite Click on the heart icon on any internal zikr"
-                        .tr,
+                title: S.of(context).nothing_found_in_favorites,
+                description: S
+                    .of(context)
+                    .no_zikr_selected_as_favorite_click_heart_icon_on_any_internal_zikr,
               )
             : Scaffold(
                 body: Container(
@@ -110,7 +111,9 @@ class FavouriteZikr extends StatelessWidget {
                                             "${dbContent.content}\n${dbContent.fadl}",
                                           ).then((result) {
                                             getSnackbar(
-                                              message: "copied to clipboard".tr,
+                                              message: S
+                                                  .of(context)
+                                                  .copied_to_clipboard,
                                             );
                                           });
                                         },
@@ -240,7 +243,7 @@ class FavouriteZikr extends StatelessWidget {
                                             }
                                           },
                                           title: Text(
-                                            "${"Go to".tr} | ${dbTitle.name}",
+                                            "${S.of(context).go_to} | ${dbTitle.name}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 20,

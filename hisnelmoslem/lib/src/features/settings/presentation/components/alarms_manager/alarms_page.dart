@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/alarms_manager/alarm_controller.dart';
@@ -17,7 +18,7 @@ class AlarmsPages extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "reminders manager".tr,
+              S.of(context).reminders_manager,
               style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -32,10 +33,10 @@ class AlarmsPages extends StatelessWidget {
                       ? Empty(
                           isImage: false,
                           icon: Icons.alarm_add_rounded,
-                          title: "no reminders found".tr,
-                          description:
-                              "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title"
-                                  .tr,
+                          title: S.of(context).no_reminders_found,
+                          description: S
+                              .of(context)
+                              .no_alarm_set_for_any_zikr_if_you_want_set_alarm_click_on_alarm_sign_next_to_zikr_title,
                         )
                       : ListView.builder(
                           physics: const BouncingScrollPhysics(),

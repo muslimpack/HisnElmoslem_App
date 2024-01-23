@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -27,10 +28,10 @@ class TallyCounterView extends StatelessWidget {
                 ? Empty(
                     isImage: false,
                     icon: Icons.watch_rounded,
-                    title: "no active counter".tr,
-                    description:
-                        "to activate counter go to counters then click to counter icon beside the counter you want"
-                            .tr,
+                    title: S.of(context).no_active_counter,
+                    description: S
+                        .of(context)
+                        .to_activate_counter_go_to_counters_then_click_counter_icon_beside_counter_you_want,
                   )
                 : Scaffold(
                     resizeToAvoidBottomInset: false,
@@ -82,7 +83,7 @@ class TallyCounterView extends StatelessWidget {
                                 startAngle: 270,
                                 infoProperties: InfoProperties(
                                   bottomLabelText:
-                                      '${"times".tr} | ${controller.circleValueTimes}',
+                                      '${S.of(context).times} | ${controller.circleValueTimes}',
                                   bottomLabelStyle: const TextStyle(
                                     fontSize: 25,
                                   ),

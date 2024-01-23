@@ -1,6 +1,6 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/core/utils/handle_repeat_type.dart';
@@ -76,7 +76,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
       bodyController = TextEditingController(
         text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       );
-      repeatType = "daily".tr;
+      repeatType = S.of(context).daily;
     }
   }
 
@@ -93,9 +93,9 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
       header: Text(
         () {
           if (widget.isToEdit) {
-            return "edit reminder".tr;
+            return S.of(context).edit_reminder;
           } else {
-            return "add reminder".tr;
+            return S.of(context).add_reminder;
           }
         }(),
         style: TextStyle(
@@ -124,7 +124,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: "set message for you".tr,
+            hintText: S.of(context).set_message_for_yourself,
             contentPadding:
                 const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
           ),
@@ -133,7 +133,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           child: ListTile(
             title: Text(
               selectedHour == null
-                  ? "click to choose time".tr
+                  ? S.of(context).click_to_choose_time
                   : '$selectedHour : $selectedMinute',
               textAlign: TextAlign.center,
               textDirection: TextDirection.ltr,
@@ -174,14 +174,14 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                 });
               },
               items: <String>[
-                "daily".tr,
-                "every saturday".tr,
-                "every sunday".tr,
-                "every monday".tr,
-                "every tuesday".tr,
-                "every wednesday".tr,
-                "every thursday".tr,
-                "every Friday".tr,
+                S.of(context).daily,
+                S.of(context).every_saturday,
+                S.of(context).every_sunday,
+                S.of(context).every_monday,
+                S.of(context).every_tuesday,
+                S.of(context).every_wednesday,
+                S.of(context).every_thursday,
+                S.of(context).every_friday,
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   // alignment: Alignment.center,
@@ -205,7 +205,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           Expanded(
             child: ListTile(
               title: Text(
-                "done".tr,
+                S.of(context).done,
                 textAlign: TextAlign.center,
               ),
               onTap: () {
@@ -235,7 +235,9 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                       Navigator.pop(context, alarm);
                     }
                   } else {
-                    showToast(msg: "please choose time for the reminder".tr);
+                    showToast(
+                      msg: S.of(context).please_choose_time_for_the_reminder,
+                    );
                   }
                 });
               },
@@ -244,7 +246,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           Expanded(
             child: ListTile(
               title: Text(
-                "close".tr,
+                S.of(context).close,
                 textAlign: TextAlign.center,
               ),
               onTap: () {

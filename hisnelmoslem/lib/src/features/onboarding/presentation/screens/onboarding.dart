@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/onboarding_controller.dart';
@@ -61,7 +62,7 @@ class OnBoardingPage extends StatelessWidget {
                       child: RoundButton(
                         radius: 10,
                         text: Text(
-                          'Start'.tr,
+                          S.of(context).start_,
                         ),
                         onTap: () {
                           controller.goToDashboard();
@@ -76,7 +77,7 @@ class OnBoardingPage extends StatelessWidget {
                               radius: 10,
                               isTransparent: true,
                               text: Text(
-                                "Skip".tr,
+                                S.of(context).skip,
                                 style: const TextStyle(),
                               ),
                               onTap: () {

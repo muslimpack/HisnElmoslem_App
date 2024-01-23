@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class YesOrNoDialog extends StatelessWidget {
@@ -24,7 +24,7 @@ class YesOrNoDialog extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "are you sure?".tr,
+                S.of(context).are_you_sure,
                 style: TextStyle(fontSize: 20, color: mainColor),
               ),
             ),
@@ -39,7 +39,7 @@ class YesOrNoDialog extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     title: Text(
-                      "yes".tr,
+                      S.of(context).yes,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15, color: mainColor),
                     ),
@@ -52,7 +52,7 @@ class YesOrNoDialog extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     title: Text(
-                      "no".tr,
+                      S.of(context).no,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15, color: mainColor),
                     ),

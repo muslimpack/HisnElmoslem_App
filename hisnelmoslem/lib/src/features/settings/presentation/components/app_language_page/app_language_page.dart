@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/app_language_page/app_language_page_controller.dart';
 
 class AppLanguagePage extends StatelessWidget {
@@ -14,7 +15,7 @@ class AppLanguagePage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "app language".tr,
+              S.of(context).app_language,
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,

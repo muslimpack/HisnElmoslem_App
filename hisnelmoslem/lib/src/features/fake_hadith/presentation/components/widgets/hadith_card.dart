@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
@@ -39,7 +40,7 @@ class HadithCard extends StatelessWidget {
             softWrap: true,
           ),
           action: SnackBarAction(
-            label: "copy".tr,
+            label: S.of(context).copy,
             onPressed: () {
               // Some code to undo the change.
               FlutterClipboard.copy(fakeHaith.source);
@@ -77,9 +78,11 @@ class HadithCard extends StatelessWidget {
                         "${fakeHaith.text}\n${fakeHaith.darga}",
                       ).then((result) {
                         final snackBar = SnackBar(
-                          content: Text("copied to clipboard".tr),
+                          content: Text(
+                            S.of(context).copied_to_clipboard,
+                          ),
                           action: SnackBarAction(
-                            label: "done".tr,
+                            label: S.of(context).done,
                             onPressed: () {},
                           ),
                         );

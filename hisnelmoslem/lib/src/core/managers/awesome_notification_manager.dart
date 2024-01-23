@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/local_repo.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/print.dart';
@@ -27,10 +28,13 @@ class AwesomeNotificationManager {
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
-                title: Text("Allow app to send notifications?".tr),
+                title: Text(
+                  S.of(context).allow_app_to_send_notifications,
+                ),
                 content: Text(
-                  "Hisn ELmoslem need notification permission to send zikr reminders."
-                      .tr,
+                  S
+                      .of(context)
+                      .hisn_elmoslem_need_notification_permission_to_send_zikr_reminders,
                 ),
                 actions: [
                   TextButton(
@@ -38,7 +42,7 @@ class AwesomeNotificationManager {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "Later".tr,
+                      S.of(context).later,
                       style: const TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
@@ -48,7 +52,7 @@ class AwesomeNotificationManager {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "no".tr,
+                      S.of(context).no,
                       style: const TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
@@ -57,7 +61,7 @@ class AwesomeNotificationManager {
                         .requestPermissionToSendNotifications()
                         .then((_) => Navigator.pop(context)),
                     child: Text(
-                      "Allow".tr,
+                      S.of(context).allow,
                       style: const TextStyle(
                         color: Colors.teal,
                         fontSize: 18,
@@ -185,12 +189,12 @@ class AwesomeNotificationManager {
       actionButtons: [
         NotificationActionButton(
           key: 'Dismiss',
-          label: 'Dismiss'.tr,
+          label: S.current.dismiss,
           actionType: ActionType.DisabledAction,
         ),
         NotificationActionButton(
           key: 'Start',
-          label: 'Start'.tr,
+          label: S.current.start_,
         ),
       ],
     );
@@ -205,7 +209,7 @@ class AwesomeNotificationManager {
       content: NotificationContent(
         id: 1000,
         channelKey: 'scheduled_channel',
-        title: "You haven't opened the app for a long time.".tr,
+        title: S.current.you_have_not_opened_app_for_long_time,
         body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
         notificationLayout: NotificationLayout.BigText,
         payload: {'Open': "2"},
@@ -252,18 +256,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'Start'.tr,
+                label: S.current.start_,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],
@@ -301,18 +305,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'Start'.tr,
+                label: S.current.start_,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],

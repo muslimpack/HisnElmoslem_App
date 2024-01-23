@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/data_source/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
@@ -64,7 +65,7 @@ class SettingsSheet extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "title color".tr,
+                              S.of(context).title_color,
                             ),
                             ColorSwatchBuilder(
                               apply: (color) {
@@ -80,7 +81,7 @@ class SettingsSheet extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "text color".tr,
+                              S.of(context).text_color,
                             ),
                             ColorSwatchBuilder(
                               apply: (color) {
@@ -96,7 +97,7 @@ class SettingsSheet extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "subtitle color".tr,
+                              S.of(context).subtitle_color,
                             ),
                             ColorSwatchBuilder(
                               apply: (color) {
@@ -114,7 +115,7 @@ class SettingsSheet extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "background color".tr,
+                              S.of(context).background_color,
                             ),
                             ColorSwatchBuilder(
                               apply: (color) {
@@ -132,7 +133,7 @@ class SettingsSheet extends StatelessWidget {
                   ),
                   const Divider(),
                   Text(
-                    "image quality".tr,
+                    S.of(context).image_quality,
                   ),
                   SizedBox(
                     height: 50,
@@ -172,7 +173,7 @@ class SettingsSheet extends StatelessWidget {
                   ),
                   const Divider(),
                   CheckboxListTile(
-                    title: Text("show zikr index".tr),
+                    title: Text(S.of(context).show_zikr_index),
                     value: shareAsImageData.showZikrIndex,
                     onChanged: (value) {
                       shareAsImageController.toggleShowZikrIndex(
@@ -181,14 +182,14 @@ class SettingsSheet extends StatelessWidget {
                     },
                   ),
                   CheckboxListTile(
-                    title: Text("show fadl".tr),
+                    title: Text(S.of(context).show_fadl),
                     value: shareAsImageData.showFadl,
                     onChanged: (value) {
                       shareAsImageController.toggleShowFadl(value: value!);
                     },
                   ),
                   CheckboxListTile(
-                    title: Text("show source of zikr".tr),
+                    title: Text(S.of(context).show_source_of_zikr),
                     value: shareAsImageData.showSource,
                     onChanged: (value) {
                       shareAsImageController.toggleShowSource(value: value!);

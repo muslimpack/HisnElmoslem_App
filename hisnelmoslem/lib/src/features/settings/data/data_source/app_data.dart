@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/models/awesome_day.dart';
@@ -181,7 +181,7 @@ class AppData {
     if (value) {
       awesomeNotificationManager.addCustomWeeklyReminder(
         id: 777,
-        title: "sura Al-Kahf".tr,
+        title: S.current.sura_al_kahf,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
         time: const Time(

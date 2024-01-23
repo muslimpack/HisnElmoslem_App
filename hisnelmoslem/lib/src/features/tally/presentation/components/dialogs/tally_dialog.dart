@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
@@ -46,9 +47,9 @@ class _TallyDialogState extends State<TallyDialog> {
       header: Text(
         () {
           if (widget.isToEdit) {
-            return "edit counter".tr;
+            return S.of(context).edit_counter;
           } else {
-            return "add new counter".tr;
+            return S.of(context).add_new_counter;
           }
         }(),
         style: TextStyle(
@@ -58,25 +59,25 @@ class _TallyDialogState extends State<TallyDialog> {
       ),
       content: [
         Text(
-          "add a name to your counter".tr,
+          S.of(context).add_a_name_to_your_counter,
           textAlign: TextAlign.center,
         ),
         UserTextField(
           controller: titleController,
-          hintText: "counter name".tr,
+          hintText: S.of(context).counter_name,
         ),
         Text(
-          "the counter circle is set to zero when reach this number".tr,
+          S.of(context).counter_circle_set_to_zero_when_reach_this_number,
           textAlign: TextAlign.center,
         ),
         UserNumberField(
           controller: resetCounterController,
-          hintText: "circle every".tr,
+          hintText: S.of(context).circle_every,
         ),
       ],
       footer: ListTile(
         title: Text(
-          "done".tr,
+          S.of(context).done,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),
         ),
@@ -97,7 +98,9 @@ class _TallyDialogState extends State<TallyDialog> {
               Navigator.pop<bool>(context, true);
             }
           } else {
-            showToast(msg: "Counter circle must be greater than zero".tr);
+            showToast(
+              msg: S.of(context).counter_circle_must_be_greater_than_zero,
+            );
           }
         },
       ),

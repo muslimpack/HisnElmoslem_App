@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
@@ -27,13 +28,13 @@ class QuranReadPage extends StatelessWidget {
                     () {
                       switch (controller.surahName) {
                         case SurahNameEnum.alKahf:
-                          return 'sura Al-Kahf'.tr;
+                          return S.of(context).sura_al_kahf;
                         case SurahNameEnum.alMulk:
-                          return 'sura Al-Mulk'.tr;
+                          return S.of(context).sura_al_mulk;
                         case SurahNameEnum.assajdah:
-                          return 'sura As-Sajdah'.tr;
+                          return S.of(context).sura_as_sajdah;
                         case SurahNameEnum.endofAliImran:
-                          return "end sura Ali 'Imran".tr;
+                          return S.of(context).end_sura_ali_imran;
                       }
                     }(),
                     style: const TextStyle(

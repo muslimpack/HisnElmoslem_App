@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/models/app_dashboard.dart';
@@ -45,7 +46,7 @@ class ScreenAppBar extends StatelessWidget {
                 enabledBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                hintText: "search".tr,
+                hintText: S.of(context).search,
                 contentPadding: const EdgeInsets.only(
                   left: 15,
                   bottom: 5,

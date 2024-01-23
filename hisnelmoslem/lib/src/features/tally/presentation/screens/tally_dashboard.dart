@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_counter.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_list.dart';
@@ -23,7 +24,7 @@ class Tally extends StatelessWidget {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return [
                 SliverAppBar(
-                  title: Text("tally".tr),
+                  title: Text(S.of(context).tally),
                   pinned: true,
                   floating: true,
                   snap: true,
@@ -56,7 +57,7 @@ class Tally extends StatelessWidget {
                     tabs: [
                       Tab(
                         child: Text(
-                          "active tallly".tr,
+                          S.of(context).active_tally,
                           style: const TextStyle(
                             fontFamily: "Uthmanic",
                           ),
@@ -64,7 +65,7 @@ class Tally extends StatelessWidget {
                       ),
                       Tab(
                         child: Text(
-                          "counters".tr,
+                          S.of(context).counters,
                           style: const TextStyle(
                             fontFamily: "Uthmanic",
                           ),

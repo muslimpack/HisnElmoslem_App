@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
@@ -119,7 +120,7 @@ class AlarmCard extends StatelessWidget {
                 backgroundColor: green,
                 foregroundColor: white,
                 icon: Icons.edit,
-                label: 'edit'.tr,
+                label: S.of(context).edit,
               ),
             ],
           ),
@@ -139,13 +140,14 @@ class AlarmCard extends StatelessWidget {
                   controller.update();
                   dashboardController.update();
                   getSnackbar(
-                    message: "${"Reminder Removed".tr} | ${dbAlarm.title}",
+                    message:
+                        "${S.of(context).reminder_removed} | ${dbAlarm.title}",
                   );
                 },
                 backgroundColor: red,
                 foregroundColor: white,
                 icon: Icons.delete,
-                label: "delete".tr,
+                label: S.of(context).delete,
               ),
             ],
           ),

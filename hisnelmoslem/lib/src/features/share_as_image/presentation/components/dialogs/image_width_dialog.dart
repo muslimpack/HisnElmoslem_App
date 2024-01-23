@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -21,7 +21,7 @@ class ImageWidthDialog extends StatelessWidget {
     return DialogMaker(
       height: 270,
       header: Text(
-        "ُEdit image size".tr,
+        S.of(context).edit_image_size,
         style: TextStyle(
           fontSize: 25,
           color: mainColor,
@@ -29,17 +29,17 @@ class ImageWidthDialog extends StatelessWidget {
       ),
       content: [
         Text(
-          "Image width".tr,
+          S.of(context).image_width,
           textAlign: TextAlign.center,
         ),
         UserNumberField(
           controller: widthController,
-          hintText: "Image width".tr,
+          hintText: S.of(context).image_width,
         ),
       ],
       footer: ListTile(
         title: Text(
-          "done".tr,
+          S.of(context).done,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, color: mainColor),
         ),

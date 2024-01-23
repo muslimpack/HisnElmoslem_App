@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/theme/data/models/themes_enum.dart';
 import 'package:hisnelmoslem/src/features/theme/presentation/controller/themes_manager_page_controller.dart';
 
@@ -15,7 +16,7 @@ class ThemeManagerPage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "theme manager".tr,
+              S.of(context).theme_manager,
               style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -26,32 +27,32 @@ class ThemeManagerPage extends StatelessWidget {
             children: [
               RadioImage(
                 controller: controller,
-                title: "light theme".tr,
+                title: S.of(context).light_theme,
                 icon: Icons.light_mode,
                 appThemeModeValue: AppThemeMode.light,
               ),
               RadioImage(
                 controller: controller,
-                title: "optimize light theme".tr,
+                title: S.of(context).optimize_light_theme,
                 icon: Icons.light_mode,
                 appThemeModeValue: AppThemeMode.yellowTheme,
               ),
               const Divider(),
               RadioImage(
                 controller: controller,
-                title: "dark theme".tr,
+                title: S.of(context).dark_theme,
                 icon: Icons.dark_mode,
                 appThemeModeValue: AppThemeMode.defaultDark,
               ),
               RadioImage(
                 controller: controller,
-                title: "optimize dark theme".tr,
+                title: S.of(context).optimize_dark_theme,
                 icon: Icons.dark_mode,
                 appThemeModeValue: AppThemeMode.dark,
               ),
               RadioImage(
                 controller: controller,
-                title: "True black theme".tr,
+                title: S.of(context).true_black_theme,
                 icon: Icons.dark_mode,
                 appThemeModeValue: AppThemeMode.trueblack,
               ),

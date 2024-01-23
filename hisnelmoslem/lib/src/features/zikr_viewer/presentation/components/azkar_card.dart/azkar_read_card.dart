@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -88,14 +89,15 @@ class AzkarReadCard extends StatelessWidget {
                             softWrap: true,
                           ),
                           action: SnackBarAction(
-                            label: "copy".tr,
+                            label: S.of(context).copy,
                             onPressed: () {
                               // Some code to undo the change.
                               FlutterClipboard.copy(source).then((result) {
                                 final snackBar = SnackBar(
-                                  content: Text("copied to clipboard".tr),
+                                  content:
+                                      Text(S.of(context).copied_to_clipboard),
                                   action: SnackBarAction(
-                                    label: "done".tr,
+                                    label: S.of(context).done,
                                     onPressed: () {},
                                   ),
                                 );
@@ -191,10 +193,10 @@ class AzkarReadCard extends StatelessWidget {
                                       ).then((result) {
                                         final snackBar = SnackBar(
                                           content: Text(
-                                            "copied to clipboard".tr,
+                                            S.of(context).copied_to_clipboard,
                                           ),
                                           action: SnackBarAction(
-                                            label: "done".tr,
+                                            label: S.of(context).done,
                                             onPressed: () {},
                                           ),
                                         );

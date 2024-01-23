@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/utils/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/utils/show_toast.dart';
@@ -272,7 +273,7 @@ class TallyController extends GetxController {
         context: Get.context!,
         builder: (BuildContext context) {
           return YesOrNoDialog(
-            msg: "your progress will be deleted and you can't undo that".tr,
+            msg: S.of(context).your_progress_will_be_deleted_and_cant_undo_that,
             onYes: () async {
               currentDBTally!.count = 0;
               await tallyDatabaseHelper.updateTally(
@@ -314,7 +315,7 @@ class TallyController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return YesOrNoDialog(
-          msg: "This counter will be deleted.".tr,
+          msg: S.of(context).this_counter_will_be_deleted,
           onYes: () async {
             await tallyDatabaseHelper.deleteTally(dbTally: dbTally);
             getAllListsReady();
@@ -335,7 +336,7 @@ class TallyController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return YesOrNoDialog(
-          msg: "Reset all counters?.".tr,
+          msg: S.of(context).reset_all_counters,
           onYes: () async {
             for (var i = 0; i < allTally.length; i++) {
               await tallyDatabaseHelper.updateTally(
@@ -363,9 +364,9 @@ class TallyController extends GetxController {
   void toggleShuffleMode() {
     box.write('is_tally_shuffle_mode_on', !isShuffleModeOn);
     if (isShuffleModeOn) {
-      showToast(msg: "Shuffle Mode Activated".tr);
+      showToast(msg: S.current.shuffle_mode_activated);
     } else {
-      showToast(msg: "Shuffle Mode Deactivated".tr);
+      showToast(msg: S.current.shuffle_mode_deactivated);
     }
     update();
   }

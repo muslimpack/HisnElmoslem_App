@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/open_url.dart';
@@ -44,7 +44,9 @@ class ScreenMenu extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Hisn Elmoslem App".tr),
+                        Text(
+                          S.of(context).hisn_elmoslem_app,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -85,7 +87,9 @@ class ScreenMenu extends StatelessWidget {
                           leading: const Icon(
                             MdiIcons.counter,
                           ),
-                          title: Text("tally".tr),
+                          title: Text(
+                            S.of(context).tally,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -99,7 +103,7 @@ class ScreenMenu extends StatelessWidget {
                         child: ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
-                            "end sura Ali 'Imran".tr,
+                            S.of(context).end_sura_ali_imran,
                           ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
@@ -115,7 +119,7 @@ class ScreenMenu extends StatelessWidget {
                         child: ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
-                            "sura Al-Kahf".tr,
+                            S.of(context).sura_al_kahf,
                           ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
@@ -130,7 +134,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: Text("sura As-Sajdah".tr),
+                          title: Text(
+                            S.of(context).sura_as_sajdah,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -144,7 +150,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(MdiIcons.bookOpenPageVariant),
-                          title: Text("sura Al-Mulk".tr),
+                          title: Text(
+                            S.of(context).sura_al_mulk,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -159,7 +167,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(Icons.menu_book),
-                          title: Text("fake hadith".tr),
+                          title: Text(
+                            S.of(context).fake_hadith,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -172,7 +182,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(Icons.settings),
-                          title: Text("settings".tr),
+                          title: Text(
+                            S.of(context).settings,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -185,7 +197,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(MdiIcons.gmail),
-                          title: Text("contact to dev".tr),
+                          title: Text(
+                            S.of(context).contact_to_dev,
+                          ),
                           onTap: () {
                             EmailManager.messageUS();
                           },
@@ -194,7 +208,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(Icons.history),
-                          title: Text("updates history".tr),
+                          title: Text(
+                            S.of(context).updates_history,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -206,7 +222,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(MdiIcons.googlePlay),
-                          title: Text("Our Products".tr),
+                          title: Text(
+                            S.of(context).our_products,
+                          ),
                           onTap: () {
                             openURL(
                               "https://play.google.com/store/apps/dev?id=4949997098744780639",
@@ -217,7 +235,9 @@ class ScreenMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(Icons.info),
-                          title: Text("about us".tr),
+                          title: Text(
+                            S.of(context).about_us,
+                          ),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -239,7 +259,9 @@ class ScreenMenu extends StatelessWidget {
               DrawerCard(
                 child: ListTile(
                   leading: const Icon(Icons.close),
-                  title: Text("close".tr),
+                  title: Text(
+                    S.of(context).close,
+                  ),
                   onTap: () {
                     controller.toggleDrawer();
                   },

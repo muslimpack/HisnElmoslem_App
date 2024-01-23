@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/email_manager.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
@@ -30,7 +31,7 @@ class Settings extends StatelessWidget {
             centerTitle: true,
             elevation: 0,
             title: Text(
-              "settings".tr,
+              S.of(context).settings,
               style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -38,11 +39,11 @@ class Settings extends StatelessWidget {
           body: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              Title(title: "general".tr),
+              Title(title: S.of(context).general),
               if (!appData.isCardReadMode)
                 ListTile(
                   leading: const Icon(MdiIcons.bookOpenPageVariant),
-                  title: Text("page mode".tr),
+                  title: Text(S.of(context).page_mode),
                   onTap: () {
                     appData.toggleReadModeStatus();
                     controller.update();
@@ -51,14 +52,14 @@ class Settings extends StatelessWidget {
               else
                 ListTile(
                   leading: const Icon(MdiIcons.card),
-                  title: Text("card mode".tr),
+                  title: Text(S.of(context).card_mode),
                   onTap: () {
                     appData.toggleReadModeStatus();
                     controller.update();
                   },
                 ),
               ListTile(
-                title: Text("theme manager".tr),
+                title: Text(S.of(context).theme_manager),
                 leading: const Icon(Icons.palette),
                 onTap: () {
                   transitionAnimation.fromBottom2Top(
@@ -68,7 +69,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text("effect manager".tr),
+                title: Text(S.of(context).effect_manager),
                 leading: const Icon(
                   Icons.speaker_group,
                 ),
@@ -80,7 +81,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text("dashboard arrangement".tr),
+                title: Text(S.of(context).dashboard_arrangement),
                 leading: const Icon(
                   Icons.view_array,
                 ),
@@ -92,7 +93,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text("app language".tr),
+                title: Text(S.of(context).app_language),
                 leading: const Icon(
                   Icons.translate,
                 ),
@@ -104,7 +105,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text("font type".tr),
+                title: Text(S.of(context).font_type),
                 leading: const Icon(
                   Icons.font_download,
                 ),
@@ -116,7 +117,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               const Divider(),
-              Title(title: "font settings".tr),
+              Title(title: S.of(context).font_settings),
               TextSample(
                 controllerToUpdate: controller,
               ),
@@ -125,9 +126,9 @@ class Settings extends StatelessWidget {
               ),
               const Divider(),
               /**/
-              Title(title: "reminders".tr),
+              Title(title: S.of(context).reminders),
               ListTile(
-                title: Text("reminders manager".tr),
+                title: Text(S.of(context).reminders_manager),
                 leading: const Icon(
                   Icons.alarm_add_rounded,
                 ),
@@ -144,7 +145,9 @@ class Settings extends StatelessWidget {
                   leading: const Icon(
                     Icons.person,
                   ),
-                  title: Text("fasting mondays and thursdays reminder".tr),
+                  title: Text(
+                    S.of(context).fasting_mondays_and_thursdays_reminder,
+                  ),
                 ),
                 activeColor: mainColor,
                 value: appData.isFastAlarmEnabled,
@@ -154,12 +157,12 @@ class Settings extends StatelessWidget {
                   if (appData.isFastAlarmEnabled) {
                     getSnackbar(
                       message:
-                          "${"activate".tr} | ${"fasting mondays and thursdays reminder".tr}",
+                          "${S.of(context).activate} | ${S.of(context).fasting_mondays_and_thursdays_reminder}",
                     );
                   } else {
                     getSnackbar(
                       message:
-                          "${"deactivate".tr} | ${"fasting mondays and thursdays reminder".tr}",
+                          "${S.of(context).deactivate} | ${S.of(context).fasting_mondays_and_thursdays_reminder}",
                     );
                   }
                   controller.update();
@@ -171,7 +174,7 @@ class Settings extends StatelessWidget {
                   leading: const Icon(
                     Icons.alarm,
                   ),
-                  title: Text("sura Al-Kahf reminder".tr),
+                  title: Text(S.of(context).sura_al_kahf_reminder),
                 ),
                 activeColor: mainColor,
                 value: appData.isCaveAlarmEnabled,
@@ -181,12 +184,12 @@ class Settings extends StatelessWidget {
                   if (appData.isCaveAlarmEnabled) {
                     getSnackbar(
                       message:
-                          "${"activate".tr} | ${"sura Al-Kahf reminder".tr}",
+                          "${S.of(context).activate} | ${S.of(context).sura_al_kahf_reminder}",
                     );
                   } else {
                     getSnackbar(
                       message:
-                          "${"deactivate".tr} | ${"sura Al-Kahf reminder".tr}",
+                          "${S.of(context).deactivate} | ${S.of(context).sura_al_kahf_reminder}",
                     );
                   }
                   controller.update();
@@ -194,17 +197,17 @@ class Settings extends StatelessWidget {
               ),
               const Divider(),
               /**/
-              Title(title: 'contact'.tr),
+              Title(title: S.of(context).contact),
               ListTile(
                 leading: const Icon(Icons.star),
-                title: Text("report bugs and request new features".tr),
+                title: Text(S.of(context).report_bugs_and_request_new_features),
                 onTap: () {
                   EmailManager.sendFeedbackForm();
                 },
               ),
               ListTile(
                 leading: const Icon(MdiIcons.gmail),
-                title: Text("send email".tr),
+                title: Text(S.of(context).send_email),
                 onTap: () {
                   EmailManager.messageUS();
                 },
@@ -212,7 +215,7 @@ class Settings extends StatelessWidget {
               ListTile(
                 leading: const Icon(MdiIcons.github),
                 trailing: const Icon(Icons.keyboard_arrow_left),
-                title: Text("Github".tr),
+                title: Text(S.of(context).github),
                 onTap: () async {
                   await openURL(
                     'https://github.com/muslimpack/HisnElmoslem_App',
@@ -222,7 +225,7 @@ class Settings extends StatelessWidget {
               ListTile(
                 leading: const Icon(MdiIcons.information),
                 trailing: const Icon(Icons.keyboard_arrow_left),
-                title: Text("about us".tr),
+                title: Text(S.of(context).about_us),
                 onTap: () {
                   transitionAnimation.fromBottom2Top(
                     context: context,

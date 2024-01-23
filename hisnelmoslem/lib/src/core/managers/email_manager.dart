@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/utils/open_url.dart';
 import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -24,13 +24,13 @@ class EmailManager {
       body: '''
 $appVersion
 
-${"notes".tr}
+${S.current.notes}
 
-${"I like about this app:".tr}
+${S.current.i_like_about_this_app}
 
-${"I don't like about this app:".tr}
+${S.current.i_do_not_like_about_this_app}
 
-${"Features I hope to be added:".tr}
+${S.current.features_i_hope_to_be_added}
 
 ''',
     );
@@ -40,7 +40,11 @@ ${"Features I hope to be added:".tr}
     sendEmail(
       toMailId: emailOwner,
       subject: "Hisn ELmoslem App | Chat",
-      body: '',
+      body: """
+$appVersion
+
+
+""",
     );
   }
 
@@ -74,13 +78,15 @@ ${"Features I hope to be added:".tr}
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Misspelled".tr,
+      subject: S.current.hisn_elmoslem_app_misspelled,
       body: '''
-${"There is a spelling error in".tr}
-${"Title".tr}: $subject
-${"Zikr Index".tr}: $cardNumber
-${"Text".tr}: $text
-${"It should be:".tr}:
+$appVersion
+
+${S.current.there_is_spelling_error_in}
+${S.current.title}: $subject
+${S.current.zikr_index}: $cardNumber
+${S.current.text}: $text
+${S.current.it_should_be}:
 
 ''',
     );
@@ -91,17 +97,19 @@ ${"It should be:".tr}:
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Misspelled".tr,
+      subject: S.current.hisn_elmoslem_app_misspelled,
       body: '''
-${"There is a spelling error in".tr}
+$appVersion
 
-${"Subject".tr}: ${"fake hadith".tr}
+${S.current.there_is_spelling_error_in}
 
-${"Card index".tr}: ${(fakeHaith.id) + 1}
+${S.current.subject}: ${S.current.fake_hadith}
 
-${"Text".tr}: ${fakeHaith.text}
+${S.current.card_index}: ${(fakeHaith.id) + 1}
 
-${"It should be:".tr}:
+${S.current.text}: ${fakeHaith.text}
+
+${S.current.it_should_be}:
 
 ''',
     );

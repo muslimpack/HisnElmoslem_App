@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/alarm/data/data_source/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/models/zikr_title.dart';
@@ -24,8 +25,8 @@ class AzkarFehrs extends StatelessWidget {
                 ? Empty(
                     isImage: false,
                     icon: Icons.search_outlined,
-                    title: "no title with this name".tr,
-                    description: "please review the index of the book".tr,
+                    title: S.of(context).no_title_with_this_name,
+                    description: S.of(context).please_review_index_of_the_book,
                   )
                 : ListView.builder(
                     physics: const BouncingScrollPhysics(),

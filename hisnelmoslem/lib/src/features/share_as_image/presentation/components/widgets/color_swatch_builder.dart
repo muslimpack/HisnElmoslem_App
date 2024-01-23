@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -62,7 +63,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                                   Navigator.pop(context);
                                 },
                                 title: Text(
-                                  "Select color".tr,
+                                  S.of(context).select_color,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(fontSize: 25),
                                 ),

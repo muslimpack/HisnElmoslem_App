@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/managers/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/utils/print.dart';
@@ -20,7 +20,7 @@ class AlarmManager {
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
-        getSnackbar(message: "${"activate".tr} | ${dbAlarm.title}");
+        getSnackbar(message: "${S.current.activate} | ${dbAlarm.title}");
       }
       switch (dbAlarm.repeatType) {
         case "Daily":
@@ -103,7 +103,7 @@ class AlarmManager {
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
-        getSnackbar(message: "${"deactivate".tr} | ${dbAlarm.title}");
+        getSnackbar(message: "${S.current.deactivate} | ${dbAlarm.title}");
       }
 
       awesomeNotificationManager.cancelNotificationById(id: dbAlarm.titleId);
