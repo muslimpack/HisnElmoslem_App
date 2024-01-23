@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/values/const_colors.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/settings/data/data_source/app_data.dart';
 
 class Themes {
   ///
@@ -8,7 +9,9 @@ class Themes {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
     scrollEndColor = black26;
 
-    return ThemeData.light().copyWith(
+    return ThemeData(
+      brightness: Brightness.light,
+      fontFamily: appData.fontFamily,
       primaryColor: lightColor,
       splashColor: Colors.blue,
       appBarTheme: const AppBarTheme(
@@ -52,7 +55,9 @@ class Themes {
   static ThemeData get dark {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
     scrollEndColor = black26;
-    return ThemeData.dark().copyWith(
+    return ThemeData(
+      brightness: Brightness.dark,
+      fontFamily: appData.fontFamily,
       primaryColor: darkColor,
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -90,7 +95,9 @@ class Themes {
   static ThemeData get trueBlack {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
     scrollEndColor = black26;
-    return ThemeData.dark().copyWith(
+    return ThemeData(
+      brightness: Brightness.dark,
+      fontFamily: appData.fontFamily,
       primaryColor: trueBlackColor,
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -129,14 +136,23 @@ class Themes {
     mainColor = const Color.fromARGB(255, 105, 187, 253);
     scrollEndColor = black26;
 
-    return ThemeData.dark();
+    return ThemeData(
+      fontFamily: appData.fontFamily,
+      useMaterial3: false,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.dark,
+      ),
+    );
   }
 
   ///
   static ThemeData get yellowTheme {
     mainColor = yellowColorSecondary;
     scrollEndColor = yellowColorSecondary;
-    return ThemeData.light().copyWith(
+    return ThemeData(
+      brightness: Brightness.light,
+      fontFamily: appData.fontFamily,
       scaffoldBackgroundColor: yellowColorPrimary,
       appBarTheme: AppBarTheme(
         elevation: 0,
