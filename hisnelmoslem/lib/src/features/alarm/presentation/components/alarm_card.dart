@@ -139,10 +139,12 @@ class AlarmCard extends StatelessWidget {
 
                   controller.update();
                   dashboardController.update();
-                  getSnackbar(
-                    message:
-                        "${S.of(context).reminder_removed} | ${dbAlarm.title}",
-                  );
+                  if (context.mounted) {
+                    getSnackbar(
+                      message:
+                          "${S.of(context).reminder_removed} | ${dbAlarm.title}",
+                    );
+                  }
                 },
                 backgroundColor: red,
                 foregroundColor: white,
