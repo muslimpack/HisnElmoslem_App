@@ -1,21 +1,36 @@
 import 'package:flutter/foundation.dart';
 
 void hisnPrint(Object? object) {
+  printColor("[HISN ELMOSLEM]$object", color: PrintColors.yellow);
+}
+
+void printColor(Object? object, {int color = 0}) {
+  final orangeText = '\u001b[${color}m$object\u001b[0m';
   if (kDebugMode) {
-    print(stylizeText(text: "[HISN ELMOSLEM] ${object!}"));
+    print(orangeText);
   }
 }
 
-String? stylizeText({required String? text}) {
-  return "\x1B[32m${text!}";
+class PrintColors {
+  static int black = 30;
+  static int red = 31;
+  static int green = 32;
+  static int yellow = 33;
+  static int blue = 34;
+  static int magenta = 35;
+  static int cyan = 36;
+  static int white = 37;
 }
 
-// Black:   \x1B[30m
-// Red:     \x1B[31m
-// Green:   \x1B[32m
-// Yellow:  \x1B[33m
-// Blue:    \x1B[34m
-// Magenta: \x1B[35m
-// Cyan:    \x1B[36m
-// White:   \x1B[37m
-// Reset:   \x1B[0m
+String get fullTimeStamp {
+  // Get the current time
+  final DateTime now = DateTime.now();
+
+  // Extract hours, minutes, and seconds
+  final String hour = now.hour.toString().padLeft(2, "0");
+  final String minute = now.minute.toString().padLeft(2, "0");
+  final String second = now.second.toString().padLeft(2, "0");
+  final String millisecond = now.millisecond.toString().padLeft(3, "0");
+
+  return '$hour:$minute:$second:$millisecond';
+}
