@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/utils/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/dashboard/data/models/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/dashboard/presentation/controller/dashboard_controller.dart';
@@ -84,7 +83,6 @@ class ScreenAppBar extends StatelessWidget {
                 ...List.generate(
                   appDashboardItem.length,
                   (index) {
-                    hisnPrint("rebuild");
                     return Tab(
                       child: Text(
                         appDashboardItem[rearrangeController.list[index]].title,
