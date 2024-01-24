@@ -52,14 +52,7 @@ class MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       locale: appData.appLocale,
       onGenerateTitle: (context) => S.of(context).hisn_elmoslem,
-      theme: ThemeServices.getTheme().copyWith(
-        textTheme: ThemeServices.getTheme()
-            .textTheme
-            .apply(fontFamily: appData.fontFamily),
-        primaryTextTheme: ThemeServices.getTheme()
-            .textTheme
-            .apply(fontFamily: appData.fontFamily),
-      ),
+      theme: ThemeServices.getTheme(),
       home: appData.isFirstOpenToThisRelease
           ? const OnBoardingPage()
           : const AzkarDashboard(),
