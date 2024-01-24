@@ -84,7 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "effect_manager":
             MessageLookupByLibrary.simpleMessage("إدارة المؤثرات"),
         "end_sura_ali_imran":
-            MessageLookupByLibrary.simpleMessage("آواخر آل عمران"),
+            MessageLookupByLibrary.simpleMessage("أواخر آل عمران"),
         "every_friday": MessageLookupByLibrary.simpleMessage("كل جمعة"),
         "every_monday": MessageLookupByLibrary.simpleMessage("كل إثنين"),
         "every_saturday": MessageLookupByLibrary.simpleMessage("كل سبت"),
