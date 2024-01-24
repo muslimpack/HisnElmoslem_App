@@ -44,7 +44,7 @@ class QuranReadPage extends StatelessWidget {
                   // actions: [
                   //   IconButton(
                   //     onPressed: () => controller.toggleTheme(),
-                  //     icon: const Icon(Icons.dark_mode),
+                  //     icon: Icon(Icons.dark_mode),
                   //   ),
                   // ],
                 ),

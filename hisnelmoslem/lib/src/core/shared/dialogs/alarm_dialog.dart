@@ -76,7 +76,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
       bodyController = TextEditingController(
         text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       );
-      repeatType = S.of(context).daily;
+      repeatType = S.current.daily;
     }
   }
 
@@ -142,12 +142,12 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
               Navigator.of(context).push(
                 showPicker(
                   context: context,
-                  value: _time,
+                  value: Time(hour: _time.hour, minute: _time.minute),
                   onChange: onTimeChanged,
                   iosStylePicker: true,
                   // Optional onChange to receive value as DateTime
                   onChangeDateTime: (DateTime dateTime) {},
-                ),
+                ) as Route,
               );
             },
           ),

@@ -38,11 +38,11 @@ class About extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(MdiIcons.handClap),
+            leading: Icon(MdiIcons.handClap),
             title: Text(S.of(context).pray_for_us_and_our_parents),
           ),
           ListTile(
-            leading: const Icon(MdiIcons.bookOpenPageVariant),
+            leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text(
               S.of(context).quran_pages_from_android_quran,
             ),
@@ -65,7 +65,7 @@ class About extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(MdiIcons.web),
+            leading: Icon(MdiIcons.web),
             title: Text(S.of(context).official_website),
             subtitle: Text(
               S.of(context).dr_saeed_bin_ali_bin_wahf_al_qahtani,
@@ -75,7 +75,7 @@ class About extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(MdiIcons.github),
+            leading: Icon(MdiIcons.github),
             title: Text(
               S.of(context).github,
             ),

@@ -37,12 +37,12 @@ class OnBoardingController extends GetxController {
 أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة 
 ''',
     ),
-    const Empty(
+    Empty(
       isImage: false,
       icon: MdiIcons.spellcheck,
       title: "إصلاح الأخطاء الإملائية التي وصلتنا",
     ),
-    const Empty(
+    Empty(
       isImage: false,
       icon: MdiIcons.counter,
       title: "تحسينات في السبحة",

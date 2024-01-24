@@ -21,21 +21,23 @@ class AzkarDashboard extends StatelessWidget {
       init: DashboardController(),
       builder: (controller) => controller.isLoading
           ? const Loading()
-          : ZoomDrawer(
-              isRtl: Bidi.isRtlLanguage(Get.locale!.languageCode),
-              controller: controller.zoomDrawerController,
-              menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              menuScreen: ScreenMenu(
-                controller: controller,
+          : Scaffold(
+              body: ZoomDrawer(
+                isRtl: Bidi.isRtlLanguage(Get.locale!.languageCode),
+                controller: controller.zoomDrawerController,
+                menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                menuScreen: ScreenMenu(
+                  controller: controller,
+                ),
+                mainScreen: MainScreen(
+                  controller: controller,
+                ),
+                borderRadius: 24.0,
+                showShadow: true,
+                angle: 0.0,
+                drawerShadowsBackgroundColor: mainColor,
+                slideWidth: 270,
               ),
-              mainScreen: MainScreen(
-                controller: controller,
-              ),
-              borderRadius: 24.0,
-              showShadow: true,
-              angle: 0.0,
-              drawerShadowsBackgroundColor: mainColor,
-              slideWidth: 270,
             ),
     );
   }

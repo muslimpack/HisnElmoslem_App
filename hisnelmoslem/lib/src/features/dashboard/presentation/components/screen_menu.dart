@@ -84,7 +84,7 @@ class ScreenMenu extends StatelessWidget {
                     children: [
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(
+                          leading: Icon(
                             MdiIcons.counter,
                           ),
                           title: Text(
@@ -101,7 +101,7 @@ class ScreenMenu extends StatelessWidget {
                       const DrawerDivider(),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             S.of(context).end_sura_ali_imran,
                           ),
@@ -117,7 +117,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             S.of(context).sura_al_kahf,
                           ),
@@ -133,7 +133,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             S.of(context).sura_as_sajdah,
                           ),
@@ -149,7 +149,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             S.of(context).sura_al_mulk,
                           ),
@@ -196,7 +196,7 @@ class ScreenMenu extends StatelessWidget {
                       const DrawerDivider(),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.gmail),
+                          leading: Icon(MdiIcons.gmail),
                           title: Text(
                             S.of(context).contact_to_dev,
                           ),
@@ -221,7 +221,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.googlePlay),
+                          leading: Icon(MdiIcons.googlePlay),
                           title: Text(
                             S.of(context).our_products,
                           ),

@@ -42,7 +42,7 @@ class Settings extends StatelessWidget {
               Title(title: S.of(context).general),
               if (!appData.isCardReadMode)
                 ListTile(
-                  leading: const Icon(MdiIcons.bookOpenPageVariant),
+                  leading: Icon(MdiIcons.bookOpenPageVariant),
                   title: Text(S.of(context).page_mode),
                   onTap: () {
                     appData.toggleReadModeStatus();
@@ -51,7 +51,7 @@ class Settings extends StatelessWidget {
                 )
               else
                 ListTile(
-                  leading: const Icon(MdiIcons.card),
+                  leading: Icon(MdiIcons.card),
                   title: Text(S.of(context).card_mode),
                   onTap: () {
                     appData.toggleReadModeStatus();
@@ -206,14 +206,14 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(MdiIcons.gmail),
+                leading: Icon(MdiIcons.gmail),
                 title: Text(S.of(context).send_email),
                 onTap: () {
                   EmailManager.messageUS();
                 },
               ),
               ListTile(
-                leading: const Icon(MdiIcons.github),
+                leading: Icon(MdiIcons.github),
                 trailing: const Icon(Icons.keyboard_arrow_left),
                 title: Text(S.of(context).github),
                 onTap: () async {
@@ -223,7 +223,7 @@ class Settings extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(MdiIcons.information),
+                leading: Icon(MdiIcons.information),
                 trailing: const Icon(Icons.keyboard_arrow_left),
                 title: Text(S.of(context).about_us),
                 onTap: () {

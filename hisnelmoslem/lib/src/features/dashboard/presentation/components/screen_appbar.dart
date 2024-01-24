@@ -25,7 +25,7 @@ class ScreenAppBar extends StatelessWidget {
           : IconButton(
               splashRadius: 20,
               padding: EdgeInsets.zero,
-              icon: const Icon(MdiIcons.close),
+              icon: Icon(MdiIcons.close),
               onPressed: () {
                 controller.isSearching = false;
                 controller.searchedTitle = controller.allTitle;
@@ -54,7 +54,7 @@ class ScreenAppBar extends StatelessWidget {
                   right: 15,
                 ),
                 suffix: IconButton(
-                  icon: const Icon(MdiIcons.eraser),
+                  icon: Icon(MdiIcons.eraser),
                   onPressed: () {
                     controller.searchController.clear();
                     controller.searchZikr();
