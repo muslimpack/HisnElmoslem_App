@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
-import 'package:hisnelmoslem/app/modules/onboarding/onboarding.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/core/translations/translation.dart';
@@ -62,11 +61,12 @@ class MyAppState extends State<MyApp> {
             .textTheme
             .apply(fontFamily: appData.fontFamily),
       ),
-      // theme: Themes.yellowTheme,
-      // home: const AzkarDashboard(),
-      home: appData.isFirstOpenToThisRelease
-          ? const OnBoardingPage()
-          : const AzkarDashboard(),
+
+      home: const AzkarDashboard(),
+
+      // home: appData.isFirstOpenToThisRelease
+      //     ? const OnBoardingPage()
+      //     : const AzkarDashboard(),
     );
   }
 }

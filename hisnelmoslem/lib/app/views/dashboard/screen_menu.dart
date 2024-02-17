@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/modules/settings/settings.dart';
 import 'package:hisnelmoslem/app/modules/tally/tally_dashboard.dart';
-import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/core/utils/email_manager.dart';
@@ -199,17 +198,6 @@ class ScreenMenu extends StatelessWidget {
                             transitionAnimation.fromBottom2Top(
                               context: context,
                               goToPage: const AppUpdateNews(),
-                            );
-                          },
-                        ),
-                      ),
-                      DrawerCard(
-                        child: ListTile(
-                          leading: const Icon(MdiIcons.googlePlay),
-                          title: Text("Our Products".tr),
-                          onTap: () {
-                            openURL(
-                              "https://play.google.com/store/apps/dev?id=4949997098744780639",
                             );
                           },
                         ),
