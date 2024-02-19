@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/onboarding/onboarding_controller.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/onboarding_controller.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});

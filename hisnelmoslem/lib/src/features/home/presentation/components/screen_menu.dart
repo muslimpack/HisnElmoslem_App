@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/about/about.dart';
-import 'package:hisnelmoslem/app/modules/app_update_news/app_update_news.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
+import 'package:hisnelmoslem/src/features/app_update_news/presentation/screens/app_update_news.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';

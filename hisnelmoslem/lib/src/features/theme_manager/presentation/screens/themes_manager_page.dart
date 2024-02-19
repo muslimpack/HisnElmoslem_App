@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/theme_manager/themes_manager_page_controller.dart';
 import 'package:hisnelmoslem/src/core/themes/themes_enum.dart';
+import 'package:hisnelmoslem/src/features/theme_manager/presentation/controller/themes_manager_page_controller.dart';
 
 class ThemeManagerPage extends StatelessWidget {
   const ThemeManagerPage({super.key});
