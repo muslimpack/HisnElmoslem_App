@@ -1,13 +1,13 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 
 Future<dynamic> showFastAlarmDialog({
   required BuildContext context,

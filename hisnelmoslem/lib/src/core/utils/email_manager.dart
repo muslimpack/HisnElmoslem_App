@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
-import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {

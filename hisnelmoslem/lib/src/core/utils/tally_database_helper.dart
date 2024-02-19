@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/image_var_font_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/settings_sheet.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ShareAsImage extends StatelessWidget {
