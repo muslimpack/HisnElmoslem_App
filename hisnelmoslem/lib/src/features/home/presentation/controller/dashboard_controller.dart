@@ -12,7 +12,6 @@ import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
-import 'package:hisnelmoslem/src/features/themes/data/repository/theme_services.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
@@ -200,11 +199,5 @@ class DashboardController extends GetxController
     update();
   }
 
-  ///
-  void toggleTheme() {
-    ThemeServices.changeThemeMode();
-    Get.forceAppUpdate();
-    update();
-  }
 /* ****************************** */
 }

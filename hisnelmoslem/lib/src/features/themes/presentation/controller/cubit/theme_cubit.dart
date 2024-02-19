@@ -21,6 +21,12 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(brightness: brightness));
   }
 
+  Future<void> toggleBrightness() async {
+    changeBrightness(
+      state.brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    );
+  }
+
   Future<void> changeUseMaterial3(bool useMaterial3) async {
     await ThemeRepo.setUseMaterial3(useMaterial3);
     emit(state.copyWith(useMaterial3: useMaterial3));

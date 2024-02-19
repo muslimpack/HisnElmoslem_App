@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
@@ -11,6 +12,7 @@ import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_co
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/screens/settings.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ScreenMenu extends StatelessWidget {
@@ -54,7 +56,7 @@ class ScreenMenu extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () {
-                                controller.toggleTheme();
+                                context.read<ThemeCubit>().toggleBrightness();
                               },
                               icon: const Icon(Icons.dark_mode),
                             ),
