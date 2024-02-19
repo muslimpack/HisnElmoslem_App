@@ -3,8 +3,6 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
-import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
@@ -14,6 +12,8 @@ import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
 import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController
