@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_controller.dart';
 import 'package:wakelock/wakelock.dart';
 
-class AzkarReadPageController extends GetxController {
-  /* *************** Constractor *************** */
+class Constructor extends GetxController {
+  /* *************** Constructor *************** */
   //
   final int index;
 
-  AzkarReadPageController({required this.index});
+  Constructor({required this.index});
 
   /* *************** Variables *************** */
   //

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
@@ -11,6 +10,7 @@ import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/alarm_controller.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 
 class AlarmCard extends StatelessWidget {

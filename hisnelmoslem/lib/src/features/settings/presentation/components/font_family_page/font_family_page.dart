@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page_controller.dart';
 
 class FontFamilyPage extends StatelessWidget {
   const FontFamilyPage({super.key});

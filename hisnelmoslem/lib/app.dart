@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
-import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page_controller.dart';
 import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/src/core/translations/translation.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
@@ -11,6 +10,7 @@ import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page_controller.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

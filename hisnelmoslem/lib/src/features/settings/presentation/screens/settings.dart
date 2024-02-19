@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/modules/about/about.dart';
-import 'package:hisnelmoslem/app/modules/alarms_manager/alarms_page.dart';
-import 'package:hisnelmoslem/app/modules/app_language_page/app_language_page.dart';
-import 'package:hisnelmoslem/app/modules/font_family_page/font_family_page.dart';
-import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page.dart';
-import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_page.dart';
 import 'package:hisnelmoslem/app/modules/theme_manager/themes_manager_page.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
@@ -14,6 +9,11 @@ import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_ani
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/app_language_page/app_language_page.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/settings_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

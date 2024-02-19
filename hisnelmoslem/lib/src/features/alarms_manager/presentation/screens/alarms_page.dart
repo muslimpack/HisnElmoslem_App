@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/alarms_manager/alarm_controller.dart';
-import 'package:hisnelmoslem/app/modules/alarms_manager/widgets/alarm_card.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/alarm_card.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/alarm_controller.dart';
 
 class AlarmsPages extends StatelessWidget {
   const AlarmsPages({super.key});
