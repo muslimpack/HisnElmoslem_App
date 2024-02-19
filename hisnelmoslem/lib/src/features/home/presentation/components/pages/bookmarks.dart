@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/title_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 

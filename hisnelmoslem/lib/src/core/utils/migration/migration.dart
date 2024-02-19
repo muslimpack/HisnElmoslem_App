@@ -3,12 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/src/core/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/azkar_old_db.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/fake_hadith_old_db.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 
 Future<dynamic> showCommentaryDialog({

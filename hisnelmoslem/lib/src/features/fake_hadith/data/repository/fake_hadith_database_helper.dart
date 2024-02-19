@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/utils/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
