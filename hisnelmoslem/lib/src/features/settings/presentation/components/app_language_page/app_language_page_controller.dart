@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/app/data/app_data.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:intl/intl.dart';
 
 class AppLanguagePageController extends GetxController {

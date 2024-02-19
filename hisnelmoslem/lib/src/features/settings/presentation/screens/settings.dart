@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';

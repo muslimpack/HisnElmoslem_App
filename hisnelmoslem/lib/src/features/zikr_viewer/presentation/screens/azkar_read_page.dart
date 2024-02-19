@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/app_data.dart';
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialoge.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';

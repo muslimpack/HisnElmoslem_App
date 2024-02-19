@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/app_data.dart';
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/src/core/translations/translation.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
