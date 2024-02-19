@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
 import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/hadith_card.dart';
-import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 
 class FakeHadithUnreadPage extends StatelessWidget {
   final FakeHadithController controller;

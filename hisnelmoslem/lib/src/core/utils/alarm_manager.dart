@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/data/awesome_day.dart';
 import 'package:hisnelmoslem/app/data/models/alarm.dart';
-import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/app/shared/functions/print.dart';
+import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/awesome_notification_manager.dart';
 

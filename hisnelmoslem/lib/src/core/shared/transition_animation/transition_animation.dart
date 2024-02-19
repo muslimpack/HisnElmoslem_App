@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:hisnelmoslem/app/shared/transition_animation/circle_clipper.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/circle_clipper.dart';
 
 TransitionAnimation transitionAnimation = TransitionAnimation();
 

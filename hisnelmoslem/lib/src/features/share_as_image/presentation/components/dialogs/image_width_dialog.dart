@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
-import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
+import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
+import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class ImageWidthDialog extends StatelessWidget {

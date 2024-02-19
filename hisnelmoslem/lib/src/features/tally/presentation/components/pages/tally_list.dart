@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_card.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

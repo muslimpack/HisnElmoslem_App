@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/modules/settings/settings.dart';
-import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';

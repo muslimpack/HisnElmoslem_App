@@ -9,10 +9,10 @@ import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard
 import 'package:hisnelmoslem/app/modules/settings/settings_controller.dart';
 import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_page.dart';
 import 'package:hisnelmoslem/app/modules/theme_manager/themes_manager_page.dart';
-import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
-import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/src/core/functions/open_url.dart';
+import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
