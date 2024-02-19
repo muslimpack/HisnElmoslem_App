@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_read_page.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/pages/fake_hadith_unread_page.dart';
-import 'package:hisnelmoslem/app/modules/fake_hadith/widgets/fake_hadith_appbar.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/pages/fake_hadith_read_page.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/pages/fake_hadith_unread_page.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/fake_hadith_appbar.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/fake_hadith_controller.dart';
 
 class FakeHadith extends StatelessWidget {
   const FakeHadith({super.key});
