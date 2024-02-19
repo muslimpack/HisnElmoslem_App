@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:wakelock/wakelock.dart';
 
-class Constructor extends GetxController {
+class AzkarReadPageController extends GetxController {
   /* *************** Constructor *************** */
   //
   final int index;
 
-  Constructor({required this.index});
+  AzkarReadPageController({required this.index});
 
   /* *************** Variables *************** */
   //

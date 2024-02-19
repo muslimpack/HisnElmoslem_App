@@ -9,12 +9,12 @@ import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/app_language_page/app_language_page.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/font_family_page/font_family_page.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/sounds_manager_page.dart';
+import 'package:hisnelmoslem/src/features/fonts/presentation/controller/font_family_page.dart';
+import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/sound_manager/sounds_manager_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/settings_controller.dart';
-import 'package:hisnelmoslem/src/features/theme_manager/presentation/screens/themes_manager_page.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Settings extends StatelessWidget {

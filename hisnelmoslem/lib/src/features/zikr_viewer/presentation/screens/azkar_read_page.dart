@@ -23,8 +23,8 @@ class AzkarReadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<Constructor>(
-      init: Constructor(index: index),
+    return GetBuilder<AzkarReadPageController>(
+      init: AzkarReadPageController(index: index),
       builder: (controller) {
         String? text = "";
         String? source = "";

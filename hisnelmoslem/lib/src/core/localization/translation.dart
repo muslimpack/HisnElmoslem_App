@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/translations/ar.dart';
-import 'package:hisnelmoslem/src/core/translations/en.dart';
+import 'package:hisnelmoslem/src/core/localization/ar.dart';
+import 'package:hisnelmoslem/src/core/localization/en.dart';
 
 class HisnAppTranslation extends Translations {
   @override

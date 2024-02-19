@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/app_language_page/app_language_page_controller.dart';
+import 'package:hisnelmoslem/src/features/localization/presentation/controller/app_language_page_controller.dart';
 
 class AppLanguagePage extends StatelessWidget {
   const AppLanguagePage({super.key});
