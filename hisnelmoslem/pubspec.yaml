@@ -75,6 +75,9 @@ flutter:
     - family: Uthmanic
       fonts:
         - asset: assets/fonts/uthmanic_hafs_ver12.otf
+    - family: Uthmanic2
+      fonts:
+        - asset: assets/fonts/UthmanicHafs_v2-1.ttf
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo-Regular.ttf

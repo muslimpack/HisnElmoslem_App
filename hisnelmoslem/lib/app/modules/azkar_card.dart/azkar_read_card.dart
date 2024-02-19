@@ -76,6 +76,7 @@ class AzkarReadCard extends StatelessWidget {
                     final String fadl = controller.zikrContent[index].fadl;
                     final int cardnum = index + 1;
                     int counter = controller.zikrContent[index].count;
+                    final bool containsAyah = text.contains("﴿");
                     return InkWell(
                       onTap: () {
                         counter = controller.decreaseCount(counter, index);
@@ -247,6 +248,7 @@ class AzkarReadCard extends StatelessWidget {
                                       controller.zikrContent[index].count == 0
                                           ? mainColor
                                           : null,
+                                  fontFamily: containsAyah ? "Uthmanic2" : null,
                                   //fontSize: 20,
                                 ),
                               ),
