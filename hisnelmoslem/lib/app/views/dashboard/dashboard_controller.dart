@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
 import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
+import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/core/themes/theme_services.dart';
 import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
@@ -85,10 +86,13 @@ class DashboardController extends GetxController
       allTitle = value;
     });
 
+    hisnPrint("allTitle: ${allTitle.length}");
+
     /* ***** Get All Favourite Titles ***** */
     await azkarDatabaseHelper.getAllFavoriteTitles().then((value) {
       favouriteTitle = value;
     });
+    hisnPrint("favouriteTitle: ${favouriteTitle.length}");
 
     /* ***** Get All favoutie content ***** */
     await getFavouriteContent();
@@ -97,6 +101,7 @@ class DashboardController extends GetxController
     await alarmDatabaseHelper.getAlarms().then((value) {
       alarms = value;
     });
+    hisnPrint("alarms: ${alarms.length}");
 
     searchedTitle = allTitle;
 

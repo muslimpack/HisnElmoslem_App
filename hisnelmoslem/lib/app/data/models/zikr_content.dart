@@ -1,7 +1,6 @@
 class DbContent {
   int id;
   String content;
-  int chapterId;
   int titleId;
   int orderId;
   int count;
@@ -12,7 +11,6 @@ class DbContent {
   DbContent({
     this.id = 0,
     this.content = "",
-    this.chapterId = 0,
     this.titleId = 0,
     this.count = 0,
     this.fadl = "",
@@ -29,11 +27,10 @@ class DbContent {
       favourite = true;
     }
     return DbContent(
-      id: map['_id'] as int,
+      id: map['id'] as int,
       content: (map['content'] as String).replaceAll("\\n", "\n"),
-      chapterId: map['chapter_id'] as int,
-      titleId: map['title_id'] as int,
-      orderId: map['order_id'] as int,
+      titleId: map['titleId'] as int,
+      orderId: map['orderId'] as int,
       count: map['count'] as int,
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
@@ -43,14 +40,13 @@ class DbContent {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      '_id': id,
+      'id': id,
       'content': content,
-      'chapter_id': chapterId,
-      'title_id': titleId,
+      'titleId': titleId,
       'count': count,
       'fadl': fadl,
       'source': source,
-      'order_id': orderId,
+      'orderId': orderId,
       'favourite': favourite ? 1 : 0,
     };
   }

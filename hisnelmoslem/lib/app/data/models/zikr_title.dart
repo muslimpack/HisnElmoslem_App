@@ -1,14 +1,12 @@
 class DbTitle {
   int id;
   String name;
-  int chapterId;
   int orderId;
   bool favourite;
 
   DbTitle({
     this.id = 0,
     this.name = "",
-    this.chapterId = 0,
     this.orderId = 0,
     this.favourite = false,
   });
@@ -21,10 +19,9 @@ class DbTitle {
       favourite = true;
     }
     return DbTitle(
-      id: map['_id'] as int,
+      id: map['id'] as int,
       name: map['name'] as String,
-      chapterId: map['chapter_id'] as int,
-      orderId: map['order_id'] as int,
+      orderId: map['orderId'] as int,
       // favourite: false,
       favourite: favourite,
     );
@@ -32,10 +29,9 @@ class DbTitle {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      '_id': id,
+      'id': id,
       'name': name,
-      'chapter_id': chapterId,
-      'order_id': orderId,
+      'orderId': orderId,
       'favourite': favourite ? 1 : 0,
     };
   }
