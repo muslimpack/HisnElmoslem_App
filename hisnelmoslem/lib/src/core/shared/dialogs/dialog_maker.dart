@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class DialogMaker extends StatelessWidget {
   final double height;
@@ -20,7 +19,6 @@ class DialogMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: transparent,
       contentPadding: EdgeInsets.zero,
       content: SizedBox(
         // height: height,

@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/sounds_manager_page.dart';
@@ -146,7 +145,6 @@ class Settings extends StatelessWidget {
                   ),
                   title: Text("fasting mondays and thursdays reminder".tr),
                 ),
-                activeColor: mainColor,
                 value: appData.isFastAlarmEnabled,
                 onChanged: (value) {
                   appData.changFastAlarmStatus(value: value);
@@ -173,7 +171,6 @@ class Settings extends StatelessWidget {
                   ),
                   title: Text("sura Al-Kahf reminder".tr),
                 ),
-                activeColor: mainColor,
                 value: appData.isCaveAlarmEnabled,
                 onChanged: (value) {
                   appData.changCaveAlarmStatus(value: value);
@@ -251,7 +248,10 @@ class Title extends StatelessWidget {
 
       title: Text(
         title,
-        style: TextStyle(fontSize: 20, color: mainColor),
+        style: TextStyle(
+          fontSize: 20,
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
     );
   }

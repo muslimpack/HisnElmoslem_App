@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 
 class SoundsManagerPage extends StatelessWidget {
@@ -49,7 +48,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("phone vibration at every praise".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isTallyVibrateAllowed,
                 onChanged: (value) {
                   controller.changeTallyVibrateStatus(value: value);
@@ -71,7 +69,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect at every praise".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isTallySoundAllowed,
                 onChanged: (value) {
                   controller.changeTallySoundStatus(value: value);
@@ -93,7 +90,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("phone vibration at single zikr end".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isZikrDoneVibrateAllowed,
                 onChanged: (value) {
                   controller.changeZikrDoneVibrateStatus(value: value);
@@ -114,7 +110,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect at single zikr end".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isZikrDoneSoundAllowed,
                 onChanged: (value) {
                   controller.changeZikrDoneSoundStatus(value: value);
@@ -135,7 +130,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("phone vibration when all zikr end".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isAllAzkarFinishedVibrateAllowed,
                 onChanged: (value) {
                   controller.changeAllAzkarFinishedVibrateStatus(
@@ -158,7 +152,6 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect when all zikr end".tr),
                 ),
-                activeColor: mainColor,
                 value: controller.isAllAzkarFinishedSoundAllowed,
                 onChanged: (value) {
                   controller.changeAllAzkarFinishedSoundStatus(value: value);

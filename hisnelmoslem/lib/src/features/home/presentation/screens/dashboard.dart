@@ -3,7 +3,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/screen_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
@@ -34,7 +33,8 @@ class AzkarDashboard extends StatelessWidget {
               borderRadius: 24.0,
               showShadow: true,
               angle: 0.0,
-              drawerShadowsBackgroundColor: mainColor,
+              drawerShadowsBackgroundColor:
+                  Theme.of(context).colorScheme.primary,
               slideWidth: 270,
             ),
     );

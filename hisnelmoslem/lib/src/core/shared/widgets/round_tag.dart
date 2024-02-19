@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class RoundTagCard extends StatelessWidget {
   final String? name;
@@ -19,9 +18,8 @@ class RoundTagCard extends StatelessWidget {
         child: Center(
           child: Text(
             name ?? "",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
-              color: white,
               overflow: TextOverflow.ellipsis,
             ),
             textAlign: TextAlign.center,

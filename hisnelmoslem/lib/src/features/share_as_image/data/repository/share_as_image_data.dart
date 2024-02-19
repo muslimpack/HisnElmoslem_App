@@ -30,7 +30,7 @@ class ShareAsImageData {
 
   Color get backgroundColor => Color(
         box.read<int?>(backgroundColorBoxKey) ??
-            shareAsImageColorsList[9].value,
+            shareAsImageColorsList[7].value,
       );
 
   final String fontSizeBoxKey = 'share_image_font_size';

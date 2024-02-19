@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class UserNumberField extends StatelessWidget {
   final TextEditingController controller;
@@ -37,7 +36,6 @@ class UserNumberField extends StatelessWidget {
           disabledBorder: InputBorder.none,
           hintText: hintText,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: mainColor),
             borderRadius: BorderRadius.circular(10.0),
           ),
           enabledBorder: UnderlineInputBorder(

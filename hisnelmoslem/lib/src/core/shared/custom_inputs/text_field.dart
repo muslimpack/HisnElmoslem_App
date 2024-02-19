@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class UserTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -33,7 +32,6 @@ class UserTextField extends StatelessWidget {
           disabledBorder: InputBorder.none,
           hintText: hintText,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: mainColor),
             borderRadius: BorderRadius.circular(10.0),
           ),
           enabledBorder: UnderlineInputBorder(

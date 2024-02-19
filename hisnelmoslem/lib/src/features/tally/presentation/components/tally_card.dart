@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -24,7 +23,9 @@ class TallyCard extends StatelessWidget {
           children: [
             ListTile(
               isThreeLine: true,
-              tileColor: dbTally.isActivated ? mainColor.withOpacity(.2) : null,
+              tileColor: dbTally.isActivated
+                  ? Theme.of(context).colorScheme.primary.withOpacity(.2)
+                  : null,
               onTap: () {
                 if (dbTally.isActivated) {
                   tallyController.deactivateTally(dbTally: dbTally);
@@ -75,8 +76,7 @@ class TallyCard extends StatelessWidget {
               ),
               trailing: Text(
                 dbTally.count.toString(),
-                style: TextStyle(
-                  color: mainColor,
+                style: const TextStyle(
                   fontSize: 15,
                 ),
               ),

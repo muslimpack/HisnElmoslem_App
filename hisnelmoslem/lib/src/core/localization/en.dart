@@ -220,4 +220,13 @@ const Map<String, String> en = {
 
   "Reset all counters?.": "Reset all counters?.",
   "Our Products": "Our Products",
+
+// theme
+  "themeAppColor": "App Color",
+  "themeDarkMode": "Dark Mode",
+  "themeUseMaterial3": "Use Material3",
+  "themeUserOldTheme": "User Old Theme",
+  "themeOverrideBackground": "Override Background",
+  "themeSelectColor": "Select Color",
+  "Select": "Select",
 };

@@ -4,7 +4,6 @@ import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 
 class TallyDialog extends StatefulWidget {
@@ -51,9 +50,8 @@ class _TallyDialogState extends State<TallyDialog> {
             return "add new counter".tr;
           }
         }(),
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 25,
-          color: mainColor,
         ),
       ),
       content: [
@@ -78,7 +76,7 @@ class _TallyDialogState extends State<TallyDialog> {
         title: Text(
           "done".tr,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, color: mainColor),
+          style: const TextStyle(fontSize: 20),
         ),
         onTap: () {
           if (resetCounterController.text.isNum &&

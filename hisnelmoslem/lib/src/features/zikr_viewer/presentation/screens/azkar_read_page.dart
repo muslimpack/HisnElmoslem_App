@@ -107,9 +107,8 @@ class AzkarReadPage extends StatelessWidget {
                                     child: IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite_border,
-                                        color: mainColor,
                                       ),
                                       onPressed: () {
                                         controller
@@ -132,9 +131,8 @@ class AzkarReadPage extends StatelessWidget {
                                     child: IconButton(
                                       splashRadius: 20,
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite,
-                                        color: mainColor,
                                       ),
                                       onPressed: () {
                                         controller
@@ -154,7 +152,7 @@ class AzkarReadPage extends StatelessWidget {
                                   child: IconButton(
                                     splashRadius: 20,
                                     padding: EdgeInsets.zero,
-                                    icon: Icon(Icons.share, color: mainColor),
+                                    icon: const Icon(Icons.share),
                                     onPressed: () {
                                       Share.share("${text!}\n${fadl!}");
                                     },
@@ -166,14 +164,13 @@ class AzkarReadPage extends StatelessWidget {
                                       horizontal: 10,
                                     ),
                                     child: CircleAvatar(
-                                      backgroundColor: transparent,
+                                      backgroundColor: Colors.transparent,
                                       child: Text(
                                         controller
                                             .zikrContent[controller.currentPage]
                                             .count
                                             .toString(),
-                                        style: TextStyle(
-                                          color: mainColor,
+                                        style: const TextStyle(
                                           fontSize: 20,
                                         ),
                                       ),
@@ -188,16 +185,19 @@ class AzkarReadPage extends StatelessWidget {
                               LinearProgressIndicator(
                                 value: controller.totalProgressForEverySingle,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  mainColor,
+                                  Theme.of(context).colorScheme.primary,
                                 ),
-                                backgroundColor: grey,
                               ),
                               LinearProgressIndicator(
+                                backgroundColor: Colors.transparent,
                                 value: controller.totalProgress,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  mainColor.withGreen(100).withAlpha(100),
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withGreen(100)
+                                      .withAlpha(100),
                                 ),
-                                backgroundColor: transparent,
                               ),
                             ],
                           ),
@@ -224,7 +224,7 @@ class AzkarReadPage extends StatelessWidget {
                             "",
                           );
                     final bool containsAyah = text.contains("﴿");
-                    return InkWell(
+                    return GestureDetector(
                       onTap: () {
                         controller.decreaseCount();
                       },
@@ -257,42 +257,62 @@ class AzkarReadPage extends StatelessWidget {
 
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.only(top: 10),
+                      child: Stack(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
-                            child: Text(
-                              text,
-                              textAlign: TextAlign.center,
-                              softWrap: true,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                fontSize: appData.fontSize * 10,
-                                height: 2,
-                                color: controller.zikrContent[index].count == 0
-                                    ? mainColor
-                                    : null,
-                                fontFamily: containsAyah ? "Uthmanic2" : null,
-                                // fontSize: 20,
+                          Center(
+                            child: FittedBox(
+                              child: Text(
+                                "${controller.zikrContent[index].count}",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(.2),
+                                  fontSize: 250,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                            child: Text(
-                              controller.zikrContent[index].fadl,
-                              textAlign: TextAlign.center,
-                              textDirection: TextDirection.rtl,
-                              softWrap: true,
-                              style: TextStyle(
-                                fontSize: appData.fontSize * 10,
-                                height: 2,
-                                color: mainColor,
-                                //fontSize: 20,
+                          ListView(
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.only(top: 10),
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                                child: Text(
+                                  text,
+                                  textAlign: TextAlign.center,
+                                  softWrap: true,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                    fontSize: appData.fontSize * 10,
+                                    height: 2,
+
+                                    fontFamily:
+                                        containsAyah ? "Uthmanic2" : null,
+                                    // fontSize: 20,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 10, 10, 20),
+                                child: Text(
+                                  controller.zikrContent[index].fadl,
+                                  textAlign: TextAlign.center,
+                                  textDirection: TextDirection.rtl,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    fontSize: appData.fontSize * 10,
+                                    height: 2,
+
+                                    //fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -300,8 +320,6 @@ class AzkarReadPage extends StatelessWidget {
                   },
                 ),
                 bottomNavigationBar: BottomAppBar(
-                  //elevation: 20,
-                  // color: Theme.of(context).primaryColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -310,7 +328,7 @@ class AzkarReadPage extends StatelessWidget {
                         child: IconButton(
                           splashRadius: 20,
                           padding: EdgeInsets.zero,
-                          icon: Icon(Icons.copy, color: mainColor),
+                          icon: const Icon(Icons.copy),
                           onPressed: () {
                             FlutterClipboard.copy("${text!}\n${fadl!}")
                                 .then((result) {
@@ -338,7 +356,10 @@ class AzkarReadPage extends StatelessWidget {
                         child: IconButton(
                           splashRadius: 20,
                           padding: EdgeInsets.zero,
-                          icon: Icon(Icons.report, color: orange),
+                          icon: const Icon(
+                            Icons.report,
+                            color: Colors.orange,
+                          ),
                           onPressed: () {
                             EmailManager.sendMisspelledInZikrWithText(
                               subject: controller.zikrTitle!.name,

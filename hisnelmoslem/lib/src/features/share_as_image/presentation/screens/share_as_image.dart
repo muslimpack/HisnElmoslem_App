@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/image_var_font_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/settings_sheet.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
@@ -47,7 +46,6 @@ class ShareAsImage extends StatelessWidget {
                         : LinearProgressIndicator(
                             backgroundColor:
                                 Theme.of(context).scaffoldBackgroundColor,
-                            color: mainColor,
                             minHeight: 15,
                           ),
                   ),

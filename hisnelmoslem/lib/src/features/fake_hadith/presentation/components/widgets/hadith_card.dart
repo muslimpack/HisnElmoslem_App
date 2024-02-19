@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/fake_hadith_controller.dart';
 import 'package:share/share.dart';
@@ -59,18 +58,16 @@ class HadithCard extends StatelessWidget {
                       ? const Icon(
                           Icons.check,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.checklist,
-                          color: mainColor,
                         ),
                 ),
                 Expanded(
                   child: IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.copy,
-                      color: mainColor,
                     ),
                     onPressed: () {
                       FlutterClipboard.copy(
@@ -93,7 +90,7 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
-                    icon: Icon(Icons.camera_alt_rounded, color: mainColor),
+                    icon: const Icon(Icons.camera_alt_rounded),
                     onPressed: () {
                       fakeHadithController.shareFakehadithAsImage(fakeHaith);
                     },
@@ -103,7 +100,7 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
-                    icon: Icon(Icons.share, color: mainColor),
+                    icon: const Icon(Icons.share),
                     onPressed: () {
                       Share.share("${fakeHaith.text}\n${fakeHaith.darga}");
                     },
@@ -113,7 +110,7 @@ class HadithCard extends StatelessWidget {
                   child: IconButton(
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
-                    icon: Icon(Icons.report, color: orange),
+                    icon: const Icon(Icons.report),
                     onPressed: () {
                       EmailManager.sendMisspelledInFakeHadith(
                         fakeHaith: fakeHaith,
@@ -132,7 +129,6 @@ class HadithCard extends StatelessWidget {
                 softWrap: true,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                  color: fakeHaith.isRead ? mainColor : null,
                   fontSize: appData.fontSize * 10,
                 ),
               ),
@@ -146,7 +142,7 @@ class HadithCard extends StatelessWidget {
                 softWrap: true,
                 style: TextStyle(
                   fontSize: appData.fontSize * 10,
-                  color: mainColor,
+
                   //fontSize: 20,
                 ),
               ),

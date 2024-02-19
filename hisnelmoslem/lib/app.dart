@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/localization/translation.dart';
@@ -10,7 +11,7 @@ import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
-import 'package:hisnelmoslem/src/features/themes/data/repository/theme_services.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -40,33 +41,47 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      // Translation
-      translations: HisnAppTranslation(),
-      locale: Locale(appData.appLocale),
-      fallbackLocale: Locale(appData.appLocale),
-      //
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
       ],
-      debugShowCheckedModeBanner: false,
-      title: "Hisn Elmoslem".tr,
-      theme: ThemeServices.getTheme().copyWith(
-        textTheme: ThemeServices.getTheme()
-            .textTheme
-            .apply(fontFamily: appData.fontFamily),
-        primaryTextTheme: ThemeServices.getTheme()
-            .textTheme
-            .apply(fontFamily: appData.fontFamily),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return GetMaterialApp(
+            // Translation
+            translations: HisnAppTranslation(),
+            locale: Locale(appData.appLocale),
+            fallbackLocale: Locale(appData.appLocale),
+            //
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            debugShowCheckedModeBanner: false,
+            title: "Hisn Elmoslem".tr,
+            theme: state.useOldTheme
+                ? ThemeData(
+                    useMaterial3: state.useMaterial3,
+                    brightness: state.brightness,
+                    colorSchemeSeed: state.color,
+                  )
+                : ThemeData(
+                    colorScheme: ColorScheme.fromSeed(
+                      seedColor: state.color,
+                      brightness: state.brightness,
+                    ),
+                    useMaterial3: state.useMaterial3,
+                  ),
+
+            home: const AzkarDashboard(),
+
+            // home: appData.isFirstOpenToThisRelease
+            //     ? const OnBoardingPage()
+            //     : const AzkarDashboard(),
+          );
+        },
       ),
-
-      home: const AzkarDashboard(),
-
-      // home: appData.isFirstOpenToThisRelease
-      //     ? const OnBoardingPage()
-      //     : const AzkarDashboard(),
     );
   }
 }

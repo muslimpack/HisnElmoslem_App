@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class RoundButton extends StatelessWidget {
   final Widget text;
@@ -23,8 +22,6 @@ class RoundButton extends StatelessWidget {
         style: isTransparent
             ? ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
-                backgroundColor: MaterialStateProperty.all(transparent),
-                foregroundColor: MaterialStateProperty.all(mainColor),
               )
             : const ButtonStyle(),
         onPressed: onTap,

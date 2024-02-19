@@ -119,9 +119,9 @@ class BetweenPageEffect extends StatelessWidget {
             begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
             end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
             colors: [
-              transparent,
-              black.withOpacity(.05),
-              black.withOpacity(.1),
+              Colors.transparent,
+              Colors.black.withOpacity(.05),
+              Colors.black.withOpacity(.1),
             ],
           ),
         ),
@@ -149,8 +149,8 @@ class PageSideEffect extends StatelessWidget {
             begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
             end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
             colors: [
-              white,
-              black.withAlpha(200),
+              Colors.white,
+              Colors.black.withAlpha(200),
             ],
           ),
         ),

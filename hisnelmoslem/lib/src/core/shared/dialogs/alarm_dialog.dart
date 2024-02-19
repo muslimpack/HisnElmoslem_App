@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -98,16 +97,15 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
             return "add reminder".tr;
           }
         }(),
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 25,
-          color: mainColor,
         ),
         textAlign: TextAlign.center,
       ),
       content: [
         Text(
           widget.dbAlarm.title,
-          style: TextStyle(color: mainColor, fontSize: 20),
+          style: const TextStyle(fontSize: 20),
           textAlign: TextAlign.center,
         ),
         TextField(
@@ -189,9 +187,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                   value: value,
                   child: Text(
                     value,
-                    style: TextStyle(
-                      color: mainColor,
-                    ),
+
                     // textAlign: TextAlign.center,
                   ),
                 );

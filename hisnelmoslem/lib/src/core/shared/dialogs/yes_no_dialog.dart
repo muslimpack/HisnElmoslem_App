@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class YesOrNoDialog extends StatelessWidget {
   final String msg;
@@ -25,7 +24,7 @@ class YesOrNoDialog extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 "are you sure?".tr,
-                style: TextStyle(fontSize: 20, color: mainColor),
+                style: const TextStyle(fontSize: 20),
               ),
             ),
             const Divider(),
@@ -41,7 +40,7 @@ class YesOrNoDialog extends StatelessWidget {
                     title: Text(
                       "yes".tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: mainColor),
+                      style: const TextStyle(fontSize: 15),
                     ),
                     onTap: () {
                       onYes();
@@ -54,7 +53,7 @@ class YesOrNoDialog extends StatelessWidget {
                     title: Text(
                       "no".tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: mainColor),
+                      style: const TextStyle(fontSize: 15),
                     ),
                     onTap: () {
                       Navigator.pop<bool>(context, false);

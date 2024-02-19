@@ -7,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -268,7 +267,6 @@ class TallyController extends GetxController {
     if (currentDBTally != null) {
       showModalBottomSheet(
         isScrollControlled: true,
-        backgroundColor: transparent,
         context: Get.context!,
         builder: (BuildContext context) {
           return YesOrNoDialog(
@@ -310,7 +308,6 @@ class TallyController extends GetxController {
   void deleteTallyById(DbTally dbTally) {
     showModalBottomSheet(
       isScrollControlled: true,
-      backgroundColor: transparent,
       context: Get.context!,
       builder: (BuildContext context) {
         return YesOrNoDialog(
@@ -331,7 +328,6 @@ class TallyController extends GetxController {
   void resetAllTally() {
     showModalBottomSheet(
       isScrollControlled: true,
-      backgroundColor: transparent,
       context: Get.context!,
       builder: (BuildContext context) {
         return YesOrNoDialog(
