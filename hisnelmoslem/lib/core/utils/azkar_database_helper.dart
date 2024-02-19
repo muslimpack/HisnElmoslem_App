@@ -160,7 +160,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM titles  WHERE orderId = ?''',
+      '''SELECT * FROM titles  WHERE id = ?''',
       [id],
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
