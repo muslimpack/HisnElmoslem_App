@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/app/views/dashboard/widgets/title_card.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/title_card.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 
 class AzkarFehrs extends StatelessWidget {
   const AzkarFehrs({

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 
 class OnBoardingController extends GetxController {
   /* *************** Variables *************** */

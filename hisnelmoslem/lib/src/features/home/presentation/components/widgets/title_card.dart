@@ -6,11 +6,11 @@ import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card.dart';
 import 'package:hisnelmoslem/app/modules/azkar_page/azkar_read_page.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/core/utils/alarm_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 
 class TitleCard extends StatelessWidget {
   final int index;
