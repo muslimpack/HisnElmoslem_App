@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controlle
 import 'package:hisnelmoslem/app/modules/share_as_image/widgets/image_var_font_builder.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/widgets/settings_sheet.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ShareAsImage extends StatelessWidget {

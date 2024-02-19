@@ -9,11 +9,11 @@ import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/core/themes/theme_services.dart';
-import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
+import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController

@@ -9,7 +9,7 @@ import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_read_page.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/core/utils/local_repo.dart';
+import 'package:hisnelmoslem/src/core/utils/local_repo.dart';
 
 AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();

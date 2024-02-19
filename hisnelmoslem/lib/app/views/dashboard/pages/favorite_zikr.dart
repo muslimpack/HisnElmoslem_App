@@ -11,9 +11,9 @@ import 'package:hisnelmoslem/app/shared/transition_animation/transition_animatio
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 

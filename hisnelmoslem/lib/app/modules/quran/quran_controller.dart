@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
-import 'package:hisnelmoslem/core/themes/theme_services.dart';
+import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
 
 enum SurahNameEnum { alMulk, assajdah, alKahf, endofAliImran }
 

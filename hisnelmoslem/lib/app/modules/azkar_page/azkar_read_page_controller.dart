@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/modules/sound_manager/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
-import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
 import 'package:wakelock/wakelock.dart';
 
 class AzkarReadPageController extends GetxController {

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/core/themes/theme_services.dart';
-import 'package:hisnelmoslem/core/themes/themes_enum.dart';
+import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
+import 'package:hisnelmoslem/src/core/themes/themes_enum.dart';
 
 class ThemesManagerPageController extends GetxController {
   /* *************** Variables *************** */

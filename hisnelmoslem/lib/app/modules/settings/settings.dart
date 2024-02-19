@@ -13,8 +13,8 @@ import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/app/shared/functions/open_url.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Settings extends StatelessWidget {

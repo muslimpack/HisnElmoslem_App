@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 Future<dynamic> showCommentaryDialog({
   required BuildContext context,

@@ -8,10 +8,10 @@ import 'package:hisnelmoslem/app/shared/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/app/shared/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/app/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
-import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
-import 'package:hisnelmoslem/core/utils/alarm_manager.dart';
-import 'package:hisnelmoslem/core/utils/awesome_notification_manager.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/alarm_manager.dart';
+import 'package:hisnelmoslem/src/core/utils/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;

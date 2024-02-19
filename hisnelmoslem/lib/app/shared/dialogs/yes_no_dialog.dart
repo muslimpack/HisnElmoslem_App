@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class YesOrNoDialog extends StatelessWidget {
   final String msg;

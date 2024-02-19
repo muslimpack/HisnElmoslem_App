@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
-import 'package:hisnelmoslem/core/values/new_featuers_list.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/new_featuers_list.dart';
 import 'package:timelines/timelines.dart';
 
 class AppUpdateNews extends StatelessWidget {

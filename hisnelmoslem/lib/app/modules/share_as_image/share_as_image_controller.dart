@@ -9,8 +9,8 @@ import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
 import 'package:hisnelmoslem/app/modules/share_as_image/dialogs/image_width_dialog.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
-import 'package:hisnelmoslem/core/utils/azkar_database_helper.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 

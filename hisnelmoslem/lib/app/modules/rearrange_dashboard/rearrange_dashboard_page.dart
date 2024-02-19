@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 
 class RearrangeDashboardPage extends StatelessWidget {
   const RearrangeDashboardPage({super.key});

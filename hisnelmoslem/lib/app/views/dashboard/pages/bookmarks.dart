@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/widgets/title_card.dart';
-import 'package:hisnelmoslem/core/utils/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/alarm_database_helper.dart';
 
 class AzkarBookmarks extends StatelessWidget {
   const AzkarBookmarks({

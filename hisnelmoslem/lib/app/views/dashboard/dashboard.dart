@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_appbar.dart';
 import 'package:hisnelmoslem/app/views/dashboard/screen_menu.dart';
-import 'package:hisnelmoslem/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:intl/intl.dart';
 
 class AzkarDashboard extends StatelessWidget {

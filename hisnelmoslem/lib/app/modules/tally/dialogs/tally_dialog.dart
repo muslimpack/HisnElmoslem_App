@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/app/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/app/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/app/shared/functions/show_toast.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class TallyDialog extends StatefulWidget {
   final DbTally dbTally;

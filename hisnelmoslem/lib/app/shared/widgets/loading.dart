@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});

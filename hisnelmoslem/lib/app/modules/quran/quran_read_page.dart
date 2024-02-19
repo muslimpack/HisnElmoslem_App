@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/modules/quran/quran_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/core/themes/theme_services.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/themes/theme_services.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class QuranReadPage extends StatelessWidget {
   final SurahNameEnum surahName;

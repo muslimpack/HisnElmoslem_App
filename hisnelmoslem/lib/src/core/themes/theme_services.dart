@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/app/shared/functions/print.dart';
 
-import 'package:hisnelmoslem/core/themes/themes.dart';
-import 'package:hisnelmoslem/core/themes/themes_enum.dart';
+import 'package:hisnelmoslem/src/core/themes/themes.dart';
+import 'package:hisnelmoslem/src/core/themes/themes_enum.dart';
 
 class ThemeServices {
   ///

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import "package:hisnelmoslem/app/data/models/models.dart";
 import 'package:hisnelmoslem/app/modules/fake_hadith/fake_hadith_controller.dart';
-import 'package:hisnelmoslem/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:share/share.dart';
 
 class HadithCard extends StatelessWidget {
