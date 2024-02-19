@@ -223,6 +223,7 @@ class AzkarReadPage extends StatelessWidget {
                             RegExp(String.fromCharCodes(arabicTashkelChar)),
                             "",
                           );
+                    final bool containsAyah = text.contains("﴿");
                     return InkWell(
                       onTap: () {
                         controller.decreaseCount();
@@ -273,6 +274,7 @@ class AzkarReadPage extends StatelessWidget {
                                 color: controller.zikrContent[index].count == 0
                                     ? mainColor
                                     : null,
+                                fontFamily: containsAyah ? "Uthmanic2" : null,
                                 // fontSize: 20,
                               ),
                             ),

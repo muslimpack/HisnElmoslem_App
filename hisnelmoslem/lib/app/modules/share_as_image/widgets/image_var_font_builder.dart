@@ -16,6 +16,7 @@ class ImageVarFontBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ShareAsImageController>(
       builder: (controller) {
+        final bool containsAyah = dbContent.content.contains("﴿");
         return Card(
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.zero,
@@ -59,6 +60,8 @@ class ImageVarFontBuilder extends StatelessWidget {
                           style: TextStyle(
                             color: shareAsImageData.bodyTextColor,
                             fontSize: shareAsImageData.fontSize,
+                            height: 2,
+                            fontFamily: containsAyah ? "Uthmanic2" : null,
                           ),
                         ),
                       ),

@@ -66,9 +66,7 @@ class FakeHadith {
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) {}
 
   /// On downgrade database version
   FutureOr<void> _onDowngradeDatabase(
@@ -119,6 +117,8 @@ class FakeHadith {
       '''SELECT * from favourite_titles WHERE title_id = ?''',
       [titleId],
     );
+
+    if (maps.isEmpty) return false;
 
     final DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
       return DbTitleFavourite.fromMap(maps[i]);
@@ -171,7 +171,7 @@ class FakeHadith {
       '''SELECT *  from favourite_contents WHERE content_id = ?''',
       [contentId],
     );
-
+    if (maps.isEmpty) return false;
     final DbContentFavourite dbContentFavourite =
         List.generate(maps.length, (i) {
       return DbContentFavourite.fromMap(maps[i]);

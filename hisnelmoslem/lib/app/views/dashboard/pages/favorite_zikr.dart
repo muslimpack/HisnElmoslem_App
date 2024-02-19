@@ -49,6 +49,7 @@ class FavouriteZikr extends StatelessWidget {
                           .where((element) => element.id == dbContent.titleId)
                           .first;
                       //
+                      final bool containsAyah = dbContent.content.contains("﴿");
                       return InkWell(
                         splashColor: mainColor,
                         onTap: () {
@@ -176,7 +177,10 @@ class FavouriteZikr extends StatelessWidget {
                                               ? mainColor
                                               : null,
                                           //fontSize: 20,
-                                          fontWeight: FontWeight.w700,
+                                          height: 2,
+
+                                          fontFamily:
+                                              containsAyah ? "Uthmanic2" : null,
                                         ),
                                       ),
                                     ),

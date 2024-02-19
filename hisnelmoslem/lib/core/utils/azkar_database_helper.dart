@@ -14,7 +14,7 @@ class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 4;
+  static const int dbVersion = 5;
 
   /* ************* Singleton Constructor ************* */
 
@@ -114,21 +114,6 @@ class AzkarDatabaseHelper {
   /* ************* Functions ************* */
 
   /**
-   * Chapters Operations
-   */
-
-  /// Get all chapters from database
-  Future<List<DbChapter>> getAllChapters() async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.query('chapters');
-
-    return List.generate(maps.length, (i) {
-      return DbChapter.fromMap(maps[i]);
-    });
-  }
-
-  /**
    * Titles Operations
    */
 
@@ -175,7 +160,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM titles  WHERE order_id = ?''',
+      '''SELECT * FROM titles  WHERE id = ?''',
       [id],
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
@@ -226,7 +211,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM contents  WHERE title_id = ? ORDER by order_id ASC''',
+      '''SELECT * FROM contents  WHERE titleId = ? ORDER by orderId ASC''',
       [titleId],
     );
 
@@ -249,7 +234,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM contents  WHERE _id = ?''',
+      '''SELECT * FROM contents  WHERE id = ?''',
       [contentId],
     );
     final DbContent dbContent = DbContent.fromMap(maps[0]);
@@ -295,7 +280,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM commentary  WHERE content_id = ?''',
+      '''SELECT * FROM commentary  WHERE contentId = ?''',
       [contentId],
     );
     final Commentary commentary = Commentary.fromMap(maps[0]);
