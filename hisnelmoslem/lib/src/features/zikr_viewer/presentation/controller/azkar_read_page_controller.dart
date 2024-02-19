@@ -39,7 +39,7 @@ class Constructor extends GetxController {
   String? text = "";
   String? source = "";
   String? fadl = "";
-  int? cardnum = 0;
+  int? cardNum = 0;
 
   //
 

@@ -9,7 +9,7 @@ class FontFamilyPageController extends GetxController {
 
   List<int> list = <int>[].obs;
 
-  List<String> fontFamiles = [
+  List<String> fontFamilies = [
     "Cairo",
     "Amiri",
     "Marhey",

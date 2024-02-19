@@ -7,9 +7,9 @@ import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dar
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-FakeHadithOldDBHelper fakeHadithOldDBHelper = FakeHadithOldDBHelper();
+hadith fakeHadithOldDBHelper = hadith();
 
-class FakeHadithOldDBHelper {
+class hadith {
   /* ************* Variables ************* */
 
   static const String dbName = "fake_hadith_database.db";
@@ -17,15 +17,15 @@ class FakeHadithOldDBHelper {
 
   /* ************* Singleton Constructor ************* */
 
-  static FakeHadithOldDBHelper? _databaseHelper;
+  static hadith? _databaseHelper;
   static Database? _database;
 
-  factory FakeHadithOldDBHelper() {
-    _databaseHelper ??= FakeHadithOldDBHelper._createInstance();
+  factory hadith() {
+    _databaseHelper ??= hadith._createInstance();
     return _databaseHelper!;
   }
 
-  FakeHadithOldDBHelper._createInstance();
+  hadith._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();

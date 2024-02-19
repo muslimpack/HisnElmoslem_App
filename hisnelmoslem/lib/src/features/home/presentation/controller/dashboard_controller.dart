@@ -96,7 +96,7 @@ class DashboardController extends GetxController
     });
     hisnPrint("favouriteTitle: ${favouriteTitle.length}");
 
-    /* ***** Get All favoutie content ***** */
+    /* ***** Get All favorite content ***** */
     await getFavouriteContent();
 
     /* ***** Get All Alarms ***** */

@@ -67,13 +67,13 @@ class Migration {
 
   /// Starting to copy old data to new db
   static Future<void> _copyDataFromCurrentDataDBs() async {
-    await _copyDataFromFavoriteTitlesInHisElmosels();
-    await _copyDataFromFavoriteContentInHisElmosels();
+    await _copyDataFromFavoriteTitlesInHisElmoslem();
+    await _copyDataFromFavoriteContentInHisElmoslem();
     await _copyDataFromFakeHadith();
   }
 
   /// Copy favourite content data
-  static Future<void> _copyDataFromFavoriteContentInHisElmosels() async {
+  static Future<void> _copyDataFromFavoriteContentInHisElmoslem() async {
     ///
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, "hisn_elmoslem_database.db");
@@ -98,7 +98,7 @@ class Migration {
   }
 
   /// Copy favorite title data
-  static Future<void> _copyDataFromFavoriteTitlesInHisElmosels() async {
+  static Future<void> _copyDataFromFavoriteTitlesInHisElmoslem() async {
     ///
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, "hisn_elmoslem_database.db");

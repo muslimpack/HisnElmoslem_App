@@ -141,11 +141,11 @@ class SettingsSheet extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       children: List.generate(
-                        shareAsImageController.imageQulityList.length,
+                        shareAsImageController.imageQualityList.length,
                         (index) => GestureDetector(
                           onTap: () {
                             shareAsImageController.updateImageQuality(
-                              shareAsImageController.imageQulityList[index],
+                              shareAsImageController.imageQualityList[index],
                             );
                           },
                           child: Container(
@@ -153,13 +153,13 @@ class SettingsSheet extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: Card(
                               color: shareAsImageController
-                                          .imageQulityList[index] ==
+                                          .imageQualityList[index] ==
                                       shareAsImageData.imageQuality
                                   ? mainColor
                                   : null,
                               child: Center(
                                 child: Text(
-                                  shareAsImageController.imageQulityList[index]
+                                  shareAsImageController.imageQualityList[index]
                                       .toString(),
                                   // style: const TextStyle(fontSize: 20),
                                 ),

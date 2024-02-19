@@ -175,7 +175,7 @@ class FakeHadithDatabaseHelper {
     return fakeHadiths;
   }
 
-  // Mark haduth as read
+  // Mark hadith as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
     await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }

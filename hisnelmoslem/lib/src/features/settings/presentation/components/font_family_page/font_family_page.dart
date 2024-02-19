@@ -23,29 +23,29 @@ class FontFamilyPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               for (int index = 0;
-                  index < controller.fontFamiles.length;
+                  index < controller.fontFamilies.length;
                   index += 1)
                 ListTile(
                   key: Key('$index'),
                   tileColor:
-                      controller.activeFont == controller.fontFamiles[index]
+                      controller.activeFont == controller.fontFamilies[index]
                           ? controller.activeColor
                           : null,
                   subtitle: Text(
-                    controller.fontFamiles[index],
+                    controller.fontFamilies[index],
                     style: TextStyle(
-                      fontFamily: controller.fontFamiles[index],
+                      fontFamily: controller.fontFamilies[index],
                     ),
                   ),
                   title: Text(
                     "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ",
                     style: TextStyle(
-                      fontFamily: controller.fontFamiles[index],
+                      fontFamily: controller.fontFamilies[index],
                     ),
                   ),
                   leading: const Icon(Icons.text_format),
                   onTap: () => controller
-                      .changeFontFamily(controller.fontFamiles[index]),
+                      .changeFontFamily(controller.fontFamilies[index]),
                 ),
             ],
           ),

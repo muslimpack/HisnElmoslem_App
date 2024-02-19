@@ -88,7 +88,7 @@ class ShareAsImageController extends GetxController {
 
   late List<Color> additionalTextColorsList;
 
-  final List<double> imageQulityList = [1.0, 1.5, 2.0, 2.5, 3];
+  final List<double> imageQualityList = [1.0, 1.5, 2.0, 2.5, 3];
 
   /* *************** Controller life cycle *************** */
 //
