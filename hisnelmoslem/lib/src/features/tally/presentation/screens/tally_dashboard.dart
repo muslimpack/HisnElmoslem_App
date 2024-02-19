@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/tally/pages/tally_counter.dart';
-import 'package:hisnelmoslem/app/modules/tally/pages/tally_list.dart';
-import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_counter.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_list.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 
 class Tally extends StatelessWidget {
   const Tally({super.key});

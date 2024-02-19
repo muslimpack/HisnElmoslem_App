@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/modules/tally/tally_controller.dart';
 import 'package:hisnelmoslem/app/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class TallyCounterView extends StatelessWidget {
