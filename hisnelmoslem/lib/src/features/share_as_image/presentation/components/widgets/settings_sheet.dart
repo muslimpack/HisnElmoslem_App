@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/app/data/share_as_image_data.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image_controller.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/widgets/color_swatch_builder.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
 
 class SettingsSheet extends StatelessWidget {
   final ShareAsImageController shareAsImageController;

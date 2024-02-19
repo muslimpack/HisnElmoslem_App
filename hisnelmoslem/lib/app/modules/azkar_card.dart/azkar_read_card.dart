@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/app/data/app_data.dart';
 import 'package:hisnelmoslem/app/modules/azkar_card.dart/azkar_read_card_controller.dart';
-import 'package:hisnelmoslem/app/modules/share_as_image/share_as_image.dart';
 import 'package:hisnelmoslem/app/shared/dialogs/commentary_dialoge.dart';
 import 'package:hisnelmoslem/app/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/app/shared/widgets/font_settings.dart';
@@ -11,6 +10,7 @@ import 'package:hisnelmoslem/app/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/app/views/dashboard/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
 
