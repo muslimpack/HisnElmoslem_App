@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
@@ -5,17 +6,6 @@ import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/onb
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
-
-  static Container buildDot(int index, int currentPageIndex) {
-    return Container(
-      height: 10,
-      width: currentPageIndex == index ? 25 : 10,
-      margin: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +37,9 @@ class OnBoardingPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         controller.pageList.length,
-                        (index) => buildDot(
-                          index,
-                          controller.currentPageIndex,
+                        (index) => Dot(
+                          index: index,
+                          currentPageIndex: controller.currentPageIndex,
                         ),
                       ),
                     ),
@@ -88,6 +78,30 @@ class OnBoardingPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class Dot extends StatelessWidget {
+  final int index;
+  final int currentPageIndex;
+  const Dot({
+    super.key,
+    required this.index,
+    required this.currentPageIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      height: 10,
+      width: currentPageIndex == index ? 25 : 10,
+      margin: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_d
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
+import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
@@ -59,11 +60,11 @@ class MyAppState extends State<MyApp> {
             title: "Hisn Elmoslem".tr,
             theme: state.themeData(),
 
-            home: const AzkarDashboard(),
+            // home: const AzkarDashboard(),
 
-            // home: appData.isFirstOpenToThisRelease
-            //     ? const OnBoardingPage()
-            //     : const AzkarDashboard(),
+            home: appData.isFirstOpenToThisRelease
+                ? const OnBoardingPage()
+                : const AzkarDashboard(),
           );
         },
       ),
