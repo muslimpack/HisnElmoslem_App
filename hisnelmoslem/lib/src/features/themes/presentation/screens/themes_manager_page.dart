@@ -18,7 +18,6 @@ class ThemeManagerPage extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "theme manager".tr,
-              style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,

@@ -30,9 +30,7 @@ class Settings extends StatelessWidget {
             elevation: 0,
             title: Text(
               "settings".tr,
-              style: const TextStyle(fontFamily: "Uthmanic"),
             ),
-            // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
           body: ListView(
             physics: const BouncingScrollPhysics(),

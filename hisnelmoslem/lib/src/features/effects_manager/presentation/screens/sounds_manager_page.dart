@@ -15,7 +15,6 @@ class SoundsManagerPage extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "effect manager".tr,
-              style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,

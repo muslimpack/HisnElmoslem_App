@@ -35,7 +35,6 @@ class AzkarReadCard extends StatelessWidget {
                   centerTitle: true,
                   title: Text(
                     controller.zikrTitle!.name,
-                    style: const TextStyle(fontFamily: "Uthmanic"),
                   ),
                   bottom: PreferredSize(
                     preferredSize: const Size(100, 5),
