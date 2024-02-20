@@ -44,14 +44,6 @@ class FakeHadith {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
 
-    final exist = await databaseExists(path);
-
-    //Check if database is already in that Directory
-    if (!exist) {
-      // Database isn't exist > Create new Database
-      await _copyFromAssets(path: path);
-    }
-
     return openDatabase(
       path,
       version: dbVersion,
@@ -63,7 +55,50 @@ class FakeHadith {
 
   /// On create database
   FutureOr<void> _onCreateDatabase(Database db, int version) async {
-    //
+    hisnPrint("Create data.db");
+
+    /// Create fake_hadith_is_read table
+    await db.execute('''
+    CREATE TABLE "fake_hadith_is_read" (
+      "_id"	INTEGER,
+      "hadith_id"	INTEGER UNIQUE,
+      "isRead"	INTEGER,
+      PRIMARY KEY("_id" AUTOINCREMENT)
+    );
+    ''');
+
+    /// Create favourite_contents table
+    await db.execute('''
+    CREATE TABLE "favourite_contents" (
+      "_id"	INTEGER,
+      "content_id"	INTEGER UNIQUE,
+      "favourite"	INTEGER,
+      PRIMARY KEY("_id" AUTOINCREMENT)
+    );
+    ''');
+
+    /// Create favourite_titles table
+    await db.execute('''
+    CREATE TABLE "favourite_titles" (
+      "_id"	INTEGER,
+      "title_id"	INTEGER UNIQUE,
+      "favourite"	INTEGER,
+      PRIMARY KEY("_id" AUTOINCREMENT)
+    );
+    ''');
+
+    /// default favourite titles
+    await db.execute('''
+    INSERT INTO favourite_titles (title_id, favourite) VALUES
+    (3, 1),     -- أذكار النوم
+    (27, 1),    -- السلام بعد الصلاة
+    (29, 1),    -- الصباح
+    (30, 1),    -- المساء
+    (31, 1),    -- النوم
+    (96, 1),    -- السفر
+    (98, 1),    -- دخول السوق
+    (107, 1);   -- فضل السلام على النبي
+    ''');
   }
 
   /// On upgrade database version
@@ -78,9 +113,7 @@ class FakeHadith {
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) {}
 
   /// Copy database from assets to Database Directory of app
   Future<void> _copyFromAssets({required String path}) async {

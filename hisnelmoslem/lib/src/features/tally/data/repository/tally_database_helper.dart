@@ -39,14 +39,6 @@ class TallyDatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
 
-    final exist = await databaseExists(path);
-
-    //Check if database is already in that Directory
-    if (!exist) {
-      // Database isn't exist > Create new Database
-      await _copyFromAssets(path: path);
-    }
-
     return openDatabase(
       path,
       version: dbVersion,
@@ -58,7 +50,20 @@ class TallyDatabaseHelper {
 
   // On create database
   FutureOr<void> _onCreateDatabase(Database db, int version) async {
-    //
+    /// Create data table
+    await db.execute('''
+    CREATE TABLE "data" (
+      "id"	INTEGER NOT NULL UNIQUE,
+      "title"	TEXT,
+      "count"	INTEGER DEFAULT 0,
+      "created"	TEXT,
+      "lastUpdate"	TEXT,
+      "isActivated"	INTEGER DEFAULT 0,
+      "countReset"	INTEGER DEFAULT 33,
+      "description"	TEXT,
+      PRIMARY KEY("id" AUTOINCREMENT)
+    );
+    ''');
   }
 
   // On upgrade database version

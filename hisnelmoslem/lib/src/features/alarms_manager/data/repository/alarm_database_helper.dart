@@ -40,14 +40,6 @@ class AlarmDatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
 
-    final exist = await databaseExists(path);
-
-    //Check if database is already in that Directory
-    if (!exist) {
-      // Database isn't exist > Create new Database
-      await _copyFromAssets(path: path);
-    }
-
     return openDatabase(
       path,
       version: dbVersion,
@@ -59,7 +51,22 @@ class AlarmDatabaseHelper {
 
   // On create database
   FutureOr<void> _onCreateDatabase(Database db, int version) async {
-    //
+    hisnPrint("Create alarm.db");
+
+    /// Create alarms table
+    await db.execute('''
+    CREATE TABLE "alarms" (
+      "id"	INTEGER NOT NULL,
+      "titleId"	INTEGER NOT NULL UNIQUE,
+      "title"	TEXT NOT NULL,
+      "body"	TEXT,
+      "repeatType"	TEXT,
+      "hour"	INTEGER,
+      "minute"	INTEGER,
+      "isActive"	INTEGER,
+      PRIMARY KEY("id" AUTOINCREMENT)
+    );
+    ''');
   }
 
   // On upgrade database version
@@ -67,18 +74,14 @@ class AlarmDatabaseHelper {
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) {}
 
   // On downgrade database version
   FutureOr<void> _onDowngradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) {}
 
   // Copy database from assets to Database Directory of app
   FutureOr<void> _copyFromAssets({required String path}) async {
