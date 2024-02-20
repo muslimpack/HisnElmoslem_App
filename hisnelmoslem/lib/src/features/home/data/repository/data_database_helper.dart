@@ -189,10 +189,25 @@ class FakeHadith {
   Future<void> addContentToFavourite({required DbContent dbContent}) async {
     final Database db = await database;
     dbContent.favourite = true;
-    await db.rawUpdate(
-      'UPDATE favourite_contents SET favourite = ? WHERE content_id = ?',
-      [1, dbContent.id],
+    final List<Map<String, dynamic>> existingRecords = await db.query(
+      'favourite_contents',
+      where: 'content_id = ?',
+      whereArgs: [dbContent.id],
     );
+
+    if (existingRecords.isEmpty) {
+      await db.transaction((txn) async {
+        await txn.insert('favourite_contents', {
+          'content_id': dbContent.id,
+          'favourite': 1, // 1 for true
+        });
+      });
+    } else {
+      await db.rawUpdate(
+        'UPDATE favourite_contents SET favourite = ? WHERE content_id = ?',
+        [1, dbContent.id],
+      );
+    }
   }
 
   /// Remove Content from favourite
