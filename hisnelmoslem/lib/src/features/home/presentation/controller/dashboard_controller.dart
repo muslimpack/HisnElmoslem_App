@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -164,8 +164,7 @@ class DashboardController extends GetxController
       searchedTitle = allTitle;
     } else {
       searchedTitle = allTitle.where((zikr) {
-        final zikrTitle = zikr.name
-            .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+        final zikrTitle = zikr.name.removeDiacritics;
         return zikrTitle.contains(searchController.text);
       }).toList();
     }

@@ -2,13 +2,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {

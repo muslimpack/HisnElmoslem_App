@@ -85,18 +85,18 @@ class AppData {
     changFontFamily("ar");
   }
 
-  /* ******* Tashkel ******* */
+  /* ******* Diacritics ******* */
 
-  /// get tashkel status
-  bool get isTashkelEnabled => box.read('tashkel_status') ?? true;
+  /// get Diacritics status
+  bool get isDiacriticsEnabled => box.read('tashkel_status') ?? true;
 
-  /// set tashkel status
-  Future<void> changTashkelStatus({required bool value}) async =>
+  /// set Diacritics status
+  Future<void> changDiacriticsStatus({required bool value}) async =>
       box.write('tashkel_status', value);
 
   ///
-  void toggleTashkelStatus() {
-    changTashkelStatus(value: !isTashkelEnabled);
+  void toggleDiacriticsStatus() {
+    changDiacriticsStatus(value: !isDiacriticsEnabled);
   }
 
   /* ******* Surat al kahf alarm ******* */

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -62,8 +63,8 @@ class ShareAsImageController extends GetxController {
 
   DbContent get dbContent {
     DbContent temp = initDbContent;
-    if (shareAsImageData.removeTashkel) {
-      temp = removeTashkelDBcontent();
+    if (shareAsImageData.removeDiacritics) {
+      temp = removeDiacriticsDBcontent();
     }
     return temp;
   }
@@ -227,10 +228,10 @@ class ShareAsImageController extends GetxController {
     update();
   }
 
-  Future<void> toggleRemoveTashkel() async {
+  Future<void> toggleRemoveDiacritics() async {
     await box.write(
-      shareAsImageData.removeTashkelKey,
-      !shareAsImageData.removeTashkel,
+      shareAsImageData.removeDiacriticsKey,
+      !shareAsImageData.removeDiacritics,
     );
     update();
   }
@@ -292,14 +293,11 @@ class ShareAsImageController extends GetxController {
     transformationController.value = fitMatrix;
   }
 
-  DbContent removeTashkelDBcontent() {
+  DbContent removeDiacriticsDBcontent() {
     final DbContent temp = DbContent.fromMap(initDbContent.toMap());
-    temp.content = temp.content
-        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
-    temp.fadl = temp.fadl
-        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
-    temp.source = temp.source
-        .replaceAll(RegExp(String.fromCharCodes(arabicTashkelChar)), "");
+    temp.content = temp.content.removeDiacritics;
+    temp.fadl = temp.fadl.removeDiacritics;
+    temp.source = temp.source.removeDiacritics;
 
     return temp;
   }

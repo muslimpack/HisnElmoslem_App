@@ -154,13 +154,13 @@ class FavouriteZikr extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        appData.isTashkelEnabled
+                                        appData.isDiacriticsEnabled
                                             ? dbContent.content
                                             : dbContent.content.replaceAll(
                                                 //* لحذف التشكيل
                                                 RegExp(
                                                   String.fromCharCodes(
-                                                    arabicTashkelChar,
+                                                    arabicDiacriticsChar,
                                                   ),
                                                 ),
                                                 "",

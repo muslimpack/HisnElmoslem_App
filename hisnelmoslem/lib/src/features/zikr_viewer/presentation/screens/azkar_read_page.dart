@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
@@ -27,14 +27,10 @@ class AzkarReadPage extends StatelessWidget {
         String? fadl = "";
         int? cardNumber = 0;
         if (!controller.isLoading) {
-          text = appData.isTashkelEnabled
+          text = appData.isDiacriticsEnabled
               ? controller.zikrContent[controller.currentPage].content
-              : controller.zikrContent[controller.currentPage].content
-                  .replaceAll(
-                  //* لحذف التشكيل
-                  RegExp(String.fromCharCodes(arabicTashkelChar)),
-                  "",
-                );
+              : controller
+                  .zikrContent[controller.currentPage].content.removeDiacritics;
 
           source = controller.zikrContent[controller.currentPage].source;
           fadl = controller.zikrContent[controller.currentPage].fadl;
@@ -77,13 +73,10 @@ class AzkarReadPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     /* I repeated this code here to prevent text to be look like
                          the text in the next page when we swipe */
-                    final String text = appData.isTashkelEnabled
+                    final String text = appData.isDiacriticsEnabled
                         ? controller.zikrContent[index].content
-                        : controller.zikrContent[index].content.replaceAll(
-                            //* لحذف التشكيل
-                            RegExp(String.fromCharCodes(arabicTashkelChar)),
-                            "",
-                          );
+                        : controller
+                            .zikrContent[index].content.removeDiacritics;
                     final bool containsAyah = text.contains("﴿");
                     return ZikrViewerPageBuilder(
                       index: index,

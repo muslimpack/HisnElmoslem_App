@@ -33,7 +33,7 @@ const ColorFilter greyScale = ColorFilter.matrix(
   ],
 );
 
-const Iterable<int> arabicTashkelChar = [
+const Iterable<int> arabicDiacriticsChar = [
   1617,
   124,
   1614,

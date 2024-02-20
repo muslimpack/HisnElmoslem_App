@@ -106,7 +106,7 @@ class ShareAsImage extends StatelessWidget {
                       IconButton(
                         icon: const Icon(MdiIcons.abjadArabic),
                         onPressed: () {
-                          controller.toggleRemoveTashkel();
+                          controller.toggleRemoveDiacritics();
                         },
                       ),
                       IconButton(
