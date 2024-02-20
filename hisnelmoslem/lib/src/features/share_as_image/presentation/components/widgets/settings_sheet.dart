@@ -141,31 +141,27 @@ class SettingsSheet extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: List.generate(
                         shareAsImageController.imageQualityList.length,
-                        (index) => GestureDetector(
-                          onTap: () {
-                            shareAsImageController.updateImageQuality(
-                              shareAsImageController.imageQualityList[index],
-                            );
-                          },
-                          child: Container(
-                            width: 60,
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Card(
-                              color: shareAsImageController
-                                          .imageQualityList[index] ==
-                                      shareAsImageData.imageQuality
-                                  ? Theme.of(context).colorScheme.primary
-                                  : null,
-                              child: Center(
-                                child: Text(
-                                  shareAsImageController.imageQualityList[index]
-                                      .toString(),
-                                  // style: const TextStyle(fontSize: 20),
-                                ),
+                        (index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            child: ChoiceChip(
+                              selected: shareAsImageController
+                                      .imageQualityList[index] ==
+                                  shareAsImageData.imageQuality,
+                              onSelected: (val) {
+                                shareAsImageController.updateImageQuality(
+                                  shareAsImageController
+                                      .imageQualityList[index],
+                                );
+                              },
+                              label: Text(
+                                shareAsImageController.imageQualityList[index]
+                                    .toString(),
+                                style: const TextStyle(fontSize: 20),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                   ),
