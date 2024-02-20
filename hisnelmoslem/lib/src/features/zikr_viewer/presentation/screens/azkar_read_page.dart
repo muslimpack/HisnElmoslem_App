@@ -71,18 +71,9 @@ class AzkarReadPage extends StatelessWidget {
                       ? 0
                       : controller.zikrContent.length,
                   itemBuilder: (context, index) {
-                    /* I repeated this code here to prevent text to be look like
-                         the text in the next page when we swipe */
-                    final String text = appData.isDiacriticsEnabled
-                        ? controller.zikrContent[index].content
-                        : controller
-                            .zikrContent[index].content.removeDiacritics;
-                    final bool containsAyah = text.contains("﴿");
                     return ZikrViewerPageBuilder(
                       index: index,
                       source: source,
-                      text: text,
-                      containsAyah: containsAyah,
                       controller: controller,
                     );
                   },

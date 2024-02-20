@@ -2,26 +2,30 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
 
 class ZikrViewerPageBuilder extends StatelessWidget {
   const ZikrViewerPageBuilder({
     super.key,
     required this.source,
-    required this.text,
-    required this.index,
-    required this.containsAyah,
     required this.controller,
+    required this.index,
   });
 
   final String? source;
-  final String text;
   final int index;
-  final bool containsAyah;
   final AzkarReadPageController controller;
   @override
   Widget build(BuildContext context) {
+    final DbContent dbContent = controller.zikrContent[index];
+    final String text = appData.isDiacriticsEnabled
+        ? dbContent.content
+        : dbContent.content.removeDiacritics;
+    final bool containsAyah = text.contains("﴿");
+    final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
         controller.decreaseCount();
@@ -59,7 +63,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
-                "${controller.zikrContent[index].count}",
+                isDone ? "done".tr : "${dbContent.count}",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                   fontSize: 250,
@@ -91,7 +95,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
                 child: Text(
-                  controller.zikrContent[index].fadl,
+                  dbContent.fadl,
                   textAlign: TextAlign.center,
                   textDirection: TextDirection.rtl,
                   softWrap: true,
