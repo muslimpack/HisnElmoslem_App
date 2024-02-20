@@ -20,17 +20,15 @@ class DialogMaker extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
-      content: SizedBox(
-        // height: height,
+      content: Container(
+        clipBehavior: Clip.hardEdge,
         width: 350.0,
-        child: Card(
-          clipBehavior: Clip.hardEdge,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          margin: EdgeInsets.zero,
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: Column(
+        height: height,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+        child: Scaffold(
+          body: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               /// Header
@@ -41,7 +39,7 @@ class DialogMaker extends StatelessWidget {
               const Divider(),
 
               /// Content
-              Flexible(
+              Expanded(
                 child: Padding(
                   padding: contentPadding,
                   child: ListView(
