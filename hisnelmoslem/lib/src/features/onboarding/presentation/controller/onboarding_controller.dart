@@ -42,6 +42,8 @@ class OnBoardingController extends GetxController {
       icon: FontAwesomeIcons.database,
       description: '''
   - فصل الأذكار المدمجة عن بعضها
+  - إضافة بعض الأبواب المفقودة
+  - حذف بعض الأذكار من موضعها
   - إضافة نص الآيات داخل الذكر
 ''',
     ),
