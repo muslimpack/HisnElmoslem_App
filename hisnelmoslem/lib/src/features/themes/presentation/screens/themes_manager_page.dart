@@ -85,15 +85,66 @@ class ThemeManagerPage extends StatelessWidget {
                   context.read<ThemeCubit>().changeUseMaterial3(value);
                 },
               ),
+              if (!state.useMaterial3)
+                SwitchListTile(
+                  value: state.useOldTheme,
+                  title: Text("themeUserOldTheme".tr),
+                  onChanged: state.useMaterial3
+                      ? null
+                      : (value) {
+                          context.read<ThemeCubit>().changeUseOldTheme(value);
+                        },
+                ),
               SwitchListTile(
-                value: state.useOldTheme,
-                title: Text("themeUserOldTheme".tr),
-                onChanged: state.useMaterial3
+                value: state.overrideBackgroundColor,
+                title: Text("themeOverrideBackground".tr),
+                onChanged: !state.useMaterial3
                     ? null
                     : (value) {
-                        context.read<ThemeCubit>().changeUseOldTheme(value);
+                        context
+                            .read<ThemeCubit>()
+                            .changeOverrideBackgroundColor(value);
                       },
               ),
+              if (state.overrideBackgroundColor)
+                ListTile(
+                  title: Text("themeBackgroundColor".tr),
+                  trailing: CircleAvatar(
+                    backgroundColor: state.backgroundColor,
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        Color selectedColor = state.backgroundColor;
+                        return AlertDialog(
+                          title: Text("themeBackgroundColor".tr),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                              hexInputBar: true,
+                              enableAlpha: false,
+                              pickerColor: selectedColor,
+                              onColorChanged: (value) {
+                                selectedColor = value;
+                              },
+                            ),
+                          ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              child: Text("Select".tr),
+                              onPressed: () {
+                                context
+                                    .read<ThemeCubit>()
+                                    .changeBackgroundColor(selectedColor);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
             ],
           ),
         );

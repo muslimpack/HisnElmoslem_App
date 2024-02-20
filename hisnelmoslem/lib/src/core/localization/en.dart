@@ -227,6 +227,7 @@ const Map<String, String> en = {
   "themeUseMaterial3": "Use Material3",
   "themeUserOldTheme": "User Old Theme",
   "themeOverrideBackground": "Override Background",
+  "themeBackgroundColor": "Background Color",
   "themeSelectColor": "Select Color",
   "Select": "Select",
 };

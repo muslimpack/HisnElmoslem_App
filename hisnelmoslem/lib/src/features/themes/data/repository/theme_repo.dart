@@ -52,4 +52,26 @@ class ThemeRepo {
   static Future setColor(Color color) async {
     await _box.write(themeColorKey, color.value);
   }
+
+  static const String backgroundColorKey = "BackgroundColor";
+
+  static Color getBackgroundColor() {
+    final int? colorValue = _box.read(backgroundColorKey) as int?;
+    return colorValue != null ? Color(colorValue) : Colors.black;
+  }
+
+  static Future setBackgroundColor(Color color) async {
+    await _box.write(backgroundColorKey, color.value);
+  }
+
+  static const String overrideBackgroundColorKey = "overrideBackgroundColor";
+
+  static bool getOverrideBackgroundColor() {
+    final bool? useOldTheme = _box.read(overrideBackgroundColorKey) as bool?;
+    return useOldTheme ?? false;
+  }
+
+  static Future setOverrideBackgroundColor(bool useOldTheme) async {
+    await _box.write(overrideBackgroundColorKey, useOldTheme);
+  }
 }
