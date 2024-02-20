@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_page_controller.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -21,8 +20,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  FontFamilyPageController familyPageController =
-      Get.put(FontFamilyPageController());
   @override
   void initState() {
     super.initState();
@@ -60,19 +57,7 @@ class MyAppState extends State<MyApp> {
             ],
             debugShowCheckedModeBanner: false,
             title: "Hisn Elmoslem".tr,
-            theme: state.useOldTheme
-                ? ThemeData(
-                    useMaterial3: state.useMaterial3,
-                    brightness: state.brightness,
-                    colorSchemeSeed: state.color,
-                  )
-                : ThemeData(
-                    colorScheme: ColorScheme.fromSeed(
-                      seedColor: state.color,
-                      brightness: state.brightness,
-                    ),
-                    useMaterial3: state.useMaterial3,
-                  ),
+            theme: state.themeData(),
 
             home: const AzkarDashboard(),
 
