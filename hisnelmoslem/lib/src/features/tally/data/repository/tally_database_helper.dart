@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
@@ -50,6 +48,8 @@ class TallyDatabaseHelper {
 
   // On create database
   FutureOr<void> _onCreateDatabase(Database db, int version) async {
+    hisnPrint("Create tally.db");
+
     /// Create data table
     await db.execute('''
     CREATE TABLE "data" (
@@ -82,22 +82,6 @@ class TallyDatabaseHelper {
     int newVersion,
   ) {
     //
-  }
-
-  // Copy database from assets to Database Directory of app
-  FutureOr<void> _copyFromAssets({required String path}) async {
-    //
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-
-      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      final List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      await File(path).writeAsBytes(bytes, flush: true);
-    } catch (e) {
-      hisnPrint(e.toString());
-    }
   }
 
   /* ************* Functions ************* */

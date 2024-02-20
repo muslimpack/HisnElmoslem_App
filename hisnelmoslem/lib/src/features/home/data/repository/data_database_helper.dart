@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_hadith_read.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
@@ -114,22 +112,6 @@ class FakeHadith {
     int oldVersion,
     int newVersion,
   ) {}
-
-  /// Copy database from assets to Database Directory of app
-  Future<void> _copyFromAssets({required String path}) async {
-    //
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-
-      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      final List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      await File(path).writeAsBytes(bytes, flush: true);
-    } catch (e) {
-      hisnPrint(e.toString());
-    }
-  }
 
   /* ************* Functions ************* */
 
