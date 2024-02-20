@@ -137,10 +137,25 @@ class FakeHadith {
     final db = await database;
     dbTitle.favourite = true;
 
-    await db.rawUpdate(
-      'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
-      [1, dbTitle.id],
+    final List<Map<String, dynamic>> existingRecords = await db.query(
+      'favourite_titles',
+      where: 'title_id = ?',
+      whereArgs: [dbTitle.id],
     );
+
+    if (existingRecords.isEmpty) {
+      await db.transaction((txn) async {
+        await txn.insert('favourite_titles', {
+          'title_id': dbTitle.id,
+          'favourite': 1, // 1 for true
+        });
+      });
+    } else {
+      await db.rawUpdate(
+        'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
+        [1, dbTitle.id],
+      );
+    }
   }
 
   /// Remove title from favourite
