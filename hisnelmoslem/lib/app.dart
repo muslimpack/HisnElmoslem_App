@@ -49,7 +49,7 @@ class MyAppState extends State<MyApp> {
             // Translation
             translations: HisnAppTranslation(),
             locale: Locale(appData.appLocale),
-            fallbackLocale: Locale(appData.appLocale),
+            fallbackLocale: const Locale("ar"),
             //
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
