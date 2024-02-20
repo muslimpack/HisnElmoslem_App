@@ -41,7 +41,6 @@ class ImageBuilder extends StatelessWidget {
                           : titleWithoutIndex,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: "Uthmanic",
                         color: shareAsImageData.titleTextColor,
                         fontSize: 20,
                       ),
@@ -148,7 +147,6 @@ class ImageBuilder extends StatelessWidget {
                           "تطبيق حصن المسلم",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontFamily: "Uthmanic",
                             color: shareAsImageData.titleTextColor,
                             fontSize: 20,
                           ),

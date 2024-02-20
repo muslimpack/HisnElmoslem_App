@@ -25,9 +25,6 @@ class ShareAsImage extends StatelessWidget {
                   elevation: 0,
                   title: Text(
                     "share as image".tr,
-                    style: const TextStyle(
-                      fontFamily: "Uthmanic",
-                    ),
                   ),
                   centerTitle: true,
                   actions: [

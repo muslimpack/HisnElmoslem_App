@@ -55,17 +55,11 @@ class Tally extends StatelessWidget {
                       Tab(
                         child: Text(
                           "active tallly".tr,
-                          style: const TextStyle(
-                            fontFamily: "Uthmanic",
-                          ),
                         ),
                       ),
                       Tab(
                         child: Text(
                           "counters".tr,
-                          style: const TextStyle(
-                            fontFamily: "Uthmanic",
-                          ),
                         ),
                       ),
                     ],

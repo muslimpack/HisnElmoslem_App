@@ -155,9 +155,6 @@ class TitleCard extends StatelessWidget {
                     ),
           title: Text(
             fehrsTitle.name,
-            style: const TextStyle(
-              fontFamily: "Uthmanic",
-            ),
           ),
           // trailing: Text(zikrList[index]),
           onTap: () {

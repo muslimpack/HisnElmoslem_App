@@ -36,9 +36,6 @@ class QuranReadPage extends StatelessWidget {
                           return "end sura Ali 'Imran".tr;
                       }
                     }(),
-                    style: const TextStyle(
-                      fontFamily: 'Uthmanic',
-                    ),
                   ),
                   // actions: [
                   //   IconButton(
