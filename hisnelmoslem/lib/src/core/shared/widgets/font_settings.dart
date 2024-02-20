@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FontSettingsToolbox extends StatelessWidget {
   final GetxController controllerToUpdate;
   final bool showFontResizeControllers;
-  final bool showTashkelControllers;
+  final bool showDiacriticsControllers;
 
   const FontSettingsToolbox({
     super.key,
     required this.controllerToUpdate,
     this.showFontResizeControllers = true,
-    this.showTashkelControllers = true,
+    this.showDiacriticsControllers = true,
   });
 
   @override
@@ -58,12 +58,12 @@ class FontSettingsToolbox extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: showTashkelControllers,
+          visible: showDiacriticsControllers,
           child: Expanded(
             child: IconButton(
               icon: const Icon(MdiIcons.abjadArabic),
               onPressed: () {
-                appData.toggleTashkelStatus();
+                appData.toggleDiacriticsStatus();
                 controllerToUpdate.update();
               },
             ),
@@ -90,12 +90,7 @@ class TextSample extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Center(
             child: Text(
-              appData.isTashkelEnabled
-                  ? text
-                  : text.replaceAll(
-                      RegExp(String.fromCharCodes(arabicTashkelChar)),
-                      "",
-                    ),
+              appData.isDiacriticsEnabled ? text : text.removeDiacritics,
               textAlign: TextAlign.center,
               softWrap: true,
               textDirection: TextDirection.rtl,

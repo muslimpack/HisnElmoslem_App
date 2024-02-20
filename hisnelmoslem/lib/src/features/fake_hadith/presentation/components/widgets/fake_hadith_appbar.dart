@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class FakehadithAppBar extends StatelessWidget {
   const FakehadithAppBar({super.key});
@@ -15,24 +14,17 @@ class FakehadithAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       bottom: PreferredSize(
-        preferredSize: const Size(0, 50),
+        preferredSize: const Size.fromHeight(50),
         child: TabBar(
-          indicatorColor: mainColor,
           tabs: [
             Tab(
               child: Text(
                 "new".tr,
-                style: const TextStyle(
-                  fontFamily: "Uthmanic",
-                ),
               ),
             ),
             Tab(
               child: Text(
                 "have been read".tr,
-                style: const TextStyle(
-                  fontFamily: "Uthmanic",
-                ),
               ),
             ),
           ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ColorSwatchBuilder extends StatelessWidget {
@@ -56,7 +55,6 @@ class ColorSwatchBuilder extends StatelessWidget {
                                 onHistoryChanged: (value) {},
                               ),
                               ListTile(
-                                tileColor: mainColor,
                                 onTap: () {
                                   apply(tempColor);
                                   Navigator.pop(context);

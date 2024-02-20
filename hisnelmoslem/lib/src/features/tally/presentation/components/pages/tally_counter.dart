@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -34,7 +33,7 @@ class TallyCounterView extends StatelessWidget {
                   )
                 : Scaffold(
                     resizeToAvoidBottomInset: false,
-                    body: InkWell(
+                    body: GestureDetector(
                       onTap: () {
                         controller.increaseDBCounter();
                       },
@@ -99,10 +98,10 @@ class TallyCounterView extends StatelessWidget {
                                 customColors: CustomSliderColors(
                                   // trackColor: grey,
                                   hideShadow: true,
-                                  trackColor: transparent,
+                                  trackColor: Colors.transparent,
                                   progressBarColors: [
-                                    mainColor,
-                                    mainColor,
+                                    Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.primary,
                                     //  orange
                                   ],
                                 ),
@@ -115,8 +114,6 @@ class TallyCounterView extends StatelessWidget {
                       ),
                     ),
                     bottomNavigationBar: BottomAppBar(
-                      //elevation: 20,
-                      // color: Theme.of(context).primaryColor,
                       child: SizedBox(
                         height: 40,
                         child: Row(

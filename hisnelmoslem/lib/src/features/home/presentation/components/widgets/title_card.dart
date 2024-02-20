@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -31,12 +30,14 @@ class TitleCard extends StatelessWidget {
       builder: (controller) {
         DbAlarm tempAlarm = dbAlarm;
         return ListTile(
-          tileColor: index % 2 != 0 ? mainColor.withOpacity(.05) : null,
+          tileColor: index % 2 != 0
+              ? Theme.of(context).colorScheme.primary.withOpacity(.05)
+              : null,
           leading: fehrsTitle.favourite
               ? IconButton(
                   icon: Icon(
                     Icons.bookmark,
-                    color: mainColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
                     azkarDatabaseHelper.deleteTitleFromFavourite(
@@ -124,7 +125,7 @@ class TitleCard extends StatelessWidget {
                       child: IconButton(
                         icon: Icon(
                           Icons.notifications_active,
-                          color: mainColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         onPressed: () {
                           dbAlarm.isActive = tempAlarm.isActive = false;
@@ -138,9 +139,9 @@ class TitleCard extends StatelessWidget {
                       ),
                     )
                   : IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.notifications_off,
-                        color: redAccent,
+                        color: Colors.red,
                       ),
                       onPressed: () {
                         dbAlarm.isActive = tempAlarm.isActive = true;
@@ -154,9 +155,6 @@ class TitleCard extends StatelessWidget {
                     ),
           title: Text(
             fehrsTitle.name,
-            style: const TextStyle(
-              fontFamily: "Uthmanic",
-            ),
           ),
           // trailing: Text(zikrList[index]),
           onTap: () {

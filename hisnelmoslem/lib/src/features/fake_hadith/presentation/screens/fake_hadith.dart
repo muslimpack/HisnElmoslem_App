@@ -43,7 +43,7 @@ class FakeHadith extends StatelessWidget {
                     flex: 3,
                     child: FontSettingsToolbox(
                       controllerToUpdate: controller,
-                      showTashkelControllers: false,
+                      showDiacriticsControllers: false,
                     ),
                   ),
                 ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/core/values/new_featuers_list.dart';
 import 'package:timelines/timelines.dart';
 
@@ -130,7 +129,7 @@ class AppUpdatesHistory extends StatelessWidget {
             indicatorBuilder: (_, index) {
               if (index == 0) {
                 return DotIndicator(
-                  color: mainColor,
+                  color: Theme.of(context).colorScheme.primary,
                   child: Icon(
                     Icons.check,
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -144,7 +143,7 @@ class AppUpdatesHistory extends StatelessWidget {
               }
             },
             connectorBuilder: (_, index, ___) => SolidLineConnector(
-              color: index == 1 ? mainColor : null,
+              color: index == 1 ? Theme.of(context).colorScheme.primary : null,
             ),
           ),
         ),

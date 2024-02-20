@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/themes.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/themes_enum.dart';
+import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 
 class ThemeServices {
   ///
@@ -91,5 +92,23 @@ class ThemeServices {
     } else {
       return Themes.dark;
     }
+  }
+
+  static ThemeData get theme {
+    return ThemeRepo.getUseOldTheme()
+        ? ThemeData(
+            useMaterial3: ThemeRepo.getUseMaterial3(),
+            brightness: ThemeRepo.getBrightness(),
+            colorSchemeSeed: ThemeRepo.getColor(),
+            fontFamily: appData.fontFamily,
+          )
+        : ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: ThemeRepo.getColor(),
+              brightness: ThemeRepo.getBrightness(),
+            ),
+            fontFamily: appData.fontFamily,
+            useMaterial3: ThemeRepo.getUseMaterial3(),
+          );
   }
 }

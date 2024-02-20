@@ -52,7 +52,6 @@ class FavouriteZikr extends StatelessWidget {
                       //
                       final bool containsAyah = dbContent.content.contains("﴿");
                       return InkWell(
-                        splashColor: mainColor,
                         onTap: () {
                           if (dbContent.count > 0) {
                             dbContent.count--;
@@ -84,13 +83,11 @@ class FavouriteZikr extends StatelessWidget {
                                       splashRadius: 20,
                                       padding: EdgeInsets.zero,
                                       icon: dbContent.favourite
-                                          ? Icon(
+                                          ? const Icon(
                                               Icons.favorite,
-                                              color: mainColor,
                                             )
-                                          : Icon(
+                                          : const Icon(
                                               Icons.favorite_border,
-                                              color: mainColor,
                                             ),
                                       onPressed: () {
                                         controller.removeContentFromFavourite(
@@ -102,9 +99,8 @@ class FavouriteZikr extends StatelessWidget {
                                       child: IconButton(
                                         splashRadius: 20,
                                         padding: EdgeInsets.zero,
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.copy,
-                                          color: mainColor,
                                         ),
                                         onPressed: () {
                                           FlutterClipboard.copy(
@@ -121,9 +117,8 @@ class FavouriteZikr extends StatelessWidget {
                                       child: IconButton(
                                         splashRadius: 20,
                                         padding: EdgeInsets.zero,
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.share,
-                                          color: mainColor,
                                         ),
                                         onPressed: () {
                                           Share.share(
@@ -136,7 +131,10 @@ class FavouriteZikr extends StatelessWidget {
                                       child: IconButton(
                                         splashRadius: 20,
                                         padding: EdgeInsets.zero,
-                                        icon: Icon(Icons.report, color: orange),
+                                        icon: const Icon(
+                                          Icons.report,
+                                          color: Colors.orange,
+                                        ),
                                         onPressed: () {
                                           EmailManager
                                               .sendMisspelledInZikrWithDbModel(
@@ -148,25 +146,21 @@ class FavouriteZikr extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                LinearProgressIndicator(
+                                const LinearProgressIndicator(
                                   value: 1,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    mainColor,
-                                  ),
-                                  backgroundColor: grey,
                                 ),
                                 Column(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        appData.isTashkelEnabled
+                                        appData.isDiacriticsEnabled
                                             ? dbContent.content
                                             : dbContent.content.replaceAll(
                                                 //* لحذف التشكيل
                                                 RegExp(
                                                   String.fromCharCodes(
-                                                    arabicTashkelChar,
+                                                    arabicDiacriticsChar,
                                                   ),
                                                 ),
                                                 "",
@@ -174,12 +168,7 @@ class FavouriteZikr extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: appData.fontSize * 10,
-                                          color: dbContent.count == 0
-                                              ? mainColor
-                                              : null,
-                                          //fontSize: 20,
                                           height: 2,
-
                                           fontFamily:
                                               containsAyah ? "Uthmanic2" : null,
                                         ),
@@ -195,7 +184,7 @@ class FavouriteZikr extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: appData.fontSize * 10,
-                                            color: mainColor,
+
                                             //fontSize: 20,
                                           ),
                                         ),
@@ -209,8 +198,6 @@ class FavouriteZikr extends StatelessWidget {
                                       child: Padding(
                                         padding: EdgeInsets.zero,
                                         child: ListTile(
-                                          // tileColor:
-                                          //     Theme.of(context).primaryColor,
                                           leading: IconButton(
                                             splashRadius: 20,
                                             onPressed: () async {
@@ -246,18 +233,15 @@ class FavouriteZikr extends StatelessWidget {
                                           title: Text(
                                             "${"Go to".tr} | ${dbTitle.name}",
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20,
-                                              color: mainColor,
                                             ),
                                           ),
                                           trailing: Padding(
                                             padding: const EdgeInsets.all(10),
                                             child: Text(
                                               dbContent.count.toString(),
-                                              style: TextStyle(
-                                                color: mainColor,
-                                              ),
+                                              style: const TextStyle(),
                                             ),
                                           ),
                                         ),

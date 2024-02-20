@@ -30,7 +30,7 @@ class ShareAsImageData {
 
   Color get backgroundColor => Color(
         box.read<int?>(backgroundColorBoxKey) ??
-            shareAsImageColorsList[9].value,
+            shareAsImageColorsList[7].value,
       );
 
   final String fontSizeBoxKey = 'share_image_font_size';
@@ -53,9 +53,9 @@ class ShareAsImageData {
 
   bool get fixedFont => box.read(fixedFontBoxKey) ?? false;
 
-  final String removeTashkelKey = 'share_image_remove_tashkel';
+  final String removeDiacriticsKey = 'share_image_remove_tashkel';
 
-  bool get removeTashkel => box.read(removeTashkelKey) ?? false;
+  bool get removeDiacritics => box.read(removeDiacriticsKey) ?? false;
 
   final String imageWidthBoxKey = 'share_image_image_width';
 

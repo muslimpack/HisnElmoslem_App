@@ -5,7 +5,6 @@ import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
@@ -38,21 +37,21 @@ class AlarmCard extends StatelessWidget {
                     else
                       RoundTagCard(
                         name: dbAlarm.body,
-                        color: brown,
+                        color: Colors.brown,
                       ),
                     Row(
                       children: [
                         Expanded(
                           child: RoundTagCard(
                             name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
-                            color: green,
+                            color: Colors.green,
                           ),
                         ),
                         Expanded(
                           child: RoundTagCard(
                             name: HandleRepeatType()
                                 .getNameToUser(chosenValue: dbAlarm.repeatType),
-                            color: yellow,
+                            color: Colors.yellow,
                           ),
                         ),
                       ],
@@ -62,7 +61,6 @@ class AlarmCard extends StatelessWidget {
                 isThreeLine: true,
                 title: Text(dbAlarm.title),
               ),
-              activeColor: mainColor,
               value: dbAlarm.isActive,
               onChanged: (value) {
                 //Update database
@@ -116,8 +114,6 @@ class AlarmCard extends StatelessWidget {
                     }
                   });
                 },
-                backgroundColor: green,
-                foregroundColor: white,
                 icon: Icons.edit,
                 label: 'edit'.tr,
               ),
@@ -142,8 +138,6 @@ class AlarmCard extends StatelessWidget {
                     message: "${"Reminder Removed".tr} | ${dbAlarm.title}",
                   );
                 },
-                backgroundColor: red,
-                foregroundColor: white,
                 icon: Icons.delete,
                 label: "delete".tr,
               ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class ImageWidthDialog extends StatelessWidget {
   final Function(String) onSubmit;
@@ -22,9 +21,8 @@ class ImageWidthDialog extends StatelessWidget {
       height: 270,
       header: Text(
         "ُEdit image size".tr,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 25,
-          color: mainColor,
         ),
       ),
       content: [
@@ -41,7 +39,7 @@ class ImageWidthDialog extends StatelessWidget {
         title: Text(
           "done".tr,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, color: mainColor),
+          style: const TextStyle(fontSize: 20),
         ),
         onTap: () {
           onSubmit(widthController.text);

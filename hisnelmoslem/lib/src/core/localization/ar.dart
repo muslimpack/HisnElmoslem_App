@@ -220,4 +220,14 @@ const Map<String, String> ar = {
 
   "Reset all counters?.": "إعادة ضبط جميع العدادات؟",
   "Our Products": "إصداراتنا",
+
+  // theme
+  "themeAppColor": "لون التطبيق",
+  "themeDarkMode": "الوضع المظلم",
+  "themeUseMaterial3": "استخدام Material3",
+  "themeUserOldTheme": "استخدام الثيم القديم",
+  "themeOverrideBackground": "تحديد لون الخلفية",
+  "themeBackgroundColor": "لون الخلفية",
+  "themeSelectColor": "تحديد لون",
+  "Select": "تحديد",
 };

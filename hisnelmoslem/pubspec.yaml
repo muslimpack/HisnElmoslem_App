@@ -17,13 +17,15 @@ dependencies:
   audioplayers: ^3.0.0
   auto_size_text: ^3.0.0
   awesome_notifications: ^0.7.4+1
+  bloc: ^8.1.3
   clipboard: ^0.1.3
-
   cupertino_icons: ^1.0.4
   day_night_time_picker: ^1.0.5
   enum_to_string: ^2.0.1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.4
   flutter_colorpicker: ^1.0.3
   flutter_local_notifications: ^13.0.0
   flutter_localizations:

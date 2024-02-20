@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/themes_enum.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/themes_manager_page_controller.dart';
 
 class ThemeManagerPage extends StatelessWidget {
@@ -8,15 +11,13 @@ class ThemeManagerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ThemesManagerPageController>(
-      init: ThemesManagerPageController(),
-      builder: (controller) {
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Text(
               "theme manager".tr,
-              style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
@@ -24,37 +25,126 @@ class ThemeManagerPage extends StatelessWidget {
           body: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              RadioImage(
-                controller: controller,
-                title: "light theme".tr,
-                icon: Icons.light_mode,
-                appThemeModeValue: AppThemeMode.light,
+              ListTile(
+                title: Text("themeAppColor".tr),
+                trailing: CircleAvatar(
+                  backgroundColor: state.color,
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      Color selectedColor = state.color;
+                      return AlertDialog(
+                        title: Text("themeSelectColor".tr),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            hexInputBar: true,
+                            enableAlpha: false,
+                            pickerColor: state.color,
+                            onColorChanged: (value) {
+                              selectedColor = value;
+                            },
+                          ),
+                        ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text("Select".tr),
+                            onPressed: () {
+                              context
+                                  .read<ThemeCubit>()
+                                  .changeColor(selectedColor);
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
-              RadioImage(
-                controller: controller,
-                title: "optimize light theme".tr,
-                icon: Icons.light_mode,
-                appThemeModeValue: AppThemeMode.yellowTheme,
+              SwitchListTile(
+                value: state.brightness == Brightness.dark,
+                title: Text("themeDarkMode".tr),
+                onChanged: (value) {
+                  if (state.brightness == Brightness.dark) {
+                    context
+                        .read<ThemeCubit>()
+                        .changeBrightness(Brightness.light);
+                  } else {
+                    context
+                        .read<ThemeCubit>()
+                        .changeBrightness(Brightness.dark);
+                  }
+                },
               ),
-              const Divider(),
-              RadioImage(
-                controller: controller,
-                title: "dark theme".tr,
-                icon: Icons.dark_mode,
-                appThemeModeValue: AppThemeMode.defaultDark,
+              SwitchListTile(
+                value: state.useMaterial3,
+                title: Text("themeUseMaterial3".tr),
+                onChanged: (value) {
+                  context.read<ThemeCubit>().changeUseMaterial3(value);
+                },
               ),
-              RadioImage(
-                controller: controller,
-                title: "optimize dark theme".tr,
-                icon: Icons.dark_mode,
-                appThemeModeValue: AppThemeMode.dark,
+              if (!state.useMaterial3)
+                SwitchListTile(
+                  value: state.useOldTheme,
+                  title: Text("themeUserOldTheme".tr),
+                  onChanged: state.useMaterial3
+                      ? null
+                      : (value) {
+                          context.read<ThemeCubit>().changeUseOldTheme(value);
+                        },
+                ),
+              SwitchListTile(
+                value: state.overrideBackgroundColor,
+                title: Text("themeOverrideBackground".tr),
+                onChanged: !state.useMaterial3
+                    ? null
+                    : (value) {
+                        context
+                            .read<ThemeCubit>()
+                            .changeOverrideBackgroundColor(value);
+                      },
               ),
-              RadioImage(
-                controller: controller,
-                title: "True black theme".tr,
-                icon: Icons.dark_mode,
-                appThemeModeValue: AppThemeMode.trueblack,
-              ),
+              if (state.overrideBackgroundColor)
+                ListTile(
+                  title: Text("themeBackgroundColor".tr),
+                  trailing: CircleAvatar(
+                    backgroundColor: state.backgroundColor,
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        Color selectedColor = state.backgroundColor;
+                        return AlertDialog(
+                          title: Text("themeBackgroundColor".tr),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                              hexInputBar: true,
+                              enableAlpha: false,
+                              pickerColor: selectedColor,
+                              onColorChanged: (value) {
+                                selectedColor = value;
+                              },
+                            ),
+                          ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              child: Text("Select".tr),
+                              onPressed: () {
+                                context
+                                    .read<ThemeCubit>()
+                                    .changeBackgroundColor(selectedColor);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
             ],
           ),
         );

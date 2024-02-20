@@ -19,7 +19,6 @@ class RearrangeDashboardPage extends StatelessWidget {
                   centerTitle: true,
                   title: Text(
                     "dashboard arrangement".tr,
-                    style: const TextStyle(fontFamily: "Uthmanic"),
                   ),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   elevation: 0,

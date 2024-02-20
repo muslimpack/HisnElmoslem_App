@@ -16,7 +16,6 @@ class About extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "about us".tr,
-          style: const TextStyle(fontFamily: "Uthmanic"),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,

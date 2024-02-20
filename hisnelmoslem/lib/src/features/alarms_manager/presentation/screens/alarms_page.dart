@@ -18,7 +18,6 @@ class AlarmsPages extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "reminders manager".tr,
-              style: const TextStyle(fontFamily: "Uthmanic"),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
