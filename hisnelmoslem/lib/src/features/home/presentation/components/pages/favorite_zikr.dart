@@ -82,8 +82,11 @@ class FavouriteZikr extends StatelessWidget {
                                       splashRadius: 20,
                                       padding: EdgeInsets.zero,
                                       icon: dbContent.favourite
-                                          ? const Icon(
+                                          ? Icon(
                                               Icons.favorite,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                             )
                                           : const Icon(
                                               Icons.favorite_border,
