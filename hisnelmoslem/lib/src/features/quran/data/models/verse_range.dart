@@ -1,4 +1,7 @@
-class VerseRange {
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+
+class VerseRange extends Equatable {
   final int startSura;
   final int startAyah;
   final int endingSura;
@@ -20,4 +23,7 @@ class VerseRange {
   bool isSingleVerse() {
     return startAyah == endingAyah && startSura == endingSura;
   }
+
+  @override
+  List<Object> get props => [startSura, startAyah, endingSura, endingAyah];
 }
