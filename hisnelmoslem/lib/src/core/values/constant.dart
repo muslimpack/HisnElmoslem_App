@@ -61,3 +61,6 @@ final List<Color> shareAsImageColorsList = [
   const Color.fromARGB(255, 255, 248, 238),
   const Color.fromARGB(255, 244, 246, 248),
 ];
+
+const String kEstaaza = "أَعُوذُ بِاَللَّهِ مِنْ الشَّيْطَانِ الرَّجِيمِ";
+const String kArBasmallah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";

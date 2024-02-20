@@ -83,8 +83,9 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     child: IconButton(
                       splashRadius: 20,
                       padding: EdgeInsets.zero,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.favorite,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
                         controller.zikrContent[controller.currentPage]

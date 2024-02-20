@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 
 class ImageVarFontBuilder extends StatelessWidget {
   final DbContent dbContent;
@@ -16,7 +17,6 @@ class ImageVarFontBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ShareAsImageController>(
       builder: (controller) {
-        final bool containsAyah = dbContent.content.contains("﴿");
         return Card(
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.zero,
@@ -53,16 +53,11 @@ class ImageVarFontBuilder extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          dbContent.content,
-                          softWrap: true,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: shareAsImageData.bodyTextColor,
-                            fontSize: shareAsImageData.fontSize,
-                            height: 2,
-                            fontFamily: containsAyah ? "Uthmanic2" : null,
-                          ),
+                        child: ZikrContentBuilder(
+                          dbContent: dbContent,
+                          enableDiacritics: !shareAsImageData.removeDiacritics,
+                          fontSize: shareAsImageData.fontSize,
+                          color: shareAsImageData.bodyTextColor,
                         ),
                       ),
                       // Fadl

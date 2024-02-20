@@ -7,12 +7,12 @@ import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_ani
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -49,8 +49,7 @@ class FavouriteZikr extends StatelessWidget {
                       final DbTitle dbTitle = controller.allTitle
                           .where((element) => element.id == dbContent.titleId)
                           .first;
-                      //
-                      final bool containsAyah = dbContent.content.contains("﴿");
+
                       return InkWell(
                         onTap: () {
                           if (dbContent.count > 0) {
@@ -83,8 +82,11 @@ class FavouriteZikr extends StatelessWidget {
                                       splashRadius: 20,
                                       padding: EdgeInsets.zero,
                                       icon: dbContent.favourite
-                                          ? const Icon(
+                                          ? Icon(
                                               Icons.favorite,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                             )
                                           : const Icon(
                                               Icons.favorite_border,
@@ -153,25 +155,11 @@ class FavouriteZikr extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(10),
-                                      child: Text(
-                                        appData.isDiacriticsEnabled
-                                            ? dbContent.content
-                                            : dbContent.content.replaceAll(
-                                                //* لحذف التشكيل
-                                                RegExp(
-                                                  String.fromCharCodes(
-                                                    arabicDiacriticsChar,
-                                                  ),
-                                                ),
-                                                "",
-                                              ),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: appData.fontSize * 10,
-                                          height: 2,
-                                          fontFamily:
-                                              containsAyah ? "Uthmanic2" : null,
-                                        ),
+                                      child: ZikrContentBuilder(
+                                        dbContent: dbContent,
+                                        enableDiacritics:
+                                            appData.isDiacriticsEnabled,
+                                        fontSize: appData.fontSize * 10,
                                       ),
                                     ),
                                     if (dbContent.fadl == "")
