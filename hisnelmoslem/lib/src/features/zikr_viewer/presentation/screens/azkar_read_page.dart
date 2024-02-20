@@ -2,17 +2,13 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
-import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialoge.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share/share.dart';
 
 class AzkarReadPage extends StatelessWidget {
   final int index;
@@ -63,145 +59,11 @@ class AzkarReadPage extends StatelessWidget {
                     ),
                   ],
                   bottom: PreferredSize(
-                    preferredSize: const Size(100, 30),
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: IconButton(
-                                    splashRadius: 20,
-                                    icon: const Icon(MdiIcons.comment),
-                                    onPressed: () {
-                                      showCommentaryDialog(
-                                        context: Get.context!,
-                                        contentId: controller
-                                            .zikrContent[controller.currentPage]
-                                            .id,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: IconButton(
-                                    splashRadius: 20,
-                                    icon: const Icon(MdiIcons.camera),
-                                    onPressed: () {
-                                      transitionAnimation.circleReval(
-                                        context: Get.context!,
-                                        goToPage: ShareAsImage(
-                                          dbContent: controller.zikrContent[
-                                              controller.currentPage],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                if (!controller
-                                    .zikrContent[controller.currentPage]
-                                    .favourite)
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: const Icon(
-                                        Icons.favorite_border,
-                                      ),
-                                      onPressed: () {
-                                        controller
-                                            .zikrContent[controller.currentPage]
-                                            .favourite = true;
-                                        controller.update();
-                                        //
-                                        dashboardController
-                                            .addContentToFavourite(
-                                          controller.zikrContent[
-                                              controller.currentPage],
-                                        );
-                                        //
-                                        // dashboardController.update();
-                                      },
-                                    ),
-                                  )
-                                else
-                                  Expanded(
-                                    child: IconButton(
-                                      splashRadius: 20,
-                                      padding: EdgeInsets.zero,
-                                      icon: const Icon(
-                                        Icons.favorite,
-                                      ),
-                                      onPressed: () {
-                                        controller
-                                            .zikrContent[controller.currentPage]
-                                            .favourite = false;
-                                        controller.update();
-
-                                        dashboardController
-                                            .removeContentFromFavourite(
-                                          controller.zikrContent[
-                                              controller.currentPage],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                Expanded(
-                                  child: IconButton(
-                                    splashRadius: 20,
-                                    padding: EdgeInsets.zero,
-                                    icon: const Icon(Icons.share),
-                                    onPressed: () {
-                                      Share.share("${text!}\n${fadl!}");
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      child: Text(
-                                        controller
-                                            .zikrContent[controller.currentPage]
-                                            .count
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Stack(
-                            children: [
-                              LinearProgressIndicator(
-                                value: controller.totalProgressForEverySingle,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              LinearProgressIndicator(
-                                backgroundColor: Colors.transparent,
-                                value: controller.totalProgress,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withGreen(100)
-                                      .withAlpha(100),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    preferredSize: const Size.fromHeight(50),
+                    child: ZikrViewerPageModeAppBar(
+                      controller: controller,
+                      text: text,
+                      fadl: fadl,
                     ),
                   ),
                 ),
