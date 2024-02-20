@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/range_text_formatter.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/verse_range.dart';
@@ -86,7 +85,6 @@ class ZikrContentTextWithQuran extends StatelessWidget {
     final List<String> textList = dbContent.content.split("\n");
     final rangeText = textList.where((e) => e.contains("QuranText")).first;
     final List<VerseRange> ranges = RangeTextFormatter.parse(rangeText);
-    hisnPrint(ranges);
 
     final List<String> verses = [];
     for (final range in ranges) {
@@ -102,17 +100,21 @@ class ZikrContentTextWithQuran extends StatelessWidget {
   }
 
   List<InlineSpan> getTextSpan(List<String> verses) {
-    final List<String> textList = dbContent.content.split("\n");
-    textList.indexWhere((e) => e.contains("QuranText"));
+    final List<String> lines = dbContent.content.split("\n");
+
+    lines.indexWhere((e) => e.contains("QuranText"));
 
     final List<InlineSpan> spans = [];
 
-    for (final e in textList) {
-      if (e.contains("QuranText")) {
+    for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+      final line = lines[lineIndex];
+
+      if (line.contains("QuranText")) {
+        if (lineIndex != 0) spans.add(const TextSpan(text: "\n\n"));
         for (var i = 0; i < verses.length; i++) {
           final List<String> verse = [];
 
-          if (i == 0) verse.addAll(["\n", kEstaaza, "\n\n"]);
+          if (i == 0) verse.addAll([kEstaaza, "\n\n"]);
 
           verse.add(kArBasmallah);
 
@@ -131,15 +133,17 @@ class ZikrContentTextWithQuran extends StatelessWidget {
             ),
           );
         }
+        if (lineIndex != lines.length - 1) {
+          spans.add(const TextSpan(text: "\n\n"));
+        }
       } else {
         spans.add(
           TextSpan(
-            text: enableDiacritics ? e : e.removeDiacritics,
+            text: enableDiacritics ? line : line.removeDiacritics,
           ),
         );
       }
     }
-
     return spans;
   }
 
