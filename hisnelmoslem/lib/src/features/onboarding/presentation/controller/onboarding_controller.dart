@@ -30,7 +30,7 @@ class OnBoardingController extends GetxController {
     const Empty(
       title: "حصن المسلم الإصدار $appVersion",
       description: '''
-السلام عليكم أيها الكريم 
+السلام عليكم أيها المبارك 
 أهلا بك في تحديث جديد من حصن المسلم
 قم بسحب الشاشة لتقليب الصفحات
 أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة 
