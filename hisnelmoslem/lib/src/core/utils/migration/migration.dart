@@ -23,12 +23,14 @@ class Migration {
   /// init
   static Future<void> initDataDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, "data.db");
-    final exist = await databaseExists(path);
 
     ///
     final pathHisn = join(dbPath, "hisn_elmoslem_database.db");
     final existHisn = await databaseExists(pathHisn);
+
+    ///
+    final path = join(dbPath, "data.db");
+    final exist = await databaseExists(path);
 
     //Check if database is already in that Directory
     if (!exist || existHisn) {
