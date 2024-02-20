@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/utils/range_text_formatter.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/verse_range.dart';
@@ -10,9 +10,15 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 
 class ZikrContentBuilder extends StatelessWidget {
   final DbContent dbContent;
+  final double fontSize;
+  final bool enableDiacritics;
+  final Color? color;
   const ZikrContentBuilder({
     super.key,
     required this.dbContent,
+    required this.fontSize,
+    required this.enableDiacritics,
+    this.color,
   });
 
   @override
@@ -21,30 +27,43 @@ class ZikrContentBuilder extends StatelessWidget {
     return containsQuranText
         ? ZikrContentTextWithQuran(
             dbContent: dbContent,
+            enableDiacritics: enableDiacritics,
+            fontSize: fontSize,
+            color: color,
           )
         : ZikrContentPlainText(
             dbContent: dbContent,
+            enableDiacritics: enableDiacritics,
+            fontSize: fontSize,
+            color: color,
           );
   }
 }
 
 class ZikrContentPlainText extends StatelessWidget {
   final DbContent dbContent;
+  final double fontSize;
+  final bool enableDiacritics;
+  final Color? color;
   const ZikrContentPlainText({
     super.key,
     required this.dbContent,
+    required this.fontSize,
+    required this.enableDiacritics,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      dbContent.content,
+      enableDiacritics ? dbContent.content : dbContent.content.removeDiacritics,
       textAlign: TextAlign.center,
       softWrap: true,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: appData.fontSize * 10,
+        fontSize: fontSize,
         height: 2,
+        color: color,
       ),
     );
   }
@@ -52,9 +71,15 @@ class ZikrContentPlainText extends StatelessWidget {
 
 class ZikrContentTextWithQuran extends StatelessWidget {
   final DbContent dbContent;
+  final double fontSize;
+  final bool enableDiacritics;
+  final Color? color;
   const ZikrContentTextWithQuran({
     super.key,
     required this.dbContent,
+    required this.fontSize,
+    required this.enableDiacritics,
+    this.color,
   });
 
   Future<List<String>> getQuranText() async {
@@ -86,16 +111,20 @@ class ZikrContentTextWithQuran extends StatelessWidget {
       if (e.contains("QuranText")) {
         for (var i = 0; i < verses.length; i++) {
           final List<String> verse = [];
-          if (i != 0) verse.add("\n");
-          if (i == 0) verse.addAll(["\n", kEstaaza, "\n"]);
+
+          if (i == 0) verse.addAll(["\n", kEstaaza, "\n\n"]);
 
           verse.add(kArBasmallah);
-          verse.add("\n");
-          verse.add(verses[i]);
-          verse.add("\n");
+
+          verse.add(" ﴿ ${verses[i].trim()} ﴾");
+
+          if (i != verses.length - 1) verse.add("\n\n");
+
           spans.add(
             TextSpan(
-              text: verse.join(),
+              text: enableDiacritics
+                  ? verse.join()
+                  : verse.join().removeDiacritics,
               style: const TextStyle(
                 fontFamily: "Uthmanic2",
               ),
@@ -103,7 +132,11 @@ class ZikrContentTextWithQuran extends StatelessWidget {
           );
         }
       } else {
-        spans.add(TextSpan(text: e));
+        spans.add(
+          TextSpan(
+            text: enableDiacritics ? e : e.removeDiacritics,
+          ),
+        );
       }
     }
 
@@ -122,8 +155,9 @@ class ZikrContentTextWithQuran extends StatelessWidget {
           text: TextSpan(
             children: getTextSpan(snap.data ?? []),
             style: TextStyle(
-              fontSize: appData.fontSize * 10,
+              fontSize: fontSize,
               height: 2,
+              color: color,
             ),
           ),
         );

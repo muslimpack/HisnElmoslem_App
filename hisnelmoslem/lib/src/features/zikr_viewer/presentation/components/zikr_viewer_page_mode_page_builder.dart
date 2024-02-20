@@ -2,7 +2,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
@@ -22,10 +21,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DbContent dbContent = controller.zikrContent[index];
-    final String text = appData.isDiacriticsEnabled
-        ? dbContent.content
-        : dbContent.content.removeDiacritics;
-    final bool containsAyah = text.contains("﴿");
+
     final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
@@ -81,6 +77,8 @@ class ZikrViewerPageBuilder extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                 child: ZikrContentBuilder(
                   dbContent: dbContent,
+                  enableDiacritics: appData.isDiacriticsEnabled,
+                  fontSize: appData.fontSize * 10,
                 ),
               ),
               Padding(

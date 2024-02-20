@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_card_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
@@ -67,15 +68,15 @@ class AzkarReadCard extends StatelessWidget {
                       ? 0
                       : controller.zikrContent.length,
                   itemBuilder: (context, index) {
+                    final dbContent = controller.zikrContent[index];
                     final String text = appData.isDiacriticsEnabled
-                        ? controller.zikrContent[index].content
-                        : controller
-                            .zikrContent[index].content.removeDiacritics;
-                    final String source = controller.zikrContent[index].source;
-                    final String fadl = controller.zikrContent[index].fadl;
+                        ? dbContent.content
+                        : dbContent.content.removeDiacritics;
+                    final String source = dbContent.source;
+                    final String fadl = dbContent.fadl;
                     final int cardNum = index + 1;
-                    int counter = controller.zikrContent[index].count;
-                    final bool containsAyah = text.contains("﴿");
+                    int counter = dbContent.count;
+
                     return InkWell(
                       onTap: () {
                         counter = controller.decreaseCount(counter, index);
@@ -235,17 +236,10 @@ class AzkarReadCard extends StatelessWidget {
                             const Divider(),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
-                              child: Text(
-                                text,
-                                textAlign: TextAlign.center,
-                                softWrap: true,
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                  fontSize: appData.fontSize * 10,
-
-                                  fontFamily: containsAyah ? "Uthmanic2" : null,
-                                  //fontSize: 20,
-                                ),
+                              child: ZikrContentBuilder(
+                                dbContent: dbContent,
+                                enableDiacritics: appData.isDiacriticsEnabled,
+                                fontSize: appData.fontSize * 10,
                               ),
                             ),
                             if (controller.zikrContent[index].fadl == "")
