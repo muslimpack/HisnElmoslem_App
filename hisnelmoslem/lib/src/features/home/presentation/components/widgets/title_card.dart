@@ -141,7 +141,6 @@ class TitleCard extends StatelessWidget {
                   : IconButton(
                       icon: const Icon(
                         Icons.notifications_off,
-                        color: Colors.red,
                       ),
                       onPressed: () {
                         dbAlarm.isActive = tempAlarm.isActive = true;
