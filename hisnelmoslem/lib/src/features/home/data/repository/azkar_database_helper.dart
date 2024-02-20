@@ -124,7 +124,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM titles''',
+      '''SELECT * FROM titles ORDER by orderId ASC''',
     );
 
     final List<DbTitle> titles = [];
@@ -192,7 +192,7 @@ class AzkarDatabaseHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM contents''',
+      '''SELECT * FROM contents ORDER by orderId ASC''',
     );
 
     final List<DbContent> contents = [];
