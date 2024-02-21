@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
 
 class OnBoardingController extends GetxController {
@@ -27,19 +25,23 @@ class OnBoardingController extends GetxController {
 
   //
   final pageList = [
+//     const Empty(
+//       title: "حصن المسلم الإصدار $appVersion",
+//       description: '''
+// السلام عليكم أيها المبارك
+// أهلا بك في تحديث جديد من حصن المسلم
+// قم بسحب الشاشة لتقليب الصفحات
+// أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة
+// ''',
+//     ),
     const Empty(
-      title: "حصن المسلم الإصدار $appVersion",
-      description: '''
-السلام عليكم أيها المبارك 
-أهلا بك في تحديث جديد من حصن المسلم
-قم بسحب الشاشة لتقليب الصفحات
-أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة 
-''',
-    ),
-    const Empty(
-      title: "حل مشكلة اختفاء الآيات في الوضع الفاتح",
+      title: "حل بعض المشكلات العاجلة",
       isImage: false,
-      icon: FontAwesomeIcons.palette,
+      icon: Icons.bug_report_sharp,
+      description: """
+- حل مشكلة اختفاء الآيات في الوضع الفاتح
+- حل مشكلة نسخ الأذكار التي تحتوى على نص قرآني
+""",
     ),
   ];
 
