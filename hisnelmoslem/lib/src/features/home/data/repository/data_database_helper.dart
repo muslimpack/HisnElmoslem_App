@@ -88,7 +88,7 @@ class FakeHadith {
     /// default favourite titles
     await db.execute('''
     INSERT INTO favourite_titles (title_id, favourite) VALUES
-    (3, 1),     -- أذكار النوم
+    (3, 1),     -- أذكار الاستيقاظ من النوم
     (27, 1),    -- السلام بعد الصلاة
     (29, 1),    -- الصباح
     (30, 1),    -- المساء
