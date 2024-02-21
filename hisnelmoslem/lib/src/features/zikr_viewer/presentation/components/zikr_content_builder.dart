@@ -161,7 +161,7 @@ class ZikrContentTextWithQuran extends StatelessWidget {
             style: TextStyle(
               fontSize: fontSize,
               height: 2,
-              color: color,
+              color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
         );
