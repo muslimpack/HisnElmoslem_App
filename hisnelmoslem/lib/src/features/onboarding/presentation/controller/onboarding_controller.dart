@@ -40,7 +40,7 @@ class OnBoardingController extends GetxController {
       icon: Icons.bug_report_sharp,
       description: """
 - حل مشكلة اختفاء الآيات في الوضع الفاتح
-- حل مشكلة نسخ الأذكار التي تحتوى على نص قرآني
+- حل مشكلة نسخ الأذكار التي تحتوي على نص قرآني
 """,
     ),
   ];
