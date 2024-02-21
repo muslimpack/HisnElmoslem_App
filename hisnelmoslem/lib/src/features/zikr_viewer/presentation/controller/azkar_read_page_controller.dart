@@ -41,6 +41,8 @@ class AzkarReadPageController extends GetxController {
   String? fadl = "";
   int? cardNum = 0;
 
+  DbContent get activeZikr => zikrContent[currentPage];
+
   //
 
   /* *************** Controller life cycle *************** */
