@@ -108,6 +108,19 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     },
                   ),
                 ),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      controller.zikrContent[controller.currentPage].count
+                          .toString(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
