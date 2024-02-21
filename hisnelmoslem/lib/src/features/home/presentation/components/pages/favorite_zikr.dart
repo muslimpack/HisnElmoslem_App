@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_he
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
@@ -105,10 +106,11 @@ class FavouriteZikr extends StatelessWidget {
                                           Icons.copy,
                                         ),
                                         onPressed: () async {
+                                          final text =
+                                              await dbContent.getPlainText();
                                           await Clipboard.setData(
                                             ClipboardData(
-                                              text:
-                                                  "${dbContent.content}\n${dbContent.fadl}",
+                                              text: "$text\n${dbContent.fadl}",
                                             ),
                                           );
 

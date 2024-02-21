@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
@@ -12,13 +13,9 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
   const ZikrViewerPageModeAppBar({
     super.key,
     required this.controller,
-    required this.text,
-    required this.fadl,
   });
 
   final AzkarReadPageController controller;
-  final String? text;
-  final String? fadl;
   @override
   Widget build(BuildContext context) {
     final DashboardController dashboardController =
@@ -103,8 +100,10 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
                     icon: const Icon(Icons.share),
-                    onPressed: () {
-                      Share.share("${text!}\n${fadl!}");
+                    onPressed: () async {
+                      final text = await controller.activeZikr.getPlainText();
+
+                      await Share.share("$text\n${controller.activeZikr.fadl}");
                     },
                   ),
                 ),

@@ -27,7 +27,7 @@ extension DBContentExt on DbContent {
     return verses;
   }
 
-  List<String> getPlainText(List<String> verses) {
+  List<String> convertVersesToText(List<String> verses) {
     final List<String> lines = content.split("\n");
 
     lines.indexWhere((e) => e.contains("QuranText"));
@@ -66,10 +66,10 @@ extension DBContentExt on DbContent {
     return spans;
   }
 
-  FutureOr<String> getContentText() async {
+  FutureOr<String> getPlainText() async {
     if (content.contains("QuranText")) {
       final verses = await getQuranVersesText();
-      final text = getPlainText(verses);
+      final text = convertVersesToText(verses);
       return text.join();
     } else {
       return content;

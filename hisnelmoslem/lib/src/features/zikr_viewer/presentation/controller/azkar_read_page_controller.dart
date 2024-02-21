@@ -36,9 +36,7 @@ class AzkarReadPageController extends GetxController {
 
   //
   static const _volumeBtnChannel = MethodChannel("volume_button_channel");
-  String? text = "";
-  String? source = "";
-  String? fadl = "";
+
   int? cardNum = 0;
 
   DbContent get activeZikr => zikrContent[currentPage];

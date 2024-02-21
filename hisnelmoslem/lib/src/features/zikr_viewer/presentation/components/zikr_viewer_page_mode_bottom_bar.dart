@@ -3,19 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
   final AzkarReadPageController controller;
-  final String? text;
-  final String? fadl;
-  final int? cardNumber;
+
   const ZikrViewerPageModeBottomBar({
     super.key,
     required this.controller,
-    required this.text,
-    required this.fadl,
-    required this.cardNumber,
   });
 
   @override
@@ -31,8 +27,9 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.copy),
               onPressed: () async {
+                final text = await controller.activeZikr.getPlainText();
                 await Clipboard.setData(
-                  ClipboardData(text: "${text!}\n${fadl!}"),
+                  ClipboardData(text: "$text\n${controller.activeZikr.fadl}"),
                 );
                 final snackBar = SnackBar(
                   content: Text("copied to clipboard".tr),
@@ -60,11 +57,12 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
                 Icons.report,
                 color: Colors.orange,
               ),
-              onPressed: () {
+              onPressed: () async {
+                final text = await controller.activeZikr.getPlainText();
                 EmailManager.sendMisspelledInZikrWithText(
                   subject: controller.zikrTitle!.name,
-                  cardNumber: cardNumber.toString(),
-                  text: text!,
+                  cardNumber: (controller.currentPage + 1).toString(),
+                  text: text,
                 );
               },
             ),

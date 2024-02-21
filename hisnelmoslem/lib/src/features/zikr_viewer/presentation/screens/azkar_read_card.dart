@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_card_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -185,6 +186,9 @@ class AzkarReadCard extends StatelessWidget {
                                       Icons.copy,
                                     ),
                                     onPressed: () async {
+                                      final text =
+                                          await dbContent.getPlainText();
+
                                       await Clipboard.setData(
                                         ClipboardData(text: "$text\n$fadl"),
                                       );

@@ -58,8 +58,6 @@ class AzkarReadPage extends StatelessWidget {
                     preferredSize: const Size.fromHeight(50),
                     child: ZikrViewerPageModeAppBar(
                       controller: controller,
-                      text: text,
-                      fadl: fadl,
                     ),
                   ),
                 ),
@@ -80,9 +78,6 @@ class AzkarReadPage extends StatelessWidget {
                 ),
                 bottomNavigationBar: ZikrViewerPageModeBottomBar(
                   controller: controller,
-                  text: text,
-                  fadl: fadl,
-                  cardNumber: cardNumber,
                 ),
               );
       },
