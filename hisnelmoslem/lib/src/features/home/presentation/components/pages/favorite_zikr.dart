@@ -1,5 +1,5 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -104,14 +104,17 @@ class FavouriteZikr extends StatelessWidget {
                                         icon: const Icon(
                                           Icons.copy,
                                         ),
-                                        onPressed: () {
-                                          FlutterClipboard.copy(
-                                            "${dbContent.content}\n${dbContent.fadl}",
-                                          ).then((result) {
-                                            getSnackbar(
-                                              message: "copied to clipboard".tr,
-                                            );
-                                          });
+                                        onPressed: () async {
+                                          await Clipboard.setData(
+                                            ClipboardData(
+                                              text:
+                                                  "${dbContent.content}\n${dbContent.fadl}",
+                                            ),
+                                          );
+
+                                          getSnackbar(
+                                            message: "copied to clipboard".tr,
+                                          );
                                         },
                                       ),
                                     ),

@@ -1,5 +1,5 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -90,19 +90,20 @@ class AzkarReadCard extends StatelessWidget {
                           ),
                           action: SnackBarAction(
                             label: "copy".tr,
-                            onPressed: () {
-                              // Some code to undo the change.
-                              FlutterClipboard.copy(source).then((result) {
-                                final snackBar = SnackBar(
-                                  content: Text("copied to clipboard".tr),
-                                  action: SnackBarAction(
-                                    label: "done".tr,
-                                    onPressed: () {},
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              });
+                            onPressed: () async {
+                              await Clipboard.setData(
+                                ClipboardData(text: source),
+                              );
+                              final snackBar = SnackBar(
+                                content: Text("copied to clipboard".tr),
+                                action: SnackBarAction(
+                                  label: "done".tr,
+                                  onPressed: () {},
+                                ),
+                              );
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             },
                           ),
                         );
@@ -183,22 +184,20 @@ class AzkarReadCard extends StatelessWidget {
                                     icon: const Icon(
                                       Icons.copy,
                                     ),
-                                    onPressed: () {
-                                      FlutterClipboard.copy(
-                                        "$text\n$fadl",
-                                      ).then((result) {
-                                        final snackBar = SnackBar(
-                                          content: Text(
-                                            "copied to clipboard".tr,
-                                          ),
-                                          action: SnackBarAction(
-                                            label: "done".tr,
-                                            onPressed: () {},
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      });
+                                    onPressed: () async {
+                                      await Clipboard.setData(
+                                        ClipboardData(text: "$text\n$fadl"),
+                                      );
+                                      final snackBar = SnackBar(
+                                        content: Text("copied to clipboard".tr),
+                                        action: SnackBarAction(
+                                          label: "done".tr,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      if (!context.mounted) return;
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     },
                                   ),
                                 ),

@@ -1,6 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -36,19 +35,21 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           ),
           action: SnackBarAction(
             label: "copy".tr,
-            onPressed: () {
+            onPressed: () async {
               // Some code to undo the change.
-              FlutterClipboard.copy(source!).then((result) {
-                final snackBar = SnackBar(
-                  content: Text("copied to clipboard".tr),
-                  action: SnackBarAction(
-                    label: "done".tr,
-                    onPressed: () {},
-                  ),
-                );
 
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              });
+              await Clipboard.setData(
+                ClipboardData(text: source ?? ""),
+              );
+              final snackBar = SnackBar(
+                content: Text("copied to clipboard".tr),
+                action: SnackBarAction(
+                  label: "done".tr,
+                  onPressed: () {},
+                ),
+              );
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
         );

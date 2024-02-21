@@ -1,6 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
@@ -31,18 +30,19 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               splashRadius: 20,
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.copy),
-              onPressed: () {
-                FlutterClipboard.copy("${text!}\n${fadl!}").then((result) {
-                  final snackBar = SnackBar(
-                    content: Text("copied to clipboard".tr),
-                    action: SnackBarAction(
-                      label: "done".tr,
-                      onPressed: () {},
-                    ),
-                  );
-
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                });
+              onPressed: () async {
+                await Clipboard.setData(
+                  ClipboardData(text: "${text!}\n${fadl!}"),
+                );
+                final snackBar = SnackBar(
+                  content: Text("copied to clipboard".tr),
+                  action: SnackBarAction(
+                    label: "done".tr,
+                    onPressed: () {},
+                  ),
+                );
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
           ),

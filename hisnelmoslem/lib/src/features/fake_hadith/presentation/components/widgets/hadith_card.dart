@@ -1,5 +1,5 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
@@ -39,9 +39,9 @@ class HadithCard extends StatelessWidget {
           ),
           action: SnackBarAction(
             label: "copy".tr,
-            onPressed: () {
+            onPressed: () async {
               // Some code to undo the change.
-              FlutterClipboard.copy(fakeHaith.source);
+              await Clipboard.setData(ClipboardData(text: fakeHaith.source));
             },
           ),
         );
@@ -69,20 +69,22 @@ class HadithCard extends StatelessWidget {
                     icon: const Icon(
                       Icons.copy,
                     ),
-                    onPressed: () {
-                      FlutterClipboard.copy(
-                        "${fakeHaith.text}\n${fakeHaith.darga}",
-                      ).then((result) {
-                        final snackBar = SnackBar(
-                          content: Text("copied to clipboard".tr),
-                          action: SnackBarAction(
-                            label: "done".tr,
-                            onPressed: () {},
-                          ),
-                        );
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(
+                          text: "${fakeHaith.text}\n${fakeHaith.darga}",
+                        ),
+                      );
 
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      });
+                      final snackBar = SnackBar(
+                        content: Text("copied to clipboard".tr),
+                        action: SnackBarAction(
+                          label: "done".tr,
+                          onPressed: () {},
+                        ),
+                      );
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                   ),
                 ),
