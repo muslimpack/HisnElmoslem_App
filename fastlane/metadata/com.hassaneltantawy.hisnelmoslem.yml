@@ -14,9 +14,9 @@ RepoType: git
 Repo: https://github.com/muslimpack/HisnElmoslem_App.git
 
 Builds:
-  - versionName: 2.6.0
-    versionCode: 19
-    commit: 2da11321431ad7332b12e8541588380eefb7c9f9
+  - versionName: 2.7.01
+    versionCode: 21
+    commit: 630117a0987e317c3b564505154c112d595d92ed
     subdir: hisnelmoslem
     output: build/app/outputs/flutter-apk/app-release.apk
     srclibs:
@@ -36,5 +36,5 @@ Builds:
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
 UpdateCheckData: hisnelmoslem/pubspec.yaml|version:\s.+\+(\d+)|.|version:\s(.+)\+
-CurrentVersion: 2.6.0
-CurrentVersionCode: 19
+CurrentVersion: 2.7.01
+CurrentVersionCode: 21
