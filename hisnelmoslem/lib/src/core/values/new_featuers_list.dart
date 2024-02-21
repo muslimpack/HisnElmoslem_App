@@ -1,6 +1,12 @@
 /// TODO Update New Feature | Change every release
 const List<List<String>> updateNewFeature = [
   [
+    "v2.7.01",
+    '''
+- حل مشكلة اختفاء الآيات في الوضع الفاتح
+''',
+  ],
+  [
     "v2.7.0",
     '''
 - تصويب الأخطاء التي وصلتنا

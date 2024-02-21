@@ -37,53 +37,9 @@ class OnBoardingController extends GetxController {
 ''',
     ),
     const Empty(
-      title: "تحديث على قاعدة البيانات",
-      isImage: false,
-      icon: FontAwesomeIcons.database,
-      description: '''
-  - فصل الأذكار المدمجة عن بعضها
-  - إضافة بعض الأبواب المفقودة
-  - حذف بعض الأذكار من موضعها
-  - إضافة نص الآيات داخل الذكر
-''',
-    ),
-    const Empty(
-      title: "تحسين مظهر التطبيق",
+      title: "حل مشكلة اختفاء الآيات في الوضع الفاتح",
       isImage: false,
       icon: FontAwesomeIcons.palette,
-      description: '''
-تحسينات في مظهر التطبيق وامكانية التحكم الكامل فيه
-الإعدادات > إدارة ألوان التطبيق
-
-- لون التطبيق
-- الوضع المظلم أو الفاتح
-- استخدام material3
-- استخدام الوضع القديم للثيمات
-- تفعيل تحديد لون للخلفية مناسب للشاشات AMOLED لتوفير الطاقة عند استخدام اللون الأسود
-''',
-    ),
-    const Empty(
-      title: "إزالة تحديد الذكر بالأزرق عند تمامه",
-      isImage: false,
-      icon: FontAwesomeIcons.palette,
-    ),
-    const Empty(
-      title: "إزالة وميض الشاشة عند الضغط عليها",
-      isImage: false,
-      icon: FontAwesomeIcons.palette,
-    ),
-    const Empty(
-      title: "تعميم نوع الخط",
-      isImage: false,
-      icon: FontAwesomeIcons.font,
-      description: '''
-تعميم نوع الخط على التطبيق عدا الأذكار التي تحتوى آيات
-''',
-    ),
-    const Empty(
-      title: "تصويب الأخطاء التي وصلتنا",
-      isImage: false,
-      icon: Icons.bug_report,
     ),
   ];
 
