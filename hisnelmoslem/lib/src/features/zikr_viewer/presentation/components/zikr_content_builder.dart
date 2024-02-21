@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
-import 'package:hisnelmoslem/src/core/utils/range_text_formatter.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/quran/data/models/verse_range.dart';
-import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 
 class ZikrContentBuilder extends StatelessWidget {
   final DbContent dbContent;
@@ -81,24 +79,6 @@ class ZikrContentTextWithQuran extends StatelessWidget {
     this.color,
   });
 
-  Future<List<String>> getQuranText() async {
-    final List<String> textList = dbContent.content.split("\n");
-    final rangeText = textList.where((e) => e.contains("QuranText")).first;
-    final List<VerseRange> ranges = RangeTextFormatter.parse(rangeText);
-
-    final List<String> verses = [];
-    for (final range in ranges) {
-      final text = await uthmaniRepository.getArabicText(
-        sura: range.startSura,
-        startAyah: range.startAyah,
-        endAyah: range.endingAyah,
-      );
-      verses.add(text);
-    }
-
-    return verses;
-  }
-
   List<InlineSpan> getTextSpan(List<String> verses) {
     final List<String> lines = dbContent.content.split("\n");
 
@@ -150,7 +130,7 @@ class ZikrContentTextWithQuran extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getQuranText(),
+      future: dbContent.getQuranVersesText(),
       builder: (context, snap) {
         if (!snap.hasData) return const LinearProgressIndicator();
 
