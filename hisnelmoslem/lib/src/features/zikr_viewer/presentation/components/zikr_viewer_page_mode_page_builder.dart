@@ -62,7 +62,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               child: Text(
                 isDone ? "done".tr : "${dbContent.count}",
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.05),
                   fontSize: 250,
                   fontWeight: FontWeight.bold,
                 ),
