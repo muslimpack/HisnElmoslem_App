@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
@@ -22,21 +20,6 @@ class AzkarReadPage extends StatelessWidget {
     return GetBuilder<AzkarReadPageController>(
       init: AzkarReadPageController(index: index),
       builder: (controller) {
-        String? text = "";
-        String? source = "";
-        String? fadl = "";
-        int? cardNumber = 0;
-        if (!controller.isLoading) {
-          text = appData.isDiacriticsEnabled
-              ? controller.zikrContent[controller.currentPage].content
-              : controller
-                  .zikrContent[controller.currentPage].content.removeDiacritics;
-
-          source = controller.zikrContent[controller.currentPage].source;
-          fadl = controller.zikrContent[controller.currentPage].fadl;
-          cardNumber = controller.currentPage + 1;
-        }
-
         return controller.isLoading
             ? const Loading()
             : Scaffold(
@@ -71,7 +54,6 @@ class AzkarReadPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ZikrViewerPageBuilder(
                       index: index,
-                      source: source,
                       controller: controller,
                     );
                   },

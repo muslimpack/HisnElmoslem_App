@@ -9,12 +9,10 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/az
 class ZikrViewerPageBuilder extends StatelessWidget {
   const ZikrViewerPageBuilder({
     super.key,
-    required this.source,
     required this.controller,
     required this.index,
   });
 
-  final String? source;
   final int index;
   final AzkarReadPageController controller;
   @override
@@ -29,7 +27,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
       onLongPress: () {
         final snackBar = SnackBar(
           content: Text(
-            source!,
+            controller.activeZikr.source,
             textAlign: TextAlign.center,
             softWrap: true,
           ),
@@ -39,7 +37,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               // Some code to undo the change.
 
               await Clipboard.setData(
-                ClipboardData(text: source ?? ""),
+                ClipboardData(text: controller.activeZikr.source),
               );
               final snackBar = SnackBar(
                 content: Text("copied to clipboard".tr),
