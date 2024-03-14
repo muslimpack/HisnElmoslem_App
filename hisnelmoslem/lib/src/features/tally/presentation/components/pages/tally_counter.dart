@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
@@ -66,7 +67,7 @@ class TallyCounterView extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * .8,
                                 padding: const EdgeInsets.all(20),
                                 child: Text(
-                                  '${controller.counter}',
+                                  '${controller.counter}'.toArabicNumber(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(fontSize: 40),
                                 ),
@@ -81,13 +82,17 @@ class TallyCounterView extends StatelessWidget {
                                 startAngle: 270,
                                 infoProperties: InfoProperties(
                                   bottomLabelText:
-                                      '${"times".tr} | ${controller.circleValueTimes}',
+                                      '${"times".tr} | ${controller.circleValueTimes}'
+                                          .toArabicNumber(),
                                   bottomLabelStyle: const TextStyle(
                                     fontSize: 25,
                                   ),
                                   mainLabelStyle: const TextStyle(fontSize: 70),
                                   modifier: (double value) {
-                                    final circValue = value.round().toString();
+                                    final circValue = value
+                                        .round()
+                                        .toString()
+                                        .toArabicNumber();
                                     return circValue;
                                   },
                                 ),

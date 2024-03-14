@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
@@ -111,7 +112,8 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   child: Center(
                     child: Text(
                       controller.zikrContent[controller.currentPage].count
-                          .toString(),
+                          .toString()
+                          .toArabicNumber(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,

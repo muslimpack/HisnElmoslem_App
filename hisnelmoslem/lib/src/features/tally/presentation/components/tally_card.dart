@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/tally_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -75,7 +76,7 @@ class TallyCard extends StatelessWidget {
                 ],
               ),
               trailing: Text(
-                dbTally.count.toString(),
+                dbTally.count.toString().toArabicNumber(),
                 style: const TextStyle(
                   fontSize: 15,
                 ),

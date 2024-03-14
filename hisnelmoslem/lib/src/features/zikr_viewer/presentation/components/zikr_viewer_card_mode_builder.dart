@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
@@ -222,7 +223,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Text(
-                  dbContent.count.toString(),
+                  dbContent.count.toString().toArabicNumber(),
                   style: TextStyle(
                     fontSize: appData.fontSize * 8,
                     fontWeight: FontWeight.bold,

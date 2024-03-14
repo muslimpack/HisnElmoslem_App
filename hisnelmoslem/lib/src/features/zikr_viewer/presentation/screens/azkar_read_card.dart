@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
@@ -29,6 +30,14 @@ class AzkarReadCard extends StatelessWidget {
                   title: Text(
                     controller.zikrTitle!.name,
                   ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "${controller.zikrContent.length}".toArabicNumber(),
+                      ),
+                    ),
+                  ],
                   bottom: PreferredSize(
                     preferredSize: const Size(100, 5),
                     child: Stack(
@@ -38,17 +47,17 @@ class AzkarReadCard extends StatelessWidget {
                           valueColor: AlwaysStoppedAnimation<Color>(
                             Theme.of(context).colorScheme.primary,
                           ),
-                          backgroundColor: Colors.grey,
                         ),
                         LinearProgressIndicator(
+                          backgroundColor: Colors.transparent,
                           value: controller.totalProgress,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             Theme.of(context)
-                                .primaryColor
+                                .colorScheme
+                                .primary
                                 .withGreen(100)
                                 .withAlpha(100),
                           ),
-                          backgroundColor: Colors.transparent,
                         ),
                       ],
                     ),

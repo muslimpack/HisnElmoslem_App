@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -60,7 +61,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
-                isDone ? "done".tr : "${dbContent.count}",
+                isDone ? "done".tr : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary.withOpacity(.02),
                   fontSize: 250,

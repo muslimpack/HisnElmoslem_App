@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -49,10 +50,9 @@ class ScreenMenu extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Text(
-                              appVersion,
+                            Text(
+                              appVersion.toArabicNumber(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(),
                             ),
                             IconButton(
                               onPressed: () {
