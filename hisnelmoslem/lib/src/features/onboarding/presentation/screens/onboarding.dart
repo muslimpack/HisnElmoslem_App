@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/onboarding_controller.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -13,6 +15,10 @@ class OnBoardingPage extends StatelessWidget {
       init: OnBoardingController(),
       builder: (controller) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text(appVersion.toArabicNumber()),
+            centerTitle: true,
+          ),
           body: PageView.builder(
             physics: const BouncingScrollPhysics(),
             controller: controller.pageController,

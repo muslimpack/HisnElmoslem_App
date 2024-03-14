@@ -35,12 +35,13 @@ class OnBoardingController extends GetxController {
 // ''',
 //     ),
     const Empty(
-      title: "حل بعض المشكلات العاجلة",
+      title: "الجديد في هذا الإصدار",
       isImage: false,
-      icon: Icons.bug_report_sharp,
+      icon: Icons.new_releases,
       description: """
-- حل مشكلة اختفاء الآيات في الوضع الفاتح
-- حل مشكلة نسخ الأذكار التي تحتوي على نص قرآني
+- فصل فضل الذكر عن الذكر
+- إصلاح مشكلة صفحات القرآن في الوضع الفاتح
+- استخدام الأرقام الهندية بديلا عن الأرقام الإنجليزية في عدادات الأذكار
 """,
     ),
   ];
@@ -84,7 +85,7 @@ class OnBoardingController extends GetxController {
   /* *************** Functions *************** */
 
   /// Go to dashboard
-  /// and set app fisrt open to false
+  /// and set app first open to false
   void goToDashboard() {
     appData.changIsFirstOpenToThisRelease(value: false);
     transitionAnimation.circleRevalPushReplacement(

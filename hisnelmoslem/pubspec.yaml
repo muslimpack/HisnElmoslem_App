@@ -1,9 +1,9 @@
 name: hisnelmoslem
-description: A new Flutter project.
+description: Hisn Elmoslem.
 
 publish_to: "none"
 
-version: 2.7.01+22
+version: 2.7.02+23
 
 environment:
   # sdk: ">=2.12.0 <3.0.0"
