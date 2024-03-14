@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
@@ -70,19 +71,17 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           ),
           ListView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.all(15),
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
-                child: ZikrContentBuilder(
-                  dbContent: dbContent,
-                  enableDiacritics: appData.isDiacriticsEnabled,
-                  fontSize: appData.fontSize * 10,
-                ),
+              ZikrContentBuilder(
+                dbContent: dbContent,
+                enableDiacritics: appData.isDiacriticsEnabled,
+                fontSize: appData.fontSize * 10,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                child: Text(
+              if (dbContent.fadl.isNotEmpty) ...[
+                const SizedBox(height: 20),
+                const TextDivider(),
+                Text(
                   dbContent.fadl,
                   textAlign: TextAlign.center,
                   textDirection: TextDirection.rtl,
@@ -90,11 +89,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
                   style: TextStyle(
                     fontSize: appData.fontSize * 10,
                     height: 2,
-
-                    //fontSize: 20,
                   ),
                 ),
-              ),
+              ],
             ],
           ),
         ],
