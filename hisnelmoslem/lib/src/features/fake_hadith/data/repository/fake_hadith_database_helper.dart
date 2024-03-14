@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
@@ -20,8 +17,10 @@ class FakeHadithDatabaseHelper {
 
   static FakeHadithDatabaseHelper? _databaseHelper;
   static Database? _database;
+  static late final DBHelper _dbHelper;
 
   factory FakeHadithDatabaseHelper() {
+    _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
     _databaseHelper ??= FakeHadithDatabaseHelper._createInstance();
     return _databaseHelper!;
   }
@@ -29,86 +28,11 @@ class FakeHadithDatabaseHelper {
   FakeHadithDatabaseHelper._createInstance();
 
   Future<Database> get database async {
-    _database ??= await _initDatabase();
+    _database ??= await _dbHelper.initDatabase();
     return _database!;
   }
 
   /* ************* Database Creation ************* */
-
-  // init
-  Future<Database> _initDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, dbName);
-
-    final exist = await databaseExists(path);
-
-    //Check if database is already in that Directory
-    if (!exist) {
-      // Database isn't exist > Create new Database
-      await _copyFromAssets(path: path);
-    }
-
-    Database database = await openDatabase(path);
-
-    await database.getVersion().then((currentVersion) async {
-      if (currentVersion < dbVersion) {
-        database.close();
-
-        //delete the old database so you can copy the new one
-        await deleteDatabase(path);
-
-        // Database isn't exist > Create new Database
-        await _copyFromAssets(path: path);
-      }
-    });
-
-    return database = await openDatabase(
-      path,
-      version: dbVersion,
-      onCreate: _onCreateDatabase,
-      onUpgrade: _onUpgradeDatabase,
-      onDowngrade: _onDowngradeDatabase,
-    );
-  }
-
-  // On create database
-  FutureOr<void> _onCreateDatabase(Database db, int version) async {
-    //
-  }
-
-  // On upgrade database version
-  FutureOr<void> _onUpgradeDatabase(
-    Database db,
-    int oldVersion,
-    int newVersion,
-  ) {
-    //
-  }
-
-  // On downgrade database version
-  FutureOr<void> _onDowngradeDatabase(
-    Database db,
-    int oldVersion,
-    int newVersion,
-  ) {
-    //
-  }
-
-  // Copy database from assets to Database Directory of app
-  FutureOr<void> _copyFromAssets({required String path}) async {
-    //
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-
-      final ByteData data = await rootBundle.load(join("assets", "db", dbName));
-      final List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      await File(path).writeAsBytes(bytes, flush: true);
-    } catch (e) {
-      hisnPrint(e.toString());
-    }
-  }
 
   /* ************* Functions ************* */
 
