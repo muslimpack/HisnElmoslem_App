@@ -17,8 +17,8 @@ class TextDivider extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CircleAvatar(
-              radius: 3,
-              backgroundColor: Theme.of(context).textTheme.bodyLarge?.color,
+              radius: 5,
+              backgroundColor: Theme.of(context).dividerColor,
             ),
           ),
           const Expanded(
