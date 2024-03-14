@@ -51,17 +51,6 @@ class ThemeServices {
     }
   }
 
-  /// Check if current theme is dark
-  static bool isDarkMode() {
-    if (appThemeMode == AppThemeMode.dark ||
-        appThemeMode == AppThemeMode.defaultDark ||
-        appThemeMode == AppThemeMode.trueblack) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   /// toggle all themes
   static void changeThemeMode() {
     if (appThemeMode == AppThemeMode.yellowTheme) {

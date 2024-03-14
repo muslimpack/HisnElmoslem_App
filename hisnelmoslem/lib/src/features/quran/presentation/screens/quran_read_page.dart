@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
-import 'package:hisnelmoslem/src/features/themes/data/repository/theme_services.dart';
 
 class QuranReadPage extends StatelessWidget {
   final SurahNameEnum surahName;
@@ -22,7 +21,6 @@ class QuranReadPage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   centerTitle: true,
-                  backgroundColor: Colors.transparent,
                   title: Text(
                     () {
                       switch (controller.surahName) {
@@ -66,7 +64,8 @@ class QuranReadPage extends StatelessWidget {
                             child: ColorFiltered(
                               colorFilter: greyScale,
                               child: ColorFiltered(
-                                colorFilter: ThemeServices.isDarkMode()
+                                colorFilter: Theme.of(context).brightness ==
+                                        Brightness.dark
                                     ? invert
                                     : normal,
                                 child: Image.asset(
