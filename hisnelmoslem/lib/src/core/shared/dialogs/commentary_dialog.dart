@@ -11,7 +11,6 @@ Future<dynamic> showCommentaryDialog({
 }) async {
   // show the dialog
   return showDialog(
-    barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
       return CommentaryDialog(

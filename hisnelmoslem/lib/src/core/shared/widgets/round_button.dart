@@ -21,7 +21,7 @@ class RoundButton extends StatelessWidget {
       child: ElevatedButton(
         style: isTransparent
             ? ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
+                elevation: WidgetStateProperty.all(0),
               )
             : const ButtonStyle(),
         onPressed: onTap,

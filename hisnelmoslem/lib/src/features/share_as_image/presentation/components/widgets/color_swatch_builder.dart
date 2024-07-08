@@ -32,7 +32,6 @@ class ColorSwatchBuilder extends StatelessWidget {
             iconSize: 30,
             onPressed: () {
               showDialog(
-                barrierDismissible: true,
                 context: Get.context!,
                 builder: (BuildContext context) {
                   return Center(
