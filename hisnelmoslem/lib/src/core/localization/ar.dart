@@ -46,6 +46,8 @@ const Map<String, String> ar = {
   "general": "عام",
   "page mode": "وضعية الصفحات",
   "card mode": "وضعية البطاقات",
+  "useHindiDigits": "استخدام الأرقام الهندية",
+  "Requires app restart": "يتطلب إعادة تشغيل التطبيق",
   "theme manager": "إدارة ألوان التطبيق",
   "effect manager": "إدارة المؤثرات",
   "dashboard arrangement": "ترتيب الشاشة",

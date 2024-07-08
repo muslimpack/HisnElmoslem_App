@@ -194,4 +194,25 @@ class AppData {
       awesomeNotificationManager.cancelNotificationById(id: 777);
     }
   }
+
+  /* ******* Hinidi Digits ******* */
+
+  /// get Zikr Page mode
+  /// If it is true then
+  /// page mode will be card mode
+  /// if not page mode will be page
+  static const String useHindiDigitsKey = "useHindiDigits";
+  bool get useHindiDigits => box.read(useHindiDigitsKey) ?? false;
+
+  /// set Zikr Page mode
+  /// If it is true then
+  /// page mode will be card mode
+  /// if not page mode will be page
+  Future<void> changeUseHindiDigits({required bool use}) async =>
+      box.write(useHindiDigitsKey, use);
+
+  ///
+  void toggleUseHindiDigits() {
+    changeUseHindiDigits(use: !useHindiDigits);
+  }
 }
