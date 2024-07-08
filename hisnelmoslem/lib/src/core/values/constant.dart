@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //TODO App Version | Change every release
-const String appVersion = "2.7.02";
+const String appVersion = "2.8.0";
 
 //Invert Image Color
 const ColorFilter invert = ColorFilter.matrix(

@@ -3,7 +3,7 @@ description: Hisn Elmoslem.
 
 publish_to: "none"
 
-version: 2.7.02+23
+version: 2.8.0+24
 
 environment:
   # sdk: ">=2.12.0 <3.0.0"
