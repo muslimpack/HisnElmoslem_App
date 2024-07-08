@@ -14,10 +14,12 @@ class ScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       leading: !controller.isSearching
-          ? Image.asset(
-              'assets/images/app_icon.png',
-              width: 20,
-              height: 20,
+          ? Padding(
+              padding: const EdgeInsets.all(7),
+              child: Image.asset(
+                'assets/images/app_icon.png',
+                fit: BoxFit.cover,
+              ),
             )
           : IconButton(
               splashRadius: 20,
