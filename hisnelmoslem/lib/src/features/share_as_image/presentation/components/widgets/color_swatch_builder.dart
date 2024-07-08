@@ -73,7 +73,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                 },
               );
             },
-            icon: const Icon(MdiIcons.brush),
+            icon: Icon(MdiIcons.brush),
           ),
         ],
       ),

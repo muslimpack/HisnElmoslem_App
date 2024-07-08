@@ -83,7 +83,7 @@ class ScreenMenu extends StatelessWidget {
                     children: [
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(
+                          leading: Icon(
                             MdiIcons.counter,
                           ),
                           title: Text("tally".tr),
@@ -98,7 +98,7 @@ class ScreenMenu extends StatelessWidget {
                       const DrawerDivider(),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             "end sura Ali 'Imran".tr,
                           ),
@@ -114,7 +114,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text(
                             "sura Al-Kahf".tr,
                           ),
@@ -130,7 +130,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text("sura As-Sajdah".tr),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
@@ -144,7 +144,7 @@ class ScreenMenu extends StatelessWidget {
                       ),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.bookOpenPageVariant),
+                          leading: Icon(MdiIcons.bookOpenPageVariant),
                           title: Text("sura Al-Mulk".tr),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
@@ -185,7 +185,7 @@ class ScreenMenu extends StatelessWidget {
                       const DrawerDivider(),
                       DrawerCard(
                         child: ListTile(
-                          leading: const Icon(MdiIcons.gmail),
+                          leading: Icon(MdiIcons.gmail),
                           title: Text("contact to dev".tr),
                           onTap: () {
                             EmailManager.messageUS();

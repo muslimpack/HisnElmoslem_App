@@ -31,7 +31,7 @@ class TallyListView extends StatelessWidget {
                   children: [
                     FloatingActionButton(
                       heroTag: "add",
-                      child: const Icon(
+                      child: Icon(
                         MdiIcons.plus,
                         size: 40,
                       ),

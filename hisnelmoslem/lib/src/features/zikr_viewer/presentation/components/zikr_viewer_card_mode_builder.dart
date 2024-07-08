@@ -81,7 +81,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                 Expanded(
                   child: IconButton(
                     splashRadius: 20,
-                    icon: const Icon(MdiIcons.comment),
+                    icon: Icon(MdiIcons.comment),
                     onPressed: () {
                       showCommentaryDialog(
                         context: Get.context!,
@@ -93,7 +93,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                 Expanded(
                   child: IconButton(
                     splashRadius: 20,
-                    icon: const Icon(MdiIcons.camera),
+                    icon: Icon(MdiIcons.camera),
                     onPressed: () {
                       transitionAnimation.circleReval(
                         context: Get.context!,

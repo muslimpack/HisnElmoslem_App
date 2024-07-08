@@ -1,6 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -357,4 +356,13 @@ class AwesomeNotificationManager {
     // AwesomeNotifications().actionSink.close();
     // AwesomeNotifications().createdSink.close();
   }
+}
+
+class Time {
+  final int hour;
+  final int minute;
+  Time(
+    this.hour, [
+    this.minute = 0,
+  ]);
 }

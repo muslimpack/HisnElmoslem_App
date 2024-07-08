@@ -86,25 +86,25 @@ class ShareAsImage extends StatelessWidget {
                         icon: const Icon(Icons.share),
                       ),
                       IconButton(
-                        icon: const Icon(MdiIcons.restart),
+                        icon: Icon(MdiIcons.restart),
                         onPressed: () {
                           controller.resetFontSize();
                         },
                       ),
                       IconButton(
-                        icon: const Icon(MdiIcons.formatFontSizeIncrease),
+                        icon: Icon(MdiIcons.formatFontSizeIncrease),
                         onPressed: () {
                           controller.increaseFontSize();
                         },
                       ),
                       IconButton(
-                        icon: const Icon(MdiIcons.formatFontSizeDecrease),
+                        icon: Icon(MdiIcons.formatFontSizeDecrease),
                         onPressed: () {
                           controller.decreaseFontSize();
                         },
                       ),
                       IconButton(
-                        icon: const Icon(MdiIcons.abjadArabic),
+                        icon: Icon(MdiIcons.abjadArabic),
                         onPressed: () {
                           controller.toggleRemoveDiacritics();
                         },
@@ -113,7 +113,7 @@ class ShareAsImage extends StatelessWidget {
                         onPressed: () async {
                           controller.showImageWidthDialog();
                         },
-                        icon: const Icon(MdiIcons.resize),
+                        icon: Icon(MdiIcons.resize),
                       ),
                     ],
                   ),
