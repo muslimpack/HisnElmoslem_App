@@ -32,7 +32,6 @@ class ColorSwatchBuilder extends StatelessWidget {
             iconSize: 30,
             onPressed: () {
               showDialog(
-                barrierDismissible: true,
                 context: Get.context!,
                 builder: (BuildContext context) {
                   return Center(
@@ -74,7 +73,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                 },
               );
             },
-            icon: const Icon(MdiIcons.brush),
+            icon: Icon(MdiIcons.brush),
           ),
         ],
       ),

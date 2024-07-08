@@ -253,7 +253,6 @@ class ShareAsImageController extends GetxController {
   ///
   Future<void> showImageWidthDialog() async {
     await showDialog(
-      barrierDismissible: true,
       context: Get.context!,
       builder: (BuildContext context) {
         return ImageWidthDialog(

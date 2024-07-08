@@ -1,4 +1,3 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -155,7 +154,7 @@ class AppData {
         title: "صيام غدا الإثنين",
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: const Time(20),
+        time: Time(20),
         weekday: AwesomeDay.sunday.value,
         payload: "555",
         needToOpen: false,
@@ -165,7 +164,7 @@ class AppData {
         title: "صيام غدا الخميس",
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: const Time(20),
+        time: Time(20),
         weekday: AwesomeDay.wednesday.value,
         payload: "666",
         needToOpen: false,
@@ -184,7 +183,7 @@ class AppData {
         title: "sura Al-Kahf".tr,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
-        time: const Time(
+        time: Time(
           9,
         ),
         weekday: AwesomeDay.friday.value,

@@ -25,7 +25,7 @@ class FontSettingsToolbox extends StatelessWidget {
           visible: showFontResizeControllers,
           child: Expanded(
             child: IconButton(
-              icon: const Icon(MdiIcons.restart),
+              icon: Icon(MdiIcons.restart),
               onPressed: () {
                 appData.resetFontSize();
                 controllerToUpdate.update();
@@ -37,7 +37,7 @@ class FontSettingsToolbox extends StatelessWidget {
           visible: showFontResizeControllers,
           child: Expanded(
             child: IconButton(
-              icon: const Icon(MdiIcons.formatFontSizeIncrease),
+              icon: Icon(MdiIcons.formatFontSizeIncrease),
               onPressed: () {
                 appData.increaseFontSize();
                 controllerToUpdate.update();
@@ -49,7 +49,7 @@ class FontSettingsToolbox extends StatelessWidget {
           visible: showFontResizeControllers,
           child: Expanded(
             child: IconButton(
-              icon: const Icon(MdiIcons.formatFontSizeDecrease),
+              icon: Icon(MdiIcons.formatFontSizeDecrease),
               onPressed: () {
                 appData.decreaseFontSize();
                 controllerToUpdate.update();
@@ -61,7 +61,7 @@ class FontSettingsToolbox extends StatelessWidget {
           visible: showDiacriticsControllers,
           child: Expanded(
             child: IconButton(
-              icon: const Icon(MdiIcons.abjadArabic),
+              icon: Icon(MdiIcons.abjadArabic),
               onPressed: () {
                 appData.toggleDiacriticsStatus();
                 controllerToUpdate.update();

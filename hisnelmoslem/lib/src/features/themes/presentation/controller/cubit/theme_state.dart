@@ -31,7 +31,6 @@ class ThemeState extends Equatable {
       colorScheme: ColorScheme.fromSeed(
         seedColor: color,
         brightness: brightness,
-        background: overrideBackgroundColor ? backgroundColor : null,
         surface: overrideBackgroundColor ? backgroundColor : null,
       ),
       useMaterial3: useMaterial3,

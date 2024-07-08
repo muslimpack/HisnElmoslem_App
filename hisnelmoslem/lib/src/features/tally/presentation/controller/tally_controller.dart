@@ -196,7 +196,6 @@ class TallyController extends GetxController {
   /// CURD
   Future<void> createNewTally() async {
     await showDialog(
-      barrierDismissible: true,
       context: Get.context!,
       builder: (BuildContext context) {
         return TallyDialog(
@@ -214,7 +213,6 @@ class TallyController extends GetxController {
 
   Future<void> updateTallyById(DbTally dbTally) async {
     await showDialog(
-      barrierDismissible: true,
       context: Get.context!,
       builder: (BuildContext context) {
         return TallyDialog(

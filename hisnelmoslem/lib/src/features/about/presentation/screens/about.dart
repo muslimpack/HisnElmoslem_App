@@ -34,11 +34,11 @@ class About extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(MdiIcons.handClap),
+            leading: Icon(MdiIcons.handClap),
             title: Text("Pray for us and our parents.".tr),
           ),
           ListTile(
-            leading: const Icon(MdiIcons.bookOpenPageVariant),
+            leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text("Quran pages is from android quran".tr),
             onTap: () {
               openURL("https://android.quran.com/");
@@ -56,7 +56,7 @@ class About extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(MdiIcons.web),
+            leading: Icon(MdiIcons.web),
             title: Text("Official Website".tr),
             subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
             onTap: () {
@@ -64,7 +64,7 @@ class About extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(MdiIcons.github),
+            leading: Icon(MdiIcons.github),
             title: Text("Github".tr),
             onTap: () async {
               await openURL(
