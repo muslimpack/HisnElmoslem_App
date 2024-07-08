@@ -112,26 +112,15 @@ class Settings extends StatelessWidget {
                   );
                 },
               ),
-              Card(
-                color: Colors.amber.withOpacity(.1),
-                margin: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: Column(
-                  children: [
-                    SwitchListTile(
-                      value: appData.useHindiDigits,
-                      title: Text("useHindiDigits".tr),
-                      onChanged: (value) {
-                        appData.toggleUseHindiDigits();
-                        controller.update();
-                      },
-                    ),
-                    Text("Requires app restart".tr),
-                    const SizedBox(height: 10),
-                  ],
-                ),
+              SwitchListTile(
+                tileColor: Colors.amber.withOpacity(.1),
+                value: appData.useHindiDigits,
+                title: Text("useHindiDigits".tr),
+                subtitle: Text("Requires app restart".tr),
+                onChanged: (value) {
+                  appData.toggleUseHindiDigits();
+                  controller.update();
+                },
               ),
               const Divider(),
               Title(title: "font settings".tr),
