@@ -143,6 +143,8 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                   value: Time(hour: _time.hour, minute: _time.minute),
                   onChange: onTimeChanged,
                   iosStylePicker: true,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
                   // Optional onChange to receive value as DateTime
                   onChangeDateTime: (DateTime dateTime) {},
                 ) as Route,
@@ -162,10 +164,10 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
               iconSize: 30,
               underline: const SizedBox(),
               borderRadius: BorderRadius.circular(20),
-              style: TextStyle(
-                color: Theme.of(context).listTileTheme.textColor,
-              ),
-              dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+              // style: TextStyle(
+              //   color: Theme.of(context).listTileTheme.textColor,
+              // ),
+              // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
               onChanged: (String? newValue) {
                 setState(() {
                   repeatType = newValue!;
