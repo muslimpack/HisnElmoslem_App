@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/footer_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/header_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/more_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/quran_section.dart';
@@ -71,21 +72,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Divider(),
-              DrawerCard(
-                child: ListTile(
-                  leading: const Icon(Icons.close),
-                  title: Text("close".tr),
-                  onTap: () {
-                    controller.toggleDrawer();
-                  },
-                ),
-              ),
-            ],
-          ),
+          FooterSection(controller: controller),
         ],
       ),
     );
