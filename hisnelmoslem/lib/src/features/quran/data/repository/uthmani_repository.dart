@@ -57,7 +57,7 @@ ORDER BY ayah;
     return maps.map((e) => Verse.fromMap(e)).fold(
           "",
           (previousValue, element) =>
-              "$previousValue ${element.text} ${element.ayah.toArabicNumber()}",
+              "$previousValue ${element.text} ${element.ayah.toArabicNumberString()}",
         );
   }
 
