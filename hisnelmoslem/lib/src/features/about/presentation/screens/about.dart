@@ -68,7 +68,7 @@ class About extends StatelessWidget {
             title: Text("Github".tr),
             onTap: () async {
               await openURL(
-                'https://github.com/muslimpack/HisnElmoslem_App',
+                kOrgGithub,
               );
             },
           ),

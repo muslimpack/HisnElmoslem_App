@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
-  static const String emailOwner = "muslimpack.org@gmail.com";
+  static const String emailOwner = kOrgEmail;
 
   static Future<void> sendFeedbackForm() async {
     // Feedback form
@@ -112,7 +112,8 @@ ${"It should be:".tr}:
     required String subject,
     required String body,
   }) async {
-    final url = 'mailto:$toMailId?subject=$subject&body=$body';
+    final subject0 = "V::$appVersion\n\n$subject";
+    final url = 'mailto:$toMailId?subject=$subject0&body=$body';
     try {
       if (await canLaunchUrl(Uri.parse(url))) {
         await launchUrl(Uri.parse(url));

@@ -64,3 +64,5 @@ final List<Color> shareAsImageColorsList = [
 
 const String kEstaaza = "أَعُوذُ بِاَللَّهِ مِنْ الشَّيْطَانِ الرَّجِيمِ";
 const String kArBasmallah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+const String kOrgEmail = "muslimpack.org@gmail.com";
+const String kOrgGithub = "https://github.com/muslimpack/HisnElmoslem_App";

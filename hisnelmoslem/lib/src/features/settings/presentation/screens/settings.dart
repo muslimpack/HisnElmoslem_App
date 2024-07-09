@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/sounds_manager_page.dart';
@@ -228,7 +229,7 @@ class Settings extends StatelessWidget {
                 title: Text("Github".tr),
                 onTap: () async {
                   await openURL(
-                    'https://github.com/muslimpack/HisnElmoslem_App',
+                    kOrgGithub,
                   );
                 },
               ),
