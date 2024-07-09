@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
@@ -9,13 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
   static const String emailOwner = kOrgEmail;
-
-  static Future<void> sendFeedbackForm() async {
-    // Feedback form
-    await openURL(
-      'https://docs.google.com/forms/d/e/1FAIpQLSclKHlDGE-rwhllyHavhvx9EhFdwqL1kSCZWPPlpGPCn7o4fQ/viewform?usp=sf_link',
-    );
-  }
 
   static void sendFeedbackEmail() {
     sendEmail(

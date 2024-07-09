@@ -210,13 +210,6 @@ class Settings extends StatelessWidget {
               /**/
               Title(title: 'contact'.tr),
               ListTile(
-                leading: const Icon(Icons.star),
-                title: Text("report bugs and request new features".tr),
-                onTap: () {
-                  EmailManager.sendFeedbackForm();
-                },
-              ),
-              ListTile(
                 leading: Icon(MdiIcons.gmail),
                 title: Text("send email".tr),
                 onTap: () {
