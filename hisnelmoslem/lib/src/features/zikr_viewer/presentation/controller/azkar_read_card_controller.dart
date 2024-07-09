@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -33,8 +34,9 @@ class AzkarReadCardController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
 
-    //
-    Wakelock.enable();
+    if (appData.enableWakeLock) {
+      Wakelock.enable();
+    }
 
     //
     await getReady();
