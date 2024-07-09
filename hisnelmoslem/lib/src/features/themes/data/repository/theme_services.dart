@@ -89,14 +89,14 @@ class ThemeServices {
             useMaterial3: ThemeRepo.getUseMaterial3(),
             brightness: ThemeRepo.getBrightness(),
             colorSchemeSeed: ThemeRepo.getColor(),
-            fontFamily: appData.fontFamily,
+            fontFamily: AppData.instance.fontFamily,
           )
         : ThemeData(
             colorScheme: ColorScheme.fromSeed(
               seedColor: ThemeRepo.getColor(),
               brightness: ThemeRepo.getBrightness(),
             ),
-            fontFamily: appData.fontFamily,
+            fontFamily: AppData.instance.fontFamily,
             useMaterial3: ThemeRepo.getUseMaterial3(),
           );
   }

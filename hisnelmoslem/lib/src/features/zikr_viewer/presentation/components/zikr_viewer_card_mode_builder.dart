@@ -32,7 +32,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dbContent = controller.zikrContent[index];
-    final String text = appData.isDiacriticsEnabled
+    final String text = AppData.instance.isDiacriticsEnabled
         ? dbContent.content
         : dbContent.content.removeDiacritics;
     final String source = dbContent.source;
@@ -197,8 +197,8 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                 children: [
                   ZikrContentBuilder(
                     dbContent: dbContent,
-                    enableDiacritics: appData.isDiacriticsEnabled,
-                    fontSize: appData.fontSize * 10,
+                    enableDiacritics: AppData.instance.isDiacriticsEnabled,
+                    fontSize: AppData.instance.fontSize * 10,
                   ),
                   if (dbContent.fadl.isNotEmpty) ...[
                     const SizedBox(height: 20),
@@ -209,7 +209,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                       softWrap: true,
                       style: TextStyle(
-                        fontSize: appData.fontSize * 8,
+                        fontSize: AppData.instance.fontSize * 8,
                         height: 2,
                       ),
                     ),
@@ -225,7 +225,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                 child: Text(
                   dbContent.count.toString().toArabicNumber(),
                   style: TextStyle(
-                    fontSize: appData.fontSize * 8,
+                    fontSize: AppData.instance.fontSize * 8,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

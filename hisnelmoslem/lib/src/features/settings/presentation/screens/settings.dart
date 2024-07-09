@@ -37,12 +37,12 @@ class Settings extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               Title(title: "general".tr),
-              if (!appData.isCardReadMode)
+              if (!AppData.instance.isCardReadMode)
                 ListTile(
                   leading: Icon(MdiIcons.bookOpenPageVariant),
                   title: Text("page mode".tr),
                   onTap: () {
-                    appData.toggleReadModeStatus();
+                    AppData.instance.toggleReadModeStatus();
                     controller.update();
                   },
                 )
@@ -51,7 +51,7 @@ class Settings extends StatelessWidget {
                   leading: Icon(MdiIcons.card),
                   title: Text("card mode".tr),
                   onTap: () {
-                    appData.toggleReadModeStatus();
+                    AppData.instance.toggleReadModeStatus();
                     controller.update();
                   },
                 ),
@@ -114,20 +114,20 @@ class Settings extends StatelessWidget {
                 },
               ),
               SwitchListTile(
-                value: appData.enableWakeLock,
+                value: AppData.instance.enableWakeLock,
                 title: Text("enableWakeLock".tr),
                 onChanged: (value) {
-                  appData.toggleEnableWakeLock();
+                  AppData.instance.toggleEnableWakeLock();
                   controller.update();
                 },
               ),
               SwitchListTile(
                 tileColor: Colors.amber.withOpacity(.1),
-                value: appData.useHindiDigits,
+                value: AppData.instance.useHindiDigits,
                 title: Text("useHindiDigits".tr),
                 subtitle: Text("Requires app restart".tr),
                 onChanged: (value) {
-                  appData.toggleUseHindiDigits();
+                  AppData.instance.toggleUseHindiDigits();
                   controller.update();
                 },
               ),
@@ -162,11 +162,11 @@ class Settings extends StatelessWidget {
                   ),
                   title: Text("fasting mondays and thursdays reminder".tr),
                 ),
-                value: appData.isFastAlarmEnabled,
+                value: AppData.instance.isFastAlarmEnabled,
                 onChanged: (value) {
-                  appData.changFastAlarmStatus(value: value);
+                  AppData.instance.changFastAlarmStatus(value: value);
 
-                  if (appData.isFastAlarmEnabled) {
+                  if (AppData.instance.isFastAlarmEnabled) {
                     getSnackbar(
                       message:
                           "${"activate".tr} | ${"fasting mondays and thursdays reminder".tr}",
@@ -188,11 +188,11 @@ class Settings extends StatelessWidget {
                   ),
                   title: Text("sura Al-Kahf reminder".tr),
                 ),
-                value: appData.isCaveAlarmEnabled,
+                value: AppData.instance.isCaveAlarmEnabled,
                 onChanged: (value) {
-                  appData.changCaveAlarmStatus(value: value);
+                  AppData.instance.changCaveAlarmStatus(value: value);
 
-                  if (appData.isCaveAlarmEnabled) {
+                  if (AppData.instance.isCaveAlarmEnabled) {
                     getSnackbar(
                       message:
                           "${"activate".tr} | ${"sura Al-Kahf reminder".tr}",

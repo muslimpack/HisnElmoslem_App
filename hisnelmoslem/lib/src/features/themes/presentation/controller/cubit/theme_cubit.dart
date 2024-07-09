@@ -14,7 +14,7 @@ class ThemeCubit extends Cubit<ThemeState> {
             color: ThemeRepo.getColor(),
             useMaterial3: ThemeRepo.getUseMaterial3(),
             useOldTheme: ThemeRepo.getUseOldTheme(),
-            fontFamily: appData.fontFamily,
+            fontFamily: AppData.instance.fontFamily,
             backgroundColor: ThemeRepo.getBackgroundColor(),
             overrideBackgroundColor: ThemeRepo.getOverrideBackgroundColor(),
           ),
@@ -59,7 +59,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   Future<void> changeFontFamily(String fontFamily) async {
-    await appData.changFontFamily(fontFamily);
+    await AppData.instance.changFontFamily(fontFamily);
     emit(state.copyWith(fontFamily: fontFamily));
   }
 }

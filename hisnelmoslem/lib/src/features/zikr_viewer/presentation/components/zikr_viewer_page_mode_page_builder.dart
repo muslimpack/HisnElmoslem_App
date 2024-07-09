@@ -76,8 +76,8 @@ class ZikrViewerPageBuilder extends StatelessWidget {
             children: [
               ZikrContentBuilder(
                 dbContent: dbContent,
-                enableDiacritics: appData.isDiacriticsEnabled,
-                fontSize: appData.fontSize * 10,
+                enableDiacritics: AppData.instance.isDiacriticsEnabled,
+                fontSize: AppData.instance.fontSize * 10,
               ),
               if (dbContent.fadl.isNotEmpty) ...[
                 const SizedBox(height: 20),
@@ -88,7 +88,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   softWrap: true,
                   style: TextStyle(
-                    fontSize: appData.fontSize * 8,
+                    fontSize: AppData.instance.fontSize * 8,
                     height: 2,
                   ),
                 ),

@@ -157,7 +157,7 @@ class TitleCard extends StatelessWidget {
           ),
           // trailing: Text(zikrList[index]),
           onTap: () {
-            if (!appData.isCardReadMode) {
+            if (!AppData.instance.isCardReadMode) {
               transitionAnimation.circleReval(
                 context: Get.context!,
                 goToPage: AzkarReadPage(index: fehrsTitle.id),

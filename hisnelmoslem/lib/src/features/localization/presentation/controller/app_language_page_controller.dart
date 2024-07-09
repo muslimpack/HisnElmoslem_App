@@ -22,12 +22,12 @@ class AppLanguagePageController extends GetxController {
   /* *************** Functions *************** */
 
   /// get Tally Transition Vibrate mode
-  String get activeFont => appData.fontFamily;
+  String get activeFont => AppData.instance.fontFamily;
 
   /// set Tally  Transition Vibrate mode
   void changeAppLanguage(String value) {
     Get.updateLocale(Locale(value));
-    appData.changAppLocale(value);
+    AppData.instance.changAppLocale(value);
     Intl.defaultLocale = value;
     update();
   }

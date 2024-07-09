@@ -131,7 +131,7 @@ class HadithCard extends StatelessWidget {
                 softWrap: true,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                  fontSize: appData.fontSize * 10,
+                  fontSize: AppData.instance.fontSize * 10,
                 ),
               ),
             ),
@@ -143,7 +143,7 @@ class HadithCard extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 softWrap: true,
                 style: TextStyle(
-                  fontSize: appData.fontSize * 10,
+                  fontSize: AppData.instance.fontSize * 10,
 
                   //fontSize: 20,
                 ),

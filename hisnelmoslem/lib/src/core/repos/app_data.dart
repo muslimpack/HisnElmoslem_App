@@ -4,10 +4,15 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 
-AppData appData = AppData();
-
 class AppData {
   final box = GetStorage();
+
+  static final AppData instance = AppData._();
+
+  factory AppData() {
+    return instance;
+  }
+  AppData._();
 
   /* ******* Azkar Read Mode ******* */
 

@@ -50,7 +50,7 @@ class AzkarReadPageController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     //
-    if (appData.enableWakeLock) {
+    if (AppData.instance.enableWakeLock) {
       Wakelock.enable();
     }
 

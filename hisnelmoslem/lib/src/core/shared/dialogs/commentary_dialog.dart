@@ -120,7 +120,7 @@ class CommentaryPageView extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: SelectableText(
             text,
-            style: TextStyle(fontSize: appData.fontSize * 10),
+            style: TextStyle(fontSize: AppData.instance.fontSize * 10),
           ),
         ),
       ],

@@ -141,7 +141,7 @@ class DashboardController extends GetxController
     else {
       final int pageIndex = int.parse(payload);
       //
-      if (appData.isCardReadMode) {
+      if (AppData.instance.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
           context: Get.context!,
           goToPage: AzkarReadCard(index: pageIndex),

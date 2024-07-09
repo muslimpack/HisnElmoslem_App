@@ -6,7 +6,7 @@ extension ObjectExtension on Object {
   ///
   /// Considers [UseHindiDigits] in [Settings]
   String toArabicNumber() {
-    final useHindiDigits = appData.useHindiDigits;
+    final useHindiDigits = AppData.instance.useHindiDigits;
     return useHindiDigits ? ArabicNumbers.convert(toString()) : toString();
   }
 

@@ -91,7 +91,7 @@ class OnBoardingController extends GetxController {
   /// Go to dashboard
   /// and set app first open to false
   void goToDashboard() {
-    appData.changIsFirstOpenToThisRelease(value: false);
+    AppData.instance.changIsFirstOpenToThisRelease(value: false);
     transitionAnimation.circleRevalPushReplacement(
       context: Get.context!,
       goToPage: const AzkarDashboard(),

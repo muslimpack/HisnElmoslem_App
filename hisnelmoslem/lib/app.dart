@@ -48,7 +48,7 @@ class MyAppState extends State<MyApp> {
           return GetMaterialApp(
             // Translation
             translations: HisnAppTranslation(),
-            locale: Locale(appData.appLocale),
+            locale: Locale(AppData.instance.appLocale),
             fallbackLocale: const Locale("ar"),
             //
             localizationsDelegates: const [
@@ -62,7 +62,7 @@ class MyAppState extends State<MyApp> {
 
             // home: const AzkarDashboard(),
 
-            home: appData.isFirstOpenToThisRelease
+            home: AppData.instance.isFirstOpenToThisRelease
                 ? const OnBoardingPage()
                 : const AzkarDashboard(),
           );

@@ -27,7 +27,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
               icon: Icon(MdiIcons.restart),
               onPressed: () {
-                appData.resetFontSize();
+                AppData.instance.resetFontSize();
                 controllerToUpdate.update();
               },
             ),
@@ -39,7 +39,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
               icon: Icon(MdiIcons.formatFontSizeIncrease),
               onPressed: () {
-                appData.increaseFontSize();
+                AppData.instance.increaseFontSize();
                 controllerToUpdate.update();
               },
             ),
@@ -51,7 +51,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
               icon: Icon(MdiIcons.formatFontSizeDecrease),
               onPressed: () {
-                appData.decreaseFontSize();
+                AppData.instance.decreaseFontSize();
                 controllerToUpdate.update();
               },
             ),
@@ -63,7 +63,7 @@ class FontSettingsToolbox extends StatelessWidget {
             child: IconButton(
               icon: Icon(MdiIcons.abjadArabic),
               onPressed: () {
-                appData.toggleDiacriticsStatus();
+                AppData.instance.toggleDiacriticsStatus();
                 controllerToUpdate.update();
               },
             ),
@@ -90,12 +90,14 @@ class TextSample extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Center(
             child: Text(
-              appData.isDiacriticsEnabled ? text : text.removeDiacritics,
+              AppData.instance.isDiacriticsEnabled
+                  ? text
+                  : text.removeDiacritics,
               textAlign: TextAlign.center,
               softWrap: true,
               textDirection: TextDirection.rtl,
               style: TextStyle(
-                fontSize: appData.fontSize * 10,
+                fontSize: AppData.instance.fontSize * 10,
               ),
             ),
           ),

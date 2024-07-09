@@ -162,9 +162,10 @@ class FavouriteZikr extends StatelessWidget {
                                       padding: const EdgeInsets.all(10),
                                       child: ZikrContentBuilder(
                                         dbContent: dbContent,
-                                        enableDiacritics:
-                                            appData.isDiacriticsEnabled,
-                                        fontSize: appData.fontSize * 10,
+                                        enableDiacritics: AppData
+                                            .instance.isDiacriticsEnabled,
+                                        fontSize:
+                                            AppData.instance.fontSize * 10,
                                       ),
                                     ),
                                     if (dbContent.fadl == "")
@@ -176,7 +177,8 @@ class FavouriteZikr extends StatelessWidget {
                                           dbContent.fadl,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontSize: appData.fontSize * 10,
+                                            fontSize:
+                                                AppData.instance.fontSize * 10,
 
                                             //fontSize: 20,
                                           ),
@@ -207,7 +209,8 @@ class FavouriteZikr extends StatelessWidget {
                                             icon: const Icon(Icons.repeat),
                                           ),
                                           onTap: () {
-                                            if (!appData.isCardReadMode) {
+                                            if (!AppData
+                                                .instance.isCardReadMode) {
                                               transitionAnimation.circleReval(
                                                 context: Get.context!,
                                                 goToPage: AzkarReadPage(
