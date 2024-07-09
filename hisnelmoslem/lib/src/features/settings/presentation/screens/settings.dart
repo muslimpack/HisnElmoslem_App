@@ -113,6 +113,14 @@ class Settings extends StatelessWidget {
                 },
               ),
               SwitchListTile(
+                value: appData.enableWakeLock,
+                title: Text("enableWakeLock".tr),
+                onChanged: (value) {
+                  appData.toggleEnableWakeLock();
+                  controller.update();
+                },
+              ),
+              SwitchListTile(
                 tileColor: Colors.amber.withOpacity(.1),
                 value: appData.useHindiDigits,
                 title: Text("useHindiDigits".tr),

@@ -197,22 +197,25 @@ class AppData {
 
   /* ******* Hinidi Digits ******* */
 
-  /// get Zikr Page mode
-  /// If it is true then
-  /// page mode will be card mode
-  /// if not page mode will be page
   static const String useHindiDigitsKey = "useHindiDigits";
   bool get useHindiDigits => box.read(useHindiDigitsKey) ?? false;
 
-  /// set Zikr Page mode
-  /// If it is true then
-  /// page mode will be card mode
-  /// if not page mode will be page
   Future<void> changeUseHindiDigits({required bool use}) async =>
-      box.write(useHindiDigitsKey, use);
+      await box.write(useHindiDigitsKey, use);
 
-  ///
-  void toggleUseHindiDigits() {
-    changeUseHindiDigits(use: !useHindiDigits);
+  Future toggleUseHindiDigits() async {
+    await changeUseHindiDigits(use: !useHindiDigits);
+  }
+
+  /* ******* Hinidi Digits ******* */
+
+  static const String enableWakeLockKey = "enableWakeLock";
+  bool get enableWakeLock => box.read(enableWakeLockKey) ?? false;
+
+  Future<void> changeEnableWakeLock({required bool use}) async =>
+      box.write(enableWakeLockKey, use);
+
+  void toggleEnableWakeLock() {
+    changeEnableWakeLock(use: !enableWakeLock);
   }
 }

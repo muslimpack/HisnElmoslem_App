@@ -48,6 +48,7 @@ const Map<String, String> en = {
   "card mode": "Card Mode",
   "useHindiDigits": "Use Hindi Digits",
   "Requires app restart": "Requires app restart",
+  "enableWakeLock": "Enable wake lock",
   "theme manager": "Theme Control",
   "effect manager": "Effect Control",
   "dashboard arrangement": "Dashboard Arrangement",
