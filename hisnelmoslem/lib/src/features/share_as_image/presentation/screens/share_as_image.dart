@@ -30,6 +30,30 @@ class ShareAsImage extends StatelessWidget {
                   actions: [
                     IconButton(
                       onPressed: () async {
+                        await showDialog(
+                          barrierColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: SizedBox(
+                                width: 350,
+                                height: 450,
+                                child: Card(
+                                  clipBehavior: Clip.hardEdge,
+                                  elevation: 10,
+                                  child: ShareAsImageSettings(
+                                    shareAsImageController: controller,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.style),
+                    ),
+                    IconButton(
+                      onPressed: () async {
                         controller.shareImage();
                       },
                       icon: const Icon(Icons.share),
@@ -68,9 +92,6 @@ class ShareAsImage extends StatelessWidget {
                             dbContent: controller.dbContent,
                           ),
                         ),
-                      ),
-                      SettingsSheet(
-                        shareAsImageController: controller,
                       ),
                     ],
                   ),
