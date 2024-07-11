@@ -91,7 +91,7 @@ const Map<String, String> ar = {
   /// Reminders manager
   "no reminders found": "لا يوجد أي منبهات",
   "no alarm has been set for any zikr if you want to set an alarm, click on the alarm sign next to the zikr title":
-      "لم يتم تعيين منبة لأي ذكر\nإذا أردت تعيين منبة قم بالضغط على علامة المنبة ⏰ بجوار عنوان الذكر",
+      "لم يتم تعيين منبه لأي ذكر\nإذا أردت تعيين منبه قم بالضغط على علامة المنبه ⏰ بجوار عنوان الذكر",
 
   /// About page
   "Hisn ELmoslem App Version": "تطبيق حصن المسلم الإصدار",
@@ -124,7 +124,7 @@ const Map<String, String> ar = {
 
   "please choose time for the reminder": "اختر وقتا للتذكير",
   "edit reminder": "تعديل تنبيه",
-  "add reminder": "اضافة تنبيه",
+  "add reminder": "إضافة تنبيه",
 
   "yes": "نعم",
   "no": "لا",
