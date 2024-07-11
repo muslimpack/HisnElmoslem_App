@@ -18,9 +18,8 @@ class DialogMaker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: EdgeInsets.zero,
-      content: Container(
+    return Dialog(
+      child: Container(
         clipBehavior: Clip.hardEdge,
         width: 350.0,
         height: height,
@@ -36,23 +35,25 @@ class DialogMaker extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: header,
               ),
-              const Divider(),
+              const Divider(height: 0),
 
               /// Content
               Expanded(
-                child: Padding(
-                  padding: contentPadding,
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: content,
+                child: Center(
+                  child: Padding(
+                    padding: contentPadding,
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      children: content,
+                    ),
                   ),
                 ),
               ),
 
               /// Footer
-              const Divider(),
+              const Divider(height: 0),
               footer,
             ],
           ),
