@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/migration.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/notification_manager.dart';
 
 Future<void> initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +21,6 @@ Future<void> initServices() async {
     await Migration.start();
     await awesomeNotificationManager.init();
     await alarmManager.checkAllAlarmsInDb();
-    await localNotifyManager.cancelAllNotifications();
     await awesomeNotificationManager.appOpenNotification();
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
