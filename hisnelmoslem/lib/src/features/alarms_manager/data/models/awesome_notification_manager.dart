@@ -1,4 +1,4 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:awesome_notifications';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
@@ -121,6 +121,7 @@ class AwesomeNotificationManager {
     });
   }
 
+  @pragma("vm:entry-point")
   static Future<void> onActionReceivedMethod(
     ReceivedAction receivedAction,
   ) async {
