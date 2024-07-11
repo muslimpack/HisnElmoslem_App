@@ -199,7 +199,7 @@ const Map<String, String> ar = {
   "Image width": "عرض الصورة",
 
   "Go to": "الذهاب إلى",
-  'Dismiss': "تفويت",
+  'Dismiss': "لاحقا",
   'Start': "ابدأ",
   "You haven't opened the app for a long time.": 'لم تفتح التطبيق منذ فترة',
 
