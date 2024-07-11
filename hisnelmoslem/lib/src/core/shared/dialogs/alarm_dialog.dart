@@ -128,7 +128,9 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           ),
         ),
         Card(
+          clipBehavior: Clip.hardEdge,
           child: ListTile(
+            leading: const Icon(Icons.alarm),
             title: Text(
               selectedHour == null
                   ? "click to choose time".tr
@@ -153,48 +155,45 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           ),
         ),
         Card(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-            ),
-            child: DropdownButton<String>(
-              value: repeatType,
-              isExpanded: true,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 30,
-              underline: const SizedBox(),
-              borderRadius: BorderRadius.circular(20),
-              // style: TextStyle(
-              //   color: Theme.of(context).listTileTheme.textColor,
-              // ),
-              // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-              onChanged: (String? newValue) {
-                setState(() {
-                  repeatType = newValue!;
-                });
-              },
-              items: <String>[
-                "daily".tr,
-                "every saturday".tr,
-                "every sunday".tr,
-                "every monday".tr,
-                "every tuesday".tr,
-                "every wednesday".tr,
-                "every thursday".tr,
-                "every Friday".tr,
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  // alignment: Alignment.center,
+          clipBehavior: Clip.hardEdge,
+          child: DropdownButton<String>(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            value: repeatType,
+            isExpanded: true,
+            icon: const Icon(Icons.arrow_drop_down),
+            iconSize: 30,
 
-                  value: value,
-                  child: Text(
-                    value,
+            underline: const SizedBox(),
+            // style: TextStyle(
+            //   color: Theme.of(context).listTileTheme.textColor,
+            // ),
+            // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+            onChanged: (String? newValue) {
+              setState(() {
+                repeatType = newValue!;
+              });
+            },
+            items: <String>[
+              "daily".tr,
+              "every saturday".tr,
+              "every sunday".tr,
+              "every monday".tr,
+              "every tuesday".tr,
+              "every wednesday".tr,
+              "every thursday".tr,
+              "every Friday".tr,
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                // alignment: Alignment.center,
 
-                    // textAlign: TextAlign.center,
-                  ),
-                );
-              }).toList(),
-            ),
+                value: value,
+                child: Text(
+                  value,
+
+                  // textAlign: TextAlign.center,
+                ),
+              );
+            }).toList(),
           ),
         ),
       ],
