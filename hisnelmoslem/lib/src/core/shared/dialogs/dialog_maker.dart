@@ -19,44 +19,42 @@ class DialogMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
-        clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.hardEdge,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      child: SizedBox(
         width: 350.0,
         height: height,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        ),
-        child: Scaffold(
-          body: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              /// Header
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: header,
-              ),
-              const Divider(height: 0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            /// Header
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: header,
+            ),
+            const Divider(height: 0),
 
-              /// Content
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: contentPadding,
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: content,
-                    ),
+            /// Content
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: contentPadding,
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: content,
                   ),
                 ),
               ),
+            ),
 
-              /// Footer
-              const Divider(height: 0),
-              footer,
-            ],
-          ),
+            /// Footer
+            const Divider(height: 0),
+            footer,
+          ],
         ),
       ),
     );
