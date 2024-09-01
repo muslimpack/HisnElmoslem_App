@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
-import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
@@ -14,68 +13,16 @@ AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();
 
 class AwesomeNotificationManager {
-  Future<void> checkIfAllowed(BuildContext context) async {
-    try {
-      await AwesomeNotifications().isNotificationAllowed().then(
-        (isAllowed) {
-          if (!LocalRepo.instance.allowNotificationDialog) return;
-          if (!isAllowed) {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                title: Text("Allow app to send notifications?".tr),
-                content: Text(
-                  "Hisn ELmoslem need notification permission to send zikr reminders."
-                      .tr,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Later".tr,
-                      style: const TextStyle(color: Colors.grey, fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      LocalRepo.instance.allowNotificationDialogChange(false);
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "no".tr,
-                      style: const TextStyle(color: Colors.grey, fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => AwesomeNotifications()
-                        .requestPermissionToSendNotifications()
-                        .then((_) => Navigator.pop(context)),
-                    child: Text(
-                      "Allow".tr,
-                      style: const TextStyle(
-                        color: Colors.teal,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
-      );
-    } catch (e) {
-      hisnPrint(e);
-    }
-  }
-
   Future<void> init() async {
     try {
+      await AwesomeNotifications()
+          .isNotificationAllowed()
+          .then((isAllowed) async {
+        if (!isAllowed) {
+          await AwesomeNotifications().requestPermissionToSendNotifications();
+        }
+      });
+
       await AwesomeNotifications().initialize(
         /// using null here mean it will use app icon for notification icon
         /// If u want use custom one replace null with below
@@ -110,15 +57,9 @@ class AwesomeNotificationManager {
     }
   }
 
-  void listen() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      /// Check if awesome notification is allowed
-      await awesomeNotificationManager.checkIfAllowed(Get.context!);
-
-      ///
-      await AwesomeNotifications()
-          .setListeners(onActionReceivedMethod: onActionReceivedMethod);
-    });
+  Future listen() async {
+    await AwesomeNotifications()
+        .setListeners(onActionReceivedMethod: onActionReceivedMethod);
   }
 
   @pragma("vm:entry-point")

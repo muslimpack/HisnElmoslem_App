@@ -13,7 +13,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_a
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/dialogs/image_width_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ShareAsImageController extends GetxController {
   late DbContent initDbContent;
@@ -200,7 +200,7 @@ class ShareAsImageController extends GetxController {
           await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
       await file.writeAsBytes(byteData!.buffer.asUint8List());
 
-      await Share.shareFiles([file.path]);
+      await Share.shareXFiles([XFile(file.path)]);
 
       await file.delete();
 

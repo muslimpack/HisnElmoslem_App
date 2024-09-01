@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/src/features/effects_manager/presentation/controlle
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class AzkarReadPageController extends GetxController {
   /* *************** Constructor *************** */
@@ -51,7 +51,7 @@ class AzkarReadPageController extends GetxController {
     super.onInit();
     //
     if (AppData.instance.enableWakeLock) {
-      Wakelock.enable();
+      WakelockPlus.enable();
     }
 
     ///
@@ -81,7 +81,7 @@ class AzkarReadPageController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    Wakelock.disable();
+    WakelockPlus.disable();
     pageController.dispose();
     _volumeBtnChannel.setMethodCallHandler(null);
   }

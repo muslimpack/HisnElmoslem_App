@@ -17,7 +17,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zi
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FavouriteZikr extends StatelessWidget {
   const FavouriteZikr({super.key});

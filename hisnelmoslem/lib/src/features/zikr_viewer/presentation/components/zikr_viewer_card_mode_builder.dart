@@ -15,7 +15,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_e
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_card_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ZikrViewerCardBuilder extends StatelessWidget {
   final int index;

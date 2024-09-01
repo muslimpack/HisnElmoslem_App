@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/sh
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ZikrViewerPageModeAppBar extends StatelessWidget {
   const ZikrViewerPageModeAppBar({
