@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -49,6 +50,7 @@ class MyAppState extends State<MyApp> {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return GetMaterialApp(
+            scrollBehavior: AppScrollBehavior(),
             // Translation
             translations: HisnAppTranslation(),
             locale: Locale(AppData.instance.appLocale),
@@ -62,6 +64,9 @@ class MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: "Hisn Elmoslem".tr,
             theme: state.themeData(),
+            navigatorObservers: [
+              BotToastNavigatorObserver(),
+            ],
             builder: (context, child) {
               if (PlatformExtension.isDesktop) {
                 final botToastBuilder = BotToastInit();
