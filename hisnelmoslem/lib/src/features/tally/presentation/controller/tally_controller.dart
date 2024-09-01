@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -352,7 +353,7 @@ class TallyController extends GetxController {
   }
 
   /* *************** Variables *************** */
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
   bool get isShuffleModeOn => box.read('is_tally_shuffle_mode_on') ?? false;
   void toggleShuffleMode() {
     box.write('is_tally_shuffle_mode_on', !isShuffleModeOn);

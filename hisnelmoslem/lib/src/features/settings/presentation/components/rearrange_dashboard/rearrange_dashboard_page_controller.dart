@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class RearrangeDashboardPageController extends GetxController {
   /* *************** Variables *************** */
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
 
   List<int> list = <int>[].obs;
 

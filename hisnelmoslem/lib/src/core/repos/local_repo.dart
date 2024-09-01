@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class LocalRepo {
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
 
   LocalRepo._();
 

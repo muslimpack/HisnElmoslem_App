@@ -2,11 +2,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:vibration/vibration.dart';
 
 class SoundsManagerController extends GetxController {
   /* *************** Variables *************** */
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
 
   /////////////////////////////
   /// Sounds

@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/migration.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -21,7 +22,7 @@ Future<void> initServices() async {
   }
 
   try {
-    await GetStorage.init();
+    await GetStorage.init(kAppStorageKey);
     await Migration.start();
     await awesomeNotificationManager.init();
     await alarmManager.checkAllAlarmsInDb();

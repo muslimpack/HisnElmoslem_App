@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 ShareAsImageData shareAsImageData = ShareAsImageData();
 
 class ShareAsImageData {
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
   //////////////////
 
   final String titleTextBoxKey = 'share_image_title_text_color';
