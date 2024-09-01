@@ -28,6 +28,7 @@ class AzkarBookmarks extends StatelessWidget {
                             .tr,
                   )
                 : ListView.builder(
+                    controller: controller.bookmarksScrollController,
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(top: 10),
                     itemBuilder: (context, index) {

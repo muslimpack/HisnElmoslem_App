@@ -109,26 +109,24 @@ class AzkarReadPageController extends GetxController {
 
   void decreaseCount() {
     int counter = zikrContent[currentPage].count;
-    if (counter == 0) {
-      SoundsManagerController().playZikrDoneEffects();
-    } else {
+
+    if (counter > 0) {
       counter--;
 
       zikrContent[currentPage].count = (zikrContent[currentPage].count) - 1;
 
-      ///
       SoundsManagerController().playTallyEffects();
-      if (counter > 0) {
-      } else if (counter == 0) {
-        ///
+      if (counter == 0) {
         SoundsManagerController().playZikrDoneEffects();
         SoundsManagerController().playTransitionEffects();
-
-        pageController.nextPage(
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 500),
-        );
       }
+    }
+
+    if (counter == 0) {
+      pageController.nextPage(
+        curve: Curves.easeIn,
+        duration: const Duration(milliseconds: 350),
+      );
     }
 
     ///

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 
 //TODO App Version | Change every release
 const String appVersion = "2.8.0";
+
+String kAppStorageKey =
+    PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
 
 //Invert Image Color
 const ColorFilter invert = ColorFilter.matrix(

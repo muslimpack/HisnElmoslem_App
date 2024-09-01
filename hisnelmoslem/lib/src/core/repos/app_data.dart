@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 
 class AppData {
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
 
   static final AppData instance = AppData._();
 

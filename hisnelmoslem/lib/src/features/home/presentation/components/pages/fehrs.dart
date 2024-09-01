@@ -28,6 +28,7 @@ class AzkarFehrs extends StatelessWidget {
                     description: "please review the index of the book".tr,
                   )
                 : ListView.builder(
+                    controller: controller.fehrsScrollController,
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(top: 10),
                     itemCount: titleListToDisplay.length,

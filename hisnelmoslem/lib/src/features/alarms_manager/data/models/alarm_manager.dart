@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
@@ -112,7 +113,7 @@ class AlarmManager {
   }
 
   Future<void> checkAllAlarmsInDb() async {
-    final box = GetStorage();
+    final box = GetStorage(kAppStorageKey);
     final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
       hisnPrint("Setup Awesome from database ....");

@@ -30,7 +30,7 @@ class ShareAsImageController extends GetxController {
   // ******************************************* //
   bool isLoading = false;
   bool pageIsLoading = true;
-  final box = GetStorage();
+  final box = GetStorage(kAppStorageKey);
   String title = "";
 
   Future<void> getTitle() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -80,32 +81,34 @@ class TitleCard extends StatelessWidget {
                     //
                   },
                 ),
-          trailing: !dbAlarm.hasAlarmInside
-              ? IconButton(
-                  icon: const Icon(Icons.alarm_add_rounded),
-                  onPressed: () {
-                    dbAlarm.title = fehrsTitle.name;
-                    showFastAlarmDialog(
-                      context: context,
-                      dbAlarm: dbAlarm,
-                      isToEdit: false,
-                    ).then((value) {
-                      if (value is DbAlarm) {
-                        final int index = controller.alarms.indexOf(dbAlarm);
-                        if (value.hasAlarmInside) {
-                          if (index == -1) {
-                            controller.alarms.add(value);
-                          } else {
-                            controller.alarms[index] = value;
+          trailing: PlatformExtension.isDesktop
+              ? const SizedBox()
+              : !dbAlarm.hasAlarmInside
+                  ? IconButton(
+                      icon: const Icon(Icons.alarm_add_rounded),
+                      onPressed: () {
+                        dbAlarm.title = fehrsTitle.name;
+                        showFastAlarmDialog(
+                          context: context,
+                          dbAlarm: dbAlarm,
+                          isToEdit: false,
+                        ).then((value) {
+                          if (value is DbAlarm) {
+                            final int index =
+                                controller.alarms.indexOf(dbAlarm);
+                            if (value.hasAlarmInside) {
+                              if (index == -1) {
+                                controller.alarms.add(value);
+                              } else {
+                                controller.alarms[index] = value;
+                              }
+                              controller.update();
+                            }
                           }
-                          controller.update();
-                        }
-                      }
-                    });
-                  },
-                )
-              : tempAlarm.isActive
-                  ? GestureDetector(
+                        });
+                      },
+                    )
+                  : GestureDetector(
                       onLongPress: () {
                         showFastAlarmDialog(
                           context: context,
@@ -122,36 +125,42 @@ class TitleCard extends StatelessWidget {
                           }
                         });
                       },
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.notifications_active,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        onPressed: () {
-                          dbAlarm.isActive = tempAlarm.isActive = false;
-                          alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
+                      child: tempAlarm.isActive
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.notifications_active,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              onPressed: () {
+                                dbAlarm.isActive = tempAlarm.isActive = false;
+                                alarmDatabaseHelper.updateAlarmInfo(
+                                  dbAlarm: dbAlarm,
+                                );
 
-                          //
-                          alarmManager.alarmState(dbAlarm: dbAlarm);
-                          //
-                          controller.update();
-                        },
-                      ),
-                    )
-                  : IconButton(
-                      icon: const Icon(
-                        Icons.notifications_off,
-                      ),
-                      onPressed: () {
-                        dbAlarm.isActive = tempAlarm.isActive = true;
-                        alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
+                                //
+                                alarmManager.alarmState(dbAlarm: dbAlarm);
+                                //
+                                controller.update();
+                              },
+                            )
+                          : IconButton(
+                              icon: const Icon(
+                                Icons.notifications_off,
+                              ),
+                              onPressed: () {
+                                dbAlarm.isActive = tempAlarm.isActive = true;
+                                alarmDatabaseHelper.updateAlarmInfo(
+                                  dbAlarm: dbAlarm,
+                                );
 
-                        //
-                        alarmManager.alarmState(dbAlarm: dbAlarm);
-                        //
-                        controller.update();
-                      },
+                                //
+                                alarmManager.alarmState(dbAlarm: dbAlarm);
+                                //
+                                controller.update();
+                              },
+                            ),
                     ),
+
           title: Text(
             fehrsTitle.name,
           ),

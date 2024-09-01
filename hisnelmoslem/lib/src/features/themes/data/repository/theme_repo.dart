@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class ThemeRepo {
-  static final _box = GetStorage();
+  static final _box = GetStorage(kAppStorageKey);
 
   ///* ******* Themes ******* */
   static const String brightnessKey = "ThemeBrightness";
