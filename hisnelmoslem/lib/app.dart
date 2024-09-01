@@ -1,7 +1,9 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
@@ -12,6 +14,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.da
 import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/ui/presentation/components/desktop_window_wrapper.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -59,6 +62,15 @@ class MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: "Hisn Elmoslem".tr,
             theme: state.themeData(),
+            builder: (context, child) {
+              if (PlatformExtension.isDesktop) {
+                final botToastBuilder = BotToastInit();
+                return DesktopWindowWrapper(
+                  child: botToastBuilder(context, child),
+                );
+              }
+              return child ?? const SizedBox();
+            },
 
             // home: const AzkarDashboard(),
 

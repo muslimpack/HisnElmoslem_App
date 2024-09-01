@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,47 +13,51 @@ import 'package:window_manager/window_manager.dart';
 Future<void> initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await phoneDeviceBars();
+
   if (PlatformExtension.isDesktopOrWeb) {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
   }
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-  );
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
   try {
     await GetStorage.init();
     await Migration.start();
     await awesomeNotificationManager.init();
     await alarmManager.checkAllAlarmsInDb();
     await awesomeNotificationManager.appOpenNotification();
-    await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
   } catch (e) {
     hisnPrint(e);
   }
 
-  if (PlatformExtension.isDesktop) {
-    await windowManager.ensureInitialized();
+  await initWindowsManager();
+}
 
-    final WindowOptions windowOptions = WindowOptions(
-      size: LocalRepo.instance.desktopWindowSize,
-      center: true,
+Future phoneDeviceBars() async {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}
+
+Future initWindowsManager() async {
+  if (!PlatformExtension.isDesktop) return;
+
+  await windowManager.ensureInitialized();
+
+  final WindowOptions windowOptions = WindowOptions(
+    size: LocalRepo.instance.desktopWindowSize,
+    center: true,
+  );
+  await windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.setTitleBarStyle(
+      TitleBarStyle.hidden,
+      windowButtonVisibility: false,
     );
-    windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.setTitleBarStyle(
-        TitleBarStyle.hidden,
-        windowButtonVisibility: false,
-      );
-      await windowManager.show();
-      await windowManager.focus();
-    });
-  }
+    await windowManager.show();
+    await windowManager.focus();
+  });
 }
