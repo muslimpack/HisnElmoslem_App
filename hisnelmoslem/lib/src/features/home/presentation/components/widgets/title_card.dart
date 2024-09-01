@@ -104,54 +104,59 @@ class TitleCard extends StatelessWidget {
                     });
                   },
                 )
-              : tempAlarm.isActive
-                  ? GestureDetector(
-                      onLongPress: () {
-                        showFastAlarmDialog(
-                          context: context,
-                          dbAlarm: dbAlarm,
-                          isToEdit: true,
-                        ).then((value) {
-                          if (value is DbAlarm) {
-                            if (value.hasAlarmInside) {
-                              // int index = controller.alarms.indexOf(dbAlarm);
-                              tempAlarm = value;
-                              // controller.alarms[index] = value;
-                              controller.update();
-                            }
-                          }
-                        });
-                      },
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.notifications_active,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        onPressed: () {
-                          dbAlarm.isActive = tempAlarm.isActive = false;
-                          alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
-
-                          //
-                          alarmManager.alarmState(dbAlarm: dbAlarm);
-                          //
+              : GestureDetector(
+                  onLongPress: () {
+                    showFastAlarmDialog(
+                      context: context,
+                      dbAlarm: dbAlarm,
+                      isToEdit: true,
+                    ).then((value) {
+                      if (value is DbAlarm) {
+                        if (value.hasAlarmInside) {
+                          // int index = controller.alarms.indexOf(dbAlarm);
+                          tempAlarm = value;
+                          // controller.alarms[index] = value;
                           controller.update();
-                        },
-                      ),
-                    )
-                  : IconButton(
-                      icon: const Icon(
-                        Icons.notifications_off,
-                      ),
-                      onPressed: () {
-                        dbAlarm.isActive = tempAlarm.isActive = true;
-                        alarmDatabaseHelper.updateAlarmInfo(dbAlarm: dbAlarm);
+                        }
+                      }
+                    });
+                  },
+                  child: tempAlarm.isActive
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.notifications_active,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () {
+                            dbAlarm.isActive = tempAlarm.isActive = false;
+                            alarmDatabaseHelper.updateAlarmInfo(
+                              dbAlarm: dbAlarm,
+                            );
 
-                        //
-                        alarmManager.alarmState(dbAlarm: dbAlarm);
-                        //
-                        controller.update();
-                      },
-                    ),
+                            //
+                            alarmManager.alarmState(dbAlarm: dbAlarm);
+                            //
+                            controller.update();
+                          },
+                        )
+                      : IconButton(
+                          icon: const Icon(
+                            Icons.notifications_off,
+                          ),
+                          onPressed: () {
+                            dbAlarm.isActive = tempAlarm.isActive = true;
+                            alarmDatabaseHelper.updateAlarmInfo(
+                              dbAlarm: dbAlarm,
+                            );
+
+                            //
+                            alarmManager.alarmState(dbAlarm: dbAlarm);
+                            //
+                            controller.update();
+                          },
+                        ),
+                ),
+
           title: Text(
             fehrsTitle.name,
           ),
