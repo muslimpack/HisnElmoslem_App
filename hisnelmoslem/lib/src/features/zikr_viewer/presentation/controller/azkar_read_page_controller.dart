@@ -111,6 +111,10 @@ class AzkarReadPageController extends GetxController {
     int counter = zikrContent[currentPage].count;
     if (counter == 0) {
       SoundsManagerController().playZikrDoneEffects();
+      pageController.nextPage(
+        curve: Curves.easeIn,
+        duration: const Duration(milliseconds: 500),
+      );
     } else {
       counter--;
 
