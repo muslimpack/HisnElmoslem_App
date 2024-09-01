@@ -25,6 +25,7 @@ class ThemeState extends Equatable {
         brightness: brightness,
         colorSchemeSeed: color,
         fontFamily: fontFamily,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       );
     }
     return ThemeData(
@@ -35,6 +36,7 @@ class ThemeState extends Equatable {
       ),
       useMaterial3: useMaterial3,
       fontFamily: fontFamily,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
 
