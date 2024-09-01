@@ -108,7 +108,7 @@ class SoundsManagerController extends GetxController {
     );
   }
 
-  void simulateTransitionSound() {}
+  Future simulateTransitionSound() async {}
 
   Future<void> simulateAllAzkarSoundFinished() async {
     await player.play(
@@ -162,39 +162,39 @@ class SoundsManagerController extends GetxController {
   }
 
   //////////////////////////////
-  void playTallyEffects() {
+  Future playTallyEffects() async {
     if (isTallySoundAllowed) {
-      simulateTallySound();
+      await simulateTallySound();
     }
     if (isTallyVibrateAllowed) {
-      simulateTallyVibrate();
+      await simulateTallyVibrate();
     }
   }
 
-  void playZikrDoneEffects() {
+  Future playZikrDoneEffects() async {
     if (isZikrDoneSoundAllowed) {
-      simulateZikrDoneSound();
+      await simulateZikrDoneSound();
     }
     if (isZikrDoneVibrateAllowed) {
-      simulateZikrDoneVibrate();
+      await simulateZikrDoneVibrate();
     }
   }
 
-  void playTransitionEffects() {
+  Future playTransitionEffects() async {
     if (isTransitionSoundAllowed) {
-      simulateTransitionSound();
+      await simulateTransitionSound();
     }
     if (isTransitionVibrateAllowed) {
-      simulateTransitionVibrate();
+      await simulateTransitionVibrate();
     }
   }
 
-  void playAllAzkarFinishedEffects() {
+  Future playAllAzkarFinishedEffects() async {
     if (isAllAzkarFinishedSoundAllowed) {
-      simulateAllAzkarSoundFinished();
+      await simulateAllAzkarSoundFinished();
     }
     if (isAllAzkarFinishedVibrateAllowed) {
-      simulateAllAzkarVibrateFinished();
+      await simulateAllAzkarVibrateFinished();
     }
   }
 }
