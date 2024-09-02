@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'tally_bloc.dart';
 
 sealed class TallyEvent extends Equatable {
@@ -9,11 +10,34 @@ sealed class TallyEvent extends Equatable {
 
 class TallyStartEvent extends TallyEvent {}
 
-class TallyAddCounterEvent extends TallyEvent {}
+class TallyAddCounterEvent extends TallyEvent {
+  final DbTally counter;
 
-class TallyEditCounterEvent extends TallyEvent {}
+  const TallyAddCounterEvent({required this.counter});
 
-class TallyDeleteCounterEvent extends TallyEvent {}
+  @override
+  List<Object> get props => [counter];
+}
+
+class TallyEditCounterEvent extends TallyEvent {
+  final DbTally counter;
+  const TallyEditCounterEvent({
+    required this.counter,
+  });
+
+  @override
+  List<Object> get props => [counter];
+}
+
+class TallyDeleteCounterEvent extends TallyEvent {
+  final DbTally counter;
+  const TallyDeleteCounterEvent({
+    required this.counter,
+  });
+
+  @override
+  List<Object> get props => [counter];
+}
 
 class TallyActivateCounterEvent extends TallyEvent {}
 

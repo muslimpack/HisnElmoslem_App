@@ -58,17 +58,69 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   FutureOr<void> _addCounter(
     TallyAddCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    await tallyDatabaseHelper.addNewTally(dbTally: event.counter);
+
+    final updatedCounters = List<DbTally>.from(state.allCounters)
+      ..add(event.counter);
+
+    emit(state.copyWith(allCounters: updatedCounters));
+  }
 
   FutureOr<void> _editCounter(
     TallyEditCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    await tallyDatabaseHelper.updateTally(
+      dbTally: event.counter,
+      updateTime: false,
+    );
+
+    final updatedCounters = state.allCounters.map((counter) {
+      if (counter.id == event.counter.id) {
+        return event.counter;
+      }
+      return counter;
+    }).toList();
+
+    emit(
+      state.copyWith(
+        allCounters: updatedCounters,
+        activeCounter: state.activeCounter?.id == event.counter.id
+            ? event.counter
+            : state.activeCounter,
+      ),
+    );
+  }
 
   FutureOr<void> _deleteCounter(
     TallyDeleteCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    await tallyDatabaseHelper.deleteTally(dbTally: event.counter);
+
+    final updatedCounters = state.allCounters
+        .where((counter) => counter.id != event.counter.id)
+        .toList();
+
+    emit(
+      state.copyWith(
+        allCounters: updatedCounters,
+        activeCounter: state.activeCounter?.id == event.counter.id
+            ? null
+            : state.activeCounter,
+      ),
+    );
+  }
 
   FutureOr<void> _activateCounter(
     TallyActivateCounterEvent event,

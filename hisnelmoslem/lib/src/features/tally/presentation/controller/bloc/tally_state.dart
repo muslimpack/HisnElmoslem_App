@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'tally_bloc.dart';
 
 sealed class TallyState extends Equatable {
@@ -19,4 +20,20 @@ final class TallyLoadedState extends TallyState {
     required this.activeCounter,
     required this.iterationMode,
   });
+
+  TallyLoadedState copyWith({
+    List<DbTally>? allCounters,
+    Object? activeCounter = _notProvided,
+    TallyIterationMode? iterationMode,
+  }) {
+    return TallyLoadedState(
+      allCounters: allCounters ?? this.allCounters,
+      activeCounter: activeCounter == _notProvided
+          ? this.activeCounter
+          : activeCounter as DbTally?,
+      iterationMode: iterationMode ?? this.iterationMode,
+    );
+  }
+
+  static const _notProvided = Object();
 }
