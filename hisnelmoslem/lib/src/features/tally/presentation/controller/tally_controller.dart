@@ -196,39 +196,41 @@ class TallyController extends GetxController {
 
   /// CURD
   Future<void> createNewTally() async {
-    await showDialog(
+    final DbTally? result = await showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
-        return TallyDialog(
-          dbTally: DbTally(),
-          isToEdit: false,
-          onSubmit: (value) async {
-            await tallyDatabaseHelper.addNewTally(dbTally: value);
-            getAllListsReady();
-            update();
-          },
-        );
+        return const TallyDialog();
       },
     );
+
+    if (result == null) return;
+
+    await tallyDatabaseHelper.updateTally(
+      dbTally: result,
+      updateTime: false,
+    );
+    await tallyDatabaseHelper.addNewTally(dbTally: result);
+    getAllListsReady();
+    update();
   }
 
   Future<void> updateTallyById(DbTally dbTally) async {
-    await showDialog(
+    final DbTally? result = await showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
         return TallyDialog(
-          isToEdit: true,
           dbTally: dbTally,
-          onSubmit: (value) async {
-            await tallyDatabaseHelper.updateTally(
-              dbTally: value,
-              updateTime: false,
-            );
-            updateDBTallyToView(dbTally: value);
-          },
         );
       },
     );
+
+    if (result == null) return;
+
+    await tallyDatabaseHelper.updateTally(
+      dbTally: result,
+      updateTime: false,
+    );
+    updateDBTallyToView(dbTally: result);
   }
 
   Future<void> increaseDBCounter() async {
