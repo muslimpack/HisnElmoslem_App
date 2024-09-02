@@ -35,9 +35,7 @@ class TallyCard extends StatelessWidget {
                 }
               },
               leading: Icon(
-                dbTally.isActivated
-                    ? Icons.done_all_outlined
-                    : Icons.done_outline_rounded,
+                dbTally.isActivated ? Icons.done_all_outlined : null,
                 size: 40,
               ),
               title: Text(
