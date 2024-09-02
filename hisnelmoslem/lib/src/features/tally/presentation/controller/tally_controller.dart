@@ -205,10 +205,6 @@ class TallyController extends GetxController {
 
     if (result == null) return;
 
-    await tallyDatabaseHelper.updateTally(
-      dbTally: result,
-      updateTime: false,
-    );
     await tallyDatabaseHelper.addNewTally(dbTally: result);
     getAllListsReady();
     update();
