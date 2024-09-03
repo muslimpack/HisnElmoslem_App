@@ -1,8 +1,13 @@
-class QuranPage {
-  QuranPage({required this.image, required this.pageNumber});
+import 'package:equatable/equatable.dart';
 
-  String image;
-  int pageNumber;
+class QuranPage extends Equatable {
+  final String image;
+  final int pageNumber;
+
+  const QuranPage({
+    required this.image,
+    required this.pageNumber,
+  });
 
   factory QuranPage.fromJson(Map<String, dynamic> json) => QuranPage(
         image: json["image"] as String,
@@ -13,4 +18,7 @@ class QuranPage {
         "image": image,
         "pageNumber": pageNumber,
       };
+
+  @override
+  List<Object?> get props => [image, pageNumber];
 }
