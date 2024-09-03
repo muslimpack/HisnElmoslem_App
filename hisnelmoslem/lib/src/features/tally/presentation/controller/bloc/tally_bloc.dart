@@ -31,7 +31,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     on<TallyAddCounterEvent>(_addCounter);
     on<TallyEditCounterEvent>(_editCounter);
     on<TallyDeleteCounterEvent>(_deleteCounter);
-    on<TallyActivateCounterEvent>(_activateCounter);
+    on<TallyToggleCounterActivationEvent>(_toggleCounterActivation);
     on<TallyNextCounterEvent>(_nextCounter);
     on<TallyPreviousCounterEvent>(_previousCounter);
     on<TallyResetAllCountersEvent>(_resetAllCounters);
@@ -49,7 +49,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(
       TallyLoadedState(
         allCounters: allCounters,
-        activeCounter: allCounters.firstOrNull,
+        activeCounter: allCounters.where((x) => x.isActivated).firstOrNull,
         iterationMode: TallyIterationMode.none,
       ),
     );
@@ -122,10 +122,45 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
   }
 
-  FutureOr<void> _activateCounter(
-    TallyActivateCounterEvent event,
+  FutureOr<void> _toggleCounterActivation(
+    TallyToggleCounterActivationEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final updatedCounters = List<DbTally>.from(state.allCounters);
+    for (final counter in updatedCounters) {
+      if (counter.id == event.counter.id) {
+        counter.isActivated = !counter.isActivated;
+        await tallyDatabaseHelper.updateTally(
+          dbTally: counter,
+          updateTime: false,
+        );
+      } else if (counter.id == state.activeCounter?.id) {
+        counter.isActivated = false;
+        await tallyDatabaseHelper.updateTally(
+          dbTally: counter,
+          updateTime: false,
+        );
+      }
+    }
+
+    final DbTally? activeCounter;
+
+    if (state.activeCounter?.id == event.counter.id) {
+      activeCounter = null;
+    } else {
+      activeCounter = state.activeCounter ?? event.counter;
+    }
+
+    emit(
+      state.copyWith(
+        allCounters: updatedCounters,
+        activeCounter: activeCounter,
+      ),
+    );
+  }
 
   FutureOr<void> _nextCounter(
     TallyNextCounterEvent event,
