@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -71,50 +72,66 @@ class TallyCounterView extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: SleekCircularSlider(
-                        initialValue:
-                            activeCounter.count.toDouble() % resetEvery,
-                        max: resetEvery,
-                        appearance: CircularSliderAppearance(
-                          angleRange: 360,
-                          startAngle: 270,
-                          infoProperties: InfoProperties(
-                            bottomLabelText:
-                                '${"times".tr}: ${activeCounter.count ~/ resetEvery}'
-                                    .toArabicNumber(),
-                            bottomLabelStyle: const TextStyle(
-                              fontSize: 25,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          if (state.iterationMode != TallyIterationMode.none)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  value: state.loadingIteration ? null : 1,
+                                ),
+                              ),
                             ),
-                            mainLabelStyle: const TextStyle(fontSize: 70),
-                            modifier: (double value) {
-                              final circValue =
-                                  value.round().toString().toArabicNumber();
-                              return circValue;
-                            },
+                          SleekCircularSlider(
+                            initialValue:
+                                activeCounter.count.toDouble() % resetEvery,
+                            max: resetEvery,
+                            appearance: CircularSliderAppearance(
+                              angleRange: 360,
+                              startAngle: 270,
+                              infoProperties: InfoProperties(
+                                bottomLabelText:
+                                    '${"times".tr}: ${activeCounter.count ~/ resetEvery}'
+                                        .toArabicNumber(),
+                                bottomLabelStyle: const TextStyle(
+                                  fontSize: 25,
+                                ),
+                                mainLabelStyle: const TextStyle(fontSize: 70),
+                                modifier: (double value) {
+                                  final circValue =
+                                      value.round().toString().toArabicNumber();
+                                  return circValue;
+                                },
+                              ),
+                              customWidths: CustomSliderWidths(
+                                progressBarWidth: 30,
+                                trackWidth: 30,
+                              ),
+                              customColors: CustomSliderColors(
+                                dotColor: Colors.transparent,
+                                hideShadow: true,
+                                trackColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(.1),
+                                progressBarColors: [
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(.7),
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(.7),
+                                ],
+                              ),
+                            ),
                           ),
-                          customWidths: CustomSliderWidths(
-                            progressBarWidth: 30,
-                            trackWidth: 30,
-                          ),
-                          customColors: CustomSliderColors(
-                            dotColor: Colors.transparent,
-                            hideShadow: true,
-                            trackColor: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(.1),
-                            progressBarColors: [
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(.7),
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(.7),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
