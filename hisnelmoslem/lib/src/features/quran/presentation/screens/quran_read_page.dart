@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
@@ -78,7 +79,9 @@ class QuranReadPage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: Text(
-                                '${controller.quranRequiredSurah!.pages[index].pageNumber}',
+                                controller
+                                    .quranRequiredSurah!.pages[index].pageNumber
+                                    .toArabicNumberString(),
                               ),
                             ),
                           ),
