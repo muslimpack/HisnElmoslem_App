@@ -49,6 +49,7 @@ dependencies:
   vibration: ^2.0.0
   wakelock_plus: ^1.2.8
   window_manager: ^0.4.2
+  file_picker: ^8.1.2
 
 dev_dependencies:
   flutter_lints: ^4.0.0
