@@ -12,8 +12,8 @@ final class QuranLoadingState extends QuranState {}
 
 final class QuranLoadedState extends QuranState {
   final SurahNameEnum surahName;
-  final List<Quran> quranList;
-  final Quran requiredSurah;
+  final List<QuranSurah> quranList;
+  final QuranSurah requiredSurah;
   const QuranLoadedState({
     required this.surahName,
     required this.quranList,
@@ -22,8 +22,8 @@ final class QuranLoadedState extends QuranState {
 
   QuranLoadedState copyWith({
     SurahNameEnum? surahName,
-    List<Quran>? quranList,
-    Quran? requiredSurah,
+    List<QuranSurah>? quranList,
+    QuranSurah? requiredSurah,
   }) {
     return QuranLoadedState(
       surahName: surahName ?? this.surahName,

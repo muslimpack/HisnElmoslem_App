@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/quran/data/models/quran.dart';
+import 'package:hisnelmoslem/src/features/quran/data/models/quran_surah.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 
 class QuranPageController extends GetxController {
@@ -22,9 +22,9 @@ class QuranPageController extends GetxController {
   int currentPage = 0;
 
   //
-  final List<Quran> _quran = <Quran>[];
-  List<Quran> quranDisplay = <Quran>[];
-  Quran? quranRequiredSurah;
+  final List<QuranSurah> _quran = <QuranSurah>[];
+  List<QuranSurah> quranDisplay = <QuranSurah>[];
+  QuranSurah? quranRequiredSurah;
 
   //
   bool isLoading = true;
@@ -104,16 +104,16 @@ class QuranPageController extends GetxController {
   }
 
   ///
-  Future<List<Quran>> fetchAzkar() async {
+  Future<List<QuranSurah>> fetchAzkar() async {
     final String data = await rootBundle.loadString('assets/json/quran.json');
 
-    final quran = <Quran>[];
+    final quran = <QuranSurah>[];
 
     final quranJson = json.decode(data);
 
     if (quranJson is List) {
       for (final item in quranJson) {
-        quran.add(Quran.fromJson(item as Map<String, dynamic>));
+        quran.add(QuranSurah.fromJson(item as Map<String, dynamic>));
       }
     }
 

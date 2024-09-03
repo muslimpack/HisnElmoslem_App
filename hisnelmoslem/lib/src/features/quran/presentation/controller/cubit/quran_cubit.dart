@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/features/quran/data/models/quran.dart';
+import 'package:hisnelmoslem/src/features/quran/data/models/quran_surah.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 
 part 'quran_state.dart';
@@ -54,9 +54,9 @@ class QuranCubit extends Cubit<QuranState> {
     );
   }
 
-  Quran _getQuranRequiredSurah(
+  QuranSurah _getQuranRequiredSurah(
     SurahNameEnum surahName,
-    List<Quran> quranList,
+    List<QuranSurah> quranList,
   ) {
     switch (surahName) {
       case SurahNameEnum.endofAliImran:
@@ -70,16 +70,16 @@ class QuranCubit extends Cubit<QuranState> {
     }
   }
 
-  Future<List<Quran>> _fetchQuranJson() async {
+  Future<List<QuranSurah>> _fetchQuranJson() async {
     final String data = await rootBundle.loadString('assets/json/quran.json');
 
-    final quran = <Quran>[];
+    final quran = <QuranSurah>[];
 
     final quranJson = json.decode(data);
 
     if (quranJson is List) {
       for (final item in quranJson) {
-        quran.add(Quran.fromJson(item as Map<String, dynamic>));
+        quran.add(QuranSurah.fromJson(item as Map<String, dynamic>));
       }
     }
 
