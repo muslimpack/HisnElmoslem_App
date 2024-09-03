@@ -26,8 +26,6 @@ class ShareAsImageController extends GetxController {
   /* *************** Variables *************** */
   TransformationController transformationController =
       TransformationController();
-  final DraggableScrollableController draggableScrollableController =
-      DraggableScrollableController();
 
   final CaptureWidgetController captureWidgetController =
       CaptureWidgetController();
