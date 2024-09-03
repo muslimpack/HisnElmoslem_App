@@ -255,6 +255,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(
       state.copyWith(
         allCounters: updatedCounters,
+        activeCounter: updatedCounters
+            .where((x) => x.id == state.activeCounter?.id)
+            .firstOrNull,
       ),
     );
   }
