@@ -91,8 +91,8 @@ class TallyCounterView extends StatelessWidget {
                             },
                           ),
                           customWidths: CustomSliderWidths(
-                            progressBarWidth: 20,
-                            trackWidth: 20,
+                            progressBarWidth: 30,
+                            trackWidth: 30,
                           ),
                           customColors: CustomSliderColors(
                             dotColor: Colors.transparent,
@@ -112,7 +112,6 @@ class TallyCounterView extends StatelessWidget {
                                   .withOpacity(.7),
                             ],
                           ),
-                          // size: smallLength,
                         ),
                       ),
                     ),
