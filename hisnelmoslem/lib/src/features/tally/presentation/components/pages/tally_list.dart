@@ -23,6 +23,7 @@ class TallyListView extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           body: ListView.separated(
             physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 100),
             itemCount: state.allCounters.length,
             itemBuilder: (context, index) {
               return TallyCard(dbTally: state.allCounters[index]);
