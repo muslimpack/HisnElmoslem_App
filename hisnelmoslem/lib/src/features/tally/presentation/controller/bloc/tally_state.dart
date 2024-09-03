@@ -5,7 +5,7 @@ sealed class TallyState extends Equatable {
   const TallyState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class TallyLoadingState extends TallyState {}
@@ -36,4 +36,11 @@ final class TallyLoadedState extends TallyState {
   }
 
   static const _notProvided = Object();
+
+  @override
+  List<Object?> get props => [
+        allCounters,
+        activeCounter,
+        iterationMode,
+      ];
 }
