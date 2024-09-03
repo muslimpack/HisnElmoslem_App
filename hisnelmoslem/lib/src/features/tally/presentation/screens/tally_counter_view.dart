@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
-import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_view_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -152,70 +152,9 @@ class TallyCounterView extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBar: const TallyBotttomBar(),
+          bottomNavigationBar: const TallyCounterViewBottomBar(),
         );
       },
-    );
-  }
-}
-
-class TallyBotttomBar extends StatelessWidget {
-  const TallyBotttomBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      child: SizedBox(
-        height: 40,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.keyboard_double_arrow_right),
-              onPressed: () {
-                context.read<TallyBloc>().add(TallyPreviousCounterEvent());
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (_) {
-                    return YesOrNoDialog(
-                      msg:
-                          "your progress will be deleted and you can't undo that"
-                              .tr,
-                      onYes: () async {
-                        context
-                            .read<TallyBloc>()
-                            .add(TallyResetActiveCounterEvent());
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.remove),
-              onPressed: () {
-                context
-                    .read<TallyBloc>()
-                    .add(TallyDecreaseActiveCounterEvent());
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.keyboard_double_arrow_left),
-              onPressed: () {
-                context.read<TallyBloc>().add(TallyNextCounterEvent());
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

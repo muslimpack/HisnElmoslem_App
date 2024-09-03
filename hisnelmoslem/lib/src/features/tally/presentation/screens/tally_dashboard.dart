@@ -7,9 +7,9 @@ import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_dialog.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_counter.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/pages/tally_list.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_counter_view.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_list_view.dart';
 
 class Tally extends StatelessWidget {
   const Tally({super.key});
