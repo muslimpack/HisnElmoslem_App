@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +13,6 @@ class ShareImageSettings extends Equatable {
   final bool showFadl;
   final bool showSource;
   final bool showZikrIndex;
-  final bool fixedFont;
   final bool removeDiacritics;
   final int imageWidth;
   final double imageQuality;
@@ -24,7 +26,6 @@ class ShareImageSettings extends Equatable {
     required this.showFadl,
     required this.showSource,
     required this.showZikrIndex,
-    required this.fixedFont,
     required this.removeDiacritics,
     required this.imageWidth,
     required this.imageQuality,
@@ -39,7 +40,6 @@ class ShareImageSettings extends Equatable {
     bool? showFadl,
     bool? showSource,
     bool? showZikrIndex,
-    bool? fixedFont,
     bool? removeDiacritics,
     int? imageWidth,
     double? imageQuality,
@@ -53,7 +53,6 @@ class ShareImageSettings extends Equatable {
       showFadl: showFadl ?? this.showFadl,
       showSource: showSource ?? this.showSource,
       showZikrIndex: showZikrIndex ?? this.showZikrIndex,
-      fixedFont: fixedFont ?? this.fixedFont,
       removeDiacritics: removeDiacritics ?? this.removeDiacritics,
       imageWidth: imageWidth ?? this.imageWidth,
       imageQuality: imageQuality ?? this.imageQuality,
@@ -61,18 +60,56 @@ class ShareImageSettings extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        titleTextColor,
-        bodyTextColor,
-        additionalTextColor,
-        backgroundColor,
-        fontSize,
-        showFadl,
-        showSource,
-        showZikrIndex,
-        fixedFont,
-        removeDiacritics,
-        imageWidth,
-        imageQuality,
-      ];
+  List<Object> get props {
+    return [
+      titleTextColor,
+      bodyTextColor,
+      additionalTextColor,
+      backgroundColor,
+      fontSize,
+      showFadl,
+      showSource,
+      showZikrIndex,
+      removeDiacritics,
+      imageWidth,
+      imageQuality,
+    ];
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'titleTextColor': titleTextColor.value,
+      'bodyTextColor': bodyTextColor.value,
+      'additionalTextColor': additionalTextColor.value,
+      'backgroundColor': backgroundColor.value,
+      'fontSize': fontSize,
+      'showFadl': showFadl,
+      'showSource': showSource,
+      'showZikrIndex': showZikrIndex,
+      'removeDiacritics': removeDiacritics,
+      'imageWidth': imageWidth,
+      'imageQuality': imageQuality,
+    };
+  }
+
+  factory ShareImageSettings.fromMap(Map<String, dynamic> map) {
+    return ShareImageSettings(
+      titleTextColor: Color(map['titleTextColor'] as int),
+      bodyTextColor: Color(map['bodyTextColor'] as int),
+      additionalTextColor: Color(map['additionalTextColor'] as int),
+      backgroundColor: Color(map['backgroundColor'] as int),
+      fontSize: map['fontSize'] as double,
+      showFadl: map['showFadl'] as bool,
+      showSource: map['showSource'] as bool,
+      showZikrIndex: map['showZikrIndex'] as bool,
+      removeDiacritics: map['removeDiacritics'] as bool,
+      imageWidth: map['imageWidth'] as int,
+      imageQuality: map['imageQuality'] as double,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ShareImageSettings.fromJson(String source) =>
+      ShareImageSettings.fromMap(json.decode(source) as Map<String, dynamic>);
 }
