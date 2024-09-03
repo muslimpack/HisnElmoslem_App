@@ -41,7 +41,7 @@ class QuranCubit extends Cubit<QuranState> {
 
     final quranList = await _fetchQuranJson();
     final requiredSurah = _getQuranRequiredSurah(
-      SurahNameEnum.endofAliImran,
+      surahName,
       quranList,
     );
 
