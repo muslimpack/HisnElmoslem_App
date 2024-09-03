@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -31,6 +32,11 @@ class TallyCounterView extends StatelessWidget {
                     .tr,
           );
         }
+
+        final double resetEvery = switch (state.iterationMode) {
+          TallyIterationMode.none => activeCounter.countReset.toDouble(),
+          _ => 33
+        };
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -70,15 +76,15 @@ class TallyCounterView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: SleekCircularSlider(
-                        initialValue: activeCounter.count.toDouble() %
-                            activeCounter.countReset,
-                        max: activeCounter.countReset.toDouble(),
+                        initialValue:
+                            activeCounter.count.toDouble() % resetEvery,
+                        max: resetEvery,
                         appearance: CircularSliderAppearance(
                           angleRange: 360,
                           startAngle: 270,
                           infoProperties: InfoProperties(
                             bottomLabelText:
-                                '${"times".tr}: ${activeCounter.count ~/ activeCounter.countReset}'
+                                '${"times".tr}: ${activeCounter.count ~/ resetEvery}'
                                     .toArabicNumber(),
                             bottomLabelStyle: const TextStyle(
                               fontSize: 25,
