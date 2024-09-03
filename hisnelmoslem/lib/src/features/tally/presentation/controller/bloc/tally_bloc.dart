@@ -208,7 +208,24 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   FutureOr<void> _resetAllCounters(
     TallyResetAllCountersEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final updatedCounters = List<DbTally>.from(state.allCounters)
+      ..map((x) => x..count = 0);
+
+    await tallyDatabaseHelper.updateTallies(
+      dbTallies: updatedCounters,
+      updateTime: true,
+    );
+
+    emit(
+      state.copyWith(
+        allCounters: updatedCounters,
+      ),
+    );
+  }
 
   FutureOr<void> _resetActiveCounter(
     TallyResetActiveCounterEvent event,
