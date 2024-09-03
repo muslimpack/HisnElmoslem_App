@@ -16,7 +16,7 @@ class QuranCubit extends Cubit<QuranState> {
 
   QuranCubit() : super(QuranLoadingState()) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    _volumeBtnChannel.setMethodCallHandler((call) {
+    _volumeBtnChannel.setMethodCallHandler((call) async {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
           pageController.nextPage(
@@ -31,8 +31,6 @@ class QuranCubit extends Cubit<QuranState> {
           );
         }
       }
-
-      return Future.value();
     });
   }
 
