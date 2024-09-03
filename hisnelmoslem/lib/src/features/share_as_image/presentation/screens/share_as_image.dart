@@ -1,4 +1,4 @@
-import 'package:capture_widget/core/capture_widget.dart';
+import 'package:capture_widget/capture_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
