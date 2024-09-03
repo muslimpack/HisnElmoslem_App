@@ -134,8 +134,6 @@ class TallyDatabaseHelper {
     required DbTally dbTally,
   }) async {
     final db = await database;
-    dbTally.created = DateTime.now();
-    dbTally.lastUpdate = DateTime.now();
     await db.insert(
       'data',
       dbTally.toMap(),
@@ -146,13 +144,8 @@ class TallyDatabaseHelper {
   // Update tally by ID
   Future<void> updateTally({
     required DbTally dbTally,
-    required bool updateTime,
   }) async {
     final db = await database;
-
-    if (updateTime) {
-      dbTally.lastUpdate = DateTime.now();
-    }
 
     await db.update(
       'data',
@@ -164,20 +157,15 @@ class TallyDatabaseHelper {
 
   Future<void> updateTallies({
     required List<DbTally> dbTallies,
-    required bool updateTime,
   }) async {
     final db = await database;
 
     final batch = db.batch();
 
     for (final dbTally in dbTallies) {
-      if (updateTime) {
-        dbTally.lastUpdate = DateTime.now();
-      }
-
       batch.update(
         'data',
-        dbTally.toMap(),
+        dbTally.copyWith(lastUpdate: DateTime.now()).toMap(),
         where: "id = ?",
         whereArgs: [dbTally.id],
       );

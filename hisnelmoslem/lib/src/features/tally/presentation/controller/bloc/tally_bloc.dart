@@ -74,10 +74,15 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    await tallyDatabaseHelper.addNewTally(dbTally: event.counter);
+    final counterToAdd = event.counter.copyWith(
+      lastUpdate: DateTime.now(),
+      created: DateTime.now(),
+    );
+
+    await tallyDatabaseHelper.addNewTally(dbTally: counterToAdd);
 
     final updatedCounters = List<DbTally>.from(state.allCounters)
-      ..add(event.counter);
+      ..add(counterToAdd);
 
     emit(state.copyWith(allCounters: updatedCounters));
   }
@@ -89,33 +94,29 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
+    final counterToEdit = event.counter.copyWith(lastUpdate: DateTime.now());
+
     await tallyDatabaseHelper.updateTally(
-      dbTally: event.counter,
-      updateTime: false,
+      dbTally: counterToEdit,
     );
 
     final updatedCounters = List<DbTally>.from(state.allCounters)
         .map((x) => x.copyWith())
         .map((counter) {
-      if (counter.id == event.counter.id) {
-        return event.counter;
+      if (counter.id == counterToEdit.id) {
+        return counterToEdit;
       }
       return counter;
     }).toList();
 
-    late final DbTally? activeCounter;
-
-    if (state.activeCounter?.id == event.counter.id ||
-        event.counter.isActivated) {
-      activeCounter = event.counter;
-    } else {
-      activeCounter = state.activeCounter;
-    }
-
     emit(
       state.copyWith(
         allCounters: updatedCounters,
-        activeCounter: activeCounter,
+        activeCounter: updatedCounters
+            .where(
+              (x) => x.id == state.activeCounter?.id,
+            )
+            .firstOrNull,
       ),
     );
 
@@ -154,18 +155,18 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     if (state is! TallyLoadedState) return;
 
     final updatedCounters = List<DbTally>.from(state.allCounters);
-    for (final counter in updatedCounters) {
+    for (int i = 0; i < updatedCounters.length; i++) {
+      final counter = updatedCounters[i];
       if (counter.id == event.counter.id) {
-        counter.isActivated = !counter.isActivated;
+        updatedCounters[i] =
+            counter.copyWith(isActivated: !counter.isActivated);
         await tallyDatabaseHelper.updateTally(
           dbTally: counter,
-          updateTime: false,
         );
       } else if (counter.isActivated) {
-        counter.isActivated = false;
+        updatedCounters[i] = counter.copyWith(isActivated: false);
         await tallyDatabaseHelper.updateTally(
           dbTally: counter,
-          updateTime: false,
         );
       }
     }
@@ -249,7 +250,6 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     await tallyDatabaseHelper.updateTallies(
       dbTallies: updatedCounters,
-      updateTime: true,
     );
 
     emit(
@@ -300,9 +300,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
 
     if (activeCounter.count % state.resetEvery == state.resetEvery - 1) {
-      soundsManagerController.playZikrDoneEffects();
+      await soundsManagerController.playZikrDoneEffects();
     } else {
-      soundsManagerController.playTallyEffects();
+      await soundsManagerController.playTallyEffects();
     }
 
     await completer.future;

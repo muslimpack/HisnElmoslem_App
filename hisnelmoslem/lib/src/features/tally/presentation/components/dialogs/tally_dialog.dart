@@ -32,7 +32,10 @@ class _TallyDialogState extends State<TallyDialog> {
       resetCounterController =
           TextEditingController(text: dbTally.countReset.toString());
     } else {
-      dbTally = DbTally();
+      dbTally = DbTally.empty(
+        created: DateTime.now(),
+        lastUpdate: DateTime.now(),
+      );
       titleController = TextEditingController();
       resetCounterController = TextEditingController();
     }
@@ -89,8 +92,7 @@ class _TallyDialogState extends State<TallyDialog> {
             return;
           }
 
-          dbTally.title = title;
-          dbTally.countReset = resetCounter;
+          dbTally = dbTally.copyWith(title: title, countReset: resetCounter);
 
           Navigator.pop<DbTally>(context, dbTally);
         },
