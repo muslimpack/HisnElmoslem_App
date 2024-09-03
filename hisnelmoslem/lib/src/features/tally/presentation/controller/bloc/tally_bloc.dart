@@ -250,7 +250,6 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
-
     final activeCounter = state.activeCounter;
     if (activeCounter == null) return;
 
@@ -273,7 +272,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     add(
       TallyEditCounterEvent(
         counter: activeCounter.copyWith(
-          count: (activeCounter.count--).clamp(0, activeCounter.count),
+          count: (activeCounter.count - 1).clamp(0, activeCounter.count),
         ),
       ),
     );
