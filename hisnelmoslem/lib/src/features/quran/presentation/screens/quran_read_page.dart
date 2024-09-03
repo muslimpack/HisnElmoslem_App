@@ -36,12 +36,6 @@ class QuranReadPage extends StatelessWidget {
                       }
                     }(),
                   ),
-                  // actions: [
-                  //   IconButton(
-                  //     onPressed: () => controller.toggleTheme(),
-                  //     icon: const Icon(Icons.dark_mode),
-                  //   ),
-                  // ],
                 ),
                 body: GestureDetector(
                   onDoubleTap: () => controller.onDoubleTap(),
