@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ShareAsImageSettings extends Equatable {
+class ShareImageSettings extends Equatable {
   final Color titleTextColor;
   final Color bodyTextColor;
   final Color additionalTextColor;
@@ -15,7 +15,7 @@ class ShareAsImageSettings extends Equatable {
   final int imageWidth;
   final double imageQuality;
 
-  const ShareAsImageSettings({
+  const ShareImageSettings({
     required this.titleTextColor,
     required this.bodyTextColor,
     required this.additionalTextColor,
@@ -30,7 +30,7 @@ class ShareAsImageSettings extends Equatable {
     required this.imageQuality,
   });
 
-  ShareAsImageSettings copyWith({
+  ShareImageSettings copyWith({
     Color? titleTextColor,
     Color? bodyTextColor,
     Color? additionalTextColor,
@@ -44,7 +44,7 @@ class ShareAsImageSettings extends Equatable {
     int? imageWidth,
     double? imageQuality,
   }) {
-    return ShareAsImageSettings(
+    return ShareImageSettings(
       titleTextColor: titleTextColor ?? this.titleTextColor,
       bodyTextColor: bodyTextColor ?? this.bodyTextColor,
       additionalTextColor: additionalTextColor ?? this.additionalTextColor,
