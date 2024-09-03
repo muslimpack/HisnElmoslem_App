@@ -1,13 +1,3 @@
-import 'dart:convert';
-
-List<Quran> quranFromJson(String str) => List<Quran>.from(
-      (json.decode(str) as List)
-          .map((x) => Quran.fromJson(x as Map<String, dynamic>)),
-    );
-
-String quranToJson(List<Quran> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class Quran {
   Quran({
     required this.surah,
