@@ -165,12 +165,36 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   FutureOr<void> _nextCounter(
     TallyNextCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final activeCounterIndex =
+        state.allCounters.indexWhere((x) => x.isActivated);
+    if (activeCounterIndex == -1) return;
+
+    final nextCounterIndex =
+        (activeCounterIndex + 1) % state.allCounters.length;
+    final nextCounter = state.allCounters[nextCounterIndex];
+    add(TallyToggleCounterActivationEvent(counter: nextCounter));
+  }
 
   FutureOr<void> _previousCounter(
     TallyPreviousCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final activeCounterIndex =
+        state.allCounters.indexWhere((x) => x.isActivated);
+    if (activeCounterIndex == -1) return;
+
+    final previousCounterIndex =
+        (activeCounterIndex - 1) % state.allCounters.length;
+    final previousCounter = state.allCounters[previousCounterIndex];
+    add(TallyToggleCounterActivationEvent(counter: previousCounter));
+  }
 
   FutureOr<void> _resetAllCounters(
     TallyResetAllCountersEvent event,
