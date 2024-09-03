@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 TallyDatabaseHelper tallyDatabaseHelper = TallyDatabaseHelper();
@@ -32,10 +34,23 @@ class TallyDatabaseHelper {
 
   /* ************* Database Creation ************* */
 
+  Future<String> getDbPath() async {
+    late final String path;
+
+    if (Platform.isWindows) {
+      final dbPath = (await getApplicationSupportDirectory()).path;
+      path = join(dbPath, dbName);
+    } else {
+      final dbPath = await getDatabasesPath();
+      path = join(dbPath, dbName);
+    }
+
+    return path;
+  }
+
   // init
   Future<Database> _initDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, dbName);
+    final path = await getDbPath();
 
     return openDatabase(
       path,
@@ -119,8 +134,6 @@ class TallyDatabaseHelper {
     required DbTally dbTally,
   }) async {
     final db = await database;
-    dbTally.created = DateTime.now();
-    dbTally.lastUpdate = DateTime.now();
     await db.insert(
       'data',
       dbTally.toMap(),
@@ -131,13 +144,8 @@ class TallyDatabaseHelper {
   // Update tally by ID
   Future<void> updateTally({
     required DbTally dbTally,
-    required bool updateTime,
   }) async {
     final db = await database;
-
-    if (updateTime) {
-      dbTally.lastUpdate = DateTime.now();
-    }
 
     await db.update(
       'data',
@@ -145,6 +153,25 @@ class TallyDatabaseHelper {
       where: "id = ?",
       whereArgs: [dbTally.id],
     );
+  }
+
+  Future<void> updateTallies({
+    required List<DbTally> dbTallies,
+  }) async {
+    final db = await database;
+
+    final batch = db.batch();
+
+    for (final dbTally in dbTallies) {
+      batch.update(
+        'data',
+        dbTally.copyWith(lastUpdate: DateTime.now()).toMap(),
+        where: "id = ?",
+        whereArgs: [dbTally.id],
+      );
+    }
+
+    await batch.commit(noResult: true);
   }
 
   // Delete tally by ID
