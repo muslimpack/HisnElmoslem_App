@@ -10,8 +10,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -26,16 +28,31 @@ class ShareImageCubit extends Cubit<ShareImageState> {
       CaptureWidgetController();
   ShareImageCubit(this.shareAsImageData) : super(ShareImageLoadingState());
 
-  FutureOr start() async {
+  FutureOr start(DbContent content) async {
     final ShareImageSettings shareImageSettings =
         shareAsImageData.shareImageSettings;
 
+    final baseTitle = await _getTitle(content);
+
     emit(
       ShareImageLoadedState(
+        content: content,
+        title: baseTitle,
         shareImageSettings: shareImageSettings,
         showLoadingIndicator: false,
       ),
     );
+  }
+
+  FutureOr<String> _getTitle(DbContent content) async {
+    final String title;
+    if (content.titleId >= 0) {
+      title =
+          (await azkarDatabaseHelper.getTitleById(id: content.titleId)).name;
+    } else {
+      title = "أحاديث منتشرة لا تصح";
+    }
+    return title;
   }
 
   FutureOr updateSettings(ShareImageSettings shareImageSettings) async {
