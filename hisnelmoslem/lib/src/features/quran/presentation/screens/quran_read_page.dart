@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/components/between_page_effect.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/components/page_side_effect.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
 
 class QuranReadPage extends StatelessWidget {
@@ -87,65 +89,6 @@ class QuranReadPage extends StatelessWidget {
                 ),
               );
       },
-    );
-  }
-}
-
-class BetweenPageEffect extends StatelessWidget {
-  final int index;
-
-  const BetweenPageEffect({
-    super.key,
-    required this.index,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: index.isEven ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        width: 50,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
-            end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
-            colors: [
-              Colors.transparent,
-              Colors.black.withOpacity(.05),
-              Colors.black.withOpacity(.1),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class PageSideEffect extends StatelessWidget {
-  final int index;
-
-  const PageSideEffect({
-    super.key,
-    required this.index,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        width: 5,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
-            end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
-            colors: [
-              Colors.white,
-              Colors.black.withAlpha(200),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
