@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class DbTally {
   int id;
   String title;
@@ -49,5 +50,25 @@ class DbTally {
   @override
   String toString() {
     return toMap().toString();
+  }
+
+  DbTally copyWith({
+    int? id,
+    String? title,
+    int? count,
+    int? countReset,
+    DateTime? created,
+    DateTime? lastUpdate,
+    bool? isActivated,
+  }) {
+    return DbTally(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      count: count ?? this.count,
+      countReset: countReset ?? this.countReset,
+      created: created ?? this.created,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      isActivated: isActivated ?? this.isActivated,
+    );
   }
 }
