@@ -60,3 +60,5 @@ class TallyResetActiveCounterEvent extends TallyEvent {}
 class TallyIncreaseActiveCounterEvent extends TallyEvent {}
 
 class TallyDecreaseActiveCounterEvent extends TallyEvent {}
+
+class TallyToggleIterationModeEvent extends TallyEvent {}
