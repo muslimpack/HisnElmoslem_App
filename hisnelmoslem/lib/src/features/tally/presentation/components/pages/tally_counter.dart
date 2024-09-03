@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
@@ -141,9 +142,22 @@ class TallyCounterView extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.refresh),
                     onPressed: () {
-                      context
-                          .read<TallyBloc>()
-                          .add(TallyResetActiveCounterEvent());
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (_) {
+                          return YesOrNoDialog(
+                            msg:
+                                "your progress will be deleted and you can't undo that"
+                                    .tr,
+                            onYes: () async {
+                              context
+                                  .read<TallyBloc>()
+                                  .add(TallyResetActiveCounterEvent());
+                            },
+                          );
+                        },
+                      );
                     },
                   ),
                   IconButton(
