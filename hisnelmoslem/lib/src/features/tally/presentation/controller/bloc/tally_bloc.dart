@@ -213,7 +213,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     if (state is! TallyLoadedState) return;
 
     final updatedCounters = List<DbTally>.from(state.allCounters)
-      ..map((x) => x..count = 0);
+        .map((x) => x.copyWith(count: 0))
+        .toList();
 
     await tallyDatabaseHelper.updateTallies(
       dbTallies: updatedCounters,
@@ -249,6 +250,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
+
     final activeCounter = state.activeCounter;
     if (activeCounter == null) return;
 
