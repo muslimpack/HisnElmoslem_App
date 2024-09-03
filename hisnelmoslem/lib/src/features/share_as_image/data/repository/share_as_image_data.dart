@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 
 ShareAsImageData shareAsImageData = ShareAsImageData();
 
@@ -13,7 +14,7 @@ class ShareAsImageData {
   Color get titleTextColor =>
       Color(box.read<int?>(titleTextBoxKey) ?? shareAsImageColorsList[4].value);
   Future<void> updateTitleColor(Color color) async {
-    await box.write(shareAsImageData.titleTextBoxKey, color.value);
+    await box.write(titleTextBoxKey, color.value);
   }
 
   ///
@@ -24,7 +25,7 @@ class ShareAsImageData {
       );
 
   Future<void> updateTextColor(Color color) async {
-    await box.write(shareAsImageData.bodyTextColorBoxKey, color.value);
+    await box.write(bodyTextColorBoxKey, color.value);
   }
 
   ///
@@ -35,7 +36,7 @@ class ShareAsImageData {
             shareAsImageColorsList[3].value,
       );
   Future<void> updateAdditionalTextColor(Color color) async {
-    await box.write(shareAsImageData.additionalTextColorBoxKey, color.value);
+    await box.write(additionalTextColorBoxKey, color.value);
   }
 
   ///
@@ -46,7 +47,7 @@ class ShareAsImageData {
             shareAsImageColorsList[7].value,
       );
   Future<void> updateBackgroundColor(Color color) async {
-    await box.write(shareAsImageData.backgroundColorBoxKey, color.value);
+    await box.write(backgroundColorBoxKey, color.value);
   }
 
   ///
@@ -54,7 +55,7 @@ class ShareAsImageData {
 
   double get fontSize => box.read(fontSizeBoxKey) ?? 25;
   Future<void> changFontSize(double value) async {
-    await box.write(shareAsImageData.fontSizeBoxKey, value);
+    await box.write(fontSizeBoxKey, value);
   }
 
   ///
@@ -62,7 +63,7 @@ class ShareAsImageData {
 
   bool get showFadl => box.read(showFadlBoxKey) ?? true;
   Future<void> updateShowFadl({required bool value}) async {
-    await box.write(shareAsImageData.showFadlBoxKey, value);
+    await box.write(showFadlBoxKey, value);
   }
 
   ///
@@ -71,7 +72,7 @@ class ShareAsImageData {
   bool get showSource => box.read(showSourceBoxKey) ?? true;
 
   Future<void> updateShowSource({required bool value}) async {
-    await box.write(shareAsImageData.showSourceBoxKey, value);
+    await box.write(showSourceBoxKey, value);
   }
 
   ///
@@ -79,7 +80,7 @@ class ShareAsImageData {
 
   bool get showZikrIndex => box.read(showZikrIndexBoxKey) ?? true;
   Future<void> updateShowZikrIndex({required bool value}) async {
-    await box.write(shareAsImageData.showZikrIndexBoxKey, value);
+    await box.write(showZikrIndexBoxKey, value);
   }
 
   ///
@@ -88,7 +89,7 @@ class ShareAsImageData {
   bool get removeDiacritics => box.read(removeDiacriticsKey) ?? false;
   Future<void> updateRemoveDiacritics({required bool value}) async {
     await box.write(
-      shareAsImageData.removeDiacriticsKey,
+      removeDiacriticsKey,
       value,
     );
   }
@@ -98,7 +99,7 @@ class ShareAsImageData {
 
   int get imageWidth => box.read(imageWidthBoxKey) ?? 600;
   Future<void> updateImageWidth({required int value}) async {
-    await box.write(shareAsImageData.imageWidthBoxKey, value);
+    await box.write(imageWidthBoxKey, value);
   }
 
   ///
@@ -106,6 +107,36 @@ class ShareAsImageData {
 
   double get imageQuality => box.read(imageQualityBoxKey) ?? 2;
   Future<void> updateImageQuality(double value) async {
-    await box.write(shareAsImageData.imageQualityBoxKey, value);
+    await box.write(imageQualityBoxKey, value);
+  }
+
+  ///
+  final String shareImageSettingsBoxKey = 'share_image_image_settings';
+
+  ShareImageSettings get shareImageSettings {
+    final data = box.read<String?>(shareImageSettingsBoxKey);
+    if (data == null) {
+      return ShareImageSettings(
+        titleTextColor: titleTextColor,
+        bodyTextColor: bodyTextColor,
+        additionalTextColor: additionalTextColor,
+        backgroundColor: backgroundColor,
+        fontSize: fontSize,
+        showFadl: showFadl,
+        showSource: showSource,
+        showZikrIndex: showZikrIndex,
+        removeDiacritics: removeDiacritics,
+        imageWidth: imageWidth,
+        imageQuality: imageQuality,
+      );
+    }
+    return ShareImageSettings.fromJson(data);
+  }
+
+  Future<void> updateShareImageSettings(ShareImageSettings settings) async {
+    await box.write(
+      shareImageSettingsBoxKey,
+      settings.toJson(),
+    );
   }
 }
