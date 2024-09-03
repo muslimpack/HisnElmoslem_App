@@ -266,13 +266,6 @@ class ShareAsImageController extends GetxController {
   }
 
   // ******************************************* //
-  Future<void> toggleFixedContentStatus({required bool value}) async {
-    await box.write(shareAsImageData.fixedFontBoxKey, value);
-    fitImageToScreen();
-    update();
-  }
-
-  // ******************************************* //
   Future<void> updateImageWidth({required int value}) async {
     await box.write(shareAsImageData.imageWidthBoxKey, value);
     fitImageToScreen();
