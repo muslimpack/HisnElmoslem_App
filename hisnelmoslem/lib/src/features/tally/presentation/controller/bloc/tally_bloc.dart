@@ -114,6 +114,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         activeCounter: activeCounter,
       ),
     );
+
+    await Future.delayed(const Duration(milliseconds: 400));
+    event.completer?.complete();
   }
 
   FutureOr<void> _deleteCounter(
@@ -277,11 +280,15 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final activeCounter = state.activeCounter;
     if (activeCounter == null) return;
 
+    final completer = Completer<void>();
     add(
       TallyEditCounterEvent(
         counter: activeCounter.copyWith(count: activeCounter.count + 1),
+        completer: completer,
       ),
     );
+
+    await completer.future;
 
     add(TallyIterateEvent());
   }

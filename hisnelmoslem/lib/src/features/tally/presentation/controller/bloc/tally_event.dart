@@ -21,8 +21,10 @@ class TallyAddCounterEvent extends TallyEvent {
 
 class TallyEditCounterEvent extends TallyEvent {
   final DbTally counter;
+  final Completer? completer;
   const TallyEditCounterEvent({
     required this.counter,
+    this.completer,
   });
 
   @override
