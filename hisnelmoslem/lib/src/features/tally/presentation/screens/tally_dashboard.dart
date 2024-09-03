@@ -55,6 +55,14 @@ class Tally extends StatelessWidget {
                       },
                       icon: const Icon(Icons.settings),
                     ),
+                  if (state.iterationMode != TallyIterationMode.none)
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        value: state.loadingIteration ? null : 1,
+                      ),
+                    ),
                   IconButton(
                     splashRadius: 20,
                     onPressed: () {

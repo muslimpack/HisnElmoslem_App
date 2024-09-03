@@ -62,6 +62,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         allCounters: allCounters,
         activeCounter: allCounters.where((x) => x.isActivated).firstOrNull,
         iterationMode: TallyIterationMode.none,
+        loadingIteration: false,
       ),
     );
   }
@@ -118,7 +119,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       ),
     );
 
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 350));
     event.completer?.complete();
   }
 
@@ -285,6 +286,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     if (activeCounter == null) return;
 
     final completer = Completer<void>();
+    if (state.iterationMode != TallyIterationMode.none) {
+      emit(state.copyWith(loadingIteration: true));
+    }
     add(
       TallyEditCounterEvent(
         counter: activeCounter.copyWith(count: activeCounter.count + 1),
@@ -352,6 +356,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       case TallyIterationMode.shuffle:
         add(TallyRandomCounterEvent());
     }
+
+    emit(state.copyWith(loadingIteration: false));
   }
 
   @override

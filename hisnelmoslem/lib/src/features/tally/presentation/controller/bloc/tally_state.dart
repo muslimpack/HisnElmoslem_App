@@ -14,11 +14,13 @@ final class TallyLoadedState extends TallyState {
   final List<DbTally> allCounters;
   final DbTally? activeCounter;
   final TallyIterationMode iterationMode;
+  final bool loadingIteration;
 
   const TallyLoadedState({
     required this.allCounters,
     required this.activeCounter,
     required this.iterationMode,
+    required this.loadingIteration,
   });
 
   double get resetEvery => switch (iterationMode) {
@@ -30,6 +32,7 @@ final class TallyLoadedState extends TallyState {
     List<DbTally>? allCounters,
     Object? activeCounter = _notProvided,
     TallyIterationMode? iterationMode,
+    bool? loadingIteration,
   }) {
     return TallyLoadedState(
       allCounters: allCounters ?? this.allCounters,
@@ -37,6 +40,7 @@ final class TallyLoadedState extends TallyState {
           ? this.activeCounter
           : activeCounter as DbTally?,
       iterationMode: iterationMode ?? this.iterationMode,
+      loadingIteration: loadingIteration ?? this.loadingIteration,
     );
   }
 
@@ -47,5 +51,6 @@ final class TallyLoadedState extends TallyState {
         allCounters,
         activeCounter,
         iterationMode,
+        loadingIteration,
       ];
 }
