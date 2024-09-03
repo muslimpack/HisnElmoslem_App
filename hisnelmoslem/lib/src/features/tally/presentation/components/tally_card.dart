@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_dialog.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class TallyCard extends StatelessWidget {
@@ -16,7 +15,6 @@ class TallyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting("ar");
     final state = context.read<TallyBloc>().state;
     final bool isActivated;
     if (state is TallyLoadedState) {
@@ -55,8 +53,8 @@ class TallyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    DateFormat('EEEE - dd-MM-yyyy – kk:mm')
-                        .format(dbTally.lastUpdate!),
+                    DateFormat('EEEE yyyy/MM/dd  hh:mm a')
+                        .format(dbTally.lastUpdate),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
