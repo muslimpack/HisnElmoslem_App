@@ -14,7 +14,7 @@ class QuranCubit extends Cubit<QuranState> {
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final PageController pageController = PageController();
 
-  QuranCubit() : super(QuranLoading()) {
+  QuranCubit() : super(QuranLoadingState()) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     _volumeBtnChannel.setMethodCallHandler((call) {
       if (call.method == "volumeBtnPressed") {
@@ -37,6 +37,8 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   FutureOr start(SurahNameEnum surahName) async {
+    emit(QuranLoadingState());
+
     final quranList = await _fetchQuranJson();
     final requiredSurah = _getQuranRequiredSurah(
       SurahNameEnum.endofAliImran,
@@ -44,7 +46,7 @@ class QuranCubit extends Cubit<QuranState> {
     );
 
     emit(
-      QuranLoaded(
+      QuranLoadedState(
         surahName: surahName,
         quranList: quranList,
         requiredSurah: requiredSurah,
@@ -82,6 +84,11 @@ class QuranCubit extends Cubit<QuranState> {
     }
 
     return quran;
+  }
+
+  void onDoubleTap() {
+    // hide statusbar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
   @override

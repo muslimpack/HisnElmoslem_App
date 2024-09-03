@@ -8,24 +8,24 @@ sealed class QuranState extends Equatable {
   List<Object> get props => [];
 }
 
-final class QuranLoading extends QuranState {}
+final class QuranLoadingState extends QuranState {}
 
-final class QuranLoaded extends QuranState {
+final class QuranLoadedState extends QuranState {
   final SurahNameEnum surahName;
   final List<Quran> quranList;
   final Quran requiredSurah;
-  const QuranLoaded({
+  const QuranLoadedState({
     required this.surahName,
     required this.quranList,
     required this.requiredSurah,
   });
 
-  QuranLoaded copyWith({
+  QuranLoadedState copyWith({
     SurahNameEnum? surahName,
     List<Quran>? quranList,
     Quran? requiredSurah,
   }) {
-    return QuranLoaded(
+    return QuranLoadedState(
       surahName: surahName ?? this.surahName,
       quranList: quranList ?? this.quranList,
       requiredSurah: requiredSurah ?? this.requiredSurah,
