@@ -5,7 +5,6 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -33,10 +32,7 @@ class TallyCounterView extends StatelessWidget {
           );
         }
 
-        final double resetEvery = switch (state.iterationMode) {
-          TallyIterationMode.none => activeCounter.countReset.toDouble(),
-          _ => 33
-        };
+        final double resetEvery = state.resetEvery;
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
