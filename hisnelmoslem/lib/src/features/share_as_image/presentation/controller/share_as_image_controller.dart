@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:capture_widget/capture_widget.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -25,8 +28,9 @@ class ShareAsImageController extends GetxController {
       TransformationController();
   final DraggableScrollableController draggableScrollableController =
       DraggableScrollableController();
-  final GlobalKey imageKey = GlobalKey();
 
+  final CaptureWidgetController captureWidgetController =
+      CaptureWidgetController();
   // ******************************************* //
   bool isLoading = false;
   bool pageIsLoading = true;
@@ -183,32 +187,59 @@ class ShareAsImageController extends GetxController {
     //   hisnPrint(e.toString());
     // }
 
+    isLoading = true;
+    update();
     try {
-      isLoading = true;
-      update();
-
-      final RenderRepaintBoundary boundary = (imageKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary?)!;
-
       final double pixelRatio = shareAsImageData.imageQuality;
-      final image = await boundary.toImage(pixelRatio: pixelRatio);
+      final image = await captureWidgetController.getImage(pixelRatio);
+      final byteData = await image?.toByteData(format: ImageByteFormat.png);
 
-      final byteData = await image.toByteData(format: ImageByteFormat.png);
-      final tempDir = await getTemporaryDirectory();
-
-      final File file =
-          await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
-      await file.writeAsBytes(byteData!.buffer.asUint8List());
-
-      await Share.shareXFiles([XFile(file.path)]);
-
-      await file.delete();
-
-      isLoading = false;
-      update();
+      if (PlatformExtension.isDesktop) {
+        await _saveDesktop(byteData);
+      } else {
+        await _savePhone(byteData);
+      }
     } catch (e) {
       hisnPrint(e.toString());
     }
+    isLoading = false;
+    update();
+  }
+
+  Future _saveDesktop(ByteData? byteData) async {
+    if (byteData == null) return;
+
+    final Uint8List uint8List = byteData.buffer.asUint8List();
+
+    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    String? outputFile = await FilePicker.platform.saveFile(
+      dialogTitle: 'Please select an output file:',
+      fileName: 'HisnElmoslemSharedImage-$timestamp.png',
+    );
+
+    if (outputFile == null) return;
+    if (!outputFile.endsWith(".png")) {
+      outputFile += ".png";
+    }
+
+    hisnPrint(outputFile);
+
+    final File file = File(outputFile);
+    await file.writeAsBytes(uint8List);
+  }
+
+  Future _savePhone(ByteData? byteData) async {
+    if (byteData == null) return;
+
+    final tempDir = await getTemporaryDirectory();
+
+    final File file =
+        await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+
+    await Share.shareXFiles([XFile(file.path)]);
+
+    await file.delete();
   }
 
   // ******************************************* //

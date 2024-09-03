@@ -1,3 +1,4 @@
+import 'package:capture_widget/capture_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
@@ -85,10 +86,9 @@ class ShareAsImage extends StatelessWidget {
                         minScale: 0.25,
                         maxScale: 3,
                         boundaryMargin: const EdgeInsets.all(5000),
-                        child: RepaintBoundary(
-                          key: controller.imageKey,
+                        child: CaptureWidget(
+                          controller: controller.captureWidgetController,
                           child: ImageVarFontBuilder(
-                            key: GlobalKey(),
                             dbContent: controller.dbContent,
                           ),
                         ),
