@@ -53,7 +53,7 @@ class Tally extends StatelessWidget {
                             .read<TallyBloc>()
                             .add(TallyEditCounterEvent(counter: result));
                       },
-                      icon: const Icon(Icons.settings),
+                      icon: const Icon(Icons.edit),
                     ),
                   IconButton(
                     splashRadius: 20,
