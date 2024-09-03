@@ -163,28 +163,6 @@ class ShareAsImageController extends GetxController {
   }
 
   Future<void> shareImage() async {
-    // try {
-    //   isLoading = true;
-    //   update();
-    //   await screenshotController
-    //       .capture(pixelRatio: shareAsImageData.imageQuality)
-    //       .then((Uint8List? image) async {
-    //     final tempDir = await getTemporaryDirectory();
-    //     //
-    //     final File file =
-    //         await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
-    //     //
-    //     file.writeAsBytesSync(image!);
-    //     //
-    //     await Share.shareFiles([file.path]);
-    //     isLoading = false;
-    //     update();
-    //   }).catchError((onError) {});
-    //   //
-    // } catch (e) {
-    //   hisnPrint(e.toString());
-    // }
-
     isLoading = true;
     update();
     try {
