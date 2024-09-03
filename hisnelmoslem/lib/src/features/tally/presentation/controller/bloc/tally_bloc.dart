@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -38,11 +39,13 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     on<TallyToggleCounterActivationEvent>(_toggleCounterActivation);
     on<TallyNextCounterEvent>(_nextCounter);
     on<TallyPreviousCounterEvent>(_previousCounter);
+    on<TallyRandomCounterEvent>(_randomCounter);
     on<TallyResetAllCountersEvent>(_resetAllCounters);
     on<TallyResetActiveCounterEvent>(_resetActiveCounter);
     on<TallyIncreaseActiveCounterEvent>(_increaseActiveCounter);
     on<TallyDecreaseActiveCounterEvent>(_decreaseActiveCounter);
     on<TallyToggleIterationModeEvent>(_toggleIterationMode);
+    on<TallyIterateEvent>(_iterate);
   }
 
   FutureOr<void> _start(
@@ -205,6 +208,26 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     add(TallyToggleCounterActivationEvent(counter: previousCounter));
   }
 
+  FutureOr<void> _randomCounter(
+    TallyRandomCounterEvent event,
+    Emitter<TallyState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final activeCounterIndex =
+        state.allCounters.indexWhere((x) => x.isActivated);
+    if (activeCounterIndex == -1) return;
+
+    int randomIndex;
+    do {
+      randomIndex = Random().nextInt(state.allCounters.length);
+    } while (randomIndex == activeCounterIndex && state.allCounters.length > 2);
+
+    final randomCounter = state.allCounters[randomIndex];
+    add(TallyToggleCounterActivationEvent(counter: randomCounter));
+  }
+
   FutureOr<void> _resetAllCounters(
     TallyResetAllCountersEvent event,
     Emitter<TallyState> emit,
@@ -234,6 +257,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
+
     final activeCounter = state.activeCounter;
     if (activeCounter == null) return;
 
@@ -258,6 +282,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         counter: activeCounter.copyWith(count: activeCounter.count + 1),
       ),
     );
+
+    add(TallyIterateEvent());
   }
 
   FutureOr<void> _decreaseActiveCounter(
@@ -292,6 +318,23 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         iterationMode: TallyIterationMode.values[nextModeIndex],
       ),
     );
+  }
+
+  FutureOr<void> _iterate(
+    TallyIterateEvent event,
+    Emitter<TallyState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    switch (state.iterationMode) {
+      case TallyIterationMode.none:
+        break;
+      case TallyIterationMode.circular:
+        add(TallyNextCounterEvent());
+      case TallyIterationMode.shuffle:
+        add(TallyRandomCounterEvent());
+    }
   }
 
   @override
