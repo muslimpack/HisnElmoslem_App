@@ -17,7 +17,13 @@ class TallyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting("ar");
-
+    final state = context.read<TallyBloc>().state;
+    final bool isActivated;
+    if (state is TallyLoadedState) {
+      isActivated = dbTally.id == state.activeCounter?.id;
+    } else {
+      isActivated = false;
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -26,7 +32,7 @@ class TallyCard extends StatelessWidget {
           children: [
             ListTile(
               isThreeLine: true,
-              tileColor: dbTally.isActivated
+              tileColor: isActivated
                   ? Theme.of(context).colorScheme.primary.withOpacity(.2)
                   : null,
               onTap: () {
@@ -35,7 +41,7 @@ class TallyCard extends StatelessWidget {
                     .add(TallyToggleCounterActivationEvent(counter: dbTally));
               },
               leading: Icon(
-                dbTally.isActivated ? Icons.done_all_outlined : null,
+                isActivated ? Icons.done_all_outlined : null,
                 size: 40,
               ),
               title: Text(
