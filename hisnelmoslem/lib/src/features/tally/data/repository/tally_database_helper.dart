@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 TallyDatabaseHelper tallyDatabaseHelper = TallyDatabaseHelper();
@@ -32,10 +34,23 @@ class TallyDatabaseHelper {
 
   /* ************* Database Creation ************* */
 
+  Future<String> getDbPath() async {
+    late final String path;
+
+    if (Platform.isWindows) {
+      final dbPath = (await getApplicationSupportDirectory()).path;
+      path = join(dbPath, dbName);
+    } else {
+      final dbPath = await getDatabasesPath();
+      path = join(dbPath, dbName);
+    }
+
+    return path;
+  }
+
   // init
   Future<Database> _initDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, dbName);
+    final path = await getDbPath();
 
     return openDatabase(
       path,
