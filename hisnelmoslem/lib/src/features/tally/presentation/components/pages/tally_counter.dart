@@ -82,9 +82,8 @@ class TallyCounterView extends StatelessWidget {
                   ),
                   const Spacer(),
                   SleekCircularSlider(
-                    initialValue: activeCounter.count.toDouble() -
-                        (activeCounter.count ~/ activeCounter.countReset) *
-                            activeCounter.countReset,
+                    initialValue: activeCounter.count.toDouble() %
+                        activeCounter.countReset,
                     max: activeCounter.countReset.toDouble(),
                     appearance: CircularSliderAppearance(
                       angleRange: 360,
