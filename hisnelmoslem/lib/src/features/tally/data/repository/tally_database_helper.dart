@@ -162,6 +162,30 @@ class TallyDatabaseHelper {
     );
   }
 
+  Future<void> updateTallies({
+    required List<DbTally> dbTallies,
+    required bool updateTime,
+  }) async {
+    final db = await database;
+
+    final batch = db.batch();
+
+    for (final dbTally in dbTallies) {
+      if (updateTime) {
+        dbTally.lastUpdate = DateTime.now();
+      }
+
+      batch.update(
+        'data',
+        dbTally.toMap(),
+        where: "id = ?",
+        whereArgs: [dbTally.id],
+      );
+    }
+
+    await batch.commit(noResult: true);
+  }
+
   // Delete tally by ID
   Future<void> deleteTally({required DbTally dbTally}) async {
     final db = await database;
