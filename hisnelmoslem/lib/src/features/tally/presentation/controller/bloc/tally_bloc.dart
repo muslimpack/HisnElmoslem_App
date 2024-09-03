@@ -204,17 +204,52 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   FutureOr<void> _resetActiveCounter(
     TallyResetActiveCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+    final activeCounter = state.activeCounter;
+    if (activeCounter == null) return;
+
+    add(
+      TallyEditCounterEvent(
+        counter: activeCounter.copyWith(count: 0),
+      ),
+    );
+  }
 
   FutureOr<void> _increaseActiveCounter(
     TallyIncreaseActiveCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+    final activeCounter = state.activeCounter;
+    if (activeCounter == null) return;
+
+    add(
+      TallyEditCounterEvent(
+        counter: activeCounter.copyWith(count: activeCounter.count++),
+      ),
+    );
+  }
 
   FutureOr<void> _decreaseActiveCounter(
     TallyDecreaseActiveCounterEvent event,
     Emitter<TallyState> emit,
-  ) async {}
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+    final activeCounter = state.activeCounter;
+    if (activeCounter == null) return;
+
+    add(
+      TallyEditCounterEvent(
+        counter: activeCounter.copyWith(
+          count: (activeCounter.count--).clamp(0, activeCounter.count),
+        ),
+      ),
+    );
+  }
 
   @override
   Future<void> close() async {
