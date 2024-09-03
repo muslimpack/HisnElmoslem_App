@@ -13,14 +13,6 @@ class TallyCounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width * .75;
-    final double height = MediaQuery.of(context).size.height * .75;
-    late double smallLength;
-    if (width > height) {
-      smallLength = height;
-    } else {
-      smallLength = width;
-    }
     return BlocBuilder<TallyBloc, TallyState>(
       builder: (context, state) {
         if (state is! TallyLoadedState) {
@@ -48,138 +40,164 @@ class TallyCounterView extends StatelessWidget {
             },
             child: Center(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const SizedBox(
-                    height: 40,
+                  Card(
+                    child: Container(
+                      height: 150,
+                      constraints: const BoxConstraints(minHeight: 150),
+                      child: Center(
+                        child: ListView(
+                          padding: const EdgeInsets.all(20),
+                          shrinkWrap: true,
+                          children: [
+                            Text(
+                              activeCounter.title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: "uthmanic",
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      activeCounter.title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontFamily: "uthmanic",
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: SleekCircularSlider(
+                        initialValue: activeCounter.count.toDouble() %
+                            activeCounter.countReset,
+                        max: activeCounter.countReset.toDouble(),
+                        appearance: CircularSliderAppearance(
+                          angleRange: 360,
+                          startAngle: 270,
+                          infoProperties: InfoProperties(
+                            bottomLabelText:
+                                '${"times".tr}: ${activeCounter.count ~/ activeCounter.countReset}'
+                                    .toArabicNumber(),
+                            bottomLabelStyle: const TextStyle(
+                              fontSize: 25,
+                            ),
+                            mainLabelStyle: const TextStyle(fontSize: 70),
+                            modifier: (double value) {
+                              final circValue =
+                                  value.round().toString().toArabicNumber();
+                              return circValue;
+                            },
+                          ),
+                          customWidths: CustomSliderWidths(
+                            progressBarWidth: 20,
+                            trackWidth: 20,
+                          ),
+                          customColors: CustomSliderColors(
+                            dotColor: Colors.transparent,
+                            hideShadow: true,
+                            trackColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(.1),
+                            progressBarColors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(.7),
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(.7),
+                            ],
+                          ),
+                          // size: smallLength,
+                        ),
                       ),
                     ),
                   ),
                   Card(
-                    elevation: 2,
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * .8,
+                      height: 100,
                       padding: const EdgeInsets.all(20),
-                      child: Text(
-                        '${activeCounter.count}'.toArabicNumber(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 40),
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  SleekCircularSlider(
-                    initialValue: activeCounter.count.toDouble() %
-                        activeCounter.countReset,
-                    max: activeCounter.countReset.toDouble(),
-                    appearance: CircularSliderAppearance(
-                      angleRange: 360,
-                      startAngle: 270,
-                      infoProperties: InfoProperties(
-                        bottomLabelText:
-                            '${"times".tr} | ${activeCounter.count ~/ activeCounter.countReset}'
-                                .toArabicNumber(),
-                        bottomLabelStyle: const TextStyle(
-                          fontSize: 25,
+                      child: FittedBox(
+                        child: Text(
+                          '${activeCounter.count}'.toArabicNumber(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 40),
                         ),
-                        mainLabelStyle: const TextStyle(fontSize: 70),
-                        modifier: (double value) {
-                          final circValue =
-                              value.round().toString().toArabicNumber();
-                          return circValue;
-                        },
                       ),
-                      customWidths: CustomSliderWidths(
-                        progressBarWidth: 20,
-                        trackWidth: 20,
-                      ),
-                      customColors: CustomSliderColors(
-                        // trackColor: grey,
-                        hideShadow: true,
-                        trackColor: Colors.transparent,
-                        progressBarColors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context).colorScheme.primary,
-                          //  orange
-                        ],
-                      ),
-                      size: smallLength,
                     ),
                   ),
-                  const Spacer(),
                 ],
               ),
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
-            child: SizedBox(
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.keyboard_double_arrow_right),
-                    onPressed: () {
-                      context
-                          .read<TallyBloc>()
-                          .add(TallyPreviousCounterEvent());
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (_) {
-                          return YesOrNoDialog(
-                            msg:
-                                "your progress will be deleted and you can't undo that"
-                                    .tr,
-                            onYes: () async {
-                              context
-                                  .read<TallyBloc>()
-                                  .add(TallyResetActiveCounterEvent());
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () {
-                      context
-                          .read<TallyBloc>()
-                          .add(TallyDecreaseActiveCounterEvent());
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.keyboard_double_arrow_left),
-                    onPressed: () {
-                      context.read<TallyBloc>().add(TallyNextCounterEvent());
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
+          bottomNavigationBar: const TallyBotttomBar(),
         );
       },
+    );
+  }
+}
+
+class TallyBotttomBar extends StatelessWidget {
+  const TallyBotttomBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      child: SizedBox(
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.keyboard_double_arrow_right),
+              onPressed: () {
+                context.read<TallyBloc>().add(TallyPreviousCounterEvent());
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) {
+                    return YesOrNoDialog(
+                      msg:
+                          "your progress will be deleted and you can't undo that"
+                              .tr,
+                      onYes: () async {
+                        context
+                            .read<TallyBloc>()
+                            .add(TallyResetActiveCounterEvent());
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: () {
+                context
+                    .read<TallyBloc>()
+                    .add(TallyDecreaseActiveCounterEvent());
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.keyboard_double_arrow_left),
+              onPressed: () {
+                context.read<TallyBloc>().add(TallyNextCounterEvent());
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

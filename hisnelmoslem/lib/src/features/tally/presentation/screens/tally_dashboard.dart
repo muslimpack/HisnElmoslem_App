@@ -26,86 +26,71 @@ class Tally extends StatelessWidget {
           return DefaultTabController(
             length: 2,
             child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: NestedScrollView(
-                physics: const BouncingScrollPhysics(),
-                floatHeaderSlivers: true,
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return [
-                    SliverAppBar(
-                      title: Text("tally".tr),
-                      pinned: true,
-                      floating: true,
-                      snap: true,
-                      centerTitle: true,
-                      actions: [
-                        if (state.activeCounter == null)
-                          const SizedBox()
-                        else
-                          IconButton(
-                            splashRadius: 20,
-                            onPressed: () async {
-                              final DbTally dbTally = state.activeCounter!;
-                              final DbTally? result = await showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return TallyDialog(
-                                    dbTally: dbTally,
-                                  );
-                                },
-                              );
-
-                              if (result == null || !context.mounted) return;
-                              context
-                                  .read<TallyBloc>()
-                                  .add(TallyEditCounterEvent(counter: result));
-                            },
-                            icon: const Icon(Icons.settings),
-                          ),
-                        IconButton(
-                          splashRadius: 20,
-                          onPressed: () {
-                            context
-                                .read<TallyBloc>()
-                                .add(TallyToggleIterationModeEvent());
+              appBar: AppBar(
+                title: Text("tally".tr),
+                centerTitle: true,
+                actions: [
+                  if (state.activeCounter == null)
+                    const SizedBox()
+                  else
+                    IconButton(
+                      splashRadius: 20,
+                      onPressed: () async {
+                        final DbTally dbTally = state.activeCounter!;
+                        final DbTally? result = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return TallyDialog(
+                              dbTally: dbTally,
+                            );
                           },
-                          icon: Icon(
-                            switch (state.iterationMode) {
-                              TallyIterationMode.circular =>
-                                Icons.repeat_rounded,
-                              TallyIterationMode.shuffle =>
-                                Icons.shuffle_rounded,
-                              TallyIterationMode.none =>
-                                Icons.repeat_one_rounded,
-                            },
-                          ),
-                        ),
-                      ],
-                      bottom: TabBar(
-                        tabs: [
-                          Tab(
-                            child: Text(
-                              "active tallly".tr,
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              "counters".tr,
-                            ),
-                          ),
-                        ],
+                        );
+
+                        if (result == null || !context.mounted) return;
+                        context
+                            .read<TallyBloc>()
+                            .add(TallyEditCounterEvent(counter: result));
+                      },
+                      icon: const Icon(Icons.settings),
+                    ),
+                  IconButton(
+                    splashRadius: 20,
+                    onPressed: () {
+                      context
+                          .read<TallyBloc>()
+                          .add(TallyToggleIterationModeEvent());
+                    },
+                    icon: Icon(
+                      switch (state.iterationMode) {
+                        TallyIterationMode.circular => Icons.repeat_rounded,
+                        TallyIterationMode.shuffle => Icons.shuffle_rounded,
+                        TallyIterationMode.none => Icons.repeat_one_rounded,
+                      },
+                    ),
+                  ),
+                ],
+                bottom: TabBar(
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        "active tallly".tr,
                       ),
                     ),
-                  ];
-                },
-                body: const TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    TallyCounterView(),
-                    TallyListView(),
+                    Tab(
+                      child: Text(
+                        "counters".tr,
+                      ),
+                    ),
                   ],
                 ),
+              ),
+              resizeToAvoidBottomInset: false,
+              body: const TabBarView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  TallyCounterView(),
+                  TallyListView(),
+                ],
               ),
             ),
           );
