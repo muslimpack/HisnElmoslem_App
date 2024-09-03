@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,6 +8,13 @@ class CaptureWidgetController {
 
   GlobalKey get imageKey => _imageKey;
 
+  /// Retrieves the image from the widget with the given pixel ratio.
+  ///
+  /// The [pixelRatio] is the ratio of pixels in the image to the logical pixels
+  /// in the widget.
+  ///
+  /// Returns a [Future] that completes with the captured image as a [ui.Image]
+  /// object, or `null` if the widget or its context is not available.
   Future<ui.Image?> getImage(double pixelRatio) async {
     final context = _imageKey.currentContext;
     if (context == null) return null;
@@ -22,10 +27,5 @@ class CaptureWidgetController {
     final image = await boundary.toImage(pixelRatio: pixelRatio);
 
     return image;
-  }
-
-  Future<ByteData?> getBuffer(ui.Image image, ImageByteFormat format) async {
-    final byteData = await image.toByteData(format: format);
-    return byteData;
   }
 }
