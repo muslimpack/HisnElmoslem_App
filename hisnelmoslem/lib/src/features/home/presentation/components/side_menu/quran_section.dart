@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
-import 'package:hisnelmoslem/src/features/quran/presentation/controller/quran_controller.dart';
+import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

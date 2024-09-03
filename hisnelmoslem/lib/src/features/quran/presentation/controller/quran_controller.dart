@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/quran.dart';
-import 'package:hisnelmoslem/src/features/themes/data/repository/theme_services.dart';
-
-enum SurahNameEnum { alMulk, assajdah, alKahf, endofAliImran }
+import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 
 class QuranPageController extends GetxController {
   /* *************** Variables *************** */
@@ -126,11 +124,6 @@ class QuranPageController extends GetxController {
   void onPageViewChange(int page) {
     //  currentPage = page;
     currentPage = page;
-    update();
-  }
-
-  void toggleTheme() {
-    ThemeServices.changeThemeMode();
     update();
   }
 
