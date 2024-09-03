@@ -21,6 +21,11 @@ final class TallyLoadedState extends TallyState {
     required this.iterationMode,
   });
 
+  double get resetEvery => switch (iterationMode) {
+        TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 0,
+        _ => 33
+      };
+
   TallyLoadedState copyWith({
     List<DbTally>? allCounters,
     Object? activeCounter = _notProvided,
