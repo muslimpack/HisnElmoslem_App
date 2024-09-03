@@ -55,6 +55,7 @@ class MyAppState extends State<MyApp> {
             translations: HisnAppTranslation(),
             locale: Locale(AppData.instance.appLocale),
             fallbackLocale: const Locale("ar"),
+            supportedLocales: const [Locale("ar"), Locale("en")],
             //
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
