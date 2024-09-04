@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_bottom_bar.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/settings_sheet.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/share_image_image_builder.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_image_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
