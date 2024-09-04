@@ -64,10 +64,9 @@ class ShareImageImageBuilder extends StatelessWidget {
                         ),
                       ),
                       // Fadl
-                      Visibility(
-                        visible: !(dbContent.fadl == "") &&
-                            state.shareImageSettings.showFadl,
-                        child: Padding(
+                      if (!(dbContent.fadl == "") &&
+                          state.shareImageSettings.showFadl)
+                        Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
                             dbContent.fadl,
@@ -81,12 +80,10 @@ class ShareImageImageBuilder extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
                       // Source
-                      Visibility(
-                        visible: !(dbContent.source == "") &&
-                            state.shareImageSettings.showSource,
-                        child: Padding(
+                      if (!(dbContent.source == "") &&
+                          state.shareImageSettings.showSource)
+                        Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
                             dbContent.source,
@@ -100,7 +97,6 @@ class ShareImageImageBuilder extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),
