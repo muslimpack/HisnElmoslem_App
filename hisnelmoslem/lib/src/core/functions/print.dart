@@ -1,21 +1,102 @@
 import 'package:flutter/foundation.dart';
 
 void hisnPrint(Object? object) {
+  final fileNameAndLine = getFileNameAndLine();
+  final methodName = getCurrentMethodName2();
+  printColor(
+    "[$methodName=>$fileNameAndLine] $object",
+    color: PrintColors.green,
+  );
+}
+
+void printColor(Object? object, {int color = 0}) {
+  final orangeText = '\u001b[${color}m$object\u001b[0m';
   if (kDebugMode) {
-    print(stylizeText(text: "[HISN ELMOSLEM] ${object!}"));
+    print(orangeText);
   }
 }
 
-String? stylizeText({required String? text}) {
-  return "\x1B[32m${text!}";
+String getCurrentMethodName() {
+  final frames = StackTrace.current.toString().split('\n');
+  final frame = frames.elementAtOrNull(1);
+
+  if (frame != null) {
+    final tokens = frame
+        .replaceAll('<anonymous closure>', '<anonymous_closure>')
+        .split(' ');
+
+    final methodName = tokens.elementAtOrNull(tokens.length - 2);
+    if (methodName != null) {
+      final methodTokens = methodName.split('.');
+      return methodTokens.length >= 2 &&
+              methodTokens[1] != '<anonymous_closure>'
+          ? (methodTokens.elementAtOrNull(1) ?? '')
+          : methodName;
+    }
+  }
+  return '';
 }
 
-// Black:   \x1B[30m
-// Red:     \x1B[31m
-// Green:   \x1B[32m
-// Yellow:  \x1B[33m
-// Blue:    \x1B[34m
-// Magenta: \x1B[35m
-// Cyan:    \x1B[36m
-// White:   \x1B[37m
-// Reset:   \x1B[0m
+String getCurrentMethodName2() {
+  final frames = StackTrace.current.toString().split('\n');
+  final frame = frames.elementAtOrNull(2);
+
+  if (frame != null) {
+    final tokens = frame
+        .replaceAll('<anonymous closure>', '<anonymous_closure>')
+        .split(' ');
+
+    final methodName = tokens.elementAtOrNull(tokens.length - 2);
+    if (methodName != null) {
+      final methodTokens = methodName.split('.');
+      return methodTokens.length >= 2 &&
+              methodTokens[1] != '<anonymous_closure>'
+          ? (methodTokens.elementAtOrNull(1) ?? '')
+          : methodName;
+    }
+  }
+  return '';
+}
+
+String getFileNameAndLine() {
+  final frames = StackTrace.current.toString().split('\n');
+  final frame = frames.elementAtOrNull(2);
+  // final frame = frames.elementAtOrNull(1);
+
+  if (frame != null) {
+    final tokens = frame
+        .replaceAll('<anonymous closure>', '<anonymous_closure>')
+        .split(' ');
+
+    final methodName = tokens.elementAtOrNull(tokens.length - 1);
+    if (methodName != null) {
+      final methodTokens = methodName.split('/').last.replaceAll(")", "");
+      return methodTokens;
+    }
+  }
+  return '';
+}
+
+class PrintColors {
+  static int black = 30;
+  static int red = 31;
+  static int green = 32;
+  static int yellow = 33;
+  static int blue = 34;
+  static int magenta = 35;
+  static int cyan = 36;
+  static int white = 37;
+}
+
+String get fullTimeStamp {
+  // Get the current time
+  final DateTime now = DateTime.now();
+
+  // Extract hours, minutes, and seconds
+  final String hour = now.hour.toString().padLeft(2, "0");
+  final String minute = now.minute.toString().padLeft(2, "0");
+  final String second = now.second.toString().padLeft(2, "0");
+  final String millisecond = now.millisecond.toString().padLeft(3, "0");
+
+  return '$hour:$minute:$second:$millisecond';
+}
