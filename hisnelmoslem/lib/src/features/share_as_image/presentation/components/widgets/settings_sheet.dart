@@ -1,21 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 
 class ShareImageSettingsEditor extends StatelessWidget {
+  final BuildContext context;
   const ShareImageSettingsEditor({
     super.key,
+    required this.context,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return BlocBuilder<ShareImageCubit, ShareImageState>(
-      builder: (context, state) {
+      bloc: context.read<ShareImageCubit>(),
+      builder: (_, state) {
         if (state is! ShareImageLoadedState) {
           return const Loading();
         }
@@ -39,7 +42,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                     context.read<ShareImageCubit>().updateTitleColor(color);
                   },
                   colorSwatchList: kShareImageColorsList,
-                  colorToTrack: shareAsImageData.titleTextColor,
+                  colorToTrack: state.shareImageSettings.titleTextColor,
                 ),
                 ColorSwatchBuilder(
                   title: "text color".tr,
@@ -47,7 +50,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                     context.read<ShareImageCubit>().updateTextColor(color);
                   },
                   colorSwatchList: kShareImageColorsList,
-                  colorToTrack: shareAsImageData.bodyTextColor,
+                  colorToTrack: state.shareImageSettings.bodyTextColor,
                 ),
                 ColorSwatchBuilder(
                   title: "subtitle color".tr,
@@ -57,7 +60,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                         .updateAdditionalTextColor(color);
                   },
                   colorSwatchList: kShareImageColorsList,
-                  colorToTrack: shareAsImageData.additionalTextColor,
+                  colorToTrack: state.shareImageSettings.additionalTextColor,
                 ),
                 ColorSwatchBuilder(
                   title: "background color".tr,
@@ -67,12 +70,12 @@ class ShareImageSettingsEditor extends StatelessWidget {
                         .updateBackgroundColor(color);
                   },
                   colorSwatchList: kShareImageColorsList,
-                  colorToTrack: shareAsImageData.backgroundColor,
+                  colorToTrack: state.shareImageSettings.backgroundColor,
                 ),
                 const Divider(),
                 CheckboxListTile(
                   title: Text("show zikr index".tr),
-                  value: shareAsImageData.showZikrIndex,
+                  value: state.shareImageSettings.showZikrIndex,
                   onChanged: (value) {
                     context.read<ShareImageCubit>().updateShowZikrIndex(
                           value: value!,
@@ -81,7 +84,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                 ),
                 CheckboxListTile(
                   title: Text("show fadl".tr),
-                  value: shareAsImageData.showFadl,
+                  value: state.shareImageSettings.showFadl,
                   onChanged: (value) {
                     context
                         .read<ShareImageCubit>()
@@ -90,7 +93,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                 ),
                 CheckboxListTile(
                   title: Text("show source of zikr".tr),
-                  value: shareAsImageData.showSource,
+                  value: state.shareImageSettings.showSource,
                   onChanged: (value) {
                     context
                         .read<ShareImageCubit>()
@@ -114,7 +117,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(horizontal: 5),
                           child: ChoiceChip(
                             selected: kShareImageQualityList[index] ==
-                                shareAsImageData.imageQuality,
+                                state.shareImageSettings.imageQuality,
                             onSelected: (val) {
                               context
                                   .read<ShareImageCubit>()

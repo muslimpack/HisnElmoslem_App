@@ -32,28 +32,8 @@ class ShareAsImage extends StatelessWidget {
                 "share as image".tr,
               ),
               centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    await showDialog(
-                      barrierColor: Colors.transparent,
-                      context: context,
-                      builder: (_) {
-                        return BlocProvider(
-                          create: (_) => context.read<ShareImageCubit>(),
-                          child: const ShareImageSettingsEditor(),
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.style),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    context.read<ShareImageCubit>().shareImage();
-                  },
-                  icon: const Icon(Icons.share),
-                ),
+              actions: const [
+                ShareImageBaractionButtons(),
               ],
               bottom: PreferredSize(
                 preferredSize:
@@ -96,6 +76,38 @@ class ShareAsImage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class ShareImageBaractionButtons extends StatelessWidget {
+  const ShareImageBaractionButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () async {
+            await showDialog(
+              barrierColor: Colors.transparent,
+              context: context,
+              builder: (_) {
+                return ShareImageSettingsEditor(
+                  context: context,
+                );
+              },
+            );
+          },
+          icon: const Icon(Icons.style),
+        ),
+        IconButton(
+          onPressed: () async {
+            context.read<ShareImageCubit>().shareImage();
+          },
+          icon: const Icon(Icons.share),
+        ),
+      ],
     );
   }
 }
