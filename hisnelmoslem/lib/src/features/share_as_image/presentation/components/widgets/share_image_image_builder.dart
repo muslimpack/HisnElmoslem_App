@@ -12,7 +12,6 @@ class ShareImageImageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ShareImageCubit, ShareImageState>(
-      bloc: context.read<ShareImageCubit>(),
       builder: (context, state) {
         if (state is! ShareImageLoadedState) {
           return const Loading();
