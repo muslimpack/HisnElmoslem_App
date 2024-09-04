@@ -19,7 +19,6 @@ class ToggleBrightnessButton extends StatelessWidget {
             state.brightness == Brightness.dark
                 ? Icons.dark_mode
                 : Icons.light_mode,
-            size: 35,
           ),
         );
       },
