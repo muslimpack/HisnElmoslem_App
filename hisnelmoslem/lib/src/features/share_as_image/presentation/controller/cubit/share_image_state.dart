@@ -22,6 +22,11 @@ class ShareImageLoadedState extends ShareImageState {
     required this.title,
   });
 
+  double get dividerSize => 3;
+  double get titleFactor => .8;
+  double get fadlFactor => .8;
+  double get sourceFactor => .7;
+
   String get getImageTitle {
     if (content.titleId >= 0) {
       if (shareAsImageData.showZikrIndex) {

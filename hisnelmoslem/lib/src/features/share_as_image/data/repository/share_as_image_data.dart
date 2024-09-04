@@ -12,7 +12,7 @@ class ShareAsImageData {
   final String titleTextBoxKey = 'share_image_title_text_color';
 
   Color get titleTextColor =>
-      Color(box.read<int?>(titleTextBoxKey) ?? shareAsImageColorsList[4].value);
+      Color(box.read<int?>(titleTextBoxKey) ?? kShareImageColorsList[4].value);
   Future<void> updateTitleColor(Color color) async {
     await box.write(titleTextBoxKey, color.value);
   }
@@ -21,7 +21,7 @@ class ShareAsImageData {
   final String bodyTextColorBoxKey = 'share_image_body_text_color';
 
   Color get bodyTextColor => Color(
-        box.read<int?>(bodyTextColorBoxKey) ?? shareAsImageColorsList[5].value,
+        box.read<int?>(bodyTextColorBoxKey) ?? kShareImageColorsList[5].value,
       );
 
   Future<void> updateTextColor(Color color) async {
@@ -33,7 +33,7 @@ class ShareAsImageData {
 
   Color get additionalTextColor => Color(
         box.read<int?>(additionalTextColorBoxKey) ??
-            shareAsImageColorsList[3].value,
+            kShareImageColorsList[3].value,
       );
   Future<void> updateAdditionalTextColor(Color color) async {
     await box.write(additionalTextColorBoxKey, color.value);
@@ -43,8 +43,7 @@ class ShareAsImageData {
   final String backgroundColorBoxKey = 'share_image_background_color';
 
   Color get backgroundColor => Color(
-        box.read<int?>(backgroundColorBoxKey) ??
-            shareAsImageColorsList[7].value,
+        box.read<int?>(backgroundColorBoxKey) ?? kShareImageColorsList[7].value,
       );
   Future<void> updateBackgroundColor(Color color) async {
     await box.write(backgroundColorBoxKey, color.value);

@@ -110,11 +110,15 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   }
 
   void increaseFontSize() {
-    _changFontSize(shareAsImageData.fontSize + 1);
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+    _changFontSize(state.shareImageSettings.fontSize + 1);
   }
 
   void decreaseFontSize() {
-    _changFontSize(shareAsImageData.fontSize - 1);
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+    _changFontSize(state.shareImageSettings.fontSize - 1);
   }
 
   void resetFontSize() {
@@ -161,23 +165,38 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     );
   }
 
-  void fitImageToScreen(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    // double _screenHeight = MediaQuery.of(Get.context!).size.height;
-    double scale = 0;
-    scale = screenWidth / shareAsImageData.imageWidth;
+  Future<void> updateImageWidth({required int value}) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
 
-    /// create fitMatrix
+    _updateSettings(
+      state.shareImageSettings.copyWith(
+        imageWidth: value,
+      ),
+    );
+  }
+
+  void fitImageToScreen(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final Size imageSize = captureWidgetController.getWidgetSize() ?? Size.zero;
+
+    if (imageSize == Size.zero) return;
+
+    // Calculate the scale factors for both width and height
+    final double widthScale = screenSize.width / shareAsImageData.imageWidth;
+    final double heightScale = screenSize.height / imageSize.height;
+
+    // Choose the smaller scale to ensure the image fits within the screen
+    final double scale = widthScale < heightScale ? widthScale : heightScale;
+
+    // Create the fitMatrix with the uniform scale
     final Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);
 
-    /// set x
-    fitMatrix[12] = 0;
+    // Center the image horizontally and vertically
+    fitMatrix[12] = (screenSize.width - imageSize.width * scale) / 2;
+    fitMatrix[13] = (screenSize.height - imageSize.height * scale) / 2;
 
-    /// set y
-    /// center vertically
-    // _fitMatrix[13] = _screenHeight / 4;
-
-    /// set fitMatrix to transformation
+    // Apply the transformation
     transformationController.value = fitMatrix;
   }
 
@@ -203,7 +222,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
       hisnPrint(e.toString());
     }
 
-    emit(state.copyWith(showLoadingIndicator: true));
+    emit(state.copyWith(showLoadingIndicator: false));
   }
 
   Future _saveDesktop(ByteData? byteData) async {

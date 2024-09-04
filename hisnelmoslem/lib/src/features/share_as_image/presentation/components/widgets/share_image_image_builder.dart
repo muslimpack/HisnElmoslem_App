@@ -1,51 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/share_as_image_controller.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 
-class ImageVarFontBuilder extends StatelessWidget {
-  final DbContent dbContent;
-
-  const ImageVarFontBuilder({
+class ShareImageImageBuilder extends StatelessWidget {
+  const ShareImageImageBuilder({
     super.key,
-    required this.dbContent,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ShareAsImageController>(
-      builder: (controller) {
+    return BlocBuilder<ShareImageCubit, ShareImageState>(
+      bloc: context.read<ShareImageCubit>(),
+      builder: (context, state) {
+        if (state is! ShareImageLoadedState) {
+          return const Loading();
+        }
+
+        final dbContent = state.content;
         return Card(
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.zero,
-          color: shareAsImageData.backgroundColor,
+          color: state.shareImageSettings.backgroundColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(30),
             ),
           ),
           child: SizedBox(
-            width: shareAsImageData.imageWidth.toDouble(),
+            width: state.shareImageSettings.imageWidth.toDouble(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   padding: const EdgeInsets.all(20),
                   child: Text(
-                    controller.getImageTitle,
+                    state.getImageTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: shareAsImageData.titleTextColor,
+                      color: state.shareImageSettings.titleTextColor,
                       fontSize:
-                          shareAsImageData.fontSize * controller.titleFactor,
+                          state.shareImageSettings.fontSize * state.titleFactor,
                     ),
                   ),
                 ),
                 Divider(
-                  color: shareAsImageData.titleTextColor,
-                  thickness: controller.dividerSize,
+                  color: state.shareImageSettings.titleTextColor,
+                  thickness: state.dividerSize,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20),
@@ -55,15 +57,16 @@ class ImageVarFontBuilder extends StatelessWidget {
                         padding: const EdgeInsets.all(10.0),
                         child: ZikrContentBuilder(
                           dbContent: dbContent,
-                          enableDiacritics: !shareAsImageData.removeDiacritics,
-                          fontSize: shareAsImageData.fontSize,
-                          color: shareAsImageData.bodyTextColor,
+                          enableDiacritics:
+                              !state.shareImageSettings.removeDiacritics,
+                          fontSize: state.shareImageSettings.fontSize,
+                          color: state.shareImageSettings.bodyTextColor,
                         ),
                       ),
                       // Fadl
                       Visibility(
                         visible: !(dbContent.fadl == "") &&
-                            shareAsImageData.showFadl,
+                            state.shareImageSettings.showFadl,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
@@ -71,9 +74,10 @@ class ImageVarFontBuilder extends StatelessWidget {
                             softWrap: true,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: shareAsImageData.additionalTextColor,
-                              fontSize: shareAsImageData.fontSize *
-                                  controller.fadlFactor,
+                              color:
+                                  state.shareImageSettings.additionalTextColor,
+                              fontSize: state.shareImageSettings.fontSize *
+                                  state.fadlFactor,
                             ),
                           ),
                         ),
@@ -81,7 +85,7 @@ class ImageVarFontBuilder extends StatelessWidget {
                       // Source
                       Visibility(
                         visible: !(dbContent.source == "") &&
-                            shareAsImageData.showSource,
+                            state.shareImageSettings.showSource,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
@@ -89,9 +93,10 @@ class ImageVarFontBuilder extends StatelessWidget {
                             softWrap: true,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: shareAsImageData.additionalTextColor,
-                              fontSize: shareAsImageData.fontSize *
-                                  controller.sourceFactor,
+                              color:
+                                  state.shareImageSettings.additionalTextColor,
+                              fontSize: state.shareImageSettings.fontSize *
+                                  state.sourceFactor,
                             ),
                           ),
                         ),
@@ -101,8 +106,8 @@ class ImageVarFontBuilder extends StatelessWidget {
                 ),
 
                 Divider(
-                  color: shareAsImageData.titleTextColor,
-                  thickness: controller.dividerSize,
+                  color: state.shareImageSettings.titleTextColor,
+                  thickness: state.dividerSize,
                 ),
                 //Bottom
                 Container(
@@ -111,20 +116,15 @@ class ImageVarFontBuilder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 40 * controller.titleFactor * 1.5,
+                        width: 40 * state.titleFactor * 1.5,
                         child: Image.asset("assets/images/app_icon.png"),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        height: 30,
-                        width: controller.dividerSize,
-                        color: shareAsImageData.titleTextColor,
-                      ),
+                      const SizedBox(width: 30),
                       Text(
                         "تطبيق حصن المسلم",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: shareAsImageData.titleTextColor,
+                          color: state.shareImageSettings.titleTextColor,
                           fontSize: 20,
                         ),
                       ),
