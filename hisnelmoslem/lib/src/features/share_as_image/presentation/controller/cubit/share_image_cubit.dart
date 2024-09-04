@@ -55,7 +55,9 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     return title;
   }
 
-  FutureOr updateSettings(ShareImageSettings shareImageSettings) async {
+  /// MARK: ** EVENTS **
+
+  FutureOr _updateSettings(ShareImageSettings shareImageSettings) async {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
@@ -65,6 +67,121 @@ class ShareImageCubit extends Cubit<ShareImageState> {
       state.copyWith(shareImageSettings: shareImageSettings),
     );
   }
+
+  /// MARK: Colors EVENTS
+
+  Future<void> updateTextColor(Color color) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(bodyTextColor: color));
+  }
+
+  Future<void> updateTitleColor(Color color) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(titleTextColor: color));
+  }
+
+  Future<void> updateBackgroundColor(Color color) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(backgroundColor: color));
+  }
+
+  Future<void> updateAdditionalTextColor(Color color) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(
+      state.shareImageSettings.copyWith(additionalTextColor: color),
+    );
+  }
+
+  /// MARK: Font EVENTS
+  Future<void> _changFontSize(double value) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    final double tempValue = value.clamp(10, 70);
+    _updateSettings(state.shareImageSettings.copyWith(fontSize: tempValue));
+  }
+
+  void increaseFontSize() {
+    _changFontSize(shareAsImageData.fontSize + 1);
+  }
+
+  void decreaseFontSize() {
+    _changFontSize(shareAsImageData.fontSize - 1);
+  }
+
+  void resetFontSize() {
+    _changFontSize(25);
+  }
+
+  /// MARK: General EVENTS
+  Future<void> updateImageQuality(double value) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(imageQuality: value));
+  }
+
+  Future<void> uodateShowFadl({required bool value}) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(showFadl: value));
+  }
+
+  Future<void> updateShowSource({required bool value}) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(showSource: value));
+  }
+
+  Future<void> updateShowZikrIndex({required bool value}) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(state.shareImageSettings.copyWith(showZikrIndex: value));
+  }
+
+  Future<void> toggleRemoveDiacritics() async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(
+      state.shareImageSettings.copyWith(
+        removeDiacritics: !state.shareImageSettings.removeDiacritics,
+      ),
+    );
+  }
+
+  void fitImageToScreen(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    // double _screenHeight = MediaQuery.of(Get.context!).size.height;
+    double scale = 0;
+    scale = screenWidth / shareAsImageData.imageWidth;
+
+    /// create fitMatrix
+    final Matrix4 fitMatrix = Matrix4.diagonal3Values(scale, scale, scale);
+
+    /// set x
+    fitMatrix[12] = 0;
+
+    /// set y
+    /// center vertically
+    // _fitMatrix[13] = _screenHeight / 4;
+
+    /// set fitMatrix to transformation
+    transformationController.value = fitMatrix;
+  }
+
+  /// MARK: Save Image
 
   Future<void> shareImage() async {
     final state = this.state;
@@ -124,6 +241,8 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     await file.delete();
   }
+
+  /// **************************
 
   @override
   Future<void> close() {
