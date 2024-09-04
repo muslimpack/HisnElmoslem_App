@@ -9,43 +9,44 @@ class ShareImageBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShareImageCubit shareImageCubit = context.read<ShareImageCubit>();
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
             onPressed: () async {
-              context.read<ShareImageCubit>().shareImage();
+              shareImageCubit.shareImage();
             },
             icon: const Icon(Icons.share),
           ),
           IconButton(
             icon: Icon(MdiIcons.restart),
             onPressed: () {
-              context.read<ShareImageCubit>().resetFontSize();
+              shareImageCubit.resetFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
-              context.read<ShareImageCubit>().increaseFontSize();
+              shareImageCubit.increaseFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
-              context.read<ShareImageCubit>().decreaseFontSize();
+              shareImageCubit.decreaseFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.abjadArabic),
             onPressed: () {
-              context.read<ShareImageCubit>().toggleRemoveDiacritics();
+              shareImageCubit.toggleRemoveDiacritics();
             },
           ),
           IconButton(
             onPressed: () async {
-              final state = context.read<ShareImageCubit>().state;
+              final state = shareImageCubit.state;
               if (state is! ShareImageLoadedState) return;
               await showDialog(
                 context: context,
