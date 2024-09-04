@@ -58,9 +58,7 @@ class ShareImageBottomBar extends StatelessWidget {
                       final int? tempWidth = int.tryParse(width);
 
                       if (tempWidth == null) return;
-                      context
-                          .read<ShareImageCubit>()
-                          .updateImageWidth(value: tempWidth);
+                      shareImageCubit.updateImageWidth(value: tempWidth);
                     },
                   );
                 },
