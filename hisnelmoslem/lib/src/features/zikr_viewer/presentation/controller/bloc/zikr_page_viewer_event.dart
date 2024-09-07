@@ -26,6 +26,8 @@ final class ZikrPageViewerShareActiveZikrEvent extends ZikrPageViewerEvent {}
 
 final class ZikrPageViewerBookmarkActiveZikrEvent extends ZikrPageViewerEvent {}
 
+final class ZikrPageViewerReportActiveZikrEvent extends ZikrPageViewerEvent {}
+
 final class ZikrPageViewerUnbookmarkActiveZikrEvent
     extends ZikrPageViewerEvent {}
 

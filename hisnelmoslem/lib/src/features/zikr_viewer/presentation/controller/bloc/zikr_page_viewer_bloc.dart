@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -52,6 +53,7 @@ class ZikrPageViewerBloc
     on<ZikrPageViewerShareActiveZikrEvent>(_shareActiveZikr);
     on<ZikrPageViewerBookmarkActiveZikrEvent>(_bookmark);
     on<ZikrPageViewerUnbookmarkActiveZikrEvent>(_unbookmark);
+    on<ZikrPageViewerReportActiveZikrEvent>(_report);
   }
 
   FutureOr<void> _start(
@@ -190,6 +192,23 @@ class ZikrPageViewerBloc
     Emitter<ZikrPageViewerState> emit,
   ) async {
     ///TODO impl
+  }
+
+  FutureOr<void> _report(
+    ZikrPageViewerReportActiveZikrEvent event,
+    Emitter<ZikrPageViewerState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! ZikrPageViewerLoadedState) return;
+    final activeZikr = state.activeZikr;
+    if (activeZikr == null) return;
+
+    final text = await activeZikr.getPlainText();
+    EmailManager.sendMisspelledInZikrWithText(
+      subject: state.title.name,
+      cardNumber: (state.activeZikrIndex + 1).toString(),
+      text: text,
+    );
   }
 
   @override
