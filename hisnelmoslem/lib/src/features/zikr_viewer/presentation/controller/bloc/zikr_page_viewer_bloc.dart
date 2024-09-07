@@ -51,6 +51,7 @@ class ZikrPageViewerBloc
     on<ZikrPageViewerCopyActiveZikrEvent>(_copyActiveZikr);
     on<ZikrPageViewerShareActiveZikrEvent>(_shareActiveZikr);
     on<ZikrPageViewerBookmarkActiveZikrEvent>(_bookmark);
+    on<ZikrPageViewerUnbookmarkActiveZikrEvent>(_unbookmark);
   }
 
   FutureOr<void> _start(
@@ -179,6 +180,11 @@ class ZikrPageViewerBloc
 
   FutureOr<void> _bookmark(
     ZikrPageViewerBookmarkActiveZikrEvent event,
+    Emitter<ZikrPageViewerState> emit,
+  ) async {}
+
+  FutureOr<void> _unbookmark(
+    ZikrPageViewerUnbookmarkActiveZikrEvent event,
     Emitter<ZikrPageViewerState> emit,
   ) async {}
 
