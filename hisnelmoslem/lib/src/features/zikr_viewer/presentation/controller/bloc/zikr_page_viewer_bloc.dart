@@ -101,24 +101,25 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    if (state.activeZikr == null) return;
+    final activeZikr = state.activeZikr;
+    if (activeZikr == null) return;
 
-    final zikr = state.azkarToView[state.activeZikrIndex];
-    final int count = zikr.count;
+    final int count = activeZikr.count;
 
     final azkarToView = List<DbContent>.from(state.azkarToView);
 
     if (count > 0) {
-      azkarToView[state.activeZikrIndex] = zikr.copyWith(count: count - 1);
+      azkarToView[state.activeZikrIndex] =
+          activeZikr.copyWith(count: count - 1);
 
       SoundsManagerController().playTallyEffects();
       if (count == 0) {
-        SoundsManagerController().playZikrDoneEffects();
-        SoundsManagerController().playTransitionEffects();
+        await SoundsManagerController().playZikrDoneEffects();
+        await SoundsManagerController().playTransitionEffects();
       }
     }
 
-    if (count == 0) {
+    if (count <= 1) {
       pageController.nextPage(
         curve: Curves.easeIn,
         duration: const Duration(milliseconds: 350),
@@ -160,7 +161,7 @@ class ZikrPageViewerBloc
     final activeZikr = state.activeZikr;
     if (activeZikr == null) return;
 
-    final text = activeZikr.getPlainText();
+    final text = await activeZikr.getPlainText();
     await Clipboard.setData(
       ClipboardData(text: "$text\n${activeZikr.fadl}"),
     );
