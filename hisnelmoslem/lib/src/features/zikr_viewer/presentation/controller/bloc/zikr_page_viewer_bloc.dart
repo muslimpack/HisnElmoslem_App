@@ -181,12 +181,16 @@ class ZikrPageViewerBloc
   FutureOr<void> _bookmark(
     ZikrPageViewerBookmarkActiveZikrEvent event,
     Emitter<ZikrPageViewerState> emit,
-  ) async {}
+  ) async {
+    ///TODO impl
+  }
 
   FutureOr<void> _unbookmark(
     ZikrPageViewerUnbookmarkActiveZikrEvent event,
     Emitter<ZikrPageViewerState> emit,
-  ) async {}
+  ) async {
+    ///TODO impl
+  }
 
   @override
   Future<void> close() {
