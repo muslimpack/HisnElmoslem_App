@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'zikr_page_viewer_bloc.dart';
 
 sealed class ZikrPageViewerState extends Equatable {
@@ -49,4 +48,7 @@ class ZikrPageViewerLoadedState extends ZikrPageViewerState {
       activeZikrIndex: activeZikrIndex ?? this.activeZikrIndex,
     );
   }
+
+  @override
+  List<Object> get props => [title, azkar, azkarToView, activeZikrIndex];
 }
