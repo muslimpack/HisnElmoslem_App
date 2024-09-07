@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class DbContent {
   int id;
   String content;
@@ -54,5 +55,27 @@ class DbContent {
   @override
   String toString() {
     return toMap().toString();
+  }
+
+  DbContent copyWith({
+    int? id,
+    String? content,
+    int? titleId,
+    int? orderId,
+    int? count,
+    bool? favourite,
+    String? fadl,
+    String? source,
+  }) {
+    return DbContent(
+      id: id ?? this.id,
+      content: content ?? this.content,
+      titleId: titleId ?? this.titleId,
+      orderId: orderId ?? this.orderId,
+      count: count ?? this.count,
+      favourite: favourite ?? this.favourite,
+      fadl: fadl ?? this.fadl,
+      source: source ?? this.source,
+    );
   }
 }
