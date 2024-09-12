@@ -1,4 +1,8 @@
-class DbAlarm {
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+
+/// TODO make final fields after removeing GetX
+class DbAlarm extends Equatable {
   int id;
   int titleId;
   String title;
@@ -56,5 +60,44 @@ class DbAlarm {
   @override
   String toString() {
     return toMap().toString();
+  }
+
+  DbAlarm copyWith({
+    int? id,
+    int? titleId,
+    String? title,
+    String? body,
+    String? repeatType,
+    int? hour,
+    int? minute,
+    bool? isActive,
+    bool? hasAlarmInside,
+  }) {
+    return DbAlarm(
+      id: id ?? this.id,
+      titleId: titleId ?? this.titleId,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      repeatType: repeatType ?? this.repeatType,
+      hour: hour ?? this.hour,
+      minute: minute ?? this.minute,
+      isActive: isActive ?? this.isActive,
+      hasAlarmInside: hasAlarmInside ?? this.hasAlarmInside,
+    );
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      titleId,
+      title,
+      body,
+      repeatType,
+      hour,
+      minute,
+      isActive,
+      hasAlarmInside,
+    ];
   }
 }
