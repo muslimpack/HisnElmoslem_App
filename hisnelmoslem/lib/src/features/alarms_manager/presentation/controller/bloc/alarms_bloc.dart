@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 
 part 'alarms_event.dart';
@@ -54,6 +58,8 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       return x;
     }).toList();
 
+    alarmManager.alarmState(dbAlarm: event.alarm);
+
     emit(AlarmsLoadedState(alarms: alarms));
   }
 
@@ -67,6 +73,15 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     await alarmDatabaseHelper.deleteAlarm(dbAlarm: event.alarm);
     final alarms = List<DbAlarm>.from(state.alarms);
     alarms.removeWhere((x) => x.id == event.alarm.id);
+
+    await awesomeNotificationManager.cancelNotificationById(
+      id: event.alarm.titleId,
+    );
+
+    getSnackbar(
+      message: "${"Reminder Removed".tr} | ${event.alarm.title}",
+    );
+
     emit(AlarmsLoadedState(alarms: alarms));
   }
 }
