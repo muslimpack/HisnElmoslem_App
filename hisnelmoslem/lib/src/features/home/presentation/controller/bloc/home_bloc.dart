@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -13,6 +15,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
   late final StreamSubscription alarmSubscription;
+  final TextEditingController searchController = TextEditingController();
   HomeBloc(this.alarmsBloc) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
 
@@ -63,7 +66,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
-    emit(state.copyWith(isSearching: event.isSearching));
+    if (!event.isSearching) {
+      emit(
+        state.copyWith(
+          isSearching: event.isSearching,
+          titlesToView: state.titles,
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        isSearching: event.isSearching,
+      ),
+    );
+
+    add(HomeSearchEvent(searchText: searchController.text));
   }
 
   FutureOr<void> _search(
@@ -72,6 +91,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
+    if (event.searchText.isEmpty) {
+      emit(state.copyWith(titlesToView: []));
+      return;
+    }
+
+    final titlesToView = state.titles.where((zikr) {
+      return zikr.name.removeDiacritics.contains(event.searchText);
+    }).toList();
+
+    emit(state.copyWith(titlesToView: titlesToView));
   }
 
   FutureOr<void> _bookmarkTitle(
@@ -109,6 +139,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Future<void> close() {
     alarmSubscription.cancel();
+    searchController.dispose();
     return super.close();
   }
 }
