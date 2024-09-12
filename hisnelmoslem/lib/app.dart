@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
@@ -46,6 +47,7 @@ class MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => AlarmsBloc()..add(AlarmsStartEvent())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
