@@ -1,154 +1,140 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ZikrViewerPageModeAppBar extends StatelessWidget {
   const ZikrViewerPageModeAppBar({
     super.key,
-    required this.controller,
   });
 
-  final AzkarReadPageController controller;
   @override
   Widget build(BuildContext context) {
-    final DashboardController dashboardController =
-        Get.put(DashboardController());
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    splashRadius: 20,
-                    icon: Icon(MdiIcons.comment),
-                    onPressed: () {
-                      showCommentaryDialog(
-                        context: Get.context!,
-                        contentId:
-                            controller.zikrContent[controller.currentPage].id,
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: IconButton(
-                    splashRadius: 20,
-                    icon: Icon(MdiIcons.camera),
-                    onPressed: () {
-                      transitionAnimation.circleReval(
-                        context: Get.context!,
-                        goToPage: ShareAsImage(
-                          dbContent:
-                              controller.zikrContent[controller.currentPage],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                if (!controller.zikrContent[controller.currentPage].favourite)
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.favorite_border,
-                      ),
-                      onPressed: () {
-                        controller.zikrContent[controller.currentPage]
-                            .favourite = true;
-                        controller.update();
-                        //
-                        dashboardController.addContentToFavourite(
-                          controller.zikrContent[controller.currentPage],
-                        );
-                        //
-                        // dashboardController.update();
-                      },
-                    ),
-                  )
-                else
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        controller.zikrContent[controller.currentPage]
-                            .favourite = false;
-                        controller.update();
-
-                        dashboardController.removeContentFromFavourite(
-                          controller.zikrContent[controller.currentPage],
-                        );
-                      },
-                    ),
-                  ),
-                Expanded(
-                  child: IconButton(
-                    splashRadius: 20,
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(Icons.share),
-                    onPressed: () async {
-                      final text = await controller.activeZikr.getPlainText();
-
-                      await Share.share("$text\n${controller.activeZikr.fadl}");
-                    },
-                  ),
-                ),
-                const ToggleBrightnessButton(),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      controller.zikrContent[controller.currentPage].count
-                          .toString()
-                          .toArabicNumber(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Stack(
+    return BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
+      builder: (context, state) {
+        if (state is! ZikrPageViewerLoadedState) {
+          return const SizedBox();
+        }
+        final activeZikr = state.activeZikr;
+        if (activeZikr == null) {
+          return const SizedBox();
+        }
+        return Expanded(
+          child: Column(
             children: [
-              LinearProgressIndicator(
-                value: controller.totalProgressForEverySingle,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.primary,
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        splashRadius: 20,
+                        icon: Icon(MdiIcons.comment),
+                        onPressed: () {
+                          showCommentaryDialog(
+                            context: context,
+                            contentId: activeZikr.id,
+                          );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        splashRadius: 20,
+                        icon: Icon(MdiIcons.camera),
+                        onPressed: () {
+                          transitionAnimation.circleReval(
+                            context: context,
+                            goToPage: ShareAsImage(
+                              dbContent: activeZikr,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    if (!activeZikr.favourite)
+                      Expanded(
+                        child: IconButton(
+                          splashRadius: 20,
+                          padding: EdgeInsets.zero,
+                          icon: const Icon(
+                            Icons.favorite_border,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<ZikrPageViewerBloc>()
+                                .add(ZikrPageViewerUnbookmarkActiveZikrEvent());
+                          },
+                        ),
+                      )
+                    else
+                      Expanded(
+                        child: IconButton(
+                          splashRadius: 20,
+                          padding: EdgeInsets.zero,
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<ZikrPageViewerBloc>()
+                                .add(ZikrPageViewerBookmarkActiveZikrEvent());
+                          },
+                        ),
+                      ),
+                    Expanded(
+                      child: IconButton(
+                        splashRadius: 20,
+                        padding: EdgeInsets.zero,
+                        icon: const Icon(Icons.share),
+                        onPressed: () async {
+                          context
+                              .read<ZikrPageViewerBloc>()
+                              .add(ZikrPageViewerShareActiveZikrEvent());
+                        },
+                      ),
+                    ),
+                    const ToggleBrightnessButton(),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          activeZikr.count.toString().toArabicNumber(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              LinearProgressIndicator(
-                backgroundColor: Colors.transparent,
-                value: controller.totalProgress,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withGreen(100)
-                      .withAlpha(100),
-                ),
+              Stack(
+                children: [
+                  LinearProgressIndicator(
+                    value: 1 - state.manorProgress,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  LinearProgressIndicator(
+                    backgroundColor: Colors.transparent,
+                    value: state.majorProgress,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary.withOpacity(.5),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
 
 class ZikrViewerPageBuilder extends StatelessWidget {
   const ZikrViewerPageBuilder({
     super.key,
-    required this.controller,
-    required this.index,
+    required this.dbContent,
   });
 
-  final int index;
-  final AzkarReadPageController controller;
+  final DbContent dbContent;
   @override
   Widget build(BuildContext context) {
-    final DbContent dbContent = controller.zikrContent[index];
-
     final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
-        controller.decreaseCount();
+        context
+            .read<ZikrPageViewerBloc>()
+            .add(ZikrPageViewerDecreaseActiveZikrEvent());
       },
       onLongPress: () {
         final snackBar = SnackBar(
           content: Text(
-            controller.activeZikr.source,
+            dbContent.source,
             textAlign: TextAlign.center,
             softWrap: true,
           ),
@@ -39,7 +38,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               // Some code to undo the change.
 
               await Clipboard.setData(
-                ClipboardData(text: controller.activeZikr.source),
+                ClipboardData(text: dbContent.source),
               );
               final snackBar = SnackBar(
                 content: Text("copied to clipboard".tr),
