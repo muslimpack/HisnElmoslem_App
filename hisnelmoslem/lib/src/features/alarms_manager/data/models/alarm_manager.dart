@@ -51,7 +51,7 @@ class AlarmManager {
   Future<void> checkAllAlarmsInDb() async {
     final box = GetStorage(kAppStorageKey);
 
-    ///? what [is_awesome_set] mean ?
+    ///todo what [is_awesome_set] mean ?
     final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
       hisnPrint("Setup Awesome from database ....");
