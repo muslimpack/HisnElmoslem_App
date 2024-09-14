@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 
 enum AlarmRepeatType {
   daily,
@@ -12,6 +13,27 @@ enum AlarmRepeatType {
 }
 
 extension AlarmRepeatTypeExtension on AlarmRepeatType {
+  int getWeekDay() {
+    switch (this) {
+      case AlarmRepeatType.daily:
+        return -1;
+      case AlarmRepeatType.atSaturday:
+        return AwesomeDay.saturday.value;
+      case AlarmRepeatType.atSunday:
+        return AwesomeDay.sunday.value;
+      case AlarmRepeatType.atMonday:
+        return AwesomeDay.monday.value;
+      case AlarmRepeatType.atTuesday:
+        return AwesomeDay.tuesday.value;
+      case AlarmRepeatType.atWednesday:
+        return AwesomeDay.wednesday.value;
+      case AlarmRepeatType.atThursday:
+        return AwesomeDay.thursday.value;
+      case AlarmRepeatType.atFriday:
+        return AwesomeDay.friday.value;
+    }
+  }
+
   String getUserFriendlyName() {
     switch (this) {
       case AlarmRepeatType.daily:
