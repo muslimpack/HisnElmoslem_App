@@ -40,6 +40,12 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant HomeBookmarkedContentCard oldWidget) {
+    dbContent = widget.dbContent;
+    super.didUpdateWidget(oldWidget);
+  }
+
   void decrease() {
     if (dbContent.count > 0) {
       setState(() {
