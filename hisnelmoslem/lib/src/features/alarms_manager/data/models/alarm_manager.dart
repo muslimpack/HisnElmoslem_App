@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -101,7 +100,7 @@ class AlarmManager {
             weekday: AwesomeDay.friday.value,
           );
       }
-    } else if (!dbAlarm.isActive) {
+    } else {
       // Get.snackbar("رسالة", "الغاء تفعيل منبه ${dbAlarm.title}",
       //     duration: const Duration(seconds: 1),
       //     icon: Image.asset("assets/images/app_icon.png"));
