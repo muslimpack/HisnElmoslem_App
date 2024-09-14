@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({
     super.key,
-    required this.controller,
   });
-
-  final DashboardController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class FooterSection extends StatelessWidget {
               leading: const Icon(Icons.close),
               title: Text("close".tr),
               onTap: () {
-                controller.toggleDrawer();
+                context.read<HomeBloc>().add(const HomeToggleDrawerEvent());
               },
             ),
           ),

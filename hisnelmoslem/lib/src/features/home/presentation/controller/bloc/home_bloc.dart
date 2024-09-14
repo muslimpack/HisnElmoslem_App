@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 part 'home_event.dart';
@@ -13,6 +16,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
   late final StreamSubscription alarmSubscription;
+  final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   HomeBloc(this.alarmsBloc) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
 
@@ -27,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeBookmarkContentEvent>(_bookmarkContent);
     on<HomeUnBookmarkContentEvent>(_unBookmarkContent);
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
+    on<HomeToggleDrawerEvent>(_toggleDrawer);
   }
 
   Future<void> _onAlarmBlocChanged(AlarmsState alarmState) async {
@@ -54,7 +59,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _start(
     HomeStartEvent event,
     Emitter<HomeState> emit,
-  ) async {}
+  ) async {
+    final titles = await azkarDatabaseHelper.getAllTitles();
+    final alarms = await alarmDatabaseHelper.getAlarms();
+    final bookmarkedContents = await azkarDatabaseHelper.getFavouriteContents();
+
+    emit(
+      HomeLoadedState(
+        titles: titles,
+        alarms: {for (final alarm in alarms) alarm.id: alarm},
+        bookmarkedContents: bookmarkedContents,
+        isSearching: false,
+      ),
+    );
+  }
 
   FutureOr<void> _toggleSearch(
     HomeToggleSearchEvent event,
@@ -76,6 +94,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
+    await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
+
+    final titles = List<DbTitle>.of(state.titles).map((e) {
+      if (e.id == event.title.id) {
+        return event.title.copyWith(favourite: true);
+      }
+      return e;
+    }).toList();
+
+    emit(state.copyWith(titles: titles));
   }
 
   FutureOr<void> _unBookmarkTitle(
@@ -84,6 +113,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
+    await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
+
+    final titles = List<DbTitle>.of(state.titles).map((e) {
+      if (e.id == event.title.id) {
+        return event.title.copyWith(favourite: false);
+      }
+      return e;
+    }).toList();
+
+    emit(state.copyWith(titles: titles));
   }
 
   FutureOr<void> _bookmarkContent(
@@ -100,6 +140,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+  }
+
+  FutureOr<void> _toggleDrawer(
+    HomeToggleDrawerEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    zoomDrawerController.toggle?.call();
   }
 
   @override

@@ -13,23 +13,26 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar
 
 class TitleCard extends StatelessWidget {
   final int index;
-  final DbTitle fehrsTitle;
-  final DbAlarm dbAlarm;
+  final DbTitle dbTitle;
+  final DbAlarm? dbAlarm;
 
   const TitleCard({
     super.key,
-    required this.fehrsTitle,
+    required this.dbTitle,
     required this.dbAlarm,
     required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
+    final DbAlarm alarm =
+        dbAlarm ?? DbAlarm(titleId: dbTitle.id, title: dbTitle.name);
+
     return ListTile(
       tileColor: index % 2 != 0
           ? Theme.of(context).colorScheme.primary.withOpacity(.05)
           : null,
-      leading: fehrsTitle.favourite
+      leading: dbTitle.favourite
           ? IconButton(
               icon: Icon(
                 Icons.bookmark,
@@ -38,7 +41,7 @@ class TitleCard extends StatelessWidget {
               onPressed: () {
                 context
                     .read<HomeBloc>()
-                    .add(HomeUnBookmarkTitleEvent(title: fehrsTitle));
+                    .add(HomeUnBookmarkTitleEvent(title: dbTitle));
               },
             )
           : IconButton(
@@ -46,15 +49,13 @@ class TitleCard extends StatelessWidget {
               onPressed: () {
                 context
                     .read<HomeBloc>()
-                    .add(HomeBookmarkTitleEvent(title: fehrsTitle));
+                    .add(HomeBookmarkTitleEvent(title: dbTitle));
               },
             ),
-      trailing: !dbAlarm.hasAlarmInside
+      trailing: dbAlarm == null
           ? IconButton(
               icon: const Icon(Icons.alarm_add_rounded),
               onPressed: () async {
-                final DbAlarm alarm = dbAlarm.copyWith(title: fehrsTitle.name);
-
                 final DbAlarm? editedAlarm = await showAlarmEditorDialog(
                   context: context,
                   dbAlarm: alarm,
@@ -71,7 +72,7 @@ class TitleCard extends StatelessWidget {
               onLongPress: () async {
                 final DbAlarm? editedAlarm = await showAlarmEditorDialog(
                   context: context,
-                  dbAlarm: dbAlarm,
+                  dbAlarm: alarm,
                   isToEdit: true,
                 );
 
@@ -80,7 +81,7 @@ class TitleCard extends StatelessWidget {
 
                 context.read<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
               },
-              child: dbAlarm.isActive
+              child: alarm.isActive
                   ? IconButton(
                       icon: Icon(
                         Icons.notifications_active,
@@ -89,7 +90,7 @@ class TitleCard extends StatelessWidget {
                       onPressed: () {
                         context.read<AlarmsBloc>().add(
                               AlarmsEditEvent(
-                                dbAlarm.copyWith(isActive: false),
+                                alarm.copyWith(isActive: false),
                               ),
                             );
                       },
@@ -101,7 +102,7 @@ class TitleCard extends StatelessWidget {
                       onPressed: () {
                         context.read<AlarmsBloc>().add(
                               AlarmsEditEvent(
-                                dbAlarm.copyWith(isActive: true),
+                                alarm.copyWith(isActive: true),
                               ),
                             );
                       },
@@ -109,19 +110,19 @@ class TitleCard extends StatelessWidget {
             ),
 
       title: Text(
-        fehrsTitle.name,
+        dbTitle.name,
       ),
       // trailing: Text(zikrList[index]),
       onTap: () {
         if (!AppData.instance.isCardReadMode) {
           transitionAnimation.circleReval(
             context: Get.context!,
-            goToPage: AzkarReadPage(index: fehrsTitle.id),
+            goToPage: AzkarReadPage(index: dbTitle.id),
           );
         } else {
           transitionAnimation.circleReval(
             context: Get.context!,
-            goToPage: AzkarReadCard(index: fehrsTitle.id),
+            goToPage: AzkarReadCard(index: dbTitle.id),
           );
         }
       },

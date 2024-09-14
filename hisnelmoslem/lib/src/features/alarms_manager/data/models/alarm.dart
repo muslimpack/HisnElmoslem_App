@@ -14,8 +14,8 @@ class DbAlarm extends Equatable {
 
   const DbAlarm({
     this.id = 0,
-    this.titleId = 0,
-    this.title = "",
+    required this.titleId,
+    required this.title,
     this.body = "",
     this.repeatType = AlarmRepeatType.daily,
     this.hour = 12,

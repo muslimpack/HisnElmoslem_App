@@ -9,7 +9,6 @@ import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
@@ -20,13 +19,11 @@ import 'package:share_plus/share_plus.dart';
 class ZikrViewerCardBuilder extends StatelessWidget {
   final int index;
   final AzkarReadCardController controller;
-  final DashboardController dashboardController;
 
   const ZikrViewerCardBuilder({
     super.key,
     required this.index,
     required this.controller,
-    required this.dashboardController,
   });
 
   @override
@@ -114,9 +111,11 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                     onPressed: () {
                       dbContent.favourite = true;
                       controller.update();
-                      dashboardController.addContentToFavourite(
-                        dbContent,
-                      );
+
+                      ///TODO
+                      // dashboardController.addContentToFavourite(
+                      //   dbContent,
+                      // );
                     },
                   )
                 else
@@ -129,9 +128,11 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                     onPressed: () {
                       dbContent.favourite = false;
                       controller.update();
-                      dashboardController.removeContentFromFavourite(
-                        dbContent,
-                      );
+
+                      ///TODO
+                      // dashboardController.removeContentFromFavourite(
+                      //   dbContent,
+                      // );
                     },
                   ),
                 Expanded(

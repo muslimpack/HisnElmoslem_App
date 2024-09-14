@@ -50,15 +50,15 @@ class AzkarDatabaseHelper {
 
     final List<DbTitle> titles = [];
 
+    final bookmarkedTitles = await dataDatabaseHelper.getAllFavoriteTitles();
+    final bookmarkedTitlesMap = {
+      for (final e in bookmarkedTitles) e.titleId: e.favourite,
+    };
+
     for (int i = 0; i < maps.length; i++) {
       final DbTitle dbTitle = DbTitle.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isTitleInFavorites(titleId: dbTitle.id)
-          .then((value) {
-        dbTitle.favourite = value;
-      });
 
-      titles.add(dbTitle);
+      titles.add(dbTitle.copyWith(favourite: bookmarkedTitlesMap[dbTitle.id]));
     }
 
     return titles;
@@ -87,11 +87,10 @@ class AzkarDatabaseHelper {
       [id],
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
-    await dataDatabaseHelper
-        .isTitleInFavorites(titleId: dbTitle.id)
-        .then((value) => dbTitle.favourite = value);
+    final bookmarked =
+        await dataDatabaseHelper.isTitleInFavorites(titleId: dbTitle.id);
 
-    return dbTitle;
+    return dbTitle.copyWith(favourite: bookmarked);
   }
 
   /// Add title to favourite

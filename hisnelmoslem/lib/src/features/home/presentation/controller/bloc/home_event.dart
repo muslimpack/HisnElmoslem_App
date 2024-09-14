@@ -78,3 +78,7 @@ class HomeUpdateAlarmsEvent extends HomeEvent {
   @override
   List<Object> get props => [alarms];
 }
+
+class HomeToggleDrawerEvent extends HomeEvent {
+const HomeToggleDrawerEvent();
+}

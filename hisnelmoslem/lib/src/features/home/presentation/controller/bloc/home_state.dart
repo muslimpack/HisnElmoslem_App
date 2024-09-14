@@ -16,8 +16,12 @@ class HomeLoadedState extends HomeState {
   final List<DbContent> bookmarkedContents;
   final bool isSearching;
 
-  List<DbTitle> get bookmarkedTitles =>
-      titles.where((x) => x.favourite).toList();
+  List<DbTitle> get bookmarkedTitles {
+    return titles.where((x) => x.favourite).toList()
+      ..sort(
+        (a, b) => a.orderId.compareTo(b.orderId),
+      );
+  }
 
   const HomeLoadedState({
     required this.titles,

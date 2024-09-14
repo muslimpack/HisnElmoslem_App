@@ -164,7 +164,6 @@ class FakeHadith {
   /// Add title to favourite
   Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
     final db = await database;
-    dbTitle.favourite = true;
 
     final List<Map<String, dynamic>> existingRecords = await db.query(
       'favourite_titles',
@@ -190,7 +189,6 @@ class FakeHadith {
   /// Remove title from favourite
   Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
     final db = await database;
-    dbTitle.favourite = false;
 
     await db.rawUpdate(
       'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',

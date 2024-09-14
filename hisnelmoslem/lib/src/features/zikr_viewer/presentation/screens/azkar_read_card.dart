@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_mode_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_card_controller.dart';
 
@@ -12,9 +11,6 @@ class AzkarReadCard extends StatelessWidget {
   final int index;
 
   const AzkarReadCard({super.key, required this.index});
-
-  static DashboardController dashboardController =
-      Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +68,6 @@ class AzkarReadCard extends StatelessWidget {
                     return ZikrViewerCardBuilder(
                       index: index,
                       controller: controller,
-                      dashboardController: dashboardController,
                     );
                   },
                 ),

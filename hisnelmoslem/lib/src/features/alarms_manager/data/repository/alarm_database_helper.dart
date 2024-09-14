@@ -121,7 +121,8 @@ class AlarmDatabaseHelper {
 
       return dbAlarm;
     } else {
-      final DbAlarm tempAlarm = DbAlarm(titleId: dbTitle.orderId);
+      final DbAlarm tempAlarm =
+          DbAlarm(titleId: dbTitle.id, title: dbTitle.name);
       return tempAlarm;
     }
   }

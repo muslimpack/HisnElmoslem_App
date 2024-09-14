@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/screens/dashboard.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 
 class OnBoardingController extends GetxController {
   /* *************** Variables *************** */
@@ -96,7 +96,7 @@ class OnBoardingController extends GetxController {
     AppData.instance.changIsFirstOpenToThisRelease(value: false);
     transitionAnimation.circleRevalPushReplacement(
       context: Get.context!,
-      goToPage: const AzkarDashboard(),
+      goToPage: const HomeScreen(),
     );
   }
 }
