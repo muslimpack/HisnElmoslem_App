@@ -17,9 +17,6 @@ class AlarmManager {
     bool showMsg = true,
   }) async {
     if (dbAlarm.isActive) {
-      // Get.snackbar("رسالة", "تفعيل منبه ${dbAlarm.title}",
-      //     duration: const Duration(seconds: 1),
-      //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
         getSnackbar(message: "${"activate".tr} | ${dbAlarm.title}");
       }
@@ -43,9 +40,6 @@ class AlarmManager {
         );
       }
     } else {
-      // Get.snackbar("رسالة", "الغاء تفعيل منبه ${dbAlarm.title}",
-      //     duration: const Duration(seconds: 1),
-      //     icon: Image.asset("assets/images/app_icon.png"));
       if (showMsg) {
         getSnackbar(message: "${"deactivate".tr} | ${dbAlarm.title}");
       }
@@ -56,6 +50,8 @@ class AlarmManager {
 
   Future<void> checkAllAlarmsInDb() async {
     final box = GetStorage(kAppStorageKey);
+
+    ///? what [is_awesome_set] mean ?
     final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
       hisnPrint("Setup Awesome from database ....");
