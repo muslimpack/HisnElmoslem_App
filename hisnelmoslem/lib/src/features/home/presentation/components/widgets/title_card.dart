@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -50,69 +49,64 @@ class TitleCard extends StatelessWidget {
                     .add(HomeBookmarkTitleEvent(title: fehrsTitle));
               },
             ),
-      trailing: PlatformExtension.isDesktop
-          ? const SizedBox()
-          : !dbAlarm.hasAlarmInside
-              ? IconButton(
-                  icon: const Icon(Icons.alarm_add_rounded),
-                  onPressed: () async {
-                    final DbAlarm alarm =
-                        dbAlarm.copyWith(title: fehrsTitle.name);
+      trailing: !dbAlarm.hasAlarmInside
+          ? IconButton(
+              icon: const Icon(Icons.alarm_add_rounded),
+              onPressed: () async {
+                final DbAlarm alarm = dbAlarm.copyWith(title: fehrsTitle.name);
 
-                    final DbAlarm? editedAlarm = await showAlarmEditorDialog(
-                      context: context,
-                      dbAlarm: alarm,
-                      isToEdit: false,
-                    );
+                final DbAlarm? editedAlarm = await showAlarmEditorDialog(
+                  context: context,
+                  dbAlarm: alarm,
+                  isToEdit: false,
+                );
 
-                    if (editedAlarm == null) return;
-                    if (!context.mounted) return;
+                if (editedAlarm == null) return;
+                if (!context.mounted) return;
 
-                    context.read<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
-                  },
-                )
-              : GestureDetector(
-                  onLongPress: () async {
-                    final DbAlarm? editedAlarm = await showAlarmEditorDialog(
-                      context: context,
-                      dbAlarm: dbAlarm,
-                      isToEdit: false,
-                    );
+                context.read<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
+              },
+            )
+          : GestureDetector(
+              onLongPress: () async {
+                final DbAlarm? editedAlarm = await showAlarmEditorDialog(
+                  context: context,
+                  dbAlarm: dbAlarm,
+                  isToEdit: true,
+                );
 
-                    if (editedAlarm == null) return;
-                    if (!context.mounted) return;
+                if (editedAlarm == null) return;
+                if (!context.mounted) return;
 
-                    context
-                        .read<AlarmsBloc>()
-                        .add(AlarmsEditEvent(editedAlarm));
-                  },
-                  child: dbAlarm.isActive
-                      ? IconButton(
-                          icon: Icon(
-                            Icons.notifications_active,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          onPressed: () {
-                            context.read<AlarmsBloc>().add(
-                                  AlarmsEditEvent(
-                                    dbAlarm.copyWith(isActive: false),
-                                  ),
-                                );
-                          },
-                        )
-                      : IconButton(
-                          icon: const Icon(
-                            Icons.notifications_off,
-                          ),
-                          onPressed: () {
-                            context.read<AlarmsBloc>().add(
-                                  AlarmsEditEvent(
-                                    dbAlarm.copyWith(isActive: true),
-                                  ),
-                                );
-                          },
-                        ),
-                ),
+                context.read<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
+              },
+              child: dbAlarm.isActive
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () {
+                        context.read<AlarmsBloc>().add(
+                              AlarmsEditEvent(
+                                dbAlarm.copyWith(isActive: false),
+                              ),
+                            );
+                      },
+                    )
+                  : IconButton(
+                      icon: const Icon(
+                        Icons.notifications_off,
+                      ),
+                      onPressed: () {
+                        context.read<AlarmsBloc>().add(
+                              AlarmsEditEvent(
+                                dbAlarm.copyWith(isActive: true),
+                              ),
+                            );
+                      },
+                    ),
+            ),
 
       title: Text(
         fehrsTitle.name,
