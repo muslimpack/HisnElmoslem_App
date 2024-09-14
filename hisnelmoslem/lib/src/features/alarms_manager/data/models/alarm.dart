@@ -34,11 +34,10 @@ class DbAlarm extends Equatable {
       isActive = true;
     }
 
+    final repeatTypeString = map['repeatType'] as String;
     final repeatType = AlarmRepeatType.values
             .where(
-              (x) =>
-                  x.name.toLowerCase() ==
-                  (map['repeatType'] as String).toLowerCase(),
+              (x) => x.name.toLowerCase() == repeatTypeString.toLowerCase(),
             )
             .firstOrNull ??
         AlarmRepeatType.daily;
