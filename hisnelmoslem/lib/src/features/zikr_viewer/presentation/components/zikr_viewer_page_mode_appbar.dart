@@ -65,9 +65,11 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                             Icons.favorite_border,
                           ),
                           onPressed: () {
-                            context
-                                .read<ZikrPageViewerBloc>()
-                                .add(ZikrPageViewerBookmarkActiveZikrEvent());
+                            context.read<ZikrPageViewerBloc>().add(
+                                  const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                                    true,
+                                  ),
+                                );
                           },
                         ),
                       )
@@ -81,9 +83,11 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary,
                           ),
                           onPressed: () {
-                            context
-                                .read<ZikrPageViewerBloc>()
-                                .add(ZikrPageViewerUnbookmarkActiveZikrEvent());
+                            context.read<ZikrPageViewerBloc>().add(
+                                  const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                                    false,
+                                  ),
+                                );
                           },
                         ),
                       ),

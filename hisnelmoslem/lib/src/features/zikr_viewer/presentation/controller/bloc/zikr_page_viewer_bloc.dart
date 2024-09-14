@@ -54,8 +54,7 @@ class ZikrPageViewerBloc
 
     on<ZikrPageViewerCopyActiveZikrEvent>(_copyActiveZikr);
     on<ZikrPageViewerShareActiveZikrEvent>(_shareActiveZikr);
-    on<ZikrPageViewerBookmarkActiveZikrEvent>(_bookmark);
-    on<ZikrPageViewerUnbookmarkActiveZikrEvent>(_unbookmark);
+    on<ZikrPageViewerToggleActiveZikrBookmarkEvent>(_toggleBookmark);
     on<ZikrPageViewerReportActiveZikrEvent>(_report);
   }
 
@@ -184,8 +183,8 @@ class ZikrPageViewerBloc
     await Share.share("$text\n${activeZikr.fadl}");
   }
 
-  FutureOr<void> _bookmark(
-    ZikrPageViewerBookmarkActiveZikrEvent event,
+  FutureOr<void> _toggleBookmark(
+    ZikrPageViewerToggleActiveZikrBookmarkEvent event,
     Emitter<ZikrPageViewerState> emit,
   ) async {
     final state = this.state;
@@ -195,57 +194,26 @@ class ZikrPageViewerBloc
 
     hisnPrint("activeZikr: $activeZikr");
 
-    await azkarDatabaseHelper.addContentToFavourite(
-      dbContent: activeZikr,
-    );
+    if (event.bookmark) {
+      await azkarDatabaseHelper.addContentToFavourite(
+        dbContent: activeZikr,
+      );
+    } else {
+      await azkarDatabaseHelper.removeContentFromFavourite(
+        dbContent: activeZikr,
+      );
+    }
 
     final azkar = List<DbContent>.of(state.azkar).map((e) {
       if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: true);
+        return activeZikr.copyWith(favourite: event.bookmark);
       }
       return e;
     }).toList();
 
     final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
       if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: true);
-      }
-      return e;
-    }).toList();
-
-    emit(
-      state.copyWith(
-        azkar: azkar,
-        azkarToView: azkarToView,
-      ),
-    );
-
-    homeBloc.add(HomeUpdateBookmarkedContentsEvent());
-  }
-
-  FutureOr<void> _unbookmark(
-    ZikrPageViewerUnbookmarkActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
-    if (activeZikr == null) return;
-
-    await azkarDatabaseHelper.removeContentFromFavourite(
-      dbContent: activeZikr,
-    );
-
-    final azkar = List<DbContent>.of(state.azkar).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: false);
-      }
-      return e;
-    }).toList();
-
-    final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: false);
+        return activeZikr.copyWith(favourite: event.bookmark);
       }
       return e;
     }).toList();

@@ -24,12 +24,17 @@ final class ZikrPageViewerCopyActiveZikrEvent extends ZikrPageViewerEvent {}
 
 final class ZikrPageViewerShareActiveZikrEvent extends ZikrPageViewerEvent {}
 
-final class ZikrPageViewerBookmarkActiveZikrEvent extends ZikrPageViewerEvent {}
+final class ZikrPageViewerToggleActiveZikrBookmarkEvent
+    extends ZikrPageViewerEvent {
+  final bool bookmark;
+
+  const ZikrPageViewerToggleActiveZikrBookmarkEvent(this.bookmark);
+
+  @override
+  List<Object> get props => [bookmark];
+}
 
 final class ZikrPageViewerReportActiveZikrEvent extends ZikrPageViewerEvent {}
-
-final class ZikrPageViewerUnbookmarkActiveZikrEvent
-    extends ZikrPageViewerEvent {}
 
 class ZikrPageViewerNextTitleEvent extends ZikrPageViewerEvent {}
 
