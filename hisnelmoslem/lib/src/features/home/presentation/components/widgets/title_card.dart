@@ -39,17 +39,23 @@ class TitleCard extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                context
-                    .read<HomeBloc>()
-                    .add(HomeUnBookmarkTitleEvent(title: dbTitle));
+                context.read<HomeBloc>().add(
+                      HomeToggleTitleBookmarkEvent(
+                        title: dbTitle,
+                        bookmark: false,
+                      ),
+                    );
               },
             )
           : IconButton(
               icon: const Icon(Icons.bookmark_border_outlined),
               onPressed: () {
-                context
-                    .read<HomeBloc>()
-                    .add(HomeBookmarkTitleEvent(title: dbTitle));
+                context.read<HomeBloc>().add(
+                      HomeToggleTitleBookmarkEvent(
+                        title: dbTitle,
+                        bookmark: true,
+                      ),
+                    );
               },
             ),
       trailing: dbAlarm == null

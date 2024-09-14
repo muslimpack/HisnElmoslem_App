@@ -90,9 +90,12 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
                             Icons.favorite_border,
                           ),
                     onPressed: () {
-                      context
-                          .read<HomeBloc>()
-                          .add(HomeUnBookmarkContentEvent(content: dbContent));
+                      context.read<HomeBloc>().add(
+                            HomeToggleContentBookmarkEvent(
+                              content: dbContent,
+                              bookmark: false,
+                            ),
+                          );
                     },
                   ),
                   Expanded(

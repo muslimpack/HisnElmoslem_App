@@ -26,10 +26,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeStartEvent>(_start);
     on<HomeToggleSearchEvent>(_toggleSearch);
 
-    on<HomeBookmarkTitleEvent>(_bookmarkTitle);
-    on<HomeUnBookmarkTitleEvent>(_unBookmarkTitle);
-    on<HomeBookmarkContentEvent>(_bookmarkContent);
-    on<HomeUnBookmarkContentEvent>(_unBookmarkContent);
+    on<HomeToggleTitleBookmarkEvent>(_bookmarkTitle);
+    on<HomeToggleContentBookmarkEvent>(_bookmarkContent);
     on<HomeUpdateBookmarkedContentsEvent>(_updateBookmarkedContents);
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
     on<HomeToggleDrawerEvent>(_toggleDrawer);
@@ -90,36 +88,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _bookmarkTitle(
-    HomeBookmarkTitleEvent event,
+    HomeToggleTitleBookmarkEvent event,
     Emitter<HomeState> emit,
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
-    await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
+    if (event.bookmark) {
+      await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
+    } else {
+      await azkarDatabaseHelper.deleteTitleFromFavourite(dbTitle: event.title);
+    }
 
     final titles = List<DbTitle>.of(state.titles).map((e) {
       if (e.id == event.title.id) {
-        return event.title.copyWith(favourite: true);
-      }
-      return e;
-    }).toList();
-
-    emit(state.copyWith(titles: titles));
-  }
-
-  FutureOr<void> _unBookmarkTitle(
-    HomeUnBookmarkTitleEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! HomeLoadedState) return;
-
-    await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
-
-    final titles = List<DbTitle>.of(state.titles).map((e) {
-      if (e.id == event.title.id) {
-        return event.title.copyWith(favourite: false);
+        return event.title.copyWith(favourite: event.bookmark);
       }
       return e;
     }).toList();
@@ -128,27 +111,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _bookmarkContent(
-    HomeBookmarkContentEvent event,
+    HomeToggleContentBookmarkEvent event,
     Emitter<HomeState> emit,
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
-    await azkarDatabaseHelper.addContentToFavourite(dbContent: event.content);
-
-    add(HomeUpdateBookmarkedContentsEvent());
-  }
-
-  FutureOr<void> _unBookmarkContent(
-    HomeUnBookmarkContentEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! HomeLoadedState) return;
-
-    await azkarDatabaseHelper.removeContentFromFavourite(
-      dbContent: event.content,
-    );
+    if (event.bookmark) {
+      await azkarDatabaseHelper.addContentToFavourite(dbContent: event.content);
+    } else {
+      await azkarDatabaseHelper.removeContentFromFavourite(
+        dbContent: event.content,
+      );
+    }
 
     add(HomeUpdateBookmarkedContentsEvent());
   }
