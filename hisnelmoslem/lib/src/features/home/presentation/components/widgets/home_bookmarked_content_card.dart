@@ -229,12 +229,9 @@ class _BottomBar extends StatelessWidget {
                 "${"Go to".tr}: ${dbTitle.name}",
                 textAlign: TextAlign.center,
               ),
-              trailing: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  cardState.dbContent.count.toString(),
-                  style: const TextStyle(),
-                ),
+              trailing: Text(
+                cardState.dbContent.count.toString(),
+                style: const TextStyle(fontSize: 15),
               ),
             ),
           ),
