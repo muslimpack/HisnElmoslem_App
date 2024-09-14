@@ -1,24 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 
 /// TODO make final fields after removeing GetX
 class DbAlarm extends Equatable {
-  int id;
-  int titleId;
-  String title;
-  String body;
-  String repeatType;
-  int hour;
-  int minute;
-  bool isActive;
-  bool hasAlarmInside;
+  final int id;
+  final int titleId;
+  final String title;
+  final String body;
+  final AlarmRepeatType repeatType;
+  final int hour;
+  final int minute;
+  final bool isActive;
+  final bool hasAlarmInside;
 
-  DbAlarm({
+  const DbAlarm({
     this.id = 0,
     this.titleId = 0,
     this.title = "",
     this.body = "",
-    this.repeatType = "",
+    this.repeatType = AlarmRepeatType.daily,
     this.hour = 12,
     this.minute = 30,
     this.isActive = false,
@@ -32,12 +33,22 @@ class DbAlarm extends Equatable {
     } else {
       isActive = true;
     }
+
+    final repeatType = AlarmRepeatType.values
+            .where(
+              (x) =>
+                  x.name.toLowerCase() ==
+                  (map['repeatType'] as String).toLowerCase(),
+            )
+            .firstOrNull ??
+        AlarmRepeatType.daily;
+
     return DbAlarm(
       id: map['id'] as int,
       title: map['title'] as String,
       titleId: map['titleId'] as int,
       body: (map['body'] ?? "") as String,
-      repeatType: map['repeatType'] as String,
+      repeatType: repeatType,
       hour: map['hour'] as int,
       minute: map['minute'] as int,
       isActive: isActive,
@@ -49,7 +60,7 @@ class DbAlarm extends Equatable {
     return <String, dynamic>{
       "title": title,
       "body": body,
-      "repeatType": repeatType,
+      "repeatType": repeatType.name,
       "hour": hour,
       "minute": minute,
       "isActive": isActive ? 1 : 0,
@@ -67,7 +78,7 @@ class DbAlarm extends Equatable {
     int? titleId,
     String? title,
     String? body,
-    String? repeatType,
+    AlarmRepeatType? repeatType,
     int? hour,
     int? minute,
     bool? isActive,

@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -25,7 +26,7 @@ class AlarmManager {
         getSnackbar(message: "${"activate".tr} | ${dbAlarm.title}");
       }
       switch (dbAlarm.repeatType) {
-        case "Daily":
+        case AlarmRepeatType.daily:
           await awesomeNotificationManager.addCustomDailyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -33,7 +34,7 @@ class AlarmManager {
             time: Time(dbAlarm.hour, dbAlarm.minute),
             payload: dbAlarm.titleId.toString(),
           );
-        case "AtSaturday":
+        case AlarmRepeatType.atSaturday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -42,7 +43,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.saturday.value,
           );
-        case "AtSunday":
+        case AlarmRepeatType.atSunday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -51,7 +52,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.sunday.value,
           );
-        case "AtMonday":
+        case AlarmRepeatType.atMonday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -63,7 +64,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.monday.value,
           );
-        case "AtTuesday":
+        case AlarmRepeatType.atTuesday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -72,7 +73,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.tuesday.value,
           );
-        case "AtWednesday":
+        case AlarmRepeatType.atWednesday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -81,7 +82,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.wednesday.value,
           );
-        case "AtThursday":
+        case AlarmRepeatType.atThursday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,
@@ -90,7 +91,7 @@ class AlarmManager {
             payload: dbAlarm.titleId.toString(),
             weekday: AwesomeDay.thursday.value,
           );
-        case "AtFriday":
+        case AlarmRepeatType.atFriday:
           await awesomeNotificationManager.addCustomWeeklyReminder(
             id: dbAlarm.titleId,
             title: dbAlarm.title,

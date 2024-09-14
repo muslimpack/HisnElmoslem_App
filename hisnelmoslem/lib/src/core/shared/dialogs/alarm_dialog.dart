@@ -1,14 +1,12 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 
-Future<dynamic> showFastAlarmDialog({
+Future<DbAlarm?> showAlarmEditorDialog({
   required BuildContext context,
   required DbAlarm dbAlarm,
   required bool isToEdit,
@@ -18,7 +16,7 @@ Future<dynamic> showFastAlarmDialog({
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AddAlarmDialog(
+      return AlarmEditorDialog(
         dbAlarm: dbAlarm,
         isToEdit: isToEdit,
       );
@@ -26,21 +24,21 @@ Future<dynamic> showFastAlarmDialog({
   );
 }
 
-class AddAlarmDialog extends StatefulWidget {
+class AlarmEditorDialog extends StatefulWidget {
   final DbAlarm dbAlarm;
   final bool isToEdit;
 
-  const AddAlarmDialog({
+  const AlarmEditorDialog({
     super.key,
     required this.dbAlarm,
     required this.isToEdit,
   });
 
   @override
-  AddAlarmDialogState createState() => AddAlarmDialogState();
+  AlarmEditorDialogState createState() => AlarmEditorDialogState();
 }
 
-class AddAlarmDialogState extends State<AddAlarmDialog> {
+class AlarmEditorDialogState extends State<AlarmEditorDialog> {
   late TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;
@@ -57,7 +55,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
 
   TextEditingController bodyController = TextEditingController();
 
-  late String repeatType;
+  late AlarmRepeatType repeatType;
 
   @override
   void initState() {
@@ -67,15 +65,14 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
           .replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
 
       bodyController = TextEditingController(text: widget.dbAlarm.body);
-      repeatType = HandleRepeatType()
-          .getNameToUser(chosenValue: widget.dbAlarm.repeatType);
+      repeatType = widget.dbAlarm.repeatType;
       selectedHour = widget.dbAlarm.hour;
       selectedMinute = widget.dbAlarm.minute;
     } else {
       bodyController = TextEditingController(
         text: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       );
-      repeatType = "daily".tr;
+      repeatType = AlarmRepeatType.daily;
     }
   }
 
@@ -156,7 +153,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
         ),
         Card(
           clipBehavior: Clip.hardEdge,
-          child: DropdownButton<String>(
+          child: DropdownButton<AlarmRepeatType>(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             value: repeatType,
             isExpanded: true,
@@ -168,27 +165,21 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
             //   color: Theme.of(context).listTileTheme.textColor,
             // ),
             // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-            onChanged: (String? newValue) {
+            onChanged: (AlarmRepeatType? newValue) {
+              if (newValue == null) return;
               setState(() {
-                repeatType = newValue!;
+                repeatType = newValue;
               });
             },
-            items: <String>[
-              "daily".tr,
-              "every saturday".tr,
-              "every sunday".tr,
-              "every monday".tr,
-              "every tuesday".tr,
-              "every wednesday".tr,
-              "every thursday".tr,
-              "every Friday".tr,
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
+            items: AlarmRepeatType.values
+                .map<DropdownMenuItem<AlarmRepeatType>>(
+                    (AlarmRepeatType value) {
+              return DropdownMenuItem<AlarmRepeatType>(
                 // alignment: Alignment.center,
 
                 value: value,
                 child: Text(
-                  value,
+                  value.getUserFriendlyName(),
 
                   // textAlign: TextAlign.center,
                 ),
@@ -208,28 +199,21 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
               onTap: () {
                 setState(() {
                   if (selectedHour != null) {
-                    final DbAlarm alarm = DbAlarm(
-                      titleId: widget.dbAlarm.titleId,
-                      id: widget.dbAlarm.id,
-                      title: widget.dbAlarm.title,
+                    final editedAlarm = widget.dbAlarm.copyWith(
                       body: bodyController.text,
-                      hour: selectedHour!,
+                      hour: selectedHour,
                       hasAlarmInside: true,
-                      minute: selectedMinute!,
-                      repeatType: HandleRepeatType()
-                          .getNameToPutInDatabase(chosenValue: repeatType),
-                      isActive: widget.dbAlarm.isActive,
+                      minute: selectedMinute,
+                      repeatType: repeatType,
                     );
 
                     if (widget.isToEdit) {
-                      alarmDatabaseHelper.updateAlarmInfo(dbAlarm: alarm);
-                      alarmManager.alarmState(dbAlarm: alarm);
-                      Navigator.pop(context, alarm);
+                      Navigator.pop(context, editedAlarm);
                     } else {
-                      alarm.isActive = true;
-                      alarmDatabaseHelper.addNewAlarm(dbAlarm: alarm);
-                      alarmManager.alarmState(dbAlarm: alarm);
-                      Navigator.pop(context, alarm);
+                      Navigator.pop(
+                        context,
+                        editedAlarm.copyWith(isActive: true),
+                      );
                     }
                   } else {
                     showToast(msg: "please choose time for the reminder".tr);
@@ -245,13 +229,7 @@ class AddAlarmDialogState extends State<AddAlarmDialog> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
-                Navigator.pop(
-                  context,
-                  DbAlarm(
-                    id: widget.dbAlarm.id,
-                    titleId: widget.dbAlarm.titleId,
-                  ),
-                );
+                Navigator.pop(context);
               },
             ),
           ),

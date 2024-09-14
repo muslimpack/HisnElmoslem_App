@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/functions/handle_repeat_type.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/alarm_controller.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 
@@ -25,7 +25,7 @@ class AlarmCard extends StatelessWidget {
             children: [
               SlidableAction(
                 onPressed: (val) async {
-                  final alarm = await showFastAlarmDialog(
+                  final alarm = await showAlarmEditorDialog(
                     context: context,
                     dbAlarm: dbAlarm,
                     isToEdit: true,
@@ -99,8 +99,7 @@ class AlarmCardBody extends StatelessWidget {
                     ),
                     Expanded(
                       child: RoundTagCard(
-                        name: HandleRepeatType()
-                            .getNameToUser(chosenValue: dbAlarm.repeatType),
+                        name: dbAlarm.repeatType.getUserFriendlyName(),
                         color: Colors.yellow,
                       ),
                     ),
