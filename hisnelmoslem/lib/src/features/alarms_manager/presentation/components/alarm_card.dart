@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/alarm_controller.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:intl/intl.dart';
 
 class AlarmCard extends StatelessWidget {
   final DbAlarm dbAlarm;
@@ -16,48 +16,46 @@ class AlarmCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AlarmsPageController>(
-      builder: (controller) {
-        return Slidable(
-          startActionPane: ActionPane(
-            extentRatio: .3,
-            motion: const BehindMotion(),
-            children: [
-              SlidableAction(
-                onPressed: (val) async {
-                  final alarm = await showAlarmEditorDialog(
-                    context: context,
-                    dbAlarm: dbAlarm,
-                    isToEdit: true,
-                  );
+    return Slidable(
+      startActionPane: ActionPane(
+        extentRatio: .3,
+        motion: const BehindMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: Colors.green.withOpacity(.5),
+            onPressed: (val) async {
+              final alarm = await showAlarmEditorDialog(
+                context: context,
+                dbAlarm: dbAlarm,
+                isToEdit: true,
+              );
 
-                  if (alarm is! DbAlarm) return;
-                  if (!alarm.hasAlarmInside) return;
-                  if (!context.mounted) return;
+              if (alarm is! DbAlarm) return;
+              if (!alarm.hasAlarmInside) return;
+              if (!context.mounted) return;
 
-                  context.read<AlarmsBloc>().add(AlarmsEditEvent(alarm));
-                },
-                icon: Icons.edit,
-                label: 'edit'.tr,
-              ),
-            ],
+              context.read<AlarmsBloc>().add(AlarmsEditEvent(alarm));
+            },
+            icon: Icons.edit,
+            label: 'edit'.tr,
           ),
-          endActionPane: ActionPane(
-            extentRatio: .3,
-            motion: const BehindMotion(),
-            children: [
-              SlidableAction(
-                onPressed: (val) async {
-                  context.read<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
-                },
-                icon: Icons.delete,
-                label: "delete".tr,
-              ),
-            ],
+        ],
+      ),
+      endActionPane: ActionPane(
+        extentRatio: .3,
+        motion: const BehindMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (val) async {
+              context.read<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
+            },
+            backgroundColor: Colors.red.withOpacity(.5),
+            icon: Icons.delete,
+            label: "delete".tr,
           ),
-          child: AlarmCardBody(dbAlarm: dbAlarm, context: context),
-        );
-      },
+        ],
+      ),
+      child: AlarmCardBody(dbAlarm: dbAlarm, context: context),
     );
   }
 }
@@ -82,25 +80,25 @@ class AlarmCardBody extends StatelessWidget {
             leading: const Icon(Icons.alarm),
             subtitle: Wrap(
               children: [
-                if (dbAlarm.body.isEmpty)
-                  const SizedBox()
-                else
+                if (dbAlarm.body.isNotEmpty)
                   RoundTagCard(
                     name: dbAlarm.body,
-                    color: Colors.brown,
+                    color: Colors.brown.withOpacity(.5),
                   ),
                 Row(
                   children: [
                     Expanded(
                       child: RoundTagCard(
-                        name: '⌚ ${dbAlarm.hour} : ${dbAlarm.minute}',
-                        color: Colors.green,
+                        name: DateFormat("hh:mm a").format(
+                          DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute),
+                        ),
+                        color: Colors.green.withOpacity(.5),
                       ),
                     ),
                     Expanded(
                       child: RoundTagCard(
                         name: dbAlarm.repeatType.getUserFriendlyName(),
-                        color: Colors.yellow,
+                        color: Colors.yellow.withOpacity(.5),
                       ),
                     ),
                   ],
