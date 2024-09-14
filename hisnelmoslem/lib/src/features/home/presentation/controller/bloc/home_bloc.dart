@@ -132,6 +132,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
+    await azkarDatabaseHelper.addContentToFavourite(dbContent: event.content);
   }
 
   FutureOr<void> _unBookmarkContent(
@@ -140,6 +142,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
+    await azkarDatabaseHelper.removeContentFromFavourite(
+      dbContent: event.content,
+    );
   }
 
   FutureOr<void> _toggleDrawer(
