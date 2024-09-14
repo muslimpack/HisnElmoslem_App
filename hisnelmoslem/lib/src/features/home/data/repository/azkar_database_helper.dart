@@ -67,13 +67,12 @@ class AzkarDatabaseHelper {
   /// Get all favourite titles
   Future<List<DbTitle>> getAllFavoriteTitles() async {
     final List<DbTitle> titles = [];
-    await dataDatabaseHelper.getAllFavoriteTitles().then((value) async {
-      for (var i = 0; i < value.length; i++) {
-        await getTitleById(id: value[i].titleId).then((title) {
-          titles.add(title);
-        });
-      }
-    });
+    final bookmarkedTitles = await dataDatabaseHelper.getAllFavoriteTitles();
+
+    for (var i = 0; i < bookmarkedTitles.length; i++) {
+      final title = await getTitleById(id: bookmarkedTitles[i].titleId);
+      titles.add(title);
+    }
 
     return titles;
   }
