@@ -30,6 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeUnBookmarkTitleEvent>(_unBookmarkTitle);
     on<HomeBookmarkContentEvent>(_bookmarkContent);
     on<HomeUnBookmarkContentEvent>(_unBookmarkContent);
+    on<HomeUpdateBookmarkedContentsEvent>(_updateBookmarkedContents);
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
     on<HomeToggleDrawerEvent>(_toggleDrawer);
   }
@@ -134,6 +135,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is! HomeLoadedState) return;
 
     await azkarDatabaseHelper.addContentToFavourite(dbContent: event.content);
+
+    add(HomeUpdateBookmarkedContentsEvent());
   }
 
   FutureOr<void> _unBookmarkContent(
@@ -146,6 +149,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     await azkarDatabaseHelper.removeContentFromFavourite(
       dbContent: event.content,
     );
+
+    add(HomeUpdateBookmarkedContentsEvent());
+  }
+
+  FutureOr<void> _updateBookmarkedContents(
+    HomeUpdateBookmarkedContentsEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    final bookmarkedContents = await azkarDatabaseHelper.getFavouriteContents();
+    emit(state.copyWith(bookmarkedContents: bookmarkedContents));
   }
 
   FutureOr<void> _toggleDrawer(

@@ -68,6 +68,8 @@ class HomeUnBookmarkContentEvent extends HomeEvent {
   List<Object> get props => [content];
 }
 
+class HomeUpdateBookmarkedContentsEvent extends HomeEvent {}
+
 class HomeUpdateAlarmsEvent extends HomeEvent {
   final List<DbAlarm> alarms;
 
@@ -80,5 +82,5 @@ class HomeUpdateAlarmsEvent extends HomeEvent {
 }
 
 class HomeToggleDrawerEvent extends HomeEvent {
-const HomeToggleDrawerEvent();
+  const HomeToggleDrawerEvent();
 }

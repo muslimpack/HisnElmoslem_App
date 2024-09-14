@@ -4,11 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:share_plus/share_plus.dart';
@@ -22,7 +24,8 @@ class ZikrPageViewerBloc
   PageController pageController = PageController();
   final SoundsManagerController soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
-  ZikrPageViewerBloc(this.soundsManagerController)
+  final HomeBloc homeBloc;
+  ZikrPageViewerBloc(this.soundsManagerController, this.homeBloc)
       : super(ZikrPageViewerLoadingState()) {
     _initHandlers();
 
@@ -185,14 +188,76 @@ class ZikrPageViewerBloc
     ZikrPageViewerBookmarkActiveZikrEvent event,
     Emitter<ZikrPageViewerState> emit,
   ) async {
-    ///TODO impl
+    final state = this.state;
+    if (state is! ZikrPageViewerLoadedState) return;
+    final activeZikr = state.activeZikr;
+    if (activeZikr == null) return;
+
+    hisnPrint("activeZikr: $activeZikr");
+
+    await azkarDatabaseHelper.addContentToFavourite(
+      dbContent: activeZikr,
+    );
+
+    final azkar = List<DbContent>.of(state.azkar).map((e) {
+      if (e.id == activeZikr.id) {
+        return activeZikr.copyWith(favourite: true);
+      }
+      return e;
+    }).toList();
+
+    final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
+      if (e.id == activeZikr.id) {
+        return activeZikr.copyWith(favourite: true);
+      }
+      return e;
+    }).toList();
+
+    emit(
+      state.copyWith(
+        azkar: azkar,
+        azkarToView: azkarToView,
+      ),
+    );
+
+    homeBloc.add(HomeUpdateBookmarkedContentsEvent());
   }
 
   FutureOr<void> _unbookmark(
     ZikrPageViewerUnbookmarkActiveZikrEvent event,
     Emitter<ZikrPageViewerState> emit,
   ) async {
-    ///TODO impl
+    final state = this.state;
+    if (state is! ZikrPageViewerLoadedState) return;
+    final activeZikr = state.activeZikr;
+    if (activeZikr == null) return;
+
+    await azkarDatabaseHelper.removeContentFromFavourite(
+      dbContent: activeZikr,
+    );
+
+    final azkar = List<DbContent>.of(state.azkar).map((e) {
+      if (e.id == activeZikr.id) {
+        return activeZikr.copyWith(favourite: false);
+      }
+      return e;
+    }).toList();
+
+    final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
+      if (e.id == activeZikr.id) {
+        return activeZikr.copyWith(favourite: false);
+      }
+      return e;
+    }).toList();
+
+    emit(
+      state.copyWith(
+        azkar: azkar,
+        azkarToView: azkarToView,
+      ),
+    );
+
+    homeBloc.add(HomeUpdateBookmarkedContentsEvent());
   }
 
   FutureOr<void> _report(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_page_builder.dart';
@@ -16,8 +17,10 @@ class AzkarReadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ZikrPageViewerBloc(SoundsManagerController())
-        ..add(ZikrPageViewerStartEvent(titleIndex: index)),
+      create: (context) => ZikrPageViewerBloc(
+        SoundsManagerController(),
+        context.read<HomeBloc>(),
+      )..add(ZikrPageViewerStartEvent(titleIndex: index)),
       child: BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
         builder: (context, state) {
           if (state is! ZikrPageViewerLoadedState) {
