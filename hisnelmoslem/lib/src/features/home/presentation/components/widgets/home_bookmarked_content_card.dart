@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,118 +56,27 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              Row(
+    return Card(
+      child: Column(
+        children: [
+          _TopBar(cardState: this),
+          LinearProgressIndicator(
+            value: 1 - (dbContent.count / widget.dbContent.count),
+          ),
+          InkWell(
+            onTap: () {
+              decrease();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      icon: Icon(MdiIcons.camera),
-                      onPressed: () {
-                        transitionAnimation.circleReval(
-                          context: Get.context!,
-                          goToPage: ShareAsImage(
-                            dbContent: dbContent,
-                          ),
-                        );
-                      },
-                    ),
+                  ZikrContentBuilder(
+                    dbContent: dbContent,
+                    enableDiacritics: AppData.instance.isDiacriticsEnabled,
+                    fontSize: AppData.instance.fontSize * 10,
                   ),
-                  IconButton(
-                    splashRadius: 20,
-                    padding: EdgeInsets.zero,
-                    icon: dbContent.favourite
-                        ? Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).colorScheme.primary,
-                          )
-                        : const Icon(
-                            Icons.favorite_border,
-                          ),
-                    onPressed: () {
-                      context.read<HomeBloc>().add(
-                            HomeToggleContentBookmarkEvent(
-                              content: dbContent,
-                              bookmark: false,
-                            ),
-                          );
-                    },
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.copy,
-                      ),
-                      onPressed: () async {
-                        final text = await dbContent.getPlainText();
-                        await Clipboard.setData(
-                          ClipboardData(
-                            text: "$text\n${dbContent.fadl}",
-                          ),
-                        );
-
-                        getSnackbar(
-                          message: "copied to clipboard".tr,
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.share,
-                      ),
-                      onPressed: () {
-                        Share.share(
-                          "${dbContent.content}\n${dbContent.fadl}",
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.report,
-                        color: Colors.orange,
-                      ),
-                      onPressed: () {
-                        EmailManager.sendMisspelledInZikrWithDbModel(
-                          dbTitle: widget.dbTitle,
-                          dbContent: dbContent,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const LinearProgressIndicator(
-                value: 1,
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ZikrContentBuilder(
-                      dbContent: dbContent,
-                      enableDiacritics: AppData.instance.isDiacriticsEnabled,
-                      fontSize: AppData.instance.fontSize * 10,
-                    ),
-                  ),
-                  if (dbContent.fadl == "")
-                    const SizedBox()
-                  else
+                  if (dbContent.fadl.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
@@ -181,60 +91,155 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
                     ),
                 ],
               ),
-              const Divider(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.zero,
-                      child: ListTile(
-                        leading: IconButton(
-                          splashRadius: 20,
-                          onPressed: () async {
-                            reset();
-                          },
-                          icon: const Icon(Icons.repeat),
-                        ),
-                        onTap: () {
-                          if (!AppData.instance.isCardReadMode) {
-                            transitionAnimation.circleReval(
-                              context: Get.context!,
-                              goToPage: AzkarReadPage(
-                                index: widget.dbTitle.id,
-                              ),
-                            );
-                          } else {
-                            transitionAnimation.circleReval(
-                              context: Get.context!,
-                              goToPage: AzkarReadCard(
-                                index: widget.dbTitle.id,
-                              ),
-                            );
-                          }
-                        },
-                        title: Text(
-                          "${"Go to".tr} | ${widget.dbTitle.name}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        trailing: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            dbContent.count.toString(),
-                            style: const TextStyle(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            ),
+          ),
+          const Divider(height: 0),
+          _BottomBar(cardState: this),
+        ],
+      ),
+    );
+  }
+}
+
+class _TopBar extends StatelessWidget {
+  const _TopBar({
+    required this.cardState,
+  });
+
+  final _HomeBookmarkedContentCardState cardState;
+
+  @override
+  Widget build(BuildContext context) {
+    final dbContent = cardState.widget.dbContent;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        IconButton(
+          icon: Icon(MdiIcons.camera),
+          onPressed: () {
+            transitionAnimation.circleReval(
+              context: Get.context!,
+              goToPage: ShareAsImage(
+                dbContent: dbContent,
               ),
-            ],
+            );
+          },
+        ),
+        IconButton(
+          icon: dbContent.favourite
+              ? Icon(
+                  Icons.favorite,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              : const Icon(
+                  Icons.favorite_border,
+                ),
+          onPressed: () {
+            context.read<HomeBloc>().add(
+                  HomeToggleContentBookmarkEvent(
+                    content: dbContent,
+                    bookmark: false,
+                  ),
+                );
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.copy,
+          ),
+          onPressed: () async {
+            final text = await dbContent.getPlainText();
+            await Clipboard.setData(
+              ClipboardData(
+                text: "$text\n${dbContent.fadl}",
+              ),
+            );
+
+            getSnackbar(
+              message: "copied to clipboard".tr,
+            );
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.share,
+          ),
+          onPressed: () {
+            Share.share(
+              "${dbContent.content}\n${dbContent.fadl}",
+            );
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.report,
+            color: Colors.orange,
+          ),
+          onPressed: () {
+            EmailManager.sendMisspelledInZikrWithDbModel(
+              dbTitle: cardState.widget.dbTitle,
+              dbContent: dbContent,
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _BottomBar extends StatelessWidget {
+  const _BottomBar({
+    required this.cardState,
+  });
+  final _HomeBookmarkedContentCardState cardState;
+  @override
+  Widget build(BuildContext context) {
+    final DbTitle dbTitle = cardState.widget.dbTitle;
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+              leading: IconButton(
+                splashRadius: 20,
+                onPressed: () async {
+                  cardState.reset();
+                },
+                icon: const Icon(Icons.repeat),
+              ),
+              onTap: () {
+                if (!AppData.instance.isCardReadMode) {
+                  transitionAnimation.circleReval(
+                    context: Get.context!,
+                    goToPage: AzkarReadPage(
+                      index: dbTitle.id,
+                    ),
+                  );
+                } else {
+                  transitionAnimation.circleReval(
+                    context: Get.context!,
+                    goToPage: AzkarReadCard(
+                      index: dbTitle.id,
+                    ),
+                  );
+                }
+              },
+              title: Text(
+                "${"Go to".tr}: ${dbTitle.name}",
+                textAlign: TextAlign.center,
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  cardState.dbContent.count.toString(),
+                  style: const TextStyle(),
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
