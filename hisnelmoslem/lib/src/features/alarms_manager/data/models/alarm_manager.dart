@@ -44,7 +44,9 @@ class AlarmManager {
         getSnackbar(message: "${"deactivate".tr} | ${dbAlarm.title}");
       }
 
-      awesomeNotificationManager.cancelNotificationById(id: dbAlarm.titleId);
+      await awesomeNotificationManager.cancelNotificationById(
+        id: dbAlarm.titleId,
+      );
     }
   }
 
@@ -55,13 +57,11 @@ class AlarmManager {
     final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
     if (!isAwesomeSet) {
       hisnPrint("Setup Awesome from database ....");
-      await alarmDatabaseHelper.getAlarms().then((value) {
-        final List<DbAlarm> alarms = value;
-        for (var i = 0; i < alarms.length; i++) {
-          final DbAlarm alarm = alarms[i];
-          alarmState(dbAlarm: alarm, showMsg: false);
-        }
-      });
+      final alarms = await alarmDatabaseHelper.getAlarms();
+      for (var i = 0; i < alarms.length; i++) {
+        final DbAlarm alarm = alarms[i];
+        await alarmState(dbAlarm: alarm, showMsg: false);
+      }
       box.write('is_awesome_set', true);
     }
   }
