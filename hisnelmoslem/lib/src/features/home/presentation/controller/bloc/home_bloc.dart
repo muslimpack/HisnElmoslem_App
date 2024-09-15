@@ -49,9 +49,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
+
     final Map<int, DbAlarm> alarms = {
-      for (final alarm in event.alarms) alarm.id: alarm,
+      for (final alarm in event.alarms) alarm.titleId: alarm,
     };
+
     emit(state.copyWith(alarms: alarms));
   }
 
@@ -66,7 +68,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(
       HomeLoadedState(
         titles: titles,
-        alarms: {for (final alarm in alarms) alarm.id: alarm},
+        alarms: {for (final alarm in alarms) alarm.titleId: alarm},
         bookmarkedContents: bookmarkedContents,
         isSearching: false,
       ),
