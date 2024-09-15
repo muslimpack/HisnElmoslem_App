@@ -17,7 +17,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
   late final StreamSubscription alarmSubscription;
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
-  HomeBloc(this.alarmsBloc) : super(HomeLoadingState()) {
+  final AlarmDatabaseHelper alarmDatabaseHelper;
+  HomeBloc(this.alarmsBloc, this.alarmDatabaseHelper)
+      : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
 
     _initHandlers();

@@ -13,7 +13,8 @@ part 'alarms_event.dart';
 part 'alarms_state.dart';
 
 class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
-  AlarmsBloc() : super(AlarmsLoadingState()) {
+  final AlarmDatabaseHelper alarmDatabaseHelper;
+  AlarmsBloc(this.alarmDatabaseHelper) : super(AlarmsLoadingState()) {
     on<AlarmsStartEvent>(_start);
     on<AlarmsAddEvent>(_add);
     on<AlarmsEditEvent>(_edit);

@@ -39,7 +39,7 @@ class MyAppState extends State<MyApp> {
   Future<void> dispose() async {
     await azkarDatabaseHelper.close();
     await fakeHadithDatabaseHelper.close();
-    await alarmDatabaseHelper.close();
+    await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
     awesomeNotificationManager.dispose();
     super.dispose();
@@ -50,10 +50,14 @@ class MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
-        BlocProvider(create: (_) => AlarmsBloc()..add(AlarmsStartEvent())),
+        BlocProvider(
+          create: (_) =>
+              AlarmsBloc(sl<AlarmDatabaseHelper>())..add(AlarmsStartEvent()),
+        ),
         BlocProvider(
           create: (context) =>
-              HomeBloc(context.read<AlarmsBloc>())..add(HomeStartEvent()),
+              HomeBloc(context.read<AlarmsBloc>(), sl<AlarmDatabaseHelper>())
+                ..add(HomeStartEvent()),
         ),
         BlocProvider(
           create: (context) => SearchCubit(homeBloc: context.read<HomeBloc>()),
