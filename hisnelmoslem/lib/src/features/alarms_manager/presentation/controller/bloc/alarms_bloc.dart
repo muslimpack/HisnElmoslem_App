@@ -36,9 +36,10 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     if (state is! AlarmsLoadedState) return;
 
     await alarmDatabaseHelper.addNewAlarm(dbAlarm: event.alarm);
+    await alarmManager.alarmState(dbAlarm: event.alarm);
 
-    final alarms = List<DbAlarm>.from(state.alarms);
-    alarms.add(event.alarm);
+    final alarms = List<DbAlarm>.from(state.alarms)..add(event.alarm);
+
     emit(AlarmsLoadedState(alarms: alarms));
   }
 
@@ -50,6 +51,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     if (state is! AlarmsLoadedState) return;
 
     await alarmDatabaseHelper.updateAlarmInfo(dbAlarm: event.alarm);
+    await alarmManager.alarmState(dbAlarm: event.alarm);
 
     final alarms = List<DbAlarm>.from(state.alarms).map((x) {
       if (x.id == event.alarm.id) {
@@ -57,8 +59,6 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       }
       return x;
     }).toList();
-
-    alarmManager.alarmState(dbAlarm: event.alarm);
 
     emit(AlarmsLoadedState(alarms: alarms));
   }
