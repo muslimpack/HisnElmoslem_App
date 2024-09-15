@@ -76,6 +76,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ZikrContentBuilder(
                     dbContent: dbContent,
