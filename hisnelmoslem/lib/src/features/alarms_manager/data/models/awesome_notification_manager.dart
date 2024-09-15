@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
 AwesomeNotificationManager awesomeNotificationManager =
     AwesomeNotificationManager();
@@ -283,12 +283,12 @@ class AwesomeNotificationManager {
       if (AppData.instance.isCardReadMode) {
         transitionAnimation.fromBottom2Top(
           context: Get.context!,
-          goToPage: AzkarReadCard(index: pageIndex),
+          goToPage: ZikrViewerCardModeScreen(index: pageIndex),
         );
       } else {
         transitionAnimation.fromBottom2Top(
           context: Get.context!,
-          goToPage: AzkarReadPage(index: pageIndex),
+          goToPage: ZikrViewerPageModeScreen(index: pageIndex),
         );
       }
     }

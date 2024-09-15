@@ -8,8 +8,8 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart'
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
 class TitleCard extends StatelessWidget {
   final int index;
@@ -123,12 +123,12 @@ class TitleCard extends StatelessWidget {
         if (!AppData.instance.isCardReadMode) {
           transitionAnimation.circleReval(
             context: Get.context!,
-            goToPage: AzkarReadPage(index: dbTitle.id),
+            goToPage: ZikrViewerPageModeScreen(index: dbTitle.id),
           );
         } else {
           transitionAnimation.circleReval(
             context: Get.context!,
-            goToPage: AzkarReadCard(index: dbTitle.id),
+            goToPage: ZikrViewerCardModeScreen(index: dbTitle.id),
           );
         }
       },

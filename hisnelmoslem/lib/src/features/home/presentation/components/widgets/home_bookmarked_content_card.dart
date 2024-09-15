@@ -12,8 +12,8 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/sh
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -208,14 +208,14 @@ class _BottomBar extends StatelessWidget {
                 if (!AppData.instance.isCardReadMode) {
                   transitionAnimation.circleReval(
                     context: Get.context!,
-                    goToPage: AzkarReadPage(
+                    goToPage: ZikrViewerPageModeScreen(
                       index: dbTitle.id,
                     ),
                   );
                 } else {
                   transitionAnimation.circleReval(
                     context: Get.context!,
-                    goToPage: AzkarReadCard(
+                    goToPage: ZikrViewerCardModeScreen(
                       index: dbTitle.id,
                     ),
                   );
