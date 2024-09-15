@@ -21,7 +21,7 @@ class ZikrViewerPageModeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ZikrViewerBloc(
         soundsManagerController: SoundsManagerController(),
-        homeBloc: context.read<HomeBloc>(),
+        homeBloc: sl<HomeBloc>(),
         zikrViewerMode: ZikrViewerMode.page,
         azkarDatabaseHelper: sl(),
       )..add(ZikrViewerStartEvent(titleIndex: index)),

@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
@@ -21,7 +20,7 @@ class ZikrViewerCardModeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ZikrViewerBloc(
         soundsManagerController: SoundsManagerController(),
-        homeBloc: context.read<HomeBloc>(),
+        homeBloc: sl(),
         zikrViewerMode: ZikrViewerMode.card,
         azkarDatabaseHelper: sl(),
       )..add(ZikrViewerStartEvent(titleIndex: index)),

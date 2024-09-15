@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
@@ -24,7 +24,7 @@ class FooterSection extends StatelessWidget {
               leading: const Icon(Icons.close),
               title: Text("close".tr),
               onTap: () {
-                context.read<HomeBloc>().add(const HomeToggleDrawerEvent());
+                sl<HomeBloc>().add(const HomeToggleDrawerEvent());
               },
             ),
           ),

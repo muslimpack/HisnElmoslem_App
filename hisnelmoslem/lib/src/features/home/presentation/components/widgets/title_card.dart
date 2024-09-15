@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -40,23 +39,23 @@ class TitleCard extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                context.read<HomeBloc>().add(
-                      HomeToggleTitleBookmarkEvent(
-                        title: dbTitle,
-                        bookmark: false,
-                      ),
-                    );
+                sl<HomeBloc>().add(
+                  HomeToggleTitleBookmarkEvent(
+                    title: dbTitle,
+                    bookmark: false,
+                  ),
+                );
               },
             )
           : IconButton(
               icon: const Icon(Icons.bookmark_border_outlined),
               onPressed: () {
-                context.read<HomeBloc>().add(
-                      HomeToggleTitleBookmarkEvent(
-                        title: dbTitle,
-                        bookmark: true,
-                      ),
-                    );
+                sl<HomeBloc>().add(
+                  HomeToggleTitleBookmarkEvent(
+                    title: dbTitle,
+                    bookmark: true,
+                  ),
+                );
               },
             ),
       trailing: dbAlarm == null

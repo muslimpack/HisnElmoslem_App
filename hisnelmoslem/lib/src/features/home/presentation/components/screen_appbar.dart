@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/home_search_box.dart';
@@ -91,7 +92,7 @@ class ScreenAppBar extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.vertical_split_rounded),
                 onPressed: () {
-                  context.read<HomeBloc>().add(const HomeToggleDrawerEvent());
+                  sl<HomeBloc>().add(const HomeToggleDrawerEvent());
                 },
               ),
             ],
