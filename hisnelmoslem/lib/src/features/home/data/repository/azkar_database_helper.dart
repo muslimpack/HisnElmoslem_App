@@ -50,7 +50,7 @@ class AzkarDatabaseHelper {
 
     final List<DbTitle> titles = [];
 
-    final bookmarkedTitles = await userdataDBHelper.getAllFavoriteTitles();
+    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
     final bookmarkedTitlesMap = {
       for (final e in bookmarkedTitles) e.titleId: e.favourite,
     };
@@ -67,7 +67,7 @@ class AzkarDatabaseHelper {
   /// Get all favourite titles
   Future<List<DbTitle>> getAllFavoriteTitles() async {
     final List<DbTitle> titles = [];
-    final bookmarkedTitles = await userdataDBHelper.getAllFavoriteTitles();
+    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
 
     for (var i = 0; i < bookmarkedTitles.length; i++) {
       final title = await getTitleById(id: bookmarkedTitles[i].titleId);
@@ -87,19 +87,19 @@ class AzkarDatabaseHelper {
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
     final bookmarked =
-        await userdataDBHelper.isTitleInFavorites(titleId: dbTitle.id);
+        await userDataDBHelper.isTitleInFavorites(titleId: dbTitle.id);
 
     return dbTitle.copyWith(favourite: bookmarked);
   }
 
   /// Add title to favourite
   Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
-    await userdataDBHelper.addTitleToFavourite(dbTitle: dbTitle);
+    await userDataDBHelper.addTitleToFavourite(dbTitle: dbTitle);
   }
 
   /// Remove title from favourite
   Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
-    await userdataDBHelper.deleteTitleFromFavourite(dbTitle: dbTitle);
+    await userDataDBHelper.deleteTitleFromFavourite(dbTitle: dbTitle);
   }
 
   /**
@@ -118,7 +118,7 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      final bookmarked = await userdataDBHelper.isContentInFavorites(
+      final bookmarked = await userDataDBHelper.isContentInFavorites(
         contentId: dbContent.id,
       );
       contents.add(dbContent.copyWith(favourite: bookmarked));
@@ -140,7 +140,7 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      final bookmarked = await userdataDBHelper.isContentInFavorites(
+      final bookmarked = await userDataDBHelper.isContentInFavorites(
         contentId: dbContent.id,
       );
       contents.add(dbContent.copyWith(favourite: bookmarked));
@@ -159,7 +159,7 @@ class AzkarDatabaseHelper {
       [contentId],
     );
     final DbContent dbContent = DbContent.fromMap(maps[0]);
-    final bookmarked = await userdataDBHelper.isContentInFavorites(
+    final bookmarked = await userDataDBHelper.isContentInFavorites(
       contentId: dbContent.id,
     );
 
@@ -169,7 +169,7 @@ class AzkarDatabaseHelper {
   /// Get favourite content
   Future<List<DbContent>> getFavouriteContents() async {
     final List<DbContent> contents = [];
-    await userdataDBHelper.getFavouriteContents().then((value) async {
+    await userDataDBHelper.getFavouriteContents().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getContentsByContentId(contentId: value[i].contentId)
             .then((title) => contents.add(title));
@@ -181,14 +181,14 @@ class AzkarDatabaseHelper {
 
   /// Add content to favourite
   Future<void> addContentToFavourite({required DbContent dbContent}) async {
-    await userdataDBHelper.addContentToFavourite(dbContent: dbContent);
+    await userDataDBHelper.addContentToFavourite(dbContent: dbContent);
   }
 
   /// Remove Content from favourite
   Future<void> removeContentFromFavourite({
     required DbContent dbContent,
   }) async {
-    await userdataDBHelper.removeContentFromFavourite(
+    await userDataDBHelper.removeContentFromFavourite(
       dbContent: dbContent,
     );
   }
