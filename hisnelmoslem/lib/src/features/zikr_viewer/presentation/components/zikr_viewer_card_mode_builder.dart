@@ -41,7 +41,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                   .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
             },
             child: Container(
-              constraints: const BoxConstraints(minHeight: 150),
+              constraints: const BoxConstraints(minHeight: 200),
               padding: const EdgeInsets.all(10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -71,18 +71,55 @@ class ZikrViewerCardBuilder extends StatelessWidget {
             ),
           ),
           const Divider(height: 0),
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            child: Text(
-              dbContent.count.toString().toArabicNumber(),
-              style: TextStyle(
-                fontSize: AppData.instance.fontSize * 8,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          _BottomBar(dbContent: dbContent),
         ],
       ),
+    );
+  }
+}
+
+class _BottomBar extends StatelessWidget {
+  const _BottomBar({
+    required this.dbContent,
+  });
+
+  final DbContent dbContent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          onPressed: () async {
+            context
+                .read<ZikrPageViewerBloc>()
+                .add(ZikrPageViewerResetActiveZikrEvent(content: dbContent));
+          },
+          icon: const Icon(Icons.repeat),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.copy,
+          ),
+          onPressed: () async {
+            context
+                .read<ZikrPageViewerBloc>()
+                .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.report,
+            color: Colors.orange,
+          ),
+          onPressed: () {
+            context
+                .read<ZikrPageViewerBloc>()
+                .add(ZikrPageViewerReportActiveZikrEvent(content: dbContent));
+          },
+        ),
+      ],
     );
   }
 }
@@ -152,16 +189,6 @@ class _TopBar extends StatelessWidget {
           ),
         IconButton(
           icon: const Icon(
-            Icons.copy,
-          ),
-          onPressed: () async {
-            context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
-          },
-        ),
-        IconButton(
-          icon: const Icon(
             Icons.share,
           ),
           onPressed: () {
@@ -170,16 +197,14 @@ class _TopBar extends StatelessWidget {
                 .add(ZikrPageViewerShareActiveZikrEvent(content: dbContent));
           },
         ),
-        IconButton(
-          icon: const Icon(
-            Icons.report,
-            color: Colors.orange,
+        Center(
+          child: Text(
+            dbContent.count.toString().toArabicNumber(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-          onPressed: () {
-            context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerReportActiveZikrEvent(content: dbContent));
-          },
         ),
       ],
     );
