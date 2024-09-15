@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadit
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -24,4 +25,5 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ThemeCubit());
   sl.registerLazySingleton(() => AlarmsBloc(sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl()));
+  sl.registerLazySingleton(() => SearchCubit(homeBloc: sl()));
 }

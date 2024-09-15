@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -13,7 +14,7 @@ class HomeSearchBox extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           textAlign: TextAlign.center,
-          controller: context.read<SearchCubit>().searchController,
+          controller: sl<SearchCubit>().searchController,
           autofocus: true,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -31,12 +32,12 @@ class HomeSearchBox extends StatelessWidget {
             suffix: IconButton(
               icon: Icon(MdiIcons.eraser),
               onPressed: () {
-                context.read<SearchCubit>().erase();
+                sl<SearchCubit>().erase();
               },
             ),
           ),
           onChanged: (value) {
-            context.read<SearchCubit>().search(value);
+            sl<SearchCubit>().search(value);
           },
         );
       },
