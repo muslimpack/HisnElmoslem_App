@@ -273,7 +273,7 @@ SELECT
   /// Add content to favourite
   Future<void> addContentToFavourite({required DbContent dbContent}) async {
     final Database db = await database;
-    dbContent.favourite = true;
+
     await db.rawUpdate(
       'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',
       [1, dbContent.id],
@@ -285,7 +285,6 @@ SELECT
     required DbContent dbContent,
   }) async {
     final Database db = await database;
-    dbContent.favourite = false;
 
     await db.rawUpdate(
       'UPDATE favourite_contents SET favourite = ? WHERE _id = ?',

@@ -83,14 +83,17 @@ class FakeHadithController extends GetxController {
 
   // share as image
   void shareFakehadithAsImage(DbFakeHaith dbFakeHaith) {
-    final DbContent dbContent = DbContent();
-    dbContent.titleId = -1;
-    dbContent.orderId = dbFakeHaith.id;
-    //
-    dbContent.content = dbFakeHaith.text;
-    dbContent.fadl = dbFakeHaith.darga;
-    dbContent.source = dbFakeHaith.source;
-    //
+    final DbContent dbContent = DbContent(
+      id: -1,
+      titleId: -1,
+      orderId: dbFakeHaith.id,
+      content: dbFakeHaith.text,
+      fadl: dbFakeHaith.darga,
+      source: dbFakeHaith.source,
+      count: 0,
+      favourite: false,
+    );
+
     transitionAnimation.circleReval(
       context: Get.context!,
       goToPage: ShareAsImage(dbContent: dbContent),

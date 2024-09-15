@@ -1,32 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class DbContent {
-  int id;
-  String content;
-  int titleId;
-  int orderId;
-  int count;
-  bool favourite;
-  String fadl;
-  String source;
+import 'package:equatable/equatable.dart';
 
-  DbContent({
-    this.id = 0,
-    this.content = "",
-    this.titleId = 0,
-    this.count = 0,
-    this.fadl = "",
-    this.source = "",
-    this.orderId = 0,
-    this.favourite = false,
+class DbContent extends Equatable {
+  final int id;
+  final String content;
+  final int titleId;
+  final int orderId;
+  final int count;
+  final bool favourite;
+  final String fadl;
+  final String source;
+
+  const DbContent({
+    required this.id,
+    required this.content,
+    required this.titleId,
+    required this.count,
+    required this.fadl,
+    required this.source,
+    required this.orderId,
+    required this.favourite,
   });
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
-    bool favourite;
-    if ((map['favourite'] ?? 0) == 0) {
-      favourite = false;
-    } else {
-      favourite = true;
-    }
     return DbContent(
       id: map['id'] as int,
       content: (map['content'] as String).replaceAll("\\n", "\n"),
@@ -35,7 +31,7 @@ class DbContent {
       count: map['count'] as int,
       fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
       source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: favourite,
+      favourite: false,
     );
   }
 
@@ -48,7 +44,6 @@ class DbContent {
       'fadl': fadl,
       'source': source,
       'orderId': orderId,
-      'favourite': favourite ? 1 : 0,
     };
   }
 
@@ -77,5 +72,19 @@ class DbContent {
       fadl: fadl ?? this.fadl,
       source: source ?? this.source,
     );
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      content,
+      titleId,
+      orderId,
+      count,
+      favourite,
+      fadl,
+      source,
+    ];
   }
 }

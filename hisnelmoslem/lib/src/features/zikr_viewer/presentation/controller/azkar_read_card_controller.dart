@@ -74,7 +74,7 @@ class AzkarReadCardController extends GetxController {
     if (tempCounter > 0) {
       tempCounter--;
 
-      zikrContent[index].count = tempCounter;
+      zikrContent[index] = zikrContent[index].copyWith(count: tempCounter);
 
       ///
       SoundsManagerController().playTallyEffects();

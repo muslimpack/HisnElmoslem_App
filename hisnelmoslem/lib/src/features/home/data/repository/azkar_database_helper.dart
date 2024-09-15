@@ -118,10 +118,10 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isContentInFavorites(contentId: dbContent.id)
-          .then((value) => dbContent.favourite = value);
-      contents.add(dbContent);
+      final bookmarked = await dataDatabaseHelper.isContentInFavorites(
+        contentId: dbContent.id,
+      );
+      contents.add(dbContent.copyWith(favourite: bookmarked));
     }
 
     return contents;
@@ -140,10 +140,10 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isContentInFavorites(contentId: dbContent.id)
-          .then((value) => dbContent.favourite = value);
-      contents.add(dbContent);
+      final bookmarked = await dataDatabaseHelper.isContentInFavorites(
+        contentId: dbContent.id,
+      );
+      contents.add(dbContent.copyWith(favourite: bookmarked));
     }
     return contents;
   }
@@ -159,11 +159,10 @@ class AzkarDatabaseHelper {
       [contentId],
     );
     final DbContent dbContent = DbContent.fromMap(maps[0]);
-    await dataDatabaseHelper
-        .isContentInFavorites(contentId: dbContent.id)
-        .then((value) => dbContent.favourite = value);
+    final bookmarked =
+        await dataDatabaseHelper.isContentInFavorites(contentId: dbContent.id);
 
-    return dbContent;
+    return dbContent.copyWith(favourite: bookmarked);
   }
 
   /// Get favourite content

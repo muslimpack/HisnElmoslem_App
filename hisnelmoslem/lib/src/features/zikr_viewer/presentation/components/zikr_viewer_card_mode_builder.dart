@@ -109,7 +109,6 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                       Icons.favorite_border,
                     ),
                     onPressed: () {
-                      dbContent.favourite = true;
                       controller.update();
 
                       ///TODO
@@ -126,7 +125,6 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                       Icons.favorite,
                     ),
                     onPressed: () {
-                      dbContent.favourite = false;
                       controller.update();
 
                       ///TODO
