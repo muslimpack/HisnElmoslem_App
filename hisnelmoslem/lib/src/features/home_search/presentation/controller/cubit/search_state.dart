@@ -3,20 +3,27 @@ part of 'search_cubit.dart';
 
 class SearchState extends Equatable {
   final String searchText;
-  final List<DbTitle> titlesToView;
+  final List<DbTitle> allTitles;
 
-  const SearchState({required this.searchText, required this.titlesToView});
+  const SearchState({required this.searchText, required this.allTitles});
+
+  List<DbTitle> get searchedTitles {
+    if (searchText.isEmpty) return [];
+    return allTitles.where((zikr) {
+      return zikr.name.removeDiacritics.contains(searchText);
+    }).toList();
+  }
 
   SearchState copyWith({
     String? searchText,
-    List<DbTitle>? titlesToView,
+    List<DbTitle>? allTitles,
   }) {
     return SearchState(
       searchText: searchText ?? this.searchText,
-      titlesToView: titlesToView ?? this.titlesToView,
+      allTitles: allTitles ?? this.allTitles,
     );
   }
 
   @override
-  List<Object> get props => [searchText, titlesToView];
+  List<Object> get props => [searchText, allTitles];
 }

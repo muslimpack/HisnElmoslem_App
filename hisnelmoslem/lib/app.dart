@@ -55,7 +55,7 @@ class MyAppState extends State<MyApp> {
               HomeBloc(context.read<AlarmsBloc>())..add(HomeStartEvent()),
         ),
         BlocProvider(
-          create: (context) => SearchCubit(),
+          create: (context) => SearchCubit(homeBloc: context.read<HomeBloc>()),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(

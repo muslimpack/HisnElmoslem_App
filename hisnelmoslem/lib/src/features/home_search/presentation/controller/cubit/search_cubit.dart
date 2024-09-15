@@ -5,43 +5,53 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   final TextEditingController searchController = TextEditingController();
-  SearchCubit()
+  final HomeBloc homeBloc;
+  late final StreamSubscription homeBlocSubscription;
+  SearchCubit({required this.homeBloc})
       : super(
           const SearchState(
             searchText: "",
-            titlesToView: [],
+            allTitles: [],
           ),
-        );
+        ) {
+    _onHomeBlocChange(homeBloc.state);
+    homeBlocSubscription = homeBloc.stream.listen(
+      _onHomeBlocChange,
+    );
+  }
+
+  void _onHomeBlocChange(HomeState homeState) {
+    if (homeState is! HomeLoadedState) return;
+
+    emit(state.copyWith(allTitles: homeState.titles));
+  }
 
   FutureOr<void> erase() async {
     searchController.clear();
+    emit(
+      state.copyWith(
+        searchText: "",
+      ),
+    );
   }
 
   FutureOr<void> search(String searchText) async {
-    if (searchText.isEmpty) {
-      emit(
-        state.copyWith(
-          searchText: searchText,
-          titlesToView: [],
-        ),
-      );
-      return;
-    }
-
-    final titlesToView = state.titlesToView.where((zikr) {
-      return zikr.name.removeDiacritics.contains(searchText);
-    }).toList();
-
     emit(
       state.copyWith(
         searchText: searchText,
-        titlesToView: titlesToView,
       ),
     );
+  }
+
+  @override
+  Future<void> close() {
+    homeBlocSubscription.cancel();
+    return super.close();
   }
 }

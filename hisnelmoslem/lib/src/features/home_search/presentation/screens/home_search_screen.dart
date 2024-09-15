@@ -18,15 +18,18 @@ class HomeSearchScreen extends StatelessWidget {
             if (homeState is! HomeLoadedState) {
               return const SizedBox();
             }
-            return state.titlesToView.isEmpty
-                ? Empty(
-                    isImage: false,
-                    icon: Icons.search_outlined,
-                    title: "no title with this name".tr,
-                    description: "please review the index of the book".tr,
-                  )
+            return state.searchedTitles.isEmpty
+                ? state.searchText.isEmpty
+                    ? const SizedBox()
+                    : Empty(
+                        isImage: false,
+                        icon: Icons.search_outlined,
+                        title:
+                            "${"no title with this name".tr}: ${state.searchText}",
+                        description: "please review the index of the book".tr,
+                      )
                 : HomeTitlesListView(
-                    titles: state.titlesToView,
+                    titles: state.searchedTitles,
                     alarms: homeState.alarms,
                   );
           },
