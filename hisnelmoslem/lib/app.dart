@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
@@ -39,7 +40,7 @@ class MyAppState extends State<MyApp> {
     await azkarDatabaseHelper.close();
     await fakeHadithDatabaseHelper.close();
     await alarmDatabaseHelper.close();
-    await tallyDatabaseHelper.close();
+    await sl<TallyDatabaseHelper>().close();
     awesomeNotificationManager.dispose();
     super.dispose();
   }
