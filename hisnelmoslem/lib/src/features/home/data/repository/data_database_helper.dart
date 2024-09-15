@@ -12,9 +12,9 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-FakeHadith dataDatabaseHelper = FakeHadith();
+UserDataDBHelper userdataDBHelper = UserDataDBHelper();
 
-class FakeHadith {
+class UserDataDBHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "data.db";
@@ -22,15 +22,15 @@ class FakeHadith {
 
   /* ************* Singleton Constructor ************* */
 
-  static FakeHadith? _databaseHelper;
+  static UserDataDBHelper? _databaseHelper;
   static Database? _database;
 
-  factory FakeHadith() {
-    _databaseHelper ??= FakeHadith._createInstance();
+  factory UserDataDBHelper() {
+    _databaseHelper ??= UserDataDBHelper._createInstance();
     return _databaseHelper!;
   }
 
-  FakeHadith._createInstance();
+  UserDataDBHelper._createInstance();
 
   Future<Database> get database async {
     _database ??= await _initDatabase();

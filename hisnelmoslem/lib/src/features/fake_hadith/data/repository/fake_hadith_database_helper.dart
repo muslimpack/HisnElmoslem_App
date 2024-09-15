@@ -46,7 +46,7 @@ class FakeHadithDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
-      await dataDatabaseHelper
+      await userdataDBHelper
           .isFakeHadithWereRead(fakeHadithId: fakeHadith.id)
           .then((value) => fakeHadith.isRead = value);
       fakeHadiths.add(fakeHadith);
@@ -64,7 +64,7 @@ class FakeHadithDatabaseHelper {
       [fakeHadithId],
     );
     final DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
-    await dataDatabaseHelper
+    await userdataDBHelper
         .isFakeHadithWereRead(fakeHadithId: dbFakeHaith.id)
         .then((value) => dbFakeHaith.isRead = value);
 
@@ -74,7 +74,7 @@ class FakeHadithDatabaseHelper {
   // Get read hadith only
   Future<List<DbFakeHaith>> getReadFakeHadiths() async {
     final List<DbFakeHaith> fakeHadiths = [];
-    await dataDatabaseHelper.getReadFakeHadiths().then((value) async {
+    await userdataDBHelper.getReadFakeHadiths().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
           fakeHadiths.add(title);
@@ -88,7 +88,7 @@ class FakeHadithDatabaseHelper {
   // Get unread hadith only
   Future<List<DbFakeHaith>> getUnreadFakeHadiths() async {
     final List<DbFakeHaith> fakeHadiths = [];
-    await dataDatabaseHelper.getUnreadFakeHadiths().then((value) async {
+    await userdataDBHelper.getUnreadFakeHadiths().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
           fakeHadiths.add(title);
@@ -101,14 +101,16 @@ class FakeHadithDatabaseHelper {
 
   // Mark hadith as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
-    await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
+    await userdataDBHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Mark hadith as unread
   Future<void> markFakeHadithAsUnRead({
     required DbFakeHaith dbFakeHaith,
   }) async {
-    await dataDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: dbFakeHaith);
+    await userdataDBHelper.markFakeHadithAsUnRead(
+      dbFakeHaith: dbFakeHaith,
+    );
   }
 
   // Close database
