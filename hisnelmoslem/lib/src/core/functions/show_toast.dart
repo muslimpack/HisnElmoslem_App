@@ -23,21 +23,23 @@ Future<void> showToast({
     ToastType.success => Colors.green,
   };
 
+  final textColor = backgroundColor.getContrastColor;
+
   if (PlatformExtension.isDesktop) {
     BotToast.showText(
       text: msg,
       contentColor: backgroundColor.withOpacity(.5),
       align: Alignment.bottomCenter,
       textStyle: TextStyle(
-        color: backgroundColor.getContrastColor,
+        color: textColor,
       ),
       duration: Duration(seconds: toastLength == Toast.LENGTH_SHORT ? 1 : 5),
       contentPadding: const EdgeInsets.all(10),
     );
   } else {
     Fluttertoast.showToast(
-      backgroundColor: backgroundColor.withOpacity(.5),
-      textColor: backgroundColor.getContrastColor,
+      backgroundColor: backgroundColor,
+      textColor: textColor,
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
