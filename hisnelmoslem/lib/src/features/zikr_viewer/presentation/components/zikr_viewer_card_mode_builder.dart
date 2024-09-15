@@ -32,13 +32,13 @@ class ZikrViewerCardBuilder extends StatelessWidget {
           InkWell(
             onTap: () {
               context.read<ZikrViewerBloc>().add(
-                    ZikrViewerDecreaseActiveZikrEvent(content: dbContent),
+                    ZikrViewerDecreaseZikrEvent(content: dbContent),
                   );
             },
             onLongPress: () {
               context
                   .read<ZikrViewerBloc>()
-                  .add(ZikrViewerCopyActiveZikrEvent(content: dbContent));
+                  .add(ZikrViewerCopyZikrEvent(content: dbContent));
             },
             child: Container(
               constraints: const BoxConstraints(minHeight: 200),
@@ -94,7 +94,7 @@ class _BottomBar extends StatelessWidget {
           onPressed: () async {
             context
                 .read<ZikrViewerBloc>()
-                .add(ZikrViewerResetActiveZikrEvent(content: dbContent));
+                .add(ZikrViewerResetZikrEvent(content: dbContent));
           },
           icon: const Icon(Icons.repeat),
         ),
@@ -105,7 +105,7 @@ class _BottomBar extends StatelessWidget {
           onPressed: () async {
             context
                 .read<ZikrViewerBloc>()
-                .add(ZikrViewerCopyActiveZikrEvent(content: dbContent));
+                .add(ZikrViewerCopyZikrEvent(content: dbContent));
           },
         ),
         IconButton(
@@ -116,7 +116,7 @@ class _BottomBar extends StatelessWidget {
           onPressed: () {
             context
                 .read<ZikrViewerBloc>()
-                .add(ZikrViewerReportActiveZikrEvent(content: dbContent));
+                .add(ZikrViewerReportZikrEvent(content: dbContent));
           },
         ),
       ],
@@ -165,7 +165,7 @@ class _TopBar extends StatelessWidget {
             ),
             onPressed: () {
               context.read<ZikrViewerBloc>().add(
-                    ZikrViewerToggleActiveZikrBookmarkEvent(
+                    ZikrViewerToggleZikrBookmarkEvent(
                       bookmark: true,
                       content: dbContent,
                     ),
@@ -180,7 +180,7 @@ class _TopBar extends StatelessWidget {
             ),
             onPressed: () {
               context.read<ZikrViewerBloc>().add(
-                    ZikrViewerToggleActiveZikrBookmarkEvent(
+                    ZikrViewerToggleZikrBookmarkEvent(
                       bookmark: false,
                       content: dbContent,
                     ),
@@ -194,7 +194,7 @@ class _TopBar extends StatelessWidget {
           onPressed: () {
             context
                 .read<ZikrViewerBloc>()
-                .add(ZikrViewerShareActiveZikrEvent(content: dbContent));
+                .add(ZikrViewerShareZikrEvent(content: dbContent));
           },
         ),
         Center(

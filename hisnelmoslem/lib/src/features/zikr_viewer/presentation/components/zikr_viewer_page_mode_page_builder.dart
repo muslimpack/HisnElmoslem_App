@@ -20,9 +20,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
     final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
-        context
-            .read<ZikrViewerBloc>()
-            .add(const ZikrViewerDecreaseActiveZikrEvent());
+        context.read<ZikrViewerBloc>().add(const ZikrViewerDecreaseZikrEvent());
       },
       onLongPress: () {
         final snackBar = SnackBar(
@@ -36,7 +34,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
             onPressed: () async {
               context
                   .read<ZikrViewerBloc>()
-                  .add(const ZikrViewerCopyActiveZikrEvent());
+                  .add(const ZikrViewerCopyZikrEvent());
             },
           ),
         );

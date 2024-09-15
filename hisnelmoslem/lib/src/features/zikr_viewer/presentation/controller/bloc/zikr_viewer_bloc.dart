@@ -42,9 +42,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     _volumeBtnChannel.setMethodCallHandler((call) async {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
-          add(const ZikrViewerDecreaseActiveZikrEvent());
+          add(const ZikrViewerDecreaseZikrEvent());
         } else if (call.arguments == "VOLUME_UP_UP") {
-          add(const ZikrViewerDecreaseActiveZikrEvent());
+          add(const ZikrViewerDecreaseZikrEvent());
         }
       }
     });
@@ -59,13 +59,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerStartEvent>(_start);
     on<ZikrViewerPageChangeEvent>(_pageChange);
 
-    on<ZikrViewerDecreaseActiveZikrEvent>(_decreaaseActiveZikr);
-    on<ZikrViewerResetActiveZikrEvent>(_resetActiveZikr);
+    on<ZikrViewerDecreaseZikrEvent>(_decreaaseActiveZikr);
+    on<ZikrViewerResetZikrEvent>(_resetActiveZikr);
 
-    on<ZikrViewerCopyActiveZikrEvent>(_copyActiveZikr);
-    on<ZikrViewerShareActiveZikrEvent>(_shareActiveZikr);
-    on<ZikrViewerToggleActiveZikrBookmarkEvent>(_toggleBookmark);
-    on<ZikrViewerReportActiveZikrEvent>(_report);
+    on<ZikrViewerCopyZikrEvent>(_copyActiveZikr);
+    on<ZikrViewerShareZikrEvent>(_shareActiveZikr);
+    on<ZikrViewerToggleZikrBookmarkEvent>(_toggleBookmark);
+    on<ZikrViewerReportZikrEvent>(_report);
   }
 
   FutureOr<void> _start(
@@ -108,7 +108,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _decreaaseActiveZikr(
-    ZikrViewerDecreaseActiveZikrEvent event,
+    ZikrViewerDecreaseZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
@@ -146,7 +146,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _resetActiveZikr(
-    ZikrViewerResetActiveZikrEvent event,
+    ZikrViewerResetZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
@@ -170,7 +170,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _copyActiveZikr(
-    ZikrViewerCopyActiveZikrEvent event,
+    ZikrViewerCopyZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
@@ -186,7 +186,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _shareActiveZikr(
-    ZikrViewerShareActiveZikrEvent event,
+    ZikrViewerShareZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
@@ -201,7 +201,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _toggleBookmark(
-    ZikrViewerToggleActiveZikrBookmarkEvent event,
+    ZikrViewerToggleZikrBookmarkEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
@@ -247,7 +247,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   }
 
   FutureOr<void> _report(
-    ZikrViewerReportActiveZikrEvent event,
+    ZikrViewerReportZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
