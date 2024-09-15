@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 class ToggleBrightnessButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class ToggleBrightnessButton extends StatelessWidget {
       builder: (context, state) {
         return IconButton(
           onPressed: () {
-            context.read<ThemeCubit>().toggleBrightness();
+            sl<ThemeCubit>().toggleBrightness();
           },
           icon: Icon(
             state.brightness == Brightness.dark

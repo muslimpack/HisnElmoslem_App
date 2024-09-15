@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 class ThemeManagerPage extends StatelessWidget {
@@ -80,7 +81,7 @@ class ThemeManagerPage extends StatelessWidget {
                 value: state.useMaterial3,
                 title: Text("themeUseMaterial3".tr),
                 onChanged: (value) {
-                  context.read<ThemeCubit>().changeUseMaterial3(value);
+                  sl<ThemeCubit>().changeUseMaterial3(value);
                 },
               ),
               if (!state.useMaterial3)
@@ -90,7 +91,7 @@ class ThemeManagerPage extends StatelessWidget {
                   onChanged: state.useMaterial3
                       ? null
                       : (value) {
-                          context.read<ThemeCubit>().changeUseOldTheme(value);
+                          sl<ThemeCubit>().changeUseOldTheme(value);
                         },
                 ),
               SwitchListTile(
@@ -99,9 +100,7 @@ class ThemeManagerPage extends StatelessWidget {
                 onChanged: !state.useMaterial3
                     ? null
                     : (value) {
-                        context
-                            .read<ThemeCubit>()
-                            .changeOverrideBackgroundColor(value);
+                        sl<ThemeCubit>().changeOverrideBackgroundColor(value);
                       },
               ),
               if (state.overrideBackgroundColor)

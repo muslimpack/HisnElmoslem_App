@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_he
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -16,4 +17,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => UserDataDBHelper());
   sl.registerLazySingleton(() => AzkarDatabaseHelper(sl()));
   sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
+
+  ///MARK: Init BLOC
+  sl.registerLazySingleton(() => ThemeCubit());
 }

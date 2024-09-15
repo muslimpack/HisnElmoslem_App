@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/fonts/data/data_source/fonts.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
@@ -9,7 +10,7 @@ class FontFamilyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeCubit = context.read<ThemeCubit>();
+    final themeCubit = sl<ThemeCubit>();
     return BlocBuilder<ThemeCubit, ThemeState>(
       bloc: themeCubit,
       builder: (context, state) {
