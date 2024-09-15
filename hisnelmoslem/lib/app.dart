@@ -57,7 +57,7 @@ class MyAppState extends State<MyApp> {
           create: (_) => sl<HomeBloc>()..add(HomeStartEvent()),
         ),
         BlocProvider(
-          create: (context) => sl<SearchCubit>(),
+          create: (_) => sl<SearchCubit>(),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
