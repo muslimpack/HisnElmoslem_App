@@ -235,7 +235,6 @@ class Settings extends StatelessWidget {
                   );
                 },
               ),
-              const Divider(),
             ],
           ),
         );
