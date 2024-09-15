@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 import 'package:sqflite/sqflite.dart';
 
 class AzkarDatabaseHelper {
+  final UserDataDBHelper userDataDBHelper;
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
@@ -19,13 +20,13 @@ class AzkarDatabaseHelper {
   static Database? _database;
   static late final DBHelper _dbHelper;
 
-  factory AzkarDatabaseHelper() {
+  factory AzkarDatabaseHelper(UserDataDBHelper userDataDBHelper) {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
-    _databaseHelper ??= AzkarDatabaseHelper._createInstance();
+    _databaseHelper ??= AzkarDatabaseHelper._createInstance(userDataDBHelper);
     return _databaseHelper!;
   }
 
-  AzkarDatabaseHelper._createInstance();
+  AzkarDatabaseHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
     _database ??= await _dbHelper.initDatabase();

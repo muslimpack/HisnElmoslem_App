@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
-FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
+FakeHadithDatabaseHelper fakeHadithDatabaseHelper =
+    FakeHadithDatabaseHelper(sl());
 
 class FakeHadithDatabaseHelper {
+  final UserDataDBHelper userDataDBHelper;
   /* ************* Variables ************* */
 
   static const String dbName = "fake_hadith.db";
@@ -19,13 +22,14 @@ class FakeHadithDatabaseHelper {
   static Database? _database;
   static late final DBHelper _dbHelper;
 
-  factory FakeHadithDatabaseHelper() {
+  factory FakeHadithDatabaseHelper(UserDataDBHelper userDataDBHelper) {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
-    _databaseHelper ??= FakeHadithDatabaseHelper._createInstance();
+    _databaseHelper ??=
+        FakeHadithDatabaseHelper._createInstance(userDataDBHelper);
     return _databaseHelper!;
   }
 
-  FakeHadithDatabaseHelper._createInstance();
+  FakeHadithDatabaseHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
     _database ??= await _dbHelper.initDatabase();
