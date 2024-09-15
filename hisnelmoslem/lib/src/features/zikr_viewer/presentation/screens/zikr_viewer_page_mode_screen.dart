@@ -29,7 +29,6 @@ class ZikrViewerPageModeScreen extends StatelessWidget {
             return const Loading();
           }
           return Scaffold(
-            // key: controller.hReadScaffoldKey, // TODO
             appBar: AppBar(
               centerTitle: true,
               title: Text(
