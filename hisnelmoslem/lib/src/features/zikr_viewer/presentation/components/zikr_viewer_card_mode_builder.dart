@@ -31,14 +31,14 @@ class ZikrViewerCardBuilder extends StatelessWidget {
           const Divider(height: 0),
           InkWell(
             onTap: () {
-              context
-                  .read<ZikrPageViewerBloc>()
-                  .add(ZikrPageViewerDecreaseActiveZikrEvent());
+              context.read<ZikrPageViewerBloc>().add(
+                    ZikrPageViewerDecreaseActiveZikrEvent(content: dbContent),
+                  );
             },
             onLongPress: () {
               context
                   .read<ZikrPageViewerBloc>()
-                  .add(ZikrPageViewerCopyActiveZikrEvent());
+                  .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
             },
             child: Container(
               constraints: const BoxConstraints(minHeight: 150),
@@ -128,21 +128,24 @@ class _TopBar extends StatelessWidget {
             ),
             onPressed: () {
               context.read<ZikrPageViewerBloc>().add(
-                    const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                      true,
+                    ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                      bookmark: true,
+                      content: dbContent,
                     ),
                   );
             },
           )
         else
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.favorite,
+              color: Theme.of(context).colorScheme.primary,
             ),
             onPressed: () {
               context.read<ZikrPageViewerBloc>().add(
-                    const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                      false,
+                    ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                      bookmark: false,
+                      content: dbContent,
                     ),
                   );
             },
@@ -154,7 +157,7 @@ class _TopBar extends StatelessWidget {
           onPressed: () async {
             context
                 .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerCopyActiveZikrEvent());
+                .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
           },
         ),
         IconButton(
@@ -164,7 +167,7 @@ class _TopBar extends StatelessWidget {
           onPressed: () {
             context
                 .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerShareActiveZikrEvent());
+                .add(ZikrPageViewerShareActiveZikrEvent(content: dbContent));
           },
         ),
         IconButton(
@@ -175,7 +178,7 @@ class _TopBar extends StatelessWidget {
           onPressed: () {
             context
                 .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerReportActiveZikrEvent());
+                .add(ZikrPageViewerReportActiveZikrEvent(content: dbContent));
           },
         ),
       ],

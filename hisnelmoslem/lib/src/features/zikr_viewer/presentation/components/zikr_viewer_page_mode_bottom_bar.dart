@@ -22,7 +22,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               onPressed: () async {
                 context
                     .read<ZikrPageViewerBloc>()
-                    .add(ZikrPageViewerCopyActiveZikrEvent());
+                    .add(const ZikrPageViewerCopyActiveZikrEvent());
               },
             ),
           ),
@@ -45,7 +45,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               onPressed: () async {
                 context
                     .read<ZikrPageViewerBloc>()
-                    .add(ZikrPageViewerReportActiveZikrEvent());
+                    .add(const ZikrPageViewerReportActiveZikrEvent());
               },
             ),
           ),

@@ -58,7 +58,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     onPressed: () {
                       context.read<ZikrPageViewerBloc>().add(
                             const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                              true,
+                              bookmark: true,
                             ),
                           );
                     },
@@ -73,7 +73,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     onPressed: () {
                       context.read<ZikrPageViewerBloc>().add(
                             const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                              false,
+                              bookmark: false,
                             ),
                           );
                     },
@@ -84,7 +84,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   onPressed: () async {
                     context
                         .read<ZikrPageViewerBloc>()
-                        .add(ZikrPageViewerShareActiveZikrEvent());
+                        .add(const ZikrPageViewerShareActiveZikrEvent());
                   },
                 ),
                 const ToggleBrightnessButton(),

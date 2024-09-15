@@ -13,6 +13,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_he
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -25,16 +26,26 @@ class ZikrPageViewerBloc
   final SoundsManagerController soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
-  ZikrPageViewerBloc(this.soundsManagerController, this.homeBloc)
-      : super(ZikrPageViewerLoadingState()) {
+  final ZikrViewerMode zikrViewerMode;
+  ZikrPageViewerBloc({
+    required this.soundsManagerController,
+    required this.homeBloc,
+    required this.zikrViewerMode,
+  }) : super(ZikrPageViewerLoadingState()) {
     _initHandlers();
+
+    _initZikrPageMode();
+  }
+
+  void _initZikrPageMode() {
+    if (zikrViewerMode != ZikrViewerMode.page) return;
 
     _volumeBtnChannel.setMethodCallHandler((call) async {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
-          add(ZikrPageViewerDecreaseActiveZikrEvent());
+          add(const ZikrPageViewerDecreaseActiveZikrEvent());
         } else if (call.arguments == "VOLUME_UP_UP") {
-          add(ZikrPageViewerDecreaseActiveZikrEvent());
+          add(const ZikrPageViewerDecreaseActiveZikrEvent());
         }
       }
     });
@@ -103,16 +114,18 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
+    final activeZikrIndex =
+        state.azkarToView.indexWhere((x) => x.id == activeZikr.id);
 
     final int count = activeZikr.count;
 
     final azkarToView = List<DbContent>.from(state.azkarToView);
 
     if (count > 0) {
-      azkarToView[state.activeZikrIndex] =
-          activeZikr.copyWith(count: count - 1);
+      azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
       SoundsManagerController().playTallyEffects();
       if (count == 0) {
@@ -122,10 +135,12 @@ class ZikrPageViewerBloc
     }
 
     if (count <= 1) {
-      pageController.nextPage(
-        curve: Curves.easeIn,
-        duration: const Duration(milliseconds: 350),
-      );
+      if (pageController.hasClients) {
+        pageController.nextPage(
+          curve: Curves.easeIn,
+          duration: const Duration(milliseconds: 350),
+        );
+      }
     }
 
     emit(state.copyWith(azkarToView: azkarToView));
@@ -137,7 +152,8 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
     final originalZikr =
@@ -160,7 +176,8 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
     final text = await activeZikr.getPlainText();
@@ -175,7 +192,8 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
     final text = await activeZikr.getPlainText();
@@ -189,7 +207,8 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
     hisnPrint("activeZikr: $activeZikr");
@@ -234,15 +253,25 @@ class ZikrPageViewerBloc
   ) async {
     final state = this.state;
     if (state is! ZikrPageViewerLoadedState) return;
-    final activeZikr = state.activeZikr;
+    final activeZikr =
+        _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
     final text = await activeZikr.getPlainText();
     EmailManager.sendMisspelledInZikrWithText(
       subject: state.title.name,
-      cardNumber: (state.activeZikrIndex + 1).toString(),
+      cardNumber: (activeZikr.id + 1).toString(),
       text: text,
     );
+  }
+
+  DbContent? _getZikrToDealWith({
+    required ZikrPageViewerLoadedState state,
+    DbContent? eventContent,
+  }) {
+    return zikrViewerMode == ZikrViewerMode.page
+        ? state.activeZikr
+        : eventContent;
   }
 
   @override

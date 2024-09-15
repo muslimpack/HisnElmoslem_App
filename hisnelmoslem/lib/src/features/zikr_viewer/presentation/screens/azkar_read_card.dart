@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_mode_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
 
@@ -18,8 +19,9 @@ class AzkarReadCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ZikrPageViewerBloc(
-        SoundsManagerController(),
-        context.read<HomeBloc>(),
+        soundsManagerController: SoundsManagerController(),
+        homeBloc: context.read<HomeBloc>(),
+        zikrViewerMode: ZikrViewerMode.card,
       )..add(ZikrPageViewerStartEvent(titleIndex: index)),
       child: BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
         builder: (context, state) {
@@ -54,11 +56,7 @@ class AzkarReadCard extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       value: state.majorProgress,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withGreen(100)
-                            .withAlpha(100),
+                        Theme.of(context).colorScheme.primary.withOpacity(.5),
                       ),
                     ),
                   ],

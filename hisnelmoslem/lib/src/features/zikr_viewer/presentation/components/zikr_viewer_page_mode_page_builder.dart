@@ -22,7 +22,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
       onTap: () {
         context
             .read<ZikrPageViewerBloc>()
-            .add(ZikrPageViewerDecreaseActiveZikrEvent());
+            .add(const ZikrPageViewerDecreaseActiveZikrEvent());
       },
       onLongPress: () {
         final snackBar = SnackBar(
@@ -36,7 +36,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
             onPressed: () async {
               context
                   .read<ZikrPageViewerBloc>()
-                  .add(ZikrPageViewerCopyActiveZikrEvent());
+                  .add(const ZikrPageViewerCopyActiveZikrEvent());
             },
           ),
         );
