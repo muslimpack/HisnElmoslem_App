@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/src/features/effects_manager/presentation/controlle
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_mode_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class AzkarReadCard extends StatelessWidget {
   final int index;
@@ -18,14 +18,14 @@ class AzkarReadCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ZikrPageViewerBloc(
+      create: (context) => ZikrViewerBloc(
         soundsManagerController: SoundsManagerController(),
         homeBloc: context.read<HomeBloc>(),
         zikrViewerMode: ZikrViewerMode.card,
-      )..add(ZikrPageViewerStartEvent(titleIndex: index)),
-      child: BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
+      )..add(ZikrViewerStartEvent(titleIndex: index)),
+      child: BlocBuilder<ZikrViewerBloc, ZikrViewerState>(
         builder: (context, state) {
-          if (state is! ZikrPageViewerLoadedState) {
+          if (state is! ZikrViewerLoadedState) {
             return const Loading();
           }
           return Scaffold(

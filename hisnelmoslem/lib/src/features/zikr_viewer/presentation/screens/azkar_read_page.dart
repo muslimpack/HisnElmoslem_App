@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mo
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_appbar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_page_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class AzkarReadPage extends StatelessWidget {
   final int index;
@@ -18,14 +18,14 @@ class AzkarReadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ZikrPageViewerBloc(
+      create: (context) => ZikrViewerBloc(
         soundsManagerController: SoundsManagerController(),
         homeBloc: context.read<HomeBloc>(),
         zikrViewerMode: ZikrViewerMode.page,
-      )..add(ZikrPageViewerStartEvent(titleIndex: index)),
-      child: BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
+      )..add(ZikrViewerStartEvent(titleIndex: index)),
+      child: BlocBuilder<ZikrViewerBloc, ZikrViewerState>(
         builder: (context, state) {
-          if (state is! ZikrPageViewerLoadedState) {
+          if (state is! ZikrViewerLoadedState) {
             return const Loading();
           }
           return Scaffold(
@@ -51,7 +51,7 @@ class AzkarReadPage extends StatelessWidget {
             ),
             body: PageView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: context.read<ZikrPageViewerBloc>().pageController,
+              controller: context.read<ZikrViewerBloc>().pageController,
               itemCount: state.azkarToView.length,
               itemBuilder: (context, index) {
                 return ZikrViewerPageBuilder(

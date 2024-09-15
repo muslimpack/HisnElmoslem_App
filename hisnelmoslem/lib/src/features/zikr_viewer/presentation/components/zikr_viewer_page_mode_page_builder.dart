@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageBuilder extends StatelessWidget {
   const ZikrViewerPageBuilder({
@@ -21,8 +21,8 @@ class ZikrViewerPageBuilder extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context
-            .read<ZikrPageViewerBloc>()
-            .add(const ZikrPageViewerDecreaseActiveZikrEvent());
+            .read<ZikrViewerBloc>()
+            .add(const ZikrViewerDecreaseActiveZikrEvent());
       },
       onLongPress: () {
         final snackBar = SnackBar(
@@ -35,8 +35,8 @@ class ZikrViewerPageBuilder extends StatelessWidget {
             label: "copy".tr,
             onPressed: () async {
               context
-                  .read<ZikrPageViewerBloc>()
-                  .add(const ZikrPageViewerCopyActiveZikrEvent());
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerCopyActiveZikrEvent());
             },
           ),
         );

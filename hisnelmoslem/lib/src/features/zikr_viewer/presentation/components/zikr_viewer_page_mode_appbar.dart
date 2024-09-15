@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ZikrViewerPageModeAppBar extends StatelessWidget {
@@ -15,9 +15,9 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ZikrPageViewerBloc, ZikrPageViewerState>(
+    return BlocBuilder<ZikrViewerBloc, ZikrViewerState>(
       builder: (context, state) {
-        if (state is! ZikrPageViewerLoadedState) {
+        if (state is! ZikrViewerLoadedState) {
           return const SizedBox();
         }
         final activeZikr = state.activeZikr;
@@ -56,8 +56,8 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                       Icons.favorite_border,
                     ),
                     onPressed: () {
-                      context.read<ZikrPageViewerBloc>().add(
-                            const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                      context.read<ZikrViewerBloc>().add(
+                            const ZikrViewerToggleActiveZikrBookmarkEvent(
                               bookmark: true,
                             ),
                           );
@@ -71,8 +71,8 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: () {
-                      context.read<ZikrPageViewerBloc>().add(
-                            const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                      context.read<ZikrViewerBloc>().add(
+                            const ZikrViewerToggleActiveZikrBookmarkEvent(
                               bookmark: false,
                             ),
                           );
@@ -83,8 +83,8 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   icon: const Icon(Icons.share),
                   onPressed: () async {
                     context
-                        .read<ZikrPageViewerBloc>()
-                        .add(const ZikrPageViewerShareActiveZikrEvent());
+                        .read<ZikrViewerBloc>()
+                        .add(const ZikrViewerShareActiveZikrEvent());
                   },
                 ),
                 const ToggleBrightnessButton(),

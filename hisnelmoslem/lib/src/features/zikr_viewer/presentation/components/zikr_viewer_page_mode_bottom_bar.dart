@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
   const ZikrViewerPageModeBottomBar({
@@ -21,8 +21,8 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               icon: const Icon(Icons.copy),
               onPressed: () async {
                 context
-                    .read<ZikrPageViewerBloc>()
-                    .add(const ZikrPageViewerCopyActiveZikrEvent());
+                    .read<ZikrViewerBloc>()
+                    .add(const ZikrViewerCopyActiveZikrEvent());
               },
             ),
           ),
@@ -44,8 +44,8 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               ),
               onPressed: () async {
                 context
-                    .read<ZikrPageViewerBloc>()
-                    .add(const ZikrPageViewerReportActiveZikrEvent());
+                    .read<ZikrViewerBloc>()
+                    .add(const ZikrViewerReportActiveZikrEvent());
               },
             ),
           ),

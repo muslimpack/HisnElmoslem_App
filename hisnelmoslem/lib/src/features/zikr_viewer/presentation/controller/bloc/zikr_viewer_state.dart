@@ -1,15 +1,15 @@
-part of 'zikr_page_viewer_bloc.dart';
+part of 'zikr_viewer_bloc.dart';
 
-sealed class ZikrPageViewerState extends Equatable {
-  const ZikrPageViewerState();
+sealed class ZikrViewerState extends Equatable {
+  const ZikrViewerState();
 
   @override
   List<Object> get props => [];
 }
 
-final class ZikrPageViewerLoadingState extends ZikrPageViewerState {}
+final class ZikrViewerLoadingState extends ZikrViewerState {}
 
-class ZikrPageViewerLoadedState extends ZikrPageViewerState {
+class ZikrViewerLoadedState extends ZikrViewerState {
   final DbTitle title;
   final List<DbContent> azkar;
   final List<DbContent> azkarToView;
@@ -31,20 +31,20 @@ class ZikrPageViewerLoadedState extends ZikrPageViewerState {
   double singleProgress(DbContent content) =>
       content.count / azkar.where((x) => x.id == content.id).first.count;
 
-  const ZikrPageViewerLoadedState({
+  const ZikrViewerLoadedState({
     required this.title,
     required this.azkar,
     required this.azkarToView,
     required this.activeZikrIndex,
   });
 
-  ZikrPageViewerLoadedState copyWith({
+  ZikrViewerLoadedState copyWith({
     DbTitle? title,
     List<DbContent>? azkar,
     List<DbContent>? azkarToView,
     int? activeZikrIndex,
   }) {
-    return ZikrPageViewerLoadedState(
+    return ZikrViewerLoadedState(
       title: title ?? this.title,
       azkar: azkar ?? this.azkar,
       azkarToView: azkarToView ?? this.azkarToView,

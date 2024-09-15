@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_page_viewer_bloc.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ZikrViewerCardBuilder extends StatelessWidget {
@@ -31,14 +31,14 @@ class ZikrViewerCardBuilder extends StatelessWidget {
           const Divider(height: 0),
           InkWell(
             onTap: () {
-              context.read<ZikrPageViewerBloc>().add(
-                    ZikrPageViewerDecreaseActiveZikrEvent(content: dbContent),
+              context.read<ZikrViewerBloc>().add(
+                    ZikrViewerDecreaseActiveZikrEvent(content: dbContent),
                   );
             },
             onLongPress: () {
               context
-                  .read<ZikrPageViewerBloc>()
-                  .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
+                  .read<ZikrViewerBloc>()
+                  .add(ZikrViewerCopyActiveZikrEvent(content: dbContent));
             },
             child: Container(
               constraints: const BoxConstraints(minHeight: 200),
@@ -93,8 +93,8 @@ class _BottomBar extends StatelessWidget {
         IconButton(
           onPressed: () async {
             context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerResetActiveZikrEvent(content: dbContent));
+                .read<ZikrViewerBloc>()
+                .add(ZikrViewerResetActiveZikrEvent(content: dbContent));
           },
           icon: const Icon(Icons.repeat),
         ),
@@ -104,8 +104,8 @@ class _BottomBar extends StatelessWidget {
           ),
           onPressed: () async {
             context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerCopyActiveZikrEvent(content: dbContent));
+                .read<ZikrViewerBloc>()
+                .add(ZikrViewerCopyActiveZikrEvent(content: dbContent));
           },
         ),
         IconButton(
@@ -115,8 +115,8 @@ class _BottomBar extends StatelessWidget {
           ),
           onPressed: () {
             context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerReportActiveZikrEvent(content: dbContent));
+                .read<ZikrViewerBloc>()
+                .add(ZikrViewerReportActiveZikrEvent(content: dbContent));
           },
         ),
       ],
@@ -164,8 +164,8 @@ class _TopBar extends StatelessWidget {
               Icons.favorite_border,
             ),
             onPressed: () {
-              context.read<ZikrPageViewerBloc>().add(
-                    ZikrPageViewerToggleActiveZikrBookmarkEvent(
+              context.read<ZikrViewerBloc>().add(
+                    ZikrViewerToggleActiveZikrBookmarkEvent(
                       bookmark: true,
                       content: dbContent,
                     ),
@@ -179,8 +179,8 @@ class _TopBar extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             onPressed: () {
-              context.read<ZikrPageViewerBloc>().add(
-                    ZikrPageViewerToggleActiveZikrBookmarkEvent(
+              context.read<ZikrViewerBloc>().add(
+                    ZikrViewerToggleActiveZikrBookmarkEvent(
                       bookmark: false,
                       content: dbContent,
                     ),
@@ -193,8 +193,8 @@ class _TopBar extends StatelessWidget {
           ),
           onPressed: () {
             context
-                .read<ZikrPageViewerBloc>()
-                .add(ZikrPageViewerShareActiveZikrEvent(content: dbContent));
+                .read<ZikrViewerBloc>()
+                .add(ZikrViewerShareActiveZikrEvent(content: dbContent));
           },
         ),
         Center(

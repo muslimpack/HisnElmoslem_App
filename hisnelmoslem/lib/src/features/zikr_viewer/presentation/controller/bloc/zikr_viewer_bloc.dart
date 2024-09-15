@@ -17,21 +17,20 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mo
 import 'package:share_plus/share_plus.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-part 'zikr_page_viewer_event.dart';
-part 'zikr_page_viewer_state.dart';
+part 'zikr_viewer_event.dart';
+part 'zikr_viewer_state.dart';
 
-class ZikrPageViewerBloc
-    extends Bloc<ZikrPageViewerEvent, ZikrPageViewerState> {
+class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
   final SoundsManagerController soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
   final ZikrViewerMode zikrViewerMode;
-  ZikrPageViewerBloc({
+  ZikrViewerBloc({
     required this.soundsManagerController,
     required this.homeBloc,
     required this.zikrViewerMode,
-  }) : super(ZikrPageViewerLoadingState()) {
+  }) : super(ZikrViewerLoadingState()) {
     _initHandlers();
 
     _initZikrPageMode();
@@ -43,35 +42,35 @@ class ZikrPageViewerBloc
     _volumeBtnChannel.setMethodCallHandler((call) async {
       if (call.method == "volumeBtnPressed") {
         if (call.arguments == "VOLUME_DOWN_UP") {
-          add(const ZikrPageViewerDecreaseActiveZikrEvent());
+          add(const ZikrViewerDecreaseActiveZikrEvent());
         } else if (call.arguments == "VOLUME_UP_UP") {
-          add(const ZikrPageViewerDecreaseActiveZikrEvent());
+          add(const ZikrViewerDecreaseActiveZikrEvent());
         }
       }
     });
 
     pageController.addListener(() {
       final int index = pageController.page!.round();
-      add(ZikrPageViewerPageChangeEvent(index));
+      add(ZikrViewerPageChangeEvent(index));
     });
   }
 
   void _initHandlers() {
-    on<ZikrPageViewerStartEvent>(_start);
-    on<ZikrPageViewerPageChangeEvent>(_pageChange);
+    on<ZikrViewerStartEvent>(_start);
+    on<ZikrViewerPageChangeEvent>(_pageChange);
 
-    on<ZikrPageViewerDecreaseActiveZikrEvent>(_decreaaseActiveZikr);
-    on<ZikrPageViewerResetActiveZikrEvent>(_resetActiveZikr);
+    on<ZikrViewerDecreaseActiveZikrEvent>(_decreaaseActiveZikr);
+    on<ZikrViewerResetActiveZikrEvent>(_resetActiveZikr);
 
-    on<ZikrPageViewerCopyActiveZikrEvent>(_copyActiveZikr);
-    on<ZikrPageViewerShareActiveZikrEvent>(_shareActiveZikr);
-    on<ZikrPageViewerToggleActiveZikrBookmarkEvent>(_toggleBookmark);
-    on<ZikrPageViewerReportActiveZikrEvent>(_report);
+    on<ZikrViewerCopyActiveZikrEvent>(_copyActiveZikr);
+    on<ZikrViewerShareActiveZikrEvent>(_shareActiveZikr);
+    on<ZikrViewerToggleActiveZikrBookmarkEvent>(_toggleBookmark);
+    on<ZikrViewerReportActiveZikrEvent>(_report);
   }
 
   FutureOr<void> _start(
-    ZikrPageViewerStartEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerStartEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     if (AppData.instance.enableWakeLock) {
       WakelockPlus.enable();
@@ -85,7 +84,7 @@ class ZikrPageViewerBloc
     final azkarToView = List<DbContent>.from(azkar);
 
     emit(
-      ZikrPageViewerLoadedState(
+      ZikrViewerLoadedState(
         title: title,
         azkar: azkar,
         azkarToView: azkarToView,
@@ -95,11 +94,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _pageChange(
-    ZikrPageViewerPageChangeEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerPageChangeEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
 
     emit(
       state.copyWith(
@@ -109,11 +108,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _decreaaseActiveZikr(
-    ZikrPageViewerDecreaseActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerDecreaseActiveZikrEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -147,11 +146,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _resetActiveZikr(
-    ZikrPageViewerResetActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerResetActiveZikrEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -171,11 +170,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _copyActiveZikr(
-    ZikrPageViewerCopyActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerCopyActiveZikrEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -187,11 +186,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _shareActiveZikr(
-    ZikrPageViewerShareActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerShareActiveZikrEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -202,11 +201,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _toggleBookmark(
-    ZikrPageViewerToggleActiveZikrBookmarkEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerToggleActiveZikrBookmarkEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -248,11 +247,11 @@ class ZikrPageViewerBloc
   }
 
   FutureOr<void> _report(
-    ZikrPageViewerReportActiveZikrEvent event,
-    Emitter<ZikrPageViewerState> emit,
+    ZikrViewerReportActiveZikrEvent event,
+    Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
-    if (state is! ZikrPageViewerLoadedState) return;
+    if (state is! ZikrViewerLoadedState) return;
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
@@ -266,7 +265,7 @@ class ZikrPageViewerBloc
   }
 
   DbContent? _getZikrToDealWith({
-    required ZikrPageViewerLoadedState state,
+    required ZikrViewerLoadedState state,
     DbContent? eventContent,
   }) {
     return zikrViewerMode == ZikrViewerMode.page
