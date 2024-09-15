@@ -24,119 +24,99 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
         if (activeZikr == null) {
           return const SizedBox();
         }
-        return Expanded(
-          child: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: IconButton(
-                        splashRadius: 20,
-                        icon: Icon(MdiIcons.comment),
-                        onPressed: () {
-                          showCommentaryDialog(
-                            context: context,
-                            contentId: activeZikr.id,
-                          );
-                        },
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: Icon(MdiIcons.comment),
+                  onPressed: () {
+                    showCommentaryDialog(
+                      context: context,
+                      contentId: activeZikr.id,
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: Icon(MdiIcons.camera),
+                  onPressed: () {
+                    transitionAnimation.circleReval(
+                      context: context,
+                      goToPage: ShareAsImage(
+                        dbContent: activeZikr,
                       ),
+                    );
+                  },
+                ),
+                if (!activeZikr.favourite)
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(
+                      Icons.favorite_border,
                     ),
-                    Expanded(
-                      child: IconButton(
-                        splashRadius: 20,
-                        icon: Icon(MdiIcons.camera),
-                        onPressed: () {
-                          transitionAnimation.circleReval(
-                            context: context,
-                            goToPage: ShareAsImage(
-                              dbContent: activeZikr,
+                    onPressed: () {
+                      context.read<ZikrPageViewerBloc>().add(
+                            const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                              true,
                             ),
                           );
-                        },
-                      ),
+                    },
+                  )
+                else
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    if (!activeZikr.favourite)
-                      Expanded(
-                        child: IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.zero,
-                          icon: const Icon(
-                            Icons.favorite_border,
-                          ),
-                          onPressed: () {
-                            context.read<ZikrPageViewerBloc>().add(
-                                  const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                                    true,
-                                  ),
-                                );
-                          },
-                        ),
-                      )
-                    else
-                      Expanded(
-                        child: IconButton(
-                          splashRadius: 20,
-                          padding: EdgeInsets.zero,
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          onPressed: () {
-                            context.read<ZikrPageViewerBloc>().add(
-                                  const ZikrPageViewerToggleActiveZikrBookmarkEvent(
-                                    false,
-                                  ),
-                                );
-                          },
-                        ),
-                      ),
-                    Expanded(
-                      child: IconButton(
-                        splashRadius: 20,
-                        padding: EdgeInsets.zero,
-                        icon: const Icon(Icons.share),
-                        onPressed: () async {
-                          context
-                              .read<ZikrPageViewerBloc>()
-                              .add(ZikrPageViewerShareActiveZikrEvent());
-                        },
-                      ),
-                    ),
-                    const ToggleBrightnessButton(),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          activeZikr.count.toString().toArabicNumber(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    onPressed: () {
+                      context.read<ZikrPageViewerBloc>().add(
+                            const ZikrPageViewerToggleActiveZikrBookmarkEvent(
+                              false,
+                            ),
+                          );
+                    },
+                  ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(Icons.share),
+                  onPressed: () async {
+                    context
+                        .read<ZikrPageViewerBloc>()
+                        .add(ZikrPageViewerShareActiveZikrEvent());
+                  },
                 ),
-              ),
-              Stack(
-                children: [
-                  LinearProgressIndicator(
-                    value: 1 - state.manorProgress,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary,
+                const ToggleBrightnessButton(),
+                Center(
+                  child: Text(
+                    activeZikr.count.toString().toArabicNumber(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
                     ),
                   ),
-                  LinearProgressIndicator(
-                    backgroundColor: Colors.transparent,
-                    value: state.majorProgress,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary.withOpacity(.5),
-                    ),
+                ),
+              ],
+            ),
+            Stack(
+              children: [
+                LinearProgressIndicator(
+                  value: 1 - state.manorProgress,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.primary,
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                LinearProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                  value: state.majorProgress,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.primary.withOpacity(.5),
+                  ),
+                ),
+              ],
+            ),
+          ],
         );
       },
     );
