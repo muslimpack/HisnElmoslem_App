@@ -1,13 +1,9 @@
 import 'dart:async';
 
-import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:sqflite/sqflite.dart';
-
-FakeHadithDatabaseHelper fakeHadithDatabaseHelper =
-    FakeHadithDatabaseHelper(sl());
 
 class FakeHadithDatabaseHelper {
   final UserDataDBHelper userDataDBHelper;

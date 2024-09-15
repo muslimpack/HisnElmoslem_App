@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -7,6 +8,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/sh
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class FakeHadithController extends GetxController {
+  final FakeHadithDatabaseHelper fakeHadithDatabaseHelper = sl();
   /* *************** Variables *************** */
   //
   final fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();

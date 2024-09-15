@@ -15,6 +15,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Migration {
+  static FakeHadithDatabaseHelper fakeHadithDatabaseHelper = sl();
+  static AzkarDatabaseHelper azkarDatabaseHelper = sl();
   /* ************* Database Creation ************* */
 
   static Future<void> start() async {
@@ -93,8 +95,7 @@ class Migration {
           .then((value) => contents.addAll(value));
 
       for (var i = 0; i < contents.length; i++) {
-        await sl<AzkarDatabaseHelper>()
-            .addContentToFavourite(dbContent: contents[i]);
+        await azkarDatabaseHelper.addContentToFavourite(dbContent: contents[i]);
       }
     } catch (e) {
       hisnPrint("content error: $e");
@@ -118,7 +119,7 @@ class Migration {
           .then((value) => titles.addAll(value));
 
       for (var i = 0; i < titles.length; i++) {
-        await sl<AzkarDatabaseHelper>().addTitleToFavourite(dbTitle: titles[i]);
+        await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
       }
     } catch (e) {
       hisnPrint("Title error: $e");
