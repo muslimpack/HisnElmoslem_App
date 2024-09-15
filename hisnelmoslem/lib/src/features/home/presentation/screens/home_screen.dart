@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_search_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:intl/intl.dart';
 
@@ -59,34 +60,45 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        physics: const BouncingScrollPhysics(),
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return [
-            ScreenAppBar(tabController: tabController),
-          ];
-        },
-        body: GetBuilder<RearrangeDashboardPageController>(
-          init: RearrangeDashboardPageController(),
-          builder: (rearrangeController) {
-            return TabBarView(
-              physics: const BouncingScrollPhysics(),
-              controller: tabController,
-              children: [
-                ...List.generate(
-                  appDashboardItem.length,
-                  (index) {
-                    return appDashboardItem[rearrangeController.list[index]]
-                        .widget;
-                  },
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is! HomeLoadedState) {
+          return const Loading();
+        }
+        return Scaffold(
+          body: NestedScrollView(
+            physics: const BouncingScrollPhysics(),
+            floatHeaderSlivers: true,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                ScreenAppBar(tabController: tabController),
+              ];
+            },
+            body: GetBuilder<RearrangeDashboardPageController>(
+              init: RearrangeDashboardPageController(),
+              builder: (rearrangeController) {
+                return state.isSearching
+                    ? const HomeSearchScreen()
+                    : TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabController,
+                        children: [
+                          ...List.generate(
+                            appDashboardItem.length,
+                            (index) {
+                              return appDashboardItem[
+                                      rearrangeController.list[index]]
+                                  .widget;
+                            },
+                          ),
+                        ],
+                      );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }
