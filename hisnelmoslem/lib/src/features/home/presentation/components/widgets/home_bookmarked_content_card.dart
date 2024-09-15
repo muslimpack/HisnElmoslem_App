@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
-import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
@@ -75,7 +74,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
             },
             child: Container(
               padding: const EdgeInsets.all(15),
-              constraints: const BoxConstraints(minHeight: 150),
+              constraints: const BoxConstraints(minHeight: 200),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -176,18 +175,6 @@ class _TopBar extends StatelessWidget {
           onPressed: () {
             Share.share(
               "${dbContent.content}\n${dbContent.fadl}",
-            );
-          },
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.report,
-            color: Colors.orange,
-          ),
-          onPressed: () {
-            EmailManager.sendMisspelledInZikrWithDbModel(
-              dbTitle: cardState.widget.dbTitle,
-              dbContent: dbContent,
             );
           },
         ),
