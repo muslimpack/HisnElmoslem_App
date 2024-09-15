@@ -45,32 +45,35 @@ class ScreenAppBar extends StatelessWidget {
           pinned: true,
           floating: true,
           snap: true,
-          bottom: PreferredSize(
-            preferredSize: const Size(0, 48),
-            child: GetBuilder<RearrangeDashboardPageController>(
-              init: RearrangeDashboardPageController(),
-              builder: (rearrangeController) {
-                return TabBar(
-                  controller: tabController,
-                  isScrollable: true,
-                  tabAlignment: TabAlignment.center,
-                  tabs: [
-                    ...List.generate(
-                      appDashboardItem.length,
-                      (index) {
-                        return Tab(
-                          child: Text(
-                            appDashboardItem[rearrangeController.list[index]]
-                                .title,
+          bottom: state.isSearching
+              ? null
+              : PreferredSize(
+                  preferredSize: const Size(0, 48),
+                  child: GetBuilder<RearrangeDashboardPageController>(
+                    init: RearrangeDashboardPageController(),
+                    builder: (rearrangeController) {
+                      return TabBar(
+                        controller: tabController,
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.center,
+                        tabs: [
+                          ...List.generate(
+                            appDashboardItem.length,
+                            (index) {
+                              return Tab(
+                                child: Text(
+                                  appDashboardItem[
+                                          rearrangeController.list[index]]
+                                      .title,
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
           actions: [
             if (!state.isSearching) ...[
               IconButton(
