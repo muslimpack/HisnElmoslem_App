@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/range_text_formatter.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/verse_range.dart';
@@ -16,7 +17,7 @@ extension DBContentExt on DbContent {
 
     final List<String> verses = [];
     for (final range in ranges) {
-      final text = await uthmaniRepository.getArabicText(
+      final text = await sl<UthmaniRepository>().getArabicText(
         sura: range.startSura,
         startAyah: range.startAyah,
         endAyah: range.endingAyah,
