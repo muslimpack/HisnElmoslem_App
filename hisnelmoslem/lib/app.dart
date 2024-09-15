@@ -51,14 +51,13 @@ class MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(
-          create: (_) =>
-              AlarmsBloc(sl<AlarmDatabaseHelper>())..add(AlarmsStartEvent()),
+          create: (_) => AlarmsBloc(sl())..add(AlarmsStartEvent()),
         ),
         BlocProvider(
           create: (context) => HomeBloc(
             context.read<AlarmsBloc>(),
-            sl<AlarmDatabaseHelper>(),
-            sl<AzkarDatabaseHelper>(),
+            sl(),
+            sl(),
           )..add(HomeStartEvent()),
         ),
         BlocProvider(
