@@ -28,6 +28,9 @@ class ZikrPageViewerLoadedState extends ZikrPageViewerState {
       azkarToView.fold(0, (sum, curr) => sum + curr.count) /
       azkar.fold(0, (sum, curr) => sum + curr.count);
 
+  double singleProgress(DbContent content) =>
+      content.count / azkar.where((x) => x.id == content.id).first.count;
+
   const ZikrPageViewerLoadedState({
     required this.title,
     required this.azkar,
