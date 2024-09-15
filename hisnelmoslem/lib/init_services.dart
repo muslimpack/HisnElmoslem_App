@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart'
+    as service_locator;
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
@@ -17,6 +19,8 @@ Future<void> initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = AppBlocObserver();
+
+  service_locator.initSL();
 
   await phoneDeviceBars();
 
