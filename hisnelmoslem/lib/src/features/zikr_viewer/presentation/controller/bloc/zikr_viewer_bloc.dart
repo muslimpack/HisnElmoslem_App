@@ -26,10 +26,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
   final ZikrViewerMode zikrViewerMode;
+  final AzkarDatabaseHelper azkarDatabaseHelper;
   ZikrViewerBloc({
     required this.soundsManagerController,
     required this.homeBloc,
     required this.zikrViewerMode,
+    required this.azkarDatabaseHelper,
   }) : super(ZikrViewerLoadingState()) {
     _initHandlers();
 

@@ -37,7 +37,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Future<void> dispose() async {
-    await azkarDatabaseHelper.close();
+    await sl<AzkarDatabaseHelper>().close();
     await fakeHadithDatabaseHelper.close();
     await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
@@ -55,9 +55,11 @@ class MyAppState extends State<MyApp> {
               AlarmsBloc(sl<AlarmDatabaseHelper>())..add(AlarmsStartEvent()),
         ),
         BlocProvider(
-          create: (context) =>
-              HomeBloc(context.read<AlarmsBloc>(), sl<AlarmDatabaseHelper>())
-                ..add(HomeStartEvent()),
+          create: (context) => HomeBloc(
+            context.read<AlarmsBloc>(),
+            sl<AlarmDatabaseHelper>(),
+            sl<AzkarDatabaseHelper>(),
+          )..add(HomeStartEvent()),
         ),
         BlocProvider(
           create: (context) => SearchCubit(homeBloc: context.read<HomeBloc>()),

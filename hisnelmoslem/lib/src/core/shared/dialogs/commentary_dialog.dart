@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -33,7 +34,7 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
   late Commentary? commentary;
 
   Future<void> getData() async {
-    await azkarDatabaseHelper
+    await sl<AzkarDatabaseHelper>()
         .getCommentaryByContentId(contentId: widget.contentId)
         .then((value) {
       commentary = value;

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/azkar_old_db.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/fake_hadith_old_db.dart';
@@ -92,7 +93,8 @@ class Migration {
           .then((value) => contents.addAll(value));
 
       for (var i = 0; i < contents.length; i++) {
-        await azkarDatabaseHelper.addContentToFavourite(dbContent: contents[i]);
+        await sl<AzkarDatabaseHelper>()
+            .addContentToFavourite(dbContent: contents[i]);
       }
     } catch (e) {
       hisnPrint("content error: $e");
@@ -116,7 +118,7 @@ class Migration {
           .then((value) => titles.addAll(value));
 
       for (var i = 0; i < titles.length; i++) {
-        await azkarDatabaseHelper.addTitleToFavourite(dbTitle: titles[i]);
+        await sl<AzkarDatabaseHelper>().addTitleToFavourite(dbTitle: titles[i]);
       }
     } catch (e) {
       hisnPrint("Title error: $e");

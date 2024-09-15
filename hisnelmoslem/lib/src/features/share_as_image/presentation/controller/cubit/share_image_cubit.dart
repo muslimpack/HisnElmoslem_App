@@ -8,6 +8,7 @@ import 'package:capture_widget/core/widget_capture_controller.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -48,7 +49,8 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final String title;
     if (content.titleId >= 0) {
       title =
-          (await azkarDatabaseHelper.getTitleById(id: content.titleId)).name;
+          (await sl<AzkarDatabaseHelper>().getTitleById(id: content.titleId))
+              .name;
     } else {
       title = "أحاديث منتشرة لا تصح";
     }

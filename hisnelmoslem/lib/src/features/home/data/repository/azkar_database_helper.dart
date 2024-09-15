@@ -7,8 +7,6 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dar
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:sqflite/sqflite.dart';
 
-AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
-
 class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
