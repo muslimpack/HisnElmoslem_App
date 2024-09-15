@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
@@ -35,20 +34,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           action: SnackBarAction(
             label: "copy".tr,
             onPressed: () async {
-              // Some code to undo the change.
-
-              await Clipboard.setData(
-                ClipboardData(text: dbContent.source),
-              );
-              final snackBar = SnackBar(
-                content: Text("copied to clipboard".tr),
-                action: SnackBarAction(
-                  label: "done".tr,
-                  onPressed: () {},
-                ),
-              );
-              if (!context.mounted) return;
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              context
+                  .read<ZikrPageViewerBloc>()
+                  .add(ZikrPageViewerCopyActiveZikrEvent());
             },
           ),
         );
