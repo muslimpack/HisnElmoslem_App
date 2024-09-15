@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_h
 final sl = GetIt.instance;
 
 Future<void> initSL() async {
+  ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
   sl.registerLazySingleton(() => AlarmDatabaseHelper());
   sl.registerLazySingleton(() => UthmaniRepository());
