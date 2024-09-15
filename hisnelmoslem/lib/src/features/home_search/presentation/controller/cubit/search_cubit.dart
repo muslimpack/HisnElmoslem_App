@@ -13,7 +13,7 @@ class SearchCubit extends Cubit<SearchState> {
   final TextEditingController searchController = TextEditingController();
   final HomeBloc homeBloc;
   late final StreamSubscription homeBlocSubscription;
-  SearchCubit({required this.homeBloc})
+  SearchCubit(this.homeBloc)
       : super(
           const SearchState(
             searchText: "",
