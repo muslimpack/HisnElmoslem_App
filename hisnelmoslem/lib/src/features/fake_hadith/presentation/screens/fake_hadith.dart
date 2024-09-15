@@ -35,14 +35,13 @@ class FakeHadith extends StatelessWidget {
                 ],
               ),
             ),
-            bottomNavigationBar: BottomAppBar(
+            bottomNavigationBar: const BottomAppBar(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     flex: 3,
                     child: FontSettingsToolbox(
-                      controllerToUpdate: controller,
                       showDiacriticsControllers: false,
                     ),
                   ),

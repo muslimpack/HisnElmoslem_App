@@ -4,14 +4,13 @@ import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+/// TODO wire with setting cubit
 class FontSettingsToolbox extends StatelessWidget {
-  final GetxController controllerToUpdate;
   final bool showFontResizeControllers;
   final bool showDiacriticsControllers;
 
   const FontSettingsToolbox({
     super.key,
-    required this.controllerToUpdate,
     this.showFontResizeControllers = true,
     this.showDiacriticsControllers = true,
   });
@@ -28,7 +27,6 @@ class FontSettingsToolbox extends StatelessWidget {
               icon: Icon(MdiIcons.restart),
               onPressed: () {
                 AppData.instance.resetFontSize();
-                controllerToUpdate.update();
               },
             ),
           ),
@@ -40,7 +38,6 @@ class FontSettingsToolbox extends StatelessWidget {
               icon: Icon(MdiIcons.formatFontSizeIncrease),
               onPressed: () {
                 AppData.instance.increaseFontSize();
-                controllerToUpdate.update();
               },
             ),
           ),
@@ -52,7 +49,6 @@ class FontSettingsToolbox extends StatelessWidget {
               icon: Icon(MdiIcons.formatFontSizeDecrease),
               onPressed: () {
                 AppData.instance.decreaseFontSize();
-                controllerToUpdate.update();
               },
             ),
           ),
@@ -64,7 +60,6 @@ class FontSettingsToolbox extends StatelessWidget {
               icon: Icon(MdiIcons.abjadArabic),
               onPressed: () {
                 AppData.instance.toggleDiacriticsStatus();
-                controllerToUpdate.update();
               },
             ),
           ),

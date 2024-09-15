@@ -136,9 +136,7 @@ class Settings extends StatelessWidget {
               TextSample(
                 controllerToUpdate: controller,
               ),
-              FontSettingsToolbox(
-                controllerToUpdate: controller,
-              ),
+              const FontSettingsToolbox(),
               const Divider(),
               /**/
               Title(title: "reminders".tr),
