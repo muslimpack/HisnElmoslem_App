@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_chapters.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path/path.dart';
@@ -98,21 +97,6 @@ class AzkarOldDBHelper {
   }
 
   /* ************* Functions ************* */
-
-  /**
-   * Chapters Operations
-   */
-
-  /// Get all chapters from database
-  Future<List<DbChapter>> getAllChapters() async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.query('chapters');
-
-    return List.generate(maps.length, (i) {
-      return DbChapter.fromMap(maps[i]);
-    });
-  }
 
   /**
    * Titles Operations
