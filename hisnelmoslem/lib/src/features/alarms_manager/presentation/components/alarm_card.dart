@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -34,7 +34,7 @@ class AlarmCard extends StatelessWidget {
               if (!alarm.hasAlarmInside) return;
               if (!context.mounted) return;
 
-              context.read<AlarmsBloc>().add(AlarmsEditEvent(alarm));
+              sl<AlarmsBloc>().add(AlarmsEditEvent(alarm));
             },
             icon: Icons.edit,
             label: 'edit'.tr,
@@ -47,7 +47,7 @@ class AlarmCard extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (val) async {
-              context.read<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
+              sl<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
             },
             backgroundColor: Colors.red.withOpacity(.5),
             icon: Icons.delete,
@@ -110,11 +110,11 @@ class AlarmCardBody extends StatelessWidget {
           ),
           value: dbAlarm.isActive,
           onChanged: (value) {
-            context.read<AlarmsBloc>().add(
-                  AlarmsEditEvent(
-                    dbAlarm.copyWith(isActive: value),
-                  ),
-                );
+            sl<AlarmsBloc>().add(
+              AlarmsEditEvent(
+                dbAlarm.copyWith(isActive: value),
+              ),
+            );
           },
         ),
       ],

@@ -51,11 +51,11 @@ class MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(
-          create: (_) => AlarmsBloc(sl())..add(AlarmsStartEvent()),
+          create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent()),
         ),
         BlocProvider(
           create: (context) => HomeBloc(
-            context.read<AlarmsBloc>(),
+            sl(),
             sl(),
             sl(),
           )..add(HomeStartEvent()),

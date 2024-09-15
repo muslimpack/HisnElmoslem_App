@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -71,7 +72,7 @@ class TitleCard extends StatelessWidget {
                 if (editedAlarm == null) return;
                 if (!context.mounted) return;
 
-                context.read<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
+                sl<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
               },
             )
           : GestureDetector(
@@ -85,7 +86,7 @@ class TitleCard extends StatelessWidget {
                 if (editedAlarm == null) return;
                 if (!context.mounted) return;
 
-                context.read<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
+                sl<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
               },
               child: alarm.isActive
                   ? IconButton(
@@ -94,11 +95,11 @@ class TitleCard extends StatelessWidget {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
-                        context.read<AlarmsBloc>().add(
-                              AlarmsEditEvent(
-                                alarm.copyWith(isActive: false),
-                              ),
-                            );
+                        sl<AlarmsBloc>().add(
+                          AlarmsEditEvent(
+                            alarm.copyWith(isActive: false),
+                          ),
+                        );
                       },
                     )
                   : IconButton(
@@ -106,11 +107,11 @@ class TitleCard extends StatelessWidget {
                         Icons.notifications_off,
                       ),
                       onPressed: () {
-                        context.read<AlarmsBloc>().add(
-                              AlarmsEditEvent(
-                                alarm.copyWith(isActive: true),
-                              ),
-                            );
+                        sl<AlarmsBloc>().add(
+                          AlarmsEditEvent(
+                            alarm.copyWith(isActive: true),
+                          ),
+                        );
                       },
                     ),
             ),
