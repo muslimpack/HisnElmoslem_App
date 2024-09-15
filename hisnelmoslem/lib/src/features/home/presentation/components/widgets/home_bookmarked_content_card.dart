@@ -73,10 +73,12 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
             onTap: () {
               decrease();
             },
-            child: Padding(
+            child: Container(
               padding: const EdgeInsets.all(15),
+              constraints: const BoxConstraints(minHeight: 150),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ZikrContentBuilder(
                     dbContent: dbContent,
