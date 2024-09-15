@@ -2,8 +2,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
@@ -19,7 +19,7 @@ class AlarmManager {
   }) async {
     if (dbAlarm.isActive) {
       if (showMsg) {
-        getSnackbar(message: "${"activate".tr} | ${dbAlarm.title}");
+        showToast(msg: "${"activate".tr} | ${dbAlarm.title}");
       }
 
       if (dbAlarm.repeatType == AlarmRepeatType.daily) {
@@ -42,7 +42,7 @@ class AlarmManager {
       }
     } else {
       if (showMsg) {
-        getSnackbar(message: "${"deactivate".tr} | ${dbAlarm.title}");
+        showToast(msg: "${"deactivate".tr} | ${dbAlarm.title}");
       }
 
       await awesomeNotificationManager.cancelNotificationById(

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
@@ -79,8 +79,8 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       id: event.alarm.titleId,
     );
 
-    getSnackbar(
-      message: "${"Reminder Removed".tr} | ${event.alarm.title}",
+    showToast(
+      msg: "${"Reminder Removed".tr} | ${event.alarm.title}",
     );
 
     emit(AlarmsLoadedState(alarms: alarms));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
@@ -165,13 +165,13 @@ class Settings extends StatelessWidget {
                   AppData.instance.changFastAlarmStatus(value: value);
 
                   if (AppData.instance.isFastAlarmEnabled) {
-                    getSnackbar(
-                      message:
+                    showToast(
+                      msg:
                           "${"activate".tr} | ${"fasting mondays and thursdays reminder".tr}",
                     );
                   } else {
-                    getSnackbar(
-                      message:
+                    showToast(
+                      msg:
                           "${"deactivate".tr} | ${"fasting mondays and thursdays reminder".tr}",
                     );
                   }
@@ -191,14 +191,12 @@ class Settings extends StatelessWidget {
                   AppData.instance.changCaveAlarmStatus(value: value);
 
                   if (AppData.instance.isCaveAlarmEnabled) {
-                    getSnackbar(
-                      message:
-                          "${"activate".tr} | ${"sura Al-Kahf reminder".tr}",
+                    showToast(
+                      msg: "${"activate".tr} | ${"sura Al-Kahf reminder".tr}",
                     );
                   } else {
-                    getSnackbar(
-                      message:
-                          "${"deactivate".tr} | ${"sura Al-Kahf reminder".tr}",
+                    showToast(
+                      msg: "${"deactivate".tr} | ${"sura Al-Kahf reminder".tr}",
                     );
                   }
                   controller.update();

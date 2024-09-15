@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/functions/get_snackbar.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -163,8 +163,8 @@ class _TopBar extends StatelessWidget {
               ),
             );
 
-            getSnackbar(
-              message: "copied to clipboard".tr,
+            showToast(
+              msg: "copied to clipboard".tr,
             );
           },
         ),
