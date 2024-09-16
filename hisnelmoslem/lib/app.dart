@@ -68,7 +68,7 @@ class MyAppState extends State<MyApp> {
             scrollBehavior: AppScrollBehavior(),
             // Translation
             translations: HisnAppTranslation(),
-            locale: Locale(AppData.instance.appLocale),
+            locale: state.locale,
             fallbackLocale: const Locale("ar"),
             supportedLocales: const [Locale("ar"), Locale("en")],
             //

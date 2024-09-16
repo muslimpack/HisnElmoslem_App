@@ -13,7 +13,6 @@ class AppData {
     return instance;
   }
   AppData._();
-
   /* ******* Azkar Read Mode ******* */
 
   /// get Zikr Page mode
@@ -62,33 +61,6 @@ class AppData {
   }
 
   /* ******* Font Size ******* */
-
-  /// get font size default value is 2.6
-  String get fontFamily => box.read('font_family') ?? "Amiri";
-
-  /// set font size
-  Future<void> changFontFamily(String value) async {
-    box.write('font_family', value);
-  }
-
-  /// increase font size by .2
-  void resetFontFamily() {
-    changFontFamily("Amiri");
-  }
-  /* ******* App Locale ******* */
-
-  /// get font size default value is 2.6
-  String get appLocale => box.read('app_locale') ?? "ar";
-
-  /// set font size
-  Future<void> changAppLocale(String value) async {
-    box.write('app_locale', value);
-  }
-
-  /// increase font size by .2
-  void resetAppLocale() {
-    changFontFamily("ar");
-  }
 
   /* ******* Diacritics ******* */
 

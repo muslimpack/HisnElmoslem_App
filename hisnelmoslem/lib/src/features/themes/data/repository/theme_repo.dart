@@ -80,4 +80,31 @@ class ThemeRepo {
   Future setOverrideBackgroundColor(bool useOldTheme) async {
     await box.write(_overrideBackgroundColorKey, useOldTheme);
   }
+
+  ///
+  static const _fontFamilyKey = 'font_family';
+  String get fontFamily => box.read(_fontFamilyKey) ?? "Amiri";
+
+  Future<void> changFontFamily(String value) async {
+    box.write(_fontFamilyKey, value);
+  }
+
+  void resetFontFamily() {
+    changFontFamily("Amiri");
+  }
+
+  ///
+
+  static const _appLocaleKey = 'app_locale';
+  Locale get appLocale {
+    final String? data = box.read(_appLocaleKey);
+    if (data == null) {
+      return const Locale("ar");
+    }
+    return Locale(data);
+  }
+
+  Future<void> changAppLocale(String value) async {
+    box.write(_appLocaleKey, value);
+  }
 }
