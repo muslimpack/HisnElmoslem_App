@@ -29,10 +29,14 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
 
   ///MARK: Init BLOC
+
+  /// Singleton BLoC
   sl.registerLazySingleton(() => ThemeCubit());
   sl.registerLazySingleton(() => AlarmsBloc(sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
+
+  /// Factory BLoC
   sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
   sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
   sl.registerFactory(() => ShareImageCubit(sl()));
