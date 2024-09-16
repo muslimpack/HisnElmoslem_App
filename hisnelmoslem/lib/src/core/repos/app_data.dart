@@ -30,12 +30,12 @@ class AppData {
 
   /// increase font size by .2
   void increaseFontSize() {
-    changFontSize(fontSize + .2);
+    changFontSize(fontSize + kChangeFontBy);
   }
 
   /// decrease font size by .2
   void decreaseFontSize() {
-    changFontSize(fontSize - .2);
+    changFontSize(fontSize - kChangeFontBy);
   }
 
   /* ******* Font Size ******* */
