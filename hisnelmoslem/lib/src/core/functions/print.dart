@@ -1,18 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 
 void hisnPrint(Object? object) {
   final fileNameAndLine = getFileNameAndLine();
   final methodName = getCurrentMethodName2();
   printColor(
-    "[$methodName=>$fileNameAndLine] $object",
+    object,
     color: PrintColors.green,
+    name: "$methodName=>$fileNameAndLine",
   );
 }
 
-void printColor(Object? object, {int color = 0}) {
+void printColor(Object? object, {int color = 0, String name = "HISN"}) {
   final orangeText = '\u001b[${color}m$object\u001b[0m';
   if (kDebugMode) {
-    print(orangeText);
+    log(orangeText, name: name);
   }
 }
 
