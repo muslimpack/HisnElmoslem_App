@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
@@ -120,7 +120,7 @@ class TitleCard extends StatelessWidget {
       ),
       // trailing: Text(zikrList[index]),
       onTap: () {
-        if (!AppData.instance.isCardReadMode) {
+        if (!sl<AppSettingsRepo>().isCardReadMode) {
           transitionAnimation.circleReval(
             context: Get.context!,
             goToPage: ZikrViewerPageModeScreen(index: dbTitle.id),

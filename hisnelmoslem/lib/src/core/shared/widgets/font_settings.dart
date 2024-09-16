@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -70,9 +69,7 @@ class FontSettingsToolbox extends StatelessWidget {
 }
 
 class TextSample extends StatelessWidget {
-  final GetxController controllerToUpdate;
-
-  const TextSample({super.key, required this.controllerToUpdate});
+  const TextSample({super.key});
   static String text =
       "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
 

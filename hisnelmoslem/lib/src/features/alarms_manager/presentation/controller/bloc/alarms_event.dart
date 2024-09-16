@@ -39,3 +39,21 @@ class AlarmsRemoveEvent extends AlarmsEvent {
   @override
   List<Object> get props => [alarm];
 }
+
+class AlarmsToggleCaveAlarmEvent extends AlarmsEvent {
+  final bool enable;
+
+  const AlarmsToggleCaveAlarmEvent(this.enable);
+
+  @override
+  List<Object> get props => [enable];
+}
+
+class AlarmsToggleFastAlarmEvent extends AlarmsEvent {
+  final bool enable;
+
+  const AlarmsToggleFastAlarmEvent(this.enable);
+
+  @override
+  List<Object> get props => [enable];
+}

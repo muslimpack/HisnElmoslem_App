@@ -1,14 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/models/zikr_effects.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 
 part 'settings_state.dart';
 
+///TODO save effect manager changes
 class SettingsCubit extends Cubit<SettingsState> {
   final EffectsManagerRepo effectsManagerRepo;
-  SettingsCubit(this.effectsManagerRepo)
-      : super(
+  final AppSettingsRepo appSettingsRepo;
+  SettingsCubit(
+    this.effectsManagerRepo,
+    this.appSettingsRepo,
+  ) : super(
           SettingsState(
             zikrEffects: ZikrEffects(
               soundEffectVolume: effectsManagerRepo.soundEffectVolume,
@@ -23,8 +29,27 @@ class SettingsCubit extends Cubit<SettingsState> {
               vibrateEveryTitle:
                   effectsManagerRepo.isAllAzkarFinishedVibrateAllowed,
             ),
+            enableWakeLock: appSettingsRepo.enableWakeLock,
+            isCardReadMode: appSettingsRepo.isCardReadMode,
+            useHindiDigits: appSettingsRepo.useHindiDigits,
           ),
         );
+
+  ///MARK: General Settings
+  Future toggleIsCardReadMode({required bool activate}) async {
+    await appSettingsRepo.changeReadModeStatus(value: activate);
+    emit(state.copyWith(isCardReadMode: activate));
+  }
+
+  Future toggleUseHiniDigits({required bool use}) async {
+    await appSettingsRepo.changeUseHindiDigits(use: use);
+    emit(state.copyWith(useHindiDigits: use));
+  }
+
+  Future toggleWakeLock({required bool use}) async {
+    await appSettingsRepo.changeEnableWakeLock(use: use);
+    emit(state.copyWith(enableWakeLock: use));
+  }
 
   ///MARK: Zikr Effects
   Future zikrEffectChangeVolume(double value) async {

@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
@@ -205,7 +206,7 @@ class _BottomBar extends StatelessWidget {
                 icon: const Icon(Icons.repeat),
               ),
               onTap: () {
-                if (!AppData.instance.isCardReadMode) {
+                if (!sl<AppSettingsRepo>().isCardReadMode) {
                   transitionAnimation.circleReval(
                     context: Get.context!,
                     goToPage: ZikrViewerPageModeScreen(
