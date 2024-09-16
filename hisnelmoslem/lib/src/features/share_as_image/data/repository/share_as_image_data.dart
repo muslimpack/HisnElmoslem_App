@@ -3,8 +3,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 
-ShareAsImageData shareAsImageData = ShareAsImageData();
-
 class ShareAsImageData {
   final box = GetStorage(kAppStorageKey);
 

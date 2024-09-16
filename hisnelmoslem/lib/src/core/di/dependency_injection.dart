@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/data_database_hel
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -15,6 +16,9 @@ import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/t
 final sl = GetIt.instance;
 
 Future<void> initSL() async {
+  ///MARK: Init storages
+  sl.registerLazySingleton(() => ShareAsImageData());
+
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
   sl.registerLazySingleton(() => AlarmDatabaseHelper());
