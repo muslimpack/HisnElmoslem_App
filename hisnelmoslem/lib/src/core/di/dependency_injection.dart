@@ -14,6 +14,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -39,7 +40,13 @@ Future<void> initSL() async {
 
   /// Factory BLoC
   sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
-  sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
+  sl.registerFactory(
+    () => ZikrViewerBloc(
+      soundsManagerController: SoundsManagerController(),
+      homeBloc: sl(),
+      azkarDatabaseHelper: sl(),
+    ),
+  );
 }
