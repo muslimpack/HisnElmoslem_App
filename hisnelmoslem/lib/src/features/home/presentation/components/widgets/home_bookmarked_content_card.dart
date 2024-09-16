@@ -127,7 +127,7 @@ class _TopBar extends StatelessWidget {
           icon: Icon(MdiIcons.camera),
           onPressed: () {
             transitionAnimation.circleReval(
-              context: Get.context!,
+              context: context,
               goToPage: ShareAsImage(
                 dbContent: dbContent,
               ),
@@ -208,14 +208,14 @@ class _BottomBar extends StatelessWidget {
               onTap: () {
                 if (!sl<AppSettingsRepo>().isCardReadMode) {
                   transitionAnimation.circleReval(
-                    context: Get.context!,
+                    context: context,
                     goToPage: ZikrViewerPageModeScreen(
                       index: dbTitle.id,
                     ),
                   );
                 } else {
                   transitionAnimation.circleReval(
-                    context: Get.context!,
+                    context: context,
                     goToPage: ZikrViewerCardModeScreen(
                       index: dbTitle.id,
                     ),

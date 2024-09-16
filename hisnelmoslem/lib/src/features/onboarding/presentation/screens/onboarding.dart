@@ -22,7 +22,7 @@ class OnBoardingPage extends StatelessWidget {
         listener: (context, state) {
           if (state is OnboardDoneState) {
             transitionAnimation.circleRevalPushReplacement(
-              context: Get.context!,
+              context: context,
               goToPage: const HomeScreen(),
             );
           }

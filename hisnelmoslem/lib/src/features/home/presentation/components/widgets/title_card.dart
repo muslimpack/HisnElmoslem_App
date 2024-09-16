@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -122,12 +121,12 @@ class TitleCard extends StatelessWidget {
       onTap: () {
         if (!sl<AppSettingsRepo>().isCardReadMode) {
           transitionAnimation.circleReval(
-            context: Get.context!,
+            context: context,
             goToPage: ZikrViewerPageModeScreen(index: dbTitle.id),
           );
         } else {
           transitionAnimation.circleReval(
-            context: Get.context!,
+            context: context,
             goToPage: ZikrViewerCardModeScreen(index: dbTitle.id),
           );
         }

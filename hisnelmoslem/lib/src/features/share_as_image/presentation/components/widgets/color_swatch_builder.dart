@@ -34,7 +34,7 @@ class ColorSwatchBuilder extends StatelessWidget {
         tileColor: colorToTrack.withOpacity(.2),
         onTap: () {
           showDialog(
-            context: Get.context!,
+            context: context,
             builder: (BuildContext context) {
               return Center(
                 child: SizedBox(

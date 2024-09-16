@@ -141,7 +141,7 @@ class _TopBar extends StatelessWidget {
           icon: Icon(MdiIcons.comment),
           onPressed: () {
             showCommentaryDialog(
-              context: Get.context!,
+              context: context,
               contentId: dbContent.id,
             );
           },
@@ -151,7 +151,7 @@ class _TopBar extends StatelessWidget {
           icon: Icon(MdiIcons.camera),
           onPressed: () {
             transitionAnimation.circleReval(
-              context: Get.context!,
+              context: context,
               goToPage: ShareAsImage(
                 dbContent: dbContent,
               ),
