@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
@@ -32,7 +32,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
 
   ///MARK: Init Manager
-  sl.registerFactory(() => EffectManager());
+  sl.registerFactory(() => EffectsManager());
 
   ///MARK: Init BLOC
 
@@ -49,7 +49,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => QuranCubit());
   sl.registerFactory(
     () => ZikrViewerBloc(
-      soundsManagerController: sl(),
+      effectsManager: sl(),
       homeBloc: sl(),
       azkarDatabaseHelper: sl(),
     ),

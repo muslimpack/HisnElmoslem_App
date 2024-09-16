@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:vibration/vibration.dart';
 
-class EffectManager {
+class EffectsManager {
   ///
   final player = AudioPlayer();
 

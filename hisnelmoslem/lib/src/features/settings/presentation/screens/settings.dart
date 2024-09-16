@@ -9,7 +9,7 @@ import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/sounds_manager_page.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
 import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_page.dart';
 import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
@@ -73,7 +73,7 @@ class Settings extends StatelessWidget {
                 onTap: () {
                   transitionAnimation.fromBottom2Top(
                     context: context,
-                    goToPage: const EffectManagerScreen(),
+                    goToPage: const EffectsManagerScreen(),
                   );
                 },
               ),

@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -15,11 +15,11 @@ part 'tally_state.dart';
 
 class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final TallyDatabaseHelper tallyDatabaseHelper;
-  final EffectManager soundsManagerController;
+  final EffectsManager effectsManager;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   TallyBloc(
     this.tallyDatabaseHelper,
-    this.soundsManagerController,
+    this.effectsManager,
   ) : super(TallyLoadingState()) {
     _initHandlers();
 
@@ -300,9 +300,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
 
     if (activeCounter.count % state.resetEvery == state.resetEvery - 1) {
-      await soundsManagerController.playZikrDoneEffects();
+      await effectsManager.playZikrDoneEffects();
     } else {
-      await soundsManagerController.playTallyEffects();
+      await effectsManager.playTallyEffects();
     }
 
     await completer.future;

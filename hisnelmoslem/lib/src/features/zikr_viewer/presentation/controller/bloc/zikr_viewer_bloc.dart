@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -22,13 +22,13 @@ part 'zikr_viewer_state.dart';
 
 class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
-  final EffectManager soundsManagerController;
+  final EffectsManager effectsManager;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
 
   final AzkarDatabaseHelper azkarDatabaseHelper;
   ZikrViewerBloc({
-    required this.soundsManagerController,
+    required this.effectsManager,
     required this.homeBloc,
     required this.azkarDatabaseHelper,
   }) : super(ZikrViewerLoadingState()) {
@@ -128,10 +128,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (count > 0) {
       azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
-      EffectManager().playTallyEffects();
+      EffectsManager().playTallyEffects();
       if (count == 0) {
-        await EffectManager().playZikrDoneEffects();
-        await EffectManager().playTransitionEffects();
+        await EffectsManager().playZikrDoneEffects();
+        await EffectsManager().playTransitionEffects();
       }
     }
 
