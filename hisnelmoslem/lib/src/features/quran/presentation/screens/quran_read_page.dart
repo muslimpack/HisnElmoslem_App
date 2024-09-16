@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -17,7 +18,7 @@ class QuranReadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => QuranCubit()..start(surahName),
+      create: (context) => sl<QuranCubit>()..start(surahName),
       child: BlocBuilder<QuranCubit, QuranState>(
         builder: (context, state) {
           if (state is! QuranLoadedState) {
