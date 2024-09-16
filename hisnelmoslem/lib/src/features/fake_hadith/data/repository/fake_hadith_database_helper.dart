@@ -48,7 +48,7 @@ class FakeHadithDatabaseHelper {
       final DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
       await userDataDBHelper
           .isFakeHadithWereRead(fakeHadithId: fakeHadith.id)
-          .then((value) => fakeHadith.isRead = value);
+          .then((value) => fakeHadith.copyWith(isRead: value));
       fakeHadiths.add(fakeHadith);
     }
 
@@ -66,7 +66,7 @@ class FakeHadithDatabaseHelper {
     final DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
     await userDataDBHelper
         .isFakeHadithWereRead(fakeHadithId: dbFakeHaith.id)
-        .then((value) => dbFakeHaith.isRead = value);
+        .then((value) => dbFakeHaith.copyWith(isRead: value));
 
     return dbFakeHaith;
   }

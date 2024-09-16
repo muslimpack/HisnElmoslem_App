@@ -73,7 +73,7 @@ class FakeHadithController extends GetxController {
 
   //
   void toggleReadState({required DbFakeHaith fakeHaith}) {
-    fakeHaith.isRead = !fakeHaith.isRead;
+    fakeHaith.copyWith(isRead: !fakeHaith.isRead);
     if (fakeHaith.isRead) {
       fakeHadithDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: fakeHaith);
     } else {
