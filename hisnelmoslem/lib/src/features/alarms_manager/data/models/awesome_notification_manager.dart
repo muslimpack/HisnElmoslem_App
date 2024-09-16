@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -263,10 +264,13 @@ class AwesomeNotificationManager {
 
   ///
   static void onNotificationClick(String payload) {
+    final context = App.navigatorKey.currentState?.context;
+    if (context == null) return;
+
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-        context: Get.context!,
+        context: context,
         goToPage: const QuranReadPage(
           surahName: SurahNameEnum.alKahf,
         ),
@@ -283,12 +287,12 @@ class AwesomeNotificationManager {
       //
       if (sl<AppSettingsRepo>().isCardReadMode) {
         transitionAnimation.fromBottom2Top(
-          context: Get.context!,
+          context: context,
           goToPage: ZikrViewerCardModeScreen(index: pageIndex),
         );
       } else {
         transitionAnimation.fromBottom2Top(
-          context: Get.context!,
+          context: context,
           goToPage: ZikrViewerPageModeScreen(index: pageIndex),
         );
       }

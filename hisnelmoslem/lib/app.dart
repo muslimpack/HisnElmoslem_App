@@ -22,14 +22,17 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_h
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/desktop_window_wrapper.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class App extends StatefulWidget {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
+  const App({super.key});
 
   @override
-  MyAppState createState() => MyAppState();
+  AppState createState() => AppState();
 }
 
-class MyAppState extends State<MyApp> {
+class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
@@ -65,6 +68,7 @@ class MyAppState extends State<MyApp> {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return GetMaterialApp(
+            navigatorKey: App.navigatorKey,
             scrollBehavior: AppScrollBehavior(),
             // Translation
             translations: HisnAppTranslation(),
