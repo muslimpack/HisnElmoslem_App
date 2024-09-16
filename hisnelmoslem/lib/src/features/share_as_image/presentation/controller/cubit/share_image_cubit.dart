@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -21,16 +21,17 @@ import 'package:share_plus/share_plus.dart';
 part 'share_image_state.dart';
 
 class ShareImageCubit extends Cubit<ShareImageState> {
+  final ShareAsImageRepo shareAsImageRepo;
   TransformationController transformationController =
       TransformationController();
 
   final CaptureWidgetController captureWidgetController =
       CaptureWidgetController();
-  ShareImageCubit() : super(ShareImageLoadingState());
+  ShareImageCubit(this.shareAsImageRepo) : super(ShareImageLoadingState());
 
   FutureOr start(DbContent content) async {
     final ShareImageSettings shareImageSettings =
-        AppData.instance.shareImageSettings;
+        shareAsImageRepo.shareImageSettings;
 
     final baseTitle = await _getTitle(content);
 
@@ -62,7 +63,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
-    await AppData.instance.updateShareImageSettings(shareImageSettings);
+    await shareAsImageRepo.updateShareImageSettings(shareImageSettings);
 
     emit(
       state.copyWith(shareImageSettings: shareImageSettings),
@@ -185,7 +186,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     // Calculate the scale factors for both width and height
     final double widthScale =
-        screenSize.width / AppData.instance.shareImageImageWidth;
+        screenSize.width / shareAsImageRepo.shareImageImageWidth;
     final double heightScale = screenSize.height / imageSize.height;
 
     // Choose the smaller scale to ensure the image fits within the screen
