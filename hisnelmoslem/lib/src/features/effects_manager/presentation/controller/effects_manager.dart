@@ -12,28 +12,31 @@ class EffectsManager {
 
   ///MARK: Play Sound
 
+  Future _playSound(AssetSource source) async {
+    await player.stop();
+    await player.setSource(source);
+    await player.setVolume(_effectsManagerRepo.soundEffectVolume);
+    await player.resume();
+  }
+
   Future<void> playPraiseSound() async {
-    await player.play(
+    await _playSound(
       AssetSource('sounds/tally_sound.mp3'),
-      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
   Future<void> playZikrSound() async {
-    await player.play(
+    await _playSound(
       AssetSource('sounds/zikr_done_sound.mp3'),
-      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
   Future<void> playTitleSound() async {
-    await player.play(
+    await _playSound(
       AssetSource('sounds/all_azkar_finished_sound.mp3'),
-      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
-  /////////////////////
   ///MARK: Play vibration
 
   Future<void> playPraiseVibratation() async {
