@@ -5,55 +5,49 @@ class ZikrEffects extends Equatable {
   final double soundEffectVolume;
 
   final bool isTallySoundAllowed;
-  final bool isZikrDoneSoundAllowed;
-  final bool isTransitionSoundAllowed;
-  final bool isAllAzkarFinishedSoundAllowed;
+  final bool soundEveryPraise;
+  final bool soundEveryZikr;
+  final bool soundEveryTitle;
 
   final bool isTallyVibrateAllowed;
-  final bool isZikrDoneVibrateAllowed;
-  final bool isTransitionVibrateAllowed;
-  final bool isAllAzkarFinishedVibrateAllowed;
+  final bool vibrateEveryPraise;
+  final bool vibrateEveryZikr;
+  final bool vibrateEveryTitle;
 
   const ZikrEffects({
     required this.soundEffectVolume,
     required this.isTallySoundAllowed,
-    required this.isZikrDoneSoundAllowed,
-    required this.isTransitionSoundAllowed,
-    required this.isAllAzkarFinishedSoundAllowed,
+    required this.soundEveryPraise,
+    required this.soundEveryZikr,
+    required this.soundEveryTitle,
     required this.isTallyVibrateAllowed,
-    required this.isZikrDoneVibrateAllowed,
-    required this.isTransitionVibrateAllowed,
-    required this.isAllAzkarFinishedVibrateAllowed,
+    required this.vibrateEveryPraise,
+    required this.vibrateEveryZikr,
+    required this.vibrateEveryTitle,
   });
 
   ZikrEffects copyWith({
     double? soundEffectVolume,
     bool? isTallySoundAllowed,
-    bool? isZikrDoneSoundAllowed,
-    bool? isTransitionSoundAllowed,
-    bool? isAllAzkarFinishedSoundAllowed,
+    bool? soundEveryPraise,
+    bool? soundEveryZikr,
+    bool? soundEveryTitle,
     bool? isTallyVibrateAllowed,
-    bool? isZikrDoneVibrateAllowed,
-    bool? isTransitionVibrateAllowed,
-    bool? isAllAzkarFinishedVibrateAllowed,
+    bool? vibrateEveryPraise,
+    bool? vibrateEveryZikr,
+    bool? vibrateEveryTitle,
   }) {
     return ZikrEffects(
       soundEffectVolume: soundEffectVolume ?? this.soundEffectVolume,
       isTallySoundAllowed: isTallySoundAllowed ?? this.isTallySoundAllowed,
-      isZikrDoneSoundAllowed:
-          isZikrDoneSoundAllowed ?? this.isZikrDoneSoundAllowed,
-      isTransitionSoundAllowed:
-          isTransitionSoundAllowed ?? this.isTransitionSoundAllowed,
-      isAllAzkarFinishedSoundAllowed:
-          isAllAzkarFinishedSoundAllowed ?? this.isAllAzkarFinishedSoundAllowed,
+      soundEveryPraise: soundEveryPraise ?? this.soundEveryPraise,
+      soundEveryZikr: soundEveryZikr ?? this.soundEveryZikr,
+      soundEveryTitle: soundEveryTitle ?? this.soundEveryTitle,
       isTallyVibrateAllowed:
           isTallyVibrateAllowed ?? this.isTallyVibrateAllowed,
-      isZikrDoneVibrateAllowed:
-          isZikrDoneVibrateAllowed ?? this.isZikrDoneVibrateAllowed,
-      isTransitionVibrateAllowed:
-          isTransitionVibrateAllowed ?? this.isTransitionVibrateAllowed,
-      isAllAzkarFinishedVibrateAllowed: isAllAzkarFinishedVibrateAllowed ??
-          this.isAllAzkarFinishedVibrateAllowed,
+      vibrateEveryPraise: vibrateEveryPraise ?? this.vibrateEveryPraise,
+      vibrateEveryZikr: vibrateEveryZikr ?? this.vibrateEveryZikr,
+      vibrateEveryTitle: vibrateEveryTitle ?? this.vibrateEveryTitle,
     );
   }
 
@@ -62,13 +56,13 @@ class ZikrEffects extends Equatable {
     return [
       soundEffectVolume,
       isTallySoundAllowed,
-      isZikrDoneSoundAllowed,
-      isTransitionSoundAllowed,
-      isAllAzkarFinishedSoundAllowed,
+      soundEveryPraise,
+      soundEveryZikr,
+      soundEveryTitle,
       isTallyVibrateAllowed,
-      isZikrDoneVibrateAllowed,
-      isTransitionVibrateAllowed,
-      isAllAzkarFinishedVibrateAllowed,
+      vibrateEveryPraise,
+      vibrateEveryZikr,
+      vibrateEveryTitle,
     ];
   }
 }
