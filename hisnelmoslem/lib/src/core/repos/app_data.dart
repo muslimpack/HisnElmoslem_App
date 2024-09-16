@@ -34,6 +34,7 @@ class AppData {
     changeReadModeStatus(value: !isCardReadMode);
   }
 
+  ///MARK: Font
   /* ******* Font Size ******* */
 
   /// get font size default value is 2.6
@@ -200,27 +201,108 @@ class AppData {
     }
   }
 
+  ///MARK:Hinidi Digits
   /* ******* Hinidi Digits ******* */
 
-  static const String useHindiDigitsKey = "useHindiDigits";
-  bool get useHindiDigits => box.read(useHindiDigitsKey) ?? false;
+  static const String _useHindiDigitsKey = "useHindiDigits";
+  bool get useHindiDigits => box.read(_useHindiDigitsKey) ?? false;
 
   Future<void> changeUseHindiDigits({required bool use}) async =>
-      await box.write(useHindiDigitsKey, use);
+      await box.write(_useHindiDigitsKey, use);
 
   Future toggleUseHindiDigits() async {
     await changeUseHindiDigits(use: !useHindiDigits);
   }
 
-  /* ******* Hinidi Digits ******* */
+  ///MARK:WakeLock
+  /* ******* WakeLock ******* */
 
-  static const String enableWakeLockKey = "enableWakeLock";
-  bool get enableWakeLock => box.read(enableWakeLockKey) ?? false;
+  static const String _enableWakeLockKey = "enableWakeLock";
+  bool get enableWakeLock => box.read(_enableWakeLockKey) ?? false;
 
   Future<void> changeEnableWakeLock({required bool use}) async =>
-      box.write(enableWakeLockKey, use);
+      box.write(_enableWakeLockKey, use);
 
   void toggleEnableWakeLock() {
     changeEnableWakeLock(use: !enableWakeLock);
   }
+
+  ///MARK:Effects Sound
+  /* ******* Effects ******* */
+
+  ///
+  static const _isTallySoundAllowedKey = 'tally_sound';
+  bool get isTallySoundAllowed => box.read(_isTallySoundAllowedKey) ?? false;
+
+  void changeTallySoundStatus({required bool value}) =>
+      box.write(_isTallySoundAllowedKey, value);
+
+  ///
+  static const _isZikrDoneSoundAllowedKey = 'zikr_done_sound';
+  bool get isZikrDoneSoundAllowed =>
+      box.read(_isZikrDoneSoundAllowedKey) ?? false;
+
+  void changeZikrDoneSoundStatus({required bool value}) =>
+      box.write(_isZikrDoneSoundAllowedKey, value);
+
+  ///
+  static const _isTransitionSoundAllowedKey = 'tally_transition_sound';
+  bool get isTransitionSoundAllowed =>
+      box.read(_isTransitionSoundAllowedKey) ?? false;
+
+  void changeTransitionSoundStatus({required bool value}) =>
+      box.write(_isTransitionSoundAllowedKey, value);
+
+  ///
+  static const _isAllAzkarFinishedSoundAllowedKey = 'all_azkar_finished_sound';
+  bool get isAllAzkarFinishedSoundAllowed =>
+      box.read(_isAllAzkarFinishedSoundAllowedKey) ?? false;
+
+  void changeAllAzkarFinishedSoundStatus({required bool value}) =>
+      box.write(_isAllAzkarFinishedSoundAllowedKey, value);
+
+  ///
+  static const _soundEffectVolumeKey = 'soundEffectVolume';
+  double get soundEffectVolume => box.read(_soundEffectVolumeKey) ?? 1;
+
+  void changeSoundEffectVolume(double value) =>
+      box.write(_soundEffectVolumeKey, value);
+
+  ///MARK: Effect Vibration
+  /* ******* Effects Vibration ******* */
+  ///
+  static const _isTallyVibrateAllowedKey = 'tally_vibrate';
+  bool get isTallyVibrateAllowed =>
+      box.read(_isTallyVibrateAllowedKey) ?? false;
+
+  void changeTallyVibrateStatus({required bool value}) =>
+      box.write(_isTallyVibrateAllowedKey, value);
+
+  ///
+  static const _isZikrDoneVibrateAllowedKey = 'zikr_done_vibrate';
+
+  bool get isZikrDoneVibrateAllowed =>
+      box.read(_isZikrDoneVibrateAllowedKey) ?? false;
+
+  void changeZikrDoneVibrateStatus({required bool value}) =>
+      box.write(_isZikrDoneVibrateAllowedKey, value);
+
+  ///
+  static const _isTransitionVibrateAllowedKey = 'tally_transition_vibrate';
+
+  bool get isTransitionVibrateAllowed =>
+      box.read(_isTransitionVibrateAllowedKey) ?? false;
+
+  void changeTransitionVibrateStatus({required bool value}) =>
+      box.write(_isTransitionVibrateAllowedKey, value);
+
+  ///
+  static const _isAllAzkarFinishedVibrateAllowedKey =
+      "all_azkar_finished_vibrate";
+
+  bool get isAllAzkarFinishedVibrateAllowed =>
+      box.read(_isAllAzkarFinishedVibrateAllowedKey) ?? false;
+
+  void changeAllAzkarFinishedVibrateStatus({required bool value}) =>
+      box.write(_isAllAzkarFinishedVibrateAllowedKey, value);
 }
