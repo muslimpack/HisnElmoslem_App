@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 
 class SoundsManagerPage extends StatelessWidget {
   const SoundsManagerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SoundsManagerController>(
-      init: SoundsManagerController(),
-      builder: (controller) {
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -28,35 +28,11 @@ class SoundsManagerPage extends StatelessWidget {
                 ),
                 title: Text("Sound Effect volume".tr),
                 subtitle: Slider(
-                  value: controller.soundEffectVolume,
+                  value: state.zikrEffects.soundEffectVolume,
                   onChanged: (value) {
-                    controller.changeSoundEffectVolume(value);
-                    controller.update();
+                    context.read<SettingsCubit>().zikrEffectChangeVolume(value);
                   },
                 ),
-              ),
-
-              const Divider(),
-
-              /// Tally Sound Allowed Vibrate
-              SwitchListTile(
-                title: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
-                  title: Text("phone vibration at every praise".tr),
-                ),
-                value: controller.isTallyVibrateAllowed,
-                onChanged: (value) {
-                  controller.changeTallyVibrateStatus(value: value);
-
-                  if (value) {
-                    controller.simulateTallyVibrate();
-                  }
-
-                  controller.update();
-                },
               ),
 
               /// Tally Sound Allowed
@@ -68,35 +44,11 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect at every praise".tr),
                 ),
-                value: controller.isTallySoundAllowed,
+                value: state.zikrEffects.soundEveryPraise,
                 onChanged: (value) {
-                  controller.changeTallySoundStatus(value: value);
-
-                  if (value) {
-                    controller.simulateTallySound();
-                  }
-
-                  controller.update();
-                },
-              ),
-
-              /// Zikr Done Sound Allowed Vibrate
-              SwitchListTile(
-                title: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
-                  title: Text("phone vibration at single zikr end".tr),
-                ),
-                value: controller.isZikrDoneVibrateAllowed,
-                onChanged: (value) {
-                  controller.changeZikrDoneVibrateStatus(value: value);
-
-                  if (value) {
-                    controller.simulateZikrDoneVibrate();
-                  }
-                  controller.update();
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlaySoundEveryPraise(activate: value);
                 },
               ),
 
@@ -109,36 +61,11 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect at single zikr end".tr),
                 ),
-                value: controller.isZikrDoneSoundAllowed,
+                value: state.zikrEffects.soundEveryZikr,
                 onChanged: (value) {
-                  controller.changeZikrDoneSoundStatus(value: value);
-
-                  if (value) {
-                    controller.simulateZikrDoneSound();
-                  }
-                  controller.update();
-                },
-              ),
-
-              /// Azkar Done Sound Allowed vibrate
-              SwitchListTile(
-                title: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
-                  title: Text("phone vibration when all zikr end".tr),
-                ),
-                value: controller.isAllAzkarFinishedVibrateAllowed,
-                onChanged: (value) {
-                  controller.changeAllAzkarFinishedVibrateStatus(
-                    value: value,
-                  );
-
-                  if (value) {
-                    controller.simulateAllAzkarVibrateFinished();
-                  }
-                  controller.update();
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlaySoundEveryZikr(activate: value);
                 },
               ),
 
@@ -151,14 +78,65 @@ class SoundsManagerPage extends StatelessWidget {
                   ),
                   title: Text("sound effect when all zikr end".tr),
                 ),
-                value: controller.isAllAzkarFinishedSoundAllowed,
+                value: state.zikrEffects.soundEveryTitle,
                 onChanged: (value) {
-                  controller.changeAllAzkarFinishedSoundStatus(value: value);
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlaySoundEveryTitle(activate: value);
+                },
+              ),
+              const Divider(),
 
-                  if (value) {
-                    controller.simulateAllAzkarSoundFinished();
-                  }
-                  controller.update();
+              /// Tally Sound Allowed Vibrate
+              SwitchListTile(
+                title: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(
+                    Icons.vibration,
+                  ),
+                  title: Text("phone vibration at every praise".tr),
+                ),
+                value: state.zikrEffects.vibrateEveryPraise,
+                onChanged: (value) {
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlayVibrationEveryPraise(
+                        activate: value,
+                      );
+                },
+              ),
+
+              /// Zikr Done Sound Allowed Vibrate
+              SwitchListTile(
+                title: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(
+                    Icons.vibration,
+                  ),
+                  title: Text("phone vibration at single zikr end".tr),
+                ),
+                value: state.zikrEffects.vibrateEveryZikr,
+                onChanged: (value) {
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlayVibrationEveryZikr(activate: value);
+                },
+              ),
+
+              /// Azkar Done Sound Allowed vibrate
+              SwitchListTile(
+                title: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(
+                    Icons.vibration,
+                  ),
+                  title: Text("phone vibration when all zikr end".tr),
+                ),
+                value: state.zikrEffects.vibrateEveryTitle,
+                onChanged: (value) {
+                  context
+                      .read<SettingsCubit>()
+                      .zikrEffectChangePlayVibrationEveryTitle(activate: value);
                 },
               ),
             ],
