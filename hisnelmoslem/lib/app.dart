@@ -17,6 +17,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/desktop_window_wrapper.dart';
@@ -49,6 +50,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => sl<SettingsCubit>()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(
           create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent()),
