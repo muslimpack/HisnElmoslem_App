@@ -11,6 +11,7 @@ sealed class HomeState extends Equatable {
 final class HomeLoadingState extends HomeState {}
 
 class HomeLoadedState extends HomeState {
+  final List<int> dashboardArrangement;
   final List<DbTitle> titles;
   final Map<int, DbAlarm> alarms;
   final List<DbContent> bookmarkedContents;
@@ -24,6 +25,7 @@ class HomeLoadedState extends HomeState {
   }
 
   const HomeLoadedState({
+    required this.dashboardArrangement,
     required this.titles,
     required this.alarms,
     required this.bookmarkedContents,
@@ -31,12 +33,14 @@ class HomeLoadedState extends HomeState {
   });
 
   HomeLoadedState copyWith({
+    List<int>? dashboardArrangement,
     List<DbTitle>? titles,
     Map<int, DbAlarm>? alarms,
     List<DbContent>? bookmarkedContents,
     bool? isSearching,
   }) {
     return HomeLoadedState(
+      dashboardArrangement: dashboardArrangement ?? this.dashboardArrangement,
       titles: titles ?? this.titles,
       alarms: alarms ?? this.alarms,
       bookmarkedContents: bookmarkedContents ?? this.bookmarkedContents,
@@ -51,6 +55,7 @@ class HomeLoadedState extends HomeState {
       alarms,
       bookmarkedContents,
       isSearching,
+      dashboardArrangement,
     ];
   }
 }

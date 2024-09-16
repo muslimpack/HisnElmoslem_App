@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_d
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 part 'home_event.dart';
@@ -18,11 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   late final StreamSubscription alarmSubscription;
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   final AlarmDatabaseHelper alarmDatabaseHelper;
+  final AppSettingsRepo appSettingsRepo;
   final AzkarDatabaseHelper azkarDatabaseHelper;
   HomeBloc(
     this.alarmsBloc,
     this.alarmDatabaseHelper,
     this.azkarDatabaseHelper,
+    this.appSettingsRepo,
   ) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
 
@@ -37,6 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeUpdateBookmarkedContentsEvent>(_updateBookmarkedContents);
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
     on<HomeToggleDrawerEvent>(_toggleDrawer);
+    on<HomeDashboardReorderedEvent>(_onDashboardReorded);
   }
 
   Future<void> _onAlarmBlocChanged(AlarmsState alarmState) async {
@@ -77,6 +81,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         alarms: {for (final alarm in alarms) alarm.titleId: alarm},
         bookmarkedContents: bookmarkedContents,
         isSearching: false,
+        dashboardArrangement: appSettingsRepo.dashboardArrangement,
       ),
     );
   }
@@ -152,6 +157,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     zoomDrawerController.toggle?.call();
+  }
+
+  FutureOr<void> _onDashboardReorded(
+    HomeDashboardReorderedEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    final List<int> listToSet = List<int>.from(state.dashboardArrangement);
+
+    int newIndex = event.newIndex;
+
+    if (event.oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final int item = listToSet.removeAt(event.oldIndex);
+    listToSet.insert(newIndex, item);
+
+    appSettingsRepo.changeDashboardArrangement(listToSet);
+
+    emit(state.copyWith(dashboardArrangement: listToSet));
   }
 
   @override

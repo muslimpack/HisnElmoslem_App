@@ -1,12 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/home_search_box.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ScreenAppBar extends StatelessWidget {
@@ -50,29 +48,24 @@ class ScreenAppBar extends StatelessWidget {
               ? null
               : PreferredSize(
                   preferredSize: const Size(0, 48),
-                  child: GetBuilder<RearrangeDashboardPageController>(
-                    init: RearrangeDashboardPageController(),
-                    builder: (rearrangeController) {
-                      return TabBar(
-                        controller: tabController,
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.center,
-                        tabs: [
-                          ...List.generate(
-                            appDashboardItem.length,
-                            (index) {
-                              return Tab(
-                                child: Text(
-                                  appDashboardItem[
-                                          rearrangeController.list[index]]
-                                      .title,
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      );
-                    },
+                  child: TabBar(
+                    controller: tabController,
+                    isScrollable: true,
+                    tabAlignment: TabAlignment.center,
+                    tabs: [
+                      ...List.generate(
+                        appDashboardItem.length,
+                        (index) {
+                          return Tab(
+                            child: Text(
+                              appDashboardItem[
+                                      state.dashboardArrangement[index]]
+                                  .title,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
           actions: [

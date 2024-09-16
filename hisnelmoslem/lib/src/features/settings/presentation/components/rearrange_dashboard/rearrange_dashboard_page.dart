@@ -1,48 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page_controller.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 class RearrangeDashboardPage extends StatelessWidget {
   const RearrangeDashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RearrangeDashboardPageController>(
-      init: RearrangeDashboardPageController(),
-      builder: (controller) {
-        return controller.isLoading
-            ? const Loading()
-            : Scaffold(
-                appBar: AppBar(
-                  centerTitle: true,
-                  title: Text(
-                    "dashboard arrangement".tr,
-                  ),
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  elevation: 0,
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is! HomeLoadedState) {
+          return const Loading();
+        }
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              "dashboard arrangement".tr,
+            ),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 0,
+          ),
+          body: ReorderableListView.builder(
+            itemBuilder: (context, index) {
+              return ListTile(
+                key: Key("$index"),
+                title: Text(
+                  appDashboardItem[state.dashboardArrangement[index]].title,
                 ),
-                body: ReorderableListView(
-                  onReorder: controller.onReorder,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    for (int index = 0;
-                        index < controller.list.length;
-                        index += 1)
-                      ListTile(
-                        key: Key('$index'),
-                        tileColor: controller.list[index].isOdd
-                            ? controller.oddItemColor
-                            : controller.evenItemColor,
-                        title: Text(
-                          appDashboardItem[controller.list[index]].title,
-                        ),
-                        trailing: const Icon(Icons.horizontal_rule),
-                      ),
-                  ],
-                ),
+                trailing: const Icon(Icons.horizontal_rule),
               );
+            },
+            itemCount: state.dashboardArrangement.length,
+            onReorder: (oldIndex, newIndex) {
+              context.read<HomeBloc>().add(
+                    HomeDashboardReorderedEvent(
+                      oldIndex: oldIndex,
+                      newIndex: newIndex,
+                    ),
+                  );
+            },
+          ),
+        );
       },
     );
   }

@@ -69,3 +69,15 @@ class HomeUpdateAlarmsEvent extends HomeEvent {
 class HomeToggleDrawerEvent extends HomeEvent {
   const HomeToggleDrawerEvent();
 }
+
+class HomeDashboardReorderedEvent extends HomeEvent {
+  final int oldIndex;
+  final int newIndex;
+  const HomeDashboardReorderedEvent({
+    required this.oldIndex,
+    required this.newIndex,
+  });
+
+  @override
+  List<Object> get props => [oldIndex, newIndex];
+}

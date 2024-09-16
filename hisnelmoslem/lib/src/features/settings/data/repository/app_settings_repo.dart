@@ -52,4 +52,23 @@ class AppSettingsRepo {
   void toggleEnableWakeLock() {
     changeEnableWakeLock(use: !enableWakeLock);
   }
+
+  ///MARK:Dashboard Arrangement
+  /* ******* Dashboard Arrangement ******* */
+
+  static const String dashboardArrangementKey = "list_arrange";
+
+  List<int> get dashboardArrangement {
+    final String? data = box.read(dashboardArrangementKey);
+
+    if (data == null) {
+      return [0, 1, 2];
+    }
+    final String tempList = data.replaceAll('[', '').replaceAll(']', '');
+    return tempList.split(",").map<int>((e) => int.parse(e)).toList();
+  }
+
+  void changeDashboardArrangement(List<int> value) {
+    box.write(dashboardArrangementKey, value.toString());
+  }
 }
