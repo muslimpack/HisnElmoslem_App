@@ -31,6 +31,9 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AzkarDatabaseHelper(sl()));
   sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
 
+  ///MARK: Init Manager
+  sl.registerFactory(() => EffectManager());
+
   ///MARK: Init BLOC
 
   /// Singleton BLoC
@@ -41,12 +44,12 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SettingsCubit());
 
   /// Factory BLoC
-  sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
+  sl.registerFactory(() => TallyBloc(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
   sl.registerFactory(
     () => ZikrViewerBloc(
-      soundsManagerController: SoundsManagerController(),
+      soundsManagerController: sl(),
       homeBloc: sl(),
       azkarDatabaseHelper: sl(),
     ),

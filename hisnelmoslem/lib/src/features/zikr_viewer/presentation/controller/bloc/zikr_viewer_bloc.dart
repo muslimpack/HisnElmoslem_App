@@ -22,7 +22,7 @@ part 'zikr_viewer_state.dart';
 
 class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
-  final SoundsManagerController soundsManagerController;
+  final EffectManager soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
 
@@ -128,10 +128,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (count > 0) {
       azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
-      SoundsManagerController().playTallyEffects();
+      EffectManager().playTallyEffects();
       if (count == 0) {
-        await SoundsManagerController().playZikrDoneEffects();
-        await SoundsManagerController().playTransitionEffects();
+        await EffectManager().playZikrDoneEffects();
+        await EffectManager().playTransitionEffects();
       }
     }
 

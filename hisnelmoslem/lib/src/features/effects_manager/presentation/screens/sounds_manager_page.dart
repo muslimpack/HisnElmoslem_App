@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 
-class SoundsManagerPage extends StatelessWidget {
-  const SoundsManagerPage({super.key});
+class EffectManagerScreen extends StatelessWidget {
+  const EffectManagerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

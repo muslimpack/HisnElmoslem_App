@@ -73,7 +73,7 @@ class Settings extends StatelessWidget {
                 onTap: () {
                   transitionAnimation.fromBottom2Top(
                     context: context,
-                    goToPage: const SoundsManagerPage(),
+                    goToPage: const EffectManagerScreen(),
                   );
                 },
               ),

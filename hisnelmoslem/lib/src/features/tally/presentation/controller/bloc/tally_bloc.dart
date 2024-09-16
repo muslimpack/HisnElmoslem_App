@@ -15,7 +15,7 @@ part 'tally_state.dart';
 
 class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final TallyDatabaseHelper tallyDatabaseHelper;
-  final SoundsManagerController soundsManagerController;
+  final EffectManager soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   TallyBloc(
     this.tallyDatabaseHelper,
