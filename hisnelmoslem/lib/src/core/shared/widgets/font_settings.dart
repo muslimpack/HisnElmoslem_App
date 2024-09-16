@@ -17,52 +17,35 @@ class FontSettingsToolbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Visibility(
-          visible: showFontResizeControllers,
-          child: Expanded(
-            child: IconButton(
-              icon: Icon(MdiIcons.restart),
-              onPressed: () {
-                AppData.instance.resetFontSize();
-              },
-            ),
+        if (showFontResizeControllers) ...[
+          IconButton(
+            icon: Icon(MdiIcons.restart),
+            onPressed: () {
+              AppData.instance.resetFontSize();
+            },
           ),
-        ),
-        Visibility(
-          visible: showFontResizeControllers,
-          child: Expanded(
-            child: IconButton(
-              icon: Icon(MdiIcons.formatFontSizeIncrease),
-              onPressed: () {
-                AppData.instance.increaseFontSize();
-              },
-            ),
+          IconButton(
+            icon: Icon(MdiIcons.formatFontSizeIncrease),
+            onPressed: () {
+              AppData.instance.increaseFontSize();
+            },
           ),
-        ),
-        Visibility(
-          visible: showFontResizeControllers,
-          child: Expanded(
-            child: IconButton(
-              icon: Icon(MdiIcons.formatFontSizeDecrease),
-              onPressed: () {
-                AppData.instance.decreaseFontSize();
-              },
-            ),
+          IconButton(
+            icon: Icon(MdiIcons.formatFontSizeDecrease),
+            onPressed: () {
+              AppData.instance.decreaseFontSize();
+            },
           ),
-        ),
-        Visibility(
-          visible: showDiacriticsControllers,
-          child: Expanded(
-            child: IconButton(
-              icon: Icon(MdiIcons.abjadArabic),
-              onPressed: () {
-                AppData.instance.toggleDiacriticsStatus();
-              },
-            ),
+        ],
+        if (showDiacriticsControllers)
+          IconButton(
+            icon: Icon(MdiIcons.abjadArabic),
+            onPressed: () {
+              AppData.instance.toggleDiacriticsStatus();
+            },
           ),
-        ),
       ],
     );
   }
