@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -25,6 +26,7 @@ Future<void> initSL() async {
   ///MARK: Init storages
   sl.registerLazySingleton(() => GetStorage(kAppStorageKey));
   sl.registerLazySingleton(() => ThemeRepo(sl()));
+  sl.registerLazySingleton(() => EffectsManagerRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -35,7 +37,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
 
   ///MARK: Init Manager
-  sl.registerFactory(() => EffectsManager());
+  sl.registerFactory(() => EffectsManager(sl()));
 
   ///MARK: Init BLOC
 
@@ -44,7 +46,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmsBloc(sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
-  sl.registerLazySingleton(() => SettingsCubit());
+  sl.registerLazySingleton(() => SettingsCubit(sl()));
 
   /// Factory BLoC
   sl.registerFactory(() => TallyBloc(sl(), sl()));

@@ -128,10 +128,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (count > 0) {
       azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
-      EffectsManager().playTallyEffects();
+      await effectsManager.playTallyEffects();
       if (count == 0) {
-        await EffectsManager().playZikrDoneEffects();
-        await EffectsManager().playTransitionEffects();
+        await effectsManager.playZikrDoneEffects();
+        await effectsManager.playTransitionEffects();
       }
     }
 

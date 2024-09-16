@@ -1,9 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:vibration/vibration.dart';
 
 class EffectsManager {
+  final EffectsManagerRepo effectsManagerRepo;
+  EffectsManager(this.effectsManagerRepo);
+
   ///
   final player = AudioPlayer();
 
@@ -13,14 +17,14 @@ class EffectsManager {
     // player.play('sounds/tally_sound.mp3');
     await player.play(
       AssetSource('sounds/tally_sound.mp3'),
-      volume: AppData.instance.soundEffectVolume,
+      volume: effectsManagerRepo.soundEffectVolume,
     );
   }
 
   Future<void> simulateZikrDoneSound() async {
     await player.play(
       AssetSource('sounds/zikr_done_sound.mp3'),
-      volume: AppData.instance.soundEffectVolume,
+      volume: effectsManagerRepo.soundEffectVolume,
     );
   }
 
@@ -29,7 +33,7 @@ class EffectsManager {
   Future<void> simulateAllAzkarSoundFinished() async {
     await player.play(
       AssetSource('sounds/all_azkar_finished_sound.mp3'),
-      volume: AppData.instance.soundEffectVolume,
+      volume: effectsManagerRepo.soundEffectVolume,
     );
   }
 
@@ -79,37 +83,37 @@ class EffectsManager {
 
   //////////////////////////////
   Future playTallyEffects() async {
-    if (AppData.instance.isTallySoundAllowed) {
+    if (effectsManagerRepo.isTallySoundAllowed) {
       await simulateTallySound();
     }
-    if (AppData.instance.isTallyVibrateAllowed) {
+    if (effectsManagerRepo.isTallyVibrateAllowed) {
       await simulateTallyVibrate();
     }
   }
 
   Future playZikrDoneEffects() async {
-    if (AppData.instance.isZikrDoneSoundAllowed) {
+    if (effectsManagerRepo.isZikrDoneSoundAllowed) {
       await simulateZikrDoneSound();
     }
-    if (AppData.instance.isZikrDoneVibrateAllowed) {
+    if (effectsManagerRepo.isZikrDoneVibrateAllowed) {
       await simulateZikrDoneVibrate();
     }
   }
 
   Future playTransitionEffects() async {
-    if (AppData.instance.isTransitionSoundAllowed) {
+    if (effectsManagerRepo.isTransitionSoundAllowed) {
       await simulateTransitionSound();
     }
-    if (AppData.instance.isTransitionVibrateAllowed) {
+    if (effectsManagerRepo.isTransitionVibrateAllowed) {
       await simulateTransitionVibrate();
     }
   }
 
   Future playAllAzkarFinishedEffects() async {
-    if (AppData.instance.isAllAzkarFinishedSoundAllowed) {
+    if (effectsManagerRepo.isAllAzkarFinishedSoundAllowed) {
       await simulateAllAzkarSoundFinished();
     }
-    if (AppData.instance.isAllAzkarFinishedVibrateAllowed) {
+    if (effectsManagerRepo.isAllAzkarFinishedVibrateAllowed) {
       await simulateAllAzkarVibrateFinished();
     }
   }

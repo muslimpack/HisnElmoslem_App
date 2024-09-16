@@ -1,25 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/models/zikr_effects.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit()
+  final EffectsManagerRepo effectsManagerRepo;
+  SettingsCubit(this.effectsManagerRepo)
       : super(
           SettingsState(
             zikrEffects: ZikrEffects(
-              soundEffectVolume: AppData.instance.soundEffectVolume,
-              isTallySoundAllowed: AppData.instance.isTallySoundAllowed,
-              soundEveryPraise: AppData.instance.isZikrDoneSoundAllowed,
-              soundEveryZikr: AppData.instance.isTransitionSoundAllowed,
-              soundEveryTitle: AppData.instance.isAllAzkarFinishedSoundAllowed,
-              isTallyVibrateAllowed: AppData.instance.isTallyVibrateAllowed,
-              vibrateEveryPraise: AppData.instance.isZikrDoneVibrateAllowed,
-              vibrateEveryZikr: AppData.instance.isTransitionVibrateAllowed,
+              soundEffectVolume: effectsManagerRepo.soundEffectVolume,
+              isTallySoundAllowed: effectsManagerRepo.isTallySoundAllowed,
+              soundEveryPraise: effectsManagerRepo.isZikrDoneSoundAllowed,
+              soundEveryZikr: effectsManagerRepo.isTransitionSoundAllowed,
+              soundEveryTitle:
+                  effectsManagerRepo.isAllAzkarFinishedSoundAllowed,
+              isTallyVibrateAllowed: effectsManagerRepo.isTallyVibrateAllowed,
+              vibrateEveryPraise: effectsManagerRepo.isZikrDoneVibrateAllowed,
+              vibrateEveryZikr: effectsManagerRepo.isTransitionVibrateAllowed,
               vibrateEveryTitle:
-                  AppData.instance.isAllAzkarFinishedVibrateAllowed,
+                  effectsManagerRepo.isAllAzkarFinishedVibrateAllowed,
             ),
           ),
         );
