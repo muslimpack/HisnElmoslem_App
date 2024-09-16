@@ -5,42 +5,38 @@ import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effect
 import 'package:vibration/vibration.dart';
 
 class EffectsManager {
-  final EffectsManagerRepo effectsManagerRepo;
-  EffectsManager(this.effectsManagerRepo);
-
-  ///
   final player = AudioPlayer();
 
-  /// Play Sound
+  final EffectsManagerRepo _effectsManagerRepo;
+  EffectsManager(this._effectsManagerRepo);
 
-  Future<void> simulateTallySound() async {
-    // player.play('sounds/tally_sound.mp3');
+  ///MARK: Play Sound
+
+  Future<void> playPraiseSound() async {
     await player.play(
       AssetSource('sounds/tally_sound.mp3'),
-      volume: effectsManagerRepo.soundEffectVolume,
+      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
-  Future<void> simulateZikrDoneSound() async {
+  Future<void> playZikrSound() async {
     await player.play(
       AssetSource('sounds/zikr_done_sound.mp3'),
-      volume: effectsManagerRepo.soundEffectVolume,
+      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
-  Future simulateTransitionSound() async {}
-
-  Future<void> simulateAllAzkarSoundFinished() async {
+  Future<void> playTitleSound() async {
     await player.play(
       AssetSource('sounds/all_azkar_finished_sound.mp3'),
-      volume: effectsManagerRepo.soundEffectVolume,
+      volume: _effectsManagerRepo.soundEffectVolume,
     );
   }
 
   /////////////////////
-  /// Play vibration
+  ///MARK: Play vibration
 
-  Future<void> simulateTallyVibrate() async {
+  Future<void> playPraiseVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!)
@@ -51,7 +47,7 @@ class EffectsManager {
     );
   }
 
-  Future<void> simulateZikrDoneVibrate() async {
+  Future<void> playZikrVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!)
@@ -62,18 +58,7 @@ class EffectsManager {
     );
   }
 
-  Future<void> simulateTransitionVibrate() async {
-    await Vibration.hasCustomVibrationsSupport().then(
-      (value) => {
-        if (value!)
-          {Vibration.vibrate(duration: 25)}
-        else
-          {HapticFeedback.vibrate()},
-      },
-    );
-  }
-
-  Future<void> simulateAllAzkarVibrateFinished() async {
+  Future<void> playTitleVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
         if (value!) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()},
@@ -82,39 +67,30 @@ class EffectsManager {
   }
 
   //////////////////////////////
-  Future playTallyEffects() async {
-    if (effectsManagerRepo.isTallySoundAllowed) {
-      await simulateTallySound();
+  Future playPraiseEffects() async {
+    if (_effectsManagerRepo.isPraiseSoundAllowed) {
+      await playPraiseSound();
     }
-    if (effectsManagerRepo.isTallyVibrateAllowed) {
-      await simulateTallyVibrate();
-    }
-  }
-
-  Future playZikrDoneEffects() async {
-    if (effectsManagerRepo.isZikrDoneSoundAllowed) {
-      await simulateZikrDoneSound();
-    }
-    if (effectsManagerRepo.isZikrDoneVibrateAllowed) {
-      await simulateZikrDoneVibrate();
+    if (_effectsManagerRepo.isPraiseVibrationAllowed) {
+      await playPraiseVibratation();
     }
   }
 
-  Future playTransitionEffects() async {
-    if (effectsManagerRepo.isTransitionSoundAllowed) {
-      await simulateTransitionSound();
+  Future playZikrEffects() async {
+    if (_effectsManagerRepo.isZikrSoundAllowed) {
+      await playZikrSound();
     }
-    if (effectsManagerRepo.isTransitionVibrateAllowed) {
-      await simulateTransitionVibrate();
+    if (_effectsManagerRepo.isZikrVibrationAllowed) {
+      await playZikrVibratation();
     }
   }
 
-  Future playAllAzkarFinishedEffects() async {
-    if (effectsManagerRepo.isAllAzkarFinishedSoundAllowed) {
-      await simulateAllAzkarSoundFinished();
+  Future playTitleEffects() async {
+    if (_effectsManagerRepo.isTitleSoundAllowed) {
+      await playTitleSound();
     }
-    if (effectsManagerRepo.isAllAzkarFinishedVibrateAllowed) {
-      await simulateAllAzkarVibrateFinished();
+    if (_effectsManagerRepo.isTitleVibrationAllowed) {
+      await playTitleVibratation();
     }
   }
 }

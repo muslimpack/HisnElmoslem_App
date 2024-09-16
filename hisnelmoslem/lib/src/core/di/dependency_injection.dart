@@ -53,7 +53,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
-  sl.registerLazySingleton(() => SettingsCubit(sl(), sl()));
+  sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl()));
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl()));

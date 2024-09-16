@@ -300,9 +300,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
 
     if (activeCounter.count % state.resetEvery == state.resetEvery - 1) {
-      await effectsManager.playZikrDoneEffects();
+      await effectsManager.playZikrEffects();
     } else {
-      await effectsManager.playTallyEffects();
+      await effectsManager.playPraiseEffects();
     }
 
     await completer.future;

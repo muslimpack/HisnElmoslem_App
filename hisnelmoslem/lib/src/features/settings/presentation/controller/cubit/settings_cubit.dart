@@ -3,31 +3,30 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/models/zikr_effects.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 
 part 'settings_state.dart';
 
 ///TODO save effect manager changes
 class SettingsCubit extends Cubit<SettingsState> {
+  final EffectsManager effectsManager;
   final EffectsManagerRepo effectsManagerRepo;
   final AppSettingsRepo appSettingsRepo;
   SettingsCubit(
     this.effectsManagerRepo,
     this.appSettingsRepo,
+    this.effectsManager,
   ) : super(
           SettingsState(
             zikrEffects: ZikrEffects(
               soundEffectVolume: effectsManagerRepo.soundEffectVolume,
-              isTallySoundAllowed: effectsManagerRepo.isTallySoundAllowed,
-              soundEveryPraise: effectsManagerRepo.isZikrDoneSoundAllowed,
-              soundEveryZikr: effectsManagerRepo.isTransitionSoundAllowed,
-              soundEveryTitle:
-                  effectsManagerRepo.isAllAzkarFinishedSoundAllowed,
-              isTallyVibrateAllowed: effectsManagerRepo.isTallyVibrateAllowed,
-              vibrateEveryPraise: effectsManagerRepo.isZikrDoneVibrateAllowed,
-              vibrateEveryZikr: effectsManagerRepo.isTransitionVibrateAllowed,
-              vibrateEveryTitle:
-                  effectsManagerRepo.isAllAzkarFinishedVibrateAllowed,
+              soundEveryPraise: effectsManagerRepo.isPraiseSoundAllowed,
+              soundEveryZikr: effectsManagerRepo.isZikrSoundAllowed,
+              soundEveryTitle: effectsManagerRepo.isTitleSoundAllowed,
+              vibrateEveryPraise: effectsManagerRepo.isPraiseVibrationAllowed,
+              vibrateEveryZikr: effectsManagerRepo.isZikrVibrationAllowed,
+              vibrateEveryTitle: effectsManagerRepo.isTitleVibrationAllowed,
             ),
             enableWakeLock: appSettingsRepo.enableWakeLock,
             isCardReadMode: appSettingsRepo.isCardReadMode,
@@ -53,6 +52,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   ///MARK: Zikr Effects
   Future zikrEffectChangeVolume(double value) async {
+    await effectsManagerRepo.changeSoundEffectVolume(value);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(soundEffectVolume: value),
@@ -61,6 +61,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future zikrEffectChangePlaySoundEveryPraise({required bool activate}) async {
+    if (activate) {
+      await effectsManager.playPraiseSound();
+    }
+    await effectsManagerRepo.changePraiseSoundStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(soundEveryPraise: activate),
@@ -69,6 +73,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future zikrEffectChangePlaySoundEveryZikr({required bool activate}) async {
+    if (activate) {
+      await effectsManager.playZikrSound();
+    }
+    await effectsManagerRepo.changeZikrSoundStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(soundEveryZikr: activate),
@@ -77,6 +85,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future zikrEffectChangePlaySoundEveryTitle({required bool activate}) async {
+    if (activate) {
+      await effectsManager.playTitleSound();
+    }
+    await effectsManagerRepo.changeTitleSoundStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(soundEveryTitle: activate),
@@ -89,6 +101,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future zikrEffectChangePlayVibrationEveryPraise({
     required bool activate,
   }) async {
+    if (activate) {
+      await effectsManager.playPraiseVibratation();
+    }
+    await effectsManagerRepo.changePraiseVibrationStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(vibrateEveryPraise: activate),
@@ -99,6 +115,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future zikrEffectChangePlayVibrationEveryZikr({
     required bool activate,
   }) async {
+    if (activate) {
+      await effectsManager.playZikrVibratation();
+    }
+    await effectsManagerRepo.changeZikrVibrationStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(vibrateEveryZikr: activate),
@@ -109,6 +129,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future zikrEffectChangePlayVibrationEveryTitle({
     required bool activate,
   }) async {
+    if (activate) {
+      await effectsManager.playTitleVibratation();
+    }
+    await effectsManagerRepo.changeTitleVibrationStatus(value: activate);
     emit(
       state.copyWith(
         zikrEffects: state.zikrEffects.copyWith(vibrateEveryTitle: activate),
