@@ -1,78 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class ThemeRepo {
-  static final _box = GetStorage(kAppStorageKey);
+  final GetStorage box;
+  ThemeRepo(this.box);
 
-  ///* ******* Themes ******* */
-  static const String brightnessKey = "ThemeBrightness";
+  ///
+  static const String _brightnessKey = "ThemeBrightness";
 
-  static Brightness getBrightness() {
-    final String? brightness = _box.read(brightnessKey) as String?;
+  Brightness getBrightness() {
+    final String? brightness = box.read(_brightnessKey) as String?;
     return brightness == Brightness.light.toString()
         ? Brightness.light
         : Brightness.dark;
   }
 
-  static Future setBrightness(Brightness brightness) async {
-    await _box.write(brightnessKey, brightness.toString());
+  Future setBrightness(Brightness brightness) async {
+    await box.write(_brightnessKey, brightness.toString());
   }
 
-  static const String themeUseMaterial3Key = "themeUseMaterial3";
+  ///
+  static const String _themeUseMaterial3Key = "themeUseMaterial3";
 
-  static bool getUseMaterial3() {
-    final bool? useMaterial3 = _box.read(themeUseMaterial3Key) as bool?;
+  bool getUseMaterial3() {
+    final bool? useMaterial3 = box.read(_themeUseMaterial3Key) as bool?;
     return useMaterial3 ?? true;
   }
 
-  static Future setUseMaterial3(bool useMaterial3) async {
-    await _box.write(themeUseMaterial3Key, useMaterial3);
+  Future setUseMaterial3(bool useMaterial3) async {
+    await box.write(_themeUseMaterial3Key, useMaterial3);
   }
 
-  static const String useOldThemeKey = "themeUseOldTheme";
+  ///
+  static const String _useOldThemeKey = "themeUseOldTheme";
 
-  static bool getUseOldTheme() {
-    final bool? useOldTheme = _box.read(useOldThemeKey) as bool?;
+  bool getUseOldTheme() {
+    final bool? useOldTheme = box.read(_useOldThemeKey) as bool?;
     return useOldTheme ?? false;
   }
 
-  static Future setUseOldTheme(bool useOldTheme) async {
-    await _box.write(useOldThemeKey, useOldTheme);
+  Future setUseOldTheme(bool useOldTheme) async {
+    await box.write(_useOldThemeKey, useOldTheme);
   }
 
-  static const String themeColorKey = "ThemeColor";
+  ///
+  static const String _themeColorKey = "ThemeColor";
 
-  static Color getColor() {
-    final int? colorValue = _box.read(themeColorKey) as int?;
+  Color getColor() {
+    final int? colorValue = box.read(_themeColorKey) as int?;
     return colorValue != null
         ? Color(colorValue)
         : const Color.fromARGB(255, 105, 187, 253);
   }
 
-  static Future setColor(Color color) async {
-    await _box.write(themeColorKey, color.value);
+  Future setColor(Color color) async {
+    await box.write(_themeColorKey, color.value);
   }
 
-  static const String backgroundColorKey = "BackgroundColor";
+  ///
+  static const String _backgroundColorKey = "BackgroundColor";
 
-  static Color getBackgroundColor() {
-    final int? colorValue = _box.read(backgroundColorKey) as int?;
+  Color getBackgroundColor() {
+    final int? colorValue = box.read(_backgroundColorKey) as int?;
     return colorValue != null ? Color(colorValue) : Colors.black;
   }
 
-  static Future setBackgroundColor(Color color) async {
-    await _box.write(backgroundColorKey, color.value);
+  Future setBackgroundColor(Color color) async {
+    await box.write(_backgroundColorKey, color.value);
   }
 
-  static const String overrideBackgroundColorKey = "overrideBackgroundColor";
+  ///
+  static const String _overrideBackgroundColorKey = "overrideBackgroundColor";
 
-  static bool getOverrideBackgroundColor() {
-    final bool? useOldTheme = _box.read(overrideBackgroundColorKey) as bool?;
+  bool getOverrideBackgroundColor() {
+    final bool? useOldTheme = box.read(_overrideBackgroundColorKey) as bool?;
     return useOldTheme ?? false;
   }
 
-  static Future setOverrideBackgroundColor(bool useOldTheme) async {
-    await _box.write(overrideBackgroundColorKey, useOldTheme);
+  Future setOverrideBackgroundColor(bool useOldTheme) async {
+    await box.write(_overrideBackgroundColorKey, useOldTheme);
   }
 }

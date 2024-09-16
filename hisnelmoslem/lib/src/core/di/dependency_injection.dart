@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -13,6 +15,7 @@ import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
+import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
@@ -20,6 +23,8 @@ final sl = GetIt.instance;
 
 Future<void> initSL() async {
   ///MARK: Init storages
+  sl.registerLazySingleton(() => GetStorage(kAppStorageKey));
+  sl.registerLazySingleton(() => ThemeRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -35,7 +40,7 @@ Future<void> initSL() async {
   ///MARK: Init BLOC
 
   /// Singleton BLoC
-  sl.registerLazySingleton(() => ThemeCubit());
+  sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
