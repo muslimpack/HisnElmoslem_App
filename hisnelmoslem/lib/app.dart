@@ -39,7 +39,7 @@ class MyAppState extends State<MyApp> {
   @override
   Future<void> dispose() async {
     await sl<AzkarDatabaseHelper>().close();
-    await sl<FakeHadithDatabaseHelper>().close();
+    await sl<FakeHadithDBHelper>().close();
     await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
     awesomeNotificationManager.dispose();

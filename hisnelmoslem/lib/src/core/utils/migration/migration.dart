@@ -15,7 +15,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Migration {
-  static FakeHadithDatabaseHelper fakeHadithDatabaseHelper = sl();
+  static FakeHadithDBHelper fakeHadithDatabaseHelper = sl();
   static AzkarDatabaseHelper azkarDatabaseHelper = sl();
   /* ************* Database Creation ************* */
 

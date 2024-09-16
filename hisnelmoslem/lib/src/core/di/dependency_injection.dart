@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -41,7 +42,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => UthmaniRepository());
   sl.registerLazySingleton(() => UserDataDBHelper());
   sl.registerLazySingleton(() => AzkarDatabaseHelper(sl()));
-  sl.registerLazySingleton(() => FakeHadithDatabaseHelper(sl()));
+  sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
 
   ///MARK: Init Manager
   sl.registerFactory(() => EffectsManager(sl()));
@@ -60,6 +61,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => TallyBloc(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
+  sl.registerFactory(() => FakeHadithBloc(sl()));
   sl.registerFactory(
     () => ZikrViewerBloc(
       effectsManager: sl(),

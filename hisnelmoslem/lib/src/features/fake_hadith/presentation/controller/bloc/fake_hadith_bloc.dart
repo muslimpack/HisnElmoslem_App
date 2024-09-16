@@ -12,7 +12,7 @@ part 'fake_hadith_event.dart';
 part 'fake_hadith_state.dart';
 
 class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
-  final FakeHadithDatabaseHelper fakeHadithDBHelper;
+  final FakeHadithDBHelper fakeHadithDBHelper;
   FakeHadithBloc(this.fakeHadithDBHelper) : super(FakeHadithLoadingState()) {
     _initHandlers();
   }
@@ -45,17 +45,17 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     final List<DbFakeHaith> allHadith =
         List<DbFakeHaith>.from(state.allHadith).map((e) {
       if (e.id == event.fakeHadith.id) {
-        return event.fakeHadith;
+        return event.fakeHadith.copyWith(isRead: event.isRead);
       }
       return e;
     }).toList();
 
     if (event.isRead) {
-      fakeHadithDBHelper.markFakeHadithAsRead(
+      await fakeHadithDBHelper.markFakeHadithAsRead(
         dbFakeHaith: event.fakeHadith,
       );
     } else {
-      fakeHadithDBHelper.markFakeHadithAsUnRead(
+      await fakeHadithDBHelper.markFakeHadithAsUnRead(
         dbFakeHaith: event.fakeHadith,
       );
     }

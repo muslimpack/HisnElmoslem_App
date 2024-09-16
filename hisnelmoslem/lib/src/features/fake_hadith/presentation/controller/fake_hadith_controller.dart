@@ -8,7 +8,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/sh
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class FakeHadithController extends GetxController {
-  final FakeHadithDatabaseHelper fakeHadithDatabaseHelper = sl();
+  final FakeHadithDBHelper fakeHadithDatabaseHelper = sl();
   /* *************** Variables *************** */
   //
   final fakeHadithScaffoldKey = GlobalKey<ScaffoldState>();

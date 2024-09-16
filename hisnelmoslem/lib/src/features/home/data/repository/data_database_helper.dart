@@ -127,6 +127,7 @@ class UserDataDBHelper {
 
   /* ************* Functions ************* */
 
+  ///MARK: HisnElmoslem Titles
   /* ************* HisnElmoslem Titles ************* */
 
   /// Get all favourite titles
@@ -194,6 +195,7 @@ class UserDataDBHelper {
     );
   }
 
+  ///MARK: HisnElmoslem Contents
   /* ************* HisnElmoslem Contents ************* */
 
   /// Get favourite content
@@ -262,6 +264,7 @@ class UserDataDBHelper {
     );
   }
 
+  ///MARK: FakeHadith
   /* ************* FakeHadith Read ************* */
 
   /// Get read hadith only
@@ -274,37 +277,6 @@ class UserDataDBHelper {
     return List.generate(maps.length, (i) {
       return DbFakeHadithRead.fromMap(maps[i]);
     });
-  }
-
-  /// Get unread hadith only
-  Future<List<DbFakeHadithRead>> getUnreadFakeHadiths() async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db
-        .rawQuery('''Select * from fake_hadith_is_read where isRead = 0''');
-
-    return List.generate(maps.length, (i) {
-      return DbFakeHadithRead.fromMap(maps[i]);
-    });
-  }
-
-  ///
-  Future<bool> isFakeHadithWereRead({required int fakeHadithId}) async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT *  from fake_hadith_is_read WHERE hadith_id = ?''',
-      [fakeHadithId],
-    );
-    DbFakeHadithRead dbFakeHadithRead;
-    if (maps.isNotEmpty) {
-      dbFakeHadithRead = List.generate(maps.length, (i) {
-        return DbFakeHadithRead.fromMap(maps[i]);
-      }).first;
-      return dbFakeHadithRead.isRead;
-    } else {
-      return false;
-    }
   }
 
   /// Mark hadith as read
@@ -331,17 +303,11 @@ class UserDataDBHelper {
   }) async {
     final db = await database;
 
-    await db.rawUpdate(
+    await db.rawDelete(
       '''
-        insert or IGNORE into fake_hadith_is_read (hadith_id , isRead) values (?,?);
+        DELETE FROM fake_hadith_is_read WHERE hadith_id =?
         ''',
-      [dbFakeHaith.id, 0],
-    );
-    await db.rawUpdate(
-      '''
-        UPDATE fake_hadith_is_read SET isRead = ? WHERE hadith_id =?
-        ''',
-      [0, dbFakeHaith.id],
+      [dbFakeHaith.id],
     );
   }
 
