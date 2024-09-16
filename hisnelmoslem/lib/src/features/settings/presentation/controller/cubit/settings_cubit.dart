@@ -8,7 +8,6 @@ import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_
 
 part 'settings_state.dart';
 
-///TODO save effect manager changes
 class SettingsCubit extends Cubit<SettingsState> {
   final EffectsManager effectsManager;
   final EffectsManagerRepo effectsManagerRepo;
