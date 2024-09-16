@@ -9,11 +9,15 @@ sealed class ZikrViewerEvent extends Equatable {
 
 final class ZikrViewerStartEvent extends ZikrViewerEvent {
   final int titleIndex;
+  final ZikrViewerMode zikrViewerMode;
 
-  const ZikrViewerStartEvent({required this.titleIndex});
+  const ZikrViewerStartEvent({
+    required this.titleIndex,
+    required this.zikrViewerMode,
+  });
 
   @override
-  List<Object> get props => [titleIndex];
+  List<Object> get props => [titleIndex, zikrViewerMode];
 }
 
 final class ZikrViewerDecreaseZikrEvent extends ZikrViewerEvent {

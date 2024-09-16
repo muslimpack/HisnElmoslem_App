@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'zikr_viewer_bloc.dart';
 
 sealed class ZikrViewerState extends Equatable {
@@ -14,6 +15,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
   final List<DbContent> azkar;
   final List<DbContent> azkarToView;
   final int activeZikrIndex;
+  final ZikrViewerMode zikrViewerMode;
 
   DbContent? get activeZikr {
     if (azkarToView.isEmpty) return null;
@@ -36,6 +38,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     required this.azkar,
     required this.azkarToView,
     required this.activeZikrIndex,
+    required this.zikrViewerMode,
   });
 
   ZikrViewerLoadedState copyWith({
@@ -43,15 +46,23 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     List<DbContent>? azkar,
     List<DbContent>? azkarToView,
     int? activeZikrIndex,
+    ZikrViewerMode? zikrViewerMode,
   }) {
     return ZikrViewerLoadedState(
       title: title ?? this.title,
       azkar: azkar ?? this.azkar,
       azkarToView: azkarToView ?? this.azkarToView,
       activeZikrIndex: activeZikrIndex ?? this.activeZikrIndex,
+      zikrViewerMode: zikrViewerMode ?? this.zikrViewerMode,
     );
   }
 
   @override
-  List<Object> get props => [title, azkar, azkarToView, activeZikrIndex];
+  List<Object> get props => [
+        title,
+        azkar,
+        azkarToView,
+        activeZikrIndex,
+        zikrViewerMode,
+      ];
 }

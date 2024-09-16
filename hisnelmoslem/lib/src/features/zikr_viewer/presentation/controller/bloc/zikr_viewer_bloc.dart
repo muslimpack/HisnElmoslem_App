@@ -25,20 +25,17 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final SoundsManagerController soundsManagerController;
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
-  final ZikrViewerMode zikrViewerMode;
+
   final AzkarDatabaseHelper azkarDatabaseHelper;
   ZikrViewerBloc({
     required this.soundsManagerController,
     required this.homeBloc,
-    required this.zikrViewerMode,
     required this.azkarDatabaseHelper,
   }) : super(ZikrViewerLoadingState()) {
     _initHandlers();
-
-    _initZikrPageMode();
   }
 
-  void _initZikrPageMode() {
+  void _initZikrPageMode(ZikrViewerMode zikrViewerMode) {
     if (zikrViewerMode != ZikrViewerMode.page) return;
 
     _volumeBtnChannel.setMethodCallHandler((call) async {
@@ -85,11 +82,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
     final azkarToView = List<DbContent>.from(azkar);
 
+    _initZikrPageMode(event.zikrViewerMode);
+
     emit(
       ZikrViewerLoadedState(
         title: title,
         azkar: azkar,
         azkarToView: azkarToView,
+        zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
       ),
     );
@@ -270,7 +270,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     required ZikrViewerLoadedState state,
     DbContent? eventContent,
   }) {
-    return zikrViewerMode == ZikrViewerMode.page
+    return state.zikrViewerMode == ZikrViewerMode.page
         ? state.activeZikr
         : eventContent;
   }

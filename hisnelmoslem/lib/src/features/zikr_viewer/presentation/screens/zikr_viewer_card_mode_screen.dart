@@ -21,9 +21,13 @@ class ZikrViewerCardModeScreen extends StatelessWidget {
       create: (context) => ZikrViewerBloc(
         soundsManagerController: SoundsManagerController(),
         homeBloc: sl(),
-        zikrViewerMode: ZikrViewerMode.card,
         azkarDatabaseHelper: sl(),
-      )..add(ZikrViewerStartEvent(titleIndex: index)),
+      )..add(
+          ZikrViewerStartEvent(
+            titleIndex: index,
+            zikrViewerMode: ZikrViewerMode.card,
+          ),
+        ),
       child: BlocBuilder<ZikrViewerBloc, ZikrViewerState>(
         builder: (context, state) {
           if (state is! ZikrViewerLoadedState) {
