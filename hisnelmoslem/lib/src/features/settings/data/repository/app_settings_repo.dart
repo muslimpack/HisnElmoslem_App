@@ -1,9 +1,20 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 
 class AppSettingsRepo {
   final GetStorage box;
 
   AppSettingsRepo(this.box);
+
+  ///MARK:Release First open
+  /* ******* is first open to this release ******* */
+
+  static const _releaseFirstOpenKey = "is_${appVersion}_first_open";
+  bool get isReleaseFirstOpen => box.read(_releaseFirstOpenKey) ?? true;
+
+  Future<void> changIsReleaseFirstOpen({required bool value}) async {
+    await box.write(_releaseFirstOpenKey, value);
+  }
 
   ///MARK:Azkar Read Mode
   /* ******* Azkar Read Mode ******* */

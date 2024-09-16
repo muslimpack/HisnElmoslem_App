@@ -55,14 +55,4 @@ class AppData {
   }
 
   /* ******* Share as image ******* */
-
-  /* ******* is first open to this release ******* */
-  /// Check is first open to this release
-  bool get isFirstOpenToThisRelease =>
-      box.read("is_${appVersion}_first_open") ?? true;
-
-  /// Change is first open to this release
-  Future<void> changIsFirstOpenToThisRelease({required bool value}) async {
-    await box.write("is_${appVersion}_first_open", value);
-  }
 }

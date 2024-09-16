@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_he
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
+import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/quran_cubit.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
@@ -55,6 +56,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl()));
 
   /// Factory BLoC
+  sl.registerFactory(() => OnboardCubit(sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
