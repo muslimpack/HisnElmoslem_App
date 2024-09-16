@@ -18,7 +18,7 @@ class ShareAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShareImageCubit(sl())..start(dbContent),
+      create: (context) => sl<ShareImageCubit>()..start(dbContent),
       child: BlocBuilder<ShareImageCubit, ShareImageState>(
         builder: (context, state) {
           if (state is! ShareImageLoadedState) {

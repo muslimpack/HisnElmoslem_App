@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -33,4 +34,6 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
+  sl.registerFactory(() => TallyBloc(sl(), SoundsManagerController()));
+  sl.registerFactory(() => ShareImageCubit(sl()));
 }
