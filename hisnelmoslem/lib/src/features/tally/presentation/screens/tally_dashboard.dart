@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/sounds_manager_controller.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_dialog.dart';
@@ -17,8 +16,7 @@ class Tally extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TallyBloc(sl(), SoundsManagerController())..add(TallyStartEvent()),
+      create: (context) => sl<TallyBloc>()..add(TallyStartEvent()),
       child: BlocBuilder<TallyBloc, TallyState>(
         builder: (context, state) {
           if (state is! TallyLoadedState) {
