@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FontSettingsToolbox extends StatelessWidget {
@@ -23,19 +23,19 @@ class FontSettingsToolbox extends StatelessWidget {
           IconButton(
             icon: Icon(MdiIcons.restart),
             onPressed: () {
-              context.read<ThemeCubit>().resetFontSize();
+              context.read<SettingsCubit>().resetFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
-              context.read<ThemeCubit>().increaseFontSize();
+              context.read<SettingsCubit>().increaseFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
-              context.read<ThemeCubit>().decreaseFontSize();
+              context.read<SettingsCubit>().decreaseFontSize();
             },
           ),
         ],
@@ -43,7 +43,7 @@ class FontSettingsToolbox extends StatelessWidget {
           IconButton(
             icon: Icon(MdiIcons.abjadArabic),
             onPressed: () {
-              context.read<ThemeCubit>().toggleDiacriticsStatus();
+              context.read<SettingsCubit>().toggleDiacriticsStatus();
             },
           ),
       ],
@@ -58,7 +58,7 @@ class TextSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
+    return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return SizedBox(
           height: 200,

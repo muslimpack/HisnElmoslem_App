@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_ani
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class HadithCard extends StatelessWidget {
@@ -55,7 +55,7 @@ class HadithCard extends StatelessWidget {
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
-            child: BlocBuilder<ThemeCubit, ThemeState>(
+            child: BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
                 return Container(
                   constraints: const BoxConstraints(minHeight: 150),

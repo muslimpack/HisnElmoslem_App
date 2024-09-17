@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 
 Future<dynamic> showCommentaryDialog({
@@ -118,7 +118,7 @@ class CommentaryPageView extends StatelessWidget {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        BlocBuilder<ThemeCubit, ThemeState>(
+        BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(20),

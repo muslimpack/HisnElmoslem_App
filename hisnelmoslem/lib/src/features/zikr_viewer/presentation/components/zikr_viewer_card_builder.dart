@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
@@ -40,7 +39,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                   .read<ZikrViewerBloc>()
                   .add(ZikrViewerCopyZikrEvent(content: dbContent));
             },
-            child: BlocBuilder<ThemeCubit, ThemeState>(
+            child: BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
                 return Container(
                   constraints: const BoxConstraints(minHeight: 200),

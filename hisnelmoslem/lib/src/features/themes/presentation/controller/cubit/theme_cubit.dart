@@ -1,16 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/repos/zikr_text_repo.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   final ThemeRepo themeRepo;
-  final ZikrTextRepo zikrTextRepo;
-  ThemeCubit(this.themeRepo, this.zikrTextRepo)
+  ThemeCubit(this.themeRepo)
       : super(
           ThemeState(
             brightness: themeRepo.getBrightness(),
@@ -21,8 +18,6 @@ class ThemeCubit extends Cubit<ThemeState> {
             backgroundColor: themeRepo.getBackgroundColor(),
             overrideBackgroundColor: themeRepo.getOverrideBackgroundColor(),
             locale: themeRepo.appLocale,
-            fontSize: zikrTextRepo.fontSize,
-            showDiacritics: zikrTextRepo.showDiacritics,
           ),
         );
 
@@ -75,36 +70,5 @@ class ThemeCubit extends Cubit<ThemeState> {
   Future<void> changeAppLocale(String locale) async {
     await themeRepo.changAppLocale(locale);
     emit(state.copyWith(locale: Locale(locale)));
-  }
-
-  ///MARK: Zikr Text
-
-  Future<void> changFontSize(double value) async {
-    final double tempValue = value.clamp(kFontMin, kFontMax);
-    await zikrTextRepo.changFontSize(tempValue);
-    emit(state.copyWith(fontSize: tempValue));
-  }
-
-  Future resetFontSize() async {
-    await changFontSize(kFontDefault);
-  }
-
-  Future increaseFontSize() async {
-    await changFontSize(state.fontSize + kFontChangeBy);
-  }
-
-  Future decreaseFontSize() async {
-    await changFontSize(state.fontSize - kFontChangeBy);
-  }
-
-  /* ******* Diacritics ******* */
-
-  Future<void> changDiacriticsStatus({required bool value}) async {
-    await zikrTextRepo.changDiacriticsStatus(value: value);
-    emit(state.copyWith(showDiacritics: value));
-  }
-
-  Future<void> toggleDiacriticsStatus() async {
-    await changDiacriticsStatus(value: !state.showDiacritics);
   }
 }

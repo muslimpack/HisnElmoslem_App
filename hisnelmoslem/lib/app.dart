@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -68,7 +67,6 @@ class AppState extends State<App> {
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-          hisnPrint("fontSize: ${state.fontSize}");
           return GetMaterialApp(
             navigatorKey: App.navigatorKey,
             scrollBehavior: AppScrollBehavior(),

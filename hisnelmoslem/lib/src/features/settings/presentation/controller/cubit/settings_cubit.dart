@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/core/repos/zikr_text_repo.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/models/zikr_effects.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -12,10 +14,12 @@ class SettingsCubit extends Cubit<SettingsState> {
   final EffectsManager effectsManager;
   final EffectsManagerRepo effectsManagerRepo;
   final AppSettingsRepo appSettingsRepo;
+  final ZikrTextRepo zikrTextRepo;
   SettingsCubit(
     this.effectsManagerRepo,
     this.appSettingsRepo,
     this.effectsManager,
+    this.zikrTextRepo,
   ) : super(
           SettingsState(
             zikrEffects: ZikrEffects(
@@ -30,6 +34,8 @@ class SettingsCubit extends Cubit<SettingsState> {
             enableWakeLock: appSettingsRepo.enableWakeLock,
             isCardReadMode: appSettingsRepo.isCardReadMode,
             useHindiDigits: appSettingsRepo.useHindiDigits,
+            fontSize: zikrTextRepo.fontSize,
+            showDiacritics: zikrTextRepo.showDiacritics,
           ),
         );
 
@@ -137,5 +143,36 @@ class SettingsCubit extends Cubit<SettingsState> {
         zikrEffects: state.zikrEffects.copyWith(vibrateEveryTitle: activate),
       ),
     );
+  }
+
+  ///MARK: Zikr Text
+
+  Future<void> changFontSize(double value) async {
+    final double tempValue = value.clamp(kFontMin, kFontMax);
+    await zikrTextRepo.changFontSize(tempValue);
+    emit(state.copyWith(fontSize: tempValue));
+  }
+
+  Future resetFontSize() async {
+    await changFontSize(kFontDefault);
+  }
+
+  Future increaseFontSize() async {
+    await changFontSize(state.fontSize + kFontChangeBy);
+  }
+
+  Future decreaseFontSize() async {
+    await changFontSize(state.fontSize - kFontChangeBy);
+  }
+
+  /* ******* Diacritics ******* */
+
+  Future<void> changDiacriticsStatus({required bool value}) async {
+    await zikrTextRepo.changDiacriticsStatus(value: value);
+    emit(state.copyWith(showDiacritics: value));
+  }
+
+  Future<void> toggleDiacriticsStatus() async {
+    await changDiacriticsStatus(value: !state.showDiacritics);
   }
 }

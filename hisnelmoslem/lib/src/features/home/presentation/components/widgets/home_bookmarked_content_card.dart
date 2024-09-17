@@ -9,8 +9,8 @@ import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_ani
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
@@ -74,7 +74,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
             onTap: () {
               decrease();
             },
-            child: BlocBuilder<ThemeCubit, ThemeState>(
+            child: BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
                 return Container(
                   padding: const EdgeInsets.all(15),

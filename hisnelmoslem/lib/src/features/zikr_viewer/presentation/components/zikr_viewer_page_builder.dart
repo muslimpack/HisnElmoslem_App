@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
@@ -55,7 +55,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<ThemeCubit, ThemeState>(
+          BlocBuilder<SettingsCubit, SettingsState>(
             builder: (context, state) {
               return ListView(
                 physics: const BouncingScrollPhysics(),
