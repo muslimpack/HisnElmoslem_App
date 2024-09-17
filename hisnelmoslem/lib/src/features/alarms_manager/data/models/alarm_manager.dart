@@ -10,8 +10,6 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repea
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 
-AlarmManager alarmManager = AlarmManager();
-
 class AlarmManager {
   Future<void> alarmState({
     required DbAlarm dbAlarm,

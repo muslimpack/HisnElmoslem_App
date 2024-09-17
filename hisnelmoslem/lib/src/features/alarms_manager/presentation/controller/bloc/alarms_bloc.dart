@@ -19,9 +19,11 @@ part 'alarms_state.dart';
 class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AlarmsRepo alarmsRepo;
+  final AlarmManager alarmManager;
   AlarmsBloc(
     this.alarmDatabaseHelper,
     this.alarmsRepo,
+    this.alarmManager,
   ) : super(AlarmsLoadingState()) {
     on<AlarmsStartEvent>(_start);
     on<AlarmsAddEvent>(_add);
@@ -36,6 +38,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     Emitter<AlarmsState> emit,
   ) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
+    await alarmManager.checkAllAlarmsInDb();
     emit(
       AlarmsLoadedState(
         alarms: alarms,
