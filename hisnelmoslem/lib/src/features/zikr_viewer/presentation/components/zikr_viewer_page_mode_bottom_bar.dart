@@ -15,36 +15,42 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Expanded(
-            child: IconButton(
-              splashRadius: 20,
-              padding: EdgeInsets.zero,
-              icon: const Icon(Icons.copy),
-              onPressed: () async {
-                context
-                    .read<ZikrViewerBloc>()
-                    .add(const ZikrViewerCopyZikrEvent());
-              },
-            ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.copy),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerCopyZikrEvent());
+            },
           ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.repeat),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerResetZikrEvent());
+            },
+          ),
+          const VerticalDivider(),
           const Expanded(
             flex: 3,
             child: FontSettingsToolbox(),
           ),
-          Expanded(
-            child: IconButton(
-              splashRadius: 20,
-              padding: EdgeInsets.zero,
-              icon: const Icon(
-                Icons.report,
-                color: Colors.orange,
-              ),
-              onPressed: () async {
-                context
-                    .read<ZikrViewerBloc>()
-                    .add(const ZikrViewerReportZikrEvent());
-              },
+          const VerticalDivider(),
+          IconButton(
+            splashRadius: 20,
+            padding: EdgeInsets.zero,
+            icon: const Icon(
+              Icons.report,
+              color: Colors.orange,
             ),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerReportZikrEvent());
+            },
           ),
         ],
       ),
