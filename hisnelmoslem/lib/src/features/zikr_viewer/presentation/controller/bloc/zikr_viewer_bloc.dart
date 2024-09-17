@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/utils.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -223,8 +222,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final activeZikr =
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
-
-    hisnPrint("activeZikr: $activeZikr");
 
     if (event.bookmark) {
       await azkarDatabaseHelper.addContentToFavourite(
