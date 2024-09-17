@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
@@ -49,6 +50,11 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
 
   void decrease() {
     if (dbContent.count > 0) {
+      sl<EffectsManager>().playPraiseEffects();
+      if (dbContent.count == 1) {
+        sl<EffectsManager>().playZikrEffects();
+      }
+
       setState(() {
         dbContent = dbContent.copyWith(count: dbContent.count - 1);
       });
