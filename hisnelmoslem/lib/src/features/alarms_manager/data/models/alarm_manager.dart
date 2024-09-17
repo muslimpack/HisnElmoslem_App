@@ -21,7 +21,7 @@ class AlarmManager {
   }) async {
     if (dbAlarm.isActive) {
       if (showMsg) {
-        showToast(msg: "${"activate".tr} | ${dbAlarm.title}");
+        showToast(msg: "${"activate".tr}: ${dbAlarm.title}");
       }
 
       if (dbAlarm.repeatType == AlarmRepeatType.daily) {
@@ -44,7 +44,7 @@ class AlarmManager {
       }
     } else {
       if (showMsg) {
-        showToast(msg: "${"deactivate".tr} | ${dbAlarm.title}");
+        showToast(msg: "${"deactivate".tr}: ${dbAlarm.title}");
       }
 
       await awesomeNotificationManager.cancelNotificationById(

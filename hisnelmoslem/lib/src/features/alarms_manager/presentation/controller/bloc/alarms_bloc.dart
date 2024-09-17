@@ -103,7 +103,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     );
 
     showToast(
-      msg: "${"Reminder Removed".tr} | ${event.alarm.title}",
+      msg: "${"Reminder Removed".tr}: ${event.alarm.title}",
     );
 
     emit(state.copyWith(alarms: alarms));
@@ -119,13 +119,12 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg:
-            "${"activate".tr} | ${"fasting mondays and thursdays reminder".tr}",
+        msg: "${"activate".tr}: ${"fasting mondays and thursdays reminder".tr}",
       );
     } else {
       showToast(
         msg:
-            "${"deactivate".tr} | ${"fasting mondays and thursdays reminder".tr}",
+            "${"deactivate".tr}: ${"fasting mondays and thursdays reminder".tr}",
       );
     }
 
@@ -145,11 +144,11 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg: "${"activate".tr} | ${"sura Al-Kahf reminder".tr}",
+        msg: "${"activate".tr}: ${"sura Al-Kahf reminder".tr}",
       );
     } else {
       showToast(
-        msg: "${"deactivate".tr} | ${"sura Al-Kahf reminder".tr}",
+        msg: "${"deactivate".tr}: ${"sura Al-Kahf reminder".tr}",
       );
     }
 

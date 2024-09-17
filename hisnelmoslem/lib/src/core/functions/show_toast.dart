@@ -38,7 +38,7 @@ Future<void> showToast({
     );
   } else {
     Fluttertoast.showToast(
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor.withOpacity(.5),
       textColor: textColor,
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
