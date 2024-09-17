@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/azkar_read_page_controller.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
-  final AzkarReadPageController controller;
-
   const ZikrViewerPageModeBottomBar({
     super.key,
-    required this.controller,
   });
 
   @override
@@ -21,51 +15,42 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Expanded(
-            child: IconButton(
-              splashRadius: 20,
-              padding: EdgeInsets.zero,
-              icon: const Icon(Icons.copy),
-              onPressed: () async {
-                final text = await controller.activeZikr.getPlainText();
-                await Clipboard.setData(
-                  ClipboardData(text: "$text\n${controller.activeZikr.fadl}"),
-                );
-                final snackBar = SnackBar(
-                  content: Text("copied to clipboard".tr),
-                  action: SnackBarAction(
-                    label: "done".tr,
-                    onPressed: () {},
-                  ),
-                );
-                if (!context.mounted) return;
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.copy),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerCopyZikrEvent());
+            },
           ),
-          Expanded(
+          IconButton(
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.repeat),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerResetZikrEvent());
+            },
+          ),
+          const VerticalDivider(),
+          const Expanded(
             flex: 3,
-            child: FontSettingsToolbox(
-              controllerToUpdate: controller,
-            ),
+            child: FontSettingsToolbox(),
           ),
-          Expanded(
-            child: IconButton(
-              splashRadius: 20,
-              padding: EdgeInsets.zero,
-              icon: const Icon(
-                Icons.report,
-                color: Colors.orange,
-              ),
-              onPressed: () async {
-                final text = await controller.activeZikr.getPlainText();
-                EmailManager.sendMisspelledInZikrWithText(
-                  subject: controller.zikrTitle!.name,
-                  cardNumber: (controller.currentPage + 1).toString(),
-                  text: text,
-                );
-              },
+          const VerticalDivider(),
+          IconButton(
+            splashRadius: 20,
+            padding: EdgeInsets.zero,
+            icon: const Icon(
+              Icons.report,
+              color: Colors.orange,
             ),
+            onPressed: () async {
+              context
+                  .read<ZikrViewerBloc>()
+                  .add(const ZikrViewerReportZikrEvent());
+            },
           ),
         ],
       ),

@@ -9,9 +9,7 @@ class FontFamilyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeCubit = context.read<ThemeCubit>();
     return BlocBuilder<ThemeCubit, ThemeState>(
-      bloc: themeCubit,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -44,7 +42,7 @@ class FontFamilyPage extends StatelessWidget {
                   ),
                 ),
                 leading: const Icon(Icons.text_format),
-                onTap: () => themeCubit.changeFontFamily(font),
+                onTap: () => context.read<ThemeCubit>().changeFontFamily(font),
               );
             }),
           ),

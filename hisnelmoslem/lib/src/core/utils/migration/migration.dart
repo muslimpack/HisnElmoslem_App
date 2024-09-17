@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/azkar_old_db.dart';
 import 'package:hisnelmoslem/src/core/utils/migration/fake_hadith_old_db.dart';
@@ -14,6 +15,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Migration {
+  static FakeHadithDBHelper fakeHadithDatabaseHelper = sl();
+  static AzkarDatabaseHelper azkarDatabaseHelper = sl();
   /* ************* Database Creation ************* */
 
   static Future<void> start() async {

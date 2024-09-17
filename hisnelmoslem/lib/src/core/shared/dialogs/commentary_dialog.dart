@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 
 Future<dynamic> showCommentaryDialog({
@@ -33,7 +35,7 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
   late Commentary? commentary;
 
   Future<void> getData() async {
-    await azkarDatabaseHelper
+    await sl<AzkarDatabaseHelper>()
         .getCommentaryByContentId(contentId: widget.contentId)
         .then((value) {
       commentary = value;
@@ -116,12 +118,18 @@ class CommentaryPageView extends StatelessWidget {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: SelectableText(
-            text,
-            style: TextStyle(fontSize: AppData.instance.fontSize * 10),
-          ),
+        BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(20),
+              child: SelectableText(
+                text,
+                style: TextStyle(
+                  fontSize: state.fontSize * 10,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

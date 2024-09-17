@@ -1,15 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/localization/presentation/controller/app_language_page_controller.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/settings/data/models/translation_data.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 class AppLanguagePage extends StatelessWidget {
   const AppLanguagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AppLanguagePageController>(
-      init: AppLanguagePageController(),
-      builder: (controller) {
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -19,32 +23,46 @@ class AppLanguagePage extends StatelessWidget {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
-          body: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              for (int index = 0;
-                  index < controller.languages.length;
-                  index += 1)
-                ListTile(
-                  key: Key('$index'),
-                  tileColor: Get.locale!.languageCode ==
-                          controller.languages[index].code
-                      ? controller.activeColor
-                      : null,
-                  title: Text(
-                    controller.languages[index].display,
-                  ),
-                  subtitle: Text(
-                    controller.languages[index].code,
-                  ),
-                  leading: const Icon(Icons.translate_rounded),
-                  onTap: () => controller
-                      .changeAppLanguage(controller.languages[index].code),
-                ),
-            ],
+          body: ListView.builder(
+            itemCount: kAppLanguages.length,
+            itemBuilder: (context, index) {
+              final TranslationData translationData = kAppLanguages[index];
+              hisnPrint("${state.locale.languageCode} ${translationData.code}");
+              return _LanguageCard(
+                isActive: state.locale.languageCode == translationData.code,
+                translationData: translationData,
+              );
+            },
           ),
         );
       },
+    );
+  }
+}
+
+class _LanguageCard extends StatelessWidget {
+  final TranslationData translationData;
+  final bool isActive;
+  const _LanguageCard({
+    required this.translationData,
+    required this.isActive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      tileColor: isActive
+          ? Theme.of(context).colorScheme.primary.withOpacity(.2)
+          : null,
+      title: Text(
+        translationData.display,
+      ),
+      subtitle: Text(
+        translationData.code,
+      ),
+      leading: const Icon(Icons.translate_rounded),
+      onTap: () =>
+          context.read<ThemeCubit>().changeAppLocale(translationData.code),
     );
   }
 }

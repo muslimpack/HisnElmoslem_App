@@ -8,6 +8,7 @@ class ThemeState extends Equatable {
   final bool overrideBackgroundColor;
   final bool useOldTheme;
   final String fontFamily;
+  final Locale locale;
   const ThemeState({
     required this.color,
     required this.brightness,
@@ -16,6 +17,7 @@ class ThemeState extends Equatable {
     required this.overrideBackgroundColor,
     required this.useOldTheme,
     required this.fontFamily,
+    required this.locale,
   });
 
   ThemeData themeData() {
@@ -40,19 +42,6 @@ class ThemeState extends Equatable {
     );
   }
 
-  @override
-  List<Object> get props {
-    return [
-      color,
-      brightness,
-      useMaterial3,
-      backgroundColor,
-      overrideBackgroundColor,
-      useOldTheme,
-      fontFamily,
-    ];
-  }
-
   ThemeState copyWith({
     Color? color,
     Brightness? brightness,
@@ -61,6 +50,7 @@ class ThemeState extends Equatable {
     bool? overrideBackgroundColor,
     bool? useOldTheme,
     String? fontFamily,
+    Locale? locale,
   }) {
     return ThemeState(
       color: color ?? this.color,
@@ -71,6 +61,21 @@ class ThemeState extends Equatable {
           overrideBackgroundColor ?? this.overrideBackgroundColor,
       useOldTheme: useOldTheme ?? this.useOldTheme,
       fontFamily: fontFamily ?? this.fontFamily,
+      locale: locale ?? this.locale,
     );
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      color,
+      brightness,
+      useMaterial3,
+      backgroundColor,
+      overrideBackgroundColor,
+      useOldTheme,
+      fontFamily,
+      locale,
+    ];
   }
 }

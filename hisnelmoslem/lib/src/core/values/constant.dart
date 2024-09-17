@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/features/settings/data/models/translation_data.dart';
 
 //TODO App Version | Change every release
 const String appVersion = "2.8.0";
 
 String kAppStorageKey =
     PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
+
+List<TranslationData> kAppLanguages = [
+  TranslationData(display: "العربية", code: "ar"),
+  TranslationData(display: "English", code: "en"),
+];
+
+const double kFontChangeBy = .2;
+const double kFontDefault = 2.6;
+const double kFontMin = 1.5;
+const double kFontMax = 4;
 
 //Invert Image Color
 const ColorFilter invert = ColorFilter.matrix(

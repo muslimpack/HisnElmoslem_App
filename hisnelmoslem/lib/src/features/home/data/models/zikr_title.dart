@@ -1,14 +1,17 @@
-class DbTitle {
-  int id;
-  String name;
-  int orderId;
-  bool favourite;
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 
-  DbTitle({
-    this.id = 0,
-    this.name = "",
-    this.orderId = 0,
-    this.favourite = false,
+class DbTitle extends Equatable {
+  final int id;
+  final String name;
+  final int orderId;
+  final bool favourite;
+
+  const DbTitle({
+    required this.id,
+    required this.name,
+    required this.orderId,
+    required this.favourite,
   });
 
   factory DbTitle.fromMap(Map<String, dynamic> map) {
@@ -39,5 +42,22 @@ class DbTitle {
   @override
   String toString() {
     return toMap().toString();
+  }
+
+  @override
+  List<Object> get props => [id, name, orderId, favourite];
+
+  DbTitle copyWith({
+    int? id,
+    String? name,
+    int? orderId,
+    bool? favourite,
+  }) {
+    return DbTitle(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      orderId: orderId ?? this.orderId,
+      favourite: favourite ?? this.favourite,
+    );
   }
 }

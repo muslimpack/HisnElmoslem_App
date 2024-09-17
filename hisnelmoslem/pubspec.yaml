@@ -34,6 +34,7 @@ dependencies:
   fluttertoast: ^8.2.8
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
+  get_it: ^7.7.0
   get_storage: ^2.1.1
   intl: ^0.19.0
   material_design_icons_flutter: ^7.0.7296

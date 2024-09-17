@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/windows_button.dart';
@@ -66,9 +67,9 @@ class _UIAppBarState extends State<UIAppBar> {
                       showCheckmark: false,
                       label: const Icon(FontAwesomeIcons.solidMoon),
                       onSelected: (v) {
-                        context.read<ThemeCubit>().changeBrightness(
-                              v ? Brightness.dark : Brightness.light,
-                            );
+                        sl<ThemeCubit>().changeBrightness(
+                          v ? Brightness.dark : Brightness.light,
+                        );
                       },
                     ),
                   ),

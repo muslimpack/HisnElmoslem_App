@@ -5,9 +5,8 @@ import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dar
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
-FakeHadithDatabaseHelper fakeHadithDatabaseHelper = FakeHadithDatabaseHelper();
-
-class FakeHadithDatabaseHelper {
+class FakeHadithDBHelper {
+  final UserDataDBHelper userDataDBHelper;
   /* ************* Variables ************* */
 
   static const String dbName = "fake_hadith.db";
@@ -15,17 +14,17 @@ class FakeHadithDatabaseHelper {
 
   /* ************* Singleton Constructor ************* */
 
-  static FakeHadithDatabaseHelper? _databaseHelper;
+  static FakeHadithDBHelper? _databaseHelper;
   static Database? _database;
   static late final DBHelper _dbHelper;
 
-  factory FakeHadithDatabaseHelper() {
+  factory FakeHadithDBHelper(UserDataDBHelper userDataDBHelper) {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
-    _databaseHelper ??= FakeHadithDatabaseHelper._createInstance();
+    _databaseHelper ??= FakeHadithDBHelper._createInstance(userDataDBHelper);
     return _databaseHelper!;
   }
 
-  FakeHadithDatabaseHelper._createInstance();
+  FakeHadithDBHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
     _database ??= await _dbHelper.initDatabase();
@@ -42,73 +41,27 @@ class FakeHadithDatabaseHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
-    final List<DbFakeHaith> fakeHadiths = [];
+    final readData = await userDataDBHelper.getReadFakeHadiths();
+    final mappedReadData = {for (final e in readData) e.hadithId: e.isRead};
 
-    for (var i = 0; i < maps.length; i++) {
-      final DbFakeHaith fakeHadith = DbFakeHaith.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isFakeHadithWereRead(fakeHadithId: fakeHadith.id)
-          .then((value) => fakeHadith.isRead = value);
-      fakeHadiths.add(fakeHadith);
-    }
-
-    return fakeHadiths;
-  }
-
-  /// Get fakehadith by id
-  Future<DbFakeHaith> getFakeHadithById({required int fakeHadithId}) async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM fakeHadith  WHERE _id = ?''',
-      [fakeHadithId],
-    );
-    final DbFakeHaith dbFakeHaith = DbFakeHaith.fromMap(maps[0]);
-    await dataDatabaseHelper
-        .isFakeHadithWereRead(fakeHadithId: dbFakeHaith.id)
-        .then((value) => dbFakeHaith.isRead = value);
-
-    return dbFakeHaith;
-  }
-
-  // Get read hadith only
-  Future<List<DbFakeHaith>> getReadFakeHadiths() async {
-    final List<DbFakeHaith> fakeHadiths = [];
-    await dataDatabaseHelper.getReadFakeHadiths().then((value) async {
-      for (var i = 0; i < value.length; i++) {
-        await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
-          fakeHadiths.add(title);
-        });
-      }
-    });
-
-    return fakeHadiths;
-  }
-
-  // Get unread hadith only
-  Future<List<DbFakeHaith>> getUnreadFakeHadiths() async {
-    final List<DbFakeHaith> fakeHadiths = [];
-    await dataDatabaseHelper.getUnreadFakeHadiths().then((value) async {
-      for (var i = 0; i < value.length; i++) {
-        await getFakeHadithById(fakeHadithId: value[i].hadithId).then((title) {
-          fakeHadiths.add(title);
-        });
-      }
-    });
-
-    return fakeHadiths;
+    return maps.map((e) {
+      final fakeHadith = DbFakeHaith.fromMap(e);
+      return fakeHadith.copyWith(isRead: mappedReadData[fakeHadith.id]);
+    }).toList();
   }
 
   // Mark hadith as read
   Future<void> markFakeHadithAsRead({required DbFakeHaith dbFakeHaith}) async {
-    await dataDatabaseHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
+    await userDataDBHelper.markFakeHadithAsRead(dbFakeHaith: dbFakeHaith);
   }
 
   // Mark hadith as unread
   Future<void> markFakeHadithAsUnRead({
     required DbFakeHaith dbFakeHaith,
   }) async {
-    await dataDatabaseHelper.markFakeHadithAsUnRead(dbFakeHaith: dbFakeHaith);
+    await userDataDBHelper.markFakeHadithAsUnRead(
+      dbFakeHaith: dbFakeHaith,
+    );
   }
 
   // Close database

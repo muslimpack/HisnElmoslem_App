@@ -2,11 +2,11 @@ import 'package:capture_widget/capture_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_bottom_bar.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_image_builder.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -18,7 +18,7 @@ class ShareAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShareImageCubit(shareAsImageData)..start(dbContent),
+      create: (context) => sl<ShareImageCubit>()..start(dbContent),
       child: BlocBuilder<ShareImageCubit, ShareImageState>(
         builder: (context, state) {
           if (state is! ShareImageLoadedState) {

@@ -5,5 +5,5 @@ import 'package:hisnelmoslem/init_services.dart';
 void main() async {
   await initServices();
 
-  runApp(const MyApp());
+  runApp(const App());
 }

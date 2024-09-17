@@ -8,8 +8,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-AlarmDatabaseHelper alarmDatabaseHelper = AlarmDatabaseHelper();
-
 class AlarmDatabaseHelper {
   /* ************* Variables ************* */
 
@@ -121,7 +119,8 @@ class AlarmDatabaseHelper {
 
       return dbAlarm;
     } else {
-      final DbAlarm tempAlarm = DbAlarm(titleId: dbTitle.orderId);
+      final DbAlarm tempAlarm =
+          DbAlarm(titleId: dbTitle.id, title: dbTitle.name);
       return tempAlarm;
     }
   }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/hadith_card.dart';
-import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/fake_hadith_controller.dart';
 
 class FakeHadithUnreadPage extends StatelessWidget {
-  final FakeHadithController controller;
+  final List<DbFakeHaith> hadithList;
 
-  const FakeHadithUnreadPage({super.key, required this.controller});
+  const FakeHadithUnreadPage({super.key, required this.hadithList});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: controller.fakeHadithUnReadList.isEmpty
+      body: hadithList.isEmpty
           ? Empty(
               isImage: false,
               icon: Icons.menu_book_rounded,
@@ -26,11 +26,10 @@ class FakeHadithUnreadPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10),
               itemBuilder: (context, index) {
                 return HadithCard(
-                  fakeHaith: controller.fakeHadithUnReadList[index],
-                  scaffoldKey: controller.fakeHadithScaffoldKey,
+                  fakeHadith: hadithList[index],
                 );
               },
-              itemCount: controller.fakeHadithUnReadList.length,
+              itemCount: hadithList.length,
             ),
     );
   }

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/features/themes/data/models/themes_enum.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/controller/themes_manager_page_controller.dart';
 
 class ThemeManagerPage extends StatelessWidget {
   const ThemeManagerPage({super.key});
@@ -82,7 +81,7 @@ class ThemeManagerPage extends StatelessWidget {
                 value: state.useMaterial3,
                 title: Text("themeUseMaterial3".tr),
                 onChanged: (value) {
-                  context.read<ThemeCubit>().changeUseMaterial3(value);
+                  sl<ThemeCubit>().changeUseMaterial3(value);
                 },
               ),
               if (!state.useMaterial3)
@@ -92,7 +91,7 @@ class ThemeManagerPage extends StatelessWidget {
                   onChanged: state.useMaterial3
                       ? null
                       : (value) {
-                          context.read<ThemeCubit>().changeUseOldTheme(value);
+                          sl<ThemeCubit>().changeUseOldTheme(value);
                         },
                 ),
               SwitchListTile(
@@ -101,9 +100,7 @@ class ThemeManagerPage extends StatelessWidget {
                 onChanged: !state.useMaterial3
                     ? null
                     : (value) {
-                        context
-                            .read<ThemeCubit>()
-                            .changeOverrideBackgroundColor(value);
+                        sl<ThemeCubit>().changeOverrideBackgroundColor(value);
                       },
               ),
               if (state.overrideBackgroundColor)
@@ -148,42 +145,6 @@ class ThemeManagerPage extends StatelessWidget {
             ],
           ),
         );
-      },
-    );
-  }
-}
-
-class RadioImage extends StatelessWidget {
-  final ThemesManagerPageController controller;
-  final String title;
-  final AppThemeMode appThemeModeValue;
-  final IconData icon;
-
-  const RadioImage({
-    super.key,
-    required this.controller,
-    required this.title,
-    required this.appThemeModeValue,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RadioListTile<AppThemeMode>(
-      title: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListTile(
-          leading: Icon(icon),
-          title: Text(
-            title,
-            style: const TextStyle(),
-          ),
-        ),
-      ),
-      value: appThemeModeValue,
-      groupValue: controller.appThemeModeEnum,
-      onChanged: (AppThemeMode? value) {
-        controller.handleThemeChange(value);
       },
     );
   }

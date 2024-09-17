@@ -8,11 +8,12 @@ import 'package:capture_widget/core/widget_capture_controller.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_data.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -20,17 +21,17 @@ import 'package:share_plus/share_plus.dart';
 part 'share_image_state.dart';
 
 class ShareImageCubit extends Cubit<ShareImageState> {
-  final ShareAsImageData shareAsImageData;
+  final ShareAsImageRepo shareAsImageRepo;
   TransformationController transformationController =
       TransformationController();
 
   final CaptureWidgetController captureWidgetController =
       CaptureWidgetController();
-  ShareImageCubit(this.shareAsImageData) : super(ShareImageLoadingState());
+  ShareImageCubit(this.shareAsImageRepo) : super(ShareImageLoadingState());
 
   FutureOr start(DbContent content) async {
     final ShareImageSettings shareImageSettings =
-        shareAsImageData.shareImageSettings;
+        shareAsImageRepo.shareImageSettings;
 
     final baseTitle = await _getTitle(content);
 
@@ -48,7 +49,8 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final String title;
     if (content.titleId >= 0) {
       title =
-          (await azkarDatabaseHelper.getTitleById(id: content.titleId)).name;
+          (await sl<AzkarDatabaseHelper>().getTitleById(id: content.titleId))
+              .name;
     } else {
       title = "أحاديث منتشرة لا تصح";
     }
@@ -61,7 +63,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
-    await shareAsImageData.updateShareImageSettings(shareImageSettings);
+    await shareAsImageRepo.updateShareImageSettings(shareImageSettings);
 
     emit(
       state.copyWith(shareImageSettings: shareImageSettings),
@@ -183,7 +185,8 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (imageSize == Size.zero) return;
 
     // Calculate the scale factors for both width and height
-    final double widthScale = screenSize.width / shareAsImageData.imageWidth;
+    final double widthScale =
+        screenSize.width / shareAsImageRepo.shareImageImageWidth;
     final double heightScale = screenSize.height / imageSize.height;
 
     // Choose the smaller scale to ensure the image fits within the screen
@@ -209,7 +212,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     emit(state.copyWith(showLoadingIndicator: true));
 
     try {
-      final double pixelRatio = shareAsImageData.imageQuality;
+      final double pixelRatio = state.shareImageSettings.imageQuality;
       final image = await captureWidgetController.getImage(pixelRatio);
       final byteData = await image?.toByteData(format: ImageByteFormat.png);
 

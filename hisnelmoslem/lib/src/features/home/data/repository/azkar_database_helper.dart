@@ -7,9 +7,8 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dar
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:sqflite/sqflite.dart';
 
-AzkarDatabaseHelper azkarDatabaseHelper = AzkarDatabaseHelper();
-
 class AzkarDatabaseHelper {
+  final UserDataDBHelper userDataDBHelper;
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
@@ -21,13 +20,13 @@ class AzkarDatabaseHelper {
   static Database? _database;
   static late final DBHelper _dbHelper;
 
-  factory AzkarDatabaseHelper() {
+  factory AzkarDatabaseHelper(UserDataDBHelper userDataDBHelper) {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
-    _databaseHelper ??= AzkarDatabaseHelper._createInstance();
+    _databaseHelper ??= AzkarDatabaseHelper._createInstance(userDataDBHelper);
     return _databaseHelper!;
   }
 
-  AzkarDatabaseHelper._createInstance();
+  AzkarDatabaseHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
     _database ??= await _dbHelper.initDatabase();
@@ -50,15 +49,15 @@ class AzkarDatabaseHelper {
 
     final List<DbTitle> titles = [];
 
+    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
+    final bookmarkedTitlesMap = {
+      for (final e in bookmarkedTitles) e.titleId: e.favourite,
+    };
+
     for (int i = 0; i < maps.length; i++) {
       final DbTitle dbTitle = DbTitle.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isTitleInFavorites(titleId: dbTitle.id)
-          .then((value) {
-        dbTitle.favourite = value;
-      });
 
-      titles.add(dbTitle);
+      titles.add(dbTitle.copyWith(favourite: bookmarkedTitlesMap[dbTitle.id]));
     }
 
     return titles;
@@ -67,13 +66,12 @@ class AzkarDatabaseHelper {
   /// Get all favourite titles
   Future<List<DbTitle>> getAllFavoriteTitles() async {
     final List<DbTitle> titles = [];
-    await dataDatabaseHelper.getAllFavoriteTitles().then((value) async {
-      for (var i = 0; i < value.length; i++) {
-        await getTitleById(id: value[i].titleId).then((title) {
-          titles.add(title);
-        });
-      }
-    });
+    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
+
+    for (var i = 0; i < bookmarkedTitles.length; i++) {
+      final title = await getTitleById(id: bookmarkedTitles[i].titleId);
+      titles.add(title);
+    }
 
     return titles;
   }
@@ -87,21 +85,20 @@ class AzkarDatabaseHelper {
       [id],
     );
     final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
-    await dataDatabaseHelper
-        .isTitleInFavorites(titleId: dbTitle.id)
-        .then((value) => dbTitle.favourite = value);
+    final bookmarked =
+        await userDataDBHelper.isTitleInFavorites(titleId: dbTitle.id);
 
-    return dbTitle;
+    return dbTitle.copyWith(favourite: bookmarked);
   }
 
   /// Add title to favourite
   Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
-    await dataDatabaseHelper.addTitleToFavourite(dbTitle: dbTitle);
+    await userDataDBHelper.addTitleToFavourite(dbTitle: dbTitle);
   }
 
   /// Remove title from favourite
   Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
-    await dataDatabaseHelper.deleteTitleFromFavourite(dbTitle: dbTitle);
+    await userDataDBHelper.deleteTitleFromFavourite(dbTitle: dbTitle);
   }
 
   /**
@@ -120,10 +117,10 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isContentInFavorites(contentId: dbContent.id)
-          .then((value) => dbContent.favourite = value);
-      contents.add(dbContent);
+      final bookmarked = await userDataDBHelper.isContentInFavorites(
+        contentId: dbContent.id,
+      );
+      contents.add(dbContent.copyWith(favourite: bookmarked));
     }
 
     return contents;
@@ -142,10 +139,10 @@ class AzkarDatabaseHelper {
 
     for (var i = 0; i < maps.length; i++) {
       final DbContent dbContent = DbContent.fromMap(maps[i]);
-      await dataDatabaseHelper
-          .isContentInFavorites(contentId: dbContent.id)
-          .then((value) => dbContent.favourite = value);
-      contents.add(dbContent);
+      final bookmarked = await userDataDBHelper.isContentInFavorites(
+        contentId: dbContent.id,
+      );
+      contents.add(dbContent.copyWith(favourite: bookmarked));
     }
     return contents;
   }
@@ -161,17 +158,17 @@ class AzkarDatabaseHelper {
       [contentId],
     );
     final DbContent dbContent = DbContent.fromMap(maps[0]);
-    await dataDatabaseHelper
-        .isContentInFavorites(contentId: dbContent.id)
-        .then((value) => dbContent.favourite = value);
+    final bookmarked = await userDataDBHelper.isContentInFavorites(
+      contentId: dbContent.id,
+    );
 
-    return dbContent;
+    return dbContent.copyWith(favourite: bookmarked);
   }
 
   /// Get favourite content
   Future<List<DbContent>> getFavouriteContents() async {
     final List<DbContent> contents = [];
-    await dataDatabaseHelper.getFavouriteContents().then((value) async {
+    await userDataDBHelper.getFavouriteContents().then((value) async {
       for (var i = 0; i < value.length; i++) {
         await getContentsByContentId(contentId: value[i].contentId)
             .then((title) => contents.add(title));
@@ -183,14 +180,16 @@ class AzkarDatabaseHelper {
 
   /// Add content to favourite
   Future<void> addContentToFavourite({required DbContent dbContent}) async {
-    await dataDatabaseHelper.addContentToFavourite(dbContent: dbContent);
+    await userDataDBHelper.addContentToFavourite(dbContent: dbContent);
   }
 
   /// Remove Content from favourite
   Future<void> removeContentFromFavourite({
     required DbContent dbContent,
   }) async {
-    await dataDatabaseHelper.removeContentFromFavourite(dbContent: dbContent);
+    await userDataDBHelper.removeContentFromFavourite(
+      dbContent: dbContent,
+    );
   }
 
   // ************************************************

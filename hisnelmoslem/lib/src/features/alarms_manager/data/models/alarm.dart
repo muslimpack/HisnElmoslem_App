@@ -1,20 +1,23 @@
-class DbAlarm {
-  int id;
-  int titleId;
-  String title;
-  String body;
-  String repeatType;
-  int hour;
-  int minute;
-  bool isActive;
-  bool hasAlarmInside;
+import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 
-  DbAlarm({
+class DbAlarm extends Equatable {
+  final int id;
+  final int titleId;
+  final String title;
+  final String body;
+  final AlarmRepeatType repeatType;
+  final int hour;
+  final int minute;
+  final bool isActive;
+  final bool hasAlarmInside;
+
+  const DbAlarm({
     this.id = 0,
-    this.titleId = 0,
-    this.title = "",
+    required this.titleId,
+    required this.title,
     this.body = "",
-    this.repeatType = "",
+    this.repeatType = AlarmRepeatType.daily,
     this.hour = 12,
     this.minute = 30,
     this.isActive = false,
@@ -28,12 +31,21 @@ class DbAlarm {
     } else {
       isActive = true;
     }
+
+    final repeatTypeString = map['repeatType'] as String;
+    final repeatType = AlarmRepeatType.values
+            .where(
+              (x) => x.name.toLowerCase() == repeatTypeString.toLowerCase(),
+            )
+            .firstOrNull ??
+        AlarmRepeatType.daily;
+
     return DbAlarm(
       id: map['id'] as int,
       title: map['title'] as String,
       titleId: map['titleId'] as int,
       body: (map['body'] ?? "") as String,
-      repeatType: map['repeatType'] as String,
+      repeatType: repeatType,
       hour: map['hour'] as int,
       minute: map['minute'] as int,
       isActive: isActive,
@@ -45,7 +57,7 @@ class DbAlarm {
     return <String, dynamic>{
       "title": title,
       "body": body,
-      "repeatType": repeatType,
+      "repeatType": repeatType.name,
       "hour": hour,
       "minute": minute,
       "isActive": isActive ? 1 : 0,
@@ -56,5 +68,44 @@ class DbAlarm {
   @override
   String toString() {
     return toMap().toString();
+  }
+
+  DbAlarm copyWith({
+    int? id,
+    int? titleId,
+    String? title,
+    String? body,
+    AlarmRepeatType? repeatType,
+    int? hour,
+    int? minute,
+    bool? isActive,
+    bool? hasAlarmInside,
+  }) {
+    return DbAlarm(
+      id: id ?? this.id,
+      titleId: titleId ?? this.titleId,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      repeatType: repeatType ?? this.repeatType,
+      hour: hour ?? this.hour,
+      minute: minute ?? this.minute,
+      isActive: isActive ?? this.isActive,
+      hasAlarmInside: hasAlarmInside ?? this.hasAlarmInside,
+    );
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      titleId,
+      title,
+      body,
+      repeatType,
+      hour,
+      minute,
+      isActive,
+      hasAlarmInside,
+    ];
   }
 }

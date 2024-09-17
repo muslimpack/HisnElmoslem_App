@@ -1,16 +1,19 @@
-class DbFakeHaith {
-  int id;
-  String text;
-  String darga;
-  String source;
-  bool isRead;
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 
-  DbFakeHaith({
-    this.id = 0,
-    this.text = "",
-    this.darga = "",
-    this.source = "",
-    this.isRead = false,
+class DbFakeHaith extends Equatable {
+  final int id;
+  final String text;
+  final String darga;
+  final String source;
+  final bool isRead;
+
+  const DbFakeHaith({
+    required this.id,
+    required this.text,
+    required this.darga,
+    required this.source,
+    required this.isRead,
   });
 
   factory DbFakeHaith.fromMap(Map<String, dynamic> map) {
@@ -39,8 +42,30 @@ class DbFakeHaith {
     };
   }
 
+  DbFakeHaith copyWith({
+    int? id,
+    String? text,
+    String? darga,
+    String? source,
+    bool? isRead,
+  }) {
+    return DbFakeHaith(
+      id: id ?? this.id,
+      text: text ?? this.text,
+      darga: darga ?? this.darga,
+      source: source ?? this.source,
+      isRead: isRead ?? this.isRead,
+    );
+  }
+
   @override
-  String toString() {
-    return toMap().toString();
+  List<Object> get props {
+    return [
+      id,
+      text,
+      darga,
+      source,
+      isRead,
+    ];
   }
 }

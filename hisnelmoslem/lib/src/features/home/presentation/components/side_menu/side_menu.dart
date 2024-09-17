@@ -6,17 +6,13 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/more_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/quran_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/dashboard_controller.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/screens/settings.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SideMenu extends StatelessWidget {
-  final DashboardController controller;
-
   const SideMenu({
     super.key,
-    required this.controller,
   });
 
   @override
@@ -72,7 +68,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-          FooterSection(controller: controller),
+          const FooterSection(),
         ],
       ),
     );

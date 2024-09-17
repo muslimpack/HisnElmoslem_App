@@ -12,39 +12,34 @@ final class TallyLoadingState extends TallyState {}
 
 final class TallyLoadedState extends TallyState {
   final List<DbTally> allCounters;
-  final DbTally? activeCounter;
   final TallyIterationMode iterationMode;
   final bool loadingIteration;
 
   const TallyLoadedState({
     required this.allCounters,
-    required this.activeCounter,
     required this.iterationMode,
     required this.loadingIteration,
   });
 
+  DbTally? get activeCounter =>
+      allCounters.where((x) => x.isActivated).firstOrNull;
+
   double get resetEvery => switch (iterationMode) {
-        TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 0,
+        TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 1,
         _ => 33
       };
 
   TallyLoadedState copyWith({
     List<DbTally>? allCounters,
-    Object? activeCounter = _notProvided,
     TallyIterationMode? iterationMode,
     bool? loadingIteration,
   }) {
     return TallyLoadedState(
       allCounters: allCounters ?? this.allCounters,
-      activeCounter: activeCounter == _notProvided
-          ? this.activeCounter
-          : activeCounter as DbTally?,
       iterationMode: iterationMode ?? this.iterationMode,
       loadingIteration: loadingIteration ?? this.loadingIteration,
     );
   }
-
-  static const _notProvided = Object();
 
   @override
   List<Object?> get props => [

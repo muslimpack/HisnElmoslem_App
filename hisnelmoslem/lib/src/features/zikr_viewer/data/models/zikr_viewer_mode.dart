@@ -1,0 +1,4 @@
+enum ZikrViewerMode {
+  page,
+  card,
+}

@@ -1,16 +1,15 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/app.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_card.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/azkar_read_page.dart';
-
-AwesomeNotificationManager awesomeNotificationManager =
-    AwesomeNotificationManager();
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
 class AwesomeNotificationManager {
   Future<void> init() async {
@@ -262,10 +261,13 @@ class AwesomeNotificationManager {
 
   ///
   static void onNotificationClick(String payload) {
+    final context = App.navigatorKey.currentState?.context;
+    if (context == null) return;
+
     /// go to quran page if clicked
     if (payload == "الكهف") {
       transitionAnimation.fromBottom2Top(
-        context: Get.context!,
+        context: context,
         goToPage: const QuranReadPage(
           surahName: SurahNameEnum.alKahf,
         ),
@@ -280,15 +282,15 @@ class AwesomeNotificationManager {
     else {
       final int pageIndex = int.parse(payload);
       //
-      if (AppData.instance.isCardReadMode) {
+      if (sl<AppSettingsRepo>().isCardReadMode) {
         transitionAnimation.fromBottom2Top(
-          context: Get.context!,
-          goToPage: AzkarReadCard(index: pageIndex),
+          context: context,
+          goToPage: ZikrViewerCardModeScreen(index: pageIndex),
         );
       } else {
         transitionAnimation.fromBottom2Top(
-          context: Get.context!,
-          goToPage: AzkarReadPage(index: pageIndex),
+          context: context,
+          goToPage: ZikrViewerPageModeScreen(index: pageIndex),
         );
       }
     }

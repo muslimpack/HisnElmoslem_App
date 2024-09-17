@@ -1,27 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit()
+  final ThemeRepo themeRepo;
+  ThemeCubit(this.themeRepo)
       : super(
           ThemeState(
-            brightness: ThemeRepo.getBrightness(),
-            color: ThemeRepo.getColor(),
-            useMaterial3: ThemeRepo.getUseMaterial3(),
-            useOldTheme: ThemeRepo.getUseOldTheme(),
-            fontFamily: AppData.instance.fontFamily,
-            backgroundColor: ThemeRepo.getBackgroundColor(),
-            overrideBackgroundColor: ThemeRepo.getOverrideBackgroundColor(),
+            brightness: themeRepo.getBrightness(),
+            color: themeRepo.getColor(),
+            useMaterial3: themeRepo.getUseMaterial3(),
+            useOldTheme: themeRepo.getUseOldTheme(),
+            fontFamily: themeRepo.fontFamily,
+            backgroundColor: themeRepo.getBackgroundColor(),
+            overrideBackgroundColor: themeRepo.getOverrideBackgroundColor(),
+            locale: themeRepo.appLocale,
           ),
         );
 
+  ///MARK: Theme
   Future<void> changeBrightness(Brightness brightness) async {
-    await ThemeRepo.setBrightness(brightness);
+    await themeRepo.setBrightness(brightness);
     emit(state.copyWith(brightness: brightness));
   }
 
@@ -32,34 +34,41 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   Future<void> changeUseMaterial3(bool useMaterial3) async {
-    await ThemeRepo.setUseMaterial3(useMaterial3);
+    await themeRepo.setUseMaterial3(useMaterial3);
     emit(state.copyWith(useMaterial3: useMaterial3));
   }
 
   Future<void> changeUseOldTheme(bool useOldTheme) async {
-    await ThemeRepo.setUseOldTheme(useOldTheme);
+    await themeRepo.setUseOldTheme(useOldTheme);
     emit(state.copyWith(useOldTheme: useOldTheme));
   }
 
   Future<void> changeColor(Color color) async {
-    await ThemeRepo.setColor(color);
+    await themeRepo.setColor(color);
     emit(state.copyWith(color: color));
   }
 
   Future<void> changeBackgroundColor(Color color) async {
-    await ThemeRepo.setBackgroundColor(color);
+    await themeRepo.setBackgroundColor(color);
     emit(state.copyWith(backgroundColor: color));
   }
 
   Future<void> changeOverrideBackgroundColor(
     bool overrideBackgroundColor,
   ) async {
-    await ThemeRepo.setOverrideBackgroundColor(overrideBackgroundColor);
+    await themeRepo.setOverrideBackgroundColor(overrideBackgroundColor);
     emit(state.copyWith(overrideBackgroundColor: overrideBackgroundColor));
   }
 
+  ///MARK:Font Family
   Future<void> changeFontFamily(String fontFamily) async {
-    await AppData.instance.changFontFamily(fontFamily);
+    await themeRepo.changFontFamily(fontFamily);
     emit(state.copyWith(fontFamily: fontFamily));
+  }
+
+  ///MARK: App Locale
+  Future<void> changeAppLocale(String locale) async {
+    await themeRepo.changAppLocale(locale);
+    emit(state.copyWith(locale: Locale(locale)));
   }
 }
