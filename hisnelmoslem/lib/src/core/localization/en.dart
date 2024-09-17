@@ -4,7 +4,7 @@ const Map<String, String> en = {
   // */
   ///
   "Hisn Elmoslem App": "Hisn Elmoslem App",
-  "Hisn Elmoslem": 'حصن المسلم',
+  "Hisn Elmoslem": 'Hisn Elmoslem',
   "start": "Start",
 
   /// Dashboard
