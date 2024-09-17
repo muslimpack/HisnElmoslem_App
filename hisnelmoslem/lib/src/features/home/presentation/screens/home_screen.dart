@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -60,38 +61,42 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocBuilder<AlarmsBloc, AlarmsState>(
       builder: (context, state) {
-        if (state is! HomeLoadedState) {
-          return const Loading();
-        }
-        return Scaffold(
-          body: NestedScrollView(
-            physics: const BouncingScrollPhysics(),
-            floatHeaderSlivers: true,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                ScreenAppBar(tabController: tabController),
-              ];
-            },
-            body: state.isSearching
-                ? const HomeSearchScreen()
-                : TabBarView(
-                    physics: const BouncingScrollPhysics(),
-                    controller: tabController,
-                    children: [
-                      ...List.generate(
-                        appDashboardItem.length,
-                        (index) {
-                          return appDashboardItem[
-                                  state.dashboardArrangement[index]]
-                              .widget;
-                        },
+        return BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is! HomeLoadedState) {
+              return const Loading();
+            }
+            return Scaffold(
+              body: NestedScrollView(
+                physics: const BouncingScrollPhysics(),
+                floatHeaderSlivers: true,
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return [
+                    ScreenAppBar(tabController: tabController),
+                  ];
+                },
+                body: state.isSearching
+                    ? const HomeSearchScreen()
+                    : TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabController,
+                        children: [
+                          ...List.generate(
+                            appDashboardItem.length,
+                            (index) {
+                              return appDashboardItem[
+                                      state.dashboardArrangement[index]]
+                                  .widget;
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-          ),
+              ),
+            );
+          },
         );
       },
     );

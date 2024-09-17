@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
@@ -65,6 +66,8 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   ) async {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
+
+    hisnPrint("object ${event.alarm.id}");
 
     await alarmDatabaseHelper.updateAlarmInfo(dbAlarm: event.alarm);
     await alarmManager.alarmState(dbAlarm: event.alarm);
