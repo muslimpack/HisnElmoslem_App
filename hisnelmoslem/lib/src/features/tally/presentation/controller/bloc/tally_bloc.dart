@@ -78,10 +78,11 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       created: DateTime.now(),
     );
 
-    await tallyDatabaseHelper.addNewTally(dbTally: counterToAdd);
+    final counterId =
+        await tallyDatabaseHelper.addNewTally(dbTally: counterToAdd);
 
     final updatedCounters = List<DbTally>.from(state.allCounters)
-      ..add(counterToAdd);
+      ..add(counterToAdd.copyWith(id: counterId));
 
     emit(state.copyWith(allCounters: updatedCounters));
   }
@@ -99,9 +100,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       dbTally: counterToEdit,
     );
 
-    final updatedCounters = List<DbTally>.from(state.allCounters)
-        .map((x) => x.copyWith())
-        .map((counter) {
+    final updatedCounters =
+        List<DbTally>.from(state.allCounters).map((counter) {
       if (counter.id == counterToEdit.id) {
         return counterToEdit;
       }

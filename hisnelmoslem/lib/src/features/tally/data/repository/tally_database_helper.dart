@@ -128,11 +128,11 @@ class TallyDatabaseHelper {
   }
 
   // Add new tally to database
-  Future<void> addNewTally({
+  Future<int> addNewTally({
     required DbTally dbTally,
   }) async {
     final db = await database;
-    await db.insert(
+    return db.insert(
       'data',
       dbTally.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
