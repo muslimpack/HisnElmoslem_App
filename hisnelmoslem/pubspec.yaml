@@ -126,3 +126,5 @@ flutter:
     - family: Rakkas
       fonts:
         - asset: assets/fonts/Rakkas-Regular.ttf
+flutter_intl:
+  enabled: true
