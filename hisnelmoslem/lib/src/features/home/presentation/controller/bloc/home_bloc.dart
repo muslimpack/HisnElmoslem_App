@@ -47,10 +47,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
-    final alarmStateHolded = alarmState;
-    if (alarmStateHolded is! AlarmsLoadedState) return;
+    if (alarmState is! AlarmsLoadedState) return;
 
-    add(HomeUpdateAlarmsEvent(alarms: alarmStateHolded.alarms));
+    add(HomeUpdateAlarmsEvent(alarms: alarmState.alarms));
   }
 
   FutureOr<void> _updateAlarms(
