@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:vibration/vibration.dart';
 
@@ -13,10 +14,14 @@ class EffectsManager {
   ///MARK: Play Sound
 
   Future _playSound(AssetSource source) async {
-    await player.stop();
-    await player.setSource(source);
-    await player.setVolume(_effectsManagerRepo.soundEffectVolume);
-    await player.resume();
+    try {
+      await player.stop();
+      await player.setSource(source);
+      await player.setVolume(_effectsManagerRepo.soundEffectVolume);
+      await player.resume();
+    } catch (e) {
+      hisnPrint(e);
+    }
   }
 
   Future<void> playPraiseSound() async {
