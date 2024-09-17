@@ -13,7 +13,10 @@ List<TranslationData> kAppLanguages = [
   TranslationData(display: "English", code: "en"),
 ];
 
-const double kChangeFontBy = .2;
+const double kFontChangeBy = .2;
+const double kFontDefault = 2.6;
+const double kFontMin = 1.5;
+const double kFontMax = 4;
 
 //Invert Image Color
 const ColorFilter invert = ColorFilter.matrix(

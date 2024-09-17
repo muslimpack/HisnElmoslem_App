@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class HadithCard extends StatelessWidget {
@@ -54,31 +55,37 @@ class HadithCard extends StatelessWidget {
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
-            child: Container(
-              constraints: const BoxConstraints(minHeight: 150),
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Text(
-                    fakeHadith.text,
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                      fontSize: AppData.instance.fontSize * 10,
-                    ),
+            child: BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, state) {
+                return Container(
+                  constraints: const BoxConstraints(minHeight: 150),
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Text(
+                        fakeHadith.text,
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                          fontSize: state.fontSize * 10,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const TextDivider(),
+                      Text(
+                        fakeHadith.darga,
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                        softWrap: true,
+                        style: TextStyle(
+                          fontSize: state.fontSize * 10,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    fakeHadith.darga,
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.rtl,
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: AppData.instance.fontSize * 10,
-                    ),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ],

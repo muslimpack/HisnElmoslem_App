@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/home_bookmarked_content_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -28,21 +29,33 @@ class FavouriteZikr extends StatelessWidget {
                     "no zikr has been selected as a favorite Click on the heart icon on any internal zikr"
                         .tr,
               )
-            : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(bottom: 50),
-                itemCount: state.bookmarkedContents.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final DbContent dbContent = state.bookmarkedContents[index];
-                  final DbTitle dbTitle = state.titles
-                      .where((element) => element.id == dbContent.titleId)
-                      .first;
+            : Scaffold(
+                body: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 50),
+                  itemCount: state.bookmarkedContents.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final DbContent dbContent = state.bookmarkedContents[index];
+                    final DbTitle dbTitle = state.titles
+                        .where((element) => element.id == dbContent.titleId)
+                        .first;
 
-                  return HomeBookmarkedContentCard(
-                    dbContent: dbContent,
-                    dbTitle: dbTitle,
-                  );
-                },
+                    return HomeBookmarkedContentCard(
+                      dbContent: dbContent,
+                      dbTitle: dbTitle,
+                    );
+                  },
+                ),
+                bottomNavigationBar: const BottomAppBar(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                        child: FontSettingsToolbox(),
+                      ),
+                    ],
+                  ),
+                ),
               );
       },
     );

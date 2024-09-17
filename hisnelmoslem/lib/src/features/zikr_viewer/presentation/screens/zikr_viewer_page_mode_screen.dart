@@ -39,7 +39,7 @@ class ZikrViewerPageModeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "${state.activeZikrIndex + 1} :: ${state.azkarToView.length}"
+                    "${state.activeZikrIndex + 1} : ${state.azkarToView.length}"
                         .toArabicNumber(),
                   ),
                 ),

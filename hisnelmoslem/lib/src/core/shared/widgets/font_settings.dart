@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
-import 'package:hisnelmoslem/src/core/repos/app_data.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-/// TODO wire with setting cubit
 class FontSettingsToolbox extends StatelessWidget {
   final bool showFontResizeControllers;
   final bool showDiacriticsControllers;
@@ -23,19 +23,19 @@ class FontSettingsToolbox extends StatelessWidget {
           IconButton(
             icon: Icon(MdiIcons.restart),
             onPressed: () {
-              AppData.instance.resetFontSize();
+              context.read<ThemeCubit>().resetFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
-              AppData.instance.increaseFontSize();
+              context.read<ThemeCubit>().increaseFontSize();
             },
           ),
           IconButton(
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
-              AppData.instance.decreaseFontSize();
+              context.read<ThemeCubit>().decreaseFontSize();
             },
           ),
         ],
@@ -43,7 +43,7 @@ class FontSettingsToolbox extends StatelessWidget {
           IconButton(
             icon: Icon(MdiIcons.abjadArabic),
             onPressed: () {
-              AppData.instance.toggleDiacriticsStatus();
+              context.read<ThemeCubit>().toggleDiacriticsStatus();
             },
           ),
       ],
@@ -58,26 +58,28 @@ class TextSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Text(
-              AppData.instance.isDiacriticsEnabled
-                  ? text
-                  : text.removeDiacritics,
-              textAlign: TextAlign.center,
-              softWrap: true,
-              textDirection: TextDirection.rtl,
-              style: TextStyle(
-                fontSize: AppData.instance.fontSize * 10,
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return SizedBox(
+          height: 200,
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  state.showDiacritics ? text : text.removeDiacritics,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                    fontSize: state.fontSize * 10,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

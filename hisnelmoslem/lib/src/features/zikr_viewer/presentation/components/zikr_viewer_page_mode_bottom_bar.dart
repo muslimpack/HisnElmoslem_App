@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
@@ -26,14 +27,10 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
               },
             ),
           ),
-
-          ///TODO FontSettingsToolbox
-          // Expanded(
-          //   flex: 3,
-          //   child: FontSettingsToolbox(
-          //     controllerToUpdate: controller,
-          //   ),
-          // ),
+          const Expanded(
+            flex: 3,
+            child: FontSettingsToolbox(),
+          ),
           Expanded(
             child: IconButton(
               splashRadius: 20,

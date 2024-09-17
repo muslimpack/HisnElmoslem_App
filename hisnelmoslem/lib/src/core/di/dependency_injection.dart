@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/repos/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
@@ -35,6 +36,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ShareAsImageRepo(sl()));
   sl.registerLazySingleton(() => AppSettingsRepo(sl()));
   sl.registerLazySingleton(() => AlarmsRepo(sl()));
+  sl.registerLazySingleton(() => ZikrTextRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -50,7 +52,7 @@ Future<void> initSL() async {
   ///MARK: Init BLOC
 
   /// Singleton BLoC
-  sl.registerLazySingleton(() => ThemeCubit(sl()));
+  sl.registerLazySingleton(() => ThemeCubit(sl(), sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
