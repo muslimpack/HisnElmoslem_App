@@ -11,6 +11,10 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_not
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 
 class AlarmManager {
+  final AwesomeNotificationManager awesomeNotificationManager;
+
+  AlarmManager(this.awesomeNotificationManager);
+
   Future<void> alarmState({
     required DbAlarm dbAlarm,
     bool showMsg = true,

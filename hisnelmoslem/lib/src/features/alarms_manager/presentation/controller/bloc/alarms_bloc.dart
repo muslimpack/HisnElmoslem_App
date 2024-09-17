@@ -20,10 +20,12 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AlarmsRepo alarmsRepo;
   final AlarmManager alarmManager;
+  final AwesomeNotificationManager awesomeNotificationManager;
   AlarmsBloc(
     this.alarmDatabaseHelper,
     this.alarmsRepo,
     this.alarmManager,
+    this.awesomeNotificationManager,
   ) : super(AlarmsLoadingState()) {
     on<AlarmsStartEvent>(_start);
     on<AlarmsAddEvent>(_add);

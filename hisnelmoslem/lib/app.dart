@@ -36,7 +36,7 @@ class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    awesomeNotificationManager.listen();
+    sl<AwesomeNotificationManager>().listen();
   }
 
   @override
@@ -45,7 +45,7 @@ class AppState extends State<App> {
     await sl<FakeHadithDBHelper>().close();
     await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
-    awesomeNotificationManager.dispose();
+    sl<AwesomeNotificationManager>().dispose();
     super.dispose();
   }
 

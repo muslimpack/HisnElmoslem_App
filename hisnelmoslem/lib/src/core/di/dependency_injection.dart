@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/repos/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -49,13 +50,14 @@ Future<void> initSL() async {
 
   ///MARK: Init Manager
   sl.registerFactory(() => EffectsManager(sl()));
-  sl.registerFactory(() => AlarmManager());
+  sl.registerFactory(() => AwesomeNotificationManager());
+  sl.registerFactory(() => AlarmManager(sl()));
 
   ///MARK: Init BLOC
 
   /// Singleton BLoC
   sl.registerLazySingleton(() => ThemeCubit(sl()));
-  sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl()));
+  sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl()));

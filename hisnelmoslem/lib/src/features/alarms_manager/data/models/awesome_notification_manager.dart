@@ -11,9 +11,6 @@ import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
-AwesomeNotificationManager awesomeNotificationManager =
-    AwesomeNotificationManager();
-
 class AwesomeNotificationManager {
   Future<void> init() async {
     try {
