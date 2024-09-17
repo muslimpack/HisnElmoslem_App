@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
@@ -87,7 +88,8 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                         .add(const ZikrViewerShareZikrEvent());
                   },
                 ),
-                const ToggleBrightnessButton(),
+                if (!PlatformExtension.isDesktop)
+                  const ToggleBrightnessButton(),
                 Center(
                   child: Text(
                     activeZikr.count.toString().toArabicNumber(),
