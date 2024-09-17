@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 Future<DbAlarm?> showAlarmEditorDialog({
   required BuildContext context,
@@ -129,9 +130,11 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
           child: ListTile(
             leading: const Icon(Icons.alarm),
             title: Text(
-              selectedHour == null
+              selectedHour == null || selectedMinute == null
                   ? "click to choose time".tr
-                  : '$selectedHour : $selectedMinute',
+                  : DateFormat("hh:mm a").format(
+                      DateTime(1, 1, 1, selectedHour!, selectedMinute!),
+                    ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.ltr,
             ),
