@@ -24,7 +24,7 @@ final class TallyLoadedState extends TallyState {
   });
 
   double get resetEvery => switch (iterationMode) {
-        TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 0,
+        TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 1,
         _ => 33
       };
 
