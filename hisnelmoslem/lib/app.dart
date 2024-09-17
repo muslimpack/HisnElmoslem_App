@@ -2,12 +2,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
-import 'package:hisnelmoslem/src/core/localization/translation.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -68,13 +66,11 @@ class AppState extends State<App> {
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-          return GetMaterialApp(
+          return MaterialApp(
             navigatorKey: App.navigatorKey,
+            onGenerateTitle: (context) => S.of(context).hisnElmoslem,
             scrollBehavior: AppScrollBehavior(),
-            // Translation
-            translations: HisnAppTranslation(),
             locale: state.locale,
-            fallbackLocale: const Locale("ar"),
             supportedLocales: S.delegate.supportedLocales,
             localizationsDelegates: const [
               S.delegate,
@@ -83,7 +79,6 @@ class AppState extends State<App> {
               GlobalCupertinoLocalizations.delegate,
             ],
             debugShowCheckedModeBanner: false,
-            title: "Hisn Elmoslem".tr,
             theme: state.themeData(),
             navigatorObservers: [
               BotToastNavigatorObserver(),
@@ -97,9 +92,6 @@ class AppState extends State<App> {
               }
               return child ?? const SizedBox();
             },
-
-            // home: const AzkarDashboard(),
-
             home: sl<AppSettingsRepo>().isReleaseFirstOpen
                 ? const OnBoardingPage()
                 : const HomeScreen(),
