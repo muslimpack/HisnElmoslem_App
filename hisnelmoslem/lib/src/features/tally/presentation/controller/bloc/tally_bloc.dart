@@ -4,8 +4,10 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -16,22 +18,22 @@ part 'tally_state.dart';
 class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final TallyDatabaseHelper tallyDatabaseHelper;
   final EffectsManager effectsManager;
-  final _volumeBtnChannel = const MethodChannel("volume_button_channel");
+  final VolumeButtonManager volumeButtonManager;
   TallyBloc(
     this.tallyDatabaseHelper,
     this.effectsManager,
+    this.volumeButtonManager,
   ) : super(TallyLoadingState()) {
     _initHandlers();
 
-    _volumeBtnChannel.setMethodCallHandler((call) async {
-      if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "VOLUME_DOWN_UP") {
-          add(TallyIncreaseActiveCounterEvent());
-        } else if (call.arguments == "VOLUME_UP_UP") {
-          add(TallyIncreaseActiveCounterEvent());
-        }
-      }
-    });
+    volumeButtonManager.toggleActivation(
+      activate: sl<AppSettingsRepo>().praiseWithVolumeKeys,
+    );
+
+    volumeButtonManager.listen(
+      onVolumeUpPressed: () => add(TallyIncreaseActiveCounterEvent()),
+      onVolumeDownPressed: () => add(TallyIncreaseActiveCounterEvent()),
+    );
   }
 
   void _initHandlers() {
@@ -347,7 +349,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
   @override
   Future<void> close() async {
-    _volumeBtnChannel.setMethodCallHandler(null);
+    volumeButtonManager.dispose();
     return super.close();
   }
 }

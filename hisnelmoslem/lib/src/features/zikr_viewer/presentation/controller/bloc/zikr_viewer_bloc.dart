@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -25,7 +26,7 @@ part 'zikr_viewer_state.dart';
 class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
   final EffectsManager effectsManager;
-  final _volumeBtnChannel = const MethodChannel("volume_button_channel");
+  final VolumeButtonManager volumeButtonManager;
   final HomeBloc homeBloc;
 
   final HisnDBHelper hisnDBHelper;
@@ -33,6 +34,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     this.effectsManager,
     this.homeBloc,
     this.hisnDBHelper,
+    this.volumeButtonManager,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -40,15 +42,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   void _initZikrPageMode(ZikrViewerMode zikrViewerMode) {
     if (zikrViewerMode != ZikrViewerMode.page) return;
 
-    _volumeBtnChannel.setMethodCallHandler((call) async {
-      if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "VOLUME_DOWN_UP") {
-          add(const ZikrViewerDecreaseZikrEvent());
-        } else if (call.arguments == "VOLUME_UP_UP") {
-          add(const ZikrViewerDecreaseZikrEvent());
-        }
-      }
-    });
+    volumeButtonManager.toggleActivation(
+      activate: sl<AppSettingsRepo>().praiseWithVolumeKeys,
+    );
+
+    volumeButtonManager.listen(
+      onVolumeUpPressed: () => add(const ZikrViewerDecreaseZikrEvent()),
+      onVolumeDownPressed: () => add(const ZikrViewerDecreaseZikrEvent()),
+    );
 
     pageController.addListener(() {
       final int index = pageController.page!.round();
@@ -288,7 +289,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   Future<void> close() {
     WakelockPlus.disable();
     pageController.dispose();
-    _volumeBtnChannel.setMethodCallHandler(null);
+    volumeButtonManager.dispose();
     return super.close();
   }
 }

@@ -1120,6 +1120,26 @@ class S {
     );
   }
 
+  /// `Praise with volume keys`
+  String get prefPraiseWithVolumeKeys {
+    return Intl.message(
+      'Praise with volume keys',
+      name: 'prefPraiseWithVolumeKeys',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Praise with volume keys in page mode and tally`
+  String get prefPraiseWithVolumeKeysDesc {
+    return Intl.message(
+      'Praise with volume keys in page mode and tally',
+      name: 'prefPraiseWithVolumeKeysDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your progress will be deleted and you can't undo that`
   String get progressDeletedCannotUndo {
     return Intl.message(

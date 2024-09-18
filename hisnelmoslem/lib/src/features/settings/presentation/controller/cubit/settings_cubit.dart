@@ -36,6 +36,7 @@ class SettingsCubit extends Cubit<SettingsState> {
             useHindiDigits: appSettingsRepo.useHindiDigits,
             fontSize: zikrTextRepo.fontSize,
             showDiacritics: zikrTextRepo.showDiacritics,
+            praiseWithVolumeKeys: appSettingsRepo.praiseWithVolumeKeys,
           ),
         );
 
@@ -53,6 +54,12 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future toggleWakeLock({required bool use}) async {
     await appSettingsRepo.changeEnableWakeLock(use: use);
     emit(state.copyWith(enableWakeLock: use));
+  }
+
+  ///MARK: praiseWithVolumeKeys
+  Future togglePraiseWithVolumeKeys({required bool use}) async {
+    await appSettingsRepo.changePraiseWithVolumeKeysStatus(value: use);
+    emit(state.copyWith(praiseWithVolumeKeys: use));
   }
 
   ///MARK: Zikr Effects

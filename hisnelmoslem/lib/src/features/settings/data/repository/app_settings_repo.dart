@@ -82,4 +82,13 @@ class AppSettingsRepo {
   void changeDashboardArrangement(List<int> value) {
     box.write(dashboardArrangementKey, value.toString());
   }
+
+  ///MARK:Azkar Read Mode
+  /* ******* Azkar Read Mode ******* */
+  static const praiseWithVolumeKeysKey = 'praiseWithVolumeKeys';
+
+  bool get praiseWithVolumeKeys => box.read(praiseWithVolumeKeysKey) ?? true;
+
+  Future<void> changePraiseWithVolumeKeysStatus({required bool value}) async =>
+      box.write(praiseWithVolumeKeysKey, value);
 }

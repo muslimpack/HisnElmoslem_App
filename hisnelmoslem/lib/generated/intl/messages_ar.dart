@@ -176,6 +176,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "اهتزاز الهاتف عند انتهاء جميع الأذكار"),
         "prayForUsAndParents":
             MessageLookupByLibrary.simpleMessage("نسألكم الدعاء لنا ولوالدينا"),
+        "prefPraiseWithVolumeKeys":
+            MessageLookupByLibrary.simpleMessage("التسبيح بمفاتيح الصوت"),
+        "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
+            "استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(

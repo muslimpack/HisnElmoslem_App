@@ -7,6 +7,7 @@ class SettingsState extends Equatable {
   final bool useHindiDigits;
   final double fontSize;
   final bool showDiacritics;
+  final bool praiseWithVolumeKeys;
   const SettingsState({
     required this.zikrEffects,
     required this.isCardReadMode,
@@ -14,6 +15,7 @@ class SettingsState extends Equatable {
     required this.useHindiDigits,
     required this.fontSize,
     required this.showDiacritics,
+    required this.praiseWithVolumeKeys,
   });
 
   @override
@@ -25,6 +27,7 @@ class SettingsState extends Equatable {
       useHindiDigits,
       fontSize,
       showDiacritics,
+      praiseWithVolumeKeys,
     ];
   }
 
@@ -35,6 +38,7 @@ class SettingsState extends Equatable {
     bool? useHindiDigits,
     double? fontSize,
     bool? showDiacritics,
+    bool? praiseWithVolumeKeys,
   }) {
     return SettingsState(
       zikrEffects: zikrEffects ?? this.zikrEffects,
@@ -43,6 +47,7 @@ class SettingsState extends Equatable {
       useHindiDigits: useHindiDigits ?? this.useHindiDigits,
       fontSize: fontSize ?? this.fontSize,
       showDiacritics: showDiacritics ?? this.showDiacritics,
+      praiseWithVolumeKeys: praiseWithVolumeKeys ?? this.praiseWithVolumeKeys,
     );
   }
 }
