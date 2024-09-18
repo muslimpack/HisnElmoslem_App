@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
@@ -24,7 +27,30 @@ class ZikrViewerPageModeScreen extends StatelessWidget {
             zikrViewerMode: ZikrViewerMode.page,
           ),
         ),
-      child: BlocBuilder<ZikrViewerBloc, ZikrViewerState>(
+      child: BlocConsumer<ZikrViewerBloc, ZikrViewerState>(
+        listener: (context, state) async {
+          if (state is! ZikrViewerLoadedState) return;
+
+          final restoredSession = state.restoredSession;
+          if (restoredSession.isEmpty) return;
+
+          hisnPrint("restoredSession: $restoredSession");
+
+          final bool? confirm = await showDialog(
+            context: context,
+            builder: (context) {
+              return YesOrNoDialog(
+                msg: S.of(context).zikrViewerRestoreSessionMsg,
+              );
+            },
+          );
+
+          if (confirm == null || !context.mounted) return;
+
+          context
+              .read<ZikrViewerBloc>()
+              .add(ZikrViewerRestoreSessionEvent(confirm));
+        },
         builder: (context, state) {
           if (state is! ZikrViewerLoadedState) {
             return const Loading();
