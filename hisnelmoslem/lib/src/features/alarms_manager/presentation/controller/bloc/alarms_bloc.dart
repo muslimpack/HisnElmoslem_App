@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -103,7 +103,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     );
 
     showToast(
-      msg: "${"Reminder Removed".tr}: ${event.alarm.title}",
+      msg: "${S.current.reminderRemoved}: ${event.alarm.title}",
     );
 
     emit(state.copyWith(alarms: alarms));
@@ -119,12 +119,13 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg: "${"activate".tr}: ${"fasting mondays and thursdays reminder".tr}",
+        msg:
+            "${S.current.activate}: ${S.current.fastingMondaysThursdaysReminder}",
       );
     } else {
       showToast(
         msg:
-            "${"deactivate".tr}: ${"fasting mondays and thursdays reminder".tr}",
+            "${S.current.deactivate}: ${S.current.fastingMondaysThursdaysReminder}",
       );
     }
 
@@ -144,11 +145,11 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg: "${"activate".tr}: ${"sura Al-Kahf reminder".tr}",
+        msg: "${S.current.activate}: ${S.current.suraAlKahfReminder}",
       );
     } else {
       showToast(
-        msg: "${"deactivate".tr}: ${"sura Al-Kahf reminder".tr}",
+        msg: "${S.current.deactivate}: ${S.current.suraAlKahfReminder}",
       );
     }
 
@@ -188,7 +189,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     if (value) {
       await awesomeNotificationManager.addCustomWeeklyReminder(
         id: 777,
-        title: "sura Al-Kahf".tr,
+        title: S.current.suraAlKahf,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
         time: Time(

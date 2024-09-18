@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_tag.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -37,7 +37,7 @@ class AlarmCard extends StatelessWidget {
               context.read<AlarmsBloc>().add(AlarmsEditEvent(alarm));
             },
             icon: Icons.edit,
-            label: 'edit'.tr,
+            label: S.of(context).edit,
           ),
         ],
       ),
@@ -51,7 +51,7 @@ class AlarmCard extends StatelessWidget {
             },
             backgroundColor: Colors.red.withOpacity(.5),
             icon: Icons.delete,
-            label: "delete".tr,
+            label: S.of(context).delete,
           ),
         ],
       ),
@@ -97,7 +97,7 @@ class AlarmCardBody extends StatelessWidget {
                     ),
                     Expanded(
                       child: RoundTagCard(
-                        name: dbAlarm.repeatType.getUserFriendlyName(),
+                        name: dbAlarm.repeatType.getUserFriendlyName(context),
                         color: Colors.yellow.withOpacity(.5),
                       ),
                     ),

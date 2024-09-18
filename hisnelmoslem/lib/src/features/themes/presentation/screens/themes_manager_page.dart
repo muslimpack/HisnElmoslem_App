@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
@@ -16,7 +16,7 @@ class ThemeManagerPage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "theme manager".tr,
+              S.of(context).themeManager,
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
@@ -25,7 +25,7 @@ class ThemeManagerPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               ListTile(
-                title: Text("themeAppColor".tr),
+                title: Text(S.of(context).themeAppColor),
                 trailing: CircleAvatar(
                   backgroundColor: state.color,
                 ),
@@ -35,7 +35,7 @@ class ThemeManagerPage extends StatelessWidget {
                     builder: (context) {
                       Color selectedColor = state.color;
                       return AlertDialog(
-                        title: Text("themeSelectColor".tr),
+                        title: Text(S.of(context).themeSelectColor),
                         content: SingleChildScrollView(
                           child: ColorPicker(
                             hexInputBar: true,
@@ -48,7 +48,7 @@ class ThemeManagerPage extends StatelessWidget {
                         ),
                         actions: <Widget>[
                           ElevatedButton(
-                            child: Text("Select".tr),
+                            child: Text(S.of(context).select),
                             onPressed: () {
                               context
                                   .read<ThemeCubit>()
@@ -64,7 +64,7 @@ class ThemeManagerPage extends StatelessWidget {
               ),
               SwitchListTile(
                 value: state.brightness == Brightness.dark,
-                title: Text("themeDarkMode".tr),
+                title: Text(S.of(context).themeDarkMode),
                 onChanged: (value) {
                   if (state.brightness == Brightness.dark) {
                     context
@@ -79,7 +79,7 @@ class ThemeManagerPage extends StatelessWidget {
               ),
               SwitchListTile(
                 value: state.useMaterial3,
-                title: Text("themeUseMaterial3".tr),
+                title: Text(S.of(context).themeUseMaterial3),
                 onChanged: (value) {
                   sl<ThemeCubit>().changeUseMaterial3(value);
                 },
@@ -87,7 +87,7 @@ class ThemeManagerPage extends StatelessWidget {
               if (!state.useMaterial3)
                 SwitchListTile(
                   value: state.useOldTheme,
-                  title: Text("themeUserOldTheme".tr),
+                  title: Text(S.of(context).themeUserOldTheme),
                   onChanged: state.useMaterial3
                       ? null
                       : (value) {
@@ -96,7 +96,7 @@ class ThemeManagerPage extends StatelessWidget {
                 ),
               SwitchListTile(
                 value: state.overrideBackgroundColor,
-                title: Text("themeOverrideBackground".tr),
+                title: Text(S.of(context).themeOverrideBackground),
                 onChanged: !state.useMaterial3
                     ? null
                     : (value) {
@@ -105,7 +105,7 @@ class ThemeManagerPage extends StatelessWidget {
               ),
               if (state.overrideBackgroundColor)
                 ListTile(
-                  title: Text("themeBackgroundColor".tr),
+                  title: Text(S.of(context).themeBackgroundColor),
                   trailing: CircleAvatar(
                     backgroundColor: state.backgroundColor,
                   ),
@@ -115,7 +115,7 @@ class ThemeManagerPage extends StatelessWidget {
                       builder: (context) {
                         Color selectedColor = state.backgroundColor;
                         return AlertDialog(
-                          title: Text("themeBackgroundColor".tr),
+                          title: Text(S.of(context).themeBackgroundColor),
                           content: SingleChildScrollView(
                             child: ColorPicker(
                               hexInputBar: true,
@@ -128,7 +128,7 @@ class ThemeManagerPage extends StatelessWidget {
                           ),
                           actions: <Widget>[
                             ElevatedButton(
-                              child: Text("Select".tr),
+                              child: Text(S.of(context).select),
                               onPressed: () {
                                 context
                                     .read<ThemeCubit>()

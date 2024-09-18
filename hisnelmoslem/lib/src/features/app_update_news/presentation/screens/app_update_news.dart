@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/values/new_featuers_list.dart';
 import 'package:timelines/timelines.dart';
 
@@ -14,7 +14,7 @@ class AppUpdateNews extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text("updates history".tr),
+        title: Text(S.of(context).updatesHistory),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: ListView(
@@ -113,7 +113,7 @@ class AppUpdatesHistory extends StatelessWidget {
                   children: [
                     Text(
                       index == 0
-                          ? "${"Current version".tr}: ${updateNewFeature[index][0]}"
+                          ? "${S.of(context).currentVersion}: ${updateNewFeature[index][0]}"
                           : updateNewFeature[index][0],
                       style: DefaultTextStyle.of(context).style.copyWith(
                             fontSize: 15.0,

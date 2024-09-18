@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
@@ -60,7 +60,7 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  "Commentary sharh".tr,
+                  S.of(context).commentarySharh,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
@@ -70,19 +70,19 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
                     tabs: [
                       Tab(
                         child: Text(
-                          "Commentary hadith".tr,
+                          S.of(context).commentaryHadith,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Tab(
                         child: Text(
-                          "Commentary Benefit".tr,
+                          S.of(context).commentaryBenefit,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Tab(
                         child: Text(
-                          "Commentary sharh".tr,
+                          S.of(context).commentarySharh,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

@@ -8,7 +8,7 @@ class ThemeState extends Equatable {
   final bool overrideBackgroundColor;
   final bool useOldTheme;
   final String fontFamily;
-  final Locale locale;
+  final Locale? locale;
   const ThemeState({
     required this.color,
     required this.brightness,
@@ -66,7 +66,7 @@ class ThemeState extends Equatable {
   }
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       color,
       brightness,

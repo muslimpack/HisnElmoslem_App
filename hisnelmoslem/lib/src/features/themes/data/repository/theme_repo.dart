@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 
 class ThemeRepo {
   final GetStorage box;
@@ -96,12 +97,21 @@ class ThemeRepo {
   ///
 
   static const _appLocaleKey = 'app_locale';
-  Locale get appLocale {
-    final String? data = box.read(_appLocaleKey);
-    if (data == null) {
-      return const Locale("ar");
+  Locale? get appLocale {
+    final value = box.read<String?>(_appLocaleKey);
+    final Locale? locale;
+    if (value == null) {
+      final languageCode = PlatformExtension.languageCode;
+      if (languageCode == null) {
+        locale = null;
+      } else {
+        locale = Locale(PlatformExtension.languageCode!);
+      }
+    } else {
+      locale = Locale(value);
     }
-    return Locale(data);
+
+    return locale;
   }
 
   Future<void> changAppLocale(String value) async {

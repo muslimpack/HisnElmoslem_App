@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -15,7 +15,7 @@ class About extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "about us".tr,
+          S.of(context).aboutUs,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
@@ -29,17 +29,17 @@ class About extends StatelessWidget {
               'assets/images/app_icon.png',
               scale: 3,
             ),
-            title: Text("${"Hisn ELmoslem App Version".tr} $appVersion"),
-            subtitle: Text("Free, ad-free and open source app".tr),
+            title: Text("${S.of(context).hisnElmoslemAppVersion} $appVersion"),
+            subtitle: Text(S.of(context).freeAdFreeAndOpenSourceApp),
           ),
           const Divider(),
           ListTile(
             leading: Icon(MdiIcons.handClap),
-            title: Text("Pray for us and our parents.".tr),
+            title: Text(S.of(context).prayForUsAndParents),
           ),
           ListTile(
             leading: Icon(MdiIcons.bookOpenPageVariant),
-            title: Text("Quran pages is from android quran".tr),
+            title: Text(S.of(context).quranPagesFromAndroidQuran),
             onTap: () {
               openURL("https://android.quran.com/");
             },
@@ -47,25 +47,24 @@ class About extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.menu_book),
             title: Text(
-              "A digital copy of Hisn Elmoslem was used from the Aloka Network."
-                  .tr,
+              S.of(context).digitalCopyOfHisnElmoslem,
             ),
-            subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
+            subtitle: Text(S.of(context).drSaeedBinAliBinWahf),
             onTap: () {
               openURL("https://www.alukah.net/library/0/55211/");
             },
           ),
           ListTile(
             leading: Icon(MdiIcons.web),
-            title: Text("Official Website".tr),
-            subtitle: Text("Dr. Saeed bin Ali bin Wahf Al-Qahtani".tr),
+            title: Text(S.of(context).officialWebsite),
+            subtitle: Text(S.of(context).drSaeedBinAliBinWahf),
             onTap: () {
               openURL("https://www.binwahaf.com/");
             },
           ),
           ListTile(
             leading: Icon(MdiIcons.github),
-            title: Text("Github".tr),
+            title: Text(S.of(context).github),
             onTap: () async {
               await openURL(
                 kOrgGithub,

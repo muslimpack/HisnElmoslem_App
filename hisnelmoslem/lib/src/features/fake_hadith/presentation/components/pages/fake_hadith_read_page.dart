@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/hadith_card.dart';
@@ -16,10 +16,8 @@ class FakeHadithReadPage extends StatelessWidget {
           ? Empty(
               isImage: false,
               icon: Icons.menu_book,
-              title: "you haven't read anything yet".tr,
-              description:
-                  'The Prophet (may Allah’s peace and blessings be upon him) said: "Whoever tells lies about me intentionally should take his seat in Hellfire."'
-                      .tr,
+              title: S.of(context).haveNotReadAnythingYet,
+              description: S.of(context).prophetSaidLiesIntentional,
             )
           : ListView.builder(
               physics: const BouncingScrollPhysics(),

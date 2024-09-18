@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 
 class FakehadithAppBar extends StatelessWidget {
   const FakehadithAppBar({super.key});
@@ -7,7 +7,7 @@ class FakehadithAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: Text("fake hadith".tr),
+      title: Text(S.of(context).fakeHadith),
       centerTitle: true,
       elevation: 0,
       pinned: true,
@@ -19,12 +19,12 @@ class FakehadithAppBar extends StatelessWidget {
           tabs: [
             Tab(
               child: Text(
-                "new".tr,
+                S.of(context).newText,
               ),
             ),
             Tab(
               child: Text(
-                "have been read".tr,
+                S.of(context).haveBeenRead,
               ),
             ),
           ],

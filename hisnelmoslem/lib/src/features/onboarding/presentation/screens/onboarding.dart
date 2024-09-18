@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -68,7 +68,7 @@ class OnBoardingPage extends StatelessWidget {
                         child: RoundButton(
                           radius: 10,
                           text: Text(
-                            'Start'.tr,
+                            S.of(context).start,
                           ),
                           onTap: () {
                             context.read<OnboardCubit>().done();
@@ -83,7 +83,7 @@ class OnBoardingPage extends StatelessWidget {
                                 radius: 10,
                                 isTransparent: true,
                                 text: Text(
-                                  "Skip".tr,
+                                  S.of(context).skip,
                                   style: const TextStyle(),
                                 ),
                                 onTap: () {

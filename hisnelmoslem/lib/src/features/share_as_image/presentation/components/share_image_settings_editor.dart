@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
@@ -26,7 +26,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
         return AlertDialog(
           clipBehavior: Clip.hardEdge,
           contentPadding: EdgeInsets.zero,
-          title: Text("settings".tr),
+          title: Text(S.of(context).settings),
           content: Container(
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(),
@@ -38,7 +38,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 ColorSwatchBuilder(
-                  title: "title color".tr,
+                  title: S.of(context).titleColor,
                   apply: (color) {
                     shareImageCubit.updateTitleColor(color);
                   },
@@ -46,7 +46,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                   colorToTrack: state.shareImageSettings.titleTextColor,
                 ),
                 ColorSwatchBuilder(
-                  title: "text color".tr,
+                  title: S.of(context).textColor,
                   apply: (color) {
                     shareImageCubit.updateTextColor(color);
                   },
@@ -54,7 +54,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                   colorToTrack: state.shareImageSettings.bodyTextColor,
                 ),
                 ColorSwatchBuilder(
-                  title: "subtitle color".tr,
+                  title: S.of(context).subtitleColor,
                   apply: (color) {
                     shareImageCubit.updateAdditionalTextColor(color);
                   },
@@ -62,7 +62,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                   colorToTrack: state.shareImageSettings.additionalTextColor,
                 ),
                 ColorSwatchBuilder(
-                  title: "background color".tr,
+                  title: S.of(context).backgroundColor,
                   apply: (color) {
                     shareImageCubit.updateBackgroundColor(color);
                   },
@@ -71,7 +71,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                 ),
                 const Divider(),
                 CheckboxListTile(
-                  title: Text("show zikr index".tr),
+                  title: Text(S.of(context).showZikrIndex),
                   value: state.shareImageSettings.showZikrIndex,
                   onChanged: (value) {
                     shareImageCubit.updateShowZikrIndex(
@@ -80,14 +80,14 @@ class ShareImageSettingsEditor extends StatelessWidget {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text("show fadl".tr),
+                  title: Text(S.of(context).showFadl),
                   value: state.shareImageSettings.showFadl,
                   onChanged: (value) {
                     shareImageCubit.uodateShowFadl(value: value!);
                   },
                 ),
                 CheckboxListTile(
-                  title: Text("show source of zikr".tr),
+                  title: Text(S.of(context).showSourceOfZikr),
                   value: state.shareImageSettings.showSource,
                   onChanged: (value) {
                     shareImageCubit.updateShowSource(value: value!);
@@ -95,7 +95,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                 ),
                 const Divider(),
                 Text(
-                  "image quality".tr,
+                  S.of(context).imageQuality,
                 ),
                 SizedBox(
                   height: 50,

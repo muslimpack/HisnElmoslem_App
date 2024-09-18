@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
@@ -21,7 +21,7 @@ class QuranSection extends StatelessWidget {
           child: ListTile(
             leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text(
-              "end sura Ali 'Imran".tr,
+              S.of(context).endSuraAliImran,
             ),
             onTap: () {
               transitionAnimation.fromBottom2Top(
@@ -37,7 +37,7 @@ class QuranSection extends StatelessWidget {
           child: ListTile(
             leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text(
-              "sura Al-Kahf".tr,
+              S.of(context).suraAlKahf,
             ),
             onTap: () {
               transitionAnimation.fromBottom2Top(
@@ -52,7 +52,7 @@ class QuranSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: Icon(MdiIcons.bookOpenPageVariant),
-            title: Text("sura As-Sajdah".tr),
+            title: Text(S.of(context).suraAsSajdah),
             onTap: () {
               transitionAnimation.fromBottom2Top(
                 context: context,
@@ -66,7 +66,7 @@ class QuranSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: Icon(MdiIcons.bookOpenPageVariant),
-            title: Text("sura Al-Mulk".tr),
+            title: Text(S.of(context).suraAlMulk),
             onTap: () {
               transitionAnimation.fromBottom2Top(
                 context: context,
@@ -81,7 +81,7 @@ class QuranSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: const Icon(Icons.menu_book),
-            title: Text("fake hadith".tr),
+            title: Text(S.of(context).fakeHadith),
             onTap: () {
               transitionAnimation.fromBottom2Top(
                 context: context,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
@@ -27,17 +27,17 @@ class Settings extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          "settings".tr,
+          S.of(context).settings,
         ),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          Title(title: "general".tr),
+          Title(title: S.of(context).general),
           const SettingsGeneralSection(),
           const Divider(),
           ListTile(
-            title: Text("theme manager".tr),
+            title: Text(S.of(context).themeManager),
             leading: const Icon(Icons.palette),
             onTap: () {
               transitionAnimation.fromBottom2Top(
@@ -47,7 +47,7 @@ class Settings extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("effect manager".tr),
+            title: Text(S.of(context).effectManager),
             leading: const Icon(
               Icons.speaker_group,
             ),
@@ -59,7 +59,7 @@ class Settings extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("dashboard arrangement".tr),
+            title: Text(S.of(context).dashboardArrangement),
             leading: const Icon(
               Icons.view_array,
             ),
@@ -71,7 +71,7 @@ class Settings extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("app language".tr),
+            title: Text(S.of(context).appLanguage),
             leading: const Icon(
               Icons.translate,
             ),
@@ -83,7 +83,7 @@ class Settings extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("font type".tr),
+            title: Text(S.of(context).fontType),
             leading: const Icon(
               Icons.font_download,
             ),
@@ -118,7 +118,7 @@ class SettingsGeneralSection extends StatelessWidget {
             if (!state.isCardReadMode)
               ListTile(
                 leading: Icon(MdiIcons.bookOpenPageVariant),
-                title: Text("page mode".tr),
+                title: Text(S.of(context).pageMode),
                 onTap: () {
                   context.read<SettingsCubit>().toggleIsCardReadMode(
                         activate: true,
@@ -128,7 +128,7 @@ class SettingsGeneralSection extends StatelessWidget {
             else
               ListTile(
                 leading: Icon(MdiIcons.card),
-                title: Text("card mode".tr),
+                title: Text(S.of(context).cardMode),
                 onTap: () {
                   context.read<SettingsCubit>().toggleIsCardReadMode(
                         activate: false,
@@ -137,7 +137,7 @@ class SettingsGeneralSection extends StatelessWidget {
               ),
             SwitchListTile(
               value: state.enableWakeLock,
-              title: Text("enableWakeLock".tr),
+              title: Text(S.of(context).enableWakeLock),
               onChanged: (value) {
                 context.read<SettingsCubit>().toggleWakeLock(
                       use: !state.enableWakeLock,
@@ -147,8 +147,8 @@ class SettingsGeneralSection extends StatelessWidget {
             SwitchListTile(
               tileColor: Colors.amber.withOpacity(.1),
               value: state.useHindiDigits,
-              title: Text("useHindiDigits".tr),
-              subtitle: Text("Requires app restart".tr),
+              title: Text(S.of(context).useHindiDigits),
+              subtitle: Text(S.of(context).requiresAppRestart),
               onChanged: (value) {
                 context.read<SettingsCubit>().toggleUseHiniDigits(
                       use: !state.useHindiDigits,
@@ -169,7 +169,7 @@ class _SettingsFontSettingsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Title(title: "font settings".tr),
+        Title(title: S.of(context).fontSettings),
         const TextSample(),
         const FontSettingsToolbox(),
       ],
@@ -190,9 +190,9 @@ class _SettingsAlarmsSection extends StatelessWidget {
         return Column(
           children: [
             /**/
-            Title(title: "reminders".tr),
+            Title(title: S.of(context).reminders),
             ListTile(
-              title: Text("reminders manager".tr),
+              title: Text(S.of(context).remindersManager),
               leading: const Icon(
                 Icons.alarm_add_rounded,
               ),
@@ -209,7 +209,7 @@ class _SettingsAlarmsSection extends StatelessWidget {
                 leading: const Icon(
                   Icons.person,
                 ),
-                title: Text("fasting mondays and thursdays reminder".tr),
+                title: Text(S.of(context).fastingMondaysThursdaysReminder),
               ),
               value: state.isFastAlarmEnabled,
               onChanged: (value) {
@@ -224,7 +224,7 @@ class _SettingsAlarmsSection extends StatelessWidget {
                 leading: const Icon(
                   Icons.alarm,
                 ),
-                title: Text("sura Al-Kahf reminder".tr),
+                title: Text(S.of(context).suraAlKahfReminder),
               ),
               value: state.isCaveAlarmEnabled,
               onChanged: (value) {
@@ -247,10 +247,10 @@ class _SettingsContactSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Title(title: 'contact'.tr),
+        Title(title: S.of(context).contact),
         ListTile(
           leading: Icon(MdiIcons.gmail),
-          title: Text("send email".tr),
+          title: Text(S.of(context).sendEmail),
           onTap: () {
             EmailManager.messageUS();
           },
@@ -258,7 +258,7 @@ class _SettingsContactSection extends StatelessWidget {
         ListTile(
           leading: Icon(MdiIcons.github),
           trailing: const Icon(Icons.keyboard_arrow_left),
-          title: Text("Github".tr),
+          title: Text(S.of(context).github),
           onTap: () async {
             await openURL(
               kOrgGithub,
@@ -268,7 +268,7 @@ class _SettingsContactSection extends StatelessWidget {
         ListTile(
           leading: Icon(MdiIcons.information),
           trailing: const Icon(Icons.keyboard_arrow_left),
-          title: Text("about us".tr),
+          title: Text(S.of(context).aboutUs),
           onTap: () {
             transitionAnimation.fromBottom2Top(
               context: context,

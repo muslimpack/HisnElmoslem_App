@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -24,10 +24,8 @@ class FavouriteZikr extends StatelessWidget {
             ? Empty(
                 isImage: false,
                 icon: Icons.favorite_outline_rounded,
-                title: "nothing found in favorites".tr,
-                description:
-                    "no zikr has been selected as a favorite Click on the heart icon on any internal zikr"
-                        .tr,
+                title: S.of(context).nothingFoundInFavorites,
+                description: S.of(context).noZikrSelectedAsFavorite,
               )
             : Scaffold(
                 body: ListView.builder(

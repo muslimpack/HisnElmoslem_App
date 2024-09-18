@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
@@ -20,7 +20,7 @@ class MoreSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: Icon(MdiIcons.gmail),
-            title: Text("contact to dev".tr),
+            title: Text(S.of(context).contactDev),
             onTap: () {
               EmailManager.messageUS();
             },
@@ -29,7 +29,7 @@ class MoreSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: const Icon(Icons.history),
-            title: Text("updates history".tr),
+            title: Text(S.of(context).updatesHistory),
             onTap: () {
               transitionAnimation.fromBottom2Top(
                 context: context,
@@ -41,7 +41,7 @@ class MoreSection extends StatelessWidget {
         DrawerCard(
           child: ListTile(
             leading: const Icon(Icons.info),
-            title: Text("about us".tr),
+            title: Text(S.of(context).aboutUs),
             onTap: () {
               transitionAnimation.fromBottom2Top(
                 context: context,

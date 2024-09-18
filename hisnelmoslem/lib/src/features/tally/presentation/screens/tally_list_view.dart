@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
@@ -67,7 +67,7 @@ class TallyListView extends StatelessWidget {
                     context: context,
                     builder: (_) {
                       return YesOrNoDialog(
-                        msg: "Reset all counters?.".tr,
+                        msg: S.of(context).resetAllCounters,
                         onYes: () async {
                           context
                               .read<TallyBloc>()

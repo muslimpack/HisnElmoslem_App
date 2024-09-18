@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 
 class EffectsManagerScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class EffectsManagerScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "effect manager".tr,
+              S.of(context).effectManager,
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
@@ -26,7 +26,7 @@ class EffectsManagerScreen extends StatelessWidget {
                 leading: const Icon(
                   Icons.volume_up,
                 ),
-                title: Text("Sound Effect volume".tr),
+                title: Text(S.of(context).soundEffectVolume),
                 subtitle: Slider(
                   value: state.zikrEffects.soundEffectVolume,
                   onChanged: (value) {
@@ -42,7 +42,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect at every praise".tr),
+                  title: Text(S.of(context).soundEffectAtEveryPraise),
                 ),
                 value: state.zikrEffects.soundEveryPraise,
                 onChanged: (value) {
@@ -59,7 +59,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect at single zikr end".tr),
+                  title: Text(S.of(context).soundEffectAtSingleZikrEnd),
                 ),
                 value: state.zikrEffects.soundEveryZikr,
                 onChanged: (value) {
@@ -76,7 +76,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.speaker,
                   ),
-                  title: Text("sound effect when all zikr end".tr),
+                  title: Text(S.of(context).soundEffectWhenAllZikrEnd),
                 ),
                 value: state.zikrEffects.soundEveryTitle,
                 onChanged: (value) {
@@ -94,7 +94,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration at every praise".tr),
+                  title: Text(S.of(context).phoneVibrationAtEveryPraise),
                 ),
                 value: state.zikrEffects.vibrateEveryPraise,
                 onChanged: (value) {
@@ -113,7 +113,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration at single zikr end".tr),
+                  title: Text(S.of(context).phoneVibrationAtSingleZikrEnd),
                 ),
                 value: state.zikrEffects.vibrateEveryZikr,
                 onChanged: (value) {
@@ -130,7 +130,7 @@ class EffectsManagerScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.vibration,
                   ),
-                  title: Text("phone vibration when all zikr end".tr),
+                  title: Text(S.of(context).phoneVibrationWhenAllZikrEnd),
                 ),
                 value: state.zikrEffects.vibrateEveryTitle,
                 onChanged: (value) {

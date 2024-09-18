@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
@@ -32,13 +32,13 @@ class QuranReadPage extends StatelessWidget {
                 () {
                   switch (state.surahName) {
                     case SurahNameEnum.alKahf:
-                      return 'sura Al-Kahf'.tr;
+                      return S.of(context).suraAlKahf;
                     case SurahNameEnum.alMulk:
-                      return 'sura Al-Mulk'.tr;
+                      return S.of(context).suraAlMulk;
                     case SurahNameEnum.assajdah:
-                      return 'sura As-Sajdah'.tr;
+                      return S.of(context).suraAsSajdah;
                     case SurahNameEnum.endofAliImran:
-                      return "end sura Ali 'Imran".tr;
+                      return S.of(context).endSuraAliImran;
                   }
                 }(),
               ),

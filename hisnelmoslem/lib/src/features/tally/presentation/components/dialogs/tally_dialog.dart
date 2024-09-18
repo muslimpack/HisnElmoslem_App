@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
@@ -48,9 +48,9 @@ class _TallyDialogState extends State<TallyDialog> {
       header: Text(
         () {
           if (widget.dbTally != null) {
-            return "edit counter".tr;
+            return S.of(context).editCounter;
           } else {
-            return "add new counter".tr;
+            return S.of(context).addNewCounter;
           }
         }(),
         style: const TextStyle(
@@ -59,25 +59,25 @@ class _TallyDialogState extends State<TallyDialog> {
       ),
       content: [
         Text(
-          "add a name to your counter".tr,
+          S.of(context).addNameToCounter,
           textAlign: TextAlign.center,
         ),
         UserTextField(
           controller: titleController,
-          hintText: "counter name".tr,
+          hintText: S.of(context).counterName,
         ),
         Text(
-          "the counter circle is set to zero when reach this number".tr,
+          S.of(context).counterCircleSetToZero,
           textAlign: TextAlign.center,
         ),
         UserNumberField(
           controller: resetCounterController,
-          hintText: "circle every".tr,
+          hintText: S.of(context).circleEvery,
         ),
       ],
       footer: ListTile(
         title: Text(
-          "done".tr,
+          S.of(context).done,
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 20),
         ),
@@ -88,7 +88,7 @@ class _TallyDialogState extends State<TallyDialog> {
             return;
           }
           if (resetCounter == null || title.isEmpty) {
-            showToast(msg: "Counter circle must be greater than zero".tr);
+            showToast(msg: S.of(context).counterCircleMustBeGreaterThanZero);
             return;
           }
 

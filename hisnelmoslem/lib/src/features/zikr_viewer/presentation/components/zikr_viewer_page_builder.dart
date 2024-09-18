@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -30,7 +30,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
             softWrap: true,
           ),
           action: SnackBarAction(
-            label: "copy".tr,
+            label: S.of(context).copy,
             onPressed: () async {
               context
                   .read<ZikrViewerBloc>()
@@ -46,7 +46,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
-                isDone ? "done".tr : "${dbContent.count}".toArabicNumber(),
+                isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary.withOpacity(.02),
                   fontSize: 250,

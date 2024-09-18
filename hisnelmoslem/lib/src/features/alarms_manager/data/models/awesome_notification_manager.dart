@@ -1,7 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/app.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -125,12 +125,12 @@ class AwesomeNotificationManager {
       actionButtons: [
         NotificationActionButton(
           key: 'Dismiss',
-          label: 'Dismiss'.tr,
+          label: S.current.dismiss,
           actionType: ActionType.DisabledAction,
         ),
         NotificationActionButton(
           key: 'Start',
-          label: 'Start'.tr,
+          label: S.current.start,
         ),
       ],
     );
@@ -145,7 +145,7 @@ class AwesomeNotificationManager {
       content: NotificationContent(
         id: 1000,
         channelKey: 'scheduled_channel',
-        title: "You haven't opened the app for a long time.".tr,
+        title: S.current.haveNotOpenedAppLongTime,
         body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
         notificationLayout: NotificationLayout.BigText,
         payload: {'Open': "2"},
@@ -192,18 +192,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'Start'.tr,
+                label: S.current.start,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],
@@ -241,18 +241,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: 'Start'.tr,
+                label: S.current.start,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: 'Dismiss'.tr,
+                label: S.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_list_view.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -19,8 +19,8 @@ class AzkarFehrs extends StatelessWidget {
             ? Empty(
                 isImage: false,
                 icon: Icons.search_outlined,
-                title: "no title with this name".tr,
-                description: "please review the index of the book".tr,
+                title: S.of(context).noTitleWithName,
+                description: S.of(context).reviewIndexOfBook,
               )
             : HomeTitlesListView(
                 titles: state.titles,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
@@ -43,7 +43,7 @@ class HadithCard extends StatelessWidget {
                   softWrap: true,
                 ),
                 action: SnackBarAction(
-                  label: "copy".tr,
+                  label: S.of(context).copy,
                   onPressed: () async {
                     // Some code to undo the change.
                     await Clipboard.setData(

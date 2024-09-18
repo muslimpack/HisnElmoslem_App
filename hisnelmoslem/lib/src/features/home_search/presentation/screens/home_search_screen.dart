@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_list_view.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -25,8 +25,8 @@ class HomeSearchScreen extends StatelessWidget {
                         isImage: false,
                         icon: Icons.search_outlined,
                         title:
-                            "${"no title with this name".tr}: ${state.searchText}",
-                        description: "please review the index of the book".tr,
+                            "${S.of(context).noTitleWithName}: ${state.searchText}",
+                        description: S.of(context).reviewIndexOfBook,
                       )
                 : HomeTitlesListView(
                     titles: state.searchedTitles,
