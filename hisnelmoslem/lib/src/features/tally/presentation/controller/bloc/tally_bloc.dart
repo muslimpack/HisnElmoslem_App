@@ -78,6 +78,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final counterToAdd = event.counter.copyWith(
       lastUpdate: DateTime.now(),
       created: DateTime.now(),
+      // activate added tally when tally list is empty
+      isActivated: state.allCounters.isEmpty,
     );
 
     final counterId =
