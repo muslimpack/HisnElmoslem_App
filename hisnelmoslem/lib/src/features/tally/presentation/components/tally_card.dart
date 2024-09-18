@@ -81,8 +81,7 @@ class TallyCard extends StatelessWidget {
                       IconButton(
                         tooltip: S.of(context).delete,
                         onPressed: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
+                          await showDialog(
                             context: context,
                             builder: (_) {
                               return YesOrNoDialog(

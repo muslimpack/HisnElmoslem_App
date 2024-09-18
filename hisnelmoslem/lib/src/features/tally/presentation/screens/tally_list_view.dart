@@ -62,8 +62,7 @@ class TallyListView extends StatelessWidget {
                   size: 40,
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
+                  showDialog(
                     context: context,
                     builder: (_) {
                       return YesOrNoDialog(

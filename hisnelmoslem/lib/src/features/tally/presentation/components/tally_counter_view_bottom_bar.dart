@@ -26,8 +26,7 @@ class TallyCounterViewBottomBar extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
+                showDialog(
                   context: context,
                   builder: (_) {
                     return YesOrNoDialog(
