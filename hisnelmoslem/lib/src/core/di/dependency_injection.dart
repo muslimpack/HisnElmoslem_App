@@ -13,7 +13,7 @@ import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadit
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/hsin_db_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
