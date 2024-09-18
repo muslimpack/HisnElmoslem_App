@@ -103,6 +103,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             style: const TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 10),
           TextField(
             style: TextStyle(
               color: Theme.of(context).listTileTheme.textColor,
