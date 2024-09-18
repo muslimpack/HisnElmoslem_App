@@ -42,7 +42,7 @@ ${S.current.featuresToBeAdded}
   }) {
     sendMisspelledInZikr(
       subject: dbTitle.name,
-      cardNumber: dbContent.orderId.toString(),
+      cardNumber: dbContent.order.toString(),
       text: dbContent.content,
     );
   }

@@ -30,13 +30,13 @@ class ShareImageLoadedState extends ShareImageState {
   String get getImageTitle {
     if (content.titleId >= 0) {
       if (shareImageSettings.showZikrIndex) {
-        return "$title - ذكر رقم ${content.orderId}";
+        return "$title - ذكر رقم ${content.order}";
       } else {
         return title;
       }
     } else {
       if (shareImageSettings.showZikrIndex) {
-        return "$title - موضوع رقم ${content.orderId}";
+        return "$title - موضوع رقم ${content.order}";
       } else {
         return title;
       }

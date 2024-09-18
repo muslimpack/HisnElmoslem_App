@@ -5,14 +5,14 @@ class DbTitle extends Equatable {
   final int id;
   final String name;
   final String freq;
-  final int orderId;
+  final int order;
   final bool favourite;
 
   const DbTitle({
     required this.id,
     required this.name,
     required this.freq,
-    required this.orderId,
+    required this.order,
     required this.favourite,
   });
 
@@ -21,7 +21,7 @@ class DbTitle extends Equatable {
       id: map['id'] as int,
       name: map['name'] as String,
       freq: map['freq'] as String,
-      orderId: map['orderId'] as int,
+      order: map['order'] as int,
       favourite: false,
     );
   }
@@ -31,7 +31,7 @@ class DbTitle extends Equatable {
       'id': id,
       'name': name,
       'freq': freq,
-      'orderId': orderId,
+      'order': order,
     };
   }
 
@@ -46,7 +46,7 @@ class DbTitle extends Equatable {
       id,
       name,
       freq,
-      orderId,
+      order,
       favourite,
     ];
   }
@@ -55,14 +55,14 @@ class DbTitle extends Equatable {
     int? id,
     String? name,
     String? freq,
-    int? orderId,
+    int? order,
     bool? favourite,
   }) {
     return DbTitle(
       id: id ?? this.id,
       name: name ?? this.name,
       freq: freq ?? this.freq,
-      orderId: orderId ?? this.orderId,
+      order: order ?? this.order,
       favourite: favourite ?? this.favourite,
     );
   }

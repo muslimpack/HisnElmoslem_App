@@ -20,14 +20,14 @@ class HomeLoadedState extends HomeState {
   List<DbTitle> get allTitles {
     return titles
       ..sort(
-        (a, b) => a.orderId.compareTo(b.orderId),
+        (a, b) => a.order.compareTo(b.order),
       );
   }
 
   List<DbTitle> get bookmarkedTitles {
     return titles.where((x) => x.favourite).toList()
       ..sort(
-        (a, b) => a.orderId.compareTo(b.orderId),
+        (a, b) => a.order.compareTo(b.order),
       );
   }
 
