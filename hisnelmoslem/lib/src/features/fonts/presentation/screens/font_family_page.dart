@@ -20,12 +20,12 @@ class FontFamilyPage extends StatelessWidget {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
-          body: ListView(
+          body: ListView.builder(
             physics: const BouncingScrollPhysics(),
-            children: List.generate(fontFamilies.length, (index) {
+            itemCount: fontFamilies.length,
+            itemBuilder: (context, index) {
               final font = fontFamilies[index];
               return ListTile(
-                key: Key('$index'),
                 tileColor: state.fontFamily == font
                     ? Theme.of(context).colorScheme.primary.withOpacity(.2)
                     : null,
@@ -44,7 +44,7 @@ class FontFamilyPage extends StatelessWidget {
                 leading: const Icon(Icons.text_format),
                 onTap: () => context.read<ThemeCubit>().changeFontFamily(font),
               );
-            }),
+            },
           ),
         );
       },
