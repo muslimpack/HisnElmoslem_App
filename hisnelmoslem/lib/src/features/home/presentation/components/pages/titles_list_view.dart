@@ -20,7 +20,9 @@ class HomeTitlesListView extends StatelessWidget {
         return TitleCard(
           dbTitle: titles[index],
           dbAlarm: alarms[titles[index].id],
-          index: index,
+          titleColor: index % 2 != 0
+              ? Theme.of(context).colorScheme.primary.withOpacity(.05)
+              : null,
         );
       },
       itemCount: titles.length,

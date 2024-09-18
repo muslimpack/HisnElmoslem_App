@@ -12,7 +12,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
 
 class TitleCard extends StatelessWidget {
-  final int index;
+  final Color? titleColor;
   final DbTitle dbTitle;
   final DbAlarm? dbAlarm;
 
@@ -20,7 +20,7 @@ class TitleCard extends StatelessWidget {
     super.key,
     required this.dbTitle,
     required this.dbAlarm,
-    required this.index,
+    required this.titleColor,
   });
 
   @override
@@ -29,9 +29,7 @@ class TitleCard extends StatelessWidget {
         dbAlarm ?? DbAlarm(titleId: dbTitle.id, title: dbTitle.name);
 
     return ListTile(
-      tileColor: index % 2 != 0
-          ? Theme.of(context).colorScheme.primary.withOpacity(.05)
-          : null,
+      tileColor: titleColor,
       leading: dbTitle.favourite
           ? IconButton(
               icon: Icon(
