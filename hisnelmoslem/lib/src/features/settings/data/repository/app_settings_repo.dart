@@ -1,5 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 
 class AppSettingsRepo {
   final GetStorage box;
@@ -91,4 +92,25 @@ class AppSettingsRepo {
 
   Future<void> changePraiseWithVolumeKeysStatus({required bool value}) async =>
       box.write(praiseWithVolumeKeysKey, value);
+
+  ///MARK:Titles Freq filters
+  /* ******* Titles Freq filters ******* */
+  static const String _titlesFreqFilter = "titlesFreqFilter";
+
+  List<TitlesFreqEnum> getTitlesFreqFilterStatus() {
+    final String? data = box.read(_titlesFreqFilter);
+
+    final List<TitlesFreqEnum> result = List.of([]);
+    if (data != null && data.isNotEmpty) {
+      result.addAll(result.toEnumList(data));
+    } else {
+      result.addAll(TitlesFreqEnum.values);
+    }
+
+    return result;
+  }
+
+  Future setTitlesFreqFilterStatus(List<TitlesFreqEnum> freqList) async {
+    return box.write(_titlesFreqFilter, freqList.toJson());
+  }
 }
