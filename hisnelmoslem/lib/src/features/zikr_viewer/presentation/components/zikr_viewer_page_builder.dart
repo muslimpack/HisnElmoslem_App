@@ -46,7 +46,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
-                isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
+                isDone
+                    ? S.of(context).done
+                    : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary.withOpacity(.02),
                   fontSize: 250,
