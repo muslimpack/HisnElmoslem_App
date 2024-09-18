@@ -67,7 +67,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future zikrEffectChangePlaySoundEveryPraise({required bool activate}) async {
     if (activate) {
-      await effectsManager.playPraiseSound();
+      effectsManager.playPraiseSound();
     }
     await effectsManagerRepo.changePraiseSoundStatus(value: activate);
     emit(
@@ -79,7 +79,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future zikrEffectChangePlaySoundEveryZikr({required bool activate}) async {
     if (activate) {
-      await effectsManager.playZikrSound();
+      effectsManager.playZikrSound();
     }
     await effectsManagerRepo.changeZikrSoundStatus(value: activate);
     emit(
@@ -91,7 +91,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future zikrEffectChangePlaySoundEveryTitle({required bool activate}) async {
     if (activate) {
-      await effectsManager.playTitleSound();
+      effectsManager.playTitleSound();
     }
     await effectsManagerRepo.changeTitleSoundStatus(value: activate);
     emit(
