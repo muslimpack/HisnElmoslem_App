@@ -75,38 +75,34 @@ class AlarmCardBody extends StatelessWidget {
     return Column(
       children: [
         SwitchListTile(
-          title: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.alarm),
-            subtitle: Wrap(
-              children: [
-                if (dbAlarm.body.isNotEmpty)
-                  RoundTagCard(
-                    name: dbAlarm.body,
-                    color: Colors.brown.withOpacity(.5),
-                  ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RoundTagCard(
-                        name: DateFormat("hh:mm a").format(
-                          DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute),
-                        ),
-                        color: Colors.green.withOpacity(.5),
-                      ),
-                    ),
-                    Expanded(
-                      child: RoundTagCard(
-                        name: dbAlarm.repeatType.getUserFriendlyName(context),
-                        color: Colors.yellow.withOpacity(.5),
-                      ),
-                    ),
-                  ],
+          secondary: const Icon(Icons.alarm),
+          title: Text(dbAlarm.title),
+          subtitle: Wrap(
+            children: [
+              if (dbAlarm.body.isNotEmpty)
+                RoundTagCard(
+                  name: dbAlarm.body,
+                  color: Colors.brown.withOpacity(.5),
                 ),
-              ],
-            ),
-            isThreeLine: true,
-            title: Text(dbAlarm.title),
+              Row(
+                children: [
+                  Expanded(
+                    child: RoundTagCard(
+                      name: DateFormat("hh:mm a").format(
+                        DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute),
+                      ),
+                      color: Colors.green.withOpacity(.5),
+                    ),
+                  ),
+                  Expanded(
+                    child: RoundTagCard(
+                      name: dbAlarm.repeatType.getUserFriendlyName(context),
+                      color: Colors.yellow.withOpacity(.5),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           value: dbAlarm.isActive,
           onChanged: (value) {
