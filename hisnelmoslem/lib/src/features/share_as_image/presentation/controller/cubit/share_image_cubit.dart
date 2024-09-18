@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hsin_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -48,9 +48,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   FutureOr<String> _getTitle(DbContent content) async {
     final String title;
     if (content.titleId >= 0) {
-      title =
-          (await sl<AzkarDatabaseHelper>().getTitleById(id: content.titleId))
-              .name;
+      title = (await sl<HisnDBHelper>().getTitleById(id: content.titleId)).name;
     } else {
       title = "أحاديث منتشرة لا تصح";
     }

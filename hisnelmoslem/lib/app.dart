@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_not
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hsin_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
@@ -40,7 +40,7 @@ class AppState extends State<App> {
 
   @override
   Future<void> dispose() async {
-    await sl<AzkarDatabaseHelper>().close();
+    await sl<HisnDBHelper>().close();
     await sl<FakeHadithDBHelper>().close();
     await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
