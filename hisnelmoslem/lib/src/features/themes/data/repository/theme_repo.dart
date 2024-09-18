@@ -105,7 +105,7 @@ class ThemeRepo {
       if (languageCode == null) {
         locale = null;
       } else {
-        locale = Locale(PlatformExtension.languageCode!);
+        locale = Locale(languageCode);
       }
     } else {
       locale = Locale(value);
