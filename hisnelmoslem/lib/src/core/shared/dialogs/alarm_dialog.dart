@@ -2,7 +2,6 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
-import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -85,9 +84,8 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return DialogMaker(
-      height: 380,
-      header: Text(
+    return AlertDialog(
+      title: Text(
         () {
           if (widget.isToEdit) {
             return S.of(context).editReminder;
@@ -95,149 +93,142 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             return S.of(context).addReminder;
           }
         }(),
-        style: const TextStyle(
-          fontSize: 25,
-        ),
-        textAlign: TextAlign.center,
       ),
-      content: [
-        Text(
-          widget.dbAlarm.title,
-          style: const TextStyle(fontSize: 20),
-          textAlign: TextAlign.center,
-        ),
-        TextField(
-          style: TextStyle(
-            color: Theme.of(context).listTileTheme.textColor,
-          ),
-          textAlign: TextAlign.center,
-          controller: bodyController,
-          maxLength: 100,
-          autofocus: true,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            hintText: S.of(context).setMessageForYou,
-            contentPadding:
-                const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
-          ),
-        ),
-        Card(
-          clipBehavior: Clip.hardEdge,
-          child: ListTile(
-            leading: const Icon(Icons.alarm),
-            title: Text(
-              selectedHour == null || selectedMinute == null
-                  ? S.of(context).clickToChooseTime
-                  : DateFormat("hh:mm a").format(
-                      DateTime(1, 1, 1, selectedHour!, selectedMinute!),
-                    ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                showPicker(
-                  context: context,
-                  value: Time(hour: _time.hour, minute: _time.minute),
-                  onChange: onTimeChanged,
-                  iosStylePicker: true,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-
-                  // Optional onChange to receive value as DateTime
-                  onChangeDateTime: (DateTime dateTime) {},
-                ) as Route,
-              );
-            },
-          ),
-        ),
-        Card(
-          clipBehavior: Clip.hardEdge,
-          child: DropdownButton<AlarmRepeatType>(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            value: repeatType,
-            isExpanded: true,
-            icon: const Icon(Icons.arrow_drop_down),
-            iconSize: 30,
-
-            underline: const SizedBox(),
-            // style: TextStyle(
-            //   color: Theme.of(context).listTileTheme.textColor,
-            // ),
-            // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-            onChanged: (AlarmRepeatType? newValue) {
-              if (newValue == null) return;
-              setState(() {
-                repeatType = newValue;
-              });
-            },
-            items: AlarmRepeatType.values
-                .map<DropdownMenuItem<AlarmRepeatType>>(
-                    (AlarmRepeatType value) {
-              return DropdownMenuItem<AlarmRepeatType>(
-                // alignment: Alignment.center,
-
-                value: value,
-                child: Text(
-                  value.getUserFriendlyName(context),
-
-                  // textAlign: TextAlign.center,
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
-      footer: Row(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          Text(
+            widget.dbAlarm.title,
+            style: const TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+          TextField(
+            style: TextStyle(
+              color: Theme.of(context).listTileTheme.textColor,
+            ),
+            textAlign: TextAlign.center,
+            controller: bodyController,
+            maxLength: 100,
+            autofocus: true,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              hintText: S.of(context).setMessageForYou,
+              contentPadding:
+                  const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
+            ),
+          ),
+          Card(
+            clipBehavior: Clip.hardEdge,
             child: ListTile(
+              leading: const Icon(Icons.alarm),
               title: Text(
-                S.of(context).done,
+                selectedHour == null || selectedMinute == null
+                    ? S.of(context).clickToChooseTime
+                    : DateFormat("hh:mm a").format(
+                        DateTime(1, 1, 1, selectedHour!, selectedMinute!),
+                      ),
                 textAlign: TextAlign.center,
+                textDirection: TextDirection.ltr,
               ),
               onTap: () {
-                setState(() {
-                  if (selectedHour != null) {
-                    final editedAlarm = widget.dbAlarm.copyWith(
-                      body: bodyController.text,
-                      hour: selectedHour,
-                      hasAlarmInside: true,
-                      minute: selectedMinute,
-                      repeatType: repeatType,
-                    );
+                Navigator.of(context).push(
+                  showPicker(
+                    context: context,
+                    value: Time(hour: _time.hour, minute: _time.minute),
+                    onChange: onTimeChanged,
+                    iosStylePicker: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
-                    if (widget.isToEdit) {
-                      Navigator.pop(context, editedAlarm);
-                    } else {
-                      Navigator.pop(
-                        context,
-                        editedAlarm.copyWith(isActive: true),
-                      );
-                    }
-                  } else {
-                    showToast(msg: S.of(context).chooseTimeForReminder);
-                  }
+                    // Optional onChange to receive value as DateTime
+                    onChangeDateTime: (DateTime dateTime) {},
+                  ) as Route,
+                );
+              },
+            ),
+          ),
+          Card(
+            clipBehavior: Clip.hardEdge,
+            child: DropdownButton<AlarmRepeatType>(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              value: repeatType,
+              isExpanded: true,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: 30,
+
+              underline: const SizedBox(),
+              // style: TextStyle(
+              //   color: Theme.of(context).listTileTheme.textColor,
+              // ),
+              // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+              onChanged: (AlarmRepeatType? newValue) {
+                if (newValue == null) return;
+                setState(() {
+                  repeatType = newValue;
                 });
               },
-            ),
-          ),
-          Expanded(
-            child: ListTile(
-              title: Text(
-                S.of(context).close,
-                textAlign: TextAlign.center,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              items: AlarmRepeatType.values
+                  .map<DropdownMenuItem<AlarmRepeatType>>(
+                      (AlarmRepeatType value) {
+                return DropdownMenuItem<AlarmRepeatType>(
+                  // alignment: Alignment.center,
+
+                  value: value,
+                  child: Text(
+                    value.getUserFriendlyName(context),
+
+                    // textAlign: TextAlign.center,
+                  ),
+                );
+              }).toList(),
             ),
           ),
         ],
       ),
+      actions: [
+        TextButton(
+          child: Text(
+            S.of(context).done,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            setState(() {
+              if (selectedHour != null) {
+                final editedAlarm = widget.dbAlarm.copyWith(
+                  body: bodyController.text,
+                  hour: selectedHour,
+                  hasAlarmInside: true,
+                  minute: selectedMinute,
+                  repeatType: repeatType,
+                );
+
+                if (widget.isToEdit) {
+                  Navigator.pop(context, editedAlarm);
+                } else {
+                  Navigator.pop(
+                    context,
+                    editedAlarm.copyWith(isActive: true),
+                  );
+                }
+              } else {
+                showToast(msg: S.of(context).chooseTimeForReminder);
+              }
+            });
+          },
+        ),
+        TextButton(
+          child: Text(
+            S.of(context).close,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 }
