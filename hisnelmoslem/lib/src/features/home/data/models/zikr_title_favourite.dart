@@ -1,12 +1,12 @@
 class DbTitleFavourite {
-  int id;
-  int titleId;
-  bool favourite;
+  final int id;
+  final int titleId;
+  final bool favourite;
 
   DbTitleFavourite({
-    this.id = 0,
-    this.titleId = 0,
-    this.favourite = false,
+    required this.id,
+    required this.titleId,
+    required this.favourite,
   });
 
   factory DbTitleFavourite.fromMap(Map<String, dynamic> map) {

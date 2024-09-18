@@ -1,12 +1,12 @@
 class DbFakeHadithRead {
-  int id;
-  int hadithId;
-  bool isRead;
+  final int id;
+  final int hadithId;
+  final bool isRead;
 
   DbFakeHadithRead({
-    this.id = 0,
-    this.hadithId = 0,
-    this.isRead = false,
+    required this.id,
+    required this.hadithId,
+    required this.isRead,
   });
 
   factory DbFakeHadithRead.fromMap(Map<String, dynamic> map) {
