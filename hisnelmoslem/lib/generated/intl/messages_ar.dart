@@ -179,7 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "prefPraiseWithVolumeKeys":
             MessageLookupByLibrary.simpleMessage("التسبيح بمفاتيح الصوت"),
         "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
-            "استخدام مفاتيح الصوت للتسبيح في وضع الصفحات"),
+            "استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(

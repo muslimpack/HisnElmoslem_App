@@ -1130,10 +1130,10 @@ class S {
     );
   }
 
-  /// `Praise with volume keys in page mode`
+  /// `Praise with volume keys in page mode and tally`
   String get prefPraiseWithVolumeKeysDesc {
     return Intl.message(
-      'Praise with volume keys in page mode',
+      'Praise with volume keys in page mode and tally',
       name: 'prefPraiseWithVolumeKeysDesc',
       desc: '',
       args: [],

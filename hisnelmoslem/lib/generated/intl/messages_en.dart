@@ -184,7 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "prefPraiseWithVolumeKeys":
             MessageLookupByLibrary.simpleMessage("Praise with volume keys"),
         "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
-            "Praise with volume keys in page mode"),
+            "Praise with volume keys in page mode and tally"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "Your progress will be deleted and you can\'t undo that"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(
