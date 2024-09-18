@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
@@ -172,9 +172,9 @@ class _TopBar extends StatelessWidget {
                 text: "$text\n${dbContent.fadl}",
               ),
             );
-
+            if (!context.mounted) return;
             showToast(
-              msg: "copied to clipboard".tr,
+              msg: S.of(context).copiedToClipboard,
             );
           },
         ),
@@ -232,7 +232,7 @@ class _BottomBar extends StatelessWidget {
                 }
               },
               title: Text(
-                "${"Go to".tr}: ${dbTitle.name}",
+                "${S.of(context).goTo}: ${dbTitle.name}",
                 textAlign: TextAlign.center,
               ),
               trailing: Text(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/fonts/data/data_source/fonts.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
@@ -15,7 +15,7 @@ class FontFamilyPage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "font type".tr,
+              S.of(context).fontType,
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,

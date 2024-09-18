@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 
 class ColorSwatchBuilder extends StatelessWidget {
   final String title;
@@ -61,7 +61,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             title: Text(
-                              "Select color".tr,
+                              S.of(context).selectColor,
                               textAlign: TextAlign.center,
                             ),
                           ),

@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
@@ -16,13 +16,13 @@ class EmailManager {
       body: '''
 $appVersion
 
-${"notes".tr}
+${S.current.notes}
 
-${"I like about this app:".tr}
+${S.current.likeAboutApp}
 
-${"I don't like about this app:".tr}
+${S.current.dislikeAboutApp}
 
-${"Features I hope to be added:".tr}
+${S.current.featuresToBeAdded}
 
 ''',
     );
@@ -66,13 +66,13 @@ ${"Features I hope to be added:".tr}
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Misspelled".tr,
+      subject: S.current.misspelled,
       body: '''
-${"There is a spelling error in".tr}
-${"Title".tr}: $subject
-${"Zikr Index".tr}: $cardNumber
-${"Text".tr}: $text
-${"It should be:".tr}:
+${S.current.spellingErrorIn}
+${S.current.title}: $subject
+${S.current.zikrIndex}: $cardNumber
+${S.current.text}: $text
+${S.current.shouldBe}:
 
 ''',
     );
@@ -83,17 +83,17 @@ ${"It should be:".tr}:
   }) {
     sendEmail(
       toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Misspelled".tr,
+      subject: S.current.misspelled,
       body: '''
-${"There is a spelling error in".tr}
+${S.current.spellingErrorIn}
 
-${"Subject".tr}: ${"fake hadith".tr}
+${S.current.subject}: ${S.current.fakeHadith}
 
-${"Card index".tr}: ${(fakeHaith.id) + 1}
+${S.current.cardIndex}: ${(fakeHaith.id) + 1}
 
-${"Text".tr}: ${fakeHaith.text}
+${S.current.text}: ${fakeHaith.text}
 
-${"It should be:".tr}:
+${S.current.shouldBe}:
 
 ''',
     );

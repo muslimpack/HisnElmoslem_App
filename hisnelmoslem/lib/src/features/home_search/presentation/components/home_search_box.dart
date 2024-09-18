@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -22,7 +22,7 @@ class HomeSearchBox extends StatelessWidget {
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: "search".tr,
+            hintText: S.of(context).search,
             contentPadding: const EdgeInsets.only(
               left: 15,
               bottom: 5,

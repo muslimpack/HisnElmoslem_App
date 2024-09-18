@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:get/get.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
@@ -26,7 +25,9 @@ class HomeScreen extends StatelessWidget {
         }
         return Scaffold(
           body: ZoomDrawer(
-            isRtl: Bidi.isRtlLanguage(Get.locale!.languageCode),
+            isRtl: Bidi.isRtlLanguage(
+              Localizations.localeOf(context).languageCode,
+            ),
             controller: sl<HomeBloc>().zoomDrawerController,
             menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
             menuScreen: const SideMenu(),

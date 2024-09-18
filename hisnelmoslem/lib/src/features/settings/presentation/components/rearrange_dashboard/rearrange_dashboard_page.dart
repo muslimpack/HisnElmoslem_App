@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -19,7 +19,7 @@ class RearrangeDashboardPage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "dashboard arrangement".tr,
+              S.of(context).dashboardArrangement,
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,

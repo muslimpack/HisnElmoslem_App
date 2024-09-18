@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -32,7 +32,7 @@ class _UIAppBarState extends State<UIAppBar> {
             if (kIsWeb)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: Text("Hisn Elmoslem".tr),
+                child: Text(S.of(context).hisnElmoslem),
               ),
             if (PlatformExtension.isDesktop)
               Expanded(
@@ -50,7 +50,7 @@ class _UIAppBarState extends State<UIAppBar> {
                       ),
                       Align(
                         alignment: AlignmentDirectional.centerStart,
-                        child: Text("Hisn Elmoslem".tr),
+                        child: Text(S.of(context).hisnElmoslem),
                       ),
                     ],
                   ),

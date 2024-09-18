@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_list_view.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -19,10 +19,8 @@ class AzkarBookmarks extends StatelessWidget {
             ? Empty(
                 isImage: false,
                 icon: Icons.bookmark_outline_rounded,
-                title: "nothing found in favorites".tr,
-                description:
-                    "no title from the index is marked as a favourite. Click on the Favorites icon at any index title"
-                        .tr,
+                title: S.of(context).nothingFoundInFavorites,
+                description: S.of(context).noTitleMarkedAsFavorite,
               )
             : HomeTitlesListView(
                 titles: state.bookmarkedTitles,

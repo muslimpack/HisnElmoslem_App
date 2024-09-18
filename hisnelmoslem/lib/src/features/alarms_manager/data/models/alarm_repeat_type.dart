@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 
 enum AlarmRepeatType {
@@ -34,24 +35,24 @@ extension AlarmRepeatTypeExtension on AlarmRepeatType {
     }
   }
 
-  String getUserFriendlyName() {
+  String getUserFriendlyName(BuildContext context) {
     switch (this) {
       case AlarmRepeatType.daily:
-        return "daily".tr;
+        return S.of(context).daily;
       case AlarmRepeatType.atSaturday:
-        return "every saturday".tr;
+        return S.of(context).everySaturday;
       case AlarmRepeatType.atSunday:
-        return "every sunday".tr;
+        return S.of(context).everySunday;
       case AlarmRepeatType.atMonday:
-        return "every monday".tr;
+        return S.of(context).everyMonday;
       case AlarmRepeatType.atTuesday:
-        return "every tuesday".tr;
+        return S.of(context).everyTuesday;
       case AlarmRepeatType.atWednesday:
-        return "every wednesday".tr;
+        return S.of(context).everyWednesday;
       case AlarmRepeatType.atThursday:
-        return "every thursday".tr;
+        return S.of(context).everyThursday;
       case AlarmRepeatType.atFriday:
-        return "every Friday".tr;
+        return S.of(context).everyFriday;
     }
   }
 }

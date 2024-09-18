@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
@@ -26,10 +26,8 @@ class TallyCounterView extends StatelessWidget {
           return Empty(
             isImage: false,
             icon: Icons.watch_rounded,
-            title: "no active counter".tr,
-            description:
-                "to activate counter go to counters then click to counter icon beside the counter you want"
-                    .tr,
+            title: S.of(context).noActiveCounter,
+            description: S.of(context).activateCounterInstructions,
           );
         }
 
@@ -95,7 +93,7 @@ class TallyCounterView extends StatelessWidget {
                               startAngle: 270,
                               infoProperties: InfoProperties(
                                 bottomLabelText:
-                                    '${"times".tr}: ${activeCounter.count ~/ resetEvery}'
+                                    '${S.of(context).times}: ${activeCounter.count ~/ resetEvery}'
                                         .toArabicNumber(),
                                 bottomLabelStyle: const TextStyle(
                                   fontSize: 25,

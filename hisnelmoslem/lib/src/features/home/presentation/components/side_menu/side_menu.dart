@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/footer_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/header_section.dart';
@@ -36,7 +36,7 @@ class SideMenu extends StatelessWidget {
                           leading: Icon(
                             MdiIcons.counter,
                           ),
-                          title: Text("tally".tr),
+                          title: Text(S.of(context).tally),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,
@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
                       DrawerCard(
                         child: ListTile(
                           leading: const Icon(Icons.settings),
-                          title: Text("settings".tr),
+                          title: Text(S.of(context).settings),
                           onTap: () {
                             transitionAnimation.fromBottom2Top(
                               context: context,

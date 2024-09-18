@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
@@ -27,7 +27,7 @@ class HeaderSection extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Hisn Elmoslem App".tr),
+                    Text(S.of(context).hisnElmoslemApp),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

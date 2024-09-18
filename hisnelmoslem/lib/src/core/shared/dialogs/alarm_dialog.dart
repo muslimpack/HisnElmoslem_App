@@ -1,6 +1,6 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/dialog_maker.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -90,9 +90,9 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
       header: Text(
         () {
           if (widget.isToEdit) {
-            return "edit reminder".tr;
+            return S.of(context).editReminder;
           } else {
-            return "add reminder".tr;
+            return S.of(context).addReminder;
           }
         }(),
         style: const TextStyle(
@@ -120,7 +120,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: "set message for you".tr,
+            hintText: S.of(context).setMessageForYou,
             contentPadding:
                 const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
           ),
@@ -131,7 +131,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             leading: const Icon(Icons.alarm),
             title: Text(
               selectedHour == null || selectedMinute == null
-                  ? "click to choose time".tr
+                  ? S.of(context).clickToChooseTime
                   : DateFormat("hh:mm a").format(
                       DateTime(1, 1, 1, selectedHour!, selectedMinute!),
                     ),
@@ -182,7 +182,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
 
                 value: value,
                 child: Text(
-                  value.getUserFriendlyName(),
+                  value.getUserFriendlyName(context),
 
                   // textAlign: TextAlign.center,
                 ),
@@ -196,7 +196,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
           Expanded(
             child: ListTile(
               title: Text(
-                "done".tr,
+                S.of(context).done,
                 textAlign: TextAlign.center,
               ),
               onTap: () {
@@ -219,7 +219,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
                       );
                     }
                   } else {
-                    showToast(msg: "please choose time for the reminder".tr);
+                    showToast(msg: S.of(context).chooseTimeForReminder);
                   }
                 });
               },
@@ -228,7 +228,7 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
           Expanded(
             child: ListTile(
               title: Text(
-                "close".tr,
+                S.of(context).close,
                 textAlign: TextAlign.center,
               ),
               onTap: () {

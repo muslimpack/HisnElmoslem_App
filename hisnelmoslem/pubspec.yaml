@@ -33,7 +33,6 @@ dependencies:
   flutter_zoom_drawer: ^3.2.0
   fluttertoast: ^8.2.8
   font_awesome_flutter: ^10.7.0
-  get: ^4.6.6
   get_it: ^7.7.0
   get_storage: ^2.1.1
   intl: ^0.19.0
@@ -66,6 +65,7 @@ flutter_native_splash:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/json/
@@ -126,3 +126,6 @@ flutter:
     - family: Rakkas
       fonts:
         - asset: assets/fonts/Rakkas-Regular.ttf
+
+flutter_intl:
+  enabled: true

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
@@ -60,7 +60,7 @@ class TallyCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        tooltip: 'edit'.tr,
+                        tooltip: S.of(context).edit,
                         onPressed: () async {
                           final DbTally? result = await showDialog(
                             context: context,
@@ -79,14 +79,14 @@ class TallyCard extends StatelessWidget {
                         icon: const Icon(Icons.edit),
                       ),
                       IconButton(
-                        tooltip: "delete".tr,
+                        tooltip: S.of(context).delete,
                         onPressed: () async {
                           await showModalBottomSheet(
                             isScrollControlled: true,
                             context: context,
                             builder: (_) {
                               return YesOrNoDialog(
-                                msg: "This counter will be deleted.".tr,
+                                msg: S.of(context).counterWillBeDeleted,
                                 onYes: () async {
                                   context.read<TallyBloc>().add(
                                         TallyDeleteCounterEvent(
