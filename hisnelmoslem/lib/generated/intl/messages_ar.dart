@@ -260,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تاريخ التحديثات"),
         "useHindiDigits":
             MessageLookupByLibrary.simpleMessage("استخدام الأرقام الهندية"),
+        "version": MessageLookupByLibrary.simpleMessage("الإصدار"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "zikrIndex": MessageLookupByLibrary.simpleMessage("الذكر رقم")
       };

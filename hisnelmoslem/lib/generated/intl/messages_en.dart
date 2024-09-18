@@ -266,6 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Updates History"),
         "useHindiDigits":
             MessageLookupByLibrary.simpleMessage("Use Hindi Digits"),
+        "version": MessageLookupByLibrary.simpleMessage("Version"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "zikrIndex": MessageLookupByLibrary.simpleMessage("Zikr Index")
       };
