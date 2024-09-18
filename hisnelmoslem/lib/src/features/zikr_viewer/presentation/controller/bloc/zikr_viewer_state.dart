@@ -16,6 +16,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
   final List<DbContent> azkarToView;
   final int activeZikrIndex;
   final ZikrViewerMode zikrViewerMode;
+  final Map<int, int> restoredSession;
 
   DbContent? get activeZikr {
     if (azkarToView.isEmpty) return null;
@@ -39,6 +40,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     required this.azkarToView,
     required this.activeZikrIndex,
     required this.zikrViewerMode,
+    required this.restoredSession,
   });
 
   ZikrViewerLoadedState copyWith({
@@ -47,6 +49,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     List<DbContent>? azkarToView,
     int? activeZikrIndex,
     ZikrViewerMode? zikrViewerMode,
+    Map<int, int>? restoredSession,
   }) {
     return ZikrViewerLoadedState(
       title: title ?? this.title,
@@ -54,6 +57,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
       azkarToView: azkarToView ?? this.azkarToView,
       activeZikrIndex: activeZikrIndex ?? this.activeZikrIndex,
       zikrViewerMode: zikrViewerMode ?? this.zikrViewerMode,
+      restoredSession: restoredSession ?? this.restoredSession,
     );
   }
 
@@ -64,5 +68,6 @@ class ZikrViewerLoadedState extends ZikrViewerState {
         azkarToView,
         activeZikrIndex,
         zikrViewerMode,
+        restoredSession,
       ];
 }
