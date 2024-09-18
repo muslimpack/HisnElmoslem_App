@@ -43,7 +43,7 @@ class HisnDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM titles ORDER by orderId ASC''',
+      '''SELECT * FROM titles ORDER by `order` ASC''',
     );
 
     final List<DbTitle> titles = [];
@@ -109,7 +109,7 @@ class HisnDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM contents ORDER by orderId ASC''',
+      '''SELECT * FROM contents ORDER by `order` ASC''',
     );
 
     final List<DbContent> contents = [];
@@ -130,7 +130,7 @@ class HisnDBHelper {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM contents  WHERE titleId = ? ORDER by orderId ASC''',
+      '''SELECT * FROM contents  WHERE titleId = ? ORDER by `order` ASC''',
       [titleId],
     );
 

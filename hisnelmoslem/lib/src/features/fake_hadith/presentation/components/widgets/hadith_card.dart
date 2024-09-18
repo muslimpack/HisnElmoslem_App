@@ -137,12 +137,14 @@ class _TopBar extends StatelessWidget {
               final DbContent dbContent = DbContent(
                 id: -1,
                 titleId: -1,
-                orderId: fakeHadith.id,
+                order: fakeHadith.id,
                 content: fakeHadith.text,
                 fadl: fakeHadith.darga,
                 source: fakeHadith.source,
                 count: 0,
                 favourite: false,
+                hokm: "",
+                search: "",
               );
 
               context.push(

@@ -1,76 +1,54 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 
 class DbContent extends Equatable {
   final int id;
   final String content;
   final int titleId;
-  final int orderId;
+  final int order;
   final int count;
   final bool favourite;
   final String fadl;
   final String source;
+  final String search;
+  final String hokm;
 
   const DbContent({
     required this.id,
     required this.content,
     required this.titleId,
+    required this.order,
     required this.count,
+    required this.favourite,
     required this.fadl,
     required this.source,
-    required this.orderId,
-    required this.favourite,
+    required this.search,
+    required this.hokm,
   });
-
-  factory DbContent.fromMap(Map<String, dynamic> map) {
-    return DbContent(
-      id: map['id'] as int,
-      content: (map['content'] as String).replaceAll("\\n", "\n"),
-      titleId: map['titleId'] as int,
-      orderId: map['orderId'] as int,
-      count: map['count'] as int,
-      fadl: ((map['fadl'] ?? "") as String).replaceAll("\\n", "\n"),
-      source: ((map['source'] ?? "") as String).replaceAll("\\n", "\n"),
-      favourite: false,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'content': content,
-      'titleId': titleId,
-      'count': count,
-      'fadl': fadl,
-      'source': source,
-      'orderId': orderId,
-    };
-  }
-
-  @override
-  String toString() {
-    return toMap().toString();
-  }
 
   DbContent copyWith({
     int? id,
     String? content,
     int? titleId,
-    int? orderId,
+    int? order,
     int? count,
     bool? favourite,
     String? fadl,
     String? source,
+    String? search,
+    String? hokm,
   }) {
     return DbContent(
       id: id ?? this.id,
       content: content ?? this.content,
       titleId: titleId ?? this.titleId,
-      orderId: orderId ?? this.orderId,
+      order: order ?? this.order,
       count: count ?? this.count,
       favourite: favourite ?? this.favourite,
       fadl: fadl ?? this.fadl,
       source: source ?? this.source,
+      search: search ?? this.search,
+      hokm: hokm ?? this.hokm,
     );
   }
 
@@ -80,11 +58,44 @@ class DbContent extends Equatable {
       id,
       content,
       titleId,
-      orderId,
+      order,
       count,
       favourite,
       fadl,
       source,
+      search,
+      hokm,
     ];
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'content': content,
+      'titleId': titleId,
+      'order': order,
+      'count': count,
+      'favourite': favourite,
+      'fadl': fadl,
+      'source': source,
+      'search': search,
+      'hokm': hokm,
+    };
+  }
+
+  factory DbContent.fromMap(Map<String, dynamic> map) {
+    hisnPrint(map);
+    return DbContent(
+      id: map['id'] as int,
+      content: map['content'] as String,
+      titleId: map['titleId'] as int,
+      order: map['order'] as int,
+      count: map['count'] as int,
+      favourite: false,
+      search: (map['search'] as String?) ?? "",
+      source: (map['source'] as String?) ?? "",
+      fadl: (map['fadl'] as String?) ?? "",
+      hokm: (map['hokm'] as String?) ?? "",
+    );
   }
 }

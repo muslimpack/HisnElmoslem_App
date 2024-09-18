@@ -4,13 +4,15 @@ import 'package:equatable/equatable.dart';
 class DbTitle extends Equatable {
   final int id;
   final String name;
-  final int orderId;
+  final String freq;
+  final int order;
   final bool favourite;
 
   const DbTitle({
     required this.id,
     required this.name,
-    required this.orderId,
+    required this.freq,
+    required this.order,
     required this.favourite,
   });
 
@@ -18,7 +20,8 @@ class DbTitle extends Equatable {
     return DbTitle(
       id: map['id'] as int,
       name: map['name'] as String,
-      orderId: map['orderId'] as int,
+      freq: map['freq'] as String,
+      order: map['order'] as int,
       favourite: false,
     );
   }
@@ -27,7 +30,8 @@ class DbTitle extends Equatable {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'orderId': orderId,
+      'freq': freq,
+      'order': order,
     };
   }
 
@@ -37,18 +41,28 @@ class DbTitle extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, name, orderId, favourite];
+  List<Object> get props {
+    return [
+      id,
+      name,
+      freq,
+      order,
+      favourite,
+    ];
+  }
 
   DbTitle copyWith({
     int? id,
     String? name,
-    int? orderId,
+    String? freq,
+    int? order,
     bool? favourite,
   }) {
     return DbTitle(
       id: id ?? this.id,
       name: name ?? this.name,
-      orderId: orderId ?? this.orderId,
+      freq: freq ?? this.freq,
+      order: order ?? this.order,
       favourite: favourite ?? this.favourite,
     );
   }
