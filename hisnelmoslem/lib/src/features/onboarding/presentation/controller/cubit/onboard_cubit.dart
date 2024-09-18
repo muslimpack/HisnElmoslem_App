@@ -1,37 +1,37 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 
 part 'onboard_state.dart';
 
 class OnboardCubit extends Cubit<OnboardState> {
   final AppSettingsRepo appSettingsRepo;
-  static const _volumeBtnChannel = MethodChannel("volume_button_channel");
+  final VolumeButtonManager volumeButtonManager;
   PageController pageController = PageController();
-  OnboardCubit(this.appSettingsRepo) : super(OnboardLoadingState()) {
+  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager)
+      : super(OnboardLoadingState()) {
     _init();
   }
 
   void _init() {
-    _volumeBtnChannel.setMethodCallHandler((call) async {
-      if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "VOLUME_DOWN_UP") {
-          pageController.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-          );
-        }
-        if (call.arguments == "VOLUME_UP_UP") {
-          pageController.previousPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-          );
-        }
-      }
-    });
+    volumeButtonManager.toggleActivation(activate: true);
+    volumeButtonManager.listen(
+      onVolumeDownPressed: () {
+        pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
+      },
+      onVolumeUpPressed: () {
+        pageController.previousPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
+      },
+    );
 
     pageController.addListener(
       () {
@@ -100,7 +100,8 @@ class OnboardCubit extends Cubit<OnboardState> {
   @override
   Future<void> close() {
     pageController.dispose();
-    _volumeBtnChannel.setMethodCallHandler(null);
+    volumeButtonManager.toggleActivation(activate: false);
+    volumeButtonManager.dispose();
     return super.close();
   }
 }
