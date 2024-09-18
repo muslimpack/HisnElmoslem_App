@@ -152,7 +152,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       final counter = updatedCounters[i];
       final DbTally counterToSet;
       if (counter.id == event.counter.id) {
-        counterToSet = counter.copyWith(isActivated: !counter.isActivated);
+        counterToSet = counter.copyWith(isActivated: event.activate);
       } else {
         counterToSet = counter.copyWith(isActivated: false);
       }
@@ -184,7 +184,12 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         (activeCounterIndex + 1) % state.allCounters.length;
     final nextCounter = state.allCounters[nextCounterIndex];
 
-    add(TallyToggleCounterActivationEvent(counter: nextCounter));
+    add(
+      TallyToggleCounterActivationEvent(
+        counter: nextCounter,
+        activate: true,
+      ),
+    );
   }
 
   FutureOr<void> _previousCounter(
@@ -201,7 +206,12 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final previousCounterIndex =
         (activeCounterIndex - 1) % state.allCounters.length;
     final previousCounter = state.allCounters[previousCounterIndex];
-    add(TallyToggleCounterActivationEvent(counter: previousCounter));
+    add(
+      TallyToggleCounterActivationEvent(
+        counter: previousCounter,
+        activate: true,
+      ),
+    );
   }
 
   FutureOr<void> _randomCounter(
@@ -221,7 +231,12 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     } while (randomIndex == activeCounterIndex && state.allCounters.length > 2);
 
     final randomCounter = state.allCounters[randomIndex];
-    add(TallyToggleCounterActivationEvent(counter: randomCounter));
+    add(
+      TallyToggleCounterActivationEvent(
+        counter: randomCounter,
+        activate: true,
+      ),
+    );
   }
 
   FutureOr<void> _resetAllCounters(

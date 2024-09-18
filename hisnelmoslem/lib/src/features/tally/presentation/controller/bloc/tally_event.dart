@@ -43,12 +43,14 @@ class TallyDeleteCounterEvent extends TallyEvent {
 
 class TallyToggleCounterActivationEvent extends TallyEvent {
   final DbTally counter;
+  final bool activate;
   const TallyToggleCounterActivationEvent({
     required this.counter,
+    required this.activate,
   });
 
   @override
-  List<Object> get props => [counter];
+  List<Object> get props => [counter, activate];
 }
 
 class TallyNextCounterEvent extends TallyEvent {}

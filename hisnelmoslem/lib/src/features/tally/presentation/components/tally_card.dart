@@ -34,9 +34,12 @@ class TallyCard extends StatelessWidget {
                   ? Theme.of(context).colorScheme.primary.withOpacity(.2)
                   : null,
               onTap: () {
-                context
-                    .read<TallyBloc>()
-                    .add(TallyToggleCounterActivationEvent(counter: dbTally));
+                context.read<TallyBloc>().add(
+                      TallyToggleCounterActivationEvent(
+                        counter: dbTally,
+                        activate: !isActivated,
+                      ),
+                    );
               },
               leading: Icon(
                 isActivated ? Icons.done_all_outlined : null,
