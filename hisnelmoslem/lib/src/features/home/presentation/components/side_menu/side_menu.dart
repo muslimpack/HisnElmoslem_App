@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/footer_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/header_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/more_section.dart';
@@ -38,9 +38,8 @@ class SideMenu extends StatelessWidget {
                           ),
                           title: Text(S.of(context).tally),
                           onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                              context: context,
-                              goToPage: const Tally(),
+                            context.push(
+                              const Tally(),
                             );
                           },
                         ),
@@ -53,9 +52,8 @@ class SideMenu extends StatelessWidget {
                           leading: const Icon(Icons.settings),
                           title: Text(S.of(context).settings),
                           onTap: () {
-                            transitionAnimation.fromBottom2Top(
-                              context: context,
-                              goToPage: const Settings(),
+                            context.push(
+                              const Settings(),
                             );
                           },
                         ),

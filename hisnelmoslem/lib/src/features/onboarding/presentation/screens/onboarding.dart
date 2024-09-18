@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -21,9 +21,8 @@ class OnBoardingPage extends StatelessWidget {
       child: BlocConsumer<OnboardCubit, OnboardState>(
         listener: (context, state) {
           if (state is OnboardDoneState) {
-            transitionAnimation.circleRevalPushReplacement(
-              context: context,
-              goToPage: const HomeScreen(),
+            context.push(
+              const HomeScreen(),
             );
           }
         },

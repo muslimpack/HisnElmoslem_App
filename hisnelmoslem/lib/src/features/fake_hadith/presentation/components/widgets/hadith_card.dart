@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
@@ -145,9 +145,8 @@ class _TopBar extends StatelessWidget {
                 favourite: false,
               );
 
-              transitionAnimation.circleReval(
-                context: context,
-                goToPage: ShareAsImage(dbContent: dbContent),
+              context.push(
+                ShareAsImage(dbContent: dbContent),
               );
             },
           ),

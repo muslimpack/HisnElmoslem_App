@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -116,9 +116,8 @@ class TitleCard extends StatelessWidget {
       ),
       // trailing: Text(zikrList[index]),
       onTap: () {
-        transitionAnimation.circleReval(
-          context: context,
-          goToPage: ZikrViewerScreen(index: dbTitle.id),
+        context.push(
+          ZikrViewerScreen(index: dbTitle.id),
         );
       },
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
@@ -30,9 +30,8 @@ class MoreSection extends StatelessWidget {
             leading: const Icon(Icons.info),
             title: Text(S.of(context).aboutUs),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const About(),
+              context.push(
+                const About(),
               );
             },
           ),

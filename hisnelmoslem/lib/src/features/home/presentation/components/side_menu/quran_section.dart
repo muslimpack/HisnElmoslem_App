@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
@@ -24,9 +24,8 @@ class QuranSection extends StatelessWidget {
               S.of(context).endSuraAliImran,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const QuranReadPage(
+              context.push(
+                const QuranReadPage(
                   surahName: SurahNameEnum.endofAliImran,
                 ),
               );
@@ -40,9 +39,8 @@ class QuranSection extends StatelessWidget {
               S.of(context).suraAlKahf,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const QuranReadPage(
+              context.push(
+                const QuranReadPage(
                   surahName: SurahNameEnum.alKahf,
                 ),
               );
@@ -54,9 +52,8 @@ class QuranSection extends StatelessWidget {
             leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text(S.of(context).suraAsSajdah),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const QuranReadPage(
+              context.push(
+                const QuranReadPage(
                   surahName: SurahNameEnum.assajdah,
                 ),
               );
@@ -68,9 +65,8 @@ class QuranSection extends StatelessWidget {
             leading: Icon(MdiIcons.bookOpenPageVariant),
             title: Text(S.of(context).suraAlMulk),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const QuranReadPage(
+              context.push(
+                const QuranReadPage(
                   surahName: SurahNameEnum.alMulk,
                 ),
               );
@@ -83,9 +79,8 @@ class QuranSection extends StatelessWidget {
             leading: const Icon(Icons.menu_book),
             title: Text(S.of(context).fakeHadith),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const FakeHadith(),
+              context.push(
+                const FakeHadith(),
               );
             },
           ),

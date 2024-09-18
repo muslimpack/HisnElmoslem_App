@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -40,9 +40,8 @@ class Settings extends StatelessWidget {
             title: Text(S.of(context).themeManager),
             leading: const Icon(Icons.palette),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const ThemeManagerPage(),
+              context.push(
+                const ThemeManagerPage(),
               );
             },
           ),
@@ -52,9 +51,8 @@ class Settings extends StatelessWidget {
               Icons.speaker_group,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const EffectsManagerScreen(),
+              context.push(
+                const EffectsManagerScreen(),
               );
             },
           ),
@@ -64,9 +62,8 @@ class Settings extends StatelessWidget {
               Icons.view_array,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const RearrangeDashboardPage(),
+              context.push(
+                const RearrangeDashboardPage(),
               );
             },
           ),
@@ -76,9 +73,8 @@ class Settings extends StatelessWidget {
               Icons.translate,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const AppLanguagePage(),
+              context.push(
+                const AppLanguagePage(),
               );
             },
           ),
@@ -88,9 +84,8 @@ class Settings extends StatelessWidget {
               Icons.font_download,
             ),
             onTap: () {
-              transitionAnimation.fromBottom2Top(
-                context: context,
-                goToPage: const FontFamilyPage(),
+              context.push(
+                const FontFamilyPage(),
               );
             },
           ),
@@ -210,9 +205,8 @@ class _SettingsAlarmsSection extends StatelessWidget {
                 Icons.alarm_add_rounded,
               ),
               onTap: () {
-                transitionAnimation.fromBottom2Top(
-                  context: context,
-                  goToPage: const AlarmsPages(),
+                context.push(
+                  const AlarmsPages(),
                 );
               },
             ),
@@ -277,9 +271,8 @@ class _SettingsContactSection extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_left),
           title: Text(S.of(context).aboutUs),
           onTap: () {
-            transitionAnimation.fromBottom2Top(
-              context: context,
-              goToPage: const About(),
+            context.push(
+              const About(),
             );
           },
         ),

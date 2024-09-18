@@ -2,8 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
@@ -253,9 +253,8 @@ class AwesomeNotificationManager {
 
     /// go to quran page if clicked
     if (payload == "الكهف") {
-      transitionAnimation.fromBottom2Top(
-        context: context,
-        goToPage: const QuranReadPage(
+      context.push(
+        const QuranReadPage(
           surahName: SurahNameEnum.alKahf,
         ),
       );
@@ -270,9 +269,8 @@ class AwesomeNotificationManager {
       final int pageIndex = int.parse(payload);
       //
 
-      transitionAnimation.fromBottom2Top(
-        context: context,
-        goToPage: ZikrViewerScreen(index: pageIndex),
+      context.push(
+        ZikrViewerScreen(index: pageIndex),
       );
     }
   }

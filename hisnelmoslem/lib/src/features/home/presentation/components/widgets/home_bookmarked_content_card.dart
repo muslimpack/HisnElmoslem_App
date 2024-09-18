@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
-import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_animation.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -133,9 +133,8 @@ class _TopBar extends StatelessWidget {
         IconButton(
           icon: Icon(MdiIcons.camera),
           onPressed: () {
-            transitionAnimation.circleReval(
-              context: context,
-              goToPage: ShareAsImage(
+            context.push(
+              ShareAsImage(
                 dbContent: dbContent,
               ),
             );
@@ -213,9 +212,8 @@ class _BottomBar extends StatelessWidget {
                 icon: const Icon(Icons.repeat),
               ),
               onTap: () {
-                transitionAnimation.circleReval(
-                  context: context,
-                  goToPage: ZikrViewerScreen(
+                context.push(
+                  ZikrViewerScreen(
                     index: dbTitle.id,
                   ),
                 );
