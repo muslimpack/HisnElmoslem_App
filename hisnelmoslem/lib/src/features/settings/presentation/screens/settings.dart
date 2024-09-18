@@ -136,6 +136,18 @@ class SettingsGeneralSection extends StatelessWidget {
                 },
               ),
             SwitchListTile(
+              secondary: const Icon(Icons.volume_down),
+              value: state.praiseWithVolumeKeys,
+              title: Text(S.of(context).prefPraiseWithVolumeKeys),
+              subtitle: Text(S.of(context).prefPraiseWithVolumeKeysDesc),
+              onChanged: (value) {
+                context.read<SettingsCubit>().togglePraiseWithVolumeKeys(
+                      use: !state.enableWakeLock,
+                    );
+              },
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.screenshot),
               value: state.enableWakeLock,
               title: Text(S.of(context).enableWakeLock),
               onChanged: (value) {
@@ -145,6 +157,7 @@ class SettingsGeneralSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
+              secondary: const Icon(Icons.numbers),
               tileColor: Colors.amber.withOpacity(.1),
               value: state.useHindiDigits,
               title: Text(S.of(context).useHindiDigits),
@@ -204,13 +217,10 @@ class _SettingsAlarmsSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
-              title: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(
-                  Icons.person,
-                ),
-                title: Text(S.of(context).fastingMondaysThursdaysReminder),
+              secondary: const Icon(
+                Icons.alarm,
               ),
+              title: Text(S.of(context).fastingMondaysThursdaysReminder),
               value: state.isFastAlarmEnabled,
               onChanged: (value) {
                 context
@@ -219,13 +229,10 @@ class _SettingsAlarmsSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
-              title: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(
-                  Icons.alarm,
-                ),
-                title: Text(S.of(context).suraAlKahfReminder),
+              secondary: const Icon(
+                Icons.alarm,
               ),
+              title: Text(S.of(context).suraAlKahfReminder),
               value: state.isCaveAlarmEnabled,
               onChanged: (value) {
                 context

@@ -181,6 +181,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Phone vibration when all zikr end"),
         "prayForUsAndParents": MessageLookupByLibrary.simpleMessage(
             "Pray for us and our parents."),
+        "prefPraiseWithVolumeKeys":
+            MessageLookupByLibrary.simpleMessage("Praise with volume keys"),
+        "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
+            "Praise with volume keys in page mode"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "Your progress will be deleted and you can\'t undo that"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(
