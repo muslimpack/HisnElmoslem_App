@@ -44,10 +44,6 @@ class TallyCard extends StatelessWidget {
               ),
               title: Text(
                 dbTally.title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontFamily: "uthmanic",
-                ),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
