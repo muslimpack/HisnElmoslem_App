@@ -9,14 +9,12 @@ import 'package:hisnelmoslem/src/core/shared/transition_animation/transition_ani
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -215,21 +213,12 @@ class _BottomBar extends StatelessWidget {
                 icon: const Icon(Icons.repeat),
               ),
               onTap: () {
-                if (!sl<AppSettingsRepo>().isCardReadMode) {
-                  transitionAnimation.circleReval(
-                    context: context,
-                    goToPage: ZikrViewerPageModeScreen(
-                      index: dbTitle.id,
-                    ),
-                  );
-                } else {
-                  transitionAnimation.circleReval(
-                    context: context,
-                    goToPage: ZikrViewerCardModeScreen(
-                      index: dbTitle.id,
-                    ),
-                  );
-                }
+                transitionAnimation.circleReval(
+                  context: context,
+                  goToPage: ZikrViewerScreen(
+                    index: dbTitle.id,
+                  ),
+                );
               },
               title: Text(
                 "${S.of(context).goTo}: ${dbTitle.name}",
