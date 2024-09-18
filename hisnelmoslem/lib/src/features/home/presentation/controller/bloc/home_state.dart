@@ -15,10 +15,11 @@ class HomeLoadedState extends HomeState {
   final List<DbTitle> titles;
   final Map<int, DbAlarm> alarms;
   final List<DbContent> bookmarkedContents;
+  final List<TitlesFreqEnum> freqFilters;
   final bool isSearching;
 
   List<DbTitle> get allTitles {
-    return titles
+    return titles.where((x) => freqFilters.validate(x.freq)).toList()
       ..sort(
         (a, b) => a.order.compareTo(b.order),
       );
@@ -36,6 +37,7 @@ class HomeLoadedState extends HomeState {
     required this.titles,
     required this.alarms,
     required this.bookmarkedContents,
+    required this.freqFilters,
     required this.isSearching,
   });
 
@@ -44,6 +46,7 @@ class HomeLoadedState extends HomeState {
     List<DbTitle>? titles,
     Map<int, DbAlarm>? alarms,
     List<DbContent>? bookmarkedContents,
+    List<TitlesFreqEnum>? freqFilters,
     bool? isSearching,
   }) {
     return HomeLoadedState(
@@ -51,6 +54,7 @@ class HomeLoadedState extends HomeState {
       titles: titles ?? this.titles,
       alarms: alarms ?? this.alarms,
       bookmarkedContents: bookmarkedContents ?? this.bookmarkedContents,
+      freqFilters: freqFilters ?? this.freqFilters,
       isSearching: isSearching ?? this.isSearching,
     );
   }
@@ -63,6 +67,7 @@ class HomeLoadedState extends HomeState {
       bookmarkedContents,
       isSearching,
       dashboardArrangement,
+      freqFilters,
     ];
   }
 }

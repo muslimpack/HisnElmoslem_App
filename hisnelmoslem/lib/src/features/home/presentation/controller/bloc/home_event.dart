@@ -81,3 +81,12 @@ class HomeDashboardReorderedEvent extends HomeEvent {
   @override
   List<Object> get props => [oldIndex, newIndex];
 }
+
+class HomeToggleFilterEvent extends HomeEvent {
+  final TitlesFreqEnum filter;
+
+  const HomeToggleFilterEvent(this.filter);
+
+  @override
+  List<Object> get props => [filter];
+}

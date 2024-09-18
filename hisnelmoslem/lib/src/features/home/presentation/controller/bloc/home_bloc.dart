@@ -6,6 +6,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
@@ -41,6 +42,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
     on<HomeToggleDrawerEvent>(_toggleDrawer);
     on<HomeDashboardReorderedEvent>(_onDashboardReorded);
+
+    on<HomeToggleFilterEvent>(_onFilterToggled);
   }
 
   Future<void> _onAlarmBlocChanged(AlarmsState alarmState) async {
@@ -81,6 +84,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         bookmarkedContents: bookmarkedContents,
         isSearching: false,
         dashboardArrangement: appSettingsRepo.dashboardArrangement,
+        freqFilters: appSettingsRepo.getTitlesFreqFilterStatus,
       ),
     );
   }
@@ -184,5 +188,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> close() {
     alarmSubscription.cancel();
     return super.close();
+  }
+
+  FutureOr<void> _onFilterToggled(
+    HomeToggleFilterEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    /// Handle freq change
+    final List<TitlesFreqEnum> newFreq = List.of(state.freqFilters);
+    if (newFreq.contains(event.filter)) {
+      newFreq.remove(event.filter);
+    } else {
+      newFreq.add(event.filter);
+    }
+
+    await appSettingsRepo.setTitlesFreqFilterStatus(newFreq);
+
+    emit(
+      state.copyWith(
+        freqFilters: newFreq,
+      ),
+    );
   }
 }
