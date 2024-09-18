@@ -45,7 +45,6 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   sqflite: ^2.3.3
   sqflite_common_ffi: ^2.3.3
-  timelines: ^0.1.0
   url_launcher: ^6.3.0
   vibration: ^2.0.0
   wakelock_plus: ^1.2.8
