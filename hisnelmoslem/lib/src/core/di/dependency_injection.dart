@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/repos/zikr_text_repo.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
@@ -54,6 +55,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => EffectsManager(sl()));
   sl.registerFactory(() => AwesomeNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
+  sl.registerFactory(() => VolumeButtonManager());
 
   ///MARK: Init BLOC
 
