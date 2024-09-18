@@ -69,7 +69,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl()));
 
   /// Factory BLoC
-  sl.registerFactory(() => OnboardCubit(sl()));
+  sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());

@@ -94,13 +94,13 @@ class OnboardCubit extends Cubit<OnboardState> {
 
   Future done() async {
     await appSettingsRepo.changIsReleaseFirstOpen(value: false);
+    volumeButtonManager.dispose();
     emit(OnboardDoneState());
   }
 
   @override
   Future<void> close() {
     pageController.dispose();
-    volumeButtonManager.toggleActivation(activate: false);
     volumeButtonManager.dispose();
     return super.close();
   }

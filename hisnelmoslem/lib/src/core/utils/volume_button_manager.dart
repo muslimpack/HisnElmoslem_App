@@ -42,6 +42,7 @@ class VolumeButtonManager {
   }
 
   void dispose() {
+    toggleActivation(activate: false);
     channel.setMethodCallHandler(null);
   }
 }
