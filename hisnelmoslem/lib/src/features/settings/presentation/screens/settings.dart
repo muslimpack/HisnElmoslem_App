@@ -142,7 +142,7 @@ class SettingsGeneralSection extends StatelessWidget {
               subtitle: Text(S.of(context).prefPraiseWithVolumeKeysDesc),
               onChanged: (value) {
                 context.read<SettingsCubit>().togglePraiseWithVolumeKeys(
-                      use: !state.enableWakeLock,
+                      use: !state.praiseWithVolumeKeys,
                     );
               },
             ),
