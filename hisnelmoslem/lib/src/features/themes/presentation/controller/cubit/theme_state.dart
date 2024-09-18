@@ -20,7 +20,7 @@ class ThemeState extends Equatable {
     required this.locale,
   });
 
-  ThemeData themeData() {
+  ThemeData get theme {
     if (useOldTheme && !useMaterial3) {
       return ThemeData(
         useMaterial3: false,

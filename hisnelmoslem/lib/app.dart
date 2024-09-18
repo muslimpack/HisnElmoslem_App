@@ -79,7 +79,7 @@ class AppState extends State<App> {
               GlobalCupertinoLocalizations.delegate,
             ],
             debugShowCheckedModeBanner: false,
-            theme: state.themeData(),
+            theme: state.theme,
             navigatorObservers: [
               BotToastNavigatorObserver(),
             ],
