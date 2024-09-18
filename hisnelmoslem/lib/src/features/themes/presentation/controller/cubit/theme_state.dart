@@ -21,9 +21,9 @@ class ThemeState extends Equatable {
   });
 
   ThemeData themeData() {
-    if (useOldTheme) {
+    if (useOldTheme && !useMaterial3) {
       return ThemeData(
-        useMaterial3: useMaterial3,
+        useMaterial3: false,
         brightness: brightness,
         colorSchemeSeed: color,
         fontFamily: fontFamily,
