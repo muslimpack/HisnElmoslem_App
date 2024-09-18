@@ -97,7 +97,7 @@ class AppSettingsRepo {
   /* ******* Titles Freq filters ******* */
   static const String _titlesFreqFilter = "titlesFreqFilter";
 
-  List<TitlesFreqEnum> getTitlesFreqFilterStatus() {
+  List<TitlesFreqEnum> get getTitlesFreqFilterStatus {
     final String? data = box.read(_titlesFreqFilter);
 
     final List<TitlesFreqEnum> result = List.of([]);
