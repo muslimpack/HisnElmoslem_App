@@ -81,11 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ];
                 },
                 body: state.isSearching &
-                        context
-                            .read<SearchCubit>()
-                            .searchController
-                            .text
-                            .isNotEmpty
+                        context.watch<SearchCubit>().state.searchText.isNotEmpty
                     ? const HomeSearchScreen()
                     : TabBarView(
                         physics: const BouncingScrollPhysics(),

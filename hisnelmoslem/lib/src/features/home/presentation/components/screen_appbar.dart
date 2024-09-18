@@ -46,7 +46,7 @@ class ScreenAppBar extends StatelessWidget {
           floating: true,
           snap: true,
           bottom: state.isSearching &
-                  context.read<SearchCubit>().searchController.text.isNotEmpty
+                  context.watch<SearchCubit>().state.searchText.isNotEmpty
               ? null
               : PreferredSize(
                   preferredSize: const Size(0, 48),
