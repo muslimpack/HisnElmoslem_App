@@ -34,8 +34,6 @@ class AwesomeNotificationManager {
             channelDescription: 'For internal notifications',
             defaultColor: Colors.teal,
             importance: NotificationImportance.High,
-            channelShowBadge: true,
-            enableLights: true,
             playSound: true,
           ),
           NotificationChannel(
@@ -44,7 +42,6 @@ class AwesomeNotificationManager {
             channelDescription: 'For Scheduled notifications',
             defaultColor: Colors.teal,
             importance: NotificationImportance.High,
-            locked: true,
             channelShowBadge: true,
             playSound: true,
           ),
@@ -68,21 +65,14 @@ class AwesomeNotificationManager {
     final List<String?> payloadsList = receivedAction.payload!.values.toList();
     final String? payload = payloadsList[0];
     hisnPrint("actionStream: $payload");
-    final bool channelCheck =
-        receivedAction.channelKey == 'in_app_notification' ||
-            receivedAction.channelKey == 'scheduled_channel';
 
     try {
-      if (channelCheck) {
-        await AwesomeNotifications().getGlobalBadgeCounter().then(
-          (value) async {
-            if (value > 10) {
-              await AwesomeNotifications().setGlobalBadgeCounter(0);
-            } else {
-              await AwesomeNotifications().setGlobalBadgeCounter(value - 1);
-            }
-          },
-        );
+      final int currentBadgeCount =
+          await AwesomeNotifications().getGlobalBadgeCounter();
+      if (currentBadgeCount > 5) {
+        await AwesomeNotifications().resetGlobalBadge();
+      } else {
+        await AwesomeNotifications().decrementGlobalBadgeCounter();
       }
     } catch (e) {
       hisnPrint(e);
