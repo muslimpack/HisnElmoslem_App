@@ -18,8 +18,8 @@ class ToggleBrightnessButton extends StatelessWidget {
           },
           icon: Icon(
             state.brightness == Brightness.dark
-                ? Icons.dark_mode
-                : Icons.light_mode,
+                ? Icons.light_mode
+                : Icons.dark_mode,
           ),
         );
       },
