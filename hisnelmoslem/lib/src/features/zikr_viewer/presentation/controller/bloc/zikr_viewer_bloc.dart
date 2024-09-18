@@ -126,6 +126,18 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         .map((x) => x.copyWith(count: restoredSession[x.id] ?? x.count))
         .toList();
 
+    int pageToJump = 0;
+    for (var i = 0; i < azkarToView.length; i++) {
+      if (azkarToView[i].count != 0) {
+        pageToJump = i;
+        break;
+      }
+    }
+
+    if (pageController.hasClients) {
+      pageController.jumpToPage(pageToJump);
+    }
+
     emit(state.copyWith(azkarToView: azkarToView, restoredSession: {}));
   }
 
