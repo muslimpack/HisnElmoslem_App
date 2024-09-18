@@ -272,6 +272,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Use Hindi Digits"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-        "zikrIndex": MessageLookupByLibrary.simpleMessage("Zikr Index")
+        "zikrIndex": MessageLookupByLibrary.simpleMessage("Zikr Index"),
+        "zikrViewerRestoreSessionMsg": MessageLookupByLibrary.simpleMessage(
+            "We found a previous session, would you like to restore it?")
       };
 }

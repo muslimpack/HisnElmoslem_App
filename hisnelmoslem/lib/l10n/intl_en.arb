@@ -165,5 +165,6 @@
   "useHindiDigits": "Use Hindi Digits",
   "version": "Version",
   "yes": "Yes",
-  "zikrIndex": "Zikr Index"
+  "zikrIndex": "Zikr Index",
+  "zikrViewerRestoreSessionMsg": "We found a previous session, would you like to restore it?"
 }

@@ -1719,6 +1719,16 @@ class S {
       args: [],
     );
   }
+
+  /// `We found a previous session, would you like to restore it?`
+  String get zikrViewerRestoreSessionMsg {
+    return Intl.message(
+      'We found a previous session, would you like to restore it?',
+      name: 'zikrViewerRestoreSessionMsg',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
