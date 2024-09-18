@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/home_search_box.dart';
+import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ScreenAppBar extends StatelessWidget {
@@ -44,7 +45,8 @@ class ScreenAppBar extends StatelessWidget {
           pinned: true,
           floating: true,
           snap: true,
-          bottom: state.isSearching
+          bottom: state.isSearching &
+                  context.read<SearchCubit>().searchController.text.isNotEmpty
               ? null
               : PreferredSize(
                   preferredSize: const Size(0, 48),

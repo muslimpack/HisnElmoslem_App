@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller
 import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_search_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -79,7 +80,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ScreenAppBar(tabController: tabController),
                   ];
                 },
-                body: state.isSearching
+                body: state.isSearching &
+                        context
+                            .read<SearchCubit>()
+                            .searchController
+                            .text
+                            .isNotEmpty
                     ? const HomeSearchScreen()
                     : TabBarView(
                         physics: const BouncingScrollPhysics(),
