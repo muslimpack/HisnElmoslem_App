@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/shared/custom_inputs/custom_field_decoration.dart';
 
 class UserNumberField extends StatelessWidget {
   final TextEditingController controller;
@@ -20,30 +21,14 @@ class UserNumberField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.center,
         controller: controller,
-        // autofocus: true,
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly,
         ],
         onChanged: onChange,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.black45,
-          border: InputBorder.none,
-          // focusedBorder: InputBorder.none,
-
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
+        decoration: customInputDecoration.copyWith(
           hintText: hintText,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          contentPadding:
-              const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
+          labelText: hintText,
         ),
       ),
     );

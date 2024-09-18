@@ -23,10 +23,6 @@ class ImageWidthDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            S.of(context).imageWidth,
-            textAlign: TextAlign.center,
-          ),
           UserNumberField(
             controller: widthController,
             hintText: S.of(context).imageWidth,

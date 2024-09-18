@@ -2,6 +2,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/core/shared/custom_inputs/custom_field_decoration.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -110,15 +111,9 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             controller: bodyController,
             maxLength: 100,
             autofocus: true,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
+            decoration: customInputDecoration.copyWith(
               hintText: S.of(context).setMessageForYou,
-              contentPadding:
-                  const EdgeInsets.only(left: 15, bottom: 5, top: 5, right: 15),
+              labelText: S.of(context).setMessageForYou,
             ),
           ),
           Card(
