@@ -190,6 +190,46 @@ class S {
     );
   }
 
+  /// `In App Notification`
+  String get channelInAppName {
+    return Intl.message(
+      'In App Notification',
+      name: 'channelInAppName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For internal notifications`
+  String get channelInAppNameDesc {
+    return Intl.message(
+      'For internal notifications',
+      name: 'channelInAppNameDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Scheduled Notifications`
+  String get channelScheduledName {
+    return Intl.message(
+      ' Scheduled Notifications',
+      name: 'channelScheduledName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For scheduled notifications`
+  String get channelScheduledNameDesc {
+    return Intl.message(
+      'For scheduled notifications',
+      name: 'channelScheduledNameDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hisn ELmoslem App | Chat`
   String get chat {
     return Intl.message(

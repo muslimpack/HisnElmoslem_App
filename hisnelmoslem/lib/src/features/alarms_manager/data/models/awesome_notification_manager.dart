@@ -29,17 +29,17 @@ class AwesomeNotificationManager {
         null,
         [
           NotificationChannel(
-            channelKey: 'in_app_notification',
-            channelName: 'In App Notification',
-            channelDescription: 'For internal notifications',
+            channelKey: NotificationsChannels.inApp.key,
+            channelName: NotificationsChannels.inApp.name,
+            channelDescription: NotificationsChannels.inApp.description,
             defaultColor: Colors.teal,
             importance: NotificationImportance.High,
             playSound: true,
           ),
           NotificationChannel(
-            channelKey: 'scheduled_channel',
-            channelName: 'Scheduled Notifications',
-            channelDescription: 'For Scheduled notifications',
+            channelKey: NotificationsChannels.scheduled.key,
+            channelName: NotificationsChannels.scheduled.name,
+            channelDescription: NotificationsChannels.scheduled.description,
             defaultColor: Colors.teal,
             importance: NotificationImportance.High,
             channelShowBadge: true,
@@ -105,7 +105,7 @@ class AwesomeNotificationManager {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 999,
-        channelKey: 'in_app_notification',
+        channelKey: NotificationsChannels.inApp.key,
         title: title,
         body: body,
         notificationLayout: NotificationLayout.BigText,
@@ -134,7 +134,7 @@ class AwesomeNotificationManager {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 1000,
-        channelKey: 'scheduled_channel',
+        channelKey: NotificationsChannels.scheduled.key,
         title: S.current.haveNotOpenedAppLongTime,
         body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
         notificationLayout: NotificationLayout.BigText,
@@ -162,7 +162,7 @@ class AwesomeNotificationManager {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
-        channelKey: 'scheduled_channel',
+        channelKey: NotificationsChannels.scheduled.key,
         title: title,
         body: body,
         notificationLayout: NotificationLayout.BigText,
@@ -212,7 +212,7 @@ class AwesomeNotificationManager {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
-        channelKey: 'scheduled_channel',
+        channelKey: NotificationsChannels.scheduled.key,
         title: title,
         body: body,
         notificationLayout: NotificationLayout.BigText,
@@ -299,4 +299,28 @@ class Time {
     this.hour, [
     this.minute = 0,
   ]);
+}
+
+class NotifyChannel {
+  final String key;
+  final String name;
+  final String description;
+  NotifyChannel({
+    required this.key,
+    required this.name,
+    required this.description,
+  });
+}
+
+class NotificationsChannels {
+  static NotifyChannel inApp = NotifyChannel(
+    key: 'in_app_notification',
+    name: S.current.channelInAppName,
+    description: S.current.channelInAppNameDesc,
+  );
+  static NotifyChannel scheduled = NotifyChannel(
+    key: 'scheduled_channel',
+    name: S.current.channelScheduledName,
+    description: S.current.channelScheduledNameDesc,
+  );
 }

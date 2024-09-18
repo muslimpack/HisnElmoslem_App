@@ -41,6 +41,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Background color"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("Card index"),
         "cardMode": MessageLookupByLibrary.simpleMessage("Card Mode"),
+        "channelInAppName":
+            MessageLookupByLibrary.simpleMessage("In App Notification"),
+        "channelInAppNameDesc":
+            MessageLookupByLibrary.simpleMessage("For internal notifications"),
+        "channelScheduledName":
+            MessageLookupByLibrary.simpleMessage(" Scheduled Notifications"),
+        "channelScheduledNameDesc":
+            MessageLookupByLibrary.simpleMessage("For scheduled notifications"),
         "chat":
             MessageLookupByLibrary.simpleMessage("Hisn ELmoslem App | Chat"),
         "chooseTimeForReminder": MessageLookupByLibrary.simpleMessage(

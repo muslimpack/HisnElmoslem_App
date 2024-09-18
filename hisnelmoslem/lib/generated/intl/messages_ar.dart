@@ -40,6 +40,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "backgroundColor": MessageLookupByLibrary.simpleMessage("لون الخلفية"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("البطاقة رقم"),
         "cardMode": MessageLookupByLibrary.simpleMessage("وضعية البطاقات"),
+        "channelInAppName":
+            MessageLookupByLibrary.simpleMessage("الإشعارات الداخلية"),
+        "channelInAppNameDesc": MessageLookupByLibrary.simpleMessage(
+            "تستخدم للإشعارات داخل التطبيق"),
+        "channelScheduledName":
+            MessageLookupByLibrary.simpleMessage("الإشعارات المجدولة"),
+        "channelScheduledNameDesc":
+            MessageLookupByLibrary.simpleMessage("تستخدم للإشعارات المجدولة"),
         "chat": MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم: نداء"),
         "chooseTimeForReminder":
             MessageLookupByLibrary.simpleMessage("اختر وقتا للتذكير"),
