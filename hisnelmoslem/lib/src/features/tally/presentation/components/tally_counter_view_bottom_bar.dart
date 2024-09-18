@@ -25,20 +25,20 @@ class TallyCounterViewBottomBar extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: () {
-                showDialog(
+              onPressed: () async {
+                final bool? confirm = await showDialog(
                   context: context,
                   builder: (_) {
                     return YesOrNoDialog(
                       msg: S.of(context).progressDeletedCannotUndo,
-                      onYes: () async {
-                        context
-                            .read<TallyBloc>()
-                            .add(TallyResetActiveCounterEvent());
-                      },
                     );
                   },
                 );
+
+                if (confirm == null || !confirm || !context.mounted) {
+                  return;
+                }
+                context.read<TallyBloc>().add(TallyResetActiveCounterEvent());
               },
             ),
             IconButton(

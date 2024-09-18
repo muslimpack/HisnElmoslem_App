@@ -61,20 +61,20 @@ class TallyListView extends StatelessWidget {
                   Icons.restart_alt,
                   size: 40,
                 ),
-                onPressed: () {
-                  showDialog(
+                onPressed: () async {
+                  final bool? confirm = await showDialog(
                     context: context,
                     builder: (_) {
                       return YesOrNoDialog(
                         msg: S.of(context).resetAllCounters,
-                        onYes: () async {
-                          context
-                              .read<TallyBloc>()
-                              .add(TallyResetAllCountersEvent());
-                        },
                       );
                     },
                   );
+
+                  if (confirm == null || !confirm || !context.mounted) {
+                    return;
+                  }
+                  context.read<TallyBloc>().add(TallyResetAllCountersEvent());
                 },
               ),
             ],
