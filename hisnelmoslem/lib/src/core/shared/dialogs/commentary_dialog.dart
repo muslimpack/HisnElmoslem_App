@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 
@@ -35,13 +35,11 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
   late Commentary? commentary;
 
   Future<void> getData() async {
-    await sl<AzkarDatabaseHelper>()
-        .getCommentaryByContentId(contentId: widget.contentId)
-        .then((value) {
-      commentary = value;
-      setState(() {
-        isLoading = false;
-      });
+    final data = await sl<CommentaryDBHelper>()
+        .getCommentaryByContentId(contentId: widget.contentId);
+    commentary = data;
+    setState(() {
+      isLoading = false;
     });
   }
 

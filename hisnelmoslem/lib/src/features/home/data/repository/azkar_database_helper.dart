@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,7 +11,7 @@ class AzkarDatabaseHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 5;
+  static const int dbVersion = 6;
 
   /* ************* Singleton Constructor ************* */
 
@@ -190,23 +189,6 @@ class AzkarDatabaseHelper {
     await userDataDBHelper.removeContentFromFavourite(
       dbContent: dbContent,
     );
-  }
-
-  // ************************************************
-  // Commentary
-
-  /// Get Commentary by contentId
-  Future<Commentary> getCommentaryByContentId({
-    required int? contentId,
-  }) async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * FROM commentary  WHERE contentId = ?''',
-      [contentId],
-    );
-    final Commentary commentary = Commentary.fromMap(maps[0]);
-    return commentary;
   }
 
   /// Close database
