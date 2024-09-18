@@ -29,7 +29,8 @@ class RearrangeDashboardPage extends StatelessWidget {
               return ListTile(
                 key: Key("$index"),
                 title: Text(
-                  appDashboardItem[state.dashboardArrangement[index]].title,
+                  appDashboardItem[state.dashboardArrangement[index]]
+                      .title(context),
                 ),
                 trailing: const Icon(Icons.horizontal_rule),
               );

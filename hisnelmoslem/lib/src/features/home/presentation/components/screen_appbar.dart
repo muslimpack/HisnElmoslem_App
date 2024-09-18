@@ -62,7 +62,7 @@ class ScreenAppBar extends StatelessWidget {
                             child: Text(
                               appDashboardItem[
                                       state.dashboardArrangement[index]]
-                                  .title,
+                                  .title(context),
                             ),
                           );
                         },

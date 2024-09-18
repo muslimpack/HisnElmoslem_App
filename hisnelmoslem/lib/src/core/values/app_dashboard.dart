@@ -6,15 +6,15 @@ import 'package:hisnelmoslem/src/features/settings/data/models/app_component.dar
 
 final List<AppComponent> appDashboardItem = [
   AppComponent(
-    title: S.current.index,
+    title: (context) => S.of(context).index,
     widget: const AzkarFehrs(),
   ),
   AppComponent(
-    title: S.current.favoritesContent,
+    title: (context) => S.of(context).favoritesContent,
     widget: const AzkarBookmarks(),
   ),
   AppComponent(
-    title: S.current.favoritesZikr,
+    title: (context) => S.of(context).favoritesZikr,
     widget: const FavouriteZikr(),
   ),
 ];
