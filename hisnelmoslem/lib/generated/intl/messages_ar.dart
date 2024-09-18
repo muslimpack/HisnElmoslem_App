@@ -82,7 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deactivate": MessageLookupByLibrary.simpleMessage("الغاء تفعيل"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "digitalCopyOfHisnElmoslem": MessageLookupByLibrary.simpleMessage(
-            "تم الاستعانة بنسخة ديجتال من كتاب حصن المسلم من شبكة الألوكة"),
+            "تم الاستعانة بنسخة رقمية من كتاب حصن المسلم من شبكة الألوكة"),
         "dislikeAboutApp":
             MessageLookupByLibrary.simpleMessage("ما لم يعجبك في التطبيق:"),
         "dismiss": MessageLookupByLibrary.simpleMessage("لاحقا"),
@@ -98,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableWakeLock":
             MessageLookupByLibrary.simpleMessage("إبقاء الشاشة نشطة"),
         "endSuraAliImran":
-            MessageLookupByLibrary.simpleMessage("آواخر آل عمران"),
+            MessageLookupByLibrary.simpleMessage("أواخر آل عمران"),
         "everyFriday": MessageLookupByLibrary.simpleMessage("كل جمعة"),
         "everyMonday": MessageLookupByLibrary.simpleMessage("كل إثنين"),
         "everySaturday": MessageLookupByLibrary.simpleMessage("كل سبت"),

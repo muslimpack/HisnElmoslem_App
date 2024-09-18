@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "channelInAppNameDesc":
             MessageLookupByLibrary.simpleMessage("For internal notifications"),
         "channelScheduledName":
-            MessageLookupByLibrary.simpleMessage(" Scheduled Notifications"),
+            MessageLookupByLibrary.simpleMessage("Scheduled Notifications"),
         "channelScheduledNameDesc":
             MessageLookupByLibrary.simpleMessage("For scheduled notifications"),
         "chat":

@@ -210,10 +210,10 @@ class S {
     );
   }
 
-  /// ` Scheduled Notifications`
+  /// `Scheduled Notifications`
   String get channelScheduledName {
     return Intl.message(
-      ' Scheduled Notifications',
+      'Scheduled Notifications',
       name: 'channelScheduledName',
       desc: '',
       args: [],
