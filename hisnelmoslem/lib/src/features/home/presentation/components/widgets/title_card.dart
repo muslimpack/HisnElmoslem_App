@@ -28,10 +28,22 @@ class TitleCard extends StatelessWidget {
 
     return ListTile(
       tileColor: titleColor,
-      leading: dbTitle.favourite
-          ? IconButton(
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 25),
+                child: Text(dbTitle.order.toString()),
+              ),
+            ),
+          ),
+          if (dbTitle.favourite)
+            IconButton(
               icon: Icon(
-                Icons.bookmark,
+                Icons.bookmark_rounded,
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
@@ -43,8 +55,9 @@ class TitleCard extends StatelessWidget {
                 );
               },
             )
-          : IconButton(
-              icon: const Icon(Icons.bookmark_border_outlined),
+          else
+            IconButton(
+              icon: const Icon(Icons.bookmark_add_outlined),
               onPressed: () {
                 sl<HomeBloc>().add(
                   HomeToggleTitleBookmarkEvent(
@@ -54,6 +67,8 @@ class TitleCard extends StatelessWidget {
                 );
               },
             ),
+        ],
+      ),
       trailing: dbAlarm == null
           ? IconButton(
               icon: const Icon(Icons.alarm_add_rounded),
