@@ -10,7 +10,7 @@ import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hsin_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -28,12 +28,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final _volumeBtnChannel = const MethodChannel("volume_button_channel");
   final HomeBloc homeBloc;
 
-  final AzkarDatabaseHelper azkarDatabaseHelper;
-  ZikrViewerBloc({
-    required this.effectsManager,
-    required this.homeBloc,
-    required this.azkarDatabaseHelper,
-  }) : super(ZikrViewerLoadingState()) {
+  final HisnDBHelper hisnDBHelper;
+  ZikrViewerBloc(
+    this.effectsManager,
+    this.homeBloc,
+    this.hisnDBHelper,
+  ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
 
@@ -77,9 +77,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       WakelockPlus.enable();
     }
 
-    final title = await azkarDatabaseHelper.getTitleById(id: event.titleIndex);
+    final title = await hisnDBHelper.getTitleById(id: event.titleIndex);
 
-    final azkar = await azkarDatabaseHelper.getContentsByTitleId(
+    final azkar = await hisnDBHelper.getContentsByTitleId(
       titleId: event.titleIndex,
     );
     final azkarToView = List<DbContent>.from(azkar);
@@ -224,11 +224,11 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (activeZikr == null) return;
 
     if (event.bookmark) {
-      await azkarDatabaseHelper.addContentToFavourite(
+      await hisnDBHelper.addContentToFavourite(
         dbContent: activeZikr,
       );
     } else {
-      await azkarDatabaseHelper.removeContentFromFavourite(
+      await hisnDBHelper.removeContentFromFavourite(
         dbContent: activeZikr,
       );
     }

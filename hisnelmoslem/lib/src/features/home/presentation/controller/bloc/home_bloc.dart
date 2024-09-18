@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart'
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/azkar_database_helper.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hsin_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -20,11 +20,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AppSettingsRepo appSettingsRepo;
-  final AzkarDatabaseHelper azkarDatabaseHelper;
+  final HisnDBHelper hisnDBHelper;
   HomeBloc(
     this.alarmsBloc,
     this.alarmDatabaseHelper,
-    this.azkarDatabaseHelper,
+    this.hisnDBHelper,
     this.appSettingsRepo,
   ) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
@@ -70,9 +70,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeStartEvent event,
     Emitter<HomeState> emit,
   ) async {
-    final titles = await azkarDatabaseHelper.getAllTitles();
+    final titles = await hisnDBHelper.getAllTitles();
     final alarms = await alarmDatabaseHelper.getAlarms();
-    final bookmarkedContents = await azkarDatabaseHelper.getFavouriteContents();
+    final bookmarkedContents = await hisnDBHelper.getFavouriteContents();
 
     emit(
       HomeLoadedState(
@@ -107,9 +107,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is! HomeLoadedState) return;
 
     if (event.bookmark) {
-      await azkarDatabaseHelper.addTitleToFavourite(dbTitle: event.title);
+      await hisnDBHelper.addTitleToFavourite(dbTitle: event.title);
     } else {
-      await azkarDatabaseHelper.deleteTitleFromFavourite(dbTitle: event.title);
+      await hisnDBHelper.deleteTitleFromFavourite(dbTitle: event.title);
     }
 
     final titles = List<DbTitle>.of(state.titles).map((e) {
@@ -130,9 +130,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is! HomeLoadedState) return;
 
     if (event.bookmark) {
-      await azkarDatabaseHelper.addContentToFavourite(dbContent: event.content);
+      await hisnDBHelper.addContentToFavourite(dbContent: event.content);
     } else {
-      await azkarDatabaseHelper.removeContentFromFavourite(
+      await hisnDBHelper.removeContentFromFavourite(
         dbContent: event.content,
       );
     }
@@ -147,7 +147,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
-    final bookmarkedContents = await azkarDatabaseHelper.getFavouriteContents();
+    final bookmarkedContents = await hisnDBHelper.getFavouriteContents();
     emit(state.copyWith(bookmarkedContents: bookmarkedContents));
   }
 

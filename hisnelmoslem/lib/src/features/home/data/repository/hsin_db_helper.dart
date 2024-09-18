@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/data_database_hel
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:sqflite/sqflite.dart';
 
-class AzkarDatabaseHelper {
+class HisnDBHelper {
   final UserDataDBHelper userDataDBHelper;
   /* ************* Variables ************* */
 
@@ -15,17 +15,17 @@ class AzkarDatabaseHelper {
 
   /* ************* Singleton Constructor ************* */
 
-  static AzkarDatabaseHelper? _databaseHelper;
+  static HisnDBHelper? _databaseHelper;
   static Database? _database;
   static late final DBHelper _dbHelper;
 
-  factory AzkarDatabaseHelper(UserDataDBHelper userDataDBHelper) {
+  factory HisnDBHelper(UserDataDBHelper userDataDBHelper) {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
-    _databaseHelper ??= AzkarDatabaseHelper._createInstance(userDataDBHelper);
+    _databaseHelper ??= HisnDBHelper._createInstance(userDataDBHelper);
     return _databaseHelper!;
   }
 
-  AzkarDatabaseHelper._createInstance(this.userDataDBHelper);
+  HisnDBHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
     _database ??= await _dbHelper.initDatabase();
