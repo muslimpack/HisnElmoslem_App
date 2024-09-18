@@ -7,9 +7,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart'
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_card_mode_screen.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_page_mode_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class TitleCard extends StatelessWidget {
   final Color? titleColor;
@@ -118,17 +116,10 @@ class TitleCard extends StatelessWidget {
       ),
       // trailing: Text(zikrList[index]),
       onTap: () {
-        if (!sl<AppSettingsRepo>().isCardReadMode) {
-          transitionAnimation.circleReval(
-            context: context,
-            goToPage: ZikrViewerPageModeScreen(index: dbTitle.id),
-          );
-        } else {
-          transitionAnimation.circleReval(
-            context: context,
-            goToPage: ZikrViewerCardModeScreen(index: dbTitle.id),
-          );
-        }
+        transitionAnimation.circleReval(
+          context: context,
+          goToPage: ZikrViewerScreen(index: dbTitle.id),
+        );
       },
     );
   }

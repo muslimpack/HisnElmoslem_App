@@ -10,9 +10,6 @@ class YesOrNoDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        S.of(context).areYouSure,
-      ),
-      content: Text(
         msg,
       ),
       actions: [

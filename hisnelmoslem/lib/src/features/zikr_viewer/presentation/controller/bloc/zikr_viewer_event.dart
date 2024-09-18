@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'zikr_viewer_bloc.dart';
 
 sealed class ZikrViewerEvent extends Equatable {
@@ -89,4 +90,28 @@ class ZikrViewerPageChangeEvent extends ZikrViewerEvent {
 
   @override
   List<Object> get props => [index];
+}
+
+class ZikrViewerRestoreSessionEvent extends ZikrViewerEvent {
+  final bool restore;
+  const ZikrViewerRestoreSessionEvent(
+    this.restore,
+  );
+
+  @override
+  List<Object> get props => [restore];
+}
+
+class ZikrViewerSaveSessionEvent extends ZikrViewerEvent {
+  const ZikrViewerSaveSessionEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ZikrViewerResetSessionEvent extends ZikrViewerEvent {
+  const ZikrViewerResetSessionEvent();
+
+  @override
+  List<Object> get props => [];
 }

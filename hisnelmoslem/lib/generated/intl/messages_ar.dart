@@ -181,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
             "استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
-            "سيتم حذف تقدمك في هذا الذكر\nهل أنت متأكد أنك تريد القيام بهذا؟"),
+            "سيتم حذف تقدمك في هذا الذكر\nهل تريد القيام بهذا؟"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(
             "قال رسول الله صلى الله عليه وسلم: «من كذب علي متعمدا فليتبوأ مقعده من النار»"),
         "quranPagesFromAndroidQuran": MessageLookupByLibrary.simpleMessage(
@@ -266,6 +266,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استخدام الأرقام الهندية"),
         "version": MessageLookupByLibrary.simpleMessage("الإصدار"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
-        "zikrIndex": MessageLookupByLibrary.simpleMessage("الذكر رقم")
+        "zikrIndex": MessageLookupByLibrary.simpleMessage("الذكر رقم"),
+        "zikrViewerRestoreSessionMsg": MessageLookupByLibrary.simpleMessage(
+            "عثرنا على جلسة سابقة هل تود استعادتها؟")
       };
 }
