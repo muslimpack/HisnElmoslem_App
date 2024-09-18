@@ -21,7 +21,7 @@ class HomeTitlesListView extends StatelessWidget {
           dbTitle: titles[index],
           dbAlarm: alarms[titles[index].id],
           titleColor: index % 2 != 0
-              ? Theme.of(context).colorScheme.primary.withOpacity(.05)
+              ? Theme.of(context).colorScheme.primary.withOpacity(.1)
               : null,
         );
       },
