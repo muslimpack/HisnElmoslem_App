@@ -15,18 +15,11 @@ class DbTitle extends Equatable {
   });
 
   factory DbTitle.fromMap(Map<String, dynamic> map) {
-    bool favourite;
-    if ((map['favourite'] ?? 0) == 0) {
-      favourite = false;
-    } else {
-      favourite = true;
-    }
     return DbTitle(
       id: map['id'] as int,
       name: map['name'] as String,
       orderId: map['orderId'] as int,
-      // favourite: false,
-      favourite: favourite,
+      favourite: false,
     );
   }
 
@@ -35,7 +28,6 @@ class DbTitle extends Equatable {
       'id': id,
       'name': name,
       'orderId': orderId,
-      'favourite': favourite ? 1 : 0,
     };
   }
 
