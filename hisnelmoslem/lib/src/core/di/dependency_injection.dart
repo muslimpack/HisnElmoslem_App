@@ -72,5 +72,5 @@ Future<void> initSL() async {
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
   sl.registerFactory(() => FakeHadithBloc(sl()));
-  sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl(), sl()));
 }
