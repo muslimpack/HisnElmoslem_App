@@ -84,14 +84,10 @@ class ThemeRepo {
 
   ///
   static const _fontFamilyKey = 'font_family';
-  String get fontFamily => box.read(_fontFamilyKey) ?? "Amiri";
+  String get fontFamily => box.read(_fontFamilyKey) ?? "Roboto";
 
   Future<void> changFontFamily(String value) async {
     box.write(_fontFamilyKey, value);
-  }
-
-  void resetFontFamily() {
-    changFontFamily("Amiri");
   }
 
   ///
