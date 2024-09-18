@@ -23,7 +23,7 @@ class AzkarFehrs extends StatelessWidget {
                 description: S.of(context).reviewIndexOfBook,
               )
             : HomeTitlesListView(
-                titles: state.titles,
+                titles: state.allTitles,
                 alarms: state.alarms,
               );
       },

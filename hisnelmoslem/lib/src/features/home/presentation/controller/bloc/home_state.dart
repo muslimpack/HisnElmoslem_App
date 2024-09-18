@@ -17,6 +17,13 @@ class HomeLoadedState extends HomeState {
   final List<DbContent> bookmarkedContents;
   final bool isSearching;
 
+  List<DbTitle> get allTitles {
+    return titles
+      ..sort(
+        (a, b) => a.orderId.compareTo(b.orderId),
+      );
+  }
+
   List<DbTitle> get bookmarkedTitles {
     return titles.where((x) => x.favourite).toList()
       ..sort(
