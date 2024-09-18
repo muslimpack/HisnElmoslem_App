@@ -20,7 +20,7 @@ class TitleCard extends StatelessWidget {
     super.key,
     required this.dbTitle,
     required this.dbAlarm,
-    required this.titleColor,
+    this.titleColor,
   });
 
   @override
