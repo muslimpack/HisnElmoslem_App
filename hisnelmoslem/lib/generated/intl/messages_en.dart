@@ -140,6 +140,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hisn Elmoslem App"),
         "hisnElmoslemAppVersion":
             MessageLookupByLibrary.simpleMessage("Hisn ELmoslem App Version"),
+        "hokmAthar": MessageLookupByLibrary.simpleMessage("Athar"),
+        "hokmDaeif": MessageLookupByLibrary.simpleMessage("Weak"),
+        "hokmHasan": MessageLookupByLibrary.simpleMessage("Good"),
+        "hokmMawdue": MessageLookupByLibrary.simpleMessage("Fabricated"),
+        "hokmSahih": MessageLookupByLibrary.simpleMessage("Authentic"),
         "imageQuality": MessageLookupByLibrary.simpleMessage("Image quality"),
         "imageWidth": MessageLookupByLibrary.simpleMessage("Image width"),
         "index": MessageLookupByLibrary.simpleMessage("Index"),
@@ -214,6 +219,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please review the index of the book"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "selectAzkarHokmFilters":
+            MessageLookupByLibrary.simpleMessage("Select hokm of Azakr"),
+        "selectAzkarSource":
+            MessageLookupByLibrary.simpleMessage("Select source of Azkar"),
         "selectColor": MessageLookupByLibrary.simpleMessage("Select color"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "setMessageForYou":

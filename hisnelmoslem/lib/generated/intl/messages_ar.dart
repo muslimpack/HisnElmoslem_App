@@ -135,6 +135,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم"),
         "hisnElmoslemAppVersion":
             MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم الإصدار"),
+        "hokmAthar": MessageLookupByLibrary.simpleMessage("أثر"),
+        "hokmDaeif": MessageLookupByLibrary.simpleMessage("ضعيف"),
+        "hokmHasan": MessageLookupByLibrary.simpleMessage("حسن"),
+        "hokmMawdue": MessageLookupByLibrary.simpleMessage("موضوع"),
+        "hokmSahih": MessageLookupByLibrary.simpleMessage("صحيح"),
         "imageQuality": MessageLookupByLibrary.simpleMessage("جودة الصورة"),
         "imageWidth": MessageLookupByLibrary.simpleMessage("عرض الصورة"),
         "index": MessageLookupByLibrary.simpleMessage("الفهرس"),
@@ -208,6 +213,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "برجاء قم بمراجعة فهرس الكتاب"),
         "search": MessageLookupByLibrary.simpleMessage("البحث"),
         "select": MessageLookupByLibrary.simpleMessage("تحديد"),
+        "selectAzkarHokmFilters":
+            MessageLookupByLibrary.simpleMessage("اختيار حكم الأذكار"),
+        "selectAzkarSource":
+            MessageLookupByLibrary.simpleMessage("اختيار مصدر الأذكار"),
         "selectColor": MessageLookupByLibrary.simpleMessage("اختر هذا اللون"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("راسلنا"),
         "setMessageForYou":

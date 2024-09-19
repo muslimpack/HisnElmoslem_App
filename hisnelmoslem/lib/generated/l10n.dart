@@ -880,6 +880,56 @@ class S {
     );
   }
 
+  /// `Athar`
+  String get hokmAthar {
+    return Intl.message(
+      'Athar',
+      name: 'hokmAthar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weak`
+  String get hokmDaeif {
+    return Intl.message(
+      'Weak',
+      name: 'hokmDaeif',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good`
+  String get hokmHasan {
+    return Intl.message(
+      'Good',
+      name: 'hokmHasan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fabricated`
+  String get hokmMawdue {
+    return Intl.message(
+      'Fabricated',
+      name: 'hokmMawdue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authentic`
+  String get hokmSahih {
+    return Intl.message(
+      'Authentic',
+      name: 'hokmSahih',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Image quality`
   String get imageQuality {
     return Intl.message(
@@ -1315,6 +1365,26 @@ class S {
     return Intl.message(
       'Select',
       name: 'select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select hokm of Azakr`
+  String get selectAzkarHokmFilters {
+    return Intl.message(
+      'Select hokm of Azakr',
+      name: 'selectAzkarHokmFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select source of Azkar`
+  String get selectAzkarSource {
+    return Intl.message(
+      'Select source of Azkar',
+      name: 'selectAzkarSource',
       desc: '',
       args: [],
     );
