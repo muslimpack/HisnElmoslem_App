@@ -48,56 +48,50 @@ class ShareImageImageBuilder extends StatelessWidget {
                   color: state.shareImageSettings.titleTextColor,
                   thickness: state.dividerSize,
                 ),
-                Padding(
+                ListView(
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: ZikrContentBuilder(
-                          dbContent: dbContent,
-                          enableDiacritics:
-                              !state.shareImageSettings.removeDiacritics,
-                          fontSize: state.shareImageSettings.fontSize,
-                          color: state.shareImageSettings.bodyTextColor,
+                  shrinkWrap: true,
+                  children: [
+                    ZikrContentBuilder(
+                      dbContent: dbContent,
+                      enableDiacritics:
+                          !state.shareImageSettings.removeDiacritics,
+                      fontSize: state.shareImageSettings.fontSize,
+                      color: state.shareImageSettings.bodyTextColor,
+                    ),
+
+                    /// Fadl
+                    if ((dbContent.fadl.isNotEmpty) &&
+                        state.shareImageSettings.showFadl) ...[
+                      const SizedBox(height: 25),
+                      Text(
+                        dbContent.fadl,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: state.shareImageSettings.additionalTextColor,
+                          fontSize: state.shareImageSettings.fontSize *
+                              state.fadlFactor,
                         ),
                       ),
-                      // Fadl
-                      if (!(dbContent.fadl == "") &&
-                          state.shareImageSettings.showFadl)
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            dbContent.fadl,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color:
-                                  state.shareImageSettings.additionalTextColor,
-                              fontSize: state.shareImageSettings.fontSize *
-                                  state.fadlFactor,
-                            ),
-                          ),
-                        ),
-                      // Source
-                      if (!(dbContent.source == "") &&
-                          state.shareImageSettings.showSource)
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            dbContent.source,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color:
-                                  state.shareImageSettings.additionalTextColor,
-                              fontSize: state.shareImageSettings.fontSize *
-                                  state.sourceFactor,
-                            ),
-                          ),
-                        ),
                     ],
-                  ),
+
+                    /// Source
+                    if ((dbContent.source.isNotEmpty) &&
+                        state.shareImageSettings.showSource) ...[
+                      const SizedBox(height: 25),
+                      Text(
+                        dbContent.source,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: state.shareImageSettings.additionalTextColor,
+                          fontSize: state.shareImageSettings.fontSize *
+                              state.sourceFactor,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
 
                 Divider(
