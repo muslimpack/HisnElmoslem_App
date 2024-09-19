@@ -3,7 +3,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/settings/data/models/translation_data.dart';
 
 //TODO App Version | Change every release
-const String appVersion = "2.8.0";
+const String appVersion = "2.9.0";
 
 String kAppStorageKey =
     PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
