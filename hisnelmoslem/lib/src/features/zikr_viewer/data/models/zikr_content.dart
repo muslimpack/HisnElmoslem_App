@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 
 class DbContent extends Equatable {
   final int id;
@@ -95,5 +96,17 @@ class DbContent extends Equatable {
       fadl: (map['fadl'] as String?) ?? "",
       hokm: (map['hokm'] as String?) ?? "",
     );
+  }
+}
+
+extension DbContentExtension on DbContent {
+  Future<String> sharedText() async {
+    final StringBuffer sb = StringBuffer();
+    final content = await getPlainText();
+    sb.writeln("$content\n");
+    sb.writeln("🔢عدد المرات: $count\n");
+    if (fadl.isNotEmpty) sb.writeln("✨الفضل: $fadl\n");
+    if (source.isNotEmpty) sb.writeln("📚المصدر:\n$source");
+    return sb.toString();
   }
 }

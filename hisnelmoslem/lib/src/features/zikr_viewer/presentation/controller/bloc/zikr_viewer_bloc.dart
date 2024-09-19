@@ -267,9 +267,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
-    final text = await activeZikr.getPlainText();
+    final originalZikr =
+        state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
+    if (originalZikr == null) return;
+
+    final text = await originalZikr.sharedText();
     await Clipboard.setData(
-      ClipboardData(text: "$text\n${activeZikr.fadl}"),
+      ClipboardData(text: text),
     );
 
     showToast(
@@ -287,9 +291,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
-    final text = await activeZikr.getPlainText();
+    final originalZikr =
+        state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
+    if (originalZikr == null) return;
 
-    await Share.share("$text\n${activeZikr.fadl}");
+    final text = await originalZikr.sharedText();
+    await Share.share(text);
   }
 
   FutureOr<void> _toggleBookmark(
