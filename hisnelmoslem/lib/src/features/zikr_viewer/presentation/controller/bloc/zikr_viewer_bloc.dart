@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
@@ -21,7 +19,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 part 'zikr_viewer_event.dart';
@@ -267,17 +265,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
-    final originalZikr =
-        state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
-    if (originalZikr == null) return;
-
-    final text = await originalZikr.sharedText();
-    await Clipboard.setData(
-      ClipboardData(text: text),
-    );
-
-    showToast(
-      msg: S.current.copiedToClipboard,
+    showDialog(
+      context: App.navigatorKey.currentState!.context,
+      builder: (context) {
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+        );
+      },
     );
   }
 
@@ -291,12 +285,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         _getZikrToDealWith(state: state, eventContent: event.content);
     if (activeZikr == null) return;
 
-    final originalZikr =
-        state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
-    if (originalZikr == null) return;
-
-    final text = await originalZikr.sharedText();
-    await Share.share(text);
+    showDialog(
+      context: App.navigatorKey.currentState!.context,
+      builder: (context) {
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+        );
+      },
+    );
   }
 
   FutureOr<void> _toggleBookmark(
