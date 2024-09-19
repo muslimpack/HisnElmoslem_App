@@ -47,45 +47,37 @@ class OnBoardingScreen extends StatelessWidget {
               child: SizedBox(
                 height: 50,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          state.pages.length,
-                          (index) => Dot(
-                            index: index,
-                            currentPageIndex: state.currentPageIndex,
-                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        state.pages.length,
+                        (index) => Dot(
+                          index: index,
+                          currentPageIndex: state.currentPageIndex,
                         ),
                       ),
                     ),
                     if (state.isFinalPage)
-                      Expanded(
-                        child: FilledButton(
-                          child: Text(
-                            S.of(context).start,
-                          ),
-                          onPressed: () {
-                            context.read<OnboardCubit>().done();
-                          },
+                      FilledButton(
+                        child: Text(
+                          S.of(context).start,
                         ),
+                        onPressed: () {
+                          context.read<OnboardCubit>().done();
+                        },
                       )
-                    else
-                      !state.showSkipBtn
-                          ? const SizedBox()
-                          : Expanded(
-                              child: TextButton(
-                                child: Text(
-                                  S.of(context).skip,
-                                  style: const TextStyle(),
-                                ),
-                                onPressed: () {
-                                  context.read<OnboardCubit>().done();
-                                },
-                              ),
-                            ),
+                    else if (state.showSkipBtn)
+                      TextButton(
+                        child: Text(
+                          S.of(context).skip,
+                          style: const TextStyle(),
+                        ),
+                        onPressed: () {
+                          context.read<OnboardCubit>().done();
+                        },
+                      ),
                   ],
                 ),
               ),
