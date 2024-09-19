@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Allow app to send notifications?"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
+        "azkarFilters": MessageLookupByLibrary.simpleMessage("Azkar Filters"),
         "backgroundColor":
             MessageLookupByLibrary.simpleMessage("Background color"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("Card index"),
@@ -98,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit image size"),
         "editReminder": MessageLookupByLibrary.simpleMessage("Edit reminder"),
         "effectManager": MessageLookupByLibrary.simpleMessage("Effect Control"),
+        "enableAzkarFilters":
+            MessageLookupByLibrary.simpleMessage("Enable Azkar filters"),
         "enableWakeLock":
             MessageLookupByLibrary.simpleMessage("Enable wake lock"),
         "endSuraAliImran":
@@ -123,6 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontType": MessageLookupByLibrary.simpleMessage("Font Type"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
             "Free, ad-free and open source app"),
+        "freqAnnual": MessageLookupByLibrary.simpleMessage("Annual"),
+        "freqDaily": MessageLookupByLibrary.simpleMessage("Daily"),
+        "freqMonthly": MessageLookupByLibrary.simpleMessage("Monthly"),
+        "freqWeekly": MessageLookupByLibrary.simpleMessage("Weekly"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
         "github": MessageLookupByLibrary.simpleMessage("Github source code"),
         "goTo": MessageLookupByLibrary.simpleMessage("Go to"),
@@ -136,6 +143,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hisn Elmoslem App"),
         "hisnElmoslemAppVersion":
             MessageLookupByLibrary.simpleMessage("Hisn ELmoslem App Version"),
+        "hokmAthar": MessageLookupByLibrary.simpleMessage("Athar"),
+        "hokmDaeif": MessageLookupByLibrary.simpleMessage("Weak"),
+        "hokmHasan": MessageLookupByLibrary.simpleMessage("Good"),
+        "hokmMawdue": MessageLookupByLibrary.simpleMessage("Fabricated"),
+        "hokmSahih": MessageLookupByLibrary.simpleMessage("Authentic"),
         "imageQuality": MessageLookupByLibrary.simpleMessage("Image quality"),
         "imageWidth": MessageLookupByLibrary.simpleMessage("Image width"),
         "index": MessageLookupByLibrary.simpleMessage("Index"),
@@ -210,6 +222,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please review the index of the book"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "selectAzkarHokmFilters":
+            MessageLookupByLibrary.simpleMessage("Select hokm of Azakr"),
+        "selectAzkarSource":
+            MessageLookupByLibrary.simpleMessage("Select source of Azkar"),
         "selectColor": MessageLookupByLibrary.simpleMessage("Select color"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "setMessageForYou":
@@ -235,6 +251,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sound Effect volume"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "Sound effect when all zikr end"),
+        "sourceAbuDawood":
+            MessageLookupByLibrary.simpleMessage("Sunan Abi Dawud"),
+        "sourceAdDarami":
+            MessageLookupByLibrary.simpleMessage("Sunan al-Darimi"),
+        "sourceAhmad":
+            MessageLookupByLibrary.simpleMessage("Musnad Ahmad ibn Hanbal"),
+        "sourceAnNasai": MessageLookupByLibrary.simpleMessage(
+            "Al-Sunan al-Sughra by al-Nasa\'i"),
+        "sourceAtTirmidhi":
+            MessageLookupByLibrary.simpleMessage("Sunan al-Tirmidhi"),
+        "sourceAthar": MessageLookupByLibrary.simpleMessage("Athr"),
+        "sourceBayhaqi":
+            MessageLookupByLibrary.simpleMessage("Sunan al-Bayhaqi"),
+        "sourceHakim": MessageLookupByLibrary.simpleMessage(
+            "Al-Mustadrak ala al-Sahihayn"),
+        "sourceIbnMajah":
+            MessageLookupByLibrary.simpleMessage("Sunan IbnMajah"),
+        "sourceIbnSunny": MessageLookupByLibrary.simpleMessage("IbnSunny"),
+        "sourceMalik":
+            MessageLookupByLibrary.simpleMessage("Muwatta Imam Malik"),
+        "sourceQuran": MessageLookupByLibrary.simpleMessage("Quran"),
+        "sourceSahihBukhari":
+            MessageLookupByLibrary.simpleMessage("Sahih al-Bukhari"),
+        "sourceSahihMuslim":
+            MessageLookupByLibrary.simpleMessage("Sahih Muslim"),
         "spellingErrorIn": MessageLookupByLibrary.simpleMessage(
             "There is a spelling error in"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),

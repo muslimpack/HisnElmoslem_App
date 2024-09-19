@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل تريد السماح بتشغيل الإشعارات؟"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("متأكد من ذلك؟"),
+        "azkarFilters": MessageLookupByLibrary.simpleMessage("تصفية الأذكار"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("لون الخلفية"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("البطاقة رقم"),
         "cardMode": MessageLookupByLibrary.simpleMessage("وضعية البطاقات"),
@@ -95,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل عرض الصورة"),
         "editReminder": MessageLookupByLibrary.simpleMessage("تعديل تنبيه"),
         "effectManager": MessageLookupByLibrary.simpleMessage("إدارة المؤثرات"),
+        "enableAzkarFilters":
+            MessageLookupByLibrary.simpleMessage("تفعيل تصفية الأذكار"),
         "enableWakeLock":
             MessageLookupByLibrary.simpleMessage("إبقاء الشاشة نشطة"),
         "endSuraAliImran":
@@ -118,6 +121,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontType": MessageLookupByLibrary.simpleMessage("نوع الخط"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
             "تطبيق مجاني خالي من الإعلانات ومفتوح المصدر"),
+        "freqAnnual": MessageLookupByLibrary.simpleMessage("سنوي"),
+        "freqDaily": MessageLookupByLibrary.simpleMessage("يومي"),
+        "freqMonthly": MessageLookupByLibrary.simpleMessage("شهري"),
+        "freqWeekly": MessageLookupByLibrary.simpleMessage("أسبوعي"),
         "general": MessageLookupByLibrary.simpleMessage("عام"),
         "github": MessageLookupByLibrary.simpleMessage("الكود المصدري للمشروع"),
         "goTo": MessageLookupByLibrary.simpleMessage("الذهاب إلى"),
@@ -131,6 +138,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم"),
         "hisnElmoslemAppVersion":
             MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم الإصدار"),
+        "hokmAthar": MessageLookupByLibrary.simpleMessage("أثر"),
+        "hokmDaeif": MessageLookupByLibrary.simpleMessage("ضعيف"),
+        "hokmHasan": MessageLookupByLibrary.simpleMessage("حسن"),
+        "hokmMawdue": MessageLookupByLibrary.simpleMessage("موضوع"),
+        "hokmSahih": MessageLookupByLibrary.simpleMessage("صحيح"),
         "imageQuality": MessageLookupByLibrary.simpleMessage("جودة الصورة"),
         "imageWidth": MessageLookupByLibrary.simpleMessage("عرض الصورة"),
         "index": MessageLookupByLibrary.simpleMessage("الفهرس"),
@@ -204,6 +216,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "برجاء قم بمراجعة فهرس الكتاب"),
         "search": MessageLookupByLibrary.simpleMessage("البحث"),
         "select": MessageLookupByLibrary.simpleMessage("تحديد"),
+        "selectAzkarHokmFilters":
+            MessageLookupByLibrary.simpleMessage("اختيار حكم الأذكار"),
+        "selectAzkarSource":
+            MessageLookupByLibrary.simpleMessage("اختيار مصدر الأذكار"),
         "selectColor": MessageLookupByLibrary.simpleMessage("اختر هذا اللون"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("راسلنا"),
         "setMessageForYou":
@@ -228,6 +244,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "soundEffectVolume": MessageLookupByLibrary.simpleMessage("حجم الصوت"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "اشعار صوتي عند انتهاء جميع الأذكار"),
+        "sourceAbuDawood": MessageLookupByLibrary.simpleMessage("سنن أبي داود"),
+        "sourceAdDarami": MessageLookupByLibrary.simpleMessage("مسند الدارمي"),
+        "sourceAhmad": MessageLookupByLibrary.simpleMessage("مسند أحمد"),
+        "sourceAnNasai": MessageLookupByLibrary.simpleMessage("سنن النسائي"),
+        "sourceAtTirmidhi": MessageLookupByLibrary.simpleMessage("سنن الترمذي"),
+        "sourceAthar": MessageLookupByLibrary.simpleMessage("أثر"),
+        "sourceBayhaqi": MessageLookupByLibrary.simpleMessage("سنن البيهقي"),
+        "sourceHakim": MessageLookupByLibrary.simpleMessage(
+            "المستدرك على الصحيحين للحاكم النيسابوري"),
+        "sourceIbnMajah": MessageLookupByLibrary.simpleMessage("سنن ابن ماجه"),
+        "sourceIbnSunny": MessageLookupByLibrary.simpleMessage(
+            "عمل اليوم والليلة لابن السني"),
+        "sourceMalik": MessageLookupByLibrary.simpleMessage("موطأ مالك"),
+        "sourceQuran": MessageLookupByLibrary.simpleMessage("القرآن"),
+        "sourceSahihBukhari":
+            MessageLookupByLibrary.simpleMessage("صحيح البخاري"),
+        "sourceSahihMuslim": MessageLookupByLibrary.simpleMessage("صحيح مسلم"),
         "spellingErrorIn":
             MessageLookupByLibrary.simpleMessage("يوجد خطأ إملائي في"),
         "start": MessageLookupByLibrary.simpleMessage("البدء"),

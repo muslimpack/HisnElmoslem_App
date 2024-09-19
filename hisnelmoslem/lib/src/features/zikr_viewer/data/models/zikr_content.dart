@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 
 class DbContent extends Equatable {
   final int id;
@@ -84,7 +83,6 @@ class DbContent extends Equatable {
   }
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
-    hisnPrint(map);
     return DbContent(
       id: map['id'] as int,
       content: map['content'] as String,

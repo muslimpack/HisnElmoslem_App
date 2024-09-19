@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `Azkar Filters`
+  String get azkarFilters {
+    return Intl.message(
+      'Azkar Filters',
+      name: 'azkarFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Background color`
   String get backgroundColor {
     return Intl.message(
@@ -570,6 +580,16 @@ class S {
     );
   }
 
+  /// `Enable Azkar filters`
+  String get enableAzkarFilters {
+    return Intl.message(
+      'Enable Azkar filters',
+      name: 'enableAzkarFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enable wake lock`
   String get enableWakeLock {
     return Intl.message(
@@ -750,6 +770,46 @@ class S {
     );
   }
 
+  /// `Annual`
+  String get freqAnnual {
+    return Intl.message(
+      'Annual',
+      name: 'freqAnnual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily`
+  String get freqDaily {
+    return Intl.message(
+      'Daily',
+      name: 'freqDaily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly`
+  String get freqMonthly {
+    return Intl.message(
+      'Monthly',
+      name: 'freqMonthly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weekly`
+  String get freqWeekly {
+    return Intl.message(
+      'Weekly',
+      name: 'freqWeekly',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `General`
   String get general {
     return Intl.message(
@@ -835,6 +895,56 @@ class S {
     return Intl.message(
       'Hisn ELmoslem App Version',
       name: 'hisnElmoslemAppVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Athar`
+  String get hokmAthar {
+    return Intl.message(
+      'Athar',
+      name: 'hokmAthar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weak`
+  String get hokmDaeif {
+    return Intl.message(
+      'Weak',
+      name: 'hokmDaeif',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good`
+  String get hokmHasan {
+    return Intl.message(
+      'Good',
+      name: 'hokmHasan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fabricated`
+  String get hokmMawdue {
+    return Intl.message(
+      'Fabricated',
+      name: 'hokmMawdue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authentic`
+  String get hokmSahih {
+    return Intl.message(
+      'Authentic',
+      name: 'hokmSahih',
       desc: '',
       args: [],
     );
@@ -1280,6 +1390,26 @@ class S {
     );
   }
 
+  /// `Select hokm of Azakr`
+  String get selectAzkarHokmFilters {
+    return Intl.message(
+      'Select hokm of Azakr',
+      name: 'selectAzkarHokmFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select source of Azkar`
+  String get selectAzkarSource {
+    return Intl.message(
+      'Select source of Azkar',
+      name: 'selectAzkarSource',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select color`
   String get selectColor {
     return Intl.message(
@@ -1435,6 +1565,146 @@ class S {
     return Intl.message(
       'Sound effect when all zikr end',
       name: 'soundEffectWhenAllZikrEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan Abi Dawud`
+  String get sourceAbuDawood {
+    return Intl.message(
+      'Sunan Abi Dawud',
+      name: 'sourceAbuDawood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan al-Darimi`
+  String get sourceAdDarami {
+    return Intl.message(
+      'Sunan al-Darimi',
+      name: 'sourceAdDarami',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Musnad Ahmad ibn Hanbal`
+  String get sourceAhmad {
+    return Intl.message(
+      'Musnad Ahmad ibn Hanbal',
+      name: 'sourceAhmad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Al-Sunan al-Sughra by al-Nasa'i`
+  String get sourceAnNasai {
+    return Intl.message(
+      'Al-Sunan al-Sughra by al-Nasa\'i',
+      name: 'sourceAnNasai',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Athr`
+  String get sourceAthar {
+    return Intl.message(
+      'Athr',
+      name: 'sourceAthar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan al-Tirmidhi`
+  String get sourceAtTirmidhi {
+    return Intl.message(
+      'Sunan al-Tirmidhi',
+      name: 'sourceAtTirmidhi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan al-Bayhaqi`
+  String get sourceBayhaqi {
+    return Intl.message(
+      'Sunan al-Bayhaqi',
+      name: 'sourceBayhaqi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Al-Mustadrak ala al-Sahihayn`
+  String get sourceHakim {
+    return Intl.message(
+      'Al-Mustadrak ala al-Sahihayn',
+      name: 'sourceHakim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan IbnMajah`
+  String get sourceIbnMajah {
+    return Intl.message(
+      'Sunan IbnMajah',
+      name: 'sourceIbnMajah',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IbnSunny`
+  String get sourceIbnSunny {
+    return Intl.message(
+      'IbnSunny',
+      name: 'sourceIbnSunny',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Muwatta Imam Malik`
+  String get sourceMalik {
+    return Intl.message(
+      'Muwatta Imam Malik',
+      name: 'sourceMalik',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quran`
+  String get sourceQuran {
+    return Intl.message(
+      'Quran',
+      name: 'sourceQuran',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sahih al-Bukhari`
+  String get sourceSahihBukhari {
+    return Intl.message(
+      'Sahih al-Bukhari',
+      name: 'sourceSahihBukhari',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sahih Muslim`
+  String get sourceSahihMuslim {
+    return Intl.message(
+      'Sahih Muslim',
+      name: 'sourceSahihMuslim',
       desc: '',
       args: [],
     );

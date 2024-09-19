@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_list_view.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/titles_freq_filters_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 class AzkarFehrs extends StatelessWidget {
@@ -22,9 +23,16 @@ class AzkarFehrs extends StatelessWidget {
                 title: S.of(context).noTitleWithName,
                 description: S.of(context).reviewIndexOfBook,
               )
-            : HomeTitlesListView(
-                titles: state.allTitles,
-                alarms: state.alarms,
+            : Column(
+                children: [
+                  const TitleFreqFilterCard(),
+                  Expanded(
+                    child: HomeTitlesListView(
+                      titles: state.allTitles,
+                      alarms: state.alarms,
+                    ),
+                  ),
+                ],
               );
       },
     );
