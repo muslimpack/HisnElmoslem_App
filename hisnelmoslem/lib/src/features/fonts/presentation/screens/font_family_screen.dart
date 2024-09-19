@@ -4,8 +4,8 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/fonts/data/data_source/fonts.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
-class FontFamilyPage extends StatelessWidget {
-  const FontFamilyPage({super.key});
+class FontFamilyScreen extends StatelessWidget {
+  const FontFamilyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

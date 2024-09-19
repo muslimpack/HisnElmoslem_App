@@ -8,8 +8,8 @@ import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/pa
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/fake_hadith_appbar.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
 
-class FakeHadith extends StatelessWidget {
-  const FakeHadith({super.key});
+class FakeHadithDashboardScreen extends StatelessWidget {
+  const FakeHadithDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

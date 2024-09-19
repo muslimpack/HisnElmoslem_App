@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/screen_appbar.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/home_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
@@ -77,7 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
-                    ScreenAppBar(tabController: tabController),
+                    HomeAppBar(tabController: tabController),
                   ];
                 },
                 body: state.isSearching &

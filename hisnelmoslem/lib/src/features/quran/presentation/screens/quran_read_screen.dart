@@ -10,10 +10,10 @@ import 'package:hisnelmoslem/src/features/quran/presentation/components/between_
 import 'package:hisnelmoslem/src/features/quran/presentation/components/page_side_effect.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/quran_cubit.dart';
 
-class QuranReadPage extends StatelessWidget {
+class QuranReadScreen extends StatelessWidget {
   final SurahNameEnum surahName;
 
-  const QuranReadPage({super.key, required this.surahName});
+  const QuranReadScreen({super.key, required this.surahName});
 
   @override
   Widget build(BuildContext context) {

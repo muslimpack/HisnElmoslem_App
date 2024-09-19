@@ -5,8 +5,8 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
-class ThemeManagerPage extends StatelessWidget {
-  const ThemeManagerPage({super.key});
+class ThemeManagerScreen extends StatelessWidget {
+  const ThemeManagerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

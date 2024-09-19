@@ -8,9 +8,9 @@ import 'package:hisnelmoslem/src/features/home_search/presentation/components/ho
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class ScreenAppBar extends StatelessWidget {
+class HomeAppBar extends StatelessWidget {
   final TabController tabController;
-  const ScreenAppBar({
+  const HomeAppBar({
     super.key,
     required this.tabController,
   });

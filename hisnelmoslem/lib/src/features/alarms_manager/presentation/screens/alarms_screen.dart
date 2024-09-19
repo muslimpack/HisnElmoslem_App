@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/alarm_card.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 
-class AlarmsPages extends StatelessWidget {
-  const AlarmsPages({super.key});
+class AlarmsScreen extends StatelessWidget {
+  const AlarmsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

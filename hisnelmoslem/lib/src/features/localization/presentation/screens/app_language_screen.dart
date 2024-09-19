@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
-class AppLanguagePage extends StatelessWidget {
-  const AppLanguagePage({super.key});
+class AppLanguageScreen extends StatelessWidget {
+  const AppLanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

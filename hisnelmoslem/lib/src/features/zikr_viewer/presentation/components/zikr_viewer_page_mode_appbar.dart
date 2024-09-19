@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -43,7 +43,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   icon: Icon(MdiIcons.camera),
                   onPressed: () {
                     context.push(
-                      ShareAsImage(
+                      ShareAsImageScreen(
                         dbContent: activeZikr,
                       ),
                     );

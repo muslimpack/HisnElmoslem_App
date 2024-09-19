@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class HadithCard extends StatelessWidget {
@@ -148,7 +148,7 @@ class _TopBar extends StatelessWidget {
               );
 
               context.push(
-                ShareAsImage(dbContent: dbContent),
+                ShareAsImageScreen(dbContent: dbContent),
               );
             },
           ),

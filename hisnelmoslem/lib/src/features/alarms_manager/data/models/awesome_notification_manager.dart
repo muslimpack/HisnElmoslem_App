@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
-import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class AwesomeNotificationManager {
@@ -254,7 +254,7 @@ class AwesomeNotificationManager {
     /// go to quran page if clicked
     if (payload == "الكهف") {
       context.push(
-        const QuranReadPage(
+        const QuranReadScreen(
           surahName: SurahNameEnum.alKahf,
         ),
       );

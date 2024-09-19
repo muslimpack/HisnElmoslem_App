@@ -7,7 +7,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/quran_section.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/screens/settings_screen.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SideMenu extends StatelessWidget {
@@ -39,7 +39,7 @@ class SideMenu extends StatelessWidget {
                           title: Text(S.of(context).tally),
                           onTap: () {
                             context.push(
-                              const Tally(),
+                              const TallyDashboardScreen(),
                             );
                           },
                         ),

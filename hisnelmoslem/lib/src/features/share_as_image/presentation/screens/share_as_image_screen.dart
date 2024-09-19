@@ -10,10 +10,10 @@ import 'package:hisnelmoslem/src/features/share_as_image/presentation/components
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
-class ShareAsImage extends StatelessWidget {
+class ShareAsImageScreen extends StatelessWidget {
   final DbContent dbContent;
 
-  const ShareAsImage({super.key, required this.dbContent});
+  const ShareAsImageScreen({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {

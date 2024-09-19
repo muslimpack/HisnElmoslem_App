@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
-import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith_dashboard_screen.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
-import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_page.dart';
+import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class QuranSection extends StatelessWidget {
@@ -25,7 +25,7 @@ class QuranSection extends StatelessWidget {
             ),
             onTap: () {
               context.push(
-                const QuranReadPage(
+                const QuranReadScreen(
                   surahName: SurahNameEnum.endofAliImran,
                 ),
               );
@@ -40,7 +40,7 @@ class QuranSection extends StatelessWidget {
             ),
             onTap: () {
               context.push(
-                const QuranReadPage(
+                const QuranReadScreen(
                   surahName: SurahNameEnum.alKahf,
                 ),
               );
@@ -53,7 +53,7 @@ class QuranSection extends StatelessWidget {
             title: Text(S.of(context).suraAsSajdah),
             onTap: () {
               context.push(
-                const QuranReadPage(
+                const QuranReadScreen(
                   surahName: SurahNameEnum.assajdah,
                 ),
               );
@@ -66,7 +66,7 @@ class QuranSection extends StatelessWidget {
             title: Text(S.of(context).suraAlMulk),
             onTap: () {
               context.push(
-                const QuranReadPage(
+                const QuranReadScreen(
                   surahName: SurahNameEnum.alMulk,
                 ),
               );
@@ -80,7 +80,7 @@ class QuranSection extends StatelessWidget {
             title: Text(S.of(context).fakeHadith),
             onTap: () {
               context.push(
-                const FakeHadith(),
+                const FakeHadithDashboardScreen(),
               );
             },
           ),

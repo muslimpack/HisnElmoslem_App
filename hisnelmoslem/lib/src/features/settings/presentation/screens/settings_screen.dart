@@ -6,17 +6,17 @@ import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
+import 'package:hisnelmoslem/src/features/about/presentation/screens/about_screen.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_screen.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_hokm_screen.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_source_screen.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
-import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_page.dart';
-import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_page.dart';
+import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_screen.dart';
+import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
-import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_page.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.palette),
             onTap: () {
               context.push(
-                const ThemeManagerPage(),
+                const ThemeManagerScreen(),
               );
             },
           ),
@@ -76,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             onTap: () {
               context.push(
-                const AppLanguagePage(),
+                const AppLanguageScreen(),
               );
             },
           ),
@@ -87,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             onTap: () {
               context.push(
-                const FontFamilyPage(),
+                const FontFamilyScreen(),
               );
             },
           ),
@@ -236,7 +236,7 @@ class _SettingsAlarmsSection extends StatelessWidget {
               ),
               onTap: () {
                 context.push(
-                  const AlarmsPages(),
+                  const AlarmsScreen(),
                 );
               },
             ),
@@ -302,7 +302,7 @@ class _SettingsContactSection extends StatelessWidget {
           title: Text(S.of(context).aboutUs),
           onTap: () {
             context.push(
-              const About(),
+              const AboutScreen(),
             );
           },
         ),

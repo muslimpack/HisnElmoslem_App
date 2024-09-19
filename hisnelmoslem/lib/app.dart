@@ -15,7 +15,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.da
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding.dart';
+import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -95,7 +95,7 @@ class AppState extends State<App> {
               return child ?? const SizedBox();
             },
             home: sl<AppSettingsRepo>().isReleaseFirstOpen
-                ? const OnBoardingPage()
+                ? const OnBoardingScreen()
                 : const HomeScreen(),
           );
         },

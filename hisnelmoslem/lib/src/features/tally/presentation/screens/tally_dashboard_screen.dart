@@ -10,8 +10,8 @@ import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tal
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_counter_view.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_list_view.dart';
 
-class Tally extends StatelessWidget {
-  const Tally({super.key});
+class TallyDashboardScreen extends StatelessWidget {
+  const TallyDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
