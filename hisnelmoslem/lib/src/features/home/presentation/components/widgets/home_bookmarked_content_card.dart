@@ -1,22 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
-import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 class HomeBookmarkedContentCard extends StatefulWidget {
   final DbContent dbContent;
@@ -160,28 +157,16 @@ class _TopBar extends StatelessWidget {
         ),
         IconButton(
           icon: const Icon(
-            Icons.copy,
-          ),
-          onPressed: () async {
-            final text = await dbContent.getPlainText();
-            await Clipboard.setData(
-              ClipboardData(
-                text: "$text\n${dbContent.fadl}",
-              ),
-            );
-            if (!context.mounted) return;
-            showToast(
-              msg: S.of(context).copiedToClipboard,
-            );
-          },
-        ),
-        IconButton(
-          icon: const Icon(
             Icons.share,
           ),
           onPressed: () {
-            Share.share(
-              "${dbContent.content}\n${dbContent.fadl}",
+            showDialog(
+              context: context,
+              builder: (context) {
+                return ZikrShareDialog(
+                  contentId: dbContent.id,
+                );
+              },
             );
           },
         ),
