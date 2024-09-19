@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 
 extension FilterListExt on List<Filter> {
   List<DbContent> getFilteredZikr(List<DbContent> azkar) {
-    final filterBySource = sl<ZikrFilterRepo>().getEnableFiltersStatus();
-    final filterByHokm = sl<ZikrFilterRepo>().getEnableHokmFiltersStatus();
+    final filterBySource = sl<ZikrFilterRepo>().getEnableFiltersStatus;
+    final filterByHokm = sl<ZikrFilterRepo>().getEnableHokmFiltersStatus;
 
     if (!filterBySource && !filterByHokm) {
       return azkar;

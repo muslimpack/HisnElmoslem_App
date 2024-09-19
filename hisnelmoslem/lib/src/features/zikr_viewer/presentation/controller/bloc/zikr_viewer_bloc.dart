@@ -95,7 +95,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       titleId: event.titleIndex,
     );
 
-    final List<Filter> filters = zikrFilterRepo.getAllFilters();
+    final List<Filter> filters = zikrFilterRepo.getAllFilters;
     final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
 
     final azkarToView = List<DbContent>.from(filteredAzkar);

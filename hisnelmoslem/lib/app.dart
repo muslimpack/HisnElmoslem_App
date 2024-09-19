@@ -55,7 +55,7 @@ class AppState extends State<App> {
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
-        BlocProvider(create: (_) => sl<ZikrSourceFilterCubit>()..start()),
+        BlocProvider(create: (_) => sl<ZikrSourceFilterCubit>()),
         BlocProvider(
           create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent()),
         ),

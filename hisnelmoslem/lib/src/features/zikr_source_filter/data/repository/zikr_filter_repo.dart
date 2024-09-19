@@ -7,7 +7,7 @@ class ZikrFilterRepo {
 
   ZikrFilterRepo(this.box);
 
-  List<Filter> getAllFilters() {
+  List<Filter> get getAllFilters {
     return ZikrFilter.values
         .map((e) => Filter(filter: e, isActivated: getFilterStatus(e)))
         .toList();
@@ -19,7 +19,7 @@ class ZikrFilterRepo {
       "${_filterPrefixNameKey}enableFilters";
 
   /// Filters for zikr source
-  bool getEnableFiltersStatus() {
+  bool get getEnableFiltersStatus {
     final bool? data = box.read(_enableFiltersKey);
     return data ?? false;
   }
@@ -33,7 +33,7 @@ class ZikrFilterRepo {
       "${_filterPrefixNameKey}enableHokmFilters";
 
   /// Filters for zikr Hokm
-  bool getEnableHokmFiltersStatus() {
+  bool get getEnableHokmFiltersStatus {
     final bool? data = box.read(_enableHokmFiltersKey);
     return data ?? false;
   }

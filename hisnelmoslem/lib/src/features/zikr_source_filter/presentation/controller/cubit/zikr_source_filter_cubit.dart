@@ -11,24 +11,12 @@ class ZikrSourceFilterCubit extends Cubit<ZikrSourceFilterState> {
   ZikrSourceFilterCubit(
     this.zikrFilterStorage,
   ) : super(
-          const ZikrSourceFilterState(
-            filters: [],
-            enableFilters: false,
-            enableHokmFilters: false,
+          ZikrSourceFilterState(
+            filters: zikrFilterStorage.getAllFilters,
+            enableFilters: zikrFilterStorage.getEnableFiltersStatus,
+            enableHokmFilters: zikrFilterStorage.getEnableHokmFiltersStatus,
           ),
         );
-
-  void start() {
-    final List<Filter> filters = zikrFilterStorage.getAllFilters();
-
-    emit(
-      ZikrSourceFilterState(
-        filters: filters,
-        enableFilters: zikrFilterStorage.getEnableFiltersStatus(),
-        enableHokmFilters: zikrFilterStorage.getEnableHokmFiltersStatus(),
-      ),
-    );
-  }
 
   Future toggleEnableFilters(bool enableFilters) async {
     zikrFilterStorage.setEnableFiltersStatus(enableFilters);
