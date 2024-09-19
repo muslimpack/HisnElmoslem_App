@@ -25,7 +25,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
         }
         return AlertDialog(
           clipBehavior: Clip.hardEdge,
-          contentPadding: EdgeInsets.zero,
+          contentPadding: const EdgeInsets.all(15),
           title: Text(S.of(context).settings),
           content: Container(
             clipBehavior: Clip.hardEdge,
