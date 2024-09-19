@@ -95,7 +95,7 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
                     children: [
                       ChoiceChip(
                         selected: shareFadl,
-                        label: Text(S.of(context).fadl),
+                        label: Text(S.of(context).showFadl),
                         onSelected: (value) async {
                           shareFadl = value;
                           await sl<ZikrViewerRepo>().toggleShareFadl(value);
@@ -104,7 +104,7 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
                       ),
                       ChoiceChip(
                         selected: shareSource,
-                        label: Text(S.of(context).source),
+                        label: Text(S.of(context).showSourceOfZikr),
                         onSelected: (value) async {
                           shareSource = value;
                           await sl<ZikrViewerRepo>().toggleShareSource(value);
