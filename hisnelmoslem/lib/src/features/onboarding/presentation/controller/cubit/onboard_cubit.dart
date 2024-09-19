@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 part 'onboard_state.dart';
 
@@ -95,13 +98,19 @@ class OnboardCubit extends Cubit<OnboardState> {
 - 📝 تصويب بعض الأخطاء الإملائية
 """,
       ),
-      const Empty(
-        title: "أخري",
+      Empty(
+        title: "المزيد من تطبيقاتنا",
         isImage: false,
-        icon: Icons.more_horiz_rounded,
+        icon: MdiIcons.web,
         description: """
-- حذف تاريخ التحديثات
+يمكنك دائما الإطلاع على المزيد من تطبيقاتنا
+ومشاركة الرابط مع أصدقائك 
+تم إضافة زر جديد للقائمة الجانبية في الواجهة
 """,
+        buttonText: S.current.moreApps,
+        onButtonCLick: () {
+          openURL(kOrgWebsite);
+        },
       ),
     ];
   }
