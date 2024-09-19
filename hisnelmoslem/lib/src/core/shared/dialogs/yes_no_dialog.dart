@@ -21,7 +21,7 @@ class YesOrNoDialog extends StatelessWidget {
             Navigator.pop<bool>(context, false);
           },
         ),
-        TextButton(
+        FilledButton(
           child: Text(
             S.of(context).yes,
           ),
