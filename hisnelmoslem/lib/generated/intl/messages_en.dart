@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "copiedToClipboard":
             MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
+        "count": MessageLookupByLibrary.simpleMessage("Count"),
         "counterCircleMustBeGreaterThanZero":
             MessageLookupByLibrary.simpleMessage(
                 "Counter circle must be higher than zero"),
@@ -113,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "everyTuesday": MessageLookupByLibrary.simpleMessage("Every Tuesday"),
         "everyWednesday":
             MessageLookupByLibrary.simpleMessage("Every Wednesday"),
+        "fadl": MessageLookupByLibrary.simpleMessage("Reward"),
         "fakeHadith": MessageLookupByLibrary.simpleMessage("Fake Hadith"),
         "fastingMondaysThursdaysReminder": MessageLookupByLibrary.simpleMessage(
             "Fasting Mondays and Thursdays Reminder"),
@@ -232,7 +234,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "setMessageForYou":
             MessageLookupByLibrary.simpleMessage("Set message for yourself"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "shareAsImage": MessageLookupByLibrary.simpleMessage("Share as image"),
+        "shareZikr": MessageLookupByLibrary.simpleMessage("Share Zikr"),
         "shouldBe": MessageLookupByLibrary.simpleMessage("It should be:"),
         "showFadl": MessageLookupByLibrary.simpleMessage("Show fadl"),
         "showSourceOfZikr":
@@ -252,6 +256,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sound Effect volume"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "Sound effect when all zikr end"),
+        "source": MessageLookupByLibrary.simpleMessage("Source"),
         "sourceAbuDawood":
             MessageLookupByLibrary.simpleMessage("Sunan Abi Dawud"),
         "sourceAdDarami":

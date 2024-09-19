@@ -7,6 +7,7 @@ class ZikrViewerRepo {
 
   ZikrViewerRepo(this.box);
 
+  ///MARK: Zikr Viewer sessoion
   static const String _lastSessionPrefixKey = "zikrViewerlastSession_";
   String sessionKey(int titleId) => "$_lastSessionPrefixKey$titleId";
 
@@ -38,4 +39,17 @@ class ZikrViewerRepo {
   Future resetSession(int titleId) async {
     await box.write(sessionKey(titleId), null);
   }
+
+  ///MARK: Zikr Share settings
+
+  ///
+  static const String _shareFadlKey = "shareFadl";
+  bool get shareFadl => box.read<bool?>(_shareFadlKey) ?? true;
+  Future toggleShareFadl(bool value) async => box.write(_shareFadlKey, value);
+
+  ///
+  static const String _shareSourceKey = "shareSource";
+  bool get shareSource => box.read<bool?>(_shareSourceKey) ?? true;
+  Future toggleShareSource(bool value) async =>
+      box.write(_shareSourceKey, value);
 }

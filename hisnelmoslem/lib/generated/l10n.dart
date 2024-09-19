@@ -370,6 +370,16 @@ class S {
     );
   }
 
+  /// `Count`
+  String get count {
+    return Intl.message(
+      'Count',
+      name: 'count',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Counter circle must be higher than zero`
   String get counterCircleMustBeGreaterThanZero {
     return Intl.message(
@@ -675,6 +685,16 @@ class S {
     return Intl.message(
       'Every Wednesday',
       name: 'everyWednesday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward`
+  String get fadl {
+    return Intl.message(
+      'Reward',
+      name: 'fadl',
       desc: '',
       args: [],
     );
@@ -1460,11 +1480,31 @@ class S {
     );
   }
 
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Share as image`
   String get shareAsImage {
     return Intl.message(
       'Share as image',
       name: 'shareAsImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share Zikr`
+  String get shareZikr {
+    return Intl.message(
+      'Share Zikr',
+      name: 'shareZikr',
       desc: '',
       args: [],
     );
@@ -1575,6 +1615,16 @@ class S {
     return Intl.message(
       'Sound effect when all zikr end',
       name: 'soundEffectWhenAllZikrEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source`
+  String get source {
+    return Intl.message(
+      'Source',
+      name: 'source',
       desc: '',
       args: [],
     );
