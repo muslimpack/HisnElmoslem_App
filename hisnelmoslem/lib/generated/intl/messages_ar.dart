@@ -232,6 +232,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "soundEffectVolume": MessageLookupByLibrary.simpleMessage("حجم الصوت"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "اشعار صوتي عند انتهاء جميع الأذكار"),
+        "sourceAbuDawood": MessageLookupByLibrary.simpleMessage("سنن أبي داود"),
+        "sourceAdDarami": MessageLookupByLibrary.simpleMessage("مسند الدارمي"),
+        "sourceAhmad": MessageLookupByLibrary.simpleMessage("مسند أحمد"),
+        "sourceAnNasai": MessageLookupByLibrary.simpleMessage("سنن النسائي"),
+        "sourceAtTirmidhi": MessageLookupByLibrary.simpleMessage("سنن الترمذي"),
+        "sourceAthar": MessageLookupByLibrary.simpleMessage("أثر"),
+        "sourceBayhaqi": MessageLookupByLibrary.simpleMessage("سنن البيهقي"),
+        "sourceHakim": MessageLookupByLibrary.simpleMessage(
+            "المستدرك على الصحيحين للحاكم النيسابوري"),
+        "sourceIbnMajah": MessageLookupByLibrary.simpleMessage("سنن ابن ماجه"),
+        "sourceIbnSunny": MessageLookupByLibrary.simpleMessage(
+            "عمل اليوم والليلة لابن السني"),
+        "sourceMalik": MessageLookupByLibrary.simpleMessage("موطأ مالك"),
+        "sourceQuran": MessageLookupByLibrary.simpleMessage("القرآن"),
+        "sourceSahihBukhari":
+            MessageLookupByLibrary.simpleMessage("صحيح البخاري"),
+        "sourceSahihMuslim": MessageLookupByLibrary.simpleMessage("صحيح مسلم"),
         "spellingErrorIn":
             MessageLookupByLibrary.simpleMessage("يوجد خطأ إملائي في"),
         "start": MessageLookupByLibrary.simpleMessage("البدء"),

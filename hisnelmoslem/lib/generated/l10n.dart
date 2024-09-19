@@ -1480,6 +1480,146 @@ class S {
     );
   }
 
+  /// `Sunan Abu Dawood`
+  String get sourceAbuDawood {
+    return Intl.message(
+      'Sunan Abu Dawood',
+      name: 'sourceAbuDawood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AdDarami`
+  String get sourceAdDarami {
+    return Intl.message(
+      'AdDarami',
+      name: 'sourceAdDarami',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ahmad`
+  String get sourceAhmad {
+    return Intl.message(
+      'Ahmad',
+      name: 'sourceAhmad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan AnNasai`
+  String get sourceAnNasai {
+    return Intl.message(
+      'Sunan AnNasai',
+      name: 'sourceAnNasai',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Athr`
+  String get sourceAthar {
+    return Intl.message(
+      'Athr',
+      name: 'sourceAthar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan AtTirmidhi`
+  String get sourceAtTirmidhi {
+    return Intl.message(
+      'Sunan AtTirmidhi',
+      name: 'sourceAtTirmidhi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AlBayhaqi`
+  String get sourceBayhaqi {
+    return Intl.message(
+      'AlBayhaqi',
+      name: 'sourceBayhaqi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AlHakim`
+  String get sourceHakim {
+    return Intl.message(
+      'AlHakim',
+      name: 'sourceHakim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sunan IbnMajah`
+  String get sourceIbnMajah {
+    return Intl.message(
+      'Sunan IbnMajah',
+      name: 'sourceIbnMajah',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IbnSunny`
+  String get sourceIbnSunny {
+    return Intl.message(
+      'IbnSunny',
+      name: 'sourceIbnSunny',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Malik`
+  String get sourceMalik {
+    return Intl.message(
+      'Malik',
+      name: 'sourceMalik',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quran`
+  String get sourceQuran {
+    return Intl.message(
+      'Quran',
+      name: 'sourceQuran',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sahih Bukhari`
+  String get sourceSahihBukhari {
+    return Intl.message(
+      'Sahih Bukhari',
+      name: 'sourceSahihBukhari',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sahih Muslim`
+  String get sourceSahihMuslim {
+    return Intl.message(
+      'Sahih Muslim',
+      name: 'sourceSahihMuslim',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `There is a spelling error in`
   String get spellingErrorIn {
     return Intl.message(

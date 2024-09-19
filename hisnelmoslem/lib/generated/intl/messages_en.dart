@@ -239,6 +239,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sound Effect volume"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "Sound effect when all zikr end"),
+        "sourceAbuDawood":
+            MessageLookupByLibrary.simpleMessage("Sunan Abu Dawood"),
+        "sourceAdDarami": MessageLookupByLibrary.simpleMessage("AdDarami"),
+        "sourceAhmad": MessageLookupByLibrary.simpleMessage("Ahmad"),
+        "sourceAnNasai": MessageLookupByLibrary.simpleMessage("Sunan AnNasai"),
+        "sourceAtTirmidhi":
+            MessageLookupByLibrary.simpleMessage("Sunan AtTirmidhi"),
+        "sourceAthar": MessageLookupByLibrary.simpleMessage("Athr"),
+        "sourceBayhaqi": MessageLookupByLibrary.simpleMessage("AlBayhaqi"),
+        "sourceHakim": MessageLookupByLibrary.simpleMessage("AlHakim"),
+        "sourceIbnMajah":
+            MessageLookupByLibrary.simpleMessage("Sunan IbnMajah"),
+        "sourceIbnSunny": MessageLookupByLibrary.simpleMessage("IbnSunny"),
+        "sourceMalik": MessageLookupByLibrary.simpleMessage("Malik"),
+        "sourceQuran": MessageLookupByLibrary.simpleMessage("Quran"),
+        "sourceSahihBukhari":
+            MessageLookupByLibrary.simpleMessage("Sahih Bukhari"),
+        "sourceSahihMuslim":
+            MessageLookupByLibrary.simpleMessage("Sahih Muslim"),
         "spellingErrorIn": MessageLookupByLibrary.simpleMessage(
             "There is a spelling error in"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
