@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
@@ -65,7 +64,11 @@ class _UIAppBarState extends State<UIAppBar> {
                     child: ChoiceChip(
                       selected: state.brightness == Brightness.dark,
                       showCheckmark: false,
-                      label: const Icon(FontAwesomeIcons.solidMoon),
+                      label: Icon(
+                        state.brightness == Brightness.dark
+                            ? Icons.light_mode
+                            : Icons.dark_mode,
+                      ),
                       onSelected: (v) {
                         sl<ThemeCubit>().changeBrightness(
                           v ? Brightness.dark : Brightness.light,
