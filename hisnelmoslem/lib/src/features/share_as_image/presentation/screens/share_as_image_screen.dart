@@ -90,7 +90,6 @@ class ShareImageBaractionButtons extends StatelessWidget {
         IconButton(
           onPressed: () async {
             await showDialog(
-              barrierColor: Colors.transparent,
               context: context,
               builder: (_) {
                 return ShareImageSettingsEditor(

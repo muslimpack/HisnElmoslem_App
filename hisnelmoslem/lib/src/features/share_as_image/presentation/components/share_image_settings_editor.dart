@@ -30,44 +30,51 @@ class ShareImageSettingsEditor extends StatelessWidget {
           content: Container(
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(),
-            height: 450,
+            constraints: const BoxConstraints(maxHeight: 450),
             width: 350,
             child: ListView(
               padding: const EdgeInsets.all(15),
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
-                ColorSwatchBuilder(
-                  title: S.of(context).titleColor,
-                  apply: (color) {
-                    shareImageCubit.updateTitleColor(color);
-                  },
-                  colorSwatchList: kShareImageColorsList,
-                  colorToTrack: state.shareImageSettings.titleTextColor,
-                ),
-                ColorSwatchBuilder(
-                  title: S.of(context).textColor,
-                  apply: (color) {
-                    shareImageCubit.updateTextColor(color);
-                  },
-                  colorSwatchList: kShareImageColorsList,
-                  colorToTrack: state.shareImageSettings.bodyTextColor,
-                ),
-                ColorSwatchBuilder(
-                  title: S.of(context).subtitleColor,
-                  apply: (color) {
-                    shareImageCubit.updateAdditionalTextColor(color);
-                  },
-                  colorSwatchList: kShareImageColorsList,
-                  colorToTrack: state.shareImageSettings.additionalTextColor,
-                ),
-                ColorSwatchBuilder(
-                  title: S.of(context).backgroundColor,
-                  apply: (color) {
-                    shareImageCubit.updateBackgroundColor(color);
-                  },
-                  colorSwatchList: kShareImageColorsList,
-                  colorToTrack: state.shareImageSettings.backgroundColor,
+                Wrap(
+                  runSpacing: 10,
+                  spacing: 10,
+                  children: [
+                    ColorSwatchBuilder(
+                      title: S.of(context).titleColor,
+                      apply: (color) {
+                        shareImageCubit.updateTitleColor(color);
+                      },
+                      colorSwatchList: kShareImageColorsList,
+                      colorToTrack: state.shareImageSettings.titleTextColor,
+                    ),
+                    ColorSwatchBuilder(
+                      title: S.of(context).textColor,
+                      apply: (color) {
+                        shareImageCubit.updateTextColor(color);
+                      },
+                      colorSwatchList: kShareImageColorsList,
+                      colorToTrack: state.shareImageSettings.bodyTextColor,
+                    ),
+                    ColorSwatchBuilder(
+                      title: S.of(context).subtitleColor,
+                      apply: (color) {
+                        shareImageCubit.updateAdditionalTextColor(color);
+                      },
+                      colorSwatchList: kShareImageColorsList,
+                      colorToTrack:
+                          state.shareImageSettings.additionalTextColor,
+                    ),
+                    ColorSwatchBuilder(
+                      title: S.of(context).backgroundColor,
+                      apply: (color) {
+                        shareImageCubit.updateBackgroundColor(color);
+                      },
+                      colorSwatchList: kShareImageColorsList,
+                      colorToTrack: state.shareImageSettings.backgroundColor,
+                    ),
+                  ],
                 ),
                 const Divider(),
                 Wrap(
