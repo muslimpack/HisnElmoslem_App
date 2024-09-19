@@ -252,22 +252,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "Sound effect when all zikr end"),
         "sourceAbuDawood":
-            MessageLookupByLibrary.simpleMessage("Sunan Abu Dawood"),
-        "sourceAdDarami": MessageLookupByLibrary.simpleMessage("AdDarami"),
-        "sourceAhmad": MessageLookupByLibrary.simpleMessage("Ahmad"),
-        "sourceAnNasai": MessageLookupByLibrary.simpleMessage("Sunan AnNasai"),
+            MessageLookupByLibrary.simpleMessage("Sunan Abi Dawud"),
+        "sourceAdDarami":
+            MessageLookupByLibrary.simpleMessage("Sunan al-Darimi"),
+        "sourceAhmad":
+            MessageLookupByLibrary.simpleMessage("Musnad Ahmad ibn Hanbal"),
+        "sourceAnNasai": MessageLookupByLibrary.simpleMessage(
+            "Al-Sunan al-Sughra by al-Nasa\'i"),
         "sourceAtTirmidhi":
-            MessageLookupByLibrary.simpleMessage("Sunan AtTirmidhi"),
+            MessageLookupByLibrary.simpleMessage("Sunan al-Tirmidhi"),
         "sourceAthar": MessageLookupByLibrary.simpleMessage("Athr"),
-        "sourceBayhaqi": MessageLookupByLibrary.simpleMessage("AlBayhaqi"),
-        "sourceHakim": MessageLookupByLibrary.simpleMessage("AlHakim"),
+        "sourceBayhaqi":
+            MessageLookupByLibrary.simpleMessage("Sunan al-Bayhaqi"),
+        "sourceHakim": MessageLookupByLibrary.simpleMessage(
+            "Al-Mustadrak ala al-Sahihayn"),
         "sourceIbnMajah":
             MessageLookupByLibrary.simpleMessage("Sunan IbnMajah"),
         "sourceIbnSunny": MessageLookupByLibrary.simpleMessage("IbnSunny"),
-        "sourceMalik": MessageLookupByLibrary.simpleMessage("Malik"),
+        "sourceMalik":
+            MessageLookupByLibrary.simpleMessage("Muwatta Imam Malik"),
         "sourceQuran": MessageLookupByLibrary.simpleMessage("Quran"),
         "sourceSahihBukhari":
-            MessageLookupByLibrary.simpleMessage("Sahih Bukhari"),
+            MessageLookupByLibrary.simpleMessage("Sahih al-Bukhari"),
         "sourceSahihMuslim":
             MessageLookupByLibrary.simpleMessage("Sahih Muslim"),
         "spellingErrorIn": MessageLookupByLibrary.simpleMessage(

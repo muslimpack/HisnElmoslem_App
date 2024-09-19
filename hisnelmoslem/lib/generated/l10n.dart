@@ -1570,40 +1570,40 @@ class S {
     );
   }
 
-  /// `Sunan Abu Dawood`
+  /// `Sunan Abi Dawud`
   String get sourceAbuDawood {
     return Intl.message(
-      'Sunan Abu Dawood',
+      'Sunan Abi Dawud',
       name: 'sourceAbuDawood',
       desc: '',
       args: [],
     );
   }
 
-  /// `AdDarami`
+  /// `Sunan al-Darimi`
   String get sourceAdDarami {
     return Intl.message(
-      'AdDarami',
+      'Sunan al-Darimi',
       name: 'sourceAdDarami',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ahmad`
+  /// `Musnad Ahmad ibn Hanbal`
   String get sourceAhmad {
     return Intl.message(
-      'Ahmad',
+      'Musnad Ahmad ibn Hanbal',
       name: 'sourceAhmad',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sunan AnNasai`
+  /// `Al-Sunan al-Sughra by al-Nasa'i`
   String get sourceAnNasai {
     return Intl.message(
-      'Sunan AnNasai',
+      'Al-Sunan al-Sughra by al-Nasa\'i',
       name: 'sourceAnNasai',
       desc: '',
       args: [],
@@ -1620,30 +1620,30 @@ class S {
     );
   }
 
-  /// `Sunan AtTirmidhi`
+  /// `Sunan al-Tirmidhi`
   String get sourceAtTirmidhi {
     return Intl.message(
-      'Sunan AtTirmidhi',
+      'Sunan al-Tirmidhi',
       name: 'sourceAtTirmidhi',
       desc: '',
       args: [],
     );
   }
 
-  /// `AlBayhaqi`
+  /// `Sunan al-Bayhaqi`
   String get sourceBayhaqi {
     return Intl.message(
-      'AlBayhaqi',
+      'Sunan al-Bayhaqi',
       name: 'sourceBayhaqi',
       desc: '',
       args: [],
     );
   }
 
-  /// `AlHakim`
+  /// `Al-Mustadrak ala al-Sahihayn`
   String get sourceHakim {
     return Intl.message(
-      'AlHakim',
+      'Al-Mustadrak ala al-Sahihayn',
       name: 'sourceHakim',
       desc: '',
       args: [],
@@ -1670,10 +1670,10 @@ class S {
     );
   }
 
-  /// `Malik`
+  /// `Muwatta Imam Malik`
   String get sourceMalik {
     return Intl.message(
-      'Malik',
+      'Muwatta Imam Malik',
       name: 'sourceMalik',
       desc: '',
       args: [],
@@ -1690,10 +1690,10 @@ class S {
     );
   }
 
-  /// `Sahih Bukhari`
+  /// `Sahih al-Bukhari`
   String get sourceSahihBukhari {
     return Intl.message(
-      'Sahih Bukhari',
+      'Sahih al-Bukhari',
       name: 'sourceSahihBukhari',
       desc: '',
       args: [],
