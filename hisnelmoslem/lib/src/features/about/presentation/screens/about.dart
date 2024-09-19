@@ -29,7 +29,7 @@ class About extends StatelessWidget {
               'assets/images/app_icon.png',
               scale: 3,
             ),
-            title: Text("${S.of(context).hisnElmoslemAppVersion} $appVersion"),
+            title: Text("${S.of(context).hisnElmoslemAppVersion} $kAppVersion"),
             subtitle: Text(S.of(context).freeAdFreeAndOpenSourceApp),
           ),
           const Divider(),

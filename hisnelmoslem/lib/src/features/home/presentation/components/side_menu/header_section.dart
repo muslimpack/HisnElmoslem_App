@@ -30,7 +30,7 @@ class HeaderSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "${S.of(context).version}: $appVersion",
+                    "${S.of(context).version}: $kAppVersion",
                   ),
                   if (!PlatformExtension.isDesktop)
                     const ToggleBrightnessButton(),

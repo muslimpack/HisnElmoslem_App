@@ -10,7 +10,7 @@ class AppSettingsRepo {
   ///MARK:Release First open
   /* ******* is first open to this release ******* */
 
-  static const _releaseFirstOpenKey = "is_${appVersion}_first_open";
+  static const _releaseFirstOpenKey = "is_${kAppVersion}_first_open";
   bool get isReleaseFirstOpen => box.read(_releaseFirstOpenKey) ?? true;
 
   Future<void> changIsReleaseFirstOpen({required bool value}) async {

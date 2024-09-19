@@ -46,7 +46,7 @@ class OnboardCubit extends Cubit<OnboardState> {
   List<Empty> get pageData {
     return [
       const Empty(
-        title: "حصن المسلم الإصدار $appVersion",
+        title: "حصن المسلم الإصدار $kAppVersion",
         description: '''
 السلام عليكم أيها الكريم
 أهلا بك في تحديث جديد من حصن المسلم

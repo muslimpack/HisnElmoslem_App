@@ -14,7 +14,7 @@ class EmailManager {
       toMailId: emailOwner,
       subject: "Hisn ELmoslem App | Rate the app",
       body: '''
-$appVersion
+$kAppVersion
 
 ${S.current.notes}
 
@@ -104,7 +104,7 @@ ${S.current.shouldBe}:
     required String subject,
     required String body,
   }) async {
-    final mailTitle = "$subject | v$appVersion";
+    final mailTitle = "$subject | v$kAppVersion";
     final url = 'mailto:$toMailId?subject=$mailTitle&body=$body';
     try {
       if (await canLaunchUrl(Uri.parse(url))) {
