@@ -17,15 +17,6 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
         children: <Widget>[
           IconButton(
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.copy),
-            onPressed: () async {
-              context
-                  .read<ZikrViewerBloc>()
-                  .add(const ZikrViewerCopyZikrEvent());
-            },
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
             icon: const Icon(Icons.repeat),
             onPressed: () async {
               context
