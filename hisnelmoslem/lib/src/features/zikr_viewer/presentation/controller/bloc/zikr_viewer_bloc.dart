@@ -14,6 +14,9 @@ import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_list_extension.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/repository/zikr_filter_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
@@ -31,12 +34,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final HomeBloc homeBloc;
   final HisnDBHelper hisnDBHelper;
   final ZikrViewerRepo zikrViewerRepo;
+  final ZikrFilterRepo zikrFilterRepo;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
     this.hisnDBHelper,
     this.volumeButtonManager,
     this.zikrViewerRepo,
+    this.zikrFilterRepo,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -86,10 +91,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     final title = await hisnDBHelper.getTitleById(id: event.titleIndex);
 
-    final azkar = await hisnDBHelper.getContentsByTitleId(
+    final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
       titleId: event.titleIndex,
     );
-    final azkarToView = List<DbContent>.from(azkar);
+
+    final List<Filter> filters = zikrFilterRepo.getAllFilters();
+    final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+
+    final azkarToView = List<DbContent>.from(filteredAzkar);
 
     _initZikrPageMode(event.zikrViewerMode);
 
@@ -98,7 +107,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     emit(
       ZikrViewerLoadedState(
         title: title,
-        azkar: azkar,
+        azkar: filteredAzkar,
         azkarToView: azkarToView,
         zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
