@@ -44,6 +44,7 @@ class ColorSwatchBuilder extends StatelessWidget {
                           colorHistory: colorSwatchList,
                           labelTypes: const [],
                           enableAlpha: false,
+                          hexInputBar: true,
                           pickerColor: colorToTrack,
                           onColorChanged: changeColor,
                           onHistoryChanged: (value) {},
