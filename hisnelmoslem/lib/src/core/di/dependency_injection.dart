@@ -67,7 +67,7 @@ Future<void> initSL() async {
   /// Singleton BLoC
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => ZikrSourceFilterCubit(sl()));

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -10,6 +11,9 @@ import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_list_extension.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 part 'home_event.dart';
@@ -17,7 +21,9 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
+  final ZikrSourceFilterCubit zikrFiltersCubit;
   late final StreamSubscription alarmSubscription;
+  late final StreamSubscription filterSubscription;
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AppSettingsRepo appSettingsRepo;
@@ -27,8 +33,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     this.alarmDatabaseHelper,
     this.hisnDBHelper,
     this.appSettingsRepo,
+    this.zikrFiltersCubit,
   ) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
+    filterSubscription =
+        zikrFiltersCubit.stream.listen(_onZikrFilterCubitChanged);
 
     _initHandlers();
   }
@@ -44,6 +53,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeDashboardReorderedEvent>(_onDashboardReorded);
 
     on<HomeToggleFilterEvent>(_onFilterToggled);
+    on<HomeFiltersChangeEvent>(_filtersChanged);
   }
 
   Future<void> _onAlarmBlocChanged(AlarmsState alarmState) async {
@@ -73,13 +83,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeStartEvent event,
     Emitter<HomeState> emit,
   ) async {
-    final titles = await hisnDBHelper.getAllTitles();
+    final dbTitles = await hisnDBHelper.getAllTitles();
+    final List<DbTitle> filtered = await applyFiltersOnTitels(
+      dbTitles,
+      zikrFilters: zikrFiltersCubit.state.filters,
+    );
     final alarms = await alarmDatabaseHelper.getAlarms();
     final bookmarkedContents = await hisnDBHelper.getFavouriteContents();
 
     emit(
       HomeLoadedState(
-        titles: titles,
+        titles: filtered,
         alarms: {for (final alarm in alarms) alarm.titleId: alarm},
         bookmarkedContents: bookmarkedContents,
         isSearching: false,
@@ -187,6 +201,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Future<void> close() {
     alarmSubscription.cancel();
+    filterSubscription.cancel();
     return super.close();
   }
 
@@ -212,5 +227,47 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         freqFilters: newFreq,
       ),
     );
+  }
+
+  Future<List<DbTitle>> applyFiltersOnTitels(
+    List<DbTitle> titles, {
+    List<Filter>? zikrFilters,
+  }) async {
+    final List<DbTitle> titlesToSet = [];
+
+    final List<Filter> filters = zikrFilters ?? zikrFiltersCubit.state.filters;
+    for (var i = 0; i < titles.length; i++) {
+      final title = titles[i];
+      final azkarFromDB =
+          await hisnDBHelper.getContentsByTitleId(titleId: title.id);
+      final azkarToSet = filters.getFilteredZikr(azkarFromDB);
+      if (azkarToSet.isNotEmpty) titlesToSet.add(title);
+    }
+
+    return titlesToSet;
+  }
+
+  Future<void> _onZikrFilterCubitChanged(ZikrSourceFilterState state) async {
+    hisnPrint(
+      "from homeBLoc filters chaanged ${state.filters.where((f) => f.isActivated).length}",
+    );
+
+    add(HomeFiltersChangeEvent(state.filters));
+  }
+
+  FutureOr<void> _filtersChanged(
+    HomeFiltersChangeEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    final dbTitles = await hisnDBHelper.getAllTitles();
+    final List<DbTitle> filtered = await applyFiltersOnTitels(
+      dbTitles,
+      zikrFilters: event.filters,
+    );
+
+    emit(state.copyWith(titles: filtered));
   }
 }

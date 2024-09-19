@@ -90,3 +90,12 @@ class HomeToggleFilterEvent extends HomeEvent {
   @override
   List<Object> get props => [filter];
 }
+
+class HomeFiltersChangeEvent extends HomeEvent {
+  final List<Filter> filters;
+
+  const HomeFiltersChangeEvent(this.filters);
+
+  @override
+  List<Object> get props => [filters];
+}
