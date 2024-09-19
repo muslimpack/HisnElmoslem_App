@@ -15,6 +15,8 @@ import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_page.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screens/select_zikr_hokm_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screens/select_zikr_source_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Settings extends StatelessWidget {
@@ -86,6 +88,33 @@ class Settings extends StatelessWidget {
             onTap: () {
               context.push(
                 const FontFamilyPage(),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("اختيار مصدر الأذكار"),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ZikrSourceFilterScreen();
+                  },
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("اختيار حكم الأذكار"),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ZikrHokmFilterScreen();
+                  },
+                ),
               );
             },
           ),

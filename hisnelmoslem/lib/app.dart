@@ -20,6 +20,7 @@ import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/desktop_window_wrapper.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -63,6 +64,7 @@ class AppState extends State<App> {
         BlocProvider(
           create: (_) => sl<SearchCubit>(),
         ),
+        BlocProvider(create: (_) => sl<ZikrSourceFilterCubit>()..start()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {

@@ -28,6 +28,8 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_h
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
@@ -43,6 +45,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmsRepo(sl()));
   sl.registerLazySingleton(() => ZikrTextRepo(sl()));
   sl.registerLazySingleton(() => ZikrViewerRepo(sl()));
+  sl.registerLazySingleton(() => ZikrFilterRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -67,6 +70,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => ZikrSourceFilterCubit(sl()));
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
