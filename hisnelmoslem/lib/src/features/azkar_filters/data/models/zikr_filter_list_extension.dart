@@ -1,13 +1,13 @@
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
-import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 extension FilterListExt on List<Filter> {
   List<DbContent> getFilteredZikr(List<DbContent> azkar) {
-    final filterBySource = sl<ZikrFilterRepo>().getEnableFiltersStatus;
-    final filterByHokm = sl<ZikrFilterRepo>().getEnableHokmFiltersStatus;
+    final filterBySource = sl<AzkarFiltersRepo>().getEnableFiltersStatus;
+    final filterByHokm = sl<AzkarFiltersRepo>().getEnableHokmFiltersStatus;
 
     if (!filterBySource && !filterByHokm) {
       return azkar;

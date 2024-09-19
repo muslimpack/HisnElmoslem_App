@@ -2,10 +2,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
 
-class ZikrFilterRepo {
+class AzkarFiltersRepo {
   final GetStorage box;
 
-  ZikrFilterRepo(this.box);
+  AzkarFiltersRepo(this.box);
 
   List<Filter> get getAllFilters {
     return ZikrFilter.values

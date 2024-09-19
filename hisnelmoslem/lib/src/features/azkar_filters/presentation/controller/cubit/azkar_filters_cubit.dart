@@ -2,37 +2,37 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
-import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 
 part 'azkar_filters_state.dart';
 
 class AzkarFiltersCubit extends Cubit<AzkarFiltersState> {
-  final ZikrFilterRepo zikrFilterStorage;
+  final AzkarFiltersRepo azkarFiltersRepo;
   AzkarFiltersCubit(
-    this.zikrFilterStorage,
+    this.azkarFiltersRepo,
   ) : super(
           AzkarFiltersState(
-            filters: zikrFilterStorage.getAllFilters,
-            enableFilters: zikrFilterStorage.getEnableFiltersStatus,
-            enableHokmFilters: zikrFilterStorage.getEnableHokmFiltersStatus,
+            filters: azkarFiltersRepo.getAllFilters,
+            enableFilters: azkarFiltersRepo.getEnableFiltersStatus,
+            enableHokmFilters: azkarFiltersRepo.getEnableHokmFiltersStatus,
           ),
         );
 
   Future toggleEnableFilters(bool enableFilters) async {
-    zikrFilterStorage.setEnableFiltersStatus(enableFilters);
+    azkarFiltersRepo.setEnableFiltersStatus(enableFilters);
 
     emit(state.copyWith(enableFilters: enableFilters));
   }
 
   Future toggleEnableHokmFilters(bool enableFilters) async {
-    zikrFilterStorage.setEnableHokmFiltersStatus(enableFilters);
+    azkarFiltersRepo.setEnableHokmFiltersStatus(enableFilters);
 
     emit(state.copyWith(enableHokmFilters: enableFilters));
   }
 
   Future toggleFilter(Filter filter) async {
     final newFilter = filter.copyWith(isActivated: !filter.isActivated);
-    await zikrFilterStorage.setFilterStatus(newFilter);
+    await azkarFiltersRepo.setFilterStatus(newFilter);
 
     final newList = List.of(state.filters).map((e) {
       if (e.filter == newFilter.filter) return newFilter;
