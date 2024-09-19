@@ -19,8 +19,8 @@ import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screen
 import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screens/select_zikr_source_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
