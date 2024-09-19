@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/windows_app_bar.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -31,7 +32,7 @@ class _DesktopWindowWrapperState extends State<DesktopWindowWrapper>
   @override
   void onWindowResize() {
     super.onWindowResize();
-    LocalRepo.instance.changeDesktopWindowSize(MediaQuery.of(context).size);
+    sl<UIRepo>().changeDesktopWindowSize(MediaQuery.of(context).size);
   }
 
   @override

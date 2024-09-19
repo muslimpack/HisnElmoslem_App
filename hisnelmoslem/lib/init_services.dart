@@ -8,11 +8,11 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart'
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
 import 'package:hisnelmoslem/src/core/utils/app_bloc_observer.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
+import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -58,7 +58,7 @@ Future initWindowsManager() async {
   await windowManager.ensureInitialized();
 
   final WindowOptions windowOptions = WindowOptions(
-    size: LocalRepo.instance.desktopWindowSize,
+    size: sl<UIRepo>().desktopWindowSize,
     center: true,
   );
   await windowManager.waitUntilReadyToShow(windowOptions, () async {

@@ -30,6 +30,7 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_h
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
@@ -38,6 +39,7 @@ final sl = GetIt.instance;
 Future<void> initSL() async {
   ///MARK: Init storages
   sl.registerLazySingleton(() => GetStorage(kAppStorageKey));
+  sl.registerLazySingleton(() => UIRepo(sl()));
   sl.registerLazySingleton(() => ThemeRepo(sl()));
   sl.registerLazySingleton(() => EffectsManagerRepo(sl()));
   sl.registerLazySingleton(() => ShareAsImageRepo(sl()));

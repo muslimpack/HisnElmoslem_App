@@ -3,28 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 
-class LocalRepo {
-  final box = GetStorage(kAppStorageKey);
+class UIRepo {
+  final GetStorage box;
 
-  LocalRepo._();
-
-  static LocalRepo instance = LocalRepo._();
-
-  String allowNotificationDialogKey = "allowNotificationDialog";
-  bool get allowNotificationDialog {
-    final value = box.read<bool?>(allowNotificationDialogKey);
-    if (value == null) {
-      return true;
-    } else {
-      return value;
-    }
-  }
-
-  Future allowNotificationDialogChange(bool show) async {
-    return box.write(allowNotificationDialogKey, show);
-  }
+  UIRepo(this.box);
 
   ///* ******* desktop Window Size ******* */
   static const String desktopWindowSizeKey = "desktopWindowSize";
