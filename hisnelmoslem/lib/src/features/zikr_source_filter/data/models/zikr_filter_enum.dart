@@ -42,7 +42,7 @@ extension ZikrFilterExt on ZikrFilter {
       case ZikrFilter.quran:
         return "سورة";
       case ZikrFilter.sahihBukhari:
-        return "البخاري";
+        return "بخار";
       case ZikrFilter.sahihMuslim:
         return "مسلم";
       case ZikrFilter.abuDawood:
@@ -50,17 +50,17 @@ extension ZikrFilterExt on ZikrFilter {
       case ZikrFilter.atTirmidhi:
         return "الترمذي";
       case ZikrFilter.anNasai:
-        return "النسائي";
+        return "نسا";
       case ZikrFilter.ibnMajah:
-        return "ابن ماج";
+        return "ماجه";
       case ZikrFilter.malik:
         return "مالك";
       case ZikrFilter.adDarami:
-        return "الدارمي";
+        return "دارم";
       case ZikrFilter.ahmad:
         return "أحمد";
       case ZikrFilter.ibnSunny:
-        return "ابن السني";
+        return "السني";
       case ZikrFilter.hakim:
         return "حاكم";
       case ZikrFilter.bayhaqi:
