@@ -31,7 +31,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(),
             height: 450,
-            width: 300,
+            width: 350,
             child: ListView(
               padding: const EdgeInsets.all(15),
               physics: const BouncingScrollPhysics(),
@@ -70,59 +70,59 @@ class ShareImageSettingsEditor extends StatelessWidget {
                   colorToTrack: state.shareImageSettings.backgroundColor,
                 ),
                 const Divider(),
-                CheckboxListTile(
-                  title: Text(S.of(context).showZikrIndex),
-                  value: state.shareImageSettings.showZikrIndex,
-                  onChanged: (value) {
-                    shareImageCubit.updateShowZikrIndex(
-                      value: value!,
-                    );
-                  },
-                ),
-                CheckboxListTile(
-                  title: Text(S.of(context).showFadl),
-                  value: state.shareImageSettings.showFadl,
-                  onChanged: (value) {
-                    shareImageCubit.uodateShowFadl(value: value!);
-                  },
-                ),
-                CheckboxListTile(
-                  title: Text(S.of(context).showSourceOfZikr),
-                  value: state.shareImageSettings.showSource,
-                  onChanged: (value) {
-                    shareImageCubit.updateShowSource(value: value!);
-                  },
+                Wrap(
+                  runSpacing: 10,
+                  spacing: 10,
+                  children: [
+                    ChoiceChip(
+                      label: Text(S.of(context).showZikrIndex),
+                      selected: state.shareImageSettings.showZikrIndex,
+                      onSelected: (value) {
+                        shareImageCubit.updateShowZikrIndex(
+                          value: value,
+                        );
+                      },
+                    ),
+                    ChoiceChip(
+                      label: Text(S.of(context).showFadl),
+                      selected: state.shareImageSettings.showFadl,
+                      onSelected: (value) {
+                        shareImageCubit.uodateShowFadl(value: value);
+                      },
+                    ),
+                    ChoiceChip(
+                      label: Text(S.of(context).showSourceOfZikr),
+                      selected: state.shareImageSettings.showSource,
+                      onSelected: (value) {
+                        shareImageCubit.updateShowSource(value: value);
+                      },
+                    ),
+                  ],
                 ),
                 const Divider(),
                 Text(
                   S.of(context).imageQuality,
                 ),
-                SizedBox(
-                  height: 50,
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: List.generate(
-                      kShareImageQualityList.length,
-                      (index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          child: ChoiceChip(
-                            selected: kShareImageQualityList[index] ==
-                                state.shareImageSettings.imageQuality,
-                            onSelected: (val) {
-                              shareImageCubit.updateImageQuality(
-                                kShareImageQualityList[index],
-                              );
-                            },
-                            label: Text(
-                              kShareImageQualityList[index].toString(),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                const SizedBox(height: 10),
+                Wrap(
+                  runSpacing: 10,
+                  spacing: 10,
+                  children: List.generate(
+                    kShareImageQualityList.length,
+                    (index) {
+                      return ChoiceChip(
+                        selected: kShareImageQualityList[index] ==
+                            state.shareImageSettings.imageQuality,
+                        onSelected: (val) {
+                          shareImageCubit.updateImageQuality(
+                            kShareImageQualityList[index],
+                          );
+                        },
+                        label: Text(
+                          kShareImageQualityList[index].toString(),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
