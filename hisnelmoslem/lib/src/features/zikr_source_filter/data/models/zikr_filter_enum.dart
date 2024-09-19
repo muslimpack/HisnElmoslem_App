@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
+
 enum ZikrFilter {
   /// Source
   quran,
@@ -79,93 +82,48 @@ extension ZikrFilterExt on ZikrFilter {
     }
   }
 
-  String get arabicName {
+  String localeName(BuildContext context) {
     switch (this) {
       case ZikrFilter.quran:
-        return "القرآن";
+        return S.of(context).sourceQuran;
       case ZikrFilter.sahihBukhari:
-        return "صحيح البخاري";
+        return S.of(context).sourceSahihBukhari;
       case ZikrFilter.sahihMuslim:
-        return "صحيح مسلم";
+        return S.of(context).sourceSahihMuslim;
       case ZikrFilter.abuDawood:
-        return "سنن أبي داود";
+        return S.of(context).sourceAbuDawood;
       case ZikrFilter.atTirmidhi:
-        return "سنن الترمذي";
+        return S.of(context).sourceAtTirmidhi;
       case ZikrFilter.anNasai:
-        return "سنن النسائي";
+        return S.of(context).sourceAnNasai;
       case ZikrFilter.ibnMajah:
-        return "سنن ابن ماجه";
+        return S.of(context).sourceIbnMajah;
       case ZikrFilter.malik:
-        return "موطأ مالك";
+        return S.of(context).sourceMalik;
       case ZikrFilter.adDarami:
-        return "مسند الدارمي";
+        return S.of(context).sourceAdDarami;
       case ZikrFilter.ahmad:
-        return "مسند أحمد";
+        return S.of(context).sourceAhmad;
       case ZikrFilter.ibnSunny:
-        return "عمل اليوم والليلة لابن السني";
+        return S.of(context).sourceIbnSunny;
       case ZikrFilter.hakim:
-        return "المستدرك على الصحيحين للحاكم النيسابوري";
+        return S.of(context).sourceHakim;
       case ZikrFilter.bayhaqi:
-        return "سنن البيهقي";
+        return S.of(context).sourceBayhaqi;
       case ZikrFilter.athar:
-        return "أثر";
+        return S.of(context).sourceAthar;
 
       ///
       case ZikrFilter.hokmSahih:
-        return "صحيح";
+        return S.of(context).hokmSahih;
       case ZikrFilter.hokmHasan:
-        return "حسن";
+        return S.of(context).hokmHasan;
       case ZikrFilter.hokmDaeif:
-        return "ضعيف";
+        return S.of(context).hokmDaeif;
       case ZikrFilter.hokmMawdue:
-        return "موضوع";
+        return S.of(context).hokmMawdue;
       case ZikrFilter.hokmAthar:
-        return "أثر";
-    }
-  }
-
-  String get englishName {
-    switch (this) {
-      case ZikrFilter.quran:
-        return "Quran";
-      case ZikrFilter.sahihBukhari:
-        return "Sahih Bukhari";
-      case ZikrFilter.sahihMuslim:
-        return "Sahih Muslim";
-      case ZikrFilter.abuDawood:
-        return "Sunan Abu Dawood";
-      case ZikrFilter.atTirmidhi:
-        return "Sunan AtTirmidhi";
-      case ZikrFilter.anNasai:
-        return "Sunan AnNasai";
-      case ZikrFilter.ibnMajah:
-        return "Sunan IbnMajah";
-      case ZikrFilter.malik:
-        return "Malik";
-      case ZikrFilter.adDarami:
-        return "AdDarami";
-      case ZikrFilter.ahmad:
-        return "Ahmad";
-      case ZikrFilter.ibnSunny:
-        return "IbnSunny";
-      case ZikrFilter.hakim:
-        return "AlHakim";
-      case ZikrFilter.bayhaqi:
-        return "AlBayhaqi";
-      case ZikrFilter.athar:
-        return "Athr";
-
-      ///
-      case ZikrFilter.hokmSahih:
-        return "Authentic";
-      case ZikrFilter.hokmHasan:
-        return "Good";
-      case ZikrFilter.hokmDaeif:
-        return "Weak";
-      case ZikrFilter.hokmMawdue:
-        return "Fabricated";
-      case ZikrFilter.hokmAthar:
-        return "Athar";
+        return S.of(context).hokmAthar;
     }
   }
 }

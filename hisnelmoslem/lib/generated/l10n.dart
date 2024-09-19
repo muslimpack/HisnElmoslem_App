@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `Azkar Filters`
+  String get azkarFilters {
+    return Intl.message(
+      'Azkar Filters',
+      name: 'azkarFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Background color`
   String get backgroundColor {
     return Intl.message(
@@ -565,6 +575,16 @@ class S {
     return Intl.message(
       'Effect Control',
       name: 'effectManager',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Azkar filters`
+  String get enableAzkarFilters {
+    return Intl.message(
+      'Enable Azkar filters',
+      name: 'enableAzkarFilters',
       desc: '',
       args: [],
     );

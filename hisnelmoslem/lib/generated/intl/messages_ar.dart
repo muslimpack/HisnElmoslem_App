@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل تريد السماح بتشغيل الإشعارات؟"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("متأكد من ذلك؟"),
+        "azkarFilters": MessageLookupByLibrary.simpleMessage("تصفية الأذكار"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("لون الخلفية"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("البطاقة رقم"),
         "cardMode": MessageLookupByLibrary.simpleMessage("وضعية البطاقات"),
@@ -95,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل عرض الصورة"),
         "editReminder": MessageLookupByLibrary.simpleMessage("تعديل تنبيه"),
         "effectManager": MessageLookupByLibrary.simpleMessage("إدارة المؤثرات"),
+        "enableAzkarFilters":
+            MessageLookupByLibrary.simpleMessage("تفعيل تصفية الأذكار"),
         "enableWakeLock":
             MessageLookupByLibrary.simpleMessage("إبقاء الشاشة نشطة"),
         "endSuraAliImran":

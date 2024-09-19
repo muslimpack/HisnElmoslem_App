@@ -92,9 +92,10 @@ class Settings extends StatelessWidget {
             },
           ),
           const Divider(),
+          Title(title: S.of(context).azkarFilters),
           ListTile(
             leading: const Icon(Icons.library_books),
-            title: const Text("اختيار مصدر الأذكار"),
+            title: Text(S.of(context).selectAzkarSource),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -107,7 +108,7 @@ class Settings extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.library_books),
-            title: const Text("اختيار حكم الأذكار"),
+            title: Text(S.of(context).selectAzkarHokmFilters),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(

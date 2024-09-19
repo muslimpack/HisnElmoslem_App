@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 
@@ -17,7 +18,7 @@ class _ZikrSourceFilterScreenState extends State<ZikrSourceFilterScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("اختيار مصدر الأذكار"),
+            title: Text(S.of(context).selectAzkarSource),
             centerTitle: true,
           ),
           body: ListView(
@@ -25,7 +26,7 @@ class _ZikrSourceFilterScreenState extends State<ZikrSourceFilterScreen> {
             children: [
               SwitchListTile(
                 value: state.enableFilters,
-                title: const Text("تفعيل تصفية الأذكار"),
+                title: Text(S.of(context).enableAzkarFilters),
                 onChanged: (value) {
                   context
                       .read<ZikrSourceFilterCubit>()
@@ -36,7 +37,7 @@ class _ZikrSourceFilterScreenState extends State<ZikrSourceFilterScreen> {
               ...state.filters.where((x) => !x.filter.isForHokm).map((filter) {
                 return SwitchListTile(
                   value: filter.isActivated,
-                  title: Text(filter.filter.arabicName),
+                  title: Text(filter.filter.localeName(context)),
                   onChanged: !state.enableFilters
                       ? null
                       : (value) {

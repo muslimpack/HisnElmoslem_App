@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Allow app to send notifications?"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
+        "azkarFilters": MessageLookupByLibrary.simpleMessage("Azkar Filters"),
         "backgroundColor":
             MessageLookupByLibrary.simpleMessage("Background color"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("Card index"),
@@ -98,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit image size"),
         "editReminder": MessageLookupByLibrary.simpleMessage("Edit reminder"),
         "effectManager": MessageLookupByLibrary.simpleMessage("Effect Control"),
+        "enableAzkarFilters":
+            MessageLookupByLibrary.simpleMessage("Enable Azkar filters"),
         "enableWakeLock":
             MessageLookupByLibrary.simpleMessage("Enable wake lock"),
         "endSuraAliImran":
