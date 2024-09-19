@@ -91,7 +91,7 @@ class _BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           onPressed: () async {
@@ -100,16 +100,6 @@ class _BottomBar extends StatelessWidget {
                 .add(ZikrViewerResetZikrEvent(content: dbContent));
           },
           icon: const Icon(Icons.repeat),
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.copy,
-          ),
-          onPressed: () async {
-            context
-                .read<ZikrViewerBloc>()
-                .add(ZikrViewerCopyZikrEvent(content: dbContent));
-          },
         ),
         IconButton(
           icon: const Icon(
