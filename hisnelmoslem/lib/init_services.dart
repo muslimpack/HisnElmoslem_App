@@ -10,7 +10,6 @@ import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/repos/local_repo.dart';
 import 'package:hisnelmoslem/src/core/utils/app_bloc_observer.dart';
-import 'package:hisnelmoslem/src/core/utils/migration/migration.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
@@ -35,7 +34,6 @@ Future<void> initServices() async {
 
   try {
     await GetStorage.init(kAppStorageKey);
-    await Migration.start();
     await sl<AwesomeNotificationManager>().init();
   } catch (e) {
     hisnPrint(e);
