@@ -123,6 +123,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontType": MessageLookupByLibrary.simpleMessage("Font Type"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
             "Free, ad-free and open source app"),
+        "freqAnnual": MessageLookupByLibrary.simpleMessage("Annual"),
+        "freqDaily": MessageLookupByLibrary.simpleMessage("Daily"),
+        "freqMonthly": MessageLookupByLibrary.simpleMessage("Monthly"),
+        "freqWeekly": MessageLookupByLibrary.simpleMessage("Weekly"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
         "github": MessageLookupByLibrary.simpleMessage("Github source code"),
         "goTo": MessageLookupByLibrary.simpleMessage("Go to"),

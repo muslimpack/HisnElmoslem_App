@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
+
 enum TitlesFreqEnum {
   daily,
   week,
@@ -6,16 +9,18 @@ enum TitlesFreqEnum {
 }
 
 extension TitlesFreqEnumExt on TitlesFreqEnum {
-  String get arabicName {
+  String localeName(BuildContext context) {
     switch (this) {
       case TitlesFreqEnum.daily:
-        return "يومي";
+        return S.of(context).freqDaily;
       case TitlesFreqEnum.week:
-        return "أسبوعي";
+        return S.of(context).freqWeekly;
+
       case TitlesFreqEnum.month:
-        return "شهري";
+        return S.of(context).freqMonthly;
+
       case TitlesFreqEnum.year:
-        return "سنوي";
+        return S.of(context).freqAnnual;
     }
   }
 

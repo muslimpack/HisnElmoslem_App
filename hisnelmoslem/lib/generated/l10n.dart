@@ -750,6 +750,46 @@ class S {
     );
   }
 
+  /// `Annual`
+  String get freqAnnual {
+    return Intl.message(
+      'Annual',
+      name: 'freqAnnual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily`
+  String get freqDaily {
+    return Intl.message(
+      'Daily',
+      name: 'freqDaily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly`
+  String get freqMonthly {
+    return Intl.message(
+      'Monthly',
+      name: 'freqMonthly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weekly`
+  String get freqWeekly {
+    return Intl.message(
+      'Weekly',
+      name: 'freqWeekly',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `General`
   String get general {
     return Intl.message(

@@ -118,6 +118,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontType": MessageLookupByLibrary.simpleMessage("نوع الخط"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
             "تطبيق مجاني خالي من الإعلانات ومفتوح المصدر"),
+        "freqAnnual": MessageLookupByLibrary.simpleMessage("سنوي"),
+        "freqDaily": MessageLookupByLibrary.simpleMessage("يومي"),
+        "freqMonthly": MessageLookupByLibrary.simpleMessage("شهري"),
+        "freqWeekly": MessageLookupByLibrary.simpleMessage("أسبوعي"),
         "general": MessageLookupByLibrary.simpleMessage("عام"),
         "github": MessageLookupByLibrary.simpleMessage("الكود المصدري للمشروع"),
         "goTo": MessageLookupByLibrary.simpleMessage("الذهاب إلى"),
