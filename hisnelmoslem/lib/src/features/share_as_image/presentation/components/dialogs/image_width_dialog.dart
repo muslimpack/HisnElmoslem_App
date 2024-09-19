@@ -30,11 +30,10 @@ class ImageWidthDialog extends StatelessWidget {
         ],
       ),
       actions: [
-        TextButton(
+        FilledButton(
           child: Text(
             S.of(context).done,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20),
           ),
           onPressed: () {
             onSubmit(widthController.text);

@@ -187,6 +187,15 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
       actions: [
         TextButton(
           child: Text(
+            S.of(context).close,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        FilledButton(
+          child: Text(
             S.of(context).done,
             textAlign: TextAlign.center,
           ),
@@ -213,15 +222,6 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
                 showToast(msg: S.of(context).chooseTimeForReminder);
               }
             });
-          },
-        ),
-        TextButton(
-          child: Text(
-            S.of(context).close,
-            textAlign: TextAlign.center,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
           },
         ),
       ],

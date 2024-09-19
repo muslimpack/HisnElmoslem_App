@@ -74,11 +74,10 @@ class _TallyDialogState extends State<TallyDialog> {
         ],
       ),
       actions: [
-        TextButton(
+        FilledButton(
           child: Text(
             S.of(context).done,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20),
           ),
           onPressed: () {
             final String title = titleController.text.trim();

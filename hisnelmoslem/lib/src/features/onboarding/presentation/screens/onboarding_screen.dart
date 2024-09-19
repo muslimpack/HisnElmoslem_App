@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/shared/widgets/round_button.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
@@ -64,12 +63,11 @@ class OnBoardingScreen extends StatelessWidget {
                     ),
                     if (state.isFinalPage)
                       Expanded(
-                        child: RoundButton(
-                          radius: 10,
-                          text: Text(
+                        child: FilledButton(
+                          child: Text(
                             S.of(context).start,
                           ),
-                          onTap: () {
+                          onPressed: () {
                             context.read<OnboardCubit>().done();
                           },
                         ),
@@ -78,14 +76,12 @@ class OnBoardingScreen extends StatelessWidget {
                       !state.showSkipBtn
                           ? const SizedBox()
                           : Expanded(
-                              child: RoundButton(
-                                radius: 10,
-                                isTransparent: true,
-                                text: Text(
+                              child: TextButton(
+                                child: Text(
                                   S.of(context).skip,
                                   style: const TextStyle(),
                                 ),
-                                onTap: () {
+                                onPressed: () {
                                   context.read<OnboardCubit>().done();
                                 },
                               ),
