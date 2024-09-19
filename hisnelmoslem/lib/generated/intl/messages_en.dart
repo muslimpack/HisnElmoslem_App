@@ -114,7 +114,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "everyTuesday": MessageLookupByLibrary.simpleMessage("Every Tuesday"),
         "everyWednesday":
             MessageLookupByLibrary.simpleMessage("Every Wednesday"),
-        "fadl": MessageLookupByLibrary.simpleMessage("Reward"),
         "fakeHadith": MessageLookupByLibrary.simpleMessage("Fake Hadith"),
         "fastingMondaysThursdaysReminder": MessageLookupByLibrary.simpleMessage(
             "Fasting Mondays and Thursdays Reminder"),
@@ -256,7 +255,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sound Effect volume"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "Sound effect when all zikr end"),
-        "source": MessageLookupByLibrary.simpleMessage("Source"),
         "sourceAbuDawood":
             MessageLookupByLibrary.simpleMessage("Sunan Abi Dawud"),
         "sourceAdDarami":

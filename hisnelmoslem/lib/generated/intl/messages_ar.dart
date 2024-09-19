@@ -110,7 +110,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "everyThursday": MessageLookupByLibrary.simpleMessage("كل خميس"),
         "everyTuesday": MessageLookupByLibrary.simpleMessage("كل ثلاثاء"),
         "everyWednesday": MessageLookupByLibrary.simpleMessage("كل أربعاء"),
-        "fadl": MessageLookupByLibrary.simpleMessage("فضل"),
         "fakeHadith": MessageLookupByLibrary.simpleMessage("أحاديث لا تصح"),
         "fastingMondaysThursdaysReminder":
             MessageLookupByLibrary.simpleMessage("منبه صيام الاثنين والخميس"),
@@ -232,11 +231,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareAsImage": MessageLookupByLibrary.simpleMessage("مشاركة كصورة"),
         "shareZikr": MessageLookupByLibrary.simpleMessage("مشاركة الذكر"),
         "shouldBe": MessageLookupByLibrary.simpleMessage("والصواب"),
-        "showFadl": MessageLookupByLibrary.simpleMessage("اظهار الفضل"),
-        "showSourceOfZikr":
-            MessageLookupByLibrary.simpleMessage("اظهار المصدر"),
-        "showZikrIndex":
-            MessageLookupByLibrary.simpleMessage("اظهار رقم الذكر"),
+        "showFadl": MessageLookupByLibrary.simpleMessage("عرض الفضل"),
+        "showSourceOfZikr": MessageLookupByLibrary.simpleMessage("عرض المصدر"),
+        "showZikrIndex": MessageLookupByLibrary.simpleMessage("عرض رقم الذكر"),
         "shuffleModeActivated":
             MessageLookupByLibrary.simpleMessage("تفعيل وضع السبحة المتغيرة"),
         "shuffleModeDeactivated": MessageLookupByLibrary.simpleMessage(
@@ -249,7 +246,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "soundEffectVolume": MessageLookupByLibrary.simpleMessage("حجم الصوت"),
         "soundEffectWhenAllZikrEnd": MessageLookupByLibrary.simpleMessage(
             "اشعار صوتي عند انتهاء جميع الأذكار"),
-        "source": MessageLookupByLibrary.simpleMessage("المصدر"),
         "sourceAbuDawood": MessageLookupByLibrary.simpleMessage("سنن أبي داود"),
         "sourceAdDarami": MessageLookupByLibrary.simpleMessage("مسند الدارمي"),
         "sourceAhmad": MessageLookupByLibrary.simpleMessage("مسند أحمد"),

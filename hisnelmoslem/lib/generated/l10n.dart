@@ -690,16 +690,6 @@ class S {
     );
   }
 
-  /// `Reward`
-  String get fadl {
-    return Intl.message(
-      'Reward',
-      name: 'fadl',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Fake Hadith`
   String get fakeHadith {
     return Intl.message(
@@ -1615,16 +1605,6 @@ class S {
     return Intl.message(
       'Sound effect when all zikr end',
       name: 'soundEffectWhenAllZikrEnd',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Source`
-  String get source {
-    return Intl.message(
-      'Source',
-      name: 'source',
       desc: '',
       args: [],
     );
