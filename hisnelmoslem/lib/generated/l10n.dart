@@ -1030,6 +1030,16 @@ class S {
     );
   }
 
+  /// `More apps`
+  String get moreApps {
+    return Intl.message(
+      'More apps',
+      name: 'moreApps',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `New`
   String get newText {
     return Intl.message(

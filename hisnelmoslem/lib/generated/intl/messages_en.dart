@@ -158,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "misspelled": MessageLookupByLibrary.simpleMessage(
             "Hisn ELmoslem App | Misspelled"),
+        "moreApps": MessageLookupByLibrary.simpleMessage("More apps"),
         "newText": MessageLookupByLibrary.simpleMessage("New"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noActiveCounter":

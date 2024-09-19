@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("رسالة"),
         "misspelled": MessageLookupByLibrary.simpleMessage(
             "تطبيق حصن المسلم: خطأ إملائي"),
+        "moreApps": MessageLookupByLibrary.simpleMessage("المزيد من تطبيقاتنا"),
         "newText": MessageLookupByLibrary.simpleMessage("جديد"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noActiveCounter":
