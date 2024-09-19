@@ -9,14 +9,14 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_page.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_hokm_screen.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_source_screen.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
 import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_page.dart';
 import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_page.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screens/select_zikr_hokm_screen.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/screens/select_zikr_source_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SettingsScreen extends StatelessWidget {

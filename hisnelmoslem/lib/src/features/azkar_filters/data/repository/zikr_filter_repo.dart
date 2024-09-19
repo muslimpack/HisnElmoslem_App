@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_enum.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
 
 class ZikrFilterRepo {
   final GetStorage box;

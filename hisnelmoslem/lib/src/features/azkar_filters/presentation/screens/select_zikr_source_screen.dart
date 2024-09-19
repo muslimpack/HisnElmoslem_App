@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_enum.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
 
-class ZikrHokmFilterScreen extends StatefulWidget {
-  const ZikrHokmFilterScreen({super.key});
+class ZikrSourceFilterScreen extends StatefulWidget {
+  const ZikrSourceFilterScreen({super.key});
 
   @override
-  State<ZikrHokmFilterScreen> createState() => _ZikrHokmFilterScreenState();
+  State<ZikrSourceFilterScreen> createState() => _ZikrSourceFilterScreenState();
 }
 
-class _ZikrHokmFilterScreenState extends State<ZikrHokmFilterScreen> {
+class _ZikrSourceFilterScreenState extends State<ZikrSourceFilterScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ZikrSourceFilterCubit, ZikrSourceFilterState>(
+    return BlocBuilder<AzkarFiltersCubit, AzkarFiltersState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(S.of(context).selectAzkarHokmFilters),
+            title: Text(S.of(context).selectAzkarSource),
             centerTitle: true,
           ),
           body: ListView(
             padding: const EdgeInsets.all(15),
             children: [
               SwitchListTile(
-                value: state.enableHokmFilters,
+                value: state.enableFilters,
                 title: Text(S.of(context).enableAzkarFilters),
                 onChanged: (value) {
-                  context
-                      .read<ZikrSourceFilterCubit>()
-                      .toggleEnableHokmFilters(value);
+                  context.read<AzkarFiltersCubit>().toggleEnableFilters(value);
                 },
               ),
               const Divider(),
-              ...state.filters.where((x) => x.filter.isForHokm).map((filter) {
+              ...state.filters.where((x) => !x.filter.isForHokm).map((filter) {
                 return SwitchListTile(
                   value: filter.isActivated,
                   title: Text(filter.filter.localeName(context)),
-                  onChanged: !state.enableHokmFilters
+                  onChanged: !state.enableFilters
                       ? null
                       : (value) {
                           context
-                              .read<ZikrSourceFilterCubit>()
+                              .read<AzkarFiltersCubit>()
                               .toggleFilter(filter);
                         },
                 );

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_enum.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
 
 class Filter extends Equatable {
   final ZikrFilter filter;

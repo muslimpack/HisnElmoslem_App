@@ -1,7 +1,7 @@
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_enum.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_enum.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/zikr_filter_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 extension FilterListExt on List<Filter> {

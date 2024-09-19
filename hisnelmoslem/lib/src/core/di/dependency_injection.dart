@@ -8,6 +8,8 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_not
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -28,8 +30,6 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_h
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/repository/zikr_filter_repo.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
@@ -70,7 +70,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => ZikrSourceFilterCubit(sl()));
+  sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));

@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'zikr_source_filter_cubit.dart';
+part of 'azkar_filters_cubit.dart';
 
-class ZikrSourceFilterState extends Equatable {
+class AzkarFiltersState extends Equatable {
   final List<Filter> filters;
   final bool enableFilters;
   final bool enableHokmFilters;
 
-  const ZikrSourceFilterState({
+  const AzkarFiltersState({
     required this.filters,
     required this.enableFilters,
     required this.enableHokmFilters,
@@ -15,12 +15,12 @@ class ZikrSourceFilterState extends Equatable {
   @override
   List<Object> get props => [filters, enableFilters, enableHokmFilters];
 
-  ZikrSourceFilterState copyWith({
+  AzkarFiltersState copyWith({
     List<Filter>? filters,
     bool? enableFilters,
     bool? enableHokmFilters,
   }) {
-    return ZikrSourceFilterState(
+    return AzkarFiltersState(
       filters: filters ?? this.filters,
       enableFilters: enableFilters ?? this.enableFilters,
       enableHokmFilters: enableHokmFilters ?? this.enableHokmFilters,

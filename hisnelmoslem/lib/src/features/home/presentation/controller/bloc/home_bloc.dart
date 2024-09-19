@@ -7,13 +7,13 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter_list_extension.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/presentation/controller/cubit/zikr_source_filter_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 part 'home_event.dart';
@@ -21,7 +21,7 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
-  final ZikrSourceFilterCubit zikrFiltersCubit;
+  final AzkarFiltersCubit zikrFiltersCubit;
   late final StreamSubscription alarmSubscription;
   late final StreamSubscription filterSubscription;
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
@@ -247,7 +247,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     return titlesToSet;
   }
 
-  Future<void> _onZikrFilterCubitChanged(ZikrSourceFilterState state) async {
+  Future<void> _onZikrFilterCubitChanged(AzkarFiltersState state) async {
     hisnPrint(
       "from homeBLoc filters chaanged ${state.filters.where((f) => f.isActivated).length}",
     );

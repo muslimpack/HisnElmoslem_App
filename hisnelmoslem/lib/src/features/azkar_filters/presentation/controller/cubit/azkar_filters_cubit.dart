@@ -1,17 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/models/zikr_filter.dart';
-import 'package:hisnelmoslem/src/features/zikr_source_filter/data/repository/zikr_filter_repo.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
+import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/zikr_filter_repo.dart';
 
-part 'zikr_source_filter_state.dart';
+part 'azkar_filters_state.dart';
 
-class ZikrSourceFilterCubit extends Cubit<ZikrSourceFilterState> {
+class AzkarFiltersCubit extends Cubit<AzkarFiltersState> {
   final ZikrFilterRepo zikrFilterStorage;
-  ZikrSourceFilterCubit(
+  AzkarFiltersCubit(
     this.zikrFilterStorage,
   ) : super(
-          ZikrSourceFilterState(
+          AzkarFiltersState(
             filters: zikrFilterStorage.getAllFilters,
             enableFilters: zikrFilterStorage.getEnableFiltersStatus,
             enableHokmFilters: zikrFilterStorage.getEnableHokmFiltersStatus,
