@@ -8,12 +8,10 @@ import 'package:hisnelmoslem/src/features/effects_manager/presentation/controlle
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeBookmarkedContentCard extends StatefulWidget {
   final DbContent dbContent;
@@ -127,17 +125,6 @@ class _TopBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-          tooltip: S.of(context).shareAsImage,
-          icon: Icon(MdiIcons.camera),
-          onPressed: () {
-            context.push(
-              ShareAsImageScreen(
-                dbContent: dbContent,
-              ),
-            );
-          },
-        ),
         IconButton(
           tooltip: S.of(context).bookmark,
           icon: dbContent.favourite
