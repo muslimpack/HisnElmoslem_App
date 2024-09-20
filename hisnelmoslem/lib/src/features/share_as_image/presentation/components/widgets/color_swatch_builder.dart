@@ -19,54 +19,19 @@ class ColorSwatchBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color tempColor = colorToTrack;
-    void changeColor(Color color) {
-      tempColor = color;
-    }
-
     return GestureDetector(
-      onTap: () {
-        showDialog(
+      onTap: () async {
+        final Color? selectColorDialog = await showDialog(
           context: context,
           builder: (BuildContext context) {
-            return Center(
-              child: SizedBox(
-                width: 350,
-                child: SingleChildScrollView(
-                  child: Card(
-                    margin: const EdgeInsets.all(20),
-                    clipBehavior: Clip.hardEdge,
-                    child: Column(
-                      children: [
-                        ColorPicker(
-                          displayThumbColor: true,
-                          paletteType: PaletteType.hsvWithSaturation,
-                          colorHistory: colorSwatchList,
-                          labelTypes: const [],
-                          enableAlpha: false,
-                          hexInputBar: true,
-                          pickerColor: colorToTrack,
-                          onColorChanged: changeColor,
-                          onHistoryChanged: (value) {},
-                        ),
-                        ListTile(
-                          onTap: () {
-                            apply(tempColor);
-                            Navigator.pop(context);
-                          },
-                          title: Text(
-                            S.of(context).selectColor,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            return SelectColorDialog(
+              colorHistory: colorSwatchList,
+              color: colorToTrack,
             );
           },
         );
+        if (selectColorDialog == null) return;
+        apply.call(selectColorDialog);
       },
       child: Card(
         color: colorToTrack,
@@ -79,6 +44,51 @@ class ColorSwatchBuilder extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SelectColorDialog extends StatelessWidget {
+  const SelectColorDialog({
+    super.key,
+    required this.colorHistory,
+    required this.color,
+  });
+
+  final List<Color> colorHistory;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    Color tempColor = color;
+    return AlertDialog(
+      clipBehavior: Clip.hardEdge,
+      contentPadding: EdgeInsets.zero,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ColorPicker(
+            displayThumbColor: true,
+            paletteType: PaletteType.hsvWithSaturation,
+            colorHistory: colorHistory,
+            labelTypes: const [],
+            enableAlpha: false,
+            hexInputBar: true,
+            pickerColor: color,
+            onColorChanged: (value) {
+              tempColor = value;
+            },
+          ),
+        ],
+      ),
+      actions: [
+        FilledButton(
+          onPressed: () {
+            Navigator.pop(context, tempColor);
+          },
+          child: Text(S.of(context).selectColor),
+        ),
+      ],
     );
   }
 }
