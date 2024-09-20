@@ -1440,6 +1440,16 @@ class S {
     );
   }
 
+  /// `Reset`
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reset all counters?`
   String get resetAllCounters {
     return Intl.message(

@@ -227,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Report bugs and request new features"),
         "requiresAppRestart":
             MessageLookupByLibrary.simpleMessage("Requires app restart"),
+        "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetAllCounters":
             MessageLookupByLibrary.simpleMessage("Reset all counters?"),
         "resetZikr": MessageLookupByLibrary.simpleMessage("Reset Zikr"),

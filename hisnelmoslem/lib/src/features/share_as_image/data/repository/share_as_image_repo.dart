@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 
 class ShareAsImageRepo {
   final GetStorage box;
@@ -14,7 +15,8 @@ class ShareAsImageRepo {
       'share_image_title_text_color';
 
   Color get shareImageTitleTextColor => Color(
-        box.read<int?>(_shareImageTitleTextBoxKey) ?? 0xFF01979F,
+        box.read<int?>(_shareImageTitleTextBoxKey) ??
+            kShareImageTitleTextColor.value,
       );
   Future<void> shareImageUpdateTitleColor(Color color) async {
     await box.write(_shareImageTitleTextBoxKey, color.value);
@@ -25,7 +27,8 @@ class ShareAsImageRepo {
       'share_image_body_text_color';
 
   Color get shareImageBodyTextColor => Color(
-        box.read<int?>(_shareImageBodyTextColorBoxKey) ?? 0xFFFFF8EE,
+        box.read<int?>(_shareImageBodyTextColorBoxKey) ??
+            kShareImageBodyTextColor.value,
       );
 
   Future<void> shareImageUpdateTextColor(Color color) async {
@@ -37,7 +40,8 @@ class ShareAsImageRepo {
       'share_image_additional_text_color';
 
   Color get shareImageAdditionalTextColor => Color(
-        box.read<int?>(_shareImageAdditionalTextColorBoxKey) ?? 0xFFFFE2B9,
+        box.read<int?>(_shareImageAdditionalTextColorBoxKey) ??
+            kShareImageAdditionalTextColor.value,
       );
   Future<void> updateAdditionalTextColor(Color color) async {
     await box.write(_shareImageAdditionalTextColorBoxKey, color.value);
@@ -48,7 +52,8 @@ class ShareAsImageRepo {
       'share_image_background_color';
 
   Color get shareImageBackgroundColor => Color(
-        box.read<int?>(_shareImageBackgroundColorBoxKey) ?? 0xFF191A21,
+        box.read<int?>(_shareImageBackgroundColorBoxKey) ??
+            kShareImageBackgroundColor.value,
       );
   Future<void> updateBackgroundColor(Color color) async {
     await box.write(_shareImageBackgroundColorBoxKey, color.value);

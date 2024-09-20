@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/color_swatch_builder.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ShareImageSettingsEditor extends StatelessWidget {
   final BuildContext context;
@@ -73,6 +74,13 @@ class ShareImageSettingsEditor extends StatelessWidget {
                       },
                       colorSwatchList: kShareImageColorsList,
                       colorToTrack: state.shareImageSettings.backgroundColor,
+                    ),
+                    IconButton(
+                      tooltip: S.of(context).reset,
+                      onPressed: () {
+                        shareImageCubit.resetColors();
+                      },
+                      icon: Icon(MdiIcons.restart),
                     ),
                   ],
                 ),

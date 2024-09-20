@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الشكاوى والمقترحات"),
         "requiresAppRestart":
             MessageLookupByLibrary.simpleMessage("يتطلب إعادة تشغيل التطبيق"),
+        "reset": MessageLookupByLibrary.simpleMessage("إعادة تعيين"),
         "resetAllCounters":
             MessageLookupByLibrary.simpleMessage("إعادة ضبط جميع العدادات؟"),
         "resetZikr": MessageLookupByLibrary.simpleMessage("إعادة تعيين الذكر"),

@@ -13,6 +13,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path_provider/path_provider.dart';
@@ -97,6 +98,20 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     _updateSettings(
       state.shareImageSettings.copyWith(additionalTextColor: color),
+    );
+  }
+
+  void resetColors() {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    _updateSettings(
+      state.shareImageSettings.copyWith(
+        titleTextColor: kShareImageTitleTextColor,
+        bodyTextColor: kShareImageBodyTextColor,
+        additionalTextColor: kShareImageAdditionalTextColor,
+        backgroundColor: kShareImageBackgroundColor,
+      ),
     );
   }
 

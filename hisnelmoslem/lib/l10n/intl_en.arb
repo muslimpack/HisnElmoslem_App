@@ -138,6 +138,7 @@
   "report": "Report",
   "reportBugsRequestFeatures": "Report bugs and request new features",
   "requiresAppRestart": "Requires app restart",
+  "reset": "Reset",
   "resetAllCounters": "Reset all counters?",
   "resetZikr": "Reset Zikr",
   "reviewIndexOfBook": "Please review the index of the book",
