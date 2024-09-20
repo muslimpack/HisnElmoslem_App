@@ -52,8 +52,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
 
     volumeButtonManager.listen(
-      onVolumeUpPressed: () => add(const ZikrViewerDecreaseZikrEvent()),
-      onVolumeDownPressed: () => add(const ZikrViewerDecreaseZikrEvent()),
+      onVolumeUpPressed: () => add(const ZikrViewerVolumeKeyPressedEvent()),
+      onVolumeDownPressed: () => add(const ZikrViewerVolumeKeyPressedEvent()),
     );
 
     pageController.addListener(() {
@@ -77,6 +77,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerShareZikrEvent>(_shareActiveZikr);
     on<ZikrViewerToggleZikrBookmarkEvent>(_toggleBookmark);
     on<ZikrViewerReportZikrEvent>(_report);
+
+    on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
   }
 
   FutureOr<void> _start(
@@ -355,6 +357,18 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       zikrId: (activeZikr.id + 1).toString(),
       zikrBody: text,
     );
+  }
+
+  FutureOr<void> _volumeKeyPressed(
+    ZikrViewerVolumeKeyPressedEvent event,
+    Emitter<ZikrViewerState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! ZikrViewerLoadedState) return;
+    final activeZikr = _getZikrToDealWith(state: state);
+    if (activeZikr == null) return;
+
+    add(ZikrViewerDecreaseZikrEvent(content: activeZikr));
   }
 
   DbContent? _getZikrToDealWith({

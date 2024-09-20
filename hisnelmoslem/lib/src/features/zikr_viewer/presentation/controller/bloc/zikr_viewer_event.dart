@@ -22,36 +22,36 @@ final class ZikrViewerStartEvent extends ZikrViewerEvent {
 }
 
 final class ZikrViewerDecreaseZikrEvent extends ZikrViewerEvent {
-  final DbContent? content;
+  final DbContent content;
 
-  const ZikrViewerDecreaseZikrEvent({this.content});
+  const ZikrViewerDecreaseZikrEvent({required this.content});
 
   @override
   List<Object?> get props => [content];
 }
 
 final class ZikrViewerResetZikrEvent extends ZikrViewerEvent {
-  final DbContent? content;
+  final DbContent content;
 
-  const ZikrViewerResetZikrEvent({this.content});
+  const ZikrViewerResetZikrEvent({required this.content});
 
   @override
   List<Object?> get props => [content];
 }
 
 final class ZikrViewerCopyZikrEvent extends ZikrViewerEvent {
-  final DbContent? content;
+  final DbContent content;
 
-  const ZikrViewerCopyZikrEvent({this.content});
+  const ZikrViewerCopyZikrEvent({required this.content});
 
   @override
   List<Object?> get props => [content];
 }
 
 final class ZikrViewerShareZikrEvent extends ZikrViewerEvent {
-  final DbContent? content;
+  final DbContent content;
 
-  const ZikrViewerShareZikrEvent({this.content});
+  const ZikrViewerShareZikrEvent({required this.content});
 
   @override
   List<Object?> get props => [content];
@@ -59,11 +59,11 @@ final class ZikrViewerShareZikrEvent extends ZikrViewerEvent {
 
 final class ZikrViewerToggleZikrBookmarkEvent extends ZikrViewerEvent {
   final bool bookmark;
-  final DbContent? content;
+  final DbContent content;
 
   const ZikrViewerToggleZikrBookmarkEvent({
     required this.bookmark,
-    this.content,
+    required this.content,
   });
 
   @override
@@ -71,9 +71,9 @@ final class ZikrViewerToggleZikrBookmarkEvent extends ZikrViewerEvent {
 }
 
 final class ZikrViewerReportZikrEvent extends ZikrViewerEvent {
-  final DbContent? content;
+  final DbContent content;
 
-  const ZikrViewerReportZikrEvent({this.content});
+  const ZikrViewerReportZikrEvent({required this.content});
 
   @override
   List<Object?> get props => [content];
@@ -111,6 +111,13 @@ class ZikrViewerSaveSessionEvent extends ZikrViewerEvent {
 
 class ZikrViewerResetSessionEvent extends ZikrViewerEvent {
   const ZikrViewerResetSessionEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ZikrViewerVolumeKeyPressedEvent extends ZikrViewerEvent {
+  const ZikrViewerVolumeKeyPressedEvent();
 
   @override
   List<Object> get props => [];

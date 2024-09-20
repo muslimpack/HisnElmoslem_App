@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
+  final DbContent dbContent;
   const ZikrViewerPageModeBottomBar({
     super.key,
+    required this.dbContent,
   });
 
   @override
@@ -23,7 +26,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
             onPressed: () async {
               context
                   .read<ZikrViewerBloc>()
-                  .add(const ZikrViewerResetZikrEvent());
+                  .add(ZikrViewerResetZikrEvent(content: dbContent));
             },
           ),
           const FontSettingsIconButton(),
@@ -37,7 +40,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
             onPressed: () async {
               context
                   .read<ZikrViewerBloc>()
-                  .add(const ZikrViewerReportZikrEvent());
+                  .add(ZikrViewerReportZikrEvent(content: dbContent));
             },
           ),
         ],

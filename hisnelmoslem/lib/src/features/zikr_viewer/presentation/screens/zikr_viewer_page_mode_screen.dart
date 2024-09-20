@@ -25,10 +25,17 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
                 ),
               ),
             ],
-            bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(50),
-              child: ZikrViewerPageModeAppBar(),
-            ),
+            bottom: state.activeZikr == null
+                ? null
+                : PreferredSize(
+                    preferredSize: const Size.fromHeight(50),
+                    child: Column(
+                      children: [
+                        ZikrViewerTopBar(dbContent: state.activeZikr!),
+                        const ZikrViewerProgressBar(),
+                      ],
+                    ),
+                  ),
           ),
           body: PageView.builder(
             physics: const BouncingScrollPhysics(),
@@ -40,7 +47,9 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
               );
             },
           ),
-          bottomNavigationBar: const ZikrViewerPageModeBottomBar(),
+          bottomNavigationBar: state.activeZikr == null
+              ? null
+              : ZikrViewerPageModeBottomBar(dbContent: state.activeZikr!),
         );
       },
     );

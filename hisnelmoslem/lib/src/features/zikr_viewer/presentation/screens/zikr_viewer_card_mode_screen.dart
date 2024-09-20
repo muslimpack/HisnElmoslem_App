@@ -25,25 +25,9 @@ class _ZikrViewerCardModeScreen extends StatelessWidget {
               ),
               if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
             ],
-            bottom: PreferredSize(
-              preferredSize: const Size(100, 5),
-              child: Stack(
-                children: [
-                  LinearProgressIndicator(
-                    value: 1 - state.manorProgress,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  LinearProgressIndicator(
-                    backgroundColor: Colors.transparent,
-                    value: state.majorProgress,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary.withOpacity(.5),
-                    ),
-                  ),
-                ],
-              ),
+            bottom: const PreferredSize(
+              preferredSize: Size(100, 5),
+              child: ZikrViewerProgressBar(),
             ),
           ),
           body: ListView.builder(
