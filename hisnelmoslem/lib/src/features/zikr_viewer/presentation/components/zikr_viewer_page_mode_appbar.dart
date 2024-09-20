@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
@@ -31,6 +32,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
+                  tooltip: S.of(context).commentary,
                   icon: Icon(MdiIcons.comment),
                   onPressed: () {
                     showCommentaryDialog(
@@ -40,6 +42,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   },
                 ),
                 IconButton(
+                  tooltip: S.of(context).shareAsImage,
                   icon: Icon(MdiIcons.camera),
                   onPressed: () {
                     context.push(
@@ -51,6 +54,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                 ),
                 if (!activeZikr.favourite)
                   IconButton(
+                    tooltip: S.of(context).bookmark,
                     padding: EdgeInsets.zero,
                     icon: const Icon(
                       Icons.favorite_border,
@@ -65,6 +69,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                   )
                 else
                   IconButton(
+                    tooltip: S.of(context).bookmark,
                     padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.favorite,
@@ -79,6 +84,7 @@ class ZikrViewerPageModeAppBar extends StatelessWidget {
                     },
                   ),
                 IconButton(
+                  tooltip: S.of(context).share,
                   padding: EdgeInsets.zero,
                   icon: const Icon(Icons.share),
                   onPressed: () async {

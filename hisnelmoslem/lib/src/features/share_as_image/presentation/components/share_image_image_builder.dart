@@ -99,7 +99,8 @@ class ShareImageImageBuilder extends StatelessWidget {
                   color: state.shareImageSettings.titleTextColor,
                   thickness: state.dividerSize,
                 ),
-                //Bottom
+
+                /// Bottom
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: Row(

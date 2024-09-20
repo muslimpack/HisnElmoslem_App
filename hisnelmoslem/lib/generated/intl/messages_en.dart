@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "azkarFilters": MessageLookupByLibrary.simpleMessage("Azkar Filters"),
         "backgroundColor":
             MessageLookupByLibrary.simpleMessage("Background color"),
+        "bookmark": MessageLookupByLibrary.simpleMessage("Bookmark"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("Card index"),
         "cardMode": MessageLookupByLibrary.simpleMessage("Card Mode"),
         "channelInAppName":
@@ -60,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clickToChooseTime":
             MessageLookupByLibrary.simpleMessage("Click to set the time"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "commentary": MessageLookupByLibrary.simpleMessage("Commentary"),
         "commentaryBenefit": MessageLookupByLibrary.simpleMessage("Fadl"),
         "commentaryHadith": MessageLookupByLibrary.simpleMessage("Hadith"),
         "commentarySharh": MessageLookupByLibrary.simpleMessage("Commentary"),
@@ -123,6 +125,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Features I hope to be added:"),
         "fixedSizeMode":
             MessageLookupByLibrary.simpleMessage("Fixed size mode"),
+        "fontDecreaeSize":
+            MessageLookupByLibrary.simpleMessage("Decreae font size"),
+        "fontIncreaeSize":
+            MessageLookupByLibrary.simpleMessage("Increae font size"),
+        "fontResetSize":
+            MessageLookupByLibrary.simpleMessage("Reset font size"),
         "fontSettings": MessageLookupByLibrary.simpleMessage("Font Settings"),
         "fontType": MessageLookupByLibrary.simpleMessage("Font Type"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
@@ -214,12 +222,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminders": MessageLookupByLibrary.simpleMessage("Reminders"),
         "remindersManager":
             MessageLookupByLibrary.simpleMessage("Reminders Control"),
+        "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reportBugsRequestFeatures": MessageLookupByLibrary.simpleMessage(
             "Report bugs and request new features"),
         "requiresAppRestart":
             MessageLookupByLibrary.simpleMessage("Requires app restart"),
         "resetAllCounters":
             MessageLookupByLibrary.simpleMessage("Reset all counters?"),
+        "resetZikr": MessageLookupByLibrary.simpleMessage("Reset Zikr"),
         "reviewIndexOfBook": MessageLookupByLibrary.simpleMessage(
             "Please review the index of the book"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -237,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareAsImage": MessageLookupByLibrary.simpleMessage("Share as image"),
         "shareZikr": MessageLookupByLibrary.simpleMessage("Share Zikr"),
         "shouldBe": MessageLookupByLibrary.simpleMessage("It should be:"),
+        "showDiacritics":
+            MessageLookupByLibrary.simpleMessage("Show Diacritics"),
         "showFadl": MessageLookupByLibrary.simpleMessage("Show fadl"),
         "showSourceOfZikr":
             MessageLookupByLibrary.simpleMessage("Show source of zikr"),

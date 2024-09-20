@@ -180,6 +180,16 @@ class S {
     );
   }
 
+  /// `Bookmark`
+  String get bookmark {
+    return Intl.message(
+      'Bookmark',
+      name: 'bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Card index`
   String get cardIndex {
     return Intl.message(
@@ -295,6 +305,16 @@ class S {
     return Intl.message(
       'Close',
       name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Commentary`
+  String get commentary {
+    return Intl.message(
+      'Commentary',
+      name: 'commentary',
       desc: '',
       args: [],
     );
@@ -745,6 +765,36 @@ class S {
     return Intl.message(
       'Fixed size mode',
       name: 'fixedSizeMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decreae font size`
+  String get fontDecreaeSize {
+    return Intl.message(
+      'Decreae font size',
+      name: 'fontDecreaeSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increae font size`
+  String get fontIncreaeSize {
+    return Intl.message(
+      'Increae font size',
+      name: 'fontIncreaeSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset font size`
+  String get fontResetSize {
+    return Intl.message(
+      'Reset font size',
+      name: 'fontResetSize',
       desc: '',
       args: [],
     );
@@ -1350,6 +1400,16 @@ class S {
     );
   }
 
+  /// `Report`
+  String get report {
+    return Intl.message(
+      'Report',
+      name: 'report',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report bugs and request new features`
   String get reportBugsRequestFeatures {
     return Intl.message(
@@ -1375,6 +1435,16 @@ class S {
     return Intl.message(
       'Reset all counters?',
       name: 'resetAllCounters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Zikr`
+  String get resetZikr {
+    return Intl.message(
+      'Reset Zikr',
+      name: 'resetZikr',
       desc: '',
       args: [],
     );
@@ -1505,6 +1575,16 @@ class S {
     return Intl.message(
       'It should be:',
       name: 'shouldBe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Diacritics`
+  String get showDiacritics {
+    return Intl.message(
+      'Show Diacritics',
+      name: 'showDiacritics',
       desc: '',
       args: [],
     );

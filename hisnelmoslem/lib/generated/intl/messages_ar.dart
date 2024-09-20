@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "areYouSure": MessageLookupByLibrary.simpleMessage("متأكد من ذلك؟"),
         "azkarFilters": MessageLookupByLibrary.simpleMessage("تصفية الأذكار"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("لون الخلفية"),
+        "bookmark": MessageLookupByLibrary.simpleMessage("أضف للمفضلة"),
         "cardIndex": MessageLookupByLibrary.simpleMessage("البطاقة رقم"),
         "cardMode": MessageLookupByLibrary.simpleMessage("وضعية البطاقات"),
         "channelInAppName":
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clickToChooseTime":
             MessageLookupByLibrary.simpleMessage("اضغط لاختيار التوقيت"),
         "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
+        "commentary": MessageLookupByLibrary.simpleMessage("الشرح"),
         "commentaryBenefit": MessageLookupByLibrary.simpleMessage("الفضل"),
         "commentaryHadith": MessageLookupByLibrary.simpleMessage("الحديث"),
         "commentarySharh": MessageLookupByLibrary.simpleMessage("الشرح"),
@@ -118,6 +120,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "featuresToBeAdded":
             MessageLookupByLibrary.simpleMessage("ميزات تتمنى وجودها:"),
         "fixedSizeMode": MessageLookupByLibrary.simpleMessage("حجم خط ثابت"),
+        "fontDecreaeSize": MessageLookupByLibrary.simpleMessage("قلل حجم الخط"),
+        "fontIncreaeSize":
+            MessageLookupByLibrary.simpleMessage("زيادة حجم الخط"),
+        "fontResetSize":
+            MessageLookupByLibrary.simpleMessage("إعادة تعيين حجم الخط"),
         "fontSettings": MessageLookupByLibrary.simpleMessage("إعدادات الخط"),
         "fontType": MessageLookupByLibrary.simpleMessage("نوع الخط"),
         "freeAdFreeAndOpenSourceApp": MessageLookupByLibrary.simpleMessage(
@@ -208,12 +215,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminders": MessageLookupByLibrary.simpleMessage("المنبهات"),
         "remindersManager":
             MessageLookupByLibrary.simpleMessage("إدارة تنبيهات الأذكار"),
+        "report": MessageLookupByLibrary.simpleMessage("تبليغ"),
         "reportBugsRequestFeatures":
             MessageLookupByLibrary.simpleMessage("الشكاوى والمقترحات"),
         "requiresAppRestart":
             MessageLookupByLibrary.simpleMessage("يتطلب إعادة تشغيل التطبيق"),
         "resetAllCounters":
             MessageLookupByLibrary.simpleMessage("إعادة ضبط جميع العدادات؟"),
+        "resetZikr": MessageLookupByLibrary.simpleMessage("إعادة تعيين الذكر"),
         "reviewIndexOfBook": MessageLookupByLibrary.simpleMessage(
             "برجاء قم بمراجعة فهرس الكتاب"),
         "search": MessageLookupByLibrary.simpleMessage("البحث"),
@@ -231,6 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareAsImage": MessageLookupByLibrary.simpleMessage("مشاركة كصورة"),
         "shareZikr": MessageLookupByLibrary.simpleMessage("مشاركة الذكر"),
         "shouldBe": MessageLookupByLibrary.simpleMessage("والصواب"),
+        "showDiacritics": MessageLookupByLibrary.simpleMessage("عرض التشكيل"),
         "showFadl": MessageLookupByLibrary.simpleMessage("عرض الفضل"),
         "showSourceOfZikr": MessageLookupByLibrary.simpleMessage("عرض المصدر"),
         "showZikrIndex": MessageLookupByLibrary.simpleMessage("عرض رقم الذكر"),

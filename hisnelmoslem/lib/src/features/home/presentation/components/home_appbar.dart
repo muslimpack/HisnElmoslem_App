@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -32,7 +33,7 @@ class HomeAppBar extends StatelessWidget {
                   ),
                 )
               : IconButton(
-                  splashRadius: 20,
+                  tooltip: S.of(context).close,
                   padding: EdgeInsets.zero,
                   icon: Icon(MdiIcons.close),
                   onPressed: () {
@@ -73,7 +74,7 @@ class HomeAppBar extends StatelessWidget {
           actions: [
             if (!state.isSearching) ...[
               IconButton(
-                splashRadius: 20,
+                tooltip: S.of(context).search,
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.search),
                 onPressed: () {
@@ -83,7 +84,6 @@ class HomeAppBar extends StatelessWidget {
                 },
               ),
               IconButton(
-                splashRadius: 20,
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.vertical_split_rounded),
                 onPressed: () {

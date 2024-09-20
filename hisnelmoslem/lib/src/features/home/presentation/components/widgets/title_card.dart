@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/alarm_dialog.dart';
@@ -42,6 +43,7 @@ class TitleCard extends StatelessWidget {
           ),
           if (dbTitle.favourite)
             IconButton(
+              tooltip: S.of(context).bookmark,
               icon: Icon(
                 Icons.bookmark_rounded,
                 color: Theme.of(context).colorScheme.primary,
@@ -57,6 +59,7 @@ class TitleCard extends StatelessWidget {
             )
           else
             IconButton(
+              tooltip: S.of(context).bookmark,
               icon: const Icon(Icons.bookmark_add_outlined),
               onPressed: () {
                 sl<HomeBloc>().add(

@@ -128,6 +128,7 @@ class _TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
+          tooltip: S.of(context).shareAsImage,
           icon: Icon(MdiIcons.camera),
           onPressed: () {
             context.push(
@@ -138,6 +139,7 @@ class _TopBar extends StatelessWidget {
           },
         ),
         IconButton(
+          tooltip: S.of(context).bookmark,
           icon: dbContent.favourite
               ? Icon(
                   Icons.favorite,
@@ -156,6 +158,7 @@ class _TopBar extends StatelessWidget {
           },
         ),
         IconButton(
+          tooltip: S.of(context).share,
           icon: const Icon(
             Icons.share,
           ),
@@ -190,7 +193,7 @@ class _BottomBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
               leading: IconButton(
-                splashRadius: 20,
+                tooltip: S.of(context).resetZikr,
                 onPressed: () async {
                   cardState.reset();
                 },

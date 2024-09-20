@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/commentary_dialog.dart';
@@ -94,6 +95,7 @@ class _BottomBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
+          tooltip: S.of(context).resetZikr,
           onPressed: () async {
             context
                 .read<ZikrViewerBloc>()
@@ -102,6 +104,7 @@ class _BottomBar extends StatelessWidget {
           icon: const Icon(Icons.repeat),
         ),
         IconButton(
+          tooltip: S.of(context).report,
           icon: const Icon(
             Icons.report,
             color: Colors.orange,
@@ -130,7 +133,7 @@ class _TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         IconButton(
-          splashRadius: 20,
+          tooltip: S.of(context).commentary,
           icon: Icon(MdiIcons.comment),
           onPressed: () {
             showCommentaryDialog(
@@ -140,7 +143,7 @@ class _TopBar extends StatelessWidget {
           },
         ),
         IconButton(
-          splashRadius: 20,
+          tooltip: S.of(context).shareAsImage,
           icon: Icon(MdiIcons.camera),
           onPressed: () {
             context.push(
@@ -152,6 +155,7 @@ class _TopBar extends StatelessWidget {
         ),
         if (!dbContent.favourite)
           IconButton(
+            tooltip: S.of(context).bookmark,
             icon: const Icon(
               Icons.favorite_border,
             ),
@@ -166,6 +170,7 @@ class _TopBar extends StatelessWidget {
           )
         else
           IconButton(
+            tooltip: S.of(context).bookmark,
             icon: Icon(
               Icons.favorite,
               color: Theme.of(context).colorScheme.primary,
@@ -180,6 +185,7 @@ class _TopBar extends StatelessWidget {
             },
           ),
         IconButton(
+          tooltip: S.of(context).share,
           icon: const Icon(
             Icons.share,
           ),

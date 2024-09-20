@@ -88,6 +88,7 @@ class ShareImageBaractionButtons extends StatelessWidget {
     return Row(
       children: [
         IconButton(
+          tooltip: S.of(context).settings,
           onPressed: () async {
             await showDialog(
               context: context,
@@ -101,6 +102,7 @@ class ShareImageBaractionButtons extends StatelessWidget {
           icon: const Icon(Icons.style),
         ),
         IconButton(
+          tooltip: S.of(context).share,
           onPressed: () async {
             context.read<ShareImageCubit>().shareImage();
           },

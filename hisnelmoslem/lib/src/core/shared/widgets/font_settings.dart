@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -21,18 +22,21 @@ class FontSettingsToolbox extends StatelessWidget {
       children: <Widget>[
         if (showFontResizeControllers) ...[
           IconButton(
+            tooltip: S.of(context).fontResetSize,
             icon: Icon(MdiIcons.restart),
             onPressed: () {
               context.read<SettingsCubit>().resetFontSize();
             },
           ),
           IconButton(
+            tooltip: S.of(context).fontIncreaeSize,
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
               context.read<SettingsCubit>().increaseFontSize();
             },
           ),
           IconButton(
+            tooltip: S.of(context).fontDecreaeSize,
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
               context.read<SettingsCubit>().decreaseFontSize();
@@ -41,6 +45,7 @@ class FontSettingsToolbox extends StatelessWidget {
         ],
         if (showDiacriticsControllers)
           IconButton(
+            tooltip: S.of(context).showDiacritics,
             icon: Icon(MdiIcons.abjadArabic),
             onPressed: () {
               context.read<SettingsCubit>().toggleDiacriticsStatus();
