@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
@@ -6,10 +8,24 @@ import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FontSettingsToolbox extends StatelessWidget {
+  const FontSettingsToolbox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        TextSample(),
+        FontSettingsBar(),
+      ],
+    );
+  }
+}
+
+class FontSettingsBar extends StatelessWidget {
   final bool showFontResizeControllers;
   final bool showDiacriticsControllers;
 
-  const FontSettingsToolbox({
+  const FontSettingsBar({
     super.key,
     this.showFontResizeControllers = true,
     this.showDiacriticsControllers = true,
@@ -46,7 +62,17 @@ class FontSettingsToolbox extends StatelessWidget {
         if (showDiacriticsControllers)
           IconButton(
             tooltip: S.of(context).showDiacritics,
-            icon: Icon(MdiIcons.abjadArabic),
+            icon: Transform.rotate(
+              angle: context.watch<SettingsCubit>().state.showDiacritics
+                  ? 0
+                  : -math.pi / 8,
+              child: Icon(
+                MdiIcons.abjadArabic,
+                size: context.watch<SettingsCubit>().state.showDiacritics
+                    ? 30
+                    : 25,
+              ),
+            ),
             onPressed: () {
               context.read<SettingsCubit>().toggleDiacriticsStatus();
             },

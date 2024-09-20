@@ -29,7 +29,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
           const VerticalDivider(),
           const Expanded(
             flex: 3,
-            child: FontSettingsToolbox(),
+            child: FontSettingsBar(),
           ),
           const VerticalDivider(),
           IconButton(

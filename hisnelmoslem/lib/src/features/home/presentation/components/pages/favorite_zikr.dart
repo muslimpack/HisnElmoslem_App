@@ -49,7 +49,7 @@ class FavouriteZikr extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Expanded(
-                        child: FontSettingsToolbox(),
+                        child: FontSettingsBar(),
                       ),
                     ],
                   ),

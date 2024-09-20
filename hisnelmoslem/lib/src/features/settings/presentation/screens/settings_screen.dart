@@ -120,7 +120,8 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           const Divider(),
-          const _SettingsFontSettingsSection(),
+          Title(title: S.of(context).fontSettings),
+          const FontSettingsToolbox(),
           const Divider(),
           const _SettingsAlarmsSection(),
           const Divider(),
@@ -196,21 +197,6 @@ class SettingsGeneralSection extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class _SettingsFontSettingsSection extends StatelessWidget {
-  const _SettingsFontSettingsSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Title(title: S.of(context).fontSettings),
-        const TextSample(),
-        const FontSettingsToolbox(),
-      ],
     );
   }
 }

@@ -47,7 +47,7 @@ class FakeHadithDashboardScreen extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 3,
-                      child: FontSettingsToolbox(
+                      child: FontSettingsBar(
                         showDiacriticsControllers: false,
                       ),
                     ),
