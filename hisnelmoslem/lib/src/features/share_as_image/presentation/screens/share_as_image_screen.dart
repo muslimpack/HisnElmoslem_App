@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_bottom_bar.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_image_builder.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_card.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -66,7 +66,7 @@ class ShareAsImageScreen extends StatelessWidget {
                       controller: context
                           .read<ShareImageCubit>()
                           .captureWidgetController,
-                      child: const ShareImageImageBuilder(),
+                      child: const ShareImageCard(),
                     ),
                   ),
                 ],

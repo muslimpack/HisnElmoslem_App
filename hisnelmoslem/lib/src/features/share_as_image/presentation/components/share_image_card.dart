@@ -4,8 +4,8 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 
-class ShareImageImageBuilder extends StatelessWidget {
-  const ShareImageImageBuilder({
+class ShareImageCard extends StatelessWidget {
+  const ShareImageCard({
     super.key,
   });
 
