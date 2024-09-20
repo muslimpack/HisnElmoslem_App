@@ -16,13 +16,6 @@ class ShareImageBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            tooltip: S.of(context).share,
-            onPressed: () async {
-              shareImageCubit.shareImage();
-            },
-            icon: const Icon(Icons.share),
-          ),
-          IconButton(
             tooltip: S.of(context).fontResetSize,
             icon: Icon(MdiIcons.restart),
             onPressed: () {
