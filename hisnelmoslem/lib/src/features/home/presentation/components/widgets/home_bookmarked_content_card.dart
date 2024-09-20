@@ -1,16 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class HomeBookmarkedContentCard extends StatefulWidget {
@@ -73,35 +71,16 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
             onTap: () {
               decrease();
             },
-            child: BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, state) {
-                return Container(
-                  padding: const EdgeInsets.all(15),
-                  constraints: const BoxConstraints(minHeight: 200),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ZikrContentBuilder(
-                        dbContent: dbContent,
-                        enableDiacritics: state.showDiacritics,
-                        fontSize: state.fontSize * 10,
-                      ),
-                      if (dbContent.fadl.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            dbContent.fadl,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: state.fontSize * 10,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              },
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              constraints: const BoxConstraints(minHeight: 200),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ZikrViewerZikrBody(dbContent: dbContent),
+                ],
+              ),
             ),
           ),
           const Divider(height: 0),

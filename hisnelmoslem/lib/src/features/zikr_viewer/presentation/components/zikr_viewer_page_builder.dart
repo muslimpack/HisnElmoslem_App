@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
-import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
-import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageBuilder extends StatelessWidget {
@@ -59,34 +57,12 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<SettingsCubit, SettingsState>(
-            builder: (context, state) {
-              return ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(15),
-                children: [
-                  ZikrContentBuilder(
-                    dbContent: dbContent,
-                    enableDiacritics: state.showDiacritics,
-                    fontSize: state.fontSize * 10,
-                  ),
-                  if (dbContent.fadl.isNotEmpty) ...[
-                    const SizedBox(height: 20),
-                    const TextDivider(),
-                    Text(
-                      dbContent.fadl,
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: state.fontSize * 8,
-                        height: 2,
-                      ),
-                    ),
-                  ],
-                ],
-              );
-            },
+          ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(15),
+            children: [
+              ZikrViewerZikrBody(dbContent: dbContent),
+            ],
           ),
         ],
       ),
