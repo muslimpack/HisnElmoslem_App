@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 
 class ShareAsImageRepo {
@@ -9,14 +8,13 @@ class ShareAsImageRepo {
 
   ShareAsImageRepo(this.box);
 
-  ///MARK: Share as image data
+  ///MARK: Colors
 
   static const String _shareImageTitleTextBoxKey =
       'share_image_title_text_color';
 
   Color get shareImageTitleTextColor => Color(
-        box.read<int?>(_shareImageTitleTextBoxKey) ??
-            kShareImageColorsList[4].value,
+        box.read<int?>(_shareImageTitleTextBoxKey) ?? 0xFF01979F,
       );
   Future<void> shareImageUpdateTitleColor(Color color) async {
     await box.write(_shareImageTitleTextBoxKey, color.value);
@@ -27,8 +25,7 @@ class ShareAsImageRepo {
       'share_image_body_text_color';
 
   Color get shareImageBodyTextColor => Color(
-        box.read<int?>(_shareImageBodyTextColorBoxKey) ??
-            kShareImageColorsList[5].value,
+        box.read<int?>(_shareImageBodyTextColorBoxKey) ?? 0xFFFFF8EE,
       );
 
   Future<void> shareImageUpdateTextColor(Color color) async {
@@ -40,8 +37,7 @@ class ShareAsImageRepo {
       'share_image_additional_text_color';
 
   Color get shareImageAdditionalTextColor => Color(
-        box.read<int?>(_shareImageAdditionalTextColorBoxKey) ??
-            kShareImageColorsList[3].value,
+        box.read<int?>(_shareImageAdditionalTextColorBoxKey) ?? 0xFFFFE2B9,
       );
   Future<void> updateAdditionalTextColor(Color color) async {
     await box.write(_shareImageAdditionalTextColorBoxKey, color.value);
@@ -52,12 +48,13 @@ class ShareAsImageRepo {
       'share_image_background_color';
 
   Color get shareImageBackgroundColor => Color(
-        box.read<int?>(_shareImageBackgroundColorBoxKey) ??
-            kShareImageColorsList[7].value,
+        box.read<int?>(_shareImageBackgroundColorBoxKey) ?? 0xFF191A21,
       );
   Future<void> updateBackgroundColor(Color color) async {
     await box.write(_shareImageBackgroundColorBoxKey, color.value);
   }
+
+  ///MARK: Font
 
   ///
   static const String _shareImageFontSizeBoxKey = 'share_image_font_size';
@@ -66,6 +63,8 @@ class ShareAsImageRepo {
   Future<void> shareImageChangFontSize(double value) async {
     await box.write(_shareImageFontSizeBoxKey, value);
   }
+
+  ///MARK: Show Hide
 
   ///
   static const String _shareImageShowFadlBoxKey = 'share_image_show_fadl';
@@ -90,10 +89,12 @@ class ShareAsImageRepo {
       'share_image_show_zikr_index';
 
   bool get shareImageShowZikrIndex =>
-      box.read(_shareImageShowZikrIndexBoxKey) ?? true;
+      box.read(_shareImageShowZikrIndexBoxKey) ?? false;
   Future<void> shareImageUpdateShowZikrIndex({required bool value}) async {
     await box.write(_shareImageShowZikrIndexBoxKey, value);
   }
+
+  ///MARK: Text
 
   ///
   static const String _shareImageRemoveDiacriticsKey =
