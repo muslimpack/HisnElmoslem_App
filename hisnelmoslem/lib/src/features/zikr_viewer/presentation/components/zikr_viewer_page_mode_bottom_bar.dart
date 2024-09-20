@@ -13,7 +13,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
@@ -26,12 +26,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
                   .add(const ZikrViewerResetZikrEvent());
             },
           ),
-          const VerticalDivider(),
-          const Expanded(
-            flex: 3,
-            child: FontSettingsBar(),
-          ),
-          const VerticalDivider(),
+          const FontSettingsIconButton(),
           IconButton(
             tooltip: S.of(context).report,
             splashRadius: 20,

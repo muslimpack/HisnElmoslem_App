@@ -7,12 +7,34 @@ import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+class FontSettingsIconButton extends StatelessWidget {
+  const FontSettingsIconButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: S.of(context).fontSettings,
+      padding: EdgeInsets.zero,
+      icon: Icon(MdiIcons.formatQuoteOpen),
+      onPressed: () async {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(content: FontSettingsToolbox());
+          },
+        );
+      },
+    );
+  }
+}
+
 class FontSettingsToolbox extends StatelessWidget {
   const FontSettingsToolbox({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         TextSample(),
         FontSettingsBar(),
