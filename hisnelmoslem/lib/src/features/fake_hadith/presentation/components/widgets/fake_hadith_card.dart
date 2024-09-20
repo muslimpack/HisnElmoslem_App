@@ -10,10 +10,10 @@ import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
-class HadithCard extends StatelessWidget {
+class FakeHadithCard extends StatelessWidget {
   final DbFakeHaith fakeHadith;
 
-  const HadithCard({
+  const FakeHadithCard({
     super.key,
     required this.fakeHadith,
   });
