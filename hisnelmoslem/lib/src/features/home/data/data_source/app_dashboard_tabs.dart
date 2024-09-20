@@ -4,7 +4,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/pages/fav
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/fehrs.dart';
 import 'package:hisnelmoslem/src/features/settings/data/models/app_component.dart';
 
-final List<AppComponent> appDashboardItem = [
+final List<AppComponent> appDashboardTabs = [
   AppComponent(
     title: (context) => S.of(context).index,
     widget: const AzkarFehrs(),

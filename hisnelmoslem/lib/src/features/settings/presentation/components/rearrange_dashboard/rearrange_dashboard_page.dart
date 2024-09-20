@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
+import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 class RearrangeDashboardPage extends StatelessWidget {
@@ -29,7 +29,7 @@ class RearrangeDashboardPage extends StatelessWidget {
               return ListTile(
                 key: Key("$index"),
                 title: Text(
-                  appDashboardItem[state.dashboardArrangement[index]]
+                  appDashboardTabs[state.dashboardArrangement[index]]
                       .title(context),
                 ),
                 trailing: const Icon(Icons.horizontal_rule),

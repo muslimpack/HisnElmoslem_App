@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/core/values/app_dashboard.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
+import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/home_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -57,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   late final TabController tabController;
   @override
   void initState() {
-    tabController = TabController(vsync: this, length: appDashboardItem.length);
+    tabController = TabController(vsync: this, length: appDashboardTabs.length);
     super.initState();
   }
 
@@ -88,9 +88,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                         controller: tabController,
                         children: [
                           ...List.generate(
-                            appDashboardItem.length,
+                            appDashboardTabs.length,
                             (index) {
-                              return appDashboardItem[
+                              return appDashboardTabs[
                                       state.dashboardArrangement[index]]
                                   .widget;
                             },
