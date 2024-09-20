@@ -18,15 +18,9 @@ class ShareImageImageBuilder extends StatelessWidget {
         }
 
         final dbContent = state.content;
-        return Card(
-          clipBehavior: Clip.hardEdge,
+        return Container(
           margin: EdgeInsets.zero,
           color: state.shareImageSettings.backgroundColor,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(30),
-            ),
-          ),
           child: SizedBox(
             width: state.shareImageSettings.imageWidth.toDouble(),
             child: Column(
@@ -48,6 +42,7 @@ class ShareImageImageBuilder extends StatelessWidget {
                 Divider(
                   color: state.shareImageSettings.titleTextColor,
                   thickness: state.dividerSize,
+                  height: 0,
                 ),
                 ListView(
                   padding: const EdgeInsets.all(20),
@@ -116,7 +111,7 @@ class ShareImageImageBuilder extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: state.shareImageSettings.titleTextColor,
-                          fontSize: 20,
+                          fontSize: 20 * state.titleFactor * 1.5,
                         ),
                       ),
                     ],
