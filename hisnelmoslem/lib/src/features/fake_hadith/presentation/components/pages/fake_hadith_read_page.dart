@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
-import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/hadith_card.dart';
+import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/fake_hadith_card.dart';
 
 class FakeHadithReadPage extends StatelessWidget {
   final List<DbFakeHaith> hadithList;

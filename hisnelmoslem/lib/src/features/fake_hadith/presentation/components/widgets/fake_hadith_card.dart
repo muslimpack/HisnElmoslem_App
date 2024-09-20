@@ -158,7 +158,10 @@ class _TopBar extends StatelessWidget {
         ),
         IconButton(
           tooltip: S.of(context).report,
-          icon: const Icon(Icons.report),
+          icon: const Icon(
+            Icons.report,
+            color: Colors.orange,
+          ),
           onPressed: () {
             context.read<FakeHadithBloc>().add(
                   FakeHadithReportHadithEvent(fakeHadith: fakeHadith),
