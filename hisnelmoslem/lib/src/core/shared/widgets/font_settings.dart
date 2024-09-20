@@ -20,7 +20,13 @@ class FontSettingsIconButton extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return const AlertDialog(content: FontSettingsToolbox());
+            return const AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+              ),
+              contentPadding: EdgeInsets.zero,
+              content: FontSettingsToolbox(),
+            );
           },
         );
       },
