@@ -96,9 +96,6 @@ class FontSettingsBar extends StatelessWidget {
                   : -math.pi / 8,
               child: Icon(
                 MdiIcons.abjadArabic,
-                size: context.watch<SettingsCubit>().state.showDiacritics
-                    ? 30
-                    : 25,
               ),
             ),
             onPressed: () {
