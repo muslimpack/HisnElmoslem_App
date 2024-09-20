@@ -159,7 +159,7 @@ class _TopBar extends StatelessWidget {
         IconButton(
           tooltip: S.of(context).report,
           icon: const Icon(
-            Icons.report,
+            Icons.report_outlined,
             color: Colors.orange,
           ),
           onPressed: () {

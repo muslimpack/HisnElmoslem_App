@@ -29,10 +29,9 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
           const FontSettingsIconButton(),
           IconButton(
             tooltip: S.of(context).report,
-            splashRadius: 20,
             padding: EdgeInsets.zero,
             icon: const Icon(
-              Icons.report,
+              Icons.report_outlined,
               color: Colors.orange,
             ),
             onPressed: () async {
