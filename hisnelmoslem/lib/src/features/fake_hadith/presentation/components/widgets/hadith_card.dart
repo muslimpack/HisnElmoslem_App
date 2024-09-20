@@ -104,78 +104,66 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: !fakeHadith.isRead
-              ? const Icon(
-                  Icons.check,
-                )
-              : const Icon(
-                  Icons.checklist,
-                ),
-        ),
-        Expanded(
-          child: IconButton(
-            splashRadius: 20,
-            padding: EdgeInsets.zero,
-            icon: const Icon(
-              Icons.copy,
-            ),
-            onPressed: () async {
-              context
-                  .read<FakeHadithBloc>()
-                  .add(FakeHadithCopyHadithEvent(fakeHadith: fakeHadith));
-            },
+        if (!fakeHadith.isRead)
+          const Icon(
+            Icons.check,
+          )
+        else
+          const Icon(
+            Icons.checklist,
           ),
+        IconButton(
+          tooltip: S.of(context).copy,
+          icon: const Icon(
+            Icons.copy,
+          ),
+          onPressed: () async {
+            context
+                .read<FakeHadithBloc>()
+                .add(FakeHadithCopyHadithEvent(fakeHadith: fakeHadith));
+          },
         ),
-        Expanded(
-          child: IconButton(
-            splashRadius: 20,
-            padding: EdgeInsets.zero,
-            icon: const Icon(Icons.camera_alt_rounded),
-            onPressed: () {
-              final DbContent dbContent = DbContent(
-                id: -1,
-                titleId: -1,
-                order: fakeHadith.id,
-                content: fakeHadith.text,
-                fadl: fakeHadith.darga,
-                source: fakeHadith.source,
-                count: 0,
-                favourite: false,
-                hokm: "",
-                search: "",
-              );
+        IconButton(
+          tooltip: S.of(context).shareAsImage,
+          icon: const Icon(Icons.camera_alt_rounded),
+          onPressed: () {
+            final DbContent dbContent = DbContent(
+              id: -1,
+              titleId: -1,
+              order: fakeHadith.id,
+              content: fakeHadith.text,
+              fadl: fakeHadith.darga,
+              source: fakeHadith.source,
+              count: 0,
+              favourite: false,
+              hokm: "",
+              search: "",
+            );
 
-              context.push(
-                ShareAsImageScreen(dbContent: dbContent),
-              );
-            },
-          ),
+            context.push(
+              ShareAsImageScreen(dbContent: dbContent),
+            );
+          },
         ),
-        Expanded(
-          child: IconButton(
-            splashRadius: 20,
-            padding: EdgeInsets.zero,
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              context.read<FakeHadithBloc>().add(
-                    FakeHadithShareHadithEvent(fakeHadith: fakeHadith),
-                  );
-            },
-          ),
+        IconButton(
+          tooltip: S.of(context).share,
+          icon: const Icon(Icons.share),
+          onPressed: () {
+            context.read<FakeHadithBloc>().add(
+                  FakeHadithShareHadithEvent(fakeHadith: fakeHadith),
+                );
+          },
         ),
-        Expanded(
-          child: IconButton(
-            splashRadius: 20,
-            padding: EdgeInsets.zero,
-            icon: const Icon(Icons.report),
-            onPressed: () {
-              context.read<FakeHadithBloc>().add(
-                    FakeHadithReportHadithEvent(fakeHadith: fakeHadith),
-                  );
-            },
-          ),
+        IconButton(
+          tooltip: S.of(context).report,
+          icon: const Icon(Icons.report),
+          onPressed: () {
+            context.read<FakeHadithBloc>().add(
+                  FakeHadithReportHadithEvent(fakeHadith: fakeHadith),
+                );
+          },
         ),
       ],
     );
