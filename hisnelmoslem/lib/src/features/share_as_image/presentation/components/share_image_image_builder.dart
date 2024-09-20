@@ -41,6 +41,7 @@ class ShareImageImageBuilder extends StatelessWidget {
                       color: state.shareImageSettings.titleTextColor,
                       fontSize:
                           state.shareImageSettings.fontSize * state.titleFactor,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
