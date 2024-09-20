@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
@@ -116,6 +118,17 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
                 ],
               ),
         actions: [
+          IconButton(
+            tooltip: S.of(context).shareAsImage,
+            icon: const Icon(Icons.camera_alt_outlined),
+            onPressed: () {
+              context.push(
+                ShareAsImageScreen(
+                  dbContent: dbContent,
+                ),
+              );
+            },
+          ),
           IconButton(
             tooltip: S.of(context).copy,
             icon: const Icon(Icons.copy),
