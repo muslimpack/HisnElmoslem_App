@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allowNotifications": MessageLookupByLibrary.simpleMessage(
             "Allow app to send notifications?"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Hisn ELmoslem"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "azkarFilters": MessageLookupByLibrary.simpleMessage("Azkar Filters"),
         "backgroundColor":
@@ -165,8 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "likeAboutApp":
             MessageLookupByLibrary.simpleMessage("I like about this app:"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
-        "misspelled": MessageLookupByLibrary.simpleMessage(
-            "Hisn ELmoslem App | Misspelled"),
+        "misspelled": MessageLookupByLibrary.simpleMessage("Misspelled"),
         "moreApps": MessageLookupByLibrary.simpleMessage("More apps"),
         "newText": MessageLookupByLibrary.simpleMessage("New"),
         "no": MessageLookupByLibrary.simpleMessage("No"),

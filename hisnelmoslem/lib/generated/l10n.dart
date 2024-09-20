@@ -150,6 +150,16 @@ class S {
     );
   }
 
+  /// `Hisn ELmoslem`
+  String get appTitle {
+    return Intl.message(
+      'Hisn ELmoslem',
+      name: 'appTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Are you sure?`
   String get areYouSure {
     return Intl.message(
@@ -1080,10 +1090,10 @@ class S {
     );
   }
 
-  /// `Hisn ELmoslem App | Misspelled`
+  /// `Misspelled`
   String get misspelled {
     return Intl.message(
-      'Hisn ELmoslem App | Misspelled',
+      'Misspelled',
       name: 'misspelled',
       desc: '',
       args: [],

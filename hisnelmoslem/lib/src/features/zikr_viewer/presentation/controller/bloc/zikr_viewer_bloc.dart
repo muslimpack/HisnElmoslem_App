@@ -350,10 +350,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (activeZikr == null) return;
 
     final text = await activeZikr.getPlainText();
-    EmailManager.sendMisspelledInZikrWithText(
-      subject: state.title.name,
-      cardNumber: (activeZikr.id + 1).toString(),
-      text: text,
+    EmailManager.sendMisspelledInZikr(
+      title: state.title.name,
+      zikrId: (activeZikr.id + 1).toString(),
+      zikrBody: text,
     );
   }
 

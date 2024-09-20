@@ -1,80 +1,38 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/models/email.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
-  static const String emailOwner = kOrgEmail;
-
-  static void sendFeedbackEmail() {
-    sendEmail(
-      toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Rate the app",
-      body: '''
-$kAppVersion
-
-${S.current.notes}
-
-${S.current.likeAboutApp}
-
-${S.current.dislikeAboutApp}
-
-${S.current.featuresToBeAdded}
-
-''',
-    );
-  }
-
   static void messageUS() {
     sendEmail(
-      toMailId: emailOwner,
-      subject: "Hisn ELmoslem App | Chat",
-      body: '',
-    );
-  }
-
-  static void sendMisspelledInZikrWithDbModel({
-    required DbTitle dbTitle,
-    required DbContent dbContent,
-  }) {
-    sendMisspelledInZikr(
-      subject: dbTitle.name,
-      cardNumber: dbContent.order.toString(),
-      text: dbContent.content,
-    );
-  }
-
-  static void sendMisspelledInZikrWithText({
-    required String subject,
-    required String cardNumber,
-    required String text,
-  }) {
-    sendMisspelledInZikr(
-      cardNumber: cardNumber,
-      subject: subject,
-      text: text,
+      email: Email(
+        subject: S.current.chat,
+        body: '',
+      ),
     );
   }
 
   static void sendMisspelledInZikr({
-    required String subject,
-    required String cardNumber,
-    required String text,
+    required String title,
+    required String zikrId,
+    required String zikrBody,
   }) {
     sendEmail(
-      toMailId: emailOwner,
-      subject: S.current.misspelled,
-      body: '''
+      email: Email(
+        subject: S.current.misspelled,
+        body: '''
 ${S.current.spellingErrorIn}
-${S.current.title}: $subject
-${S.current.zikrIndex}: $cardNumber
-${S.current.text}: $text
+${S.current.title}: $title
+${S.current.zikrIndex}: $zikrId
+${S.current.text}: $zikrBody
 ${S.current.shouldBe}:
 
 ''',
+      ),
     );
   }
 
@@ -82,9 +40,9 @@ ${S.current.shouldBe}:
     required DbFakeHaith fakeHaith,
   }) {
     sendEmail(
-      toMailId: emailOwner,
-      subject: S.current.misspelled,
-      body: '''
+      email: Email(
+        subject: S.current.misspelled,
+        body: '''
 ${S.current.spellingErrorIn}
 
 ${S.current.subject}: ${S.current.fakeHadith}
@@ -96,21 +54,25 @@ ${S.current.text}: ${fakeHaith.text}
 ${S.current.shouldBe}:
 
 ''',
+      ),
     );
   }
 
   static Future<void> sendEmail({
-    required String toMailId,
-    required String subject,
-    required String body,
+    required Email email,
   }) async {
-    final mailTitle = "$subject | v$kAppVersion";
-    final url = 'mailto:$toMailId?subject=$mailTitle&body=$body';
+    final emailToSend = email.copyWith(
+      subject: "${S.current.appTitle} | ${email.subject} | v$kAppVersion",
+    );
+    hisnPrint(emailToSend);
+
+    final uri = emailToSend.getURI;
+
     try {
-      if (await canLaunchUrl(Uri.parse(url))) {
-        await launchUrl(Uri.parse(url));
+      if (await canLaunchUrl(Uri.parse(uri))) {
+        await launchUrl(Uri.parse(uri));
       } else {
-        throw 'Could not launch $url';
+        throw 'Could not launch $uri';
       }
     } catch (e) {
       hisnPrint(e.toString() + " | " * 88);

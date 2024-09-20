@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allowNotifications": MessageLookupByLibrary.simpleMessage(
             "هل تريد السماح بتشغيل الإشعارات؟"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("حصن المسلم"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("متأكد من ذلك؟"),
         "azkarFilters": MessageLookupByLibrary.simpleMessage("تصفية الأذكار"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("لون الخلفية"),
@@ -50,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الإشعارات المجدولة"),
         "channelScheduledNameDesc":
             MessageLookupByLibrary.simpleMessage("تستخدم للإشعارات المجدولة"),
-        "chat": MessageLookupByLibrary.simpleMessage("تطبيق حصن المسلم: نداء"),
+        "chat": MessageLookupByLibrary.simpleMessage("تواصل"),
         "chooseTimeForReminder":
             MessageLookupByLibrary.simpleMessage("اختر وقتا للتذكير"),
         "circleEvery": MessageLookupByLibrary.simpleMessage("دورة كل"),
@@ -159,8 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "likeAboutApp":
             MessageLookupByLibrary.simpleMessage("ما أعجبك في التطبيق:"),
         "message": MessageLookupByLibrary.simpleMessage("رسالة"),
-        "misspelled": MessageLookupByLibrary.simpleMessage(
-            "تطبيق حصن المسلم: خطأ إملائي"),
+        "misspelled": MessageLookupByLibrary.simpleMessage("خطأ إملائي"),
         "moreApps": MessageLookupByLibrary.simpleMessage("المزيد من تطبيقاتنا"),
         "newText": MessageLookupByLibrary.simpleMessage("جديد"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
@@ -207,8 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "قال رسول الله صلى الله عليه وسلم: «من كذب علي متعمدا فليتبوأ مقعده من النار»"),
         "quranPagesFromAndroidQuran": MessageLookupByLibrary.simpleMessage(
             "صفحات المصحف من خلال موقع android quran"),
-        "rateTheApp": MessageLookupByLibrary.simpleMessage(
-            "تطبيق حصن المسلم: تقييم التطبيق"),
+        "rateTheApp": MessageLookupByLibrary.simpleMessage("تقييم التطبيق"),
         "readAllContent":
             MessageLookupByLibrary.simpleMessage("لقد أتمت قراءة الأحاديث"),
         "reminderRemoved": MessageLookupByLibrary.simpleMessage("تم حذف منبه"),
