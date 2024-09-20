@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
@@ -48,6 +49,7 @@ class ShareImageCard extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   shrinkWrap: true,
                   children: [
+                    /// Content
                     ZikrContentBuilder(
                       dbContent: dbContent,
                       enableDiacritics:
@@ -55,6 +57,21 @@ class ShareImageCard extends StatelessWidget {
                       fontSize: state.shareImageSettings.fontSize,
                       color: state.shareImageSettings.bodyTextColor,
                     ),
+
+                    /// Count
+                    if (dbContent.count > 1) ...[
+                      const SizedBox(height: 25),
+                      Text(
+                        "${S.of(context).count}: ${dbContent.count}",
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: state.shareImageSettings.bodyTextColor,
+                          fontSize: state.shareImageSettings.fontSize *
+                              state.fadlFactor,
+                        ),
+                      ),
+                    ],
 
                     /// Fadl
                     if ((dbContent.fadl.isNotEmpty) &&
