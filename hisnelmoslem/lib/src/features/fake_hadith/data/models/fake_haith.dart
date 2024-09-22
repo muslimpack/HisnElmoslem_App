@@ -24,22 +24,12 @@ class DbFakeHaith extends Equatable {
       isRead = true;
     }
     return DbFakeHaith(
-      id: map['_id'] as int,
-      source: map['source'] as String,
-      text: (map['text'] as String).replaceAll("\\n", "\n"),
-      darga: (map['darga'] as String).replaceAll("\\n", "\n"),
+      id: map['id'] as int,
+      source: map['source'] as String? ?? "",
+      text: map['text'] as String? ?? "",
+      darga: map['darga'] as String? ?? "",
       isRead: isRead,
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      '_id': id,
-      'text': text,
-      'darga': darga,
-      'source': source,
-      'isRead': isRead ? 1 : 0,
-    };
   }
 
   DbFakeHaith copyWith({
