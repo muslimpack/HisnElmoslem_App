@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -83,19 +82,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeStartEvent event,
     Emitter<HomeState> emit,
   ) async {
+    final filters = zikrFiltersCubit.state.filters;
+
     final dbTitles = await hisnDBHelper.getAllTitles();
     final List<DbTitle> filtered = await applyFiltersOnTitels(
       dbTitles,
-      zikrFilters: zikrFiltersCubit.state.filters,
+      zikrFilters: filters,
     );
+
     final alarms = await alarmDatabaseHelper.getAlarms();
-    final bookmarkedContents = await hisnDBHelper.getFavouriteContents();
+
+    final azkarFromDB = await hisnDBHelper.getFavouriteContents();
+    final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
 
     emit(
       HomeLoadedState(
         titles: filtered,
         alarms: {for (final alarm in alarms) alarm.titleId: alarm},
-        bookmarkedContents: bookmarkedContents,
+        bookmarkedContents: filteredAzkar,
         isSearching: false,
         dashboardArrangement: appSettingsRepo.dashboardArrangement,
         freqFilters: appSettingsRepo.getTitlesFreqFilterStatus,
@@ -248,10 +252,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onZikrFilterCubitChanged(AzkarFiltersState state) async {
-    hisnPrint(
-      "from homeBLoc filters chaanged ${state.filters.where((f) => f.isActivated).length}",
-    );
-
     add(HomeFiltersChangeEvent(state.filters));
   }
 
@@ -268,6 +268,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       zikrFilters: event.filters,
     );
 
-    emit(state.copyWith(titles: filtered));
+    final azkarFromDB = await hisnDBHelper.getFavouriteContents();
+    final filteredAzkar = event.filters.getFilteredZikr(azkarFromDB);
+
+    emit(
+      state.copyWith(
+        titles: filtered,
+        bookmarkedContents: filteredAzkar,
+      ),
+    );
   }
 }
