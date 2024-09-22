@@ -41,6 +41,7 @@ class ThemeManagerScreen extends StatelessWidget {
                             hexInputBar: true,
                             enableAlpha: false,
                             pickerColor: state.color,
+                            labelTypes: const [],
                             onColorChanged: (value) {
                               selectedColor = value;
                             },
