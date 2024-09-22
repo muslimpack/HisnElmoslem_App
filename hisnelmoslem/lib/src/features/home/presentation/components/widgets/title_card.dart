@@ -72,72 +72,81 @@ class TitleCard extends StatelessWidget {
             ),
         ],
       ),
-      trailing: dbAlarm == null
-          ? IconButton(
-              icon: const Icon(Icons.alarm_add_rounded),
-              onPressed: () async {
-                final DbAlarm? editedAlarm = await showAlarmEditorDialog(
-                  context: context,
-                  dbAlarm: alarm,
-                  isToEdit: false,
-                );
-
-                if (editedAlarm == null) return;
-                if (!context.mounted) return;
-
-                context.read<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
-              },
-            )
-          : GestureDetector(
-              onLongPress: () async {
-                final DbAlarm? editedAlarm = await showAlarmEditorDialog(
-                  context: context,
-                  dbAlarm: alarm,
-                  isToEdit: true,
-                );
-
-                if (editedAlarm == null) return;
-                if (!context.mounted) return;
-
-                context.read<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
-              },
-              child: alarm.isActive
-                  ? IconButton(
-                      icon: Icon(
-                        Icons.notifications_active,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        context.read<AlarmsBloc>().add(
-                              AlarmsEditEvent(
-                                alarm.copyWith(isActive: false),
-                              ),
-                            );
-                      },
-                    )
-                  : IconButton(
-                      icon: const Icon(
-                        Icons.notifications_off,
-                      ),
-                      onPressed: () {
-                        context.read<AlarmsBloc>().add(
-                              AlarmsEditEvent(
-                                alarm.copyWith(isActive: true),
-                              ),
-                            );
-                      },
-                    ),
-            ),
-
+      trailing: _TitleCardAlarmButton(alarm: alarm, dbAlarm: dbAlarm),
       title: Text(
         dbTitle.name,
       ),
-      // trailing: Text(zikrList[index]),
       onTap: () {
         context.push(
           ZikrViewerScreen(index: dbTitle.id),
         );
       },
     );
+  }
+}
+
+class _TitleCardAlarmButton extends StatelessWidget {
+  final DbAlarm alarm;
+  final DbAlarm? dbAlarm;
+  const _TitleCardAlarmButton({required this.alarm, this.dbAlarm});
+
+  @override
+  Widget build(BuildContext context) {
+    return dbAlarm == null
+        ? IconButton(
+            icon: const Icon(Icons.alarm_add_rounded),
+            onPressed: () async {
+              final DbAlarm? editedAlarm = await showAlarmEditorDialog(
+                context: context,
+                dbAlarm: alarm,
+                isToEdit: false,
+              );
+
+              if (editedAlarm == null) return;
+              if (!context.mounted) return;
+
+              context.read<AlarmsBloc>().add(AlarmsAddEvent(editedAlarm));
+            },
+          )
+        : GestureDetector(
+            onLongPress: () async {
+              final DbAlarm? editedAlarm = await showAlarmEditorDialog(
+                context: context,
+                dbAlarm: alarm,
+                isToEdit: true,
+              );
+
+              if (editedAlarm == null) return;
+              if (!context.mounted) return;
+
+              context.read<AlarmsBloc>().add(AlarmsEditEvent(editedAlarm));
+            },
+            child: alarm.isActive
+                ? IconButton(
+                    icon: Icon(
+                      Icons.notifications_active,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: () {
+                      context.read<AlarmsBloc>().add(
+                            AlarmsEditEvent(
+                              alarm.copyWith(isActive: false),
+                            ),
+                          );
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(
+                      Icons.notifications_off,
+                    ),
+                    onPressed: () {
+                      context.read<AlarmsBloc>().add(
+                            AlarmsEditEvent(
+                              alarm.copyWith(isActive: true),
+                            ),
+                          );
+                    },
+                  ),
+          );
   }
 }
