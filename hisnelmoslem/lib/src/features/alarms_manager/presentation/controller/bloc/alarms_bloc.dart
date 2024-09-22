@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
@@ -57,10 +56,12 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
 
-    await alarmDatabaseHelper.addNewAlarm(dbAlarm: event.alarm);
-    await alarmManager.alarmState(dbAlarm: event.alarm);
+    final id = await alarmDatabaseHelper.addNewAlarm(dbAlarm: event.alarm);
+    final dbAlarm = event.alarm.copyWith(id: id);
 
-    final alarms = List<DbAlarm>.from(state.alarms)..add(event.alarm);
+    await alarmManager.alarmState(dbAlarm: dbAlarm);
+
+    final alarms = List<DbAlarm>.from(state.alarms)..add(dbAlarm);
 
     emit(state.copyWith(alarms: alarms));
   }
@@ -71,8 +72,6 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   ) async {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
-
-    hisnPrint("object ${event.alarm.id}");
 
     await alarmDatabaseHelper.updateAlarmInfo(dbAlarm: event.alarm);
     await alarmManager.alarmState(dbAlarm: event.alarm);

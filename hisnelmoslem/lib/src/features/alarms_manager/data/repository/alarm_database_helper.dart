@@ -126,10 +126,10 @@ class AlarmDatabaseHelper {
   }
 
   // Add new alarm to database
-  Future<void> addNewAlarm({required DbAlarm dbAlarm}) async {
+  Future<int> addNewAlarm({required DbAlarm dbAlarm}) async {
     final db = await database;
 
-    await db.insert(
+    return db.insert(
       'alarms',
       dbAlarm.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
