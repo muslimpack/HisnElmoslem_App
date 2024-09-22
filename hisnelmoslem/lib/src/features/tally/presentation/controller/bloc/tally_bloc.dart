@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
+import 'package:hisnelmoslem/src/features/tally/data/repository/tally_repo.dart';
 
 part 'tally_event.dart';
 part 'tally_state.dart';
@@ -19,10 +20,12 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final TallyDatabaseHelper tallyDatabaseHelper;
   final EffectsManager effectsManager;
   final VolumeButtonManager volumeButtonManager;
+  final TallyRepo tallyRepo;
   TallyBloc(
     this.tallyDatabaseHelper,
     this.effectsManager,
     this.volumeButtonManager,
+    this.tallyRepo,
   ) : super(TallyLoadingState()) {
     _initHandlers();
 
@@ -62,7 +65,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(
       TallyLoadedState(
         allCounters: allCounters,
-        iterationMode: TallyIterationMode.none,
+        iterationMode: tallyRepo.getIterationMode,
         loadingIteration: false,
       ),
     );
@@ -338,9 +341,15 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     final nextModeIndex =
         (state.iterationMode.index + 1) % TallyIterationMode.values.length;
+
+    final TallyIterationMode nextMode =
+        TallyIterationMode.values[nextModeIndex];
+
+    tallyRepo.saveIterationMode(nextMode);
+
     emit(
       state.copyWith(
-        iterationMode: TallyIterationMode.values[nextModeIndex],
+        iterationMode: nextMode,
       ),
     );
   }
