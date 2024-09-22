@@ -1,12 +1,10 @@
-class DbFakeHadithRead {
-  final int id;
-  final int hadithId;
-  final bool isRead;
+import 'package:hisnelmoslem/src/core/models/bookmarked_item.dart';
 
-  DbFakeHadithRead({
-    required this.id,
-    required this.hadithId,
-    required this.isRead,
+class DbFakeHadithRead extends BookmarkedItem {
+  const DbFakeHadithRead({
+    required super.id,
+    required super.itemId,
+    required super.bookmarked,
   });
 
   factory DbFakeHadithRead.fromMap(Map<String, dynamic> map) {
@@ -18,21 +16,16 @@ class DbFakeHadithRead {
     }
     return DbFakeHadithRead(
       id: map['_id'] as int,
-      hadithId: map['hadith_id'] as int,
-      isRead: isRead,
+      itemId: map['hadith_id'] as int,
+      bookmarked: isRead,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'title_id': hadithId,
-      'isRead': isRead,
+      'title_id': itemId,
+      'isRead': bookmarked,
     };
-  }
-
-  @override
-  String toString() {
-    return toMap().toString();
   }
 }

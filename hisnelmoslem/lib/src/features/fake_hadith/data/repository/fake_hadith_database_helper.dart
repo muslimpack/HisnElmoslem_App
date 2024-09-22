@@ -42,7 +42,7 @@ class FakeHadithDBHelper {
     final List<Map<String, dynamic>> maps = await db.query('fakehadith');
 
     final readData = await userDataDBHelper.getReadFakeHadiths();
-    final mappedReadData = {for (final e in readData) e.hadithId: e.isRead};
+    final mappedReadData = {for (final e in readData) e.itemId: e.bookmarked};
 
     return maps.map((e) {
       final fakeHadith = DbFakeHaith.fromMap(e);

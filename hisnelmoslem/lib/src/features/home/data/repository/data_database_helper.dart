@@ -157,7 +157,7 @@ class UserDataDBHelper {
       return DbTitleFavourite.fromMap(maps[i]);
     }).first;
 
-    return dbTitleFavourite.favourite;
+    return dbTitleFavourite.bookmarked;
   }
 
   /// Add title to favourite
@@ -224,7 +224,7 @@ class UserDataDBHelper {
       return DbContentFavourite.fromMap(maps[i]);
     }).first;
 
-    return dbContentFavourite.favourite;
+    return dbContentFavourite.bookmarked;
   }
 
   /// Add content to favourite

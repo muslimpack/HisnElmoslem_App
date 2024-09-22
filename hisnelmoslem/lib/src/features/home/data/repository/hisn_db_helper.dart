@@ -50,7 +50,7 @@ class HisnDBHelper {
 
     final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
     final bookmarkedTitlesMap = {
-      for (final e in bookmarkedTitles) e.titleId: e.favourite,
+      for (final e in bookmarkedTitles) e.itemId: e.bookmarked,
     };
 
     for (int i = 0; i < maps.length; i++) {
@@ -68,7 +68,7 @@ class HisnDBHelper {
     final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
 
     for (var i = 0; i < bookmarkedTitles.length; i++) {
-      final title = await getTitleById(id: bookmarkedTitles[i].titleId);
+      final title = await getTitleById(id: bookmarkedTitles[i].itemId);
       titles.add(title);
     }
 
@@ -169,7 +169,7 @@ class HisnDBHelper {
     final List<DbContent> contents = [];
     await userDataDBHelper.getFavouriteContents().then((value) async {
       for (var i = 0; i < value.length; i++) {
-        await getContentsByContentId(contentId: value[i].contentId)
+        await getContentsByContentId(contentId: value[i].itemId)
             .then((title) => contents.add(title));
       }
     });

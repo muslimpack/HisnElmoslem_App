@@ -1,12 +1,10 @@
-class DbTitleFavourite {
-  final int id;
-  final int titleId;
-  final bool favourite;
+import 'package:hisnelmoslem/src/core/models/bookmarked_item.dart';
 
-  DbTitleFavourite({
-    required this.id,
-    required this.titleId,
-    required this.favourite,
+class DbTitleFavourite extends BookmarkedItem {
+  const DbTitleFavourite({
+    required super.id,
+    required super.itemId,
+    required super.bookmarked,
   });
 
   factory DbTitleFavourite.fromMap(Map<String, dynamic> map) {
@@ -18,21 +16,16 @@ class DbTitleFavourite {
     }
     return DbTitleFavourite(
       id: map['_id'] as int,
-      titleId: map['title_id'] as int,
-      favourite: favourite,
+      itemId: map['title_id'] as int,
+      bookmarked: favourite,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'title_id': titleId,
-      'favourite': favourite,
+      'title_id': itemId,
+      'favourite': bookmarked,
     };
-  }
-
-  @override
-  String toString() {
-    return toMap().toString();
   }
 }
