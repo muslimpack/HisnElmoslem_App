@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -94,7 +95,7 @@ class AppState extends State<App> {
               }
               return child ?? const SizedBox();
             },
-            home: sl<AppSettingsRepo>().isReleaseFirstOpen
+            home: sl<AppSettingsRepo>().currentVersion != kAppVersion
                 ? const OnBoardingScreen()
                 : const HomeScreen(),
           );

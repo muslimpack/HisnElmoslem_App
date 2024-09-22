@@ -1,5 +1,4 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 
 class AppSettingsRepo {
@@ -10,11 +9,11 @@ class AppSettingsRepo {
   ///MARK:Release First open
   /* ******* is first open to this release ******* */
 
-  static const _releaseFirstOpenKey = "is_${kAppVersion}_first_open";
-  bool get isReleaseFirstOpen => box.read(_releaseFirstOpenKey) ?? true;
+  static const _currentVersion = "currentVersion";
+  String get currentVersion => box.read(_currentVersion) ?? "";
 
-  Future<void> changIsReleaseFirstOpen({required bool value}) async {
-    await box.write(_releaseFirstOpenKey, value);
+  Future<void> changCurrentVersion({required String value}) async {
+    await box.write(_currentVersion, value);
   }
 
   ///MARK:Azkar Read Mode

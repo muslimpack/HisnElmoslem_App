@@ -117,10 +117,6 @@ class OnboardCubit extends Cubit<OnboardState> {
   }
 
   Future start() async {
-    if (!appSettingsRepo.isReleaseFirstOpen) {
-      emit(OnboardDoneState());
-      return;
-    }
     emit(
       OnboardLoadedState(
         showSkipBtn: false,
@@ -137,7 +133,7 @@ class OnboardCubit extends Cubit<OnboardState> {
   }
 
   Future done() async {
-    await appSettingsRepo.changIsReleaseFirstOpen(value: false);
+    await appSettingsRepo.changCurrentVersion(value: kAppVersion);
     volumeButtonManager.dispose();
     emit(OnboardDoneState());
   }
