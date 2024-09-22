@@ -5,33 +5,38 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/quran_surah.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 
 part 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
-  final _volumeBtnChannel = const MethodChannel("volume_button_channel");
+  final VolumeButtonManager volumeButtonManager;
   final PageController pageController = PageController();
 
-  QuranCubit() : super(QuranLoadingState()) {
+  QuranCubit(this.volumeButtonManager) : super(QuranLoadingState()) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    _volumeBtnChannel.setMethodCallHandler((call) async {
-      if (call.method == "volumeBtnPressed") {
-        if (call.arguments == "VOLUME_DOWN_UP") {
-          pageController.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-          );
-        }
-        if (call.arguments == "VOLUME_UP_UP") {
-          pageController.previousPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-          );
-        }
-      }
-    });
+    volumeButtonManager.toggleActivation(
+      activate: sl<AppSettingsRepo>().praiseWithVolumeKeys,
+    );
+
+    volumeButtonManager.listen(
+      onVolumeUpPressed: () {
+        pageController.previousPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      },
+      onVolumeDownPressed: () {
+        pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      },
+    );
   }
 
   FutureOr start(SurahNameEnum surahName) async {
@@ -92,7 +97,7 @@ class QuranCubit extends Cubit<QuranState> {
   @override
   Future<void> close() async {
     pageController.dispose();
-    _volumeBtnChannel.setMethodCallHandler(null);
+    volumeButtonManager.dispose();
 
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,

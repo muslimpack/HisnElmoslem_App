@@ -80,7 +80,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
-  sl.registerFactory(() => QuranCubit());
+  sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
   sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl()));
 }
