@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/alarm_editor.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -72,7 +73,11 @@ class TitleCard extends StatelessWidget {
             ),
         ],
       ),
-      trailing: _TitleCardAlarmButton(alarm: alarm, dbAlarm: dbAlarm),
+
+      ///TODO remove when desktop notification is ready
+      trailing: PlatformExtension.isDesktop
+          ? null
+          : _TitleCardAlarmButton(alarm: alarm, dbAlarm: dbAlarm),
       title: Text(
         dbTitle.name,
       ),

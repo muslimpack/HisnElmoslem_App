@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
@@ -122,8 +123,12 @@ class SettingsScreen extends StatelessWidget {
           const Divider(),
           Title(title: S.of(context).fontSettings),
           const FontSettingsToolbox(),
-          const Divider(),
-          const _SettingsAlarmsSection(),
+
+          ///TODO remove when desktop notification is ready
+          if (!PlatformExtension.isDesktop) ...[
+            const Divider(),
+            const _SettingsAlarmsSection(),
+          ],
           const Divider(),
           const _SettingsContactSection(),
         ],
