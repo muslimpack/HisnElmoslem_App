@@ -27,6 +27,7 @@ import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
+import 'package:hisnelmoslem/src/features/tally/data/repository/tally_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -48,6 +49,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ZikrTextRepo(sl()));
   sl.registerLazySingleton(() => ZikrViewerRepo(sl()));
   sl.registerLazySingleton(() => AzkarFiltersRepo(sl()));
+  sl.registerLazySingleton(() => TallyRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -76,7 +78,7 @@ Future<void> initSL() async {
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
-  sl.registerFactory(() => TallyBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit());
   sl.registerFactory(() => FakeHadithBloc(sl()));
