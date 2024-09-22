@@ -53,11 +53,11 @@ class ZikrViewerScreen extends StatelessWidget {
             },
           );
 
-          if (confirm == null || !context.mounted) return;
+          if (!context.mounted) return;
 
           context
               .read<ZikrViewerBloc>()
-              .add(ZikrViewerRestoreSessionEvent(confirm));
+              .add(ZikrViewerRestoreSessionEvent(confirm ?? false));
         },
         builder: (context, state) {
           if (state is! ZikrViewerLoadedState) {
