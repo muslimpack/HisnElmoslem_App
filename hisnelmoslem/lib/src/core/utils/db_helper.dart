@@ -33,25 +33,22 @@ class DBHelper {
     hisnPrint("$dbName copying new db...");
 
     try {
-      if (Platform.isWindows) {
-        await File(dbAssetPath).copy(path);
-      } else {
-        Directory(dirname(path)).createSync(recursive: true);
-        final ByteData data = await rootBundle.load(dbAssetPath);
-        final List<int> bytes = data.buffer.asUint8List();
+      Directory(dirname(path)).createSync(recursive: true);
+      final ByteData data = await rootBundle.load(dbAssetPath);
+      final List<int> bytes = data.buffer.asUint8List();
 
-        // Check if the ByteData size matches the expected size (optional, for debugging)
-        hisnPrint(
-          "Expected size: ${data.lengthInBytes}, actual size: ${bytes.length}",
-        );
+      // Check if the ByteData size matches the expected size (optional, for debugging)
+      hisnPrint(
+        "Expected size: ${data.lengthInBytes}, actual size: ${bytes.length}",
+      );
 
-        final file = File(path);
-        file.writeAsBytesSync(bytes, flush: true);
+      final file = File(path);
+      file.writeAsBytesSync(bytes, flush: true);
 
-        // Verify file size after writing (optional, for debugging)
-        final writtenFileSize = await file.length();
-        hisnPrint("Written file size: $writtenFileSize");
-      }
+      // Verify file size after writing (optional, for debugging)
+      final writtenFileSize = await file.length();
+      hisnPrint("Written file size: $writtenFileSize");
+
       hisnPrint("$dbName copy done");
     } catch (e) {
       hisnPrint("$dbName copy failed: $e");
