@@ -56,9 +56,6 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
       return const Loading();
     }
 
-    if (commentary == null) {
-      return const SizedBox();
-    }
     return isLoading
         ? const Loading()
         : DefaultTabController(
