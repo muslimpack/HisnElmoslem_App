@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hisnelmoslem/generated/l10n.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/models/email.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class EmailManager {
   static void messageUS() {
@@ -64,18 +63,9 @@ ${S.current.shouldBe}:
     final emailToSend = email.copyWith(
       subject: "${S.current.appTitle} | ${email.subject} | v$kAppVersion",
     );
-    hisnPrint(emailToSend);
 
     final uri = emailToSend.getURI;
 
-    try {
-      if (await canLaunchUrl(Uri.parse(uri))) {
-        await launchUrl(Uri.parse(uri));
-      } else {
-        throw 'Could not launch $uri';
-      }
-    } catch (e) {
-      hisnPrint(e.toString() + " | " * 88);
-    }
+    openURL(uri);
   }
 }

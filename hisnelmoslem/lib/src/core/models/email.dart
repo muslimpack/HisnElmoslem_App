@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 
@@ -31,5 +29,6 @@ class Email extends Equatable {
 }
 
 extension EmailExt on Email {
-  String get getURI => 'mailto:$mailTo?subject=$subject&body=$body';
+  String get getURI =>
+      'mailto:$mailTo?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}';
 }
