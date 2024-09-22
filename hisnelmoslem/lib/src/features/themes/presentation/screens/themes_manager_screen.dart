@@ -35,7 +35,8 @@ class ThemeManagerScreen extends StatelessWidget {
                     builder: (context) {
                       Color selectedColor = state.color;
                       return AlertDialog(
-                        title: Text(S.of(context).themeSelectColor),
+                        clipBehavior: Clip.hardEdge,
+                        contentPadding: EdgeInsets.zero,
                         content: SingleChildScrollView(
                           child: ColorPicker(
                             hexInputBar: true,
