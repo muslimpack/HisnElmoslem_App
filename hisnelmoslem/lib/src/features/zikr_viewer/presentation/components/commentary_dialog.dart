@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -32,7 +33,7 @@ class CommentaryDialog extends StatefulWidget {
 
 class _CommentaryDialogState extends State<CommentaryDialog> {
   bool isLoading = true;
-  late Commentary? commentary;
+  late final Commentary? commentary;
 
   Future<void> getData() async {
     final data = await sl<CommentaryDBHelper>()
@@ -51,6 +52,13 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Loading();
+    }
+
+    if (commentary == null) {
+      return const SizedBox();
+    }
     return isLoading
         ? const Loading()
         : DefaultTabController(
@@ -92,15 +100,20 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   CommentaryPageView(
-                    text: commentary!.hadith,
+                    text: commentary?.hadith ?? "",
                   ),
                   CommentaryPageView(
-                    text: commentary!.benefit,
+                    text: commentary?.benefit ?? "",
                   ),
                   CommentaryPageView(
-                    text: commentary!.sharh,
+                    text: commentary?.sharh ?? "",
                   ),
                 ],
+              ),
+              bottomNavigationBar: const BottomAppBar(
+                child: FontSettingsBar(
+                  showDiacriticsControllers: false,
+                ),
               ),
             ),
           );
