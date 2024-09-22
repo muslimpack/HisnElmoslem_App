@@ -59,11 +59,6 @@ class DbTally extends Equatable {
     };
   }
 
-  @override
-  String toString() {
-    return toMap().toString();
-  }
-
   DbTally copyWith({
     int? id,
     String? title,

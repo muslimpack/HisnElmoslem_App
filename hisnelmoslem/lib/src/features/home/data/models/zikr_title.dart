@@ -26,20 +26,6 @@ class DbTitle extends Equatable {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'freq': freq,
-      'order': order,
-    };
-  }
-
-  @override
-  String toString() {
-    return toMap().toString();
-  }
-
   @override
   List<Object> get props {
     return [

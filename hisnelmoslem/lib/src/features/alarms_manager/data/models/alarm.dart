@@ -65,11 +65,6 @@ class DbAlarm extends Equatable {
     };
   }
 
-  @override
-  String toString() {
-    return toMap().toString();
-  }
-
   DbAlarm copyWith({
     int? id,
     int? titleId,

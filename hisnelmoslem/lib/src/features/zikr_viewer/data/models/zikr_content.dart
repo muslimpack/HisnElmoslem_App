@@ -68,21 +68,6 @@ class DbContent extends Equatable {
     ];
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'content': content,
-      'titleId': titleId,
-      'order': order,
-      'count': count,
-      'favourite': favourite,
-      'fadl': fadl,
-      'source': source,
-      'search': search,
-      'hokm': hokm,
-    };
-  }
-
   factory DbContent.fromMap(Map<String, dynamic> map) {
     return DbContent(
       id: map['id'] as int,
