@@ -33,7 +33,7 @@ class TallyDashboardScreen extends StatelessWidget {
                     const SizedBox()
                   else
                     IconButton(
-                      splashRadius: 20,
+                      tooltip: S.of(context).edit,
                       onPressed: () async {
                         final DbTally dbTally = state.activeCounter!;
                         final DbTally? result = await showDialog(
@@ -53,7 +53,7 @@ class TallyDashboardScreen extends StatelessWidget {
                       icon: const Icon(Icons.edit),
                     ),
                   IconButton(
-                    splashRadius: 20,
+                    tooltip: state.iterationMode.localeName(context),
                     onPressed: () {
                       context
                           .read<TallyBloc>()

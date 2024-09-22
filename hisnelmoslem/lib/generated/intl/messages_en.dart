@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "activateCounterInstructions": MessageLookupByLibrary.simpleMessage(
             "To activate counter go to counters then click to counter icon beside the counter you want"),
         "activeTally": MessageLookupByLibrary.simpleMessage("Active tally"),
+        "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addNameToCounter":
             MessageLookupByLibrary.simpleMessage("Add a name to your counter"),
         "addNewCounter":
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please choose time for the reminder"),
         "circleEvery":
             MessageLookupByLibrary.simpleMessage("Complete circle every"),
+        "circular": MessageLookupByLibrary.simpleMessage("Circular"),
         "clickHere": MessageLookupByLibrary.simpleMessage("Click here"),
         "clickToChooseTime":
             MessageLookupByLibrary.simpleMessage("Click to set the time"),
@@ -88,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dashboardArrangement":
             MessageLookupByLibrary.simpleMessage("Dashboard Arrangement"),
         "deactivate": MessageLookupByLibrary.simpleMessage("Deactivate"),
+        "decreae": MessageLookupByLibrary.simpleMessage("Decreae"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "digitalCopyOfHisnElmoslem": MessageLookupByLibrary.simpleMessage(
             "A digital copy of Hisn Elmoslem was used from the Aloka Network."),
@@ -169,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "misspelled": MessageLookupByLibrary.simpleMessage("Misspelled"),
         "moreApps": MessageLookupByLibrary.simpleMessage("More apps"),
         "newText": MessageLookupByLibrary.simpleMessage("New"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noActiveCounter":
             MessageLookupByLibrary.simpleMessage("No active counter"),
@@ -182,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No title with this name"),
         "noZikrSelectedAsFavorite": MessageLookupByLibrary.simpleMessage(
             "No zikr has been selected as a favorite Click on the heart icon on any internal zikr"),
+        "none": MessageLookupByLibrary.simpleMessage("None"),
         "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "nothingFoundInFavorites":
             MessageLookupByLibrary.simpleMessage("Nothing found in favorites"),
@@ -207,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Praise with volume keys"),
         "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
             "Praise with volume keys in page mode and tally"),
+        "previous": MessageLookupByLibrary.simpleMessage("Previous"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "Your progress will be deleted and you can\'t undo that"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(
@@ -255,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Show source of zikr"),
         "showZikrIndex":
             MessageLookupByLibrary.simpleMessage("Show zikr index"),
+        "shuffle": MessageLookupByLibrary.simpleMessage("Shuffle"),
         "shuffleModeActivated":
             MessageLookupByLibrary.simpleMessage("Shuffle Mode Activated"),
         "shuffleModeDeactivated":

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "activateCounterInstructions": MessageLookupByLibrary.simpleMessage(
             "لتفعيل العداد اذهب إلى عرض التسبيحات واضغط على علامة العداد"),
         "activeTally": MessageLookupByLibrary.simpleMessage("التسبيح"),
+        "add": MessageLookupByLibrary.simpleMessage("إضافة"),
         "addNameToCounter": MessageLookupByLibrary.simpleMessage(
             "أدخل اسم العداد مثال\nسبحان الله وبحمده سبحان الله العظيم"),
         "addNewCounter":
@@ -55,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTimeForReminder":
             MessageLookupByLibrary.simpleMessage("اختر وقتا للتذكير"),
         "circleEvery": MessageLookupByLibrary.simpleMessage("دورة كل"),
+        "circular": MessageLookupByLibrary.simpleMessage("حلقي"),
         "clickHere": MessageLookupByLibrary.simpleMessage("اضغط هنا"),
         "clickToChooseTime":
             MessageLookupByLibrary.simpleMessage("اضغط لاختيار التوقيت"),
@@ -85,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dashboardArrangement":
             MessageLookupByLibrary.simpleMessage("ترتيب الشاشة"),
         "deactivate": MessageLookupByLibrary.simpleMessage("الغاء تفعيل"),
+        "decreae": MessageLookupByLibrary.simpleMessage("نقص"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "digitalCopyOfHisnElmoslem": MessageLookupByLibrary.simpleMessage(
             "تم الاستعانة بنسخة رقمية من كتاب حصن المسلم من شبكة الألوكة"),
@@ -163,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "misspelled": MessageLookupByLibrary.simpleMessage("خطأ إملائي"),
         "moreApps": MessageLookupByLibrary.simpleMessage("المزيد من تطبيقاتنا"),
         "newText": MessageLookupByLibrary.simpleMessage("جديد"),
+        "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noActiveCounter":
             MessageLookupByLibrary.simpleMessage("لا يوجد عداد نشط"),
@@ -176,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد عنوان بهذا الاسم"),
         "noZikrSelectedAsFavorite": MessageLookupByLibrary.simpleMessage(
             "لم يتم تحديد أي ذكر كمفضل قم بالضغط على علامة القلب عند أي ذكر داخلي"),
+        "none": MessageLookupByLibrary.simpleMessage("بدون"),
         "notes": MessageLookupByLibrary.simpleMessage("ملاحظات"),
         "nothingFoundInFavorites":
             MessageLookupByLibrary.simpleMessage("لا يوجد شيء في المفضلة"),
@@ -201,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("التسبيح بمفاتيح الصوت"),
         "prefPraiseWithVolumeKeysDesc": MessageLookupByLibrary.simpleMessage(
             "استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة"),
+        "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "progressDeletedCannotUndo": MessageLookupByLibrary.simpleMessage(
             "سيتم حذف تقدمك في هذا الذكر\nهل تريد القيام بهذا؟"),
         "prophetSaidLiesIntentional": MessageLookupByLibrary.simpleMessage(
@@ -244,6 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showFadl": MessageLookupByLibrary.simpleMessage("عرض الفضل"),
         "showSourceOfZikr": MessageLookupByLibrary.simpleMessage("عرض المصدر"),
         "showZikrIndex": MessageLookupByLibrary.simpleMessage("عرض رقم الذكر"),
+        "shuffle": MessageLookupByLibrary.simpleMessage("عشوائي"),
         "shuffleModeActivated":
             MessageLookupByLibrary.simpleMessage("تفعيل وضع السبحة المتغيرة"),
         "shuffleModeDeactivated": MessageLookupByLibrary.simpleMessage(

@@ -90,6 +90,16 @@ class S {
     );
   }
 
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add a name to your counter`
   String get addNameToCounter {
     return Intl.message(
@@ -285,6 +295,16 @@ class S {
     return Intl.message(
       'Complete circle every',
       name: 'circleEvery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Circular`
+  String get circular {
+    return Intl.message(
+      'Circular',
+      name: 'circular',
       desc: '',
       args: [],
     );
@@ -505,6 +525,16 @@ class S {
     return Intl.message(
       'Deactivate',
       name: 'deactivate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decreae`
+  String get decreae {
+    return Intl.message(
+      'Decreae',
+      name: 'decreae',
       desc: '',
       args: [],
     );
@@ -1120,6 +1150,16 @@ class S {
     );
   }
 
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No`
   String get no {
     return Intl.message(
@@ -1145,6 +1185,16 @@ class S {
     return Intl.message(
       'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title',
       name: 'noAlarmSetForAnyZikr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `None`
+  String get none {
+    return Intl.message(
+      'None',
+      name: 'none',
       desc: '',
       args: [],
     );
@@ -1325,6 +1375,16 @@ class S {
     return Intl.message(
       'Praise with volume keys in page mode and tally',
       name: 'prefPraiseWithVolumeKeysDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous`
+  String get previous {
+    return Intl.message(
+      'Previous',
+      name: 'previous',
       desc: '',
       args: [],
     );
@@ -1635,6 +1695,16 @@ class S {
     return Intl.message(
       'Show zikr index',
       name: 'showZikrIndex',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shuffle`
+  String get shuffle {
+    return Intl.message(
+      'Shuffle',
+      name: 'shuffle',
       desc: '',
       args: [],
     );

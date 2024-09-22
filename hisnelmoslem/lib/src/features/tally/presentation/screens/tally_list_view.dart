@@ -29,7 +29,7 @@ class TallyListView extends StatelessWidget {
               return TallyCard(dbTally: state.allCounters[index]);
             },
             separatorBuilder: (BuildContext context, int index) {
-              return const Divider();
+              return const Divider(height: 0);
             },
           ),
           floatingActionButton: Row(
@@ -37,6 +37,7 @@ class TallyListView extends StatelessWidget {
             children: [
               FloatingActionButton(
                 heroTag: "add",
+                tooltip: S.of(context).add,
                 child: Icon(
                   MdiIcons.plus,
                   size: 40,
@@ -57,6 +58,7 @@ class TallyListView extends StatelessWidget {
               ),
               FloatingActionButton(
                 heroTag: "reset",
+                tooltip: S.of(context).reset,
                 child: const Icon(
                   Icons.restart_alt,
                   size: 40,

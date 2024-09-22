@@ -18,12 +18,14 @@ class TallyCounterViewBottomBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             IconButton(
+              tooltip: S.of(context).previous,
               icon: const Icon(Icons.keyboard_double_arrow_right),
               onPressed: () {
                 context.read<TallyBloc>().add(TallyPreviousCounterEvent());
               },
             ),
             IconButton(
+              tooltip: S.of(context).reset,
               icon: const Icon(Icons.refresh),
               onPressed: () async {
                 final bool? confirm = await showDialog(
@@ -42,6 +44,7 @@ class TallyCounterViewBottomBar extends StatelessWidget {
               },
             ),
             IconButton(
+              tooltip: S.of(context).decreae,
               icon: const Icon(Icons.remove),
               onPressed: () {
                 context
@@ -50,6 +53,7 @@ class TallyCounterViewBottomBar extends StatelessWidget {
               },
             ),
             IconButton(
+              tooltip: S.of(context).next,
               icon: const Icon(Icons.keyboard_double_arrow_left),
               onPressed: () {
                 context.read<TallyBloc>().add(TallyNextCounterEvent());
