@@ -19,7 +19,7 @@ class VolumeButtonManager {
               onVolumeUpPressed?.call();
 
             case "VOLUME_DOWN_DOWN":
-              onVolumeUpPressed?.call();
+              onVolumeDownPressed?.call();
 
             case "VOLUME_UP_UP":
               onVolumeUpReleased?.call();
