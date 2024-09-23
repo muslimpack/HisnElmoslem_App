@@ -55,20 +55,17 @@ class HomeAppBar extends StatelessWidget {
                     controller: tabController,
                     isScrollable: true,
                     tabAlignment: TabAlignment.center,
-                    tabs: [
-                      ...List.generate(
-                        appDashboardTabs.length,
-                        (index) {
-                          return Tab(
-                            child: Text(
-                              appDashboardTabs[
-                                      state.dashboardArrangement[index]]
-                                  .title(context),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                    tabs: List.generate(
+                      appDashboardTabs.length,
+                      (index) {
+                        return Tab(
+                          child: Text(
+                            appDashboardTabs[state.dashboardArrangement[index]]
+                                .title(context),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
           actions: [

@@ -86,16 +86,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                     : TabBarView(
                         physics: const BouncingScrollPhysics(),
                         controller: tabController,
-                        children: [
-                          ...List.generate(
-                            appDashboardTabs.length,
-                            (index) {
-                              return appDashboardTabs[
-                                      state.dashboardArrangement[index]]
-                                  .widget;
-                            },
-                          ),
-                        ],
+                        children: List.generate(
+                          appDashboardTabs.length,
+                          (index) {
+                            return appDashboardTabs[
+                                    state.dashboardArrangement[index]]
+                                .widget;
+                          },
+                        ),
                       ),
               ),
             );
