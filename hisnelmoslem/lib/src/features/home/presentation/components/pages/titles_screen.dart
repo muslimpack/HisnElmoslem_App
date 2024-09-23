@@ -6,8 +6,8 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/pages/tit
 import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/titles_freq_filters_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
-class AzkarFehrs extends StatelessWidget {
-  const AzkarFehrs({super.key});
+class TitlesScreen extends StatelessWidget {
+  const TitlesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

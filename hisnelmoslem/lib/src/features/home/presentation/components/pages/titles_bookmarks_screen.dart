@@ -5,8 +5,8 @@ import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_list_view.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
-class AzkarBookmarks extends StatelessWidget {
-  const AzkarBookmarks({super.key});
+class TitlesBookmarksScreen extends StatelessWidget {
+  const TitlesBookmarksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

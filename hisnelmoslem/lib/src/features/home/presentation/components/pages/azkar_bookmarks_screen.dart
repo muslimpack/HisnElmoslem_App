@@ -8,8 +8,8 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/h
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
-class FavouriteZikr extends StatelessWidget {
-  const FavouriteZikr({super.key});
+class AzkarBookmarksScreen extends StatelessWidget {
+  const AzkarBookmarksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
