@@ -51,7 +51,62 @@
 
 # مميزات التطبيق
 
-<details open>
+<details close>
+<summary>v2.9.0</summary>
+
+🆕 الميزات الجديدة:  
+- 🖥️ دعم منصات الويندز  
+- 🔄 إمكانية استكمال جلسة الذكر السابقة  
+- 🔍 تصفية الأذكار من خلال المصدر والحكم  
+- 📅 تصفية الأبواب من خلال معدل التكرار (يومي - أسبوعي - شهري - سنوي)  
+- 🌙 إمكانية التغيير للوضع الليلي مباشرة من الأذكار  
+- 🔁 زر لإعادة تعيين الأذكار في وضع الصفحات والبطاقات  
+- 🔊 التحكم في التسبيح من خلال أزرار الصوت عبر الإعدادات  
+- ✏️ التحكم في النص الذي يتم نسخه أو مشاركته  
+- 🔤 إضافة خط جديد "Roboto"
+
+🛠️ التحسينات:  
+- 📿 تحسين على السبحة  
+- ➡️ إمكانية الانتقال للذكر التالي حتى بعد انتهاء الذكر  
+- 🔍 صفحة البحث عن الأبواب  
+- 💳 تحسين بطاقات وشكل السبحة  
+- ❤️ بطاقات الذكر المفضل على الواجهة  
+- ✨ تفعيل المؤثرات لبطاقات الذكر المفضل على الواجهة  
+- 📱 تحسين النوافذ المنبثقة  
+- ✍️ تحسين عناصر الإدخال  
+- 🔒 تعطيل رؤية التطبيق بعد قفل الشاشة
+
+🐛 مشاكل تم حلها:  
+- 🔔 إصلاح مشكلة عداد الإشعارات  
+- ⏰ إصلاح مشكلة الانتقال لذكر آخر عند الضغط على منبه لذكر معين  
+- 📝 تصويب خطأ إملائي "أعناقكم"
+
+🔧 أخرى:  
+- 🗑️ حذف تاريخ التحديثات
+
+💻 الجانب التقني:  
+- 🚫 حذف GetX كليًا من التطبيق واستخدام BLoC  
+- 🌍 استخدام ملفات ARB للترجمة بدلاً من الطريقة السابقة  
+- 📚 فصل الشرح عن قاعدة بيانات الحصن
+
+</details>
+
+<details close>
+<summary>v2.8.0</summary>
+
+- يمكنك الآن التحكم في استخدام الأرقام الهندية من الإعدادات
+
+- التحكم في إبقاء الشاشة نشطة أثناء الذكر من الإعدادات
+
+- تحسين على القائمة الجانبية للواجهة الرئيسية
+
+- تحسين نافذة ضبط التنبيهات
+
+- شاشة إعدادات ألوان مشاركة الذكر كصورة يمكن الوصول إليها الآن من الشريط العلوي بجواز زر المشاركة بدلا من النافذة العائمة
+
+</details>
+
+<details close>
 <summary>v2.7.0</summary>
 
 - تحديث على قاعدة البيانات
@@ -363,38 +418,27 @@
 | ✔   | إضافة وحذف الأذكار من المفضلة                               |
 | ✔   | التسبيح بمفاتح الصوت وزار سماعة الرأس السلكية               |
 | ✔   | تحويل ملفات JSON لقاعدة بيانات محلية للتطبيق                |
-| ❌  | عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة |
-| ❌  | استخراج نسخة من التطبيق لهواتف الآيفون                      |
-| ❌  | إضافة منبة لصيام النوافل                                    |
+| ❌   | عمل ويدجات للتطبيق لعرض الأحاديث الغير صحيحة على سطح الشاشة |
+| ❌   | استخراج نسخة من التطبيق لهواتف الآيفون                      |
+| ❌   | إضافة منبة لصيام النوافل                                    |
 
 # صور من التطبيق
 
-<table>
-  <tr>
-    <th colspan="3">
-    <img src="https://user-images.githubusercontent.com/50374022/177201817-cba2d256-9ffa-4f22-9739-8a8beb4c1630.png" width="600" >
-    </th>
-  </tr>
-  <tr>
-  <td >
-<img src="https://user-images.githubusercontent.com/50374022/177201360-acc8d5c0-a1d7-4b72-bd06-15b34a25ad56.png" width="200" >
-  </td>
-    <td>
-<img src="https://user-images.githubusercontent.com/50374022/177201372-1987d68e-ead0-4a6a-829c-5e793699f929.png" width="200" >
-  </td>
-    <td>
-<img src="https://user-images.githubusercontent.com/50374022/177201437-c8a8d183-d16d-45fb-960a-04041e7deacf.png" width="200" >
-  </td>
-  </tr>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201381-ec74090c-cde9-4847-b7e3-fec1d838427b.png" width="200" ></td>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201394-ec252bfd-6855-4358-8bf1-71b5a1fd9b47.png" width="200" ></td>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201404-db8bf84a-5b1e-44db-9ed5-c9dadf3c163d.png" width="200" ></td>
-  </tr>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201416-b33d221d-279b-4826-aa6b-94fcd56278e9.png" width="200" ></td>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201424-9b9e6b26-994c-4b63-9e6b-3539ac8eeb73.png" width="200" ></td>
-    <td><img src="https://user-images.githubusercontent.com/50374022/177201431-8020baac-c718-4fc5-aedf-445dd38294d6.png" width="200" ></td>
-  </tr>
-</table>
-</div>
+
+<p align="center">
+
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/00.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/01.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/02.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/03.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/04.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/05.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/06.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/07.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/08.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/09.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/10.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/11.png" height="400" />
+<img src="https://raw.githubusercontent.com/muslimpack/HisnElmoslem_App/main/repo_media/12.png" height="400" />
+
+</p>
