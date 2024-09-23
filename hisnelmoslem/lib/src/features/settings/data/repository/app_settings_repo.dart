@@ -75,12 +75,20 @@ class AppSettingsRepo {
     if (data == null) {
       return [0, 1, 2];
     }
-    final String tempList = data.replaceAll('[', '').replaceAll(']', '');
+
+    final String tempList;
+    if (data.contains("[")) {
+      /// for old saved data [0,1,2]
+      tempList = data.replaceAll('[', '').replaceAll(']', '');
+    } else {
+      /// for new saved data  0,1,2
+      tempList = data;
+    }
     return tempList.split(",").map<int>((e) => int.parse(e)).toList();
   }
 
   void changeDashboardArrangement(List<int> value) {
-    box.write(dashboardArrangementKey, value.toString());
+    box.write(dashboardArrangementKey, value.join(","));
   }
 
   ///MARK:Azkar Read Mode
