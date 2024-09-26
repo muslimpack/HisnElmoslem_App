@@ -276,11 +276,6 @@ class AwesomeNotificationManager {
       );
     }
   }
-
-  void dispose() {
-    // AwesomeNotifications().actionSink.close();
-    // AwesomeNotifications().createdSink.close();
-  }
 }
 
 class Time {
