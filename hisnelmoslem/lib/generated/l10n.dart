@@ -1830,6 +1830,16 @@ class S {
     );
   }
 
+  /// `at-Tabarani`
+  String get sourceAtTabarani {
+    return Intl.message(
+      'at-Tabarani',
+      name: 'sourceAtTabarani',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sunan al-Tirmidhi`
   String get sourceAtTirmidhi {
     return Intl.message(

@@ -283,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Musnad Ahmad ibn Hanbal"),
         "sourceAnNasai": MessageLookupByLibrary.simpleMessage(
             "Al-Sunan al-Sughra by al-Nasa\'i"),
+        "sourceAtTabarani": MessageLookupByLibrary.simpleMessage("at-Tabarani"),
         "sourceAtTirmidhi":
             MessageLookupByLibrary.simpleMessage("Sunan al-Tirmidhi"),
         "sourceAthar": MessageLookupByLibrary.simpleMessage("Athr"),
