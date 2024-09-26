@@ -43,6 +43,10 @@ class AwesomeNotificationManager {
         ],
         debug: true,
       );
+
+      await listen();
+
+      await appOpenNotification();
     } catch (e) {
       hisnPrint(e);
     }
