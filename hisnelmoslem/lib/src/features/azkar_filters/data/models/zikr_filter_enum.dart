@@ -16,6 +16,7 @@ enum ZikrFilter {
   ibnSunny,
   hakim,
   bayhaqi,
+  atTabarani,
   athar,
 
   /// Hokm
@@ -65,6 +66,8 @@ extension ZikrFilterExt on ZikrFilter {
         return "حاكم";
       case ZikrFilter.bayhaqi:
         return "بيهق";
+      case ZikrFilter.atTabarani:
+        return "طبران";
       case ZikrFilter.athar:
         return "أثر";
 
@@ -112,6 +115,8 @@ extension ZikrFilterExt on ZikrFilter {
         return S.of(context).sourceBayhaqi;
       case ZikrFilter.athar:
         return S.of(context).sourceAthar;
+      case ZikrFilter.atTabarani:
+        return S.of(context).sourceAtTabarani;
 
       ///
       case ZikrFilter.hokmSahih:

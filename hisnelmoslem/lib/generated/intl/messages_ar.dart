@@ -267,6 +267,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sourceAdDarami": MessageLookupByLibrary.simpleMessage("مسند الدارمي"),
         "sourceAhmad": MessageLookupByLibrary.simpleMessage("مسند أحمد"),
         "sourceAnNasai": MessageLookupByLibrary.simpleMessage("سنن النسائي"),
+        "sourceAtTabarani": MessageLookupByLibrary.simpleMessage("الطبراني"),
         "sourceAtTirmidhi": MessageLookupByLibrary.simpleMessage("سنن الترمذي"),
         "sourceAthar": MessageLookupByLibrary.simpleMessage("أثر"),
         "sourceBayhaqi": MessageLookupByLibrary.simpleMessage("سنن البيهقي"),
