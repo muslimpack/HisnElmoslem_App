@@ -55,7 +55,7 @@ extension ZikrFilterExt on ZikrFilter {
       case ZikrFilter.ibnMajah:
         return "ماجه";
       case ZikrFilter.malik:
-        return "مالك";
+        return "موط";
       case ZikrFilter.adDarami:
         return "دارم";
       case ZikrFilter.ahmad:
