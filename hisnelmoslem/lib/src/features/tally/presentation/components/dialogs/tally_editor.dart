@@ -5,19 +5,19 @@ import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 
-class TallyDialog extends StatefulWidget {
+class TallyEditor extends StatefulWidget {
   final DbTally? dbTally;
 
-  const TallyDialog({
+  const TallyEditor({
     super.key,
     this.dbTally,
   });
 
   @override
-  State<TallyDialog> createState() => _TallyDialogState();
+  State<TallyEditor> createState() => _TallyEditorState();
 }
 
-class _TallyDialogState extends State<TallyDialog> {
+class _TallyEditorState extends State<TallyEditor> {
   late DbTally dbTally;
   TextEditingController titleController = TextEditingController();
   TextEditingController resetCounterController = TextEditingController();

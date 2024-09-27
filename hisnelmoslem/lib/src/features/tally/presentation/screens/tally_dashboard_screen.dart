@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_dialog.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_counter_view.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_list_view.dart';
@@ -39,7 +39,7 @@ class TallyDashboardScreen extends StatelessWidget {
                         final DbTally? result = await showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return TallyDialog(
+                            return TallyEditor(
                               dbTally: dbTally,
                             );
                           },

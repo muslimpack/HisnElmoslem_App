@@ -4,7 +4,7 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_dialog.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_card.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -46,7 +46,7 @@ class TallyListView extends StatelessWidget {
                   final DbTally? result = await showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const TallyDialog();
+                      return const TallyEditor();
                     },
                   );
 
