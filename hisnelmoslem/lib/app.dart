@@ -34,6 +34,16 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   @override
+  void initState() {
+    super.initState();
+    try {
+      sl<AwesomeNotificationManager>().listen();
+    } catch (e) {
+      hisnPrint(e);
+    }
+  }
+
+  @override
   Future<void> dispose() async {
     await sl<HisnDBHelper>().close();
     await sl<FakeHadithDBHelper>().close();
