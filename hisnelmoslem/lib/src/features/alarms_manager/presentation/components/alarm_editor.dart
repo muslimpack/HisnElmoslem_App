@@ -230,6 +230,11 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
                   repeatType: repeatType,
                 );
 
+                if (widget.dbAlarm == editedAlarm) {
+                  Navigator.pop(context);
+                  return;
+                }
+
                 if (widget.isToEdit) {
                   Navigator.pop(
                     context,
