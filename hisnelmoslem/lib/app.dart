@@ -6,7 +6,8 @@ import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
@@ -15,8 +16,6 @@ import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.da
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -97,9 +96,10 @@ class AppState extends State<App> {
               }
               return child ?? const SizedBox();
             },
-            home: sl<AppSettingsRepo>().currentVersion != kAppVersion
-                ? const OnBoardingScreen()
-                : const HomeScreen(),
+            home: const HomeScreen(),
+            // home: sl<AppSettingsRepo>().currentVersion != kAppVersion
+            //     ? const OnBoardingScreen()
+            //     : const HomeScreen(),
           );
         },
       ),
