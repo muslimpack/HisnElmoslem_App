@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
@@ -61,19 +62,28 @@ class TallyCard extends StatelessWidget {
                       IconButton(
                         tooltip: S.of(context).edit,
                         onPressed: () async {
-                          final DbTally? result = await showDialog(
+                          final EditorResult<DbTally>? result =
+                              await showTallyEditorDialog(
                             context: context,
-                            builder: (BuildContext context) {
-                              return TallyEditor(
-                                dbTally: dbTally,
-                              );
-                            },
+                            dbTally: dbTally,
                           );
 
                           if (result == null || !context.mounted) return;
-                          context
-                              .read<TallyBloc>()
-                              .add(TallyEditCounterEvent(counter: result));
+                          switch (result.action) {
+                            case EditorActionEnum.edit:
+                              context.read<TallyBloc>().add(
+                                    TallyEditCounterEvent(
+                                      counter: result.value,
+                                    ),
+                                  );
+                            case EditorActionEnum.delete:
+                              context.read<TallyBloc>().add(
+                                    TallyDeleteCounterEvent(
+                                      counter: result.value,
+                                    ),
+                                  );
+                            default:
+                          }
                         },
                         icon: const Icon(Icons.edit),
                       ),

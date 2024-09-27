@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
@@ -36,19 +37,28 @@ class TallyDashboardScreen extends StatelessWidget {
                       tooltip: S.of(context).edit,
                       onPressed: () async {
                         final DbTally dbTally = state.activeCounter!;
-                        final DbTally? result = await showDialog(
+                        final EditorResult<DbTally>? result =
+                            await showTallyEditorDialog(
                           context: context,
-                          builder: (BuildContext context) {
-                            return TallyEditor(
-                              dbTally: dbTally,
-                            );
-                          },
+                          dbTally: dbTally,
                         );
 
                         if (result == null || !context.mounted) return;
-                        context
-                            .read<TallyBloc>()
-                            .add(TallyEditCounterEvent(counter: result));
+                        switch (result.action) {
+                          case EditorActionEnum.edit:
+                            context.read<TallyBloc>().add(
+                                  TallyEditCounterEvent(
+                                    counter: result.value,
+                                  ),
+                                );
+                          case EditorActionEnum.delete:
+                            context.read<TallyBloc>().add(
+                                  TallyDeleteCounterEvent(
+                                    counter: result.value,
+                                  ),
+                                );
+                          default:
+                        }
                       },
                       icon: const Icon(Icons.edit),
                     ),

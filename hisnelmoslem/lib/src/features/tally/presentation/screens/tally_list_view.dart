@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
@@ -43,17 +44,16 @@ class TallyListView extends StatelessWidget {
                   size: 40,
                 ),
                 onPressed: () async {
-                  final DbTally? result = await showDialog(
+                  final EditorResult<DbTally>? result =
+                      await showTallyEditorDialog(
                     context: context,
-                    builder: (BuildContext context) {
-                      return const TallyEditor();
-                    },
                   );
 
                   if (result == null || !context.mounted) return;
+
                   context
                       .read<TallyBloc>()
-                      .add(TallyAddCounterEvent(counter: result));
+                      .add(TallyAddCounterEvent(counter: result.value));
                 },
               ),
               FloatingActionButton(

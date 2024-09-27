@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
+
+Future<EditorResult<DbTally>?> showTallyEditorDialog({
+  required BuildContext context,
+  DbTally? dbTally,
+}) async {
+  return showDialog<EditorResult<DbTally>?>(
+    context: context,
+    builder: (BuildContext context) {
+      return TallyEditor(
+        dbTally: dbTally,
+      );
+    },
+  );
+}
 
 class TallyEditor extends StatefulWidget {
   final DbTally? dbTally;
@@ -74,9 +89,24 @@ class _TallyEditorState extends State<TallyEditor> {
         ],
       ),
       actions: [
+        if (widget.dbTally != null)
+          TextButton(
+            child: Text(
+              S.of(context).delete,
+              style: TextStyle(
+                color: Theme.of(context).buttonTheme.colorScheme?.error,
+              ),
+            ),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                EditorResult(action: EditorActionEnum.delete, value: dbTally),
+              );
+            },
+          ),
         FilledButton(
           child: Text(
-            S.of(context).done,
+            widget.dbTally == null ? S.of(context).add : S.of(context).edit,
             textAlign: TextAlign.center,
           ),
           onPressed: () {
@@ -92,7 +122,20 @@ class _TallyEditorState extends State<TallyEditor> {
 
             dbTally = dbTally.copyWith(title: title, countReset: resetCounter);
 
-            Navigator.pop<DbTally>(context, dbTally);
+            if (dbTally == widget.dbTally) {
+              Navigator.pop(context);
+              return;
+            }
+
+            Navigator.pop(
+              context,
+              EditorResult(
+                action: widget.dbTally == null
+                    ? EditorActionEnum.add
+                    : EditorActionEnum.edit,
+                value: dbTally,
+              ),
+            );
           },
         ),
       ],
