@@ -10,7 +10,6 @@ class DbAlarm extends Equatable {
   final int hour;
   final int minute;
   final bool isActive;
-  final bool hasAlarmInside;
 
   const DbAlarm({
     this.id = 0,
@@ -21,7 +20,6 @@ class DbAlarm extends Equatable {
     this.hour = 12,
     this.minute = 30,
     this.isActive = false,
-    this.hasAlarmInside = false,
   });
 
   factory DbAlarm.fromMap(Map<String, dynamic> map) {
@@ -49,7 +47,6 @@ class DbAlarm extends Equatable {
       hour: map['hour'] as int,
       minute: map['minute'] as int,
       isActive: isActive,
-      hasAlarmInside: true,
     );
   }
 
@@ -85,7 +82,6 @@ class DbAlarm extends Equatable {
       hour: hour ?? this.hour,
       minute: minute ?? this.minute,
       isActive: isActive ?? this.isActive,
-      hasAlarmInside: hasAlarmInside ?? this.hasAlarmInside,
     );
   }
 
@@ -100,7 +96,6 @@ class DbAlarm extends Equatable {
       hour,
       minute,
       isActive,
-      hasAlarmInside,
     ];
   }
 }

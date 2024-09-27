@@ -2,18 +2,19 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/custom_field_decoration.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 
-Future<DbAlarm?> showAlarmEditorDialog({
+Future<EditorResult<DbAlarm>?> showAlarmEditorDialog({
   required BuildContext context,
   required DbAlarm dbAlarm,
   required bool isToEdit,
 }) async {
   // show the dialog
-  return showDialog(
+  return showDialog<EditorResult<DbAlarm>?>(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
@@ -194,9 +195,28 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
             Navigator.pop(context);
           },
         ),
+        if (widget.isToEdit)
+          TextButton(
+            child: Text(
+              S.of(context).delete,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).buttonTheme.colorScheme?.error,
+              ),
+            ),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                EditorResult(
+                  value: widget.dbAlarm,
+                  action: EditorActionEnum.delete,
+                ),
+              );
+            },
+          ),
         FilledButton(
           child: Text(
-            S.of(context).done,
+            widget.isToEdit ? S.of(context).edit : S.of(context).add,
             textAlign: TextAlign.center,
           ),
           onPressed: () {
@@ -211,11 +231,20 @@ class AlarmEditorDialogState extends State<AlarmEditorDialog> {
                 );
 
                 if (widget.isToEdit) {
-                  Navigator.pop(context, editedAlarm);
+                  Navigator.pop(
+                    context,
+                    EditorResult(
+                      value: editedAlarm,
+                      action: EditorActionEnum.edit,
+                    ),
+                  );
                 } else {
                   Navigator.pop(
                     context,
-                    editedAlarm.copyWith(isActive: true),
+                    EditorResult(
+                      value: editedAlarm.copyWith(isActive: true),
+                      action: EditorActionEnum.add,
+                    ),
                   );
                 }
               } else {
