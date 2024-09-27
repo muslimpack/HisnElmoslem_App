@@ -11,11 +11,9 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_
 class AwesomeNotificationManager {
   Future<void> init() async {
     try {
-      await AwesomeNotifications()
-          .isNotificationAllowed()
-          .then((isAllowed) async {
+      await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
         if (!isAllowed) {
-          await AwesomeNotifications().requestPermissionToSendNotifications();
+          AwesomeNotifications().requestPermissionToSendNotifications();
         }
       });
 
@@ -45,6 +43,10 @@ class AwesomeNotificationManager {
         ],
         debug: true,
       );
+
+      await listen();
+
+      await appOpenNotification();
     } catch (e) {
       hisnPrint(e);
     }
@@ -273,11 +275,6 @@ class AwesomeNotificationManager {
         ZikrViewerScreen(index: pageIndex),
       );
     }
-  }
-
-  void dispose() {
-    // AwesomeNotifications().actionSink.close();
-    // AwesomeNotifications().createdSink.close();
   }
 }
 

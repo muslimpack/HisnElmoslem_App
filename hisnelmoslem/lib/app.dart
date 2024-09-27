@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
@@ -35,18 +34,11 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   @override
-  void initState() {
-    super.initState();
-    sl<AwesomeNotificationManager>().listen();
-  }
-
-  @override
   Future<void> dispose() async {
     await sl<HisnDBHelper>().close();
     await sl<FakeHadithDBHelper>().close();
     await sl<AlarmDatabaseHelper>().close();
     await sl<TallyDatabaseHelper>().close();
-    sl<AwesomeNotificationManager>().dispose();
     super.dispose();
   }
 
