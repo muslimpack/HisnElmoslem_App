@@ -41,8 +41,7 @@ class ZikrViewerScreen extends StatelessWidget {
         listener: (context, state) async {
           if (state is! ZikrViewerLoadedState) return;
 
-          final restoredSession = state.restoredSession;
-          if (restoredSession.isEmpty) return;
+          if (!state.askToRestoreSession) return;
 
           final bool? confirm = await showDialog(
             context: context,

@@ -160,6 +160,26 @@ class S {
     );
   }
 
+  /// `Allow Zikr session restoration`
+  String get allowZikrRestoreSession {
+    return Intl.message(
+      'Allow Zikr session restoration',
+      name: 'allowZikrRestoreSession',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popup menu to resume uncompleted Zikr session `
+  String get allowZikrRestoreSessionDesc {
+    return Intl.message(
+      'Popup menu to resume uncompleted Zikr session ',
+      name: 'allowZikrRestoreSessionDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `App Language`
   String get appLanguage {
     return Intl.message(
@@ -595,6 +615,16 @@ class S {
     return Intl.message(
       'Done',
       name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't ask again`
+  String get donnotAskAgain {
+    return Intl.message(
+      'Don\'t ask again',
+      name: 'donnotAskAgain',
       desc: '',
       args: [],
     );

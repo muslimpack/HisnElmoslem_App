@@ -112,6 +112,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
         restoredSession: restoredSession ?? {},
+        askToRestoreSession: zikrViewerRepo.allowZikrSessionRestoration &&
+            restoredSession != null &&
+            restoredSession.isNotEmpty,
       ),
     );
   }
@@ -124,7 +127,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (state is! ZikrViewerLoadedState) return;
 
     if (!event.restore) {
-      emit(state.copyWith(restoredSession: {}));
+      emit(state.copyWith(askToRestoreSession: false));
       return;
     }
 
@@ -147,7 +150,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       pageController.jumpToPage(pageToJump);
     }
 
-    emit(state.copyWith(azkarToView: azkarToView, restoredSession: {}));
+    emit(state.copyWith(azkarToView: azkarToView, askToRestoreSession: false));
   }
 
   FutureOr<void> _saveSession(

@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effect
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/zikr_text_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 
 part 'settings_state.dart';
 
@@ -15,11 +16,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   final EffectsManagerRepo effectsManagerRepo;
   final AppSettingsRepo appSettingsRepo;
   final ZikrTextRepo zikrTextRepo;
+  final ZikrViewerRepo zikrViewerRepo;
   SettingsCubit(
     this.effectsManagerRepo,
     this.appSettingsRepo,
     this.effectsManager,
     this.zikrTextRepo,
+    this.zikrViewerRepo,
   ) : super(
           SettingsState(
             zikrEffects: ZikrEffects(
@@ -37,6 +40,8 @@ class SettingsCubit extends Cubit<SettingsState> {
             fontSize: zikrTextRepo.fontSize,
             showDiacritics: zikrTextRepo.showDiacritics,
             praiseWithVolumeKeys: appSettingsRepo.praiseWithVolumeKeys,
+            allowZikrSessionRestoration:
+                zikrViewerRepo.allowZikrSessionRestoration,
           ),
         );
 
@@ -54,6 +59,11 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future toggleWakeLock({required bool use}) async {
     await appSettingsRepo.changeEnableWakeLock(use: use);
     emit(state.copyWith(enableWakeLock: use));
+  }
+
+  Future toggleAllowZikrSessionRestoration({required bool allow}) async {
+    await zikrViewerRepo.toggleAllowZikrSessionRestoration(allow);
+    emit(state.copyWith(allowZikrSessionRestoration: allow));
   }
 
   ///MARK: praiseWithVolumeKeys

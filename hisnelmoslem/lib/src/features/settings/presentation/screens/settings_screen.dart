@@ -188,6 +188,17 @@ class SettingsGeneralSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
+              secondary: const Icon(Icons.restore),
+              value: state.allowZikrSessionRestoration,
+              title: Text(S.of(context).allowZikrRestoreSession),
+              subtitle: Text(S.of(context).allowZikrRestoreSessionDesc),
+              onChanged: (value) {
+                context.read<SettingsCubit>().toggleAllowZikrSessionRestoration(
+                      allow: !state.allowZikrSessionRestoration,
+                    );
+              },
+            ),
+            SwitchListTile(
               secondary: const Icon(Icons.numbers),
               tileColor: Colors.amber.withOpacity(.1),
               value: state.useHindiDigits,
