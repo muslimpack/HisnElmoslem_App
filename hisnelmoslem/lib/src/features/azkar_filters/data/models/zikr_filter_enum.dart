@@ -27,8 +27,8 @@ enum ZikrFilter {
   hokmMawdue("موضوع", true),
   hokmAthar("أثر", true);
 
-  const ZikrFilter(this.nameInDatabase, this.isForHokm);
-  final String nameInDatabase;
+  const ZikrFilter(this.lookupWord, this.isForHokm);
+  final String lookupWord;
   final bool isForHokm;
 }
 

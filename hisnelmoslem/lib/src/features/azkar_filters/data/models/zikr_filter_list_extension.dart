@@ -29,7 +29,7 @@ extension FilterListExt on List<Filter> {
     for (final e in this) {
       if (!e.isActivated || e.filter.isForHokm) continue;
 
-      isValid = source.contains(e.filter.nameInDatabase);
+      isValid = source.contains(e.filter.lookupWord);
 
       if (isValid) break;
     }
@@ -43,7 +43,7 @@ extension FilterListExt on List<Filter> {
     for (final e in this) {
       if (!e.isActivated || !e.filter.isForHokm) continue;
 
-      isValid = hokm == e.filter.nameInDatabase;
+      isValid = hokm == e.filter.lookupWord;
 
       if (isValid) break;
     }
