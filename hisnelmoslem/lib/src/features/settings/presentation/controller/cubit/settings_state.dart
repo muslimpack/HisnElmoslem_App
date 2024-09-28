@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'settings_cubit.dart';
 
 class SettingsState extends Equatable {
@@ -8,6 +9,7 @@ class SettingsState extends Equatable {
   final double fontSize;
   final bool showDiacritics;
   final bool praiseWithVolumeKeys;
+  final bool allowZikrSessionRestoration;
   const SettingsState({
     required this.zikrEffects,
     required this.isCardReadMode,
@@ -16,6 +18,7 @@ class SettingsState extends Equatable {
     required this.fontSize,
     required this.showDiacritics,
     required this.praiseWithVolumeKeys,
+    required this.allowZikrSessionRestoration,
   });
 
   @override
@@ -28,6 +31,7 @@ class SettingsState extends Equatable {
       fontSize,
       showDiacritics,
       praiseWithVolumeKeys,
+      allowZikrSessionRestoration,
     ];
   }
 
@@ -39,6 +43,7 @@ class SettingsState extends Equatable {
     double? fontSize,
     bool? showDiacritics,
     bool? praiseWithVolumeKeys,
+    bool? allowZikrSessionRestoration,
   }) {
     return SettingsState(
       zikrEffects: zikrEffects ?? this.zikrEffects,
@@ -48,6 +53,8 @@ class SettingsState extends Equatable {
       fontSize: fontSize ?? this.fontSize,
       showDiacritics: showDiacritics ?? this.showDiacritics,
       praiseWithVolumeKeys: praiseWithVolumeKeys ?? this.praiseWithVolumeKeys,
+      allowZikrSessionRestoration:
+          allowZikrSessionRestoration ?? this.allowZikrSessionRestoration,
     );
   }
 }

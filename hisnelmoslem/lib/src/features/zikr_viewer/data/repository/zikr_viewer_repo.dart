@@ -54,9 +54,10 @@ class ZikrViewerRepo {
       box.write(_shareSourceKey, value);
 
   ///MARK: Enable Disable the ability to restore session
-  static const String _allowRestoreSessionKey = "allowRestoreSession";
-  bool get allowRestoreSession =>
-      box.read<bool?>(_allowRestoreSessionKey) ?? true;
-  Future toggleAllowRestoreSession(bool value) async =>
-      box.write(_allowRestoreSessionKey, value);
+  static const String _allowZikrSessionRestorationKey =
+      "allowZikrSessionRestoration";
+  bool get allowZikrSessionRestoration =>
+      box.read<bool?>(_allowZikrSessionRestorationKey) ?? true;
+  Future toggleAllowZikrSessionRestoration(bool value) async =>
+      box.write(_allowZikrSessionRestorationKey, value);
 }
