@@ -37,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "allow": MessageLookupByLibrary.simpleMessage("السماح"),
         "allowNotifications": MessageLookupByLibrary.simpleMessage(
             "هل تريد السماح بتشغيل الإشعارات؟"),
+        "allowZikrRestoreSession":
+            MessageLookupByLibrary.simpleMessage("السماح بإستعادة جلسات الذكر"),
+        "allowZikrRestoreSessionDesc": MessageLookupByLibrary.simpleMessage(
+            "عبارة عن نافذة منبثقة لتحديد استكمال جلسات الذكر غير المكتملة"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
         "appTitle": MessageLookupByLibrary.simpleMessage("حصن المسلم"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("متأكد من ذلك؟"),
@@ -96,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ما لم يعجبك في التطبيق:"),
         "dismiss": MessageLookupByLibrary.simpleMessage("لاحقا"),
         "done": MessageLookupByLibrary.simpleMessage("تم"),
+        "donnotAskAgain": MessageLookupByLibrary.simpleMessage("لا تسأل مجددا"),
         "drSaeedBinAliBinWahf": MessageLookupByLibrary.simpleMessage(
             "للفقير إلى الله تعالى الدكتور سعيد بن علي بن وهف القحطاني"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),

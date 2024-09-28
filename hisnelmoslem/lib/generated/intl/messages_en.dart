@@ -37,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "allow": MessageLookupByLibrary.simpleMessage("Allow"),
         "allowNotifications": MessageLookupByLibrary.simpleMessage(
             "Allow app to send notifications?"),
+        "allowZikrRestoreSession": MessageLookupByLibrary.simpleMessage(
+            "Allow Zikr session restoration"),
+        "allowZikrRestoreSessionDesc": MessageLookupByLibrary.simpleMessage(
+            "Popup menu to resume uncompleted Zikr session "),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Hisn ELmoslem"),
         "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
@@ -99,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "I don\'t like about this app:"),
         "dismiss": MessageLookupByLibrary.simpleMessage("Dismiss"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
+        "donnotAskAgain":
+            MessageLookupByLibrary.simpleMessage("Don\'t ask again"),
         "drSaeedBinAliBinWahf": MessageLookupByLibrary.simpleMessage(
             "Dr. Saeed bin Ali bin Wahf Al-Qahtani"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
