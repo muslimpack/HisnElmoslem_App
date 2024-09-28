@@ -29,6 +29,5 @@ class Email extends Equatable {
 }
 
 extension EmailExt on Email {
-  String get getURI =>
-      'mailto:$mailTo?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}';
+  String get getURI => 'mailto:$mailTo?subject=$subject&body=$body';
 }
