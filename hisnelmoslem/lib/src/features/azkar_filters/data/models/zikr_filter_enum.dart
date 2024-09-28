@@ -20,6 +20,7 @@ enum ZikrFilter {
   athar,
 
   /// Hokm
+  hokmQuran,
   hokmSahih,
   hokmHasan,
   hokmDaeif,
@@ -29,6 +30,7 @@ enum ZikrFilter {
 
 extension ZikrFilterExt on ZikrFilter {
   List<ZikrFilter> get hokmFilters => [
+        ZikrFilter.hokmQuran,
         ZikrFilter.hokmSahih,
         ZikrFilter.hokmHasan,
         ZikrFilter.hokmDaeif,
@@ -72,6 +74,8 @@ extension ZikrFilterExt on ZikrFilter {
         return "أثر";
 
       ///
+      case ZikrFilter.hokmQuran:
+        return "قرآن";
       case ZikrFilter.hokmSahih:
         return "صحيح";
       case ZikrFilter.hokmHasan:
@@ -119,6 +123,8 @@ extension ZikrFilterExt on ZikrFilter {
         return S.of(context).sourceAtTabarani;
 
       ///
+      case ZikrFilter.hokmQuran:
+        return S.of(context).sourceQuran;
       case ZikrFilter.hokmSahih:
         return S.of(context).hokmSahih;
       case ZikrFilter.hokmHasan:
