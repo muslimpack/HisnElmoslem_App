@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `Alarm Editor`
+  String get alarmEditor {
+    return Intl.message(
+      'Alarm Editor',
+      name: 'alarmEditor',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Allow`
   String get allow {
     return Intl.message(
@@ -2015,6 +2025,16 @@ class S {
     return Intl.message(
       'Tally',
       name: 'tally',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tally Editor`
+  String get tallyEditor {
+    return Intl.message(
+      'Tally Editor',
+      name: 'tallyEditor',
       desc: '',
       args: [],
     );

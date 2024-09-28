@@ -57,15 +57,7 @@ class _TallyEditorState extends State<_TallyEditor> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        () {
-          if (widget.dbTally != null) {
-            return S.of(context).editCounter;
-          } else {
-            return S.of(context).addNewCounter;
-          }
-        }(),
-      ),
+      title: Text(S.of(context).tallyEditor),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -85,15 +85,7 @@ class _AlarmEditorState extends State<_AlarmEditor> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        () {
-          if (widget.isToEdit) {
-            return S.of(context).editReminder;
-          } else {
-            return S.of(context).addReminder;
-          }
-        }(),
-      ),
+      title: Text(S.of(context).alarmEditor),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
