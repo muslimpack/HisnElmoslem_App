@@ -13,26 +13,25 @@ Future<EditorResult<DbTally>?> showTallyEditorDialog({
   return showDialog<EditorResult<DbTally>?>(
     context: context,
     builder: (BuildContext context) {
-      return TallyEditor(
+      return _TallyEditor(
         dbTally: dbTally,
       );
     },
   );
 }
 
-class TallyEditor extends StatefulWidget {
+class _TallyEditor extends StatefulWidget {
   final DbTally? dbTally;
 
-  const TallyEditor({
-    super.key,
+  const _TallyEditor({
     this.dbTally,
   });
 
   @override
-  State<TallyEditor> createState() => _TallyEditorState();
+  State<_TallyEditor> createState() => _TallyEditorState();
 }
 
-class _TallyEditorState extends State<TallyEditor> {
+class _TallyEditorState extends State<_TallyEditor> {
   late DbTally dbTally;
   TextEditingController titleController = TextEditingController();
   TextEditingController resetCounterController = TextEditingController();

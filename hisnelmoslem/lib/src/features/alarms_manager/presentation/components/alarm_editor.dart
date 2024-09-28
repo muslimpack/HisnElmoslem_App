@@ -13,12 +13,11 @@ Future<EditorResult<DbAlarm>?> showAlarmEditorDialog({
   required DbAlarm dbAlarm,
   required bool isToEdit,
 }) async {
-  // show the dialog
   return showDialog<EditorResult<DbAlarm>?>(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AlarmEditorDialog(
+      return _AlarmEditor(
         dbAlarm: dbAlarm,
         isToEdit: isToEdit,
       );
@@ -26,21 +25,20 @@ Future<EditorResult<DbAlarm>?> showAlarmEditorDialog({
   );
 }
 
-class AlarmEditorDialog extends StatefulWidget {
+class _AlarmEditor extends StatefulWidget {
   final DbAlarm dbAlarm;
   final bool isToEdit;
 
-  const AlarmEditorDialog({
-    super.key,
+  const _AlarmEditor({
     required this.dbAlarm,
     required this.isToEdit,
   });
 
   @override
-  AlarmEditorDialogState createState() => AlarmEditorDialogState();
+  _AlarmEditorState createState() => _AlarmEditorState();
 }
 
-class AlarmEditorDialogState extends State<AlarmEditorDialog> {
+class _AlarmEditorState extends State<_AlarmEditor> {
   late TimeOfDay _time = TimeOfDay.now();
 
   bool iosStyle = true;
