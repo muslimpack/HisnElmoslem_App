@@ -55,6 +55,9 @@ dev_dependencies:
     sdk: flutter
   lint: ^2.3.0
 
+dependency_overrides: 
+  intl: ^0.19.0
+
 flutter_native_splash:
   android: true
   ios: true
@@ -125,5 +128,3 @@ flutter:
       fonts:
         - asset: assets/fonts/Rakkas-Regular.ttf
 
-flutter_intl:
-  enabled: true
