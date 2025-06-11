@@ -78,10 +78,10 @@ class ShareImageSettings extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'titleTextColor': titleTextColor.value,
-      'bodyTextColor': bodyTextColor.value,
-      'additionalTextColor': additionalTextColor.value,
-      'backgroundColor': backgroundColor.value,
+      'titleTextColor': titleTextColor.toARGB32(),
+      'bodyTextColor': bodyTextColor.toARGB32(),
+      'additionalTextColor': additionalTextColor.toARGB32(),
+      'backgroundColor': backgroundColor.toARGB32(),
       'fontSize': fontSize,
       'showFadl': showFadl,
       'showSource': showSource,

@@ -55,7 +55,7 @@ class ThemeRepo {
   }
 
   Future setColor(Color color) async {
-    await box.write(_themeColorKey, color.value);
+    await box.write(_themeColorKey, color.toARGB32());
   }
 
   ///
@@ -67,7 +67,7 @@ class ThemeRepo {
   }
 
   Future setBackgroundColor(Color color) async {
-    await box.write(_backgroundColorKey, color.value);
+    await box.write(_backgroundColorKey, color.toARGB32());
   }
 
   ///
