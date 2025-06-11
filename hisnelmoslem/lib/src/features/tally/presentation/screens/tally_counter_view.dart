@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/gradient_widget.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_view_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class TallyCounterView extends StatelessWidget {
   const TallyCounterView({super.key});
@@ -32,6 +32,7 @@ class TallyCounterView extends StatelessWidget {
         }
 
         final double resetEvery = state.resetEvery;
+        final int cycles = activeCounter.count ~/ resetEvery;
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -39,107 +40,108 @@ class TallyCounterView extends StatelessWidget {
             onTap: () {
               context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent());
             },
-            child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
               child: Column(
+                spacing: 20,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Card(
-                    child: Container(
-                      height: 150,
-                      constraints: const BoxConstraints(minHeight: 150),
-                      child: Center(
-                        child: ListView(
-                          padding: const EdgeInsets.all(20),
-                          shrinkWrap: true,
-                          children: [
-                            Text(
-                              activeCounter.title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontFamily: "uthmanic",
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          if (state.iterationMode != TallyIterationMode.none)
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  value: state.loadingIteration ? null : 1,
-                                ),
-                              ),
-                            ),
-                          SleekCircularSlider(
-                            initialValue:
-                                activeCounter.count.toDouble() % resetEvery,
-                            max: resetEvery,
-                            appearance: CircularSliderAppearance(
-                              angleRange: 360,
-                              startAngle: 270,
-                              infoProperties: InfoProperties(
-                                bottomLabelText:
-                                    '${S.of(context).times}: ${activeCounter.count ~/ resetEvery}'
-                                        .toArabicNumber(),
-                                bottomLabelStyle: const TextStyle(fontSize: 25),
-                                mainLabelStyle: const TextStyle(fontSize: 70),
-                                modifier: (double value) {
-                                  final circValue = value
-                                      .round()
-                                      .toString()
-                                      .toArabicNumber();
-                                  return circValue;
-                                },
-                              ),
-                              customWidths: CustomSliderWidths(
-                                progressBarWidth: 30,
-                                trackWidth: 30,
-                              ),
-                              customColors: CustomSliderColors(
-                                dotColor: Colors.transparent,
-                                hideShadow: true,
-                                trackColor: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withAlpha((.1 * 255).round()),
-                                progressBarColors: [
-                                  Theme.of(context).colorScheme.primary
-                                      .withAlpha((.7 * 255).round()),
-                                  Theme.of(context).colorScheme.primary
-                                      .withAlpha((.7 * 255).round()),
-                                ],
-                              ),
+                  Stack(
+                    children: [
+                      if (state.iterationMode != TallyIterationMode.none)
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              value: state.loadingIteration ? null : 1,
                             ),
                           ),
+                        ),
+                      Container(
+                        height: 150,
+                        constraints: const BoxConstraints(minHeight: 150),
+                        child: Center(
+                          child: ListView(
+                            padding: const EdgeInsets.all(20),
+                            shrinkWrap: true,
+                            children: [
+                              Text(
+                                activeCounter.title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  fontFamily: "uthmanic",
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Expanded(
+                    child: GradientWidget(
+                      FittedBox(
+                        child: Text(
+                          '${activeCounter.count}'.toArabicNumber(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withAlpha((.3 * 255).round()),
+                          Theme.of(context).colorScheme.primary,
                         ],
                       ),
                     ),
                   ),
-                  Card(
-                    child: Container(
-                      height: 100,
-                      padding: const EdgeInsets.all(20),
-                      child: FittedBox(
-                        child: Text(
-                          '${activeCounter.count}'.toArabicNumber(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 40),
-                        ),
+
+                  if (cycles > 0)
+                    GradientWidget(
+                      Row(
+                        spacing: 5,
+                        children: [
+                          const Icon(Icons.circle_outlined, size: 40),
+                          Text(
+                            '$cycles'.toArabicNumber(),
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                        ],
                       ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withAlpha((.5 * 255).round()),
+                          Theme.of(context).colorScheme.primary,
+                        ],
+                      ),
+                    ),
+
+                  LinearProgressIndicator(
+                    minHeight: 20,
+                    borderRadius: BorderRadius.circular(10),
+                    value:
+                        (activeCounter.count - cycles * resetEvery) /
+                        resetEvery,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
