@@ -1,4 +1,4 @@
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/azkar_bookmarks_screen.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_bookmarks_screen.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_screen.dart';

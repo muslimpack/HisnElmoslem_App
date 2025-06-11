@@ -1,8 +1,8 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/app.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
@@ -112,12 +112,12 @@ class AwesomeNotificationManager {
       actionButtons: [
         NotificationActionButton(
           key: 'Dismiss',
-          label: S.current.dismiss,
+          label: SX.current.dismiss,
           actionType: ActionType.DisabledAction,
         ),
         NotificationActionButton(
           key: 'Start',
-          label: S.current.start,
+          label: SX.current.start,
         ),
       ],
     );
@@ -132,7 +132,7 @@ class AwesomeNotificationManager {
       content: NotificationContent(
         id: 1000,
         channelKey: NotificationsChannels.scheduled.key,
-        title: S.current.haveNotOpenedAppLongTime,
+        title: SX.current.haveNotOpenedAppLongTime,
         body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
         notificationLayout: NotificationLayout.BigText,
         payload: {'Open': "2"},
@@ -179,18 +179,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: S.current.dismiss,
+                label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: S.current.start,
+                label: SX.current.start,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: S.current.dismiss,
+                label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],
@@ -228,18 +228,18 @@ class AwesomeNotificationManager {
           ? [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: S.current.dismiss,
+                label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
               NotificationActionButton(
                 key: 'Start',
-                label: S.current.start,
+                label: SX.current.start,
               ),
             ]
           : [
               NotificationActionButton(
                 key: 'Dismiss',
-                label: S.current.dismiss,
+                label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
             ],
@@ -299,12 +299,12 @@ class NotifyChannel {
 class NotificationsChannels {
   static NotifyChannel inApp = NotifyChannel(
     key: 'in_app_notification',
-    name: S.current.channelInAppName,
-    description: S.current.channelInAppNameDesc,
+    name: SX.current.channelInAppName,
+    description: SX.current.channelInAppNameDesc,
   );
   static NotifyChannel scheduled = NotifyChannel(
     key: 'scheduled_channel',
-    name: S.current.channelScheduledName,
-    description: S.current.channelScheduledNameDesc,
+    name: SX.current.channelScheduledName,
+    description: SX.current.channelScheduledNameDesc,
   );
 }

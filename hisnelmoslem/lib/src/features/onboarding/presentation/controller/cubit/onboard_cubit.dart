@@ -91,7 +91,7 @@ class OnboardCubit extends Cubit<OnboardState> {
 ومشاركة الرابط مع أصدقائك 
 تم إضافة زر جديد للقائمة الجانبية في الواجهة
 """,
-        buttonText: S.current.moreApps,
+        buttonText: SX.current.moreApps,
         onButtonCLick: () {
           openURL(kOrgWebsite);
         },
