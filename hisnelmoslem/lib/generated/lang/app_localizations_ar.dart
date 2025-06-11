@@ -635,6 +635,9 @@ class SAr extends S {
   String get tally => 'السبحة';
 
   @override
+  String get tallyActualCounterDesc => 'القيمة الفعلية للعداد';
+
+  @override
   String get tallyEditor => 'محرر السبحة';
 
   @override

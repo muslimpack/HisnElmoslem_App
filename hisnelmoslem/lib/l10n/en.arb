@@ -203,6 +203,7 @@
   "suraAlMulk": "Surah Al-Mulk",
   "suraAsSajdah": "Surah As-Sajdah",
   "tally": "Tally",
+  "tallyActualCounterDesc": "Actual value of counter",
   "tallyEditor": "Tally Editor",
   "text": "Text",
   "textColor": "Text color",

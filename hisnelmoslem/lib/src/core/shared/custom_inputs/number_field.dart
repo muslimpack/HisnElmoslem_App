@@ -6,12 +6,14 @@ class UserNumberField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final Function(String)? onChange;
+  final IconData? leadingIcon;
 
   const UserNumberField({
     super.key,
     required this.controller,
     required this.hintText,
     this.onChange,
+    this.leadingIcon,
   });
 
   @override
@@ -22,6 +24,7 @@ class UserNumberField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         keyboardType: TextInputType.number,
+
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly,
         ],
@@ -29,6 +32,7 @@ class UserNumberField extends StatelessWidget {
         decoration: customInputDecoration.copyWith(
           hintText: hintText,
           labelText: hintText,
+          prefixIcon: Icon(leadingIcon),
         ),
       ),
     );

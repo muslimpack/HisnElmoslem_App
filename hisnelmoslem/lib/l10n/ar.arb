@@ -203,6 +203,7 @@
   "suraAlMulk": "سورة الملك",
   "suraAsSajdah": "سورة السجدة",
   "tally": "السبحة",
+  "tallyActualCounterDesc": "القيمة الفعلية للعداد",
   "tallyEditor": "محرر السبحة",
   "text": "النص",
   "textColor": "لون النص",

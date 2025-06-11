@@ -1315,6 +1315,12 @@ abstract class S {
   /// **'Tally'**
   String get tally;
 
+  /// No description provided for @tallyActualCounterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual value of counter'**
+  String get tallyActualCounterDesc;
+
   /// No description provided for @tallyEditor.
   ///
   /// In en, this message translates to:

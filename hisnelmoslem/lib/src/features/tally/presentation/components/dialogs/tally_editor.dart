@@ -5,6 +5,7 @@ import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 Future<EditorResult<DbTally>?> showTallyEditorDialog({
   required BuildContext context,
@@ -31,6 +32,7 @@ class _TallyEditorState extends State<_TallyEditor> {
   late DbTally dbTally;
   TextEditingController titleController = TextEditingController();
   TextEditingController resetCounterController = TextEditingController();
+  TextEditingController counterValueController = TextEditingController();
 
   @override
   void initState() {
@@ -41,6 +43,9 @@ class _TallyEditorState extends State<_TallyEditor> {
       resetCounterController = TextEditingController(
         text: dbTally.countReset.toString(),
       );
+      counterValueController = TextEditingController(
+        text: dbTally.count.toString(),
+      );
     } else {
       dbTally = DbTally.empty(
         created: DateTime.now(),
@@ -48,6 +53,7 @@ class _TallyEditorState extends State<_TallyEditor> {
       );
       titleController = TextEditingController();
       resetCounterController = TextEditingController();
+      counterValueController = TextEditingController();
     }
   }
 
@@ -69,7 +75,17 @@ class _TallyEditorState extends State<_TallyEditor> {
           ),
           UserNumberField(
             controller: resetCounterController,
+            leadingIcon: MdiIcons.restore,
             hintText: S.of(context).circleEvery,
+          ),
+          Text(
+            S.of(context).tallyActualCounterDesc,
+            textAlign: TextAlign.center,
+          ),
+          UserNumberField(
+            controller: counterValueController,
+            leadingIcon: MdiIcons.counter,
+            hintText: S.of(context).count,
           ),
         ],
       ),
@@ -90,40 +106,47 @@ class _TallyEditorState extends State<_TallyEditor> {
             },
           ),
         FilledButton(
+          onPressed: onSubmit,
           child: Text(
             widget.dbTally == null ? S.of(context).add : S.of(context).edit,
             textAlign: TextAlign.center,
           ),
-          onPressed: () {
-            final String title = titleController.text.trim();
-            final int? resetCounter = int.tryParse(resetCounterController.text);
-            if (title.isEmpty) {
-              return;
-            }
-            if (resetCounter == null || title.isEmpty) {
-              showToast(msg: S.of(context).counterCircleMustBeGreaterThanZero);
-              return;
-            }
-
-            dbTally = dbTally.copyWith(title: title, countReset: resetCounter);
-
-            if (dbTally == widget.dbTally) {
-              Navigator.pop(context);
-              return;
-            }
-
-            Navigator.pop(
-              context,
-              EditorResult(
-                action: widget.dbTally == null
-                    ? EditorActionEnum.add
-                    : EditorActionEnum.edit,
-                value: dbTally,
-              ),
-            );
-          },
         ),
       ],
+    );
+  }
+
+  Future onSubmit() async {
+    final String title = titleController.text.trim();
+    final int? resetCounter = int.tryParse(resetCounterController.text);
+    final int? count = int.tryParse(counterValueController.text);
+    if (title.isEmpty) {
+      return;
+    }
+    if (resetCounter == null || title.isEmpty || count == null) {
+      showToast(msg: S.of(context).counterCircleMustBeGreaterThanZero);
+      return;
+    }
+
+    dbTally = dbTally.copyWith(
+      title: title,
+      countReset: resetCounter,
+      count: count,
+    );
+
+    if (dbTally == widget.dbTally) {
+      Navigator.pop(context);
+      return;
+    }
+
+    Navigator.pop(
+      context,
+      EditorResult(
+        action: widget.dbTally == null
+            ? EditorActionEnum.add
+            : EditorActionEnum.edit,
+        value: dbTally,
+      ),
     );
   }
 }

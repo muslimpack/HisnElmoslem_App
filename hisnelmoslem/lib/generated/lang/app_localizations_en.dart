@@ -635,6 +635,9 @@ class SEn extends S {
   String get tally => 'Tally';
 
   @override
+  String get tallyActualCounterDesc => 'Actual value of counter';
+
+  @override
   String get tallyEditor => 'Tally Editor';
 
   @override
