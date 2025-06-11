@@ -25,7 +25,7 @@ class AzkarFiltersRepo {
   }
 
   /// Filters for zikr source
-  Future setEnableFiltersStatus(bool activateFilters) async {
+  Future setEnableFiltersStatus(bool activateFilters) {
     return box.write(_enableFiltersKey, activateFilters);
   }
 
@@ -39,7 +39,7 @@ class AzkarFiltersRepo {
   }
 
   /// Filters for zikr Hokm
-  Future setEnableHokmFiltersStatus(bool activateFilters) async {
+  Future setEnableHokmFiltersStatus(bool activateFilters) {
     return box.write(_enableHokmFiltersKey, activateFilters);
   }
 
@@ -48,7 +48,7 @@ class AzkarFiltersRepo {
     return data ?? true;
   }
 
-  Future setFilterStatus(Filter filter) async {
+  Future setFilterStatus(Filter filter) {
     return box.write(_getZikrFilterKey(filter.filter), filter.isActivated);
   }
 

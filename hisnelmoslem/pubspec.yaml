@@ -52,10 +52,10 @@ dependencies:
   window_manager: ^0.5.0
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  lint: ^2.3.0
+  lint: ^2.8.0
 
 dependency_overrides: 
   intl: ^0.19.0

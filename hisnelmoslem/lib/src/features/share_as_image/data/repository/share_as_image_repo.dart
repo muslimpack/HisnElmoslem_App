@@ -15,11 +15,11 @@ class ShareAsImageRepo {
       'share_image_title_text_color';
 
   Color get shareImageTitleTextColor => Color(
-        box.read<int?>(_shareImageTitleTextBoxKey) ??
-            kShareImageTitleTextColor.value,
-      );
+    box.read<int?>(_shareImageTitleTextBoxKey) ??
+        kShareImageTitleTextColor.toARGB32(),
+  );
   Future<void> shareImageUpdateTitleColor(Color color) async {
-    await box.write(_shareImageTitleTextBoxKey, color.value);
+    await box.write(_shareImageTitleTextBoxKey, color.toARGB32());
   }
 
   ///
@@ -27,12 +27,12 @@ class ShareAsImageRepo {
       'share_image_body_text_color';
 
   Color get shareImageBodyTextColor => Color(
-        box.read<int?>(_shareImageBodyTextColorBoxKey) ??
-            kShareImageBodyTextColor.value,
-      );
+    box.read<int?>(_shareImageBodyTextColorBoxKey) ??
+        kShareImageBodyTextColor.toARGB32(),
+  );
 
   Future<void> shareImageUpdateTextColor(Color color) async {
-    await box.write(_shareImageBodyTextColorBoxKey, color.value);
+    await box.write(_shareImageBodyTextColorBoxKey, color.toARGB32());
   }
 
   ///
@@ -40,11 +40,11 @@ class ShareAsImageRepo {
       'share_image_additional_text_color';
 
   Color get shareImageAdditionalTextColor => Color(
-        box.read<int?>(_shareImageAdditionalTextColorBoxKey) ??
-            kShareImageAdditionalTextColor.value,
-      );
+    box.read<int?>(_shareImageAdditionalTextColorBoxKey) ??
+        kShareImageAdditionalTextColor.toARGB32(),
+  );
   Future<void> updateAdditionalTextColor(Color color) async {
-    await box.write(_shareImageAdditionalTextColorBoxKey, color.value);
+    await box.write(_shareImageAdditionalTextColorBoxKey, color.toARGB32());
   }
 
   ///
@@ -52,11 +52,11 @@ class ShareAsImageRepo {
       'share_image_background_color';
 
   Color get shareImageBackgroundColor => Color(
-        box.read<int?>(_shareImageBackgroundColorBoxKey) ??
-            kShareImageBackgroundColor.value,
-      );
+    box.read<int?>(_shareImageBackgroundColorBoxKey) ??
+        kShareImageBackgroundColor.toARGB32(),
+  );
   Future<void> updateBackgroundColor(Color color) async {
-    await box.write(_shareImageBackgroundColorBoxKey, color.value);
+    await box.write(_shareImageBackgroundColorBoxKey, color.toARGB32());
   }
 
   ///MARK: Font
@@ -108,10 +108,7 @@ class ShareAsImageRepo {
   bool get shareImageRemoveDiacritics =>
       box.read(_shareImageRemoveDiacriticsKey) ?? false;
   Future<void> shareImageUpdateRemoveDiacritics({required bool value}) async {
-    await box.write(
-      _shareImageRemoveDiacriticsKey,
-      value,
-    );
+    await box.write(_shareImageRemoveDiacriticsKey, value);
   }
 
   ///
@@ -156,9 +153,6 @@ class ShareAsImageRepo {
   }
 
   Future<void> updateShareImageSettings(ShareImageSettings settings) async {
-    await box.write(
-      _shareImageSettingsBoxKey,
-      settings.toJson(),
-    );
+    await box.write(_shareImageSettingsBoxKey, settings.toJson());
   }
 }

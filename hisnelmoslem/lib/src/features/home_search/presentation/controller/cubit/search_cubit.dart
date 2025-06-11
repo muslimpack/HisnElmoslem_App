@@ -14,16 +14,9 @@ class SearchCubit extends Cubit<SearchState> {
   final HomeBloc homeBloc;
   late final StreamSubscription homeBlocSubscription;
   SearchCubit(this.homeBloc)
-      : super(
-          const SearchState(
-            searchText: "",
-            allTitles: [],
-          ),
-        ) {
+    : super(const SearchState(searchText: "", allTitles: [])) {
     _onHomeBlocChange(homeBloc.state);
-    homeBlocSubscription = homeBloc.stream.listen(
-      _onHomeBlocChange,
-    );
+    homeBlocSubscription = homeBloc.stream.listen(_onHomeBlocChange);
   }
 
   void _onHomeBlocChange(HomeState homeState) {
@@ -32,21 +25,13 @@ class SearchCubit extends Cubit<SearchState> {
     emit(state.copyWith(allTitles: homeState.titles));
   }
 
-  FutureOr<void> erase() async {
+  Future<void> erase() async {
     searchController.clear();
-    emit(
-      state.copyWith(
-        searchText: "",
-      ),
-    );
+    emit(state.copyWith(searchText: ""));
   }
 
-  FutureOr<void> search(String searchText) async {
-    emit(
-      state.copyWith(
-        searchText: searchText,
-      ),
-    );
+  Future<void> search(String searchText) async {
+    emit(state.copyWith(searchText: searchText));
   }
 
   @override

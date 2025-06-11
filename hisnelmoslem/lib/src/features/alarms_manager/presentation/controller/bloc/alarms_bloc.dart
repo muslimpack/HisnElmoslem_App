@@ -34,10 +34,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     on<AlarmsToggleCaveAlarmEvent>(_toggleCaveAlarm);
   }
 
-  FutureOr<void> _start(
-    AlarmsStartEvent event,
-    Emitter<AlarmsState> emit,
-  ) async {
+  Future<void> _start(AlarmsStartEvent event, Emitter<AlarmsState> emit) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
     await alarmManager.checkAllAlarmsInDb();
     emit(
@@ -49,10 +46,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     );
   }
 
-  FutureOr<void> _add(
-    AlarmsAddEvent event,
-    Emitter<AlarmsState> emit,
-  ) async {
+  Future<void> _add(AlarmsAddEvent event, Emitter<AlarmsState> emit) async {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
 
@@ -66,10 +60,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     emit(state.copyWith(alarms: alarms));
   }
 
-  FutureOr<void> _edit(
-    AlarmsEditEvent event,
-    Emitter<AlarmsState> emit,
-  ) async {
+  Future<void> _edit(AlarmsEditEvent event, Emitter<AlarmsState> emit) async {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
 
@@ -86,7 +77,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     emit(state.copyWith(alarms: alarms));
   }
 
-  FutureOr<void> _remove(
+  Future<void> _remove(
     AlarmsRemoveEvent event,
     Emitter<AlarmsState> emit,
   ) async {
@@ -101,14 +92,12 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       id: event.alarm.titleId,
     );
 
-    showToast(
-      msg: "${SX.current.reminderRemoved}: ${event.alarm.title}",
-    );
+    showToast(msg: "${SX.current.reminderRemoved}: ${event.alarm.title}");
 
     emit(state.copyWith(alarms: alarms));
   }
 
-  FutureOr<void> _toggleFastAlarm(
+  Future<void> _toggleFastAlarm(
     AlarmsToggleFastAlarmEvent event,
     Emitter<AlarmsState> emit,
   ) async {
@@ -133,14 +122,14 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     emit(state.copyWith(isFastAlarmEnabled: event.enable));
   }
 
-  FutureOr<void> _toggleCaveAlarm(
+  Future<void> _toggleCaveAlarm(
     AlarmsToggleCaveAlarmEvent event,
     Emitter<AlarmsState> emit,
   ) async {
     final state = this.state;
     if (state is! AlarmsLoadedState) return;
 
-    alarmsRepo.changCaveAlarmStatus(value: event.enable);
+    await alarmsRepo.changCaveAlarmStatus(value: event.enable);
 
     if (event.enable) {
       showToast(
@@ -152,7 +141,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       );
     }
 
-    _activateCaveAlarm(value: event.enable);
+    await _activateCaveAlarm(value: event.enable);
     emit(state.copyWith(isCaveAlarmEnabled: event.enable));
   }
 
@@ -191,9 +180,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         title: SX.current.suraAlKahf,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
-        time: Time(
-          9,
-        ),
+        time: Time(9),
         weekday: AwesomeDay.friday.value,
         payload: "الكهف",
         needToOpen: false,

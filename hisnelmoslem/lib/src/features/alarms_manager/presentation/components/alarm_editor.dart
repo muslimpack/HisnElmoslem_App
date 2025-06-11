@@ -12,15 +12,12 @@ Future<EditorResult<DbAlarm>?> showAlarmEditorDialog({
   required BuildContext context,
   required DbAlarm dbAlarm,
   required bool isToEdit,
-}) async {
+}) {
   return showDialog<EditorResult<DbAlarm>?>(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return _AlarmEditor(
-        dbAlarm: dbAlarm,
-        isToEdit: isToEdit,
-      );
+      return _AlarmEditor(dbAlarm: dbAlarm, isToEdit: isToEdit);
     },
   );
 }
@@ -29,10 +26,7 @@ class _AlarmEditor extends StatefulWidget {
   final DbAlarm dbAlarm;
   final bool isToEdit;
 
-  const _AlarmEditor({
-    required this.dbAlarm,
-    required this.isToEdit,
-  });
+  const _AlarmEditor({required this.dbAlarm, required this.isToEdit});
 
   @override
   _AlarmEditorState createState() => _AlarmEditorState();
@@ -61,8 +55,10 @@ class _AlarmEditorState extends State<_AlarmEditor> {
   void initState() {
     super.initState();
     if (widget.isToEdit) {
-      _time = TimeOfDay.now()
-          .replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
+      _time = TimeOfDay.now().replacing(
+        hour: widget.dbAlarm.hour,
+        minute: widget.dbAlarm.minute,
+      );
 
       bodyController = TextEditingController(text: widget.dbAlarm.body);
       repeatType = widget.dbAlarm.repeatType;
@@ -96,9 +92,7 @@ class _AlarmEditorState extends State<_AlarmEditor> {
           ),
           const SizedBox(height: 10),
           TextField(
-            style: TextStyle(
-              color: Theme.of(context).listTileTheme.textColor,
-            ),
+            style: TextStyle(color: Theme.of(context).listTileTheme.textColor),
             textAlign: TextAlign.center,
             controller: bodyController,
             maxLength: 100,
@@ -124,15 +118,18 @@ class _AlarmEditorState extends State<_AlarmEditor> {
               onTap: () {
                 Navigator.of(context).push(
                   showPicker(
-                    context: context,
-                    value: Time(hour: _time.hour, minute: _time.minute),
-                    onChange: onTimeChanged,
-                    iosStylePicker: true,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                        context: context,
+                        value: Time(hour: _time.hour, minute: _time.minute),
+                        onChange: onTimeChanged,
+                        iosStylePicker: true,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).scaffoldBackgroundColor,
 
-                    // Optional onChange to receive value as DateTime
-                    onChangeDateTime: (DateTime dateTime) {},
-                  ) as Route,
+                        // Optional onChange to receive value as DateTime
+                        onChangeDateTime: (DateTime dateTime) {},
+                      )
+                      as Route,
                 );
               },
             ),
@@ -158,29 +155,27 @@ class _AlarmEditorState extends State<_AlarmEditor> {
                 });
               },
               items: AlarmRepeatType.values
-                  .map<DropdownMenuItem<AlarmRepeatType>>(
-                      (AlarmRepeatType value) {
-                return DropdownMenuItem<AlarmRepeatType>(
-                  // alignment: Alignment.center,
+                  .map<DropdownMenuItem<AlarmRepeatType>>((
+                    AlarmRepeatType value,
+                  ) {
+                    return DropdownMenuItem<AlarmRepeatType>(
+                      // alignment: Alignment.center,
+                      value: value,
+                      child: Text(
+                        value.getUserFriendlyName(context),
 
-                  value: value,
-                  child: Text(
-                    value.getUserFriendlyName(context),
-
-                    // textAlign: TextAlign.center,
-                  ),
-                );
-              }).toList(),
+                        // textAlign: TextAlign.center,
+                      ),
+                    );
+                  })
+                  .toList(),
             ),
           ),
         ],
       ),
       actions: [
         TextButton(
-          child: Text(
-            S.of(context).close,
-            textAlign: TextAlign.center,
-          ),
+          child: Text(S.of(context).close, textAlign: TextAlign.center),
           onPressed: () {
             Navigator.pop(context);
           },

@@ -30,7 +30,7 @@ class AppSettingsRepo {
   /// If it is true then
   /// page mode will be card mode
   /// if not page mode will be page
-  Future<void> changeReadModeStatus({required bool value}) async =>
+  Future<void> changeReadModeStatus({required bool value}) =>
       box.write(isCardReadModeKey, value);
 
   ///
@@ -57,7 +57,7 @@ class AppSettingsRepo {
   static const String _enableWakeLockKey = "enableWakeLock";
   bool get enableWakeLock => box.read(_enableWakeLockKey) ?? false;
 
-  Future<void> changeEnableWakeLock({required bool use}) async =>
+  Future<void> changeEnableWakeLock({required bool use}) =>
       box.write(_enableWakeLockKey, use);
 
   void toggleEnableWakeLock() {
@@ -97,7 +97,7 @@ class AppSettingsRepo {
 
   bool get praiseWithVolumeKeys => box.read(praiseWithVolumeKeysKey) ?? true;
 
-  Future<void> changePraiseWithVolumeKeysStatus({required bool value}) async =>
+  Future<void> changePraiseWithVolumeKeysStatus({required bool value}) =>
       box.write(praiseWithVolumeKeysKey, value);
 
   ///MARK:Titles Freq filters
@@ -117,7 +117,7 @@ class AppSettingsRepo {
     return result;
   }
 
-  Future setTitlesFreqFilterStatus(List<TitlesFreqEnum> freqList) async {
+  Future setTitlesFreqFilterStatus(List<TitlesFreqEnum> freqList) {
     return box.write(_titlesFreqFilter, freqList.toJson());
   }
 }

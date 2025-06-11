@@ -166,7 +166,7 @@ class SEn extends S {
   String get deactivate => 'Deactivate';
 
   @override
-  String get decreae => 'Decreae';
+  String get decrease => 'Decrease';
 
   @override
   String get delete => 'Delete';
@@ -252,7 +252,7 @@ class SEn extends S {
   String get favoritesContent => 'favorites';
 
   @override
-  String get favoritesZikr => 'Favourite Zikr';
+  String get favoritesZikr => 'Favorite Zikr';
 
   @override
   String get featuresToBeAdded => 'Features I hope to be added:';
@@ -261,10 +261,10 @@ class SEn extends S {
   String get fixedSizeMode => 'Fixed size mode';
 
   @override
-  String get fontDecreaeSize => 'Decreae font size';
+  String get fontDecreaseSize => 'Decrease font size';
 
   @override
-  String get fontIncreaeSize => 'Increae font size';
+  String get fontIncreaseSize => 'Increase font size';
 
   @override
   String get fontResetSize => 'Reset font size';
@@ -394,7 +394,7 @@ class SEn extends S {
 
   @override
   String get noTitleMarkedAsFavorite =>
-      'No title from the index is marked as a favourite. Click on the Favorites icon at any index title';
+      'No title from the index is marked as a favorite. Click on the Favorites icon at any index title';
 
   @override
   String get noTitleWithName => 'No title with this name';

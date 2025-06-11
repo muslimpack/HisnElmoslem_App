@@ -13,6 +13,6 @@ class TallyRepo {
           .firstOrNull ??
       TallyIterationMode.none;
 
-  Future saveIterationMode(TallyIterationMode iterationMode) async =>
+  Future saveIterationMode(TallyIterationMode iterationMode) =>
       box.write(iterationModeKey, iterationMode.name);
 }

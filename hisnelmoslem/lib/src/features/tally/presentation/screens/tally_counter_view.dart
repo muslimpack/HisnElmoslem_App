@@ -95,13 +95,13 @@ class TallyCounterView extends StatelessWidget {
                                 bottomLabelText:
                                     '${S.of(context).times}: ${activeCounter.count ~/ resetEvery}'
                                         .toArabicNumber(),
-                                bottomLabelStyle: const TextStyle(
-                                  fontSize: 25,
-                                ),
+                                bottomLabelStyle: const TextStyle(fontSize: 25),
                                 mainLabelStyle: const TextStyle(fontSize: 70),
                                 modifier: (double value) {
-                                  final circValue =
-                                      value.round().toString().toArabicNumber();
+                                  final circValue = value
+                                      .round()
+                                      .toString()
+                                      .toArabicNumber();
                                   return circValue;
                                 },
                               ),
@@ -115,16 +115,12 @@ class TallyCounterView extends StatelessWidget {
                                 trackColor: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(.1),
+                                    .withAlpha((.1 * 255).round()),
                                 progressBarColors: [
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(.7),
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(.7),
+                                  Theme.of(context).colorScheme.primary
+                                      .withAlpha((.7 * 255).round()),
+                                  Theme.of(context).colorScheme.primary
+                                      .withAlpha((.7 * 255).round()),
                                 ],
                               ),
                             ),

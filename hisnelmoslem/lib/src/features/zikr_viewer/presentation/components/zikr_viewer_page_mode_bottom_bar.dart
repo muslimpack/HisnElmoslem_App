@@ -7,10 +7,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bl
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
   final DbContent dbContent;
-  const ZikrViewerPageModeBottomBar({
-    super.key,
-    required this.dbContent,
-  });
+  const ZikrViewerPageModeBottomBar({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +20,21 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
             tooltip: S.of(context).resetZikr,
             padding: EdgeInsets.zero,
             icon: const Icon(Icons.repeat),
-            onPressed: () async {
-              context
-                  .read<ZikrViewerBloc>()
-                  .add(ZikrViewerResetZikrEvent(content: dbContent));
+            onPressed: () {
+              context.read<ZikrViewerBloc>().add(
+                ZikrViewerResetZikrEvent(content: dbContent),
+              );
             },
           ),
           const FontSettingsIconButton(),
           IconButton(
             tooltip: S.of(context).report,
             padding: EdgeInsets.zero,
-            icon: const Icon(
-              Icons.report_outlined,
-              color: Colors.orange,
-            ),
-            onPressed: () async {
-              context
-                  .read<ZikrViewerBloc>()
-                  .add(ZikrViewerReportZikrEvent(content: dbContent));
+            icon: const Icon(Icons.report_outlined, color: Colors.orange),
+            onPressed: () {
+              context.read<ZikrViewerBloc>().add(
+                ZikrViewerReportZikrEvent(content: dbContent),
+              );
             },
           ),
         ],

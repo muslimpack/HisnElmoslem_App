@@ -27,8 +27,9 @@ class ZikrViewerRepo {
   /// Map of {contentId: count}
   Future saveSession(int titleId, Map<int, int> session) async {
     /// convert map key to string
-    final Map<String, int> stringKeyedMap =
-        session.map((key, value) => MapEntry(key.toString(), value));
+    final Map<String, int> stringKeyedMap = session.map(
+      (key, value) => MapEntry(key.toString(), value),
+    );
 
     /// convert map to string
     final String encoded = json.encode(stringKeyedMap);
@@ -45,19 +46,18 @@ class ZikrViewerRepo {
   ///
   static const String _shareFadlKey = "shareFadl";
   bool get shareFadl => box.read<bool?>(_shareFadlKey) ?? true;
-  Future toggleShareFadl(bool value) async => box.write(_shareFadlKey, value);
+  Future toggleShareFadl(bool value) => box.write(_shareFadlKey, value);
 
   ///
   static const String _shareSourceKey = "shareSource";
   bool get shareSource => box.read<bool?>(_shareSourceKey) ?? true;
-  Future toggleShareSource(bool value) async =>
-      box.write(_shareSourceKey, value);
+  Future toggleShareSource(bool value) => box.write(_shareSourceKey, value);
 
   ///MARK: Enable Disable the ability to restore session
   static const String _allowZikrSessionRestorationKey =
       "allowZikrSessionRestoration";
   bool get allowZikrSessionRestoration =>
       box.read<bool?>(_allowZikrSessionRestorationKey) ?? true;
-  Future toggleAllowZikrSessionRestoration(bool value) async =>
+  Future toggleAllowZikrSessionRestoration(bool value) =>
       box.write(_allowZikrSessionRestorationKey, value);
 }

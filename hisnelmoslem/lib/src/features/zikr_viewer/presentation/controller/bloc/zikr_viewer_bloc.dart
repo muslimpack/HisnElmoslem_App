@@ -81,7 +81,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
   }
 
-  FutureOr<void> _start(
+  Future<void> _start(
     ZikrViewerStartEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
@@ -102,8 +102,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     _initZikrPageMode(event.zikrViewerMode);
 
-    final restoredSession =
-        await zikrViewerRepo.getLastSession(event.titleIndex);
+    final restoredSession = await zikrViewerRepo.getLastSession(
+      event.titleIndex,
+    );
     emit(
       ZikrViewerLoadedState(
         title: title,
@@ -112,14 +113,15 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
         restoredSession: restoredSession ?? {},
-        askToRestoreSession: zikrViewerRepo.allowZikrSessionRestoration &&
+        askToRestoreSession:
+            zikrViewerRepo.allowZikrSessionRestoration &&
             restoredSession != null &&
             restoredSession.isNotEmpty,
       ),
     );
   }
 
-  FutureOr<void> _restoreSession(
+  Future<void> _restoreSession(
     ZikrViewerRestoreSessionEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
@@ -134,9 +136,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final restoredSession = state.restoredSession;
     if (restoredSession.isEmpty) return;
 
-    final azkarToView = List<DbContent>.from(state.azkarToView)
-        .map((x) => x.copyWith(count: restoredSession[x.id] ?? x.count))
-        .toList();
+    final azkarToView = List<DbContent>.from(
+      state.azkarToView,
+    ).map((x) => x.copyWith(count: restoredSession[x.id] ?? x.count)).toList();
 
     int pageToJump = 0;
     for (var i = 0; i < azkarToView.length; i++) {
@@ -153,20 +155,19 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     emit(state.copyWith(azkarToView: azkarToView, askToRestoreSession: false));
   }
 
-  FutureOr<void> _saveSession(
+  Future<void> _saveSession(
     ZikrViewerSaveSessionEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
-    await zikrViewerRepo.saveSession(
-      state.title.id,
-      {for (final zikr in state.azkarToView) zikr.id: zikr.count},
-    );
+    await zikrViewerRepo.saveSession(state.title.id, {
+      for (final zikr in state.azkarToView) zikr.id: zikr.count,
+    });
   }
 
-  FutureOr<void> _resetSession(
+  Future<void> _resetSession(
     ZikrViewerResetSessionEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
@@ -176,31 +177,30 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     await zikrViewerRepo.resetSession(state.title.id);
   }
 
-  FutureOr<void> _pageChange(
+  Future<void> _pageChange(
     ZikrViewerPageChangeEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
-    emit(
-      state.copyWith(
-        activeZikrIndex: event.index,
-      ),
-    );
+    emit(state.copyWith(activeZikrIndex: event.index));
   }
 
-  FutureOr<void> _decreaaseActiveZikr(
+  Future<void> _decreaaseActiveZikr(
     ZikrViewerDecreaseZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
-    final activeZikrIndex =
-        state.azkarToView.indexWhere((x) => x.id == activeZikr.id);
+    final activeZikrIndex = state.azkarToView.indexWhere(
+      (x) => x.id == activeZikr.id,
+    );
 
     final int count = activeZikr.count;
 
@@ -236,18 +236,21 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     emit(state.copyWith(azkarToView: azkarToView));
   }
 
-  FutureOr<void> _resetActiveZikr(
+  Future<void> _resetActiveZikr(
     ZikrViewerResetZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
 
-    final originalZikr =
-        state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
+    final originalZikr = state.azkar
+        .where((x) => x.id == activeZikr.id)
+        .firstOrNull;
     if (originalZikr == null) return;
 
     final azkarToView = List<DbContent>.from(state.azkarToView).map((x) {
@@ -260,64 +263,62 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     emit(state.copyWith(azkarToView: azkarToView));
   }
 
-  FutureOr<void> _copyActiveZikr(
+  Future<void> _copyActiveZikr(
     ZikrViewerCopyZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
 
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(
-          contentId: activeZikr.id,
-        );
+        return ZikrShareDialog(contentId: activeZikr.id);
       },
     );
   }
 
-  FutureOr<void> _shareActiveZikr(
+  Future<void> _shareActiveZikr(
     ZikrViewerShareZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
 
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(
-          contentId: activeZikr.id,
-        );
+        return ZikrShareDialog(contentId: activeZikr.id);
       },
     );
   }
 
-  FutureOr<void> _toggleBookmark(
+  Future<void> _toggleBookmark(
     ZikrViewerToggleZikrBookmarkEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
 
     if (event.bookmark) {
-      await hisnDBHelper.addContentToFavourite(
-        dbContent: activeZikr,
-      );
+      await hisnDBHelper.addContentToFavourite(dbContent: activeZikr);
     } else {
-      await hisnDBHelper.removeContentFromFavourite(
-        dbContent: activeZikr,
-      );
+      await hisnDBHelper.removeContentFromFavourite(dbContent: activeZikr);
     }
 
     final azkar = List<DbContent>.of(state.azkar).map((e) {
@@ -334,24 +335,21 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       return e;
     }).toList();
 
-    emit(
-      state.copyWith(
-        azkar: azkar,
-        azkarToView: azkarToView,
-      ),
-    );
+    emit(state.copyWith(azkar: azkar, azkarToView: azkarToView));
 
     homeBloc.add(HomeUpdateBookmarkedContentsEvent());
   }
 
-  FutureOr<void> _report(
+  Future<void> _report(
     ZikrViewerReportZikrEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
-    final activeZikr =
-        _getZikrToDealWith(state: state, eventContent: event.content);
+    final activeZikr = _getZikrToDealWith(
+      state: state,
+      eventContent: event.content,
+    );
     if (activeZikr == null) return;
 
     final text = await activeZikr.getPlainText();
@@ -362,7 +360,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
   }
 
-  FutureOr<void> _volumeKeyPressed(
+  Future<void> _volumeKeyPressed(
     ZikrViewerVolumeKeyPressedEvent event,
     Emitter<ZikrViewerState> emit,
   ) async {

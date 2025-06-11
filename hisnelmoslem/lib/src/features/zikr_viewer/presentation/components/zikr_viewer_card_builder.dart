@@ -11,10 +11,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bl
 class ZikrViewerCardBuilder extends StatelessWidget {
   final DbContent dbContent;
 
-  const ZikrViewerCardBuilder({
-    super.key,
-    required this.dbContent,
-  });
+  const ZikrViewerCardBuilder({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +24,13 @@ class ZikrViewerCardBuilder extends StatelessWidget {
           InkWell(
             onTap: () {
               context.read<ZikrViewerBloc>().add(
-                    ZikrViewerDecreaseZikrEvent(content: dbContent),
-                  );
+                ZikrViewerDecreaseZikrEvent(content: dbContent),
+              );
             },
             onLongPress: () {
-              context
-                  .read<ZikrViewerBloc>()
-                  .add(ZikrViewerCopyZikrEvent(content: dbContent));
+              context.read<ZikrViewerBloc>().add(
+                ZikrViewerCopyZikrEvent(content: dbContent),
+              );
             },
             child: BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
@@ -43,9 +40,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ZikrViewerZikrBody(dbContent: dbContent),
-                    ],
+                    children: [ZikrViewerZikrBody(dbContent: dbContent)],
                   ),
                 );
               },
@@ -60,9 +55,7 @@ class ZikrViewerCardBuilder extends StatelessWidget {
 }
 
 class _BottomBar extends StatelessWidget {
-  const _BottomBar({
-    required this.dbContent,
-  });
+  const _BottomBar({required this.dbContent});
 
   final DbContent dbContent;
 
@@ -73,23 +66,20 @@ class _BottomBar extends StatelessWidget {
       children: [
         IconButton(
           tooltip: S.of(context).resetZikr,
-          onPressed: () async {
-            context
-                .read<ZikrViewerBloc>()
-                .add(ZikrViewerResetZikrEvent(content: dbContent));
+          onPressed: () {
+            context.read<ZikrViewerBloc>().add(
+              ZikrViewerResetZikrEvent(content: dbContent),
+            );
           },
           icon: const Icon(Icons.repeat),
         ),
         IconButton(
           tooltip: S.of(context).report,
-          icon: const Icon(
-            Icons.report_outlined,
-            color: Colors.orange,
-          ),
+          icon: const Icon(Icons.report_outlined, color: Colors.orange),
           onPressed: () {
-            context
-                .read<ZikrViewerBloc>()
-                .add(ZikrViewerReportZikrEvent(content: dbContent));
+            context.read<ZikrViewerBloc>().add(
+              ZikrViewerReportZikrEvent(content: dbContent),
+            );
           },
         ),
       ],

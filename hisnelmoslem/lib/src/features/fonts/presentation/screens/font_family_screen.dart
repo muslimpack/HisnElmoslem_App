@@ -14,9 +14,7 @@ class FontFamilyScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-              S.of(context).fontType,
-            ),
+            title: Text(S.of(context).fontType),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -27,19 +25,14 @@ class FontFamilyScreen extends StatelessWidget {
               final font = fontFamilies[index];
               return ListTile(
                 tileColor: state.fontFamily == font
-                    ? Theme.of(context).colorScheme.primary.withOpacity(.2)
+                    ? Theme.of(
+                        context,
+                      ).colorScheme.primary.withAlpha((.2 * 255).round())
                     : null,
-                subtitle: Text(
-                  font,
-                  style: TextStyle(
-                    fontFamily: font,
-                  ),
-                ),
+                subtitle: Text(font, style: TextStyle(fontFamily: font)),
                 title: Text(
                   "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ",
-                  style: TextStyle(
-                    fontFamily: font,
-                  ),
+                  style: TextStyle(fontFamily: font),
                 ),
                 leading: const Icon(Icons.text_format),
                 onTap: () => context.read<ThemeCubit>().changeFontFamily(font),

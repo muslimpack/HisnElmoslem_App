@@ -11,10 +11,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class ZikrViewerTopBar extends StatelessWidget {
   final DbContent dbContent;
-  const ZikrViewerTopBar({
-    super.key,
-    required this.dbContent,
-  });
+  const ZikrViewerTopBar({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +24,21 @@ class ZikrViewerTopBar extends StatelessWidget {
               tooltip: S.of(context).commentary,
               icon: Icon(MdiIcons.comment),
               onPressed: () {
-                showCommentaryDialog(
-                  context: context,
-                  contentId: dbContent.id,
-                );
+                showCommentaryDialog(context: context, contentId: dbContent.id);
               },
             ),
             if (!dbContent.favourite)
               IconButton(
                 tooltip: S.of(context).bookmark,
                 padding: EdgeInsets.zero,
-                icon: const Icon(
-                  Icons.favorite_border,
-                ),
+                icon: const Icon(Icons.favorite_border),
                 onPressed: () {
                   context.read<ZikrViewerBloc>().add(
-                        ZikrViewerToggleZikrBookmarkEvent(
-                          content: dbContent,
-                          bookmark: true,
-                        ),
-                      );
+                    ZikrViewerToggleZikrBookmarkEvent(
+                      content: dbContent,
+                      bookmark: true,
+                    ),
+                  );
                 },
               )
             else
@@ -59,21 +51,21 @@ class ZikrViewerTopBar extends StatelessWidget {
                 ),
                 onPressed: () {
                   context.read<ZikrViewerBloc>().add(
-                        ZikrViewerToggleZikrBookmarkEvent(
-                          content: dbContent,
-                          bookmark: false,
-                        ),
-                      );
+                    ZikrViewerToggleZikrBookmarkEvent(
+                      content: dbContent,
+                      bookmark: false,
+                    ),
+                  );
                 },
               ),
             IconButton(
               tooltip: S.of(context).share,
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.share),
-              onPressed: () async {
-                context
-                    .read<ZikrViewerBloc>()
-                    .add(ZikrViewerShareZikrEvent(content: dbContent));
+              onPressed: () {
+                context.read<ZikrViewerBloc>().add(
+                  ZikrViewerShareZikrEvent(content: dbContent),
+                );
               },
             ),
             if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),

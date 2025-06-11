@@ -14,10 +14,12 @@ class UIRepo {
   Size? get desktopWindowSize {
     const Size defaultSize = Size(450, 950);
     try {
-      final data = jsonDecode(
-        box.read<String?>(desktopWindowSizeKey) ??
-            '{"width":${defaultSize.width},"height":${defaultSize.height}}',
-      ) as Map<String, dynamic>;
+      final data =
+          jsonDecode(
+                box.read<String?>(desktopWindowSizeKey) ??
+                    '{"width":${defaultSize.width},"height":${defaultSize.height}}',
+              )
+              as Map<String, dynamic>;
       hisnPrint(data);
 
       final double width = (data['width'] as num).toDouble();
@@ -30,11 +32,8 @@ class UIRepo {
     return defaultSize;
   }
 
-  Future<void> changeDesktopWindowSize(Size value) async {
-    final screenSize = {
-      'width': value.width,
-      'height': value.height,
-    };
+  Future<void> changeDesktopWindowSize(Size value) {
+    final screenSize = {'width': value.width, 'height': value.height};
     final String data = jsonEncode(screenSize);
     return box.write(desktopWindowSizeKey, data);
   }

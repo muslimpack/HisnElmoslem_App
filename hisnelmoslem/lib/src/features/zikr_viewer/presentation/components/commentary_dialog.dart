@@ -11,14 +11,12 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dar
 Future<dynamic> showCommentaryDialog({
   required BuildContext context,
   required int contentId,
-}) async {
+}) {
   // show the dialog
   return showDialog(
     context: context,
     builder: (BuildContext context) {
-      return CommentaryDialog(
-        contentId: contentId,
-      );
+      return CommentaryDialog(contentId: contentId);
     },
   );
 }
@@ -36,8 +34,9 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
   late final Commentary? commentary;
 
   Future<void> getData() async {
-    final data = await sl<CommentaryDBHelper>()
-        .getCommentaryByContentId(contentId: widget.contentId);
+    final data = await sl<CommentaryDBHelper>().getCommentaryByContentId(
+      contentId: widget.contentId,
+    );
     commentary = data;
     setState(() {
       isLoading = false;
@@ -96,21 +95,13 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
               body: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  CommentaryPageView(
-                    text: commentary?.hadith ?? "",
-                  ),
-                  CommentaryPageView(
-                    text: commentary?.benefit ?? "",
-                  ),
-                  CommentaryPageView(
-                    text: commentary?.sharh ?? "",
-                  ),
+                  CommentaryPageView(text: commentary?.hadith ?? ""),
+                  CommentaryPageView(text: commentary?.benefit ?? ""),
+                  CommentaryPageView(text: commentary?.sharh ?? ""),
                 ],
               ),
               bottomNavigationBar: const BottomAppBar(
-                child: FontSettingsBar(
-                  showDiacriticsControllers: false,
-                ),
+                child: FontSettingsBar(showDiacriticsControllers: false),
               ),
             ),
           );
@@ -132,9 +123,7 @@ class CommentaryPageView extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: SelectableText(
                 text,
-                style: TextStyle(
-                  fontSize: state.fontSize * 10,
-                ),
+                style: TextStyle(fontSize: state.fontSize * 10),
               ),
             );
           },

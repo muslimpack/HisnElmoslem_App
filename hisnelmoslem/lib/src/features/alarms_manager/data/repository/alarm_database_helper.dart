@@ -59,7 +59,7 @@ class AlarmDatabaseHelper {
   }
 
   // On create database
-  FutureOr<void> _onCreateDatabase(Database db, int version) async {
+  Future<void> _onCreateDatabase(Database db, int version) async {
     hisnPrint("Create alarm.db");
 
     /// Create alarms table
@@ -79,18 +79,18 @@ class AlarmDatabaseHelper {
   }
 
   // On upgrade database version
-  FutureOr<void> _onUpgradeDatabase(
+  Future<void> _onUpgradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {}
+  ) async {}
 
   // On downgrade database version
-  FutureOr<void> _onDowngradeDatabase(
+  Future<void> _onDowngradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {}
+  ) async {}
 
   /* ************* Functions ************* */
 
@@ -119,8 +119,10 @@ class AlarmDatabaseHelper {
 
       return dbAlarm;
     } else {
-      final DbAlarm tempAlarm =
-          DbAlarm(titleId: dbTitle.id, title: dbTitle.name);
+      final DbAlarm tempAlarm = DbAlarm(
+        titleId: dbTitle.id,
+        title: dbTitle.name,
+      );
       return tempAlarm;
     }
   }

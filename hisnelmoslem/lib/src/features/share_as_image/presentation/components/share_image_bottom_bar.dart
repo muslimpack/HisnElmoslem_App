@@ -23,14 +23,14 @@ class ShareImageBottomBar extends StatelessWidget {
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontIncreaeSize,
+            tooltip: S.of(context).fontIncreaseSize,
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
               shareImageCubit.increaseFontSize();
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontDecreaeSize,
+            tooltip: S.of(context).fontDecreaseSize,
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
               shareImageCubit.decreaseFontSize();
@@ -51,13 +51,13 @@ class ShareImageBottomBar extends StatelessWidget {
                 context: context,
                 builder: (BuildContext _) {
                   return ImageWidthDialog(
-                    initialValue:
-                        state.shareImageSettings.imageWidth.toString(),
+                    initialValue: state.shareImageSettings.imageWidth
+                        .toString(),
                     onSubmit: (width) async {
                       final int? tempWidth = int.tryParse(width);
 
                       if (tempWidth == null) return;
-                      shareImageCubit.updateImageWidth(value: tempWidth);
+                      await shareImageCubit.updateImageWidth(value: tempWidth);
                     },
                   );
                 },

@@ -56,10 +56,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     on<TallyIterateEvent>(_iterate);
   }
 
-  FutureOr<void> _start(
-    TallyStartEvent event,
-    Emitter<TallyState> emit,
-  ) async {
+  Future<void> _start(TallyStartEvent event, Emitter<TallyState> emit) async {
     final allCounters = await tallyDatabaseHelper.getAllTally();
 
     emit(
@@ -71,7 +68,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
   }
 
-  FutureOr<void> _addCounter(
+  Future<void> _addCounter(
     TallyAddCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -85,8 +82,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       isActivated: state.allCounters.isEmpty,
     );
 
-    final counterId =
-        await tallyDatabaseHelper.addNewTally(dbTally: counterToAdd);
+    final counterId = await tallyDatabaseHelper.addNewTally(
+      dbTally: counterToAdd,
+    );
 
     final updatedCounters = List<DbTally>.from(state.allCounters)
       ..add(counterToAdd.copyWith(id: counterId));
@@ -94,7 +92,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(state.copyWith(allCounters: updatedCounters));
   }
 
-  FutureOr<void> _editCounter(
+  Future<void> _editCounter(
     TallyEditCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -103,29 +101,24 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     final counterToEdit = event.counter.copyWith(lastUpdate: DateTime.now());
 
-    await tallyDatabaseHelper.updateTally(
-      dbTally: counterToEdit,
-    );
+    await tallyDatabaseHelper.updateTally(dbTally: counterToEdit);
 
-    final updatedCounters =
-        List<DbTally>.from(state.allCounters).map((counter) {
+    final updatedCounters = List<DbTally>.from(state.allCounters).map((
+      counter,
+    ) {
       if (counter.id == counterToEdit.id) {
         return counterToEdit;
       }
       return counter;
     }).toList();
 
-    emit(
-      state.copyWith(
-        allCounters: updatedCounters,
-      ),
-    );
+    emit(state.copyWith(allCounters: updatedCounters));
 
     await Future.delayed(const Duration(milliseconds: 350));
     event.completer?.complete();
   }
 
-  FutureOr<void> _deleteCounter(
+  Future<void> _deleteCounter(
     TallyDeleteCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -138,14 +131,10 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         .where((counter) => counter.id != event.counter.id)
         .toList();
 
-    emit(
-      state.copyWith(
-        allCounters: updatedCounters,
-      ),
-    );
+    emit(state.copyWith(allCounters: updatedCounters));
   }
 
-  FutureOr<void> _toggleCounterActivation(
+  Future<void> _toggleCounterActivation(
     TallyToggleCounterActivationEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -162,27 +151,22 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
         counterToSet = counter.copyWith(isActivated: false);
       }
       updatedCounters[i] = counterToSet;
-      await tallyDatabaseHelper.updateTally(
-        dbTally: counterToSet,
-      );
+      await tallyDatabaseHelper.updateTally(dbTally: counterToSet);
     }
 
-    emit(
-      state.copyWith(
-        allCounters: updatedCounters,
-      ),
-    );
+    emit(state.copyWith(allCounters: updatedCounters));
   }
 
-  FutureOr<void> _nextCounter(
+  Future<void> _nextCounter(
     TallyNextCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final activeCounterIndex =
-        state.allCounters.indexWhere((x) => x.isActivated);
+    final activeCounterIndex = state.allCounters.indexWhere(
+      (x) => x.isActivated,
+    );
     if (activeCounterIndex == -1) return;
 
     final nextCounterIndex =
@@ -190,22 +174,20 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final nextCounter = state.allCounters[nextCounterIndex];
 
     add(
-      TallyToggleCounterActivationEvent(
-        counter: nextCounter,
-        activate: true,
-      ),
+      TallyToggleCounterActivationEvent(counter: nextCounter, activate: true),
     );
   }
 
-  FutureOr<void> _previousCounter(
+  Future<void> _previousCounter(
     TallyPreviousCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final activeCounterIndex =
-        state.allCounters.indexWhere((x) => x.isActivated);
+    final activeCounterIndex = state.allCounters.indexWhere(
+      (x) => x.isActivated,
+    );
     if (activeCounterIndex == -1) return;
 
     final previousCounterIndex =
@@ -219,15 +201,16 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
   }
 
-  FutureOr<void> _randomCounter(
+  Future<void> _randomCounter(
     TallyRandomCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final activeCounterIndex =
-        state.allCounters.indexWhere((x) => x.isActivated);
+    final activeCounterIndex = state.allCounters.indexWhere(
+      (x) => x.isActivated,
+    );
     if (activeCounterIndex == -1) return;
 
     int randomIndex;
@@ -237,36 +220,27 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     final randomCounter = state.allCounters[randomIndex];
     add(
-      TallyToggleCounterActivationEvent(
-        counter: randomCounter,
-        activate: true,
-      ),
+      TallyToggleCounterActivationEvent(counter: randomCounter, activate: true),
     );
   }
 
-  FutureOr<void> _resetAllCounters(
+  Future<void> _resetAllCounters(
     TallyResetAllCountersEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final updatedCounters = List<DbTally>.from(state.allCounters)
-        .map((x) => x.copyWith(count: 0))
-        .toList();
+    final updatedCounters = List<DbTally>.from(
+      state.allCounters,
+    ).map((x) => x.copyWith(count: 0)).toList();
 
-    await tallyDatabaseHelper.updateTallies(
-      dbTallies: updatedCounters,
-    );
+    await tallyDatabaseHelper.updateTallies(dbTallies: updatedCounters);
 
-    emit(
-      state.copyWith(
-        allCounters: updatedCounters,
-      ),
-    );
+    emit(state.copyWith(allCounters: updatedCounters));
   }
 
-  FutureOr<void> _resetActiveCounter(
+  Future<void> _resetActiveCounter(
     TallyResetActiveCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -276,14 +250,10 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final activeCounter = state.activeCounter;
     if (activeCounter == null) return;
 
-    add(
-      TallyEditCounterEvent(
-        counter: activeCounter.copyWith(count: 0),
-      ),
-    );
+    add(TallyEditCounterEvent(counter: activeCounter.copyWith(count: 0)));
   }
 
-  FutureOr<void> _increaseActiveCounter(
+  Future<void> _increaseActiveCounter(
     TallyIncreaseActiveCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -314,7 +284,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     add(TallyIterateEvent());
   }
 
-  FutureOr<void> _decreaseActiveCounter(
+  Future<void> _decreaseActiveCounter(
     TallyDecreaseActiveCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -332,7 +302,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
   }
 
-  FutureOr<void> _toggleIterationMode(
+  Future<void> _toggleIterationMode(
     TallyToggleIterationModeEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -347,14 +317,10 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     tallyRepo.saveIterationMode(nextMode);
 
-    emit(
-      state.copyWith(
-        iterationMode: nextMode,
-      ),
-    );
+    emit(state.copyWith(iterationMode: nextMode));
   }
 
-  FutureOr<void> _iterate(
+  Future<void> _iterate(
     TallyIterateEvent event,
     Emitter<TallyState> emit,
   ) async {
@@ -374,7 +340,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   }
 
   @override
-  Future<void> close() async {
+  Future<void> close() {
     volumeButtonManager.dispose();
     return super.close();
   }

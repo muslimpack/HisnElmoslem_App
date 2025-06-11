@@ -23,7 +23,7 @@ class AlarmCard extends StatelessWidget {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            backgroundColor: Colors.green.withOpacity(.5),
+            backgroundColor: Colors.green.withAlpha((.5 * 255).round()),
             onPressed: (val) async {
               final EditorResult<DbAlarm>? result = await showAlarmEditorDialog(
                 context: context,
@@ -38,9 +38,9 @@ class AlarmCard extends StatelessWidget {
                 case EditorActionEnum.edit:
                   context.read<AlarmsBloc>().add(AlarmsEditEvent(result.value));
                 case EditorActionEnum.delete:
-                  context
-                      .read<AlarmsBloc>()
-                      .add(AlarmsRemoveEvent(result.value));
+                  context.read<AlarmsBloc>().add(
+                    AlarmsRemoveEvent(result.value),
+                  );
                 default:
               }
             },
@@ -54,10 +54,10 @@ class AlarmCard extends StatelessWidget {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (val) async {
+            onPressed: (val) {
               context.read<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
             },
-            backgroundColor: Colors.red.withOpacity(.5),
+            backgroundColor: Colors.red.withAlpha((.5 * 255).round()),
             icon: Icons.delete,
             label: S.of(context).delete,
           ),
@@ -90,22 +90,22 @@ class AlarmCardBody extends StatelessWidget {
               if (dbAlarm.body.isNotEmpty)
                 RoundTagCard(
                   name: dbAlarm.body,
-                  color: Colors.brown.withOpacity(.5),
+                  color: Colors.brown.withAlpha((.5 * 255).round()),
                 ),
               Row(
                 children: [
                   Expanded(
                     child: RoundTagCard(
-                      name: DateFormat("hh:mm a").format(
-                        DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute),
-                      ),
-                      color: Colors.green.withOpacity(.5),
+                      name: DateFormat(
+                        "hh:mm a",
+                      ).format(DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute)),
+                      color: Colors.green.withAlpha((.5 * 255).round()),
                     ),
                   ),
                   Expanded(
                     child: RoundTagCard(
                       name: dbAlarm.repeatType.getUserFriendlyName(context),
-                      color: Colors.yellow.withOpacity(.5),
+                      color: Colors.yellow.withAlpha((.5 * 255).round()),
                     ),
                   ),
                 ],
@@ -115,10 +115,8 @@ class AlarmCardBody extends StatelessWidget {
           value: dbAlarm.isActive,
           onChanged: (value) {
             context.read<AlarmsBloc>().add(
-                  AlarmsEditEvent(
-                    dbAlarm.copyWith(isActive: value),
-                  ),
-                );
+              AlarmsEditEvent(dbAlarm.copyWith(isActive: value)),
+            );
           },
         ),
       ],

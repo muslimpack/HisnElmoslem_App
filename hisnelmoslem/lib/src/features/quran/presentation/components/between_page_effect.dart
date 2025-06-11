@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class BetweenPageEffect extends StatelessWidget {
   final int index;
 
-  const BetweenPageEffect({
-    super.key,
-    required this.index,
-  });
+  const BetweenPageEffect({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +17,8 @@ class BetweenPageEffect extends StatelessWidget {
             end: index.isOdd ? Alignment.centerLeft : Alignment.centerRight,
             colors: [
               Colors.transparent,
-              Colors.black.withOpacity(.05),
-              Colors.black.withOpacity(.1),
+              Colors.black.withAlpha((.05 * 255).round()),
+              Colors.black.withAlpha((.1 * 255).round()),
             ],
           ),
         ),

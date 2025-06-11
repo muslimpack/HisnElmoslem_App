@@ -29,9 +29,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: Text(
-          S.of(context).settings,
-        ),
+        title: Text(S.of(context).settings),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -43,53 +41,35 @@ class SettingsScreen extends StatelessWidget {
             title: Text(S.of(context).themeManager),
             leading: const Icon(Icons.palette),
             onTap: () {
-              context.push(
-                const ThemeManagerScreen(),
-              );
+              context.push(const ThemeManagerScreen());
             },
           ),
           ListTile(
             title: Text(S.of(context).effectManager),
-            leading: const Icon(
-              Icons.speaker_group,
-            ),
+            leading: const Icon(Icons.speaker_group),
             onTap: () {
-              context.push(
-                const EffectsManagerScreen(),
-              );
+              context.push(const EffectsManagerScreen());
             },
           ),
           ListTile(
             title: Text(S.of(context).dashboardArrangement),
-            leading: const Icon(
-              Icons.view_array,
-            ),
+            leading: const Icon(Icons.view_array),
             onTap: () {
-              context.push(
-                const RearrangeDashboardPage(),
-              );
+              context.push(const RearrangeDashboardPage());
             },
           ),
           ListTile(
             title: Text(S.of(context).appLanguage),
-            leading: const Icon(
-              Icons.translate,
-            ),
+            leading: const Icon(Icons.translate),
             onTap: () {
-              context.push(
-                const AppLanguageScreen(),
-              );
+              context.push(const AppLanguageScreen());
             },
           ),
           ListTile(
             title: Text(S.of(context).fontType),
-            leading: const Icon(
-              Icons.font_download,
-            ),
+            leading: const Icon(Icons.font_download),
             onTap: () {
-              context.push(
-                const FontFamilyScreen(),
-              );
+              context.push(const FontFamilyScreen());
             },
           ),
           const Divider(),
@@ -152,8 +132,8 @@ class SettingsGeneralSection extends StatelessWidget {
                 title: Text(S.of(context).pageMode),
                 onTap: () {
                   context.read<SettingsCubit>().toggleIsCardReadMode(
-                        activate: true,
-                      );
+                    activate: true,
+                  );
                 },
               )
             else
@@ -162,8 +142,8 @@ class SettingsGeneralSection extends StatelessWidget {
                 title: Text(S.of(context).cardMode),
                 onTap: () {
                   context.read<SettingsCubit>().toggleIsCardReadMode(
-                        activate: false,
-                      );
+                    activate: false,
+                  );
                 },
               ),
             SwitchListTile(
@@ -173,8 +153,8 @@ class SettingsGeneralSection extends StatelessWidget {
               subtitle: Text(S.of(context).prefPraiseWithVolumeKeysDesc),
               onChanged: (value) {
                 context.read<SettingsCubit>().togglePraiseWithVolumeKeys(
-                      use: !state.praiseWithVolumeKeys,
-                    );
+                  use: !state.praiseWithVolumeKeys,
+                );
               },
             ),
             SwitchListTile(
@@ -183,8 +163,8 @@ class SettingsGeneralSection extends StatelessWidget {
               title: Text(S.of(context).enableWakeLock),
               onChanged: (value) {
                 context.read<SettingsCubit>().toggleWakeLock(
-                      use: !state.enableWakeLock,
-                    );
+                  use: !state.enableWakeLock,
+                );
               },
             ),
             SwitchListTile(
@@ -194,20 +174,20 @@ class SettingsGeneralSection extends StatelessWidget {
               subtitle: Text(S.of(context).allowZikrRestoreSessionDesc),
               onChanged: (value) {
                 context.read<SettingsCubit>().toggleAllowZikrSessionRestoration(
-                      allow: !state.allowZikrSessionRestoration,
-                    );
+                  allow: !state.allowZikrSessionRestoration,
+                );
               },
             ),
             SwitchListTile(
               secondary: const Icon(Icons.numbers),
-              tileColor: Colors.amber.withOpacity(.1),
+              tileColor: Colors.amber.withAlpha((.1 * 255).round()),
               value: state.useHindiDigits,
               title: Text(S.of(context).useHindiDigits),
               subtitle: Text(S.of(context).requiresAppRestart),
               onChanged: (value) {
                 context.read<SettingsCubit>().toggleUseHiniDigits(
-                      use: !state.useHindiDigits,
-                    );
+                  use: !state.useHindiDigits,
+                );
               },
             ),
           ],
@@ -233,37 +213,29 @@ class _SettingsAlarmsSection extends StatelessWidget {
             Title(title: S.of(context).reminders),
             ListTile(
               title: Text(S.of(context).remindersManager),
-              leading: const Icon(
-                Icons.alarm_add_rounded,
-              ),
+              leading: const Icon(Icons.alarm_add_rounded),
               onTap: () {
-                context.push(
-                  const AlarmsScreen(),
+                context.push(const AlarmsScreen());
+              },
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.alarm),
+              title: Text(S.of(context).fastingMondaysThursdaysReminder),
+              value: state.isFastAlarmEnabled,
+              onChanged: (value) {
+                context.read<AlarmsBloc>().add(
+                  AlarmsToggleFastAlarmEvent(value),
                 );
               },
             ),
             SwitchListTile(
-              secondary: const Icon(
-                Icons.alarm,
-              ),
-              title: Text(S.of(context).fastingMondaysThursdaysReminder),
-              value: state.isFastAlarmEnabled,
-              onChanged: (value) {
-                context
-                    .read<AlarmsBloc>()
-                    .add(AlarmsToggleFastAlarmEvent(value));
-              },
-            ),
-            SwitchListTile(
-              secondary: const Icon(
-                Icons.alarm,
-              ),
+              secondary: const Icon(Icons.alarm),
               title: Text(S.of(context).suraAlKahfReminder),
               value: state.isCaveAlarmEnabled,
               onChanged: (value) {
-                context
-                    .read<AlarmsBloc>()
-                    .add(AlarmsToggleCaveAlarmEvent(value));
+                context.read<AlarmsBloc>().add(
+                  AlarmsToggleCaveAlarmEvent(value),
+                );
               },
             ),
           ],
@@ -293,9 +265,7 @@ class _SettingsContactSection extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_left),
           title: Text(S.of(context).github),
           onTap: () async {
-            await openURL(
-              kOrgGithub,
-            );
+            await openURL(kOrgGithub);
           },
         ),
         ListTile(
@@ -303,9 +273,7 @@ class _SettingsContactSection extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_left),
           title: Text(S.of(context).aboutUs),
           onTap: () {
-            context.push(
-              const AboutScreen(),
-            );
+            context.push(const AboutScreen());
           },
         ),
       ],

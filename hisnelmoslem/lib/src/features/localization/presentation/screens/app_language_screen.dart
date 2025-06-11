@@ -15,9 +15,7 @@ class AppLanguageScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-              S.of(context).appLanguage,
-            ),
+            title: Text(S.of(context).appLanguage),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -29,13 +27,15 @@ class AppLanguageScreen extends StatelessWidget {
               return ListTile(
                 tileColor:
                     context.read<ThemeCubit>().state.locale == currentLocale
-                        ? Theme.of(context).colorScheme.primary.withOpacity(.2)
-                        : null,
+                    ? Theme.of(
+                        context,
+                      ).colorScheme.primary.withAlpha((.5 * 255).round())
+                    : null,
                 title: Text(currentLocale.languageCode),
                 onTap: () {
-                  context
-                      .read<ThemeCubit>()
-                      .changeAppLocale(currentLocale.languageCode);
+                  context.read<ThemeCubit>().changeAppLocale(
+                    currentLocale.languageCode,
+                  );
                 },
               );
             },

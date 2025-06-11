@@ -64,9 +64,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     await shareAsImageRepo.updateShareImageSettings(shareImageSettings);
 
-    emit(
-      state.copyWith(shareImageSettings: shareImageSettings),
-    );
+    emit(state.copyWith(shareImageSettings: shareImageSettings));
   }
 
   /// MARK: Colors EVENTS
@@ -184,11 +182,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
-    _updateSettings(
-      state.shareImageSettings.copyWith(
-        imageWidth: value,
-      ),
-    );
+    _updateSettings(state.shareImageSettings.copyWith(imageWidth: value));
   }
 
   void fitImageToScreen(BuildContext context) {
@@ -268,11 +262,12 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     final tempDir = await getTemporaryDirectory();
 
-    final File file =
-        await File('${tempDir.path}/hisnElmoslemSharedImage.png').create();
+    final File file = await File(
+      '${tempDir.path}/hisnElmoslemSharedImage.png',
+    ).create();
     await file.writeAsBytes(byteData.buffer.asUint8List());
 
-    await Share.shareXFiles([XFile(file.path)]);
+    await SharePlus.instance.share(ShareParams(files: [XFile(file.path)]));
 
     await file.delete();
   }

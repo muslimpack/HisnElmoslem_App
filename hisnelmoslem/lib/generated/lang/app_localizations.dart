@@ -403,11 +403,11 @@ abstract class S {
   /// **'Deactivate'**
   String get deactivate;
 
-  /// No description provided for @decreae.
+  /// No description provided for @decrease.
   ///
   /// In en, this message translates to:
-  /// **'Decreae'**
-  String get decreae;
+  /// **'Decrease'**
+  String get decrease;
 
   /// No description provided for @delete.
   ///
@@ -574,7 +574,7 @@ abstract class S {
   /// No description provided for @favoritesZikr.
   ///
   /// In en, this message translates to:
-  /// **'Favourite Zikr'**
+  /// **'Favorite Zikr'**
   String get favoritesZikr;
 
   /// No description provided for @featuresToBeAdded.
@@ -589,17 +589,17 @@ abstract class S {
   /// **'Fixed size mode'**
   String get fixedSizeMode;
 
-  /// No description provided for @fontDecreaeSize.
+  /// No description provided for @fontDecreaseSize.
   ///
   /// In en, this message translates to:
-  /// **'Decreae font size'**
-  String get fontDecreaeSize;
+  /// **'Decrease font size'**
+  String get fontDecreaseSize;
 
-  /// No description provided for @fontIncreaeSize.
+  /// No description provided for @fontIncreaseSize.
   ///
   /// In en, this message translates to:
-  /// **'Increae font size'**
-  String get fontIncreaeSize;
+  /// **'Increase font size'**
+  String get fontIncreaseSize;
 
   /// No description provided for @fontResetSize.
   ///
@@ -850,7 +850,7 @@ abstract class S {
   /// No description provided for @noTitleMarkedAsFavorite.
   ///
   /// In en, this message translates to:
-  /// **'No title from the index is marked as a favourite. Click on the Favorites icon at any index title'**
+  /// **'No title from the index is marked as a favorite. Click on the Favorites icon at any index title'**
   String get noTitleMarkedAsFavorite;
 
   /// No description provided for @noTitleWithName.

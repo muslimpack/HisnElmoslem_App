@@ -4,12 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 
-enum ToastType {
-  info,
-  error,
-  warning,
-  success,
-}
+enum ToastType { info, error, warning, success }
 
 Future<void> showToast({
   required String msg,
@@ -28,17 +23,15 @@ Future<void> showToast({
   if (PlatformExtension.isDesktop) {
     BotToast.showText(
       text: msg,
-      contentColor: backgroundColor.withOpacity(.5),
+      contentColor: backgroundColor.withAlpha((.5 * 255).round()),
       align: Alignment.bottomCenter,
-      textStyle: TextStyle(
-        color: textColor,
-      ),
+      textStyle: TextStyle(color: textColor),
       duration: Duration(seconds: toastLength == Toast.LENGTH_SHORT ? 1 : 5),
       contentPadding: const EdgeInsets.all(10),
     );
   } else {
     Fluttertoast.showToast(
-      backgroundColor: backgroundColor.withOpacity(.5),
+      backgroundColor: backgroundColor.withAlpha((.5 * 255).round()),
       textColor: textColor,
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,

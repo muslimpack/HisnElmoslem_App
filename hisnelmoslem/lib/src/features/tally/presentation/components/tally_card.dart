@@ -32,29 +32,30 @@ class TallyCard extends StatelessWidget {
             ListTile(
               isThreeLine: true,
               tileColor: isActivated
-                  ? Theme.of(context).colorScheme.primary.withOpacity(.2)
+                  ? Theme.of(
+                      context,
+                    ).colorScheme.primary.withAlpha((.2 * 255).round())
                   : null,
               onTap: () {
                 context.read<TallyBloc>().add(
-                      TallyToggleCounterActivationEvent(
-                        counter: dbTally,
-                        activate: !isActivated,
-                      ),
-                    );
+                  TallyToggleCounterActivationEvent(
+                    counter: dbTally,
+                    activate: !isActivated,
+                  ),
+                );
               },
               leading: Icon(
                 isActivated ? Icons.done_all_outlined : null,
                 size: 40,
               ),
-              title: Text(
-                dbTally.title,
-              ),
+              title: Text(dbTally.title),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    DateFormat('EEEE yyyy/MM/dd  hh:mm a')
-                        .format(dbTally.lastUpdate),
+                    DateFormat(
+                      'EEEE yyyy/MM/dd  hh:mm a',
+                    ).format(dbTally.lastUpdate),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -64,24 +65,20 @@ class TallyCard extends StatelessWidget {
                         onPressed: () async {
                           final EditorResult<DbTally>? result =
                               await showTallyEditorDialog(
-                            context: context,
-                            dbTally: dbTally,
-                          );
+                                context: context,
+                                dbTally: dbTally,
+                              );
 
                           if (result == null || !context.mounted) return;
                           switch (result.action) {
                             case EditorActionEnum.edit:
                               context.read<TallyBloc>().add(
-                                    TallyEditCounterEvent(
-                                      counter: result.value,
-                                    ),
-                                  );
+                                TallyEditCounterEvent(counter: result.value),
+                              );
                             case EditorActionEnum.delete:
                               context.read<TallyBloc>().add(
-                                    TallyDeleteCounterEvent(
-                                      counter: result.value,
-                                    ),
-                                  );
+                                TallyDeleteCounterEvent(counter: result.value),
+                              );
                             default:
                           }
                         },
@@ -104,10 +101,8 @@ class TallyCard extends StatelessWidget {
                           }
 
                           context.read<TallyBloc>().add(
-                                TallyDeleteCounterEvent(
-                                  counter: dbTally,
-                                ),
-                              );
+                            TallyDeleteCounterEvent(counter: dbTally),
+                          );
                         },
                         icon: const Icon(Icons.delete),
                       ),
@@ -117,9 +112,7 @@ class TallyCard extends StatelessWidget {
               ),
               trailing: Text(
                 dbTally.count.toString().toArabicNumber(),
-                style: const TextStyle(
-                  fontSize: 15,
-                ),
+                style: const TextStyle(fontSize: 15),
               ),
             ),
           ],
