@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
@@ -102,7 +102,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     );
 
     showToast(
-      msg: "${S.current.reminderRemoved}: ${event.alarm.title}",
+      msg: "${SX.current.reminderRemoved}: ${event.alarm.title}",
     );
 
     emit(state.copyWith(alarms: alarms));
@@ -119,12 +119,12 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     if (event.enable) {
       showToast(
         msg:
-            "${S.current.activate}: ${S.current.fastingMondaysThursdaysReminder}",
+            "${SX.current.activate}: ${SX.current.fastingMondaysThursdaysReminder}",
       );
     } else {
       showToast(
         msg:
-            "${S.current.deactivate}: ${S.current.fastingMondaysThursdaysReminder}",
+            "${SX.current.deactivate}: ${SX.current.fastingMondaysThursdaysReminder}",
       );
     }
 
@@ -144,11 +144,11 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg: "${S.current.activate}: ${S.current.suraAlKahfReminder}",
+        msg: "${SX.current.activate}: ${SX.current.suraAlKahfReminder}",
       );
     } else {
       showToast(
-        msg: "${S.current.deactivate}: ${S.current.suraAlKahfReminder}",
+        msg: "${SX.current.deactivate}: ${SX.current.suraAlKahfReminder}",
       );
     }
 
@@ -188,7 +188,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     if (value) {
       await awesomeNotificationManager.addCustomWeeklyReminder(
         id: 777,
-        title: S.current.suraAlKahf,
+        title: SX.current.suraAlKahf,
         body:
             "روى الحاكم في المستدرك مرفوعا إن من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين. وصححه الألباني",
         time: Time(

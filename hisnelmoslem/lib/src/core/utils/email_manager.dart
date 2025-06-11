@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/models/email.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -8,10 +8,7 @@ import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dar
 class EmailManager {
   static void messageUS() {
     sendEmail(
-      email: Email(
-        subject: S.current.chat,
-        body: '',
-      ),
+      email: Email(subject: SX.current.chat, body: ''),
     );
   }
 
@@ -22,46 +19,44 @@ class EmailManager {
   }) {
     sendEmail(
       email: Email(
-        subject: S.current.misspelled,
-        body: '''
-${S.current.spellingErrorIn}
-${S.current.title}: $title
-${S.current.zikrIndex}: $zikrId
-${S.current.text}: $zikrBody
-${S.current.shouldBe}:
+        subject: SX.current.misspelled,
+        body:
+            '''
+${SX.current.spellingErrorIn}
+${SX.current.title}: $title
+${SX.current.zikrIndex}: $zikrId
+${SX.current.text}: $zikrBody
+${SX.current.shouldBe}:
 
 ''',
       ),
     );
   }
 
-  static void sendMisspelledInFakeHadith({
-    required DbFakeHaith fakeHaith,
-  }) {
+  static void sendMisspelledInFakeHadith({required DbFakeHaith fakeHaith}) {
     sendEmail(
       email: Email(
-        subject: S.current.misspelled,
-        body: '''
-${S.current.spellingErrorIn}
+        subject: SX.current.misspelled,
+        body:
+            '''
+${SX.current.spellingErrorIn}
 
-${S.current.subject}: ${S.current.fakeHadith}
+${SX.current.subject}: ${SX.current.fakeHadith}
 
-${S.current.cardIndex}: ${(fakeHaith.id) + 1}
+${SX.current.cardIndex}: ${(fakeHaith.id) + 1}
 
-${S.current.text}: ${fakeHaith.text}
+${SX.current.text}: ${fakeHaith.text}
 
-${S.current.shouldBe}:
+${SX.current.shouldBe}:
 
 ''',
       ),
     );
   }
 
-  static Future<void> sendEmail({
-    required Email email,
-  }) async {
+  static Future<void> sendEmail({required Email email}) async {
     final emailToSend = email.copyWith(
-      subject: "${S.current.appTitle} | ${email.subject} | v$kAppVersion",
+      subject: "${SX.current.appTitle} | ${email.subject} | v$kAppVersion",
     );
 
     final uri = emailToSend.getURI;

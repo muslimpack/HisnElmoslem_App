@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/scroll_behavior.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
@@ -78,13 +78,18 @@ class AppState extends State<App> {
             onGenerateTitle: (context) => S.of(context).hisnElmoslem,
             scrollBehavior: AppScrollBehavior(),
             locale: state.locale,
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: S.supportedLocales,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              return locale != null && supportedLocales.contains(locale)
+                  ? locale
+                  : supportedLocales.first;
+            },
             debugShowCheckedModeBanner: false,
             theme: state.theme,
             navigatorObservers: [

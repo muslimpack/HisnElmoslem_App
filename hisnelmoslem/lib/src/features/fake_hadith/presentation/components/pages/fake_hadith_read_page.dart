@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/components/widgets/fake_hadith_card.dart';

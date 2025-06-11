@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hisnelmoslem/generated/l10n.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 
 class FakehadithAppBar extends StatelessWidget {
   const FakehadithAppBar({super.key});
