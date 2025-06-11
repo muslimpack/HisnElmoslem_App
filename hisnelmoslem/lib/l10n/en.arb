@@ -67,6 +67,8 @@
   "enableAzkarFilters": "Enable Azkar filters",
   "enableWakeLock": "Enable wake lock",
   "endSuraAliImran": "End of Surah Ali 'Imran",
+  "errorEmailAppOpen": "Unable to open mail app",
+  "errorOccurred": "Something went wrong!",
   "everyFriday": "Every Friday",
   "everyMonday": "Every Monday",
   "everySaturday": "Every Saturday",

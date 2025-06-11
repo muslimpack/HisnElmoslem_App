@@ -13,9 +13,7 @@ import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    super.key,
-  });
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,24 +74,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                 floatHeaderSlivers: true,
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
-                  return [
-                    HomeAppBar(tabController: tabController),
-                  ];
-                },
-                body: state.isSearching &
+                      return [HomeAppBar(tabController: tabController)];
+                    },
+                body:
+                    state.isSearching &
                         context.watch<SearchCubit>().state.searchText.isNotEmpty
                     ? const HomeSearchScreen()
                     : TabBarView(
                         physics: const BouncingScrollPhysics(),
                         controller: tabController,
-                        children: List.generate(
-                          appDashboardTabs.length,
-                          (index) {
-                            return appDashboardTabs[
-                                    state.dashboardArrangement[index]]
-                                .widget;
-                          },
-                        ),
+                        children: List.generate(appDashboardTabs.length, (
+                          index,
+                        ) {
+                          return appDashboardTabs[state
+                                  .dashboardArrangement[index]]
+                              .widget;
+                        }),
                       ),
               ),
             );

@@ -215,6 +215,12 @@ class SEn extends S {
   String get endSuraAliImran => 'End of Surah Ali \'Imran';
 
   @override
+  String get errorEmailAppOpen => 'Unable to open mail app';
+
+  @override
+  String get errorOccurred => 'Something went wrong!';
+
+  @override
   String get everyFriday => 'Every Friday';
 
   @override

@@ -217,6 +217,12 @@ class SAr extends S {
   String get endSuraAliImran => 'أواخر آل عمران';
 
   @override
+  String get errorEmailAppOpen => 'تعذر فتح تطبيق البريد';
+
+  @override
+  String get errorOccurred => 'حدث خطأ ما!';
+
+  @override
   String get everyFriday => 'كل جمعة';
 
   @override

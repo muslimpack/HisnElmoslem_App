@@ -499,6 +499,18 @@ abstract class S {
   /// **'End of Surah Ali \'Imran'**
   String get endSuraAliImran;
 
+  /// No description provided for @errorEmailAppOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to open mail app'**
+  String get errorEmailAppOpen;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong!'**
+  String get errorOccurred;
+
   /// No description provided for @everyFriday.
   ///
   /// In en, this message translates to:
