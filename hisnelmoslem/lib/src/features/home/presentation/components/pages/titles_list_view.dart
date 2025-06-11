@@ -16,6 +16,7 @@ class HomeTitlesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 100),
       itemBuilder: (context, index) {
         return TitleCard(
           dbTitle: titles[index],

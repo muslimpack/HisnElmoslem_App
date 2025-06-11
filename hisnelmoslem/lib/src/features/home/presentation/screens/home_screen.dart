@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
@@ -10,7 +12,9 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_search_screen.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -91,6 +95,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                               .widget;
                         }),
                       ),
+              ),
+
+              floatingActionButton: FloatingActionButton(
+                tooltip: S.of(context).tally,
+                child: Icon(MdiIcons.counter, size: 35),
+                onPressed: () {
+                  context.push(const TallyDashboardScreen());
+                },
               ),
             );
           },
