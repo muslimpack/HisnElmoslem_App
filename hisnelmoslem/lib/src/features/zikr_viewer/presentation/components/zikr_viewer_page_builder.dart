@@ -7,10 +7,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zi
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerPageBuilder extends StatelessWidget {
-  const ZikrViewerPageBuilder({
-    super.key,
-    required this.dbContent,
-  });
+  const ZikrViewerPageBuilder({super.key, required this.dbContent});
 
   final DbContent dbContent;
   @override
@@ -18,9 +15,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
     final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
-        context
-            .read<ZikrViewerBloc>()
-            .add(ZikrViewerDecreaseZikrEvent(content: dbContent));
+        context.read<ZikrViewerBloc>().add(
+          ZikrViewerDecreaseZikrEvent(content: dbContent),
+        );
       },
       onLongPress: () {
         final snackBar = SnackBar(
@@ -31,10 +28,10 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           ),
           action: SnackBarAction(
             label: S.of(context).copy,
-            onPressed: () async {
-              context
-                  .read<ZikrViewerBloc>()
-                  .add(ZikrViewerCopyZikrEvent(content: dbContent));
+            onPressed: () {
+              context.read<ZikrViewerBloc>().add(
+                ZikrViewerCopyZikrEvent(content: dbContent),
+              );
             },
           ),
         );
@@ -60,9 +57,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           ListView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(15),
-            children: [
-              ZikrViewerZikrBody(dbContent: dbContent),
-            ],
+            children: [ZikrViewerZikrBody(dbContent: dbContent)],
           ),
         ],
       ),

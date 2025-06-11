@@ -60,7 +60,7 @@ class TallyDatabaseHelper {
   }
 
   // On create database
-  FutureOr<void> _onCreateDatabase(Database db, int version) async {
+  Future<void> _onCreateDatabase(Database db, int version) async {
     hisnPrint("Create tally.db");
 
     /// Create data table
@@ -80,22 +80,18 @@ class TallyDatabaseHelper {
   }
 
   // On upgrade database version
-  FutureOr<void> _onUpgradeDatabase(
+  Future<void> _onUpgradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) async {}
 
   // On downgrade database version
-  FutureOr<void> _onDowngradeDatabase(
+  Future<void> _onDowngradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {
-    //
-  }
+  ) async {}
 
   /* ************* Functions ************* */
 
@@ -111,9 +107,7 @@ class TallyDatabaseHelper {
   }
 
   // Get all tally by id from database
-  Future<DbTally> getTallyById({
-    required DbTally dbTally,
-  }) async {
+  Future<DbTally> getTallyById({required DbTally dbTally}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query(
@@ -128,9 +122,7 @@ class TallyDatabaseHelper {
   }
 
   // Add new tally to database
-  Future<int> addNewTally({
-    required DbTally dbTally,
-  }) async {
+  Future<int> addNewTally({required DbTally dbTally}) async {
     final db = await database;
     return db.insert(
       'data',
@@ -140,9 +132,7 @@ class TallyDatabaseHelper {
   }
 
   // Update tally by ID
-  Future<void> updateTally({
-    required DbTally dbTally,
-  }) async {
+  Future<void> updateTally({required DbTally dbTally}) async {
     final db = await database;
 
     await db.update(
@@ -153,9 +143,7 @@ class TallyDatabaseHelper {
     );
   }
 
-  Future<void> updateTallies({
-    required List<DbTally> dbTallies,
-  }) async {
+  Future<void> updateTallies({required List<DbTally> dbTallies}) async {
     final db = await database;
 
     final batch = db.batch();
@@ -175,11 +163,7 @@ class TallyDatabaseHelper {
   // Delete tally by ID
   Future<void> deleteTally({required DbTally dbTally}) async {
     final db = await database;
-    await db.delete(
-      'data',
-      where: "id = ?",
-      whereArgs: [dbTally.id],
-    );
+    await db.delete('data', where: "id = ?", whereArgs: [dbTally.id]);
   }
 
   // Close database

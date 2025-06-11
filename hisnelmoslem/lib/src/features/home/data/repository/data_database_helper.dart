@@ -64,7 +64,7 @@ class UserDataDBHelper {
   }
 
   /// On create database
-  FutureOr<void> _onCreateDatabase(Database db, int version) async {
+  Future<void> _onCreateDatabase(Database db, int version) async {
     hisnPrint("Create data.db");
 
     /// Create fake_hadith_is_read table
@@ -112,18 +112,18 @@ class UserDataDBHelper {
   }
 
   /// On upgrade database version
-  FutureOr<void> _onUpgradeDatabase(
+  Future<void> _onUpgradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {}
+  ) async {}
 
   /// On downgrade database version
-  FutureOr<void> _onDowngradeDatabase(
+  Future<void> _onDowngradeDatabase(
     Database db,
     int oldVersion,
     int newVersion,
-  ) {}
+  ) async {}
 
   /* ************* Functions ************* */
 
@@ -219,8 +219,9 @@ class UserDataDBHelper {
       [contentId],
     );
     if (maps.isEmpty) return false;
-    final DbContentFavourite dbContentFavourite =
-        List.generate(maps.length, (i) {
+    final DbContentFavourite dbContentFavourite = List.generate(maps.length, (
+      i,
+    ) {
       return DbContentFavourite.fromMap(maps[i]);
     }).first;
 
@@ -271,8 +272,9 @@ class UserDataDBHelper {
   Future<List<DbFakeHadithRead>> getReadFakeHadiths() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db
-        .rawQuery('''Select * from fake_hadith_is_read where isRead = 1''');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''Select * from fake_hadith_is_read where isRead = 1''',
+    );
 
     return List.generate(maps.length, (i) {
       return DbFakeHadithRead.fromMap(maps[i]);

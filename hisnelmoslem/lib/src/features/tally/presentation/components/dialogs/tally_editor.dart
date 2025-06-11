@@ -9,13 +9,11 @@ import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 Future<EditorResult<DbTally>?> showTallyEditorDialog({
   required BuildContext context,
   DbTally? dbTally,
-}) async {
+}) {
   return showDialog<EditorResult<DbTally>?>(
     context: context,
     builder: (BuildContext context) {
-      return _TallyEditor(
-        dbTally: dbTally,
-      );
+      return _TallyEditor(dbTally: dbTally);
     },
   );
 }
@@ -23,9 +21,7 @@ Future<EditorResult<DbTally>?> showTallyEditorDialog({
 class _TallyEditor extends StatefulWidget {
   final DbTally? dbTally;
 
-  const _TallyEditor({
-    this.dbTally,
-  });
+  const _TallyEditor({this.dbTally});
 
   @override
   State<_TallyEditor> createState() => _TallyEditorState();
@@ -42,8 +38,9 @@ class _TallyEditorState extends State<_TallyEditor> {
     if (widget.dbTally != null) {
       dbTally = widget.dbTally!;
       titleController = TextEditingController(text: dbTally.title);
-      resetCounterController =
-          TextEditingController(text: dbTally.countReset.toString());
+      resetCounterController = TextEditingController(
+        text: dbTally.countReset.toString(),
+      );
     } else {
       dbTally = DbTally.empty(
         created: DateTime.now(),
@@ -61,10 +58,7 @@ class _TallyEditorState extends State<_TallyEditor> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            S.of(context).addNameToCounter,
-            textAlign: TextAlign.center,
-          ),
+          Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
           UserTextField(
             controller: titleController,
             hintText: S.of(context).counterName,

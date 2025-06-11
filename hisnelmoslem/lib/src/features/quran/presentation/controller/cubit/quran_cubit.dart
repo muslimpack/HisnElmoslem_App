@@ -43,10 +43,7 @@ class QuranCubit extends Cubit<QuranState> {
     emit(QuranLoadingState());
 
     final quranList = await _fetchQuranJson();
-    final requiredSurah = _getQuranRequiredSurah(
-      surahName,
-      quranList,
-    );
+    final requiredSurah = _getQuranRequiredSurah(surahName, quranList);
 
     emit(
       QuranLoadedState(
@@ -99,7 +96,7 @@ class QuranCubit extends Cubit<QuranState> {
     pageController.dispose();
     volumeButtonManager.dispose();
 
-    SystemChrome.setEnabledSystemUIMode(
+    await SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
     );

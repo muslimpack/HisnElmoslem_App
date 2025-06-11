@@ -77,9 +77,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ZikrViewerZikrBody(dbContent: dbContent),
-                ],
+                children: [ZikrViewerZikrBody(dbContent: dbContent)],
               ),
             ),
           ),
@@ -92,9 +90,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
 }
 
 class _TopBar extends StatelessWidget {
-  const _TopBar({
-    required this.cardState,
-  });
+  const _TopBar({required this.cardState});
 
   final _HomeBookmarkedContentCardState cardState;
 
@@ -111,9 +107,7 @@ class _TopBar extends StatelessWidget {
                   Icons.favorite,
                   color: Theme.of(context).colorScheme.primary,
                 )
-              : const Icon(
-                  Icons.favorite_border,
-                ),
+              : const Icon(Icons.favorite_border),
           onPressed: () {
             sl<HomeBloc>().add(
               HomeToggleContentBookmarkEvent(
@@ -125,16 +119,12 @@ class _TopBar extends StatelessWidget {
         ),
         IconButton(
           tooltip: S.of(context).share,
-          icon: const Icon(
-            Icons.share,
-          ),
+          icon: const Icon(Icons.share),
           onPressed: () {
             showDialog(
               context: context,
               builder: (context) {
-                return ZikrShareDialog(
-                  contentId: dbContent.id,
-                );
+                return ZikrShareDialog(contentId: dbContent.id);
               },
             );
           },
@@ -145,9 +135,7 @@ class _TopBar extends StatelessWidget {
 }
 
 class _BottomBar extends StatelessWidget {
-  const _BottomBar({
-    required this.cardState,
-  });
+  const _BottomBar({required this.cardState});
   final _HomeBookmarkedContentCardState cardState;
   @override
   Widget build(BuildContext context) {
@@ -160,17 +148,13 @@ class _BottomBar extends StatelessWidget {
             child: ListTile(
               leading: IconButton(
                 tooltip: S.of(context).resetZikr,
-                onPressed: () async {
+                onPressed: () {
                   cardState.reset();
                 },
                 icon: const Icon(Icons.repeat),
               ),
               onTap: () {
-                context.push(
-                  ZikrViewerScreen(
-                    index: dbTitle.id,
-                  ),
-                );
+                context.push(ZikrViewerScreen(index: dbTitle.id));
               },
               title: Text(
                 "${S.of(context).goTo}: ${dbTitle.name}",

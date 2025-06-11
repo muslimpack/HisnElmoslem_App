@@ -26,7 +26,7 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     on<FakeHadithReportHadithEvent>(_report);
   }
 
-  FutureOr<void> _start(
+  Future<void> _start(
     FakeHadithStartEvent event,
     Emitter<FakeHadithState> emit,
   ) async {
@@ -35,20 +35,21 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     emit(FakeHadithLoadedState(allHadith: allHadith));
   }
 
-  FutureOr<void> _toggle(
+  Future<void> _toggle(
     FakeHadithToggleHadithEvent event,
     Emitter<FakeHadithState> emit,
   ) async {
     final state = this.state;
     if (state is! FakeHadithLoadedState) return;
 
-    final List<DbFakeHaith> allHadith =
-        List<DbFakeHaith>.from(state.allHadith).map((e) {
-      if (e.id == event.fakeHadith.id) {
-        return event.fakeHadith.copyWith(isRead: event.isRead);
-      }
-      return e;
-    }).toList();
+    final List<DbFakeHaith> allHadith = List<DbFakeHaith>.from(state.allHadith)
+        .map((e) {
+          if (e.id == event.fakeHadith.id) {
+            return event.fakeHadith.copyWith(isRead: event.isRead);
+          }
+          return e;
+        })
+        .toList();
 
     if (event.isRead) {
       await fakeHadithDBHelper.markFakeHadithAsRead(
@@ -63,19 +64,17 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     emit(state.copyWith(allHadith: allHadith));
   }
 
-  FutureOr<void> _copy(
+  Future<void> _copy(
     FakeHadithShareHadithEvent event,
     Emitter<FakeHadithState> emit,
   ) async {
     final DbFakeHaith fakeHadith = event.fakeHadith;
     await Clipboard.setData(
-      ClipboardData(
-        text: "${fakeHadith.text}\n${fakeHadith.darga}",
-      ),
+      ClipboardData(text: "${fakeHadith.text}\n${fakeHadith.darga}"),
     );
   }
 
-  FutureOr<void> _share(
+  Future<void> _share(
     FakeHadithCopyHadithEvent event,
     Emitter<FakeHadithState> emit,
   ) async {
@@ -83,12 +82,10 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     Share.share("${fakeHadith.text}\n${fakeHadith.darga}");
   }
 
-  FutureOr<void> _report(
+  Future<void> _report(
     FakeHadithReportHadithEvent event,
     Emitter<FakeHadithState> emit,
   ) async {
-    EmailManager.sendMisspelledInFakeHadith(
-      fakeHaith: event.fakeHadith,
-    );
+    EmailManager.sendMisspelledInFakeHadith(fakeHaith: event.fakeHadith);
   }
 }

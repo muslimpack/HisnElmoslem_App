@@ -38,9 +38,9 @@ class AlarmCard extends StatelessWidget {
                 case EditorActionEnum.edit:
                   context.read<AlarmsBloc>().add(AlarmsEditEvent(result.value));
                 case EditorActionEnum.delete:
-                  context
-                      .read<AlarmsBloc>()
-                      .add(AlarmsRemoveEvent(result.value));
+                  context.read<AlarmsBloc>().add(
+                    AlarmsRemoveEvent(result.value),
+                  );
                 default:
               }
             },
@@ -54,7 +54,7 @@ class AlarmCard extends StatelessWidget {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (val) async {
+            onPressed: (val) {
               context.read<AlarmsBloc>().add(AlarmsRemoveEvent(dbAlarm));
             },
             backgroundColor: Colors.red.withOpacity(.5),
@@ -96,9 +96,9 @@ class AlarmCardBody extends StatelessWidget {
                 children: [
                   Expanded(
                     child: RoundTagCard(
-                      name: DateFormat("hh:mm a").format(
-                        DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute),
-                      ),
+                      name: DateFormat(
+                        "hh:mm a",
+                      ).format(DateTime(1, 1, 1, dbAlarm.hour, dbAlarm.minute)),
                       color: Colors.green.withOpacity(.5),
                     ),
                   ),
@@ -115,10 +115,8 @@ class AlarmCardBody extends StatelessWidget {
           value: dbAlarm.isActive,
           onChanged: (value) {
             context.read<AlarmsBloc>().add(
-                  AlarmsEditEvent(
-                    dbAlarm.copyWith(isActive: value),
-                  ),
-                );
+              AlarmsEditEvent(dbAlarm.copyWith(isActive: value)),
+            );
           },
         ),
       ],

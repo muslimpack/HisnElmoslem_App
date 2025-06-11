@@ -51,13 +51,13 @@ class ShareImageBottomBar extends StatelessWidget {
                 context: context,
                 builder: (BuildContext _) {
                   return ImageWidthDialog(
-                    initialValue:
-                        state.shareImageSettings.imageWidth.toString(),
+                    initialValue: state.shareImageSettings.imageWidth
+                        .toString(),
                     onSubmit: (width) async {
                       final int? tempWidth = int.tryParse(width);
 
                       if (tempWidth == null) return;
-                      shareImageCubit.updateImageWidth(value: tempWidth);
+                      await shareImageCubit.updateImageWidth(value: tempWidth);
                     },
                   );
                 },

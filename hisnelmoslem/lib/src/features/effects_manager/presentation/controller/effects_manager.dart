@@ -25,21 +25,15 @@ class EffectsManager {
   }
 
   Future<void> playPraiseSound() async {
-    await _playSound(
-      AssetSource('sounds/tally_sound.mp3'),
-    );
+    await _playSound(AssetSource('sounds/tally_sound.mp3'));
   }
 
   Future<void> playZikrSound() async {
-    await _playSound(
-      AssetSource('sounds/zikr_done_sound.mp3'),
-    );
+    await _playSound(AssetSource('sounds/zikr_done_sound.mp3'));
   }
 
   Future<void> playTitleSound() async {
-    await _playSound(
-      AssetSource('sounds/all_azkar_finished_sound.mp3'),
-    );
+    await _playSound(AssetSource('sounds/all_azkar_finished_sound.mp3'));
   }
 
   ///MARK: Play vibration
@@ -47,7 +41,7 @@ class EffectsManager {
   Future<void> playPraiseVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
-        if (value!)
+        if (value)
           {Vibration.vibrate(duration: 100)}
         else
           {HapticFeedback.lightImpact()},
@@ -58,7 +52,7 @@ class EffectsManager {
   Future<void> playZikrVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
-        if (value!)
+        if (value)
           {Vibration.vibrate(duration: 300)}
         else
           {HapticFeedback.mediumImpact()},
@@ -69,7 +63,7 @@ class EffectsManager {
   Future<void> playTitleVibratation() async {
     await Vibration.hasCustomVibrationsSupport().then(
       (value) => {
-        if (value!) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()},
+        if (value) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()},
       },
     );
   }
