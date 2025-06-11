@@ -134,7 +134,7 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
             tooltip: S.of(context).share,
             icon: const Icon(Icons.share),
             onPressed: () async {
-              await Share.share(shareText);
+              await SharePlus.instance.share(ShareParams(text: shareText));
             },
           ),
         ],

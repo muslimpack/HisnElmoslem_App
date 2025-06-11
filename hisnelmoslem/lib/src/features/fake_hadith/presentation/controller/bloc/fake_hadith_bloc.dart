@@ -79,7 +79,9 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     Emitter<FakeHadithState> emit,
   ) async {
     final DbFakeHaith fakeHadith = event.fakeHadith;
-    Share.share("${fakeHadith.text}\n${fakeHadith.darga}");
+    await SharePlus.instance.share(
+      ShareParams(text: "${fakeHadith.text}\n${fakeHadith.darga}"),
+    );
   }
 
   Future<void> _report(
