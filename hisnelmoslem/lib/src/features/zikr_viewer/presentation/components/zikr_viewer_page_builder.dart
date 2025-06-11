@@ -47,7 +47,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
                     ? S.of(context).done
                     : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.02),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withAlpha((.02 * 255).round()),
                   fontSize: 250,
                   fontWeight: FontWeight.bold,
                 ),

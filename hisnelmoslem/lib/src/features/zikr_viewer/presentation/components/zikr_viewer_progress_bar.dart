@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerProgressBar extends StatelessWidget {
-  const ZikrViewerProgressBar({
-    super.key,
-  });
+  const ZikrViewerProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,9 @@ class ZikrViewerProgressBar extends StatelessWidget {
               backgroundColor: Colors.transparent,
               value: state.majorProgress,
               valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).colorScheme.primary.withOpacity(.5),
+                Theme.of(
+                  context,
+                ).colorScheme.primary.withAlpha((.5 * 255).round()),
               ),
             ),
           ],
