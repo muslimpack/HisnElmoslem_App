@@ -23,14 +23,14 @@ class ShareImageBottomBar extends StatelessWidget {
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontIncreaeSize,
+            tooltip: S.of(context).fontIncreaseSize,
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
               shareImageCubit.increaseFontSize();
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontDecreaeSize,
+            tooltip: S.of(context).fontDecreaseSize,
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
               shareImageCubit.decreaseFontSize();

@@ -70,14 +70,14 @@ class FontSettingsBar extends StatelessWidget {
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontIncreaeSize,
+            tooltip: S.of(context).fontIncreaseSize,
             icon: Icon(MdiIcons.formatFontSizeIncrease),
             onPressed: () {
               context.read<SettingsCubit>().increaseFontSize();
             },
           ),
           IconButton(
-            tooltip: S.of(context).fontDecreaeSize,
+            tooltip: S.of(context).fontDecreaseSize,
             icon: Icon(MdiIcons.formatFontSizeDecrease),
             onPressed: () {
               context.read<SettingsCubit>().decreaseFontSize();

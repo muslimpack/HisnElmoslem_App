@@ -167,7 +167,7 @@ class SAr extends S {
   String get deactivate => 'الغاء تفعيل';
 
   @override
-  String get decreae => 'نقص';
+  String get decrease => 'نقص';
 
   @override
   String get delete => 'حذف';
@@ -262,10 +262,10 @@ class SAr extends S {
   String get fixedSizeMode => 'حجم خط ثابت';
 
   @override
-  String get fontDecreaeSize => 'قلل حجم الخط';
+  String get fontDecreaseSize => 'قلل حجم الخط';
 
   @override
-  String get fontIncreaeSize => 'زيادة حجم الخط';
+  String get fontIncreaseSize => 'زيادة حجم الخط';
 
   @override
   String get fontResetSize => 'إعادة تعيين حجم الخط';
