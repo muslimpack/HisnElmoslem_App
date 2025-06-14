@@ -18,6 +18,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_i
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -309,16 +310,34 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (state is! ShareImageLoadedState) return;
 
     emit(state.copyWith(showLoadingIndicator: true));
+    const double pixelRatio = 2;
+
+    final List<ByteData> filesData = [];
+    final List<String> filesName = [];
 
     try {
-      final double pixelRatio = state.shareImageSettings.imageQuality;
+      final captureWidgetController = CaptureWidgetController(
+        imageKey: imageKeys[state.activeIndex],
+      );
       final image = await captureWidgetController.getImage(pixelRatio);
+
       final byteData = await image?.toByteData(format: ImageByteFormat.png);
 
+      if (byteData == null) return;
+
+      final fileName = _getHadithOutputFileName(
+        state.content,
+        state.activeIndex,
+        state.splittedMatn.length,
+      );
+
+      filesData.add(byteData);
+      filesName.add(fileName);
+
       if (PlatformExtension.isDesktop) {
-        await _saveDesktop(byteData);
+        await _saveDesktop(filesData, fileName: filesName);
       } else {
-        await _savePhone(byteData);
+        await _savePhone(filesData);
       }
     } catch (e) {
       hisnPrint(e.toString());
@@ -327,41 +346,52 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     emit(state.copyWith(showLoadingIndicator: false));
   }
 
-  Future _saveDesktop(ByteData? byteData) async {
-    if (byteData == null) return;
-
-    final Uint8List uint8List = byteData.buffer.asUint8List();
-
-    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-    String? outputFile = await FilePicker.platform.saveFile(
-      dialogTitle: 'Please select an output file:',
-      fileName: 'HisnElmoslemSharedImage-$timestamp.png',
-    );
-
-    if (outputFile == null) return;
-    if (!outputFile.endsWith(".png")) {
-      outputFile += ".png";
-    }
-
-    hisnPrint(outputFile);
-
-    final File file = File(outputFile);
-    await file.writeAsBytes(uint8List);
+  String _getHadithOutputFileName(DbContent zikr, int index, int length) {
+    return _getOutputFileName("Hisn-${zikr.id}_${index + 1}_of_$length");
   }
 
-  Future _savePhone(ByteData? byteData) async {
-    if (byteData == null) return;
+  String _getOutputFileName(String outputFileName) {
+    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final fileName = "$outputFileName-$timestamp.png";
+    return fileName;
+  }
 
+  Future _saveDesktop(
+    List<ByteData> filesData, {
+    required List<String> fileName,
+  }) async {
+    final String? dir = await FilePicker.platform.getDirectoryPath(
+      dialogTitle: 'Please select an output file:',
+    );
+
+    if (dir == null) return;
+
+    for (var i = 0; i < filesData.length; i++) {
+      final Uint8List uint8List = filesData[i].buffer.asUint8List();
+      final File file = File(path.join(dir, fileName[i]));
+      await file.writeAsBytes(uint8List);
+    }
+  }
+
+  Future _savePhone(List<ByteData> filesData) async {
     final tempDir = await getTemporaryDirectory();
 
-    final File file = await File(
-      '${tempDir.path}/hisnElmoslemSharedImage.png',
-    ).create();
-    await file.writeAsBytes(byteData.buffer.asUint8List());
+    final List<XFile> xFiles = [];
+    for (int i = 0; i < filesData.length; i++) {
+      final File file = await File(
+        '${tempDir.path}/SharedImage$i.png',
+      ).create();
+      await file.writeAsBytes(filesData[i].buffer.asUint8List());
+      xFiles.add(XFile(file.path));
+    }
+    // print file size
+    // hisnPrint(await objectSize(xFiles));
 
-    await SharePlus.instance.share(ShareParams(files: [XFile(file.path)]));
+    await SharePlus.instance.share(ShareParams(files: xFiles));
 
-    await file.delete();
+    for (final file in xFiles) {
+      await File(file.path).delete();
+    }
   }
 
   /// **************************
@@ -370,5 +400,13 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   Future<void> close() {
     transformationController.dispose();
     return super.close();
+  }
+
+  Future<int> objectSize(List<XFile> xFiles) async {
+    int totalSize = 0;
+    for (int i = 0; i < xFiles.length; i++) {
+      totalSize += await xFiles[i].length();
+    }
+    return totalSize;
   }
 }

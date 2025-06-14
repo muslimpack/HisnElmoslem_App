@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class CaptureWidgetController {
-  final GlobalKey _imageKey = GlobalKey();
+  final GlobalKey _imageKey;
+
+  CaptureWidgetController({GlobalKey? imageKey})
+      : _imageKey = imageKey ?? GlobalKey();
 
   GlobalKey get imageKey => _imageKey;
 
