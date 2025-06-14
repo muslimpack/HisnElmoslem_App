@@ -29,6 +29,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+   flavorDimensions "default"
+
     defaultConfig {
         applicationId "com.hassaneltantawy.hisnelmoslem"
         minSdkVersion 23
@@ -36,6 +38,17 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutter.versionCode
         versionName flutter.versionName
+    }
+
+    productFlavors {
+        prod {
+            dimension "default"
+        }
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
     }
 
     signingConfigs {

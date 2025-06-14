@@ -18,7 +18,7 @@ Builds:
     versionCode: 21
     commit: 630117a0987e317c3b564505154c112d595d92ed
     subdir: hisnelmoslem
-    output: build/app/outputs/flutter-apk/app-release.apk
+    output: build/app/outputs/flutter-apk/app-prod-release.apk
     srclibs:
       - flutter@3.10.0
     rm:
@@ -31,7 +31,7 @@ Builds:
       - hisnelmoslem/.pub-cache
     build:
       - export PUB_CACHE=$(pwd)/.pub-cache
-      - $$flutter$$/bin/flutter build apk --release
+      - $$flutter$$/bin/flutter build apk --flavor prod
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
