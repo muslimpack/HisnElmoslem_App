@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/gradient_widget.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_view_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 
@@ -23,11 +26,25 @@ class TallyCounterView extends StatelessWidget {
         final activeCounter = state.activeCounter;
 
         if (activeCounter == null) {
+          final isCountersEmpty = state.allCounters.isEmpty;
           return Empty(
             isImage: false,
             icon: Icons.watch_rounded,
             title: S.of(context).noActiveCounter,
             description: S.of(context).activateCounterInstructions,
+            buttonText: isCountersEmpty ? S.of(context).addNewCounter : "",
+            onButtonCLick: !isCountersEmpty
+                ? null
+                : () async {
+                    final EditorResult<DbTally>? result =
+                        await showTallyEditorDialog(context: context);
+
+                    if (result == null || !context.mounted) return;
+
+                    context.read<TallyBloc>().add(
+                      TallyAddCounterEvent(counter: result.value),
+                    );
+                  },
           );
         }
 
