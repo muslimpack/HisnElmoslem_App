@@ -3,6 +3,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
@@ -123,7 +124,9 @@ class ShareableImageCard extends StatelessWidget {
                   child: Center(
                     child: AutoSizeText(
                       //TDOD remove after database update
-                      mainText.replaceAll("، ،", "،").replaceAll("  ", " "),
+                      shareImageSettings.removeDiacritics
+                          ? (mainText.removeDiacritics)
+                          : mainText,
                       minFontSize: 30,
                       textAlign: TextAlign.center,
                       style: mainTextStyle,
