@@ -61,33 +61,35 @@ class _TallyEditorState extends State<_TallyEditor> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(S.of(context).tallyEditor),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
-          UserTextField(
-            controller: titleController,
-            hintText: S.of(context).counterName,
-          ),
-          Text(
-            S.of(context).counterCircleSetToZero,
-            textAlign: TextAlign.center,
-          ),
-          UserNumberField(
-            controller: resetCounterController,
-            leadingIcon: MdiIcons.restore,
-            hintText: S.of(context).circleEvery,
-          ),
-          Text(
-            S.of(context).tallyActualCounterDesc,
-            textAlign: TextAlign.center,
-          ),
-          UserNumberField(
-            controller: counterValueController,
-            leadingIcon: MdiIcons.counter,
-            hintText: S.of(context).count,
-          ),
-        ],
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
+            UserTextField(
+              controller: titleController,
+              hintText: S.of(context).counterName,
+            ),
+            Text(
+              S.of(context).counterCircleSetToZero,
+              textAlign: TextAlign.center,
+            ),
+            UserNumberField(
+              controller: resetCounterController,
+              leadingIcon: MdiIcons.restore,
+              hintText: S.of(context).circleEvery,
+            ),
+            Text(
+              S.of(context).tallyActualCounterDesc,
+              textAlign: TextAlign.center,
+            ),
+            UserNumberField(
+              controller: counterValueController,
+              leadingIcon: MdiIcons.counter,
+              hintText: S.of(context).count,
+            ),
+          ],
+        ),
       ),
       actions: [
         if (widget.dbTally != null)
