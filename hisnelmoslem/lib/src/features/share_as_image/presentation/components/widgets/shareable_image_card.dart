@@ -55,7 +55,9 @@ class ShareableImageCard extends StatelessWidget {
     final imageBackgroundColor = shareImageSettings.backgroundColor;
     final secondaryColor = shareImageSettings.backgroundColor;
     //todo depened on zikr hokm
-    final secondaryElementsColor = Colors.brown.withValues(alpha: .15);
+    final secondaryElementsColor = shareImageSettings.titleTextColor.withValues(
+      alpha: .15,
+    );
 
     final mainTextStyle = TextStyle(
       fontSize: 150,
@@ -99,7 +101,9 @@ class ShareableImageCard extends StatelessWidget {
             margin: const EdgeInsets.all(40).copyWith(top: 60, bottom: 60),
             padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: .11),
+              color: imageBackgroundColor.getContrastColor.withValues(
+                alpha: .11,
+              ),
               border: Border.all(color: secondaryElementsColor, width: 5),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50),
