@@ -142,7 +142,7 @@ class ShareableImageCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 65),
                     child: Text(
-                      "🏆 الفضل: ${zikr.fadl}",
+                      zikrTitle.id < 0 ? zikr.fadl : "🏆 الفضل: ${zikr.fadl}",
                       style: secondaryTextStyle,
                     ),
                   ),
