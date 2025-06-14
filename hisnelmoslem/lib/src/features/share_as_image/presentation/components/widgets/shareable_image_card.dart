@@ -182,7 +182,7 @@ class ShareableImageCard extends StatelessWidget {
                   DotBar(
                     activeIndex: splittedindex,
                     length: splittedLength,
-                    dotColor: secondaryColor,
+                    dotColor: shareImageSettings.titleTextColor,
                   ),
                 ],
               ),
