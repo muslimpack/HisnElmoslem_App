@@ -90,7 +90,7 @@ extension DbContentExtension on DbContent {
     final content = await getPlainText();
     sb.writeln("$content\n");
     sb.writeln("🔢عدد المرات: $count\n");
-    if (fadl.isNotEmpty) sb.writeln("✨الفضل: $fadl\n");
+    if (fadl.isNotEmpty) sb.writeln("🏆الفضل: $fadl\n");
     if (source.isNotEmpty) sb.writeln("📚المصدر:\n$source");
     return sb.toString();
   }
