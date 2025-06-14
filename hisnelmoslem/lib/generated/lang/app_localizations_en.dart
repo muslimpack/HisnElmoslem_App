@@ -258,6 +258,9 @@ class SEn extends S {
   String get featuresToBeAdded => 'Features I hope to be added:';
 
   @override
+  String get fieldIsRequired => 'This field is required and cannot be empty';
+
+  @override
   String get fixedSizeMode => 'Fixed size mode';
 
   @override
@@ -687,6 +690,9 @@ class SEn extends S {
 
   @override
   String get useHindiDigits => 'Use Hindi Digits';
+
+  @override
+  String get valueMustBeGreaterThanZero => 'Value must be greater than zero';
 
   @override
   String get version => 'Version';

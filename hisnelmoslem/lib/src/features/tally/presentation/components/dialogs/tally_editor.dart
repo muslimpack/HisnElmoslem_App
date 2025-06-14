@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
@@ -29,31 +28,31 @@ class _TallyEditor extends StatefulWidget {
 }
 
 class _TallyEditorState extends State<_TallyEditor> {
-  late DbTally dbTally;
-  TextEditingController titleController = TextEditingController();
-  TextEditingController resetCounterController = TextEditingController();
-  TextEditingController counterValueController = TextEditingController();
-
+  late DbTally _dbTally;
+  late final TextEditingController _titleController;
+  late final TextEditingController _resetCounterController;
+  late final TextEditingController _counterValueController;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
     if (widget.dbTally != null) {
-      dbTally = widget.dbTally!;
-      titleController = TextEditingController(text: dbTally.title);
-      resetCounterController = TextEditingController(
-        text: dbTally.countReset.toString(),
+      _dbTally = widget.dbTally!;
+      _titleController = TextEditingController(text: _dbTally.title);
+      _resetCounterController = TextEditingController(
+        text: _dbTally.countReset.toString(),
       );
-      counterValueController = TextEditingController(
-        text: dbTally.count.toString(),
+      _counterValueController = TextEditingController(
+        text: _dbTally.count.toString(),
       );
     } else {
-      dbTally = DbTally.empty(
+      _dbTally = DbTally.empty(
         created: DateTime.now(),
         lastUpdate: DateTime.now(),
       );
-      titleController = TextEditingController();
-      resetCounterController = TextEditingController();
-      counterValueController = TextEditingController();
+      _titleController = TextEditingController();
+      _resetCounterController = TextEditingController();
+      _counterValueController = TextEditingController(text: "0");
     }
   }
 
@@ -62,34 +61,61 @@ class _TallyEditorState extends State<_TallyEditor> {
     return AlertDialog(
       title: Text(S.of(context).tallyEditor),
       content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
-            UserTextField(
-              autoFocus: true,
-              controller: titleController,
-              hintText: S.of(context).counterName,
-            ),
-            Text(
-              S.of(context).counterCircleSetToZero,
-              textAlign: TextAlign.center,
-            ),
-            UserNumberField(
-              controller: resetCounterController,
-              leadingIcon: MdiIcons.restore,
-              hintText: S.of(context).circleEvery,
-            ),
-            Text(
-              S.of(context).tallyActualCounterDesc,
-              textAlign: TextAlign.center,
-            ),
-            UserNumberField(
-              controller: counterValueController,
-              leadingIcon: MdiIcons.counter,
-              hintText: S.of(context).count,
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUnfocus,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
+              UserTextFormField(
+                autoFocus: true,
+                controller: _titleController,
+                hintText: S.of(context).counterName,
+                validator: (p0) => p0 == null || p0.isEmpty
+                    ? S.of(context).fieldIsRequired
+                    : null,
+              ),
+              Text(
+                S.of(context).counterCircleSetToZero,
+                textAlign: TextAlign.center,
+              ),
+              UserNumberFormField(
+                controller: _resetCounterController,
+                leadingIcon: MdiIcons.restore,
+                hintText: S.of(context).circleEvery,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return S.of(context).fieldIsRequired;
+                  }
+                  final int? resetValue = int.tryParse(value);
+                  if (resetValue == null || resetValue <= 0) {
+                    return S.of(context).valueMustBeGreaterThanZero;
+                  }
+                  return null;
+                },
+              ),
+              Text(
+                S.of(context).tallyActualCounterDesc,
+                textAlign: TextAlign.center,
+              ),
+              UserNumberFormField(
+                controller: _counterValueController,
+                leadingIcon: MdiIcons.counter,
+                hintText: S.of(context).count,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return S.of(context).fieldIsRequired;
+                  }
+                  final int? countValue = int.tryParse(value);
+                  if (countValue == null || countValue < 0) {
+                    return S.of(context).valueMustBeGreaterThanZero;
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -104,7 +130,7 @@ class _TallyEditorState extends State<_TallyEditor> {
             onPressed: () {
               Navigator.pop(
                 context,
-                EditorResult(action: EditorActionEnum.delete, value: dbTally),
+                EditorResult(action: EditorActionEnum.delete, value: _dbTally),
               );
             },
           ),
@@ -120,24 +146,20 @@ class _TallyEditorState extends State<_TallyEditor> {
   }
 
   Future onSubmit() async {
-    final String title = titleController.text.trim();
-    final int? resetCounter = int.tryParse(resetCounterController.text);
-    final int? count = int.tryParse(counterValueController.text);
-    if (title.isEmpty) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
-    if (resetCounter == null || title.isEmpty || count == null) {
-      showToast(msg: S.of(context).counterCircleMustBeGreaterThanZero);
-      return;
-    }
+    final String title = _titleController.text.trim();
+    final int? resetCounter = int.tryParse(_resetCounterController.text);
+    final int? count = int.tryParse(_counterValueController.text);
 
-    dbTally = dbTally.copyWith(
+    _dbTally = _dbTally.copyWith(
       title: title,
       countReset: resetCounter,
       count: count,
     );
 
-    if (dbTally == widget.dbTally) {
+    if (_dbTally == widget.dbTally) {
       Navigator.pop(context);
       return;
     }
@@ -148,7 +170,7 @@ class _TallyEditorState extends State<_TallyEditor> {
         action: widget.dbTally == null
             ? EditorActionEnum.add
             : EditorActionEnum.edit,
-        value: dbTally,
+        value: _dbTally,
       ),
     );
   }

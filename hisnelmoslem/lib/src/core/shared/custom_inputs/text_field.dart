@@ -32,3 +32,38 @@ class UserTextField extends StatelessWidget {
     );
   }
 }
+
+class UserTextFormField extends StatelessWidget {
+  final bool autoFocus;
+  final TextEditingController controller;
+  final String hintText;
+  final Function(String)? onChange;
+  final String? Function(String?)? validator;
+
+  const UserTextFormField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.onChange,
+    this.validator,
+    this.autoFocus = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        autofocus: autoFocus,
+        textAlign: TextAlign.center,
+        controller: controller,
+        onChanged: onChange,
+        decoration: customInputDecoration.copyWith(
+          hintText: hintText,
+          labelText: hintText,
+        ),
+        validator: validator,
+      ),
+    );
+  }
+}

@@ -583,6 +583,12 @@ abstract class S {
   /// **'Features I hope to be added:'**
   String get featuresToBeAdded;
 
+  /// No description provided for @fieldIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required and cannot be empty'**
+  String get fieldIsRequired;
+
   /// No description provided for @fixedSizeMode.
   ///
   /// In en, this message translates to:
@@ -1422,6 +1428,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Use Hindi Digits'**
   String get useHindiDigits;
+
+  /// No description provided for @valueMustBeGreaterThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Value must be greater than zero'**
+  String get valueMustBeGreaterThanZero;
 
   /// No description provided for @version.
   ///

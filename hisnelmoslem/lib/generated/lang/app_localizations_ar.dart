@@ -259,6 +259,9 @@ class SAr extends S {
   String get featuresToBeAdded => 'ميزات تتمنى وجودها:';
 
   @override
+  String get fieldIsRequired => 'هذا الحقل مطلوب ولا يجب أن يكون فارغا';
+
+  @override
   String get fixedSizeMode => 'حجم خط ثابت';
 
   @override
@@ -687,6 +690,9 @@ class SAr extends S {
 
   @override
   String get useHindiDigits => 'استخدام الأرقام الهندية';
+
+  @override
+  String get valueMustBeGreaterThanZero => 'القيمة يجب أن تكون أكبر  من صفر';
 
   @override
   String get version => 'الإصدار';
