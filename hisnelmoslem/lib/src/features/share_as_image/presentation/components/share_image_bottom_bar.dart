@@ -16,27 +16,6 @@ class ShareImageBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            tooltip: S.of(context).fontResetSize,
-            icon: Icon(MdiIcons.restart),
-            onPressed: () {
-              shareImageCubit.resetFontSize();
-            },
-          ),
-          IconButton(
-            tooltip: S.of(context).fontIncreaseSize,
-            icon: Icon(MdiIcons.formatFontSizeIncrease),
-            onPressed: () {
-              shareImageCubit.increaseFontSize();
-            },
-          ),
-          IconButton(
-            tooltip: S.of(context).fontDecreaseSize,
-            icon: Icon(MdiIcons.formatFontSizeDecrease),
-            onPressed: () {
-              shareImageCubit.decreaseFontSize();
-            },
-          ),
-          IconButton(
             tooltip: S.of(context).showDiacritics,
             icon: Icon(MdiIcons.abjadArabic),
             onPressed: () {
