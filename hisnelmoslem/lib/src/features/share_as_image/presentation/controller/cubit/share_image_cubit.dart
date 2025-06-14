@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -28,7 +30,70 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
   final CaptureWidgetController captureWidgetController =
       CaptureWidgetController();
+  final PageController pageController = PageController();
+  late final List<GlobalKey> imageKeys;
+
   ShareImageCubit(this.shareAsImageRepo) : super(ShareImageLoadingState());
+
+  Future onPageChanged(int index) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    emit(state.copyWith(activeIndex: index));
+  }
+
+  ///MARK: Split
+  int charPer1080(int standardLength, String text) {
+    if (text.length < standardLength) {
+      return standardLength;
+    }
+
+    final chunkCount = (text.split(" ").length / standardLength).ceil();
+
+    final charLength = text.split(" ").length ~/ chunkCount;
+    final overflowChars = text.split(" ").length % chunkCount;
+    final result = charLength + overflowChars;
+
+    return result + 2;
+  }
+
+  List<TextRange> splitStringIntoChunksRange(String text, int wordsPerChunk) {
+    // Handle edge cases
+    if (text.isEmpty || wordsPerChunk <= 0) {
+      return [];
+    }
+
+    final List<String> words = text.split(' ');
+    final List<TextRange> chunkIndices = [];
+
+    int chunkStart = 0;
+    int wordCount = 0;
+    int currentPos = 0;
+
+    for (int i = 0; i < words.length; i++) {
+      // Get the word's start and end indices in the text
+      final String word = words[i];
+      final int wordStart = text.indexOf(word, currentPos);
+      final int wordEnd = wordStart + word.length;
+
+      if (wordCount < wordsPerChunk) {
+        // Add the word to the current chunk
+        wordCount++;
+        currentPos = wordEnd;
+      }
+
+      // If the chunk reaches the word limit, finalize it
+      if (wordCount == wordsPerChunk || i == words.length - 1) {
+        chunkIndices.add(TextRange(start: chunkStart, end: wordEnd));
+
+        // Start a new chunk
+        chunkStart = wordEnd + 1; // Skip the space
+        wordCount = 0;
+      }
+    }
+
+    return chunkIndices;
+  }
 
   FutureOr start(DbContent content) async {
     final ShareImageSettings shareImageSettings =
@@ -36,22 +101,49 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     final baseTitle = await _getTitle(content);
 
+    final settings = const ShareableImageCardSettings.defaultSettings()
+        .copyWith(wordsCountPerSize: 120);
+
+    final String proccessedText = content.content;
+    final charsPerChunk = charPer1080(
+      settings.wordsCountPerSize,
+      proccessedText,
+    );
+
+    final List<TextRange> splittedMatnRanges = splitStringIntoChunksRange(
+      proccessedText,
+      charsPerChunk,
+    );
+
+    imageKeys = List.generate(
+      splittedMatnRanges.length,
+      (index) => GlobalKey(),
+    );
     emit(
       ShareImageLoadedState(
         content: content,
         title: baseTitle,
         shareImageSettings: shareImageSettings,
         showLoadingIndicator: false,
+        settings: settings.copyWith(wordsCountPerSize: charsPerChunk),
+        splittedMatn: splittedMatnRanges,
+        activeIndex: 0,
       ),
     );
   }
 
-  FutureOr<String> _getTitle(DbContent content) async {
-    final String title;
+  FutureOr<DbTitle> _getTitle(DbContent content) async {
+    final DbTitle title;
     if (content.titleId >= 0) {
-      title = (await sl<HisnDBHelper>().getTitleById(id: content.titleId)).name;
+      title = await sl<HisnDBHelper>().getTitleById(id: content.titleId);
     } else {
-      title = "أحاديث منتشرة لا تصح";
+      title = const DbTitle(
+        id: -1,
+        name: "أحاديث منتشرة لا تصح",
+        freq: "",
+        favourite: false,
+        order: -1,
+      );
     }
     return title;
   }

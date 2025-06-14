@@ -1,12 +1,11 @@
-import 'package:capture_widget/capture_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_bottom_bar.dart';
-import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_card.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/shareable_image_card.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -45,30 +44,32 @@ class ShareAsImageScreen extends StatelessWidget {
                       ),
               ),
             ),
-            body: GestureDetector(
-              onDoubleTap: () {
-                context.read<ShareImageCubit>().fitImageToScreen(context);
-              },
-              child: Stack(
-                children: [
-                  InteractiveViewer(
-                    constrained: false,
-                    // clipBehavior: Clip.none,
-                    transformationController: context
-                        .read<ShareImageCubit>()
-                        .transformationController,
-                    minScale: 0.25,
-                    maxScale: 3,
-                    boundaryMargin: const EdgeInsets.all(5000),
-                    child: CaptureWidget(
-                      controller: context
-                          .read<ShareImageCubit>()
-                          .captureWidgetController,
-                      child: const ShareImageCard(),
+            body: PageView.builder(
+              controller: context.read<ShareImageCubit>().pageController,
+              itemCount: state.splittedMatn.length,
+              onPageChanged: context.read<ShareImageCubit>().onPageChanged,
+              itemBuilder: (context, index) {
+                return Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.center,
+                  children: [
+                    FittedBox(
+                      child: RepaintBoundary(
+                        key: context.read<ShareImageCubit>().imageKeys[index],
+                        child: ShareableImageCard(
+                          zikr: state.content,
+                          zikrTitle: state.title,
+                          settings: state.settings,
+                          matnRange: state.splittedMatn[index],
+                          splittedLength: state.splittedMatn.length,
+                          splittedindex: index,
+                          shareImageSettings: state.shareImageSettings,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              },
             ),
             bottomSheet: const ShareImageBottomBar(),
           );
