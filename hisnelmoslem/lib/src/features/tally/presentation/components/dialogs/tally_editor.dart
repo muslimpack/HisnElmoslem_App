@@ -67,6 +67,7 @@ class _TallyEditorState extends State<_TallyEditor> {
           children: [
             Text(S.of(context).addNameToCounter, textAlign: TextAlign.center),
             UserTextField(
+              autoFocus: true,
               controller: titleController,
               hintText: S.of(context).counterName,
             ),
