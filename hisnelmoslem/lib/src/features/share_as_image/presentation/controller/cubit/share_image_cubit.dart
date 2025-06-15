@@ -18,6 +18,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_i
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -99,13 +100,20 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   FutureOr start(DbContent content) async {
     final ShareImageSettings shareImageSettings =
         shareAsImageRepo.shareImageSettings;
+    final isContainsQuranText = content.content.contains("QuranText");
+    late final DbContent content2Set;
+    if (isContainsQuranText) {
+      content2Set = content.copyWith(content: await content.getPlainText());
+    } else {
+      content2Set = content;
+    }
 
-    final baseTitle = await _getTitle(content);
+    final baseTitle = await _getTitle(content2Set);
 
     final settings = const ShareableImageCardSettings.defaultSettings()
         .copyWith(wordsCountPerSize: 120);
 
-    final String proccessedText = content.content;
+    final String proccessedText = content2Set.content;
     final charsPerChunk = charPer1080(
       settings.wordsCountPerSize,
       proccessedText,
@@ -122,7 +130,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     );
     emit(
       ShareImageLoadedState(
-        content: content,
+        content: content2Set,
         title: baseTitle,
         shareImageSettings: shareImageSettings,
         showLoadingIndicator: false,

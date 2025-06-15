@@ -53,7 +53,6 @@ class ShareableImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageBackgroundColor = shareImageSettings.backgroundColor;
-    final secondaryColor = shareImageSettings.backgroundColor;
     //todo depened on zikr hokm
     final secondaryElementsColor = shareImageSettings.titleTextColor.withValues(
       alpha: .15,
