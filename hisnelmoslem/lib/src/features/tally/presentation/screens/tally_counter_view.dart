@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
@@ -57,8 +58,19 @@ class TallyCounterView extends StatelessWidget {
             onTap: () {
               context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent());
             },
-            child: Padding(
+            child: Container(
               padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: const AssetImage("assets/images/grid.png"),
+                  repeat: ImageRepeat.repeat,
+                  opacity: .03,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).scaffoldBackgroundColor.getContrastColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
               child: Column(
                 spacing: 20,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
