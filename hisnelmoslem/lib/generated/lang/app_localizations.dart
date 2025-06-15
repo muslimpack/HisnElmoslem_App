@@ -403,12 +403,6 @@ abstract class S {
   /// **'Daily'**
   String get daily;
 
-  /// No description provided for @darkTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Dark Theme'**
-  String get darkTheme;
-
   /// No description provided for @dashboardArrangement.
   ///
   /// In en, this message translates to:
@@ -781,12 +775,6 @@ abstract class S {
   /// **'Later'**
   String get later;
 
-  /// No description provided for @lightTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Light Theme'**
-  String get lightTheme;
-
   /// No description provided for @likeAboutApp.
   ///
   /// In en, this message translates to:
@@ -894,18 +882,6 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Official Website'**
   String get officialWebsite;
-
-  /// No description provided for @optimizeDarkTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Optimized Dark Theme'**
-  String get optimizeDarkTheme;
-
-  /// No description provided for @optimizeLightTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Optimized Light Theme'**
-  String get optimizeLightTheme;
 
   /// No description provided for @ourProducts.
   ///
@@ -1369,17 +1345,17 @@ abstract class S {
   /// **'App Color'**
   String get themeAppColor;
 
+  /// No description provided for @themeApperance.
+  ///
+  /// In en, this message translates to:
+  /// **'Apperance'**
+  String get themeApperance;
+
   /// No description provided for @themeBackgroundColor.
   ///
   /// In en, this message translates to:
   /// **'Background Color'**
   String get themeBackgroundColor;
-
-  /// No description provided for @themeDarkMode.
-  ///
-  /// In en, this message translates to:
-  /// **'Dark Mode'**
-  String get themeDarkMode;
 
   /// No description provided for @themeManager.
   ///

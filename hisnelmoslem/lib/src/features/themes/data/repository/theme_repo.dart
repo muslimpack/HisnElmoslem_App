@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 
 class ThemeRepo {
   final GetStorage box;
@@ -9,15 +10,30 @@ class ThemeRepo {
   ///
   static const String _brightnessKey = "ThemeBrightness";
 
-  Brightness getBrightness() {
+  Brightness _getBrightness() {
     final String? brightness = box.read(_brightnessKey) as String?;
     return brightness == Brightness.light.toString()
         ? Brightness.light
         : Brightness.dark;
   }
 
-  Future setBrightness(Brightness brightness) async {
-    await box.write(_brightnessKey, brightness.toString());
+  ///
+  static const String _themeBrightnessModeKey = "themeBrightnessMode";
+
+  ThemeBrightnessModeEnum getThemeBrightnessMode() {
+    final String? brightness = box.read(_themeBrightnessModeKey) as String?;
+    if (brightness == null) {
+      return _getBrightness() == Brightness.dark
+          ? ThemeBrightnessModeEnum.dark
+          : ThemeBrightnessModeEnum.light;
+    }
+    return ThemeBrightnessModeEnum.values.firstWhere(
+      (e) => e.name == brightness,
+    );
+  }
+
+  Future setThemeBrightnessMode(ThemeBrightnessModeEnum brightness) async {
+    await box.write(_themeBrightnessModeKey, brightness.name);
   }
 
   ///

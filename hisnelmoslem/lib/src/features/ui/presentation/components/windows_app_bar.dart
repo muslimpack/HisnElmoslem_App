@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/windows_button.dart';
 import 'package:window_manager/window_manager.dart';
@@ -42,9 +43,7 @@ class _UIAppBarState extends State<UIAppBar> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Image.asset(
-                            "assets/images/app_icon.png",
-                          ),
+                          child: Image.asset("assets/images/app_icon.png"),
                         ),
                       ),
                       Align(
@@ -62,17 +61,16 @@ class _UIAppBarState extends State<UIAppBar> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8.0),
                     child: ChoiceChip(
-                      selected: state.brightness == Brightness.dark,
+                      selected: state.deviceBrightness == Brightness.dark,
                       showCheckmark: false,
-                      label: Icon(
-                        state.brightness == Brightness.dark
-                            ? Icons.light_mode
-                            : Icons.dark_mode,
-                      ),
+                      label: Icon(switch (state.themeBrightnessMode) {
+                        ThemeBrightnessModeEnum.dark => Icons.dark_mode,
+                        ThemeBrightnessModeEnum.light => Icons.light_mode,
+                        ThemeBrightnessModeEnum.system =>
+                          Icons.brightness_medium_outlined,
+                      }),
                       onSelected: (v) {
-                        sl<ThemeCubit>().changeBrightness(
-                          v ? Brightness.dark : Brightness.light,
-                        );
+                        sl<ThemeCubit>().toggleBrightnessMode();
                       },
                     ),
                   ),

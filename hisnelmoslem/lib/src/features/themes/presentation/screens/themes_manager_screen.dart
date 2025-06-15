@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 
 class ThemeManagerScreen extends StatelessWidget {
@@ -15,9 +16,7 @@ class ThemeManagerScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-              S.of(context).themeManager,
-            ),
+            title: Text(S.of(context).themeManager),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -26,9 +25,7 @@ class ThemeManagerScreen extends StatelessWidget {
             children: [
               ListTile(
                 title: Text(S.of(context).themeAppColor),
-                trailing: CircleAvatar(
-                  backgroundColor: state.color,
-                ),
+                trailing: CircleAvatar(backgroundColor: state.color),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -52,9 +49,9 @@ class ThemeManagerScreen extends StatelessWidget {
                           ElevatedButton(
                             child: Text(S.of(context).select),
                             onPressed: () {
-                              context
-                                  .read<ThemeCubit>()
-                                  .changeColor(selectedColor);
+                              context.read<ThemeCubit>().changeColor(
+                                selectedColor,
+                              );
                               Navigator.of(context).pop();
                             },
                           ),
@@ -64,21 +61,24 @@ class ThemeManagerScreen extends StatelessWidget {
                   );
                 },
               ),
-              SwitchListTile(
-                value: state.brightness == Brightness.dark,
-                title: Text(S.of(context).themeDarkMode),
-                onChanged: (value) {
-                  if (state.brightness == Brightness.dark) {
-                    context
-                        .read<ThemeCubit>()
-                        .changeBrightness(Brightness.light);
-                  } else {
-                    context
-                        .read<ThemeCubit>()
-                        .changeBrightness(Brightness.dark);
-                  }
-                },
+              ListTile(
+                title: Text(S.of(context).themeApperance),
+                subtitle: Wrap(
+                  spacing: 10,
+                  children: ThemeBrightnessModeEnum.values
+                      .map(
+                        (e) => ChoiceChip(
+                          label: Text(e.localeName(context)),
+                          selected: e == state.themeBrightnessMode,
+                          onSelected: (value) {
+                            context.read<ThemeCubit>().changeBrightnessMode(e);
+                          },
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
+
               SwitchListTile(
                 value: state.useMaterial3,
                 title: Text(S.of(context).themeUseMaterial3),

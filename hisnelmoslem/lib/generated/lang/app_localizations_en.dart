@@ -166,9 +166,6 @@ class SEn extends S {
   String get daily => 'Daily';
 
   @override
-  String get darkTheme => 'Dark Theme';
-
-  @override
   String get dashboardArrangement => 'Dashboard Arrangement';
 
   @override
@@ -358,9 +355,6 @@ class SEn extends S {
   String get later => 'Later';
 
   @override
-  String get lightTheme => 'Light Theme';
-
-  @override
   String get likeAboutApp => 'I like about this app:';
 
   @override
@@ -417,12 +411,6 @@ class SEn extends S {
 
   @override
   String get officialWebsite => 'Official Website';
-
-  @override
-  String get optimizeDarkTheme => 'Optimized Dark Theme';
-
-  @override
-  String get optimizeLightTheme => 'Optimized Light Theme';
 
   @override
   String get ourProducts => 'Our Products';
@@ -662,10 +650,10 @@ class SEn extends S {
   String get themeAppColor => 'App Color';
 
   @override
-  String get themeBackgroundColor => 'Background Color';
+  String get themeApperance => 'Apperance';
 
   @override
-  String get themeDarkMode => 'Dark Mode';
+  String get themeBackgroundColor => 'Background Color';
 
   @override
   String get themeManager => 'Theme Control';

@@ -13,6 +13,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_search_screen.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -55,12 +56,33 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final TabController tabController;
+  final themeCubit = sl<ThemeCubit>();
+  late Brightness _brightness;
   @override
   void initState() {
     tabController = TabController(vsync: this, length: appDashboardTabs.length);
+    WidgetsBinding.instance.addObserver(this);
+    _brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     super.initState();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    if (_brightness != brightness) {
+      sl<ThemeCubit>().changeDeviceBrightness(brightness);
+      _brightness = brightness;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

@@ -167,9 +167,6 @@ class SAr extends S {
   String get daily => 'يوميا';
 
   @override
-  String get darkTheme => 'الوضع المعتم';
-
-  @override
   String get dashboardArrangement => 'ترتيب الشاشة';
 
   @override
@@ -359,9 +356,6 @@ class SAr extends S {
   String get later => 'ذكرني لاحقًا';
 
   @override
-  String get lightTheme => 'الوضع الفاتح';
-
-  @override
   String get likeAboutApp => 'ما أعجبك في التطبيق:';
 
   @override
@@ -418,12 +412,6 @@ class SAr extends S {
 
   @override
   String get officialWebsite => 'الموقع الرسمي';
-
-  @override
-  String get optimizeDarkTheme => 'الوضع المعتم المحسن';
-
-  @override
-  String get optimizeLightTheme => 'الوضع الفاتح المحسن';
 
   @override
   String get ourProducts => 'إصداراتنا';
@@ -662,10 +650,10 @@ class SAr extends S {
   String get themeAppColor => 'لون التطبيق';
 
   @override
-  String get themeBackgroundColor => 'لون الخلفية';
+  String get themeApperance => 'المظهر';
 
   @override
-  String get themeDarkMode => 'الوضع المظلم';
+  String get themeBackgroundColor => 'لون الخلفية';
 
   @override
   String get themeManager => 'إدارة ألوان التطبيق';
