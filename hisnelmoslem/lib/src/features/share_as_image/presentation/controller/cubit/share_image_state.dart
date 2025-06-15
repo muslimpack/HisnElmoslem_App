@@ -14,12 +14,21 @@ class ShareImageLoadedState extends ShareImageState {
   final DbContent content;
   final ShareImageSettings shareImageSettings;
   final bool showLoadingIndicator;
-  final String title;
+  final DbTitle title;
+  final List<TextRange> splittedMatn;
+
+  final ShareableImageCardSettings settings;
+
+  final int activeIndex;
+
   const ShareImageLoadedState({
     required this.content,
     required this.shareImageSettings,
     required this.showLoadingIndicator,
     required this.title,
+    required this.splittedMatn,
+    required this.settings,
+    required this.activeIndex,
   });
 
   double get dividerSize => 3;
@@ -32,36 +41,45 @@ class ShareImageLoadedState extends ShareImageState {
       if (shareImageSettings.showZikrIndex) {
         return "$title - ذكر رقم ${content.order}";
       } else {
-        return title;
+        return title.name;
       }
     } else {
       if (shareImageSettings.showZikrIndex) {
         return "$title - موضوع رقم ${content.order}";
       } else {
-        return title;
+        return title.name;
       }
     }
   }
 
   @override
   List<Object> get props => [
-        content,
-        shareImageSettings,
-        showLoadingIndicator,
-        title,
-      ];
+    content,
+    shareImageSettings,
+    showLoadingIndicator,
+    title,
+    splittedMatn,
+    settings,
+    activeIndex,
+  ];
 
   ShareImageLoadedState copyWith({
     DbContent? content,
     ShareImageSettings? shareImageSettings,
     bool? showLoadingIndicator,
-    String? title,
+    DbTitle? title,
+    List<TextRange>? splittedMatn,
+    ShareableImageCardSettings? settings,
+    int? activeIndex,
   }) {
     return ShareImageLoadedState(
       content: content ?? this.content,
       shareImageSettings: shareImageSettings ?? this.shareImageSettings,
       showLoadingIndicator: showLoadingIndicator ?? this.showLoadingIndicator,
       title: title ?? this.title,
+      splittedMatn: splittedMatn ?? this.splittedMatn,
+      settings: settings ?? this.settings,
+      activeIndex: activeIndex ?? this.activeIndex,
     );
   }
 }

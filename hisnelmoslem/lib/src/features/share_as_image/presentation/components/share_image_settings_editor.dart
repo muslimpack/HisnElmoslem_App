@@ -10,10 +10,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class ShareImageSettingsEditor extends StatelessWidget {
   final BuildContext context;
-  const ShareImageSettingsEditor({
-    super.key,
-    required this.context,
-  });
+  const ShareImageSettingsEditor({super.key, required this.context});
 
   @override
   Widget build(BuildContext _) {
@@ -51,14 +48,6 @@ class ShareImageSettingsEditor extends StatelessWidget {
                       colorToTrack: state.shareImageSettings.titleTextColor,
                     ),
                     ColorSwatchBuilder(
-                      title: S.of(context).textColor,
-                      apply: (color) {
-                        shareImageCubit.updateTextColor(color);
-                      },
-                      colorSwatchList: kShareImageColorsList,
-                      colorToTrack: state.shareImageSettings.bodyTextColor,
-                    ),
-                    ColorSwatchBuilder(
                       title: S.of(context).subtitleColor,
                       apply: (color) {
                         shareImageCubit.updateAdditionalTextColor(color);
@@ -93,9 +82,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                       label: Text(S.of(context).showZikrIndex),
                       selected: state.shareImageSettings.showZikrIndex,
                       onSelected: (value) {
-                        shareImageCubit.updateShowZikrIndex(
-                          value: value,
-                        );
+                        shareImageCubit.updateShowZikrIndex(value: value);
                       },
                     ),
                     ChoiceChip(
@@ -113,32 +100,6 @@ class ShareImageSettingsEditor extends StatelessWidget {
                       },
                     ),
                   ],
-                ),
-                const Divider(),
-                Text(
-                  S.of(context).imageQuality,
-                ),
-                const SizedBox(height: 10),
-                Wrap(
-                  runSpacing: 10,
-                  spacing: 10,
-                  children: List.generate(
-                    kShareImageQualityList.length,
-                    (index) {
-                      return ChoiceChip(
-                        selected: kShareImageQualityList[index] ==
-                            state.shareImageSettings.imageQuality,
-                        onSelected: (val) {
-                          shareImageCubit.updateImageQuality(
-                            kShareImageQualityList[index],
-                          );
-                        },
-                        label: Text(
-                          kShareImageQualityList[index].toString(),
-                        ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
