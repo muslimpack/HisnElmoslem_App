@@ -13,18 +13,8 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-              state.title.name,
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "${state.activeZikrIndex + 1} : ${state.azkarToView.length}"
-                      .toArabicNumber(),
-                ),
-              ),
-            ],
+            title: Text(state.title.name),
+            actions: [BookmarkTitleButton(titleId: state.title.id)],
             bottom: state.activeZikr == null
                 ? null
                 : PreferredSize(
@@ -42,9 +32,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
             controller: context.read<ZikrViewerBloc>().pageController,
             itemCount: state.azkarToView.length,
             itemBuilder: (context, index) {
-              return ZikrViewerPageBuilder(
-                dbContent: state.azkarToView[index],
-              );
+              return ZikrViewerPageBuilder(dbContent: state.azkarToView[index]);
             },
           ),
           bottomNavigationBar: state.activeZikr == null

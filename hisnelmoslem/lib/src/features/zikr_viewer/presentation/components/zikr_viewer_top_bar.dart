@@ -69,12 +69,15 @@ class ZikrViewerTopBar extends StatelessWidget {
               },
             ),
             if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
-            Center(
-              child: Text(
-                dbContent.count.toString().toArabicNumber(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+            ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 40),
+              child: Center(
+                child: Text(
+                  dbContent.count.toString().toArabicNumber(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
