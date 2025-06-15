@@ -69,6 +69,15 @@ class SAr extends S {
   String get bookmark => 'أضف للمفضلة';
 
   @override
+  String get brightnessDark => 'ليلي';
+
+  @override
+  String get brightnessLight => 'نهاري';
+
+  @override
+  String get brightnessSystem => 'النظام';
+
+  @override
   String get cardIndex => 'البطاقة رقم';
 
   @override

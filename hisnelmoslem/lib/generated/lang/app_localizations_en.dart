@@ -68,6 +68,15 @@ class SEn extends S {
   String get bookmark => 'Bookmark';
 
   @override
+  String get brightnessDark => 'Dark';
+
+  @override
+  String get brightnessLight => 'Light';
+
+  @override
+  String get brightnessSystem => 'System';
+
+  @override
   String get cardIndex => 'Card index';
 
   @override

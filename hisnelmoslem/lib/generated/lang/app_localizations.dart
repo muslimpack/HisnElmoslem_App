@@ -211,6 +211,24 @@ abstract class S {
   /// **'Bookmark'**
   String get bookmark;
 
+  /// No description provided for @brightnessDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get brightnessDark;
+
+  /// No description provided for @brightnessLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get brightnessLight;
+
+  /// No description provided for @brightnessSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get brightnessSystem;
+
   /// No description provided for @cardIndex.
   ///
   /// In en, this message translates to:
