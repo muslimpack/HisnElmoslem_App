@@ -150,7 +150,6 @@ class ShareImageCubit extends Cubit<ShareImageState> {
         id: -1,
         name: "أحاديث منتشرة لا تصح",
         freq: "",
-        favourite: false,
         order: -1,
       );
     }

@@ -5,7 +5,6 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_hadith_read.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_content_favourite.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title_favourite.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:path/path.dart';
@@ -131,7 +130,7 @@ class UserDataDBHelper {
   /* ************* HisnElmoslem Titles ************* */
 
   /// Get all favourite titles
-  Future<List<DbTitleFavourite>> getAllFavoriteTitles() async {
+  Future<List<int>> getAllFavoriteTitles() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -139,59 +138,42 @@ class UserDataDBHelper {
     );
 
     return List.generate(maps.length, (i) {
-      return DbTitleFavourite.fromMap(maps[i]);
+      return DbTitleFavourite.fromMap(maps[i]).itemId;
     });
   }
 
-  Future<bool> isTitleInFavorites({required int titleId}) async {
-    final Database db = await database;
-
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''SELECT * from favourite_titles WHERE title_id = ?''',
-      [titleId],
-    );
-
-    if (maps.isEmpty) return false;
-
-    final DbTitleFavourite dbTitleFavourite = List.generate(maps.length, (i) {
-      return DbTitleFavourite.fromMap(maps[i]);
-    }).first;
-
-    return dbTitleFavourite.bookmarked;
-  }
-
   /// Add title to favourite
-  Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
+  Future<void> addTitleToFavourite({required int titleId}) async {
     final db = await database;
 
     final List<Map<String, dynamic>> existingRecords = await db.query(
       'favourite_titles',
       where: 'title_id = ?',
-      whereArgs: [dbTitle.id],
+      whereArgs: [titleId],
     );
 
     if (existingRecords.isEmpty) {
       await db.transaction((txn) async {
         await txn.insert('favourite_titles', {
-          'title_id': dbTitle.id,
+          'title_id': titleId,
           'favourite': 1, // 1 for true
         });
       });
     } else {
       await db.rawUpdate(
         'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
-        [1, dbTitle.id],
+        [1, titleId],
       );
     }
   }
 
   /// Remove title from favourite
-  Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
+  Future<void> deleteTitleFromFavourite({required int titleId}) async {
     final db = await database;
 
     await db.rawUpdate(
       'UPDATE favourite_titles SET favourite = ? WHERE title_id = ?',
-      [0, dbTitle.id],
+      [0, titleId],
     );
   }
 

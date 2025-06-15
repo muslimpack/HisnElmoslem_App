@@ -13,6 +13,7 @@ final class HomeLoadingState extends HomeState {}
 class HomeLoadedState extends HomeState {
   final List<int> dashboardArrangement;
   final List<DbTitle> titles;
+  final List<int> bookmarkedTitlesIds;
   final Map<int, DbAlarm> alarms;
   final List<DbContent> bookmarkedContents;
   final List<TitlesFreqEnum> freqFilters;
@@ -20,16 +21,12 @@ class HomeLoadedState extends HomeState {
 
   List<DbTitle> get allTitles {
     return titles.where((x) => freqFilters.validate(x.freq)).toList()
-      ..sort(
-        (a, b) => a.order.compareTo(b.order),
-      );
+      ..sort((a, b) => a.order.compareTo(b.order));
   }
 
   List<DbTitle> get bookmarkedTitles {
-    return titles.where((x) => x.favourite).toList()
-      ..sort(
-        (a, b) => a.order.compareTo(b.order),
-      );
+    return titles.where((x) => bookmarkedTitlesIds.contains(x.id)).toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
   }
 
   const HomeLoadedState({
@@ -39,6 +36,7 @@ class HomeLoadedState extends HomeState {
     required this.bookmarkedContents,
     required this.freqFilters,
     required this.isSearching,
+    required this.bookmarkedTitlesIds,
   });
 
   HomeLoadedState copyWith({
@@ -46,6 +44,7 @@ class HomeLoadedState extends HomeState {
     List<DbTitle>? titles,
     Map<int, DbAlarm>? alarms,
     List<DbContent>? bookmarkedContents,
+    List<int>? bookmarkedTitlesIds,
     List<TitlesFreqEnum>? freqFilters,
     bool? isSearching,
   }) {
@@ -56,6 +55,7 @@ class HomeLoadedState extends HomeState {
       bookmarkedContents: bookmarkedContents ?? this.bookmarkedContents,
       freqFilters: freqFilters ?? this.freqFilters,
       isSearching: isSearching ?? this.isSearching,
+      bookmarkedTitlesIds: bookmarkedTitlesIds ?? this.bookmarkedTitlesIds,
     );
   }
 
@@ -68,6 +68,7 @@ class HomeLoadedState extends HomeState {
       isSearching,
       dashboardArrangement,
       freqFilters,
+      bookmarkedTitlesIds,
     ];
   }
 }

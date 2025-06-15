@@ -92,6 +92,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final azkarFromDB = await hisnDBHelper.getFavouriteContents();
     final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+    final bookmarkedTitlesIds = await hisnDBHelper.getAllFavoriteTitles();
 
     emit(
       HomeLoadedState(
@@ -101,6 +102,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         isSearching: false,
         dashboardArrangement: appSettingsRepo.dashboardArrangement,
         freqFilters: appSettingsRepo.getTitlesFreqFilterStatus,
+        bookmarkedTitlesIds: bookmarkedTitlesIds,
       ),
     );
   }
@@ -123,19 +125,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is! HomeLoadedState) return;
 
     if (event.bookmark) {
-      await hisnDBHelper.addTitleToFavourite(dbTitle: event.title);
+      await hisnDBHelper.addTitleToFavourite(titleId: event.titleId);
     } else {
-      await hisnDBHelper.deleteTitleFromFavourite(dbTitle: event.title);
+      await hisnDBHelper.deleteTitleFromFavourite(titleId: event.titleId);
     }
 
-    final titles = List<DbTitle>.of(state.titles).map((e) {
-      if (e.id == event.title.id) {
-        return event.title.copyWith(favourite: event.bookmark);
-      }
-      return e;
-    }).toList();
+    final bookmarkedTitlesIds = await hisnDBHelper.getAllFavoriteTitles();
 
-    emit(state.copyWith(titles: titles));
+    emit(state.copyWith(bookmarkedTitlesIds: bookmarkedTitlesIds));
   }
 
   Future<void> _bookmarkContent(

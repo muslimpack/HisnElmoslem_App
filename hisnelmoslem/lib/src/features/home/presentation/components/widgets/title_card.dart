@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
@@ -9,7 +7,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart'
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/alarm_editor.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/bookmark_title_button.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class TitleCard extends StatelessWidget {
@@ -43,35 +41,7 @@ class TitleCard extends StatelessWidget {
               ),
             ),
           ),
-          if (dbTitle.favourite)
-            IconButton(
-              tooltip: S.of(context).bookmark,
-              icon: Icon(
-                Icons.bookmark_rounded,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: () {
-                sl<HomeBloc>().add(
-                  HomeToggleTitleBookmarkEvent(
-                    title: dbTitle,
-                    bookmark: false,
-                  ),
-                );
-              },
-            )
-          else
-            IconButton(
-              tooltip: S.of(context).bookmark,
-              icon: const Icon(Icons.bookmark_add_outlined),
-              onPressed: () {
-                sl<HomeBloc>().add(
-                  HomeToggleTitleBookmarkEvent(
-                    title: dbTitle,
-                    bookmark: true,
-                  ),
-                );
-              },
-            ),
+          BookmarkTitleButton(titleId: dbTitle.id),
         ],
       ),
 
@@ -79,13 +49,9 @@ class TitleCard extends StatelessWidget {
       trailing: PlatformExtension.isDesktop
           ? null
           : _TitleCardAlarmButton(alarm: alarm, dbAlarm: dbAlarm),
-      title: Text(
-        dbTitle.name,
-      ),
+      title: Text(dbTitle.name),
       onTap: () {
-        context.push(
-          ZikrViewerScreen(index: dbTitle.id),
-        );
+        context.push(ZikrViewerScreen(index: dbTitle.id));
       },
     );
   }
@@ -128,9 +94,9 @@ class _TitleCardAlarmButton extends StatelessWidget {
                 case EditorActionEnum.edit:
                   context.read<AlarmsBloc>().add(AlarmsEditEvent(result.value));
                 case EditorActionEnum.delete:
-                  context
-                      .read<AlarmsBloc>()
-                      .add(AlarmsRemoveEvent(result.value));
+                  context.read<AlarmsBloc>().add(
+                    AlarmsRemoveEvent(result.value),
+                  );
                 default:
               }
             },
@@ -142,22 +108,16 @@ class _TitleCardAlarmButton extends StatelessWidget {
                     ),
                     onPressed: () {
                       context.read<AlarmsBloc>().add(
-                            AlarmsEditEvent(
-                              alarm.copyWith(isActive: false),
-                            ),
-                          );
+                        AlarmsEditEvent(alarm.copyWith(isActive: false)),
+                      );
                     },
                   )
                 : IconButton(
-                    icon: const Icon(
-                      Icons.notifications_off,
-                    ),
+                    icon: const Icon(Icons.notifications_off),
                     onPressed: () {
                       context.read<AlarmsBloc>().add(
-                            AlarmsEditEvent(
-                              alarm.copyWith(isActive: true),
-                            ),
-                          );
+                        AlarmsEditEvent(alarm.copyWith(isActive: true)),
+                      );
                     },
                   ),
           );

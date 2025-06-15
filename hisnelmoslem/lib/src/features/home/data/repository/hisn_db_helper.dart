@@ -46,33 +46,14 @@ class HisnDBHelper {
       '''SELECT * FROM titles ORDER by `order` ASC''',
     );
 
-    final List<DbTitle> titles = [];
-
-    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
-    final bookmarkedTitlesMap = {
-      for (final e in bookmarkedTitles) e.itemId: e.bookmarked,
-    };
-
-    for (int i = 0; i < maps.length; i++) {
-      final DbTitle dbTitle = DbTitle.fromMap(maps[i]);
-
-      titles.add(dbTitle.copyWith(favourite: bookmarkedTitlesMap[dbTitle.id]));
-    }
-
-    return titles;
+    return List.generate(maps.length, (i) {
+      return DbTitle.fromMap(maps[i]);
+    });
   }
 
   /// Get all favourite titles
-  Future<List<DbTitle>> getAllFavoriteTitles() async {
-    final List<DbTitle> titles = [];
-    final bookmarkedTitles = await userDataDBHelper.getAllFavoriteTitles();
-
-    for (var i = 0; i < bookmarkedTitles.length; i++) {
-      final title = await getTitleById(id: bookmarkedTitles[i].itemId);
-      titles.add(title);
-    }
-
-    return titles;
+  Future<List<int>> getAllFavoriteTitles() {
+    return userDataDBHelper.getAllFavoriteTitles();
   }
 
   /// Get title by index
@@ -83,21 +64,17 @@ class HisnDBHelper {
       '''SELECT * FROM titles  WHERE id = ?''',
       [id],
     );
-    final DbTitle dbTitle = DbTitle.fromMap(maps[0]);
-    final bookmarked =
-        await userDataDBHelper.isTitleInFavorites(titleId: dbTitle.id);
-
-    return dbTitle.copyWith(favourite: bookmarked);
+    return DbTitle.fromMap(maps.first);
   }
 
   /// Add title to favourite
-  Future<void> addTitleToFavourite({required DbTitle dbTitle}) async {
-    await userDataDBHelper.addTitleToFavourite(dbTitle: dbTitle);
+  Future<void> addTitleToFavourite({required int titleId}) async {
+    await userDataDBHelper.addTitleToFavourite(titleId: titleId);
   }
 
   /// Remove title from favourite
-  Future<void> deleteTitleFromFavourite({required DbTitle dbTitle}) async {
-    await userDataDBHelper.deleteTitleFromFavourite(dbTitle: dbTitle);
+  Future<void> deleteTitleFromFavourite({required int titleId}) async {
+    await userDataDBHelper.deleteTitleFromFavourite(titleId: titleId);
   }
 
   /**
@@ -147,9 +124,7 @@ class HisnDBHelper {
   }
 
   /// Get content by title index
-  Future<DbContent> getContentsByContentId({
-    required int? contentId,
-  }) async {
+  Future<DbContent> getContentsByContentId({required int? contentId}) async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -169,8 +144,9 @@ class HisnDBHelper {
     final List<DbContent> contents = [];
     await userDataDBHelper.getFavouriteContents().then((value) async {
       for (var i = 0; i < value.length; i++) {
-        await getContentsByContentId(contentId: value[i].itemId)
-            .then((title) => contents.add(title));
+        await getContentsByContentId(
+          contentId: value[i].itemId,
+        ).then((title) => contents.add(title));
       }
     });
 
@@ -186,9 +162,7 @@ class HisnDBHelper {
   Future<void> removeContentFromFavourite({
     required DbContent dbContent,
   }) async {
-    await userDataDBHelper.removeContentFromFavourite(
-      dbContent: dbContent,
-    );
+    await userDataDBHelper.removeContentFromFavourite(dbContent: dbContent);
   }
 
   /// Close database

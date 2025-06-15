@@ -6,14 +6,12 @@ class DbTitle extends Equatable {
   final String name;
   final String freq;
   final int order;
-  final bool favourite;
 
   const DbTitle({
     required this.id,
     required this.name,
     required this.freq,
     required this.order,
-    required this.favourite,
   });
 
   factory DbTitle.fromMap(Map<String, dynamic> map) {
@@ -22,34 +20,20 @@ class DbTitle extends Equatable {
       name: map['name'] as String,
       freq: map['freq'] as String,
       order: map['order'] as int,
-      favourite: false,
     );
   }
 
   @override
   List<Object> get props {
-    return [
-      id,
-      name,
-      freq,
-      order,
-      favourite,
-    ];
+    return [id, name, freq, order];
   }
 
-  DbTitle copyWith({
-    int? id,
-    String? name,
-    String? freq,
-    int? order,
-    bool? favourite,
-  }) {
+  DbTitle copyWith({int? id, String? name, String? freq, int? order}) {
     return DbTitle(
       id: id ?? this.id,
       name: name ?? this.name,
       freq: freq ?? this.freq,
       order: order ?? this.order,
-      favourite: favourite ?? this.favourite,
     );
   }
 }
