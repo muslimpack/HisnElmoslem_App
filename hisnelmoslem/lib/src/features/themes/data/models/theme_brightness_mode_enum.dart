@@ -16,4 +16,15 @@ extension ThemeBrightnessModeEnumExtension on ThemeBrightnessModeEnum {
         return S.of(context).brightnessLight;
     }
   }
+
+  ThemeBrightnessModeEnum toggle() {
+    switch (this) {
+      case ThemeBrightnessModeEnum.dark:
+        return ThemeBrightnessModeEnum.light;
+      case ThemeBrightnessModeEnum.light:
+        return ThemeBrightnessModeEnum.system;
+      case ThemeBrightnessModeEnum.system:
+        return ThemeBrightnessModeEnum.dark;
+    }
+  }
 }
