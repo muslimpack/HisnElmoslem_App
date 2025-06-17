@@ -139,29 +139,29 @@ class TallyCounterView extends StatelessWidget {
                     ),
                   ),
 
-                  if (cycles > 0)
-                    GradientWidget(
-                      Row(
-                        spacing: 5,
-                        children: [
-                          const Icon(Icons.circle_outlined, size: 40),
+                  GradientWidget(
+                    Row(
+                      spacing: 5,
+                      children: [
+                        const Icon(Icons.circle_outlined, size: 45),
+                        if (cycles > 0)
                           Text(
                             '$cycles'.toArabicNumber(),
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
-                        ],
-                      ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Theme.of(
-                            context,
-                          ).colorScheme.primary.withAlpha((.5 * 255).round()),
-                          Theme.of(context).colorScheme.primary,
-                        ],
-                      ),
+                      ],
                     ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Theme.of(
+                          context,
+                        ).colorScheme.primary.withAlpha((.5 * 255).round()),
+                        Theme.of(context).colorScheme.primary,
+                      ],
+                    ),
+                  ),
 
                   LinearProgressIndicator(
                     minHeight: 20,
