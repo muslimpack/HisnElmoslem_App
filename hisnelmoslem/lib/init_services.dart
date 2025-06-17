@@ -14,6 +14,7 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -76,7 +77,7 @@ Future loadLocalizations() async {
   Locale? localeToSet = sl<ThemeRepo>().appLocale;
   final languageCode = PlatformExtension.languageCode;
   localeToSet ??= Locale.fromSubtags(languageCode: languageCode ?? "en");
-
+  Intl.defaultLocale = localeToSet.languageCode;
   final s = await S.delegate.load(localeToSet);
   SX.init(s);
 }

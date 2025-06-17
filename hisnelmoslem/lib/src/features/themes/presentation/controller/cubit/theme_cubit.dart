@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
+import 'package:intl/intl.dart';
 
 part 'theme_state.dart';
 
@@ -77,6 +78,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   ///MARK: App Locale
   Future<void> changeAppLocale(String locale) async {
     await themeRepo.changAppLocale(locale);
+    Intl.defaultLocale = Locale(locale).languageCode;
     emit(state.copyWith(locale: Locale(locale)));
   }
 }
