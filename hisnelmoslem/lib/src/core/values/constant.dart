@@ -4,8 +4,9 @@ import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 //TODO App Version | Change every release
 const String kAppVersion = "2.9.01";
 
-String kAppStorageKey =
-    PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
+String kAppStorageKey = PlatformExtension.isDesktop
+    ? "hisn_elmoslem_storage"
+    : "GetStorage";
 
 const double kFontChangeBy = .2;
 const double kFontDefault = 2.6;
@@ -13,34 +14,28 @@ const double kFontMin = 1.5;
 const double kFontMax = 4;
 
 //Invert Image Color
-const ColorFilter invert = ColorFilter.matrix(
-  <double>[
-    -1, 0, 0, 0, //
-    255, 0, -1, 0, 0, //
-    255, 0, 0, -1, 0, //
-    255, 0, 0, 0, 1, 0, //
-  ],
-);
+const ColorFilter invert = ColorFilter.matrix(<double>[
+  -1, 0, 0, 0, //
+  255, 0, -1, 0, 0, //
+  255, 0, 0, -1, 0, //
+  255, 0, 0, 0, 1, 0, //
+]);
 
 //Do nothing to Image Color
-const ColorFilter normal = ColorFilter.matrix(
-  <double>[
-    1, 0, 0, 0, 0, //
-    0, 1, 0, 0, 0, //
-    0, 0, 1, 0, 0, //
-    0, 0, 0, 1, 0, //
-  ],
-);
+const ColorFilter normal = ColorFilter.matrix(<double>[
+  1, 0, 0, 0, 0, //
+  0, 1, 0, 0, 0, //
+  0, 0, 1, 0, 0, //
+  0, 0, 0, 1, 0, //
+]);
 
 //GreyScale Image Color
-const ColorFilter greyScale = ColorFilter.matrix(
-  <double>[
-    0.33, 0.59, 0.11, 0, 0, //
-    0.33, 0.59, 0.11, 0, 0, //
-    0.33, 0.59, 0.11, 0, 0, //
-    0, 0, 0, 1, 0, //
-  ],
-);
+const ColorFilter greyScale = ColorFilter.matrix(<double>[
+  0.33, 0.59, 0.11, 0, 0, //
+  0.33, 0.59, 0.11, 0, 0, //
+  0.33, 0.59, 0.11, 0, 0, //
+  0, 0, 0, 1, 0, //
+]);
 
 const Iterable<int> arabicDiacriticsChar = [
   1617,
@@ -78,3 +73,5 @@ const String kArBasmallah = "بِسْمِ اللَّهِ الرَّحْمَٰن�
 const String kOrgEmail = "muslimpack.org@gmail.com";
 const String kOrgGithub = "https://github.com/muslimpack/HisnElmoslem_App";
 const String kOrgWebsite = "https://muslimpack.github.io/";
+
+const String kDateTimeHumanFormat = "EEEE,  d MMMM y  h:mm a";
