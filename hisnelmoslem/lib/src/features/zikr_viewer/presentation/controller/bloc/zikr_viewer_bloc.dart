@@ -17,6 +17,7 @@ import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_session.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
@@ -102,9 +103,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     _initZikrPageMode(event.zikrViewerMode);
 
-    final restoredSession = await zikrViewerRepo.getLastSession(
-      event.titleIndex,
-    );
+    final restoredSession = zikrViewerRepo.getLastSession(event.titleIndex);
+    final askToRestoreSession =
+        zikrViewerRepo.allowZikrSessionRestoration &&
+        restoredSession != null &&
+        restoredSession.data.isNotEmpty &&
+        DateUtils.isSameDay(restoredSession.dateTime, DateTime.now());
     emit(
       ZikrViewerLoadedState(
         title: title,
@@ -112,11 +116,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         azkarToView: azkarToView,
         zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
-        restoredSession: restoredSession ?? {},
-        askToRestoreSession:
-            zikrViewerRepo.allowZikrSessionRestoration &&
-            restoredSession != null &&
-            restoredSession.isNotEmpty,
+        restoredSession:
+            restoredSession ??
+            ZikrSession(dateTime: DateTime.now(), data: const {}),
+        askToRestoreSession: askToRestoreSession,
       ),
     );
   }
@@ -134,11 +137,11 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     }
 
     final restoredSession = state.restoredSession;
-    if (restoredSession.isEmpty) return;
+    if (restoredSession.data.isEmpty) return;
 
-    final azkarToView = List<DbContent>.from(
-      state.azkarToView,
-    ).map((x) => x.copyWith(count: restoredSession[x.id] ?? x.count)).toList();
+    final azkarToView = List<DbContent>.from(state.azkarToView)
+        .map((x) => x.copyWith(count: restoredSession.data[x.id] ?? x.count))
+        .toList();
 
     int pageToJump = 0;
     for (var i = 0; i < azkarToView.length; i++) {
@@ -162,9 +165,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
-    await zikrViewerRepo.saveSession(state.title.id, {
-      for (final zikr in state.azkarToView) zikr.id: zikr.count,
-    });
+    await zikrViewerRepo.saveSession(
+      state.title.id,
+      ZikrSession(
+        dateTime: DateTime.now(),
+        data: {for (final zikr in state.azkarToView) zikr.id: zikr.count},
+      ),
+    );
   }
 
   Future<void> _resetSession(

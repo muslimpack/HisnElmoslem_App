@@ -16,7 +16,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
   final List<DbContent> azkarToView;
   final int activeZikrIndex;
   final ZikrViewerMode zikrViewerMode;
-  final Map<int, int> restoredSession;
+  final ZikrSession restoredSession;
   final bool askToRestoreSession;
 
   DbContent? get activeZikr {
@@ -51,7 +51,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     List<DbContent>? azkarToView,
     int? activeZikrIndex,
     ZikrViewerMode? zikrViewerMode,
-    Map<int, int>? restoredSession,
+    ZikrSession? restoredSession,
     bool? askToRestoreSession,
   }) {
     return ZikrViewerLoadedState(
@@ -67,12 +67,12 @@ class ZikrViewerLoadedState extends ZikrViewerState {
 
   @override
   List<Object> get props => [
-        title,
-        azkar,
-        azkarToView,
-        activeZikrIndex,
-        zikrViewerMode,
-        restoredSession,
-        askToRestoreSession,
-      ];
+    title,
+    azkar,
+    azkarToView,
+    activeZikrIndex,
+    zikrViewerMode,
+    restoredSession,
+    askToRestoreSession,
+  ];
 }
