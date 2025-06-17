@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
@@ -53,9 +54,7 @@ class TallyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    DateFormat(
-                      'EEEE yyyy/MM/dd  hh:mm a',
-                    ).format(dbTally.lastUpdate),
+                    DateFormat(kDateTimeHumanFormat).format(dbTally.lastUpdate),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
