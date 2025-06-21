@@ -118,22 +118,24 @@ class _TallyEditorState extends State<_TallyEditor> {
           ),
         ),
       ),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         if (widget.dbTally != null)
-          TextButton(
-            child: Text(
-              S.of(context).delete,
-              style: TextStyle(
-                color: Theme.of(context).buttonTheme.colorScheme?.error,
-              ),
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
             ),
+            child: Text(S.of(context).delete),
             onPressed: () {
               Navigator.pop(
                 context,
                 EditorResult(action: EditorActionEnum.delete, value: _dbTally),
               );
             },
-          ),
+          )
+        else
+          const SizedBox(),
         FilledButton(
           onPressed: onSubmit,
           child: Text(
