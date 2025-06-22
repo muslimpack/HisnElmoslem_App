@@ -10,7 +10,6 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_view_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 
 class TallyCounterView extends StatelessWidget {
@@ -177,7 +176,6 @@ class TallyCounterView extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBar: const TallyCounterViewBottomBar(),
         );
       },
     );

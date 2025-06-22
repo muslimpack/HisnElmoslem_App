@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/models/editor_result.dart';
-import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_card.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class TallyListView extends StatelessWidget {
   const TallyListView({super.key});
@@ -32,54 +26,6 @@ class TallyListView extends StatelessWidget {
             separatorBuilder: (BuildContext context, int index) {
               return const Divider(height: 0);
             },
-          ),
-          floatingActionButton: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                heroTag: "add",
-                tooltip: S.of(context).add,
-                child: Icon(
-                  MdiIcons.plus,
-                  size: 40,
-                ),
-                onPressed: () async {
-                  final EditorResult<DbTally>? result =
-                      await showTallyEditorDialog(
-                    context: context,
-                  );
-
-                  if (result == null || !context.mounted) return;
-
-                  context
-                      .read<TallyBloc>()
-                      .add(TallyAddCounterEvent(counter: result.value));
-                },
-              ),
-              FloatingActionButton(
-                heroTag: "reset",
-                tooltip: S.of(context).reset,
-                child: const Icon(
-                  Icons.restart_alt,
-                  size: 40,
-                ),
-                onPressed: () async {
-                  final bool? confirm = await showDialog(
-                    context: context,
-                    builder: (_) {
-                      return YesOrNoDialog(
-                        msg: S.of(context).resetAllCounters,
-                      );
-                    },
-                  );
-
-                  if (confirm == null || !confirm || !context.mounted) {
-                    return;
-                  }
-                  context.read<TallyBloc>().add(TallyResetAllCountersEvent());
-                },
-              ),
-            ],
           ),
         );
       },
