@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
-import 'package:intl/intl.dart';
 
 class TallyCard extends StatelessWidget {
   final DbTally dbTally;
@@ -74,9 +73,7 @@ class TallyCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
-                  Text(
-                    DateFormat(kDateTimeHumanFormat).format(dbTally.lastUpdate),
-                  ),
+                  Text(dbTally.lastUpdate.humanize),
                 ],
               ),
             ),
