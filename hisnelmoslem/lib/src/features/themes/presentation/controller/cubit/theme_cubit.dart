@@ -32,8 +32,11 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   Future<void> changeBrightnessMode(
-    ThemeBrightnessModeEnum brightnessMode,
+    ThemeBrightnessModeEnum? brightnessMode,
   ) async {
+    if (brightnessMode == null) {
+      return;
+    }
     await themeRepo.setThemeBrightnessMode(brightnessMode);
     emit(state.copyWith(themeBrightnessMode: brightnessMode));
   }

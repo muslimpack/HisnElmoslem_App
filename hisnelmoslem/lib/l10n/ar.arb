@@ -207,6 +207,8 @@
   "tallyEditor": "محرر السبحة",
   "text": "النص",
   "textColor": "لون النص",
+  "brightness": "وضع الإضاءة",
+  "chooseBrightnessMode": "اختر وضع الإضاءة",
   "themeAppColor": "لون التطبيق",
   "themeApperance": "المظهر",
   "themeBackgroundColor": "لون الخلفية",

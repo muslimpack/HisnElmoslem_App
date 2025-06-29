@@ -647,6 +647,12 @@ class SAr extends S {
   String get textColor => 'لون النص';
 
   @override
+  String get brightness => 'وضع الإضاءة';
+
+  @override
+  String get chooseBrightnessMode => 'اختر وضع الإضاءة';
+
+  @override
   String get themeAppColor => 'لون التطبيق';
 
   @override

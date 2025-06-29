@@ -207,6 +207,8 @@
   "tallyEditor": "Tally Editor",
   "text": "Text",
   "textColor": "Text color",
+  "brightness": "Brightness mode",
+  "chooseBrightnessMode": "Choose a brightness mode",
   "themeAppColor": "App Color",
   "themeApperance": "Apperance",
   "themeBackgroundColor": "Background Color",

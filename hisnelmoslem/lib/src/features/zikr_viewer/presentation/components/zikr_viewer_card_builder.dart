@@ -4,84 +4,160 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_top_bar.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrViewerCardBuilder extends StatelessWidget {
   final DbContent dbContent;
-
   const ZikrViewerCardBuilder({super.key, required this.dbContent});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ZikrViewerTopBar(dbContent: dbContent),
-          const Divider(height: 0),
-          InkWell(
-            onTap: () {
+    return SliverMainAxisGroup(
+      slivers: [
+        PinnedHeaderSliver(child: _PinnedCardHeader(dbContent)),
+        SliverToBoxAdapter(child: _ZikrCard(dbContent: dbContent)),
+      ],
+    );
+  }
+}
+
+class _PinnedCardHeader extends StatelessWidget {
+  const _PinnedCardHeader(this.dbContent);
+  final DbContent dbContent;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          TextButton(
+            onPressed: () {
               context.read<ZikrViewerBloc>().add(
                 ZikrViewerDecreaseZikrEvent(content: dbContent),
               );
             },
-            onLongPress: () {
+            child: Text(dbContent.count.toString()),
+          ),
+          IconButton(
+            tooltip: S.of(context).resetZikr,
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.repeat),
+            onPressed: () {
               context.read<ZikrViewerBloc>().add(
-                ZikrViewerCopyZikrEvent(content: dbContent),
+                ZikrViewerResetZikrEvent(content: dbContent),
               );
             },
-            child: BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, state) {
-                return Container(
-                  constraints: const BoxConstraints(minHeight: 200),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [ZikrViewerZikrBody(dbContent: dbContent)],
+          ),
+          // smallSpacer,
+          IconButton(
+            tooltip: S.of(context).commentary,
+            icon: const Icon(Icons.description_outlined),
+            onPressed: () {
+              showCommentaryDialog(context: context, contentId: dbContent.id);
+            },
+          ),
+          if (!dbContent.favourite)
+            IconButton(
+              icon: const Icon(Icons.favorite_border),
+              onPressed: () {
+                context.read<ZikrViewerBloc>().add(
+                  ZikrViewerToggleZikrBookmarkEvent(
+                    content: dbContent,
+                    bookmark: true,
+                  ),
+                );
+              },
+            )
+          else
+            IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onPressed: () {
+                context.read<ZikrViewerBloc>().add(
+                  ZikrViewerToggleZikrBookmarkEvent(
+                    content: dbContent,
+                    bookmark: false,
                   ),
                 );
               },
             ),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.report_outlined,
+                      color: Colors.orange,
+                    ),
+                    title: Text(S.of(context).report),
+                  ),
+                  onTap: () {
+                    context.read<ZikrViewerBloc>().add(
+                      ZikrViewerReportZikrEvent(content: dbContent),
+                    );
+                  },
+                ),
+                PopupMenuItem(
+                  onTap: () {
+                    context.read<ZikrViewerBloc>().add(
+                      ZikrViewerShareZikrEvent(content: dbContent),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(S.of(context).share),
+                    leading: const Icon(Icons.share),
+                  ),
+                ),
+              ];
+            },
           ),
-          const Divider(height: 0),
-          _BottomBar(dbContent: dbContent),
         ],
       ),
     );
   }
 }
 
-class _BottomBar extends StatelessWidget {
-  const _BottomBar({required this.dbContent});
-
+class _ZikrCard extends StatelessWidget {
+  const _ZikrCard({required this.dbContent});
   final DbContent dbContent;
-
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        IconButton(
-          tooltip: S.of(context).resetZikr,
-          onPressed: () {
+        InkWell(
+          onTap: () {
             context.read<ZikrViewerBloc>().add(
-              ZikrViewerResetZikrEvent(content: dbContent),
+              ZikrViewerDecreaseZikrEvent(content: dbContent),
             );
           },
-          icon: const Icon(Icons.repeat),
-        ),
-        IconButton(
-          tooltip: S.of(context).report,
-          icon: const Icon(Icons.report_outlined, color: Colors.orange),
-          onPressed: () {
+          onLongPress: () {
             context.read<ZikrViewerBloc>().add(
-              ZikrViewerReportZikrEvent(content: dbContent),
+              ZikrViewerCopyZikrEvent(content: dbContent),
             );
           },
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+            builder: (context, state) {
+              return Container(
+                constraints: const BoxConstraints(minHeight: 200),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [ZikrViewerZikrBody(dbContent: dbContent)],
+                ),
+              );
+            },
+          ),
         ),
+        const Divider(),
       ],
     );
   }
