@@ -1339,6 +1339,18 @@ abstract class S {
   /// **'Text color'**
   String get textColor;
 
+  /// No description provided for @brightness.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness mode'**
+  String get brightness;
+
+  /// No description provided for @chooseBrightnessMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a brightness mode'**
+  String get chooseBrightnessMode;
+
   /// No description provided for @themeAppColor.
   ///
   /// In en, this message translates to:

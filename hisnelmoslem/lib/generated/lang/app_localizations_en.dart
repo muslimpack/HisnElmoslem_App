@@ -647,6 +647,12 @@ class SEn extends S {
   String get textColor => 'Text color';
 
   @override
+  String get brightness => 'Brightness mode';
+
+  @override
+  String get chooseBrightnessMode => 'Choose a brightness mode';
+
+  @override
   String get themeAppColor => 'App Color';
 
   @override
