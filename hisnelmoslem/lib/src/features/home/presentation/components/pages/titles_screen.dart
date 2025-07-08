@@ -26,12 +26,7 @@ class TitlesScreen extends StatelessWidget {
             : Column(
                 children: [
                   const TitleFreqFilterCard(),
-                  Expanded(
-                    child: HomeTitlesListView(
-                      titles: state.allTitles,
-                      alarms: state.alarms,
-                    ),
-                  ),
+                  Expanded(child: HomeTitlesListView(titles: state.allTitles)),
                 ],
               );
       },
