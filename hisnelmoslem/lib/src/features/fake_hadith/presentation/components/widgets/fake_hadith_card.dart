@@ -122,7 +122,6 @@ class _TopBar extends StatelessWidget {
               fadl: fakeHadith.darga,
               source: fakeHadith.source,
               count: 0,
-              favourite: false,
               hokm: "",
               search: "",
             );
