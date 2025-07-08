@@ -79,7 +79,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     on<ZikrViewerCopyZikrEvent>(_copyActiveZikr);
     on<ZikrViewerShareZikrEvent>(_shareActiveZikr);
-    on<ZikrViewerToggleZikrBookmarkEvent>(_toggleBookmark);
     on<ZikrViewerReportZikrEvent>(_report);
 
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
@@ -311,43 +310,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         return ZikrShareDialog(contentId: activeZikr.id);
       },
     );
-  }
-
-  Future<void> _toggleBookmark(
-    ZikrViewerToggleZikrBookmarkEvent event,
-    Emitter<ZikrViewerState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! ZikrViewerLoadedState) return;
-    final activeZikr = _getZikrToDealWith(
-      state: state,
-      eventContent: event.content,
-    );
-    if (activeZikr == null) return;
-
-    if (event.bookmark) {
-      await hisnDBHelper.addContentToFavourite(dbContent: activeZikr);
-    } else {
-      await hisnDBHelper.removeContentFromFavourite(dbContent: activeZikr);
-    }
-
-    final azkar = List<DbContent>.of(state.azkar).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: event.bookmark);
-      }
-      return e;
-    }).toList();
-
-    final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: event.bookmark);
-      }
-      return e;
-    }).toList();
-
-    emit(state.copyWith(azkar: azkar, azkarToView: azkarToView));
-
-    bookmarkBloc.add(BookmarkUpdateBookmarkedContentsEvent());
   }
 
   Future<void> _report(
