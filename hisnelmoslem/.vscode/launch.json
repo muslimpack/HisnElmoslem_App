@@ -1,28 +1,34 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "hisnelmoslem dev",
+      "name": "hisnelmoslem (debug, choose flavor)",
       "request": "launch",
       "type": "dart",
-      "args": ["--flavor", "dev"]
+      "args": ["--flavor", "${input:flavor}"]
     },
     {
-      "name": "hisnelmoslem (dev profile mode)",
+      "name": "hisnelmoslem (profile, choose flavor)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "args": ["--flavor", "dev"]
+      "args": ["--flavor", "${input:flavor}"]
     },
     {
-      "name": "hisnelmoslem (dev release mode)",
+      "name": "hisnelmoslem (release, choose flavor)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "args": ["--flavor", "dev"]
+      "args": ["--flavor", "${input:flavor}"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "flavor",
+      "type": "pickString",
+      "description": "Select a build flavor",
+      "options": ["dev", "prod"],
+      "default": "dev"
     }
   ]
 }
