@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -20,15 +21,18 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmsBloc alarmsBloc;
+  final BookmarkBloc bookmarkBloc;
   final AzkarFiltersCubit zikrFiltersCubit;
   late final StreamSubscription alarmSubscription;
   late final StreamSubscription filterSubscription;
+  late final StreamSubscription bookmarkSubscription;
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AppSettingsRepo appSettingsRepo;
   final HisnDBHelper hisnDBHelper;
   HomeBloc(
     this.alarmsBloc,
+    this.bookmarkBloc,
     this.alarmDatabaseHelper,
     this.hisnDBHelper,
     this.appSettingsRepo,
@@ -38,6 +42,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     filterSubscription = zikrFiltersCubit.stream.listen(
       _onZikrFilterCubitChanged,
     );
+    bookmarkSubscription = bookmarkBloc.stream.listen(_onBookmarkChanged);
 
     _initHandlers();
   }
@@ -45,15 +50,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeStartEvent>(_start);
     on<HomeToggleSearchEvent>(_toggleSearch);
 
-    on<HomeToggleTitleBookmarkEvent>(_bookmarkTitle);
-    on<HomeToggleContentBookmarkEvent>(_bookmarkContent);
-    on<HomeUpdateBookmarkedContentsEvent>(_updateBookmarkedContents);
     on<HomeUpdateAlarmsEvent>(_updateAlarms);
     on<HomeToggleDrawerEvent>(_toggleDrawer);
     on<HomeDashboardReorderedEvent>(_onDashboardReorded);
 
     on<HomeToggleFilterEvent>(_onFilterToggled);
     on<HomeFiltersChangeEvent>(_filtersChanged);
+    on<HomeBookmarksChangeEvent>(_bookmarkChanged);
   }
 
   Future<void> _onAlarmBlocChanged(AlarmsState alarmState) async {
@@ -117,51 +120,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(isSearching: event.isSearching));
   }
 
-  Future<void> _bookmarkTitle(
-    HomeToggleTitleBookmarkEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! HomeLoadedState) return;
-
-    if (event.bookmark) {
-      await hisnDBHelper.addTitleToFavourite(titleId: event.titleId);
-    } else {
-      await hisnDBHelper.deleteTitleFromFavourite(titleId: event.titleId);
-    }
-
-    final bookmarkedTitlesIds = await hisnDBHelper.getAllFavoriteTitles();
-
-    emit(state.copyWith(bookmarkedTitlesIds: bookmarkedTitlesIds));
-  }
-
-  Future<void> _bookmarkContent(
-    HomeToggleContentBookmarkEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! HomeLoadedState) return;
-
-    if (event.bookmark) {
-      await hisnDBHelper.addContentToFavourite(dbContent: event.content);
-    } else {
-      await hisnDBHelper.removeContentFromFavourite(dbContent: event.content);
-    }
-
-    add(HomeUpdateBookmarkedContentsEvent());
-  }
-
-  Future<void> _updateBookmarkedContents(
-    HomeUpdateBookmarkedContentsEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! HomeLoadedState) return;
-
-    final bookmarkedContents = await hisnDBHelper.getFavouriteContents();
-    emit(state.copyWith(bookmarkedContents: bookmarkedContents));
-  }
-
   Future<void> _toggleDrawer(
     HomeToggleDrawerEvent event,
     Emitter<HomeState> emit,
@@ -195,6 +153,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> close() {
     alarmSubscription.cancel();
     filterSubscription.cancel();
+    bookmarkSubscription.cancel();
     return super.close();
   }
 
@@ -258,5 +217,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final filteredAzkar = event.filters.getFilteredZikr(azkarFromDB);
 
     emit(state.copyWith(titles: filtered, bookmarkedContents: filteredAzkar));
+  }
+
+  void _onBookmarkChanged(BookmarkState bState) {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    final bookmarkState = bState;
+    if (bookmarkState is! BookmarkLoadedState) return;
+
+    add(
+      HomeBookmarksChangeEvent(
+        bookmarkedTitlesIds: bookmarkState.bookmarkedTitlesIds,
+        bookmarkedContents: bookmarkState.bookmarkedContents,
+      ),
+    );
+  }
+
+  Future<void> _bookmarkChanged(
+    HomeBookmarksChangeEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    emit(
+      state.copyWith(
+        bookmarkedTitlesIds: List.of(event.bookmarkedTitlesIds),
+        bookmarkedContents: List.of(event.bookmarkedContents),
+      ),
+    );
   }
 }

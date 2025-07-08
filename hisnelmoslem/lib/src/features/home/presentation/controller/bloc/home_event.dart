@@ -28,33 +28,6 @@ class HomeSearchEvent extends HomeEvent {
   List<Object> get props => [searchText];
 }
 
-class HomeToggleTitleBookmarkEvent extends HomeEvent {
-  final int titleId;
-  final bool bookmark;
-  const HomeToggleTitleBookmarkEvent({
-    required this.titleId,
-    required this.bookmark,
-  });
-
-  @override
-  List<Object> get props => [titleId, bookmark];
-}
-
-class HomeToggleContentBookmarkEvent extends HomeEvent {
-  final DbContent content;
-  final bool bookmark;
-
-  const HomeToggleContentBookmarkEvent({
-    required this.content,
-    required this.bookmark,
-  });
-
-  @override
-  List<Object> get props => [content, bookmark];
-}
-
-class HomeUpdateBookmarkedContentsEvent extends HomeEvent {}
-
 class HomeUpdateAlarmsEvent extends HomeEvent {
   final List<DbAlarm> alarms;
 
@@ -96,4 +69,15 @@ class HomeFiltersChangeEvent extends HomeEvent {
 
   @override
   List<Object> get props => [filters];
+}
+
+class HomeBookmarksChangeEvent extends HomeEvent {
+  final List<int> bookmarkedTitlesIds;
+  final List<DbContent> bookmarkedContents;
+  const HomeBookmarksChangeEvent({
+    required this.bookmarkedTitlesIds,
+    required this.bookmarkedContents,
+  });
+  @override
+  List<Object> get props => [bookmarkedTitlesIds, bookmarkedContents];
 }

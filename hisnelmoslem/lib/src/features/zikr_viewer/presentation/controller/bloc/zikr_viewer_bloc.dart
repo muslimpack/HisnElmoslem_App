@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -31,12 +32,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final EffectsManager effectsManager;
   final VolumeButtonManager volumeButtonManager;
   final HomeBloc homeBloc;
+  final BookmarkBloc bookmarkBloc;
   final HisnDBHelper hisnDBHelper;
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
+    this.bookmarkBloc,
     this.hisnDBHelper,
     this.volumeButtonManager,
     this.zikrViewerRepo,
@@ -344,7 +347,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     emit(state.copyWith(azkar: azkar, azkarToView: azkarToView));
 
-    homeBloc.add(HomeUpdateBookmarkedContentsEvent());
+    bookmarkBloc.add(BookmarkUpdateBookmarkedContentsEvent());
   }
 
   Future<void> _report(

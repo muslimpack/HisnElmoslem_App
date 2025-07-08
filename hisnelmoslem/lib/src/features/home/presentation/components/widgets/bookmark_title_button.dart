@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 
 class BookmarkTitleButton extends StatelessWidget {
   final int titleId;
@@ -10,9 +10,9 @@ class BookmarkTitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-      bloc: context.read<HomeBloc>(),
+      bloc: context.read<BookmarkBloc>(),
       builder: (context, state) {
-        if (state is! HomeLoadedState) {
+        if (state is! BookmarkLoadedState) {
           return const SizedBox();
         }
         final isBookmarked = state.bookmarkedTitlesIds.contains(titleId);
@@ -20,8 +20,11 @@ class BookmarkTitleButton extends StatelessWidget {
         if (isBookmarked) {
           return IconButton(
             onPressed: () {
-              sl<HomeBloc>().add(
-                HomeToggleTitleBookmarkEvent(titleId: titleId, bookmark: false),
+              sl<BookmarkBloc>().add(
+                BookmarkToggleTitleBookmarkEvent(
+                  titleId: titleId,
+                  bookmark: false,
+                ),
               );
             },
             icon: Icon(
@@ -32,8 +35,11 @@ class BookmarkTitleButton extends StatelessWidget {
         } else {
           return IconButton(
             onPressed: () {
-              sl<HomeBloc>().add(
-                HomeToggleTitleBookmarkEvent(titleId: titleId, bookmark: true),
+              sl<BookmarkBloc>().add(
+                BookmarkToggleTitleBookmarkEvent(
+                  titleId: titleId,
+                  bookmark: true,
+                ),
               );
             },
             icon: const Icon(Icons.bookmark_add_outlined),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
@@ -109,8 +109,8 @@ class _TopBar extends StatelessWidget {
                 )
               : const Icon(Icons.favorite_border),
           onPressed: () {
-            sl<HomeBloc>().add(
-              HomeToggleContentBookmarkEvent(
+            sl<BookmarkBloc>().add(
+              BookmarkToggleContentBookmarkEvent(
                 content: dbContent,
                 bookmark: false,
               ),
