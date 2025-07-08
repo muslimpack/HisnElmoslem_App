@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -31,12 +32,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final EffectsManager effectsManager;
   final VolumeButtonManager volumeButtonManager;
   final HomeBloc homeBloc;
+  final BookmarkBloc bookmarkBloc;
   final HisnDBHelper hisnDBHelper;
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
+    this.bookmarkBloc,
     this.hisnDBHelper,
     this.volumeButtonManager,
     this.zikrViewerRepo,
@@ -76,7 +79,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     on<ZikrViewerCopyZikrEvent>(_copyActiveZikr);
     on<ZikrViewerShareZikrEvent>(_shareActiveZikr);
-    on<ZikrViewerToggleZikrBookmarkEvent>(_toggleBookmark);
     on<ZikrViewerReportZikrEvent>(_report);
 
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
@@ -308,43 +310,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         return ZikrShareDialog(contentId: activeZikr.id);
       },
     );
-  }
-
-  Future<void> _toggleBookmark(
-    ZikrViewerToggleZikrBookmarkEvent event,
-    Emitter<ZikrViewerState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! ZikrViewerLoadedState) return;
-    final activeZikr = _getZikrToDealWith(
-      state: state,
-      eventContent: event.content,
-    );
-    if (activeZikr == null) return;
-
-    if (event.bookmark) {
-      await hisnDBHelper.addContentToFavourite(dbContent: activeZikr);
-    } else {
-      await hisnDBHelper.removeContentFromFavourite(dbContent: activeZikr);
-    }
-
-    final azkar = List<DbContent>.of(state.azkar).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: event.bookmark);
-      }
-      return e;
-    }).toList();
-
-    final azkarToView = List<DbContent>.of(state.azkarToView).map((e) {
-      if (e.id == activeZikr.id) {
-        return activeZikr.copyWith(favourite: event.bookmark);
-      }
-      return e;
-    }).toList();
-
-    emit(state.copyWith(azkar: azkar, azkarToView: azkarToView));
-
-    homeBloc.add(HomeUpdateBookmarkedContentsEvent());
   }
 
   Future<void> _report(

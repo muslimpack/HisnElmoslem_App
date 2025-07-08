@@ -1,6 +1,6 @@
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/pages/azkar_bookmarks_screen.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_bookmarks_screen.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/screens/azkar_bookmarks_screen.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/screens/titles_bookmarks_screen.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/pages/titles_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/models/app_component.dart';
 

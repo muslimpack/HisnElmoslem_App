@@ -57,19 +57,6 @@ final class ZikrViewerShareZikrEvent extends ZikrViewerEvent {
   List<Object?> get props => [content];
 }
 
-final class ZikrViewerToggleZikrBookmarkEvent extends ZikrViewerEvent {
-  final bool bookmark;
-  final DbContent content;
-
-  const ZikrViewerToggleZikrBookmarkEvent({
-    required this.bookmark,
-    required this.content,
-  });
-
-  @override
-  List<Object> get props => [bookmark];
-}
-
 final class ZikrViewerReportZikrEvent extends ZikrViewerEvent {
   final DbContent content;
 
@@ -94,9 +81,7 @@ class ZikrViewerPageChangeEvent extends ZikrViewerEvent {
 
 class ZikrViewerRestoreSessionEvent extends ZikrViewerEvent {
   final bool restore;
-  const ZikrViewerRestoreSessionEvent(
-    this.restore,
-  );
+  const ZikrViewerRestoreSessionEvent(this.restore);
 
   @override
   List<Object> get props => [restore];

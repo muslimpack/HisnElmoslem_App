@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/components/zikr_toggle_favorite_icon_button.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_share_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
@@ -100,23 +100,7 @@ class _TopBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-          tooltip: S.of(context).bookmark,
-          icon: dbContent.favourite
-              ? Icon(
-                  Icons.favorite,
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              : const Icon(Icons.favorite_border),
-          onPressed: () {
-            sl<HomeBloc>().add(
-              HomeToggleContentBookmarkEvent(
-                content: dbContent,
-                bookmark: false,
-              ),
-            );
-          },
-        ),
+        ZikrToggleFavoriteIconButton(dbContent: dbContent),
         IconButton(
           tooltip: S.of(context).share,
           icon: const Icon(Icons.share),

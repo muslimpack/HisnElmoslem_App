@@ -9,6 +9,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -56,7 +57,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmDatabaseHelper());
   sl.registerLazySingleton(() => UthmaniRepository());
   sl.registerLazySingleton(() => UserDataDBHelper());
-  sl.registerLazySingleton(() => HisnDBHelper(sl()));
+  sl.registerLazySingleton(() => HisnDBHelper());
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
 
@@ -71,7 +72,10 @@ Future<void> initSL() async {
   /// Singleton BLoC
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
+  sl.registerLazySingleton(
+    () => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
@@ -82,5 +86,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
-  sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(
+    () => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
 }

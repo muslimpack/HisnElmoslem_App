@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_not
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -61,15 +62,12 @@ class AppState extends State<App> {
         BlocProvider(create: (_) => sl<SettingsCubit>()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(create: (_) => sl<AzkarFiltersCubit>()),
+        BlocProvider(create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent())),
         BlocProvider(
-          create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent()),
+          create: (_) => sl<BookmarkBloc>()..add(BookmarkStartEvent()),
         ),
-        BlocProvider(
-          create: (_) => sl<HomeBloc>()..add(HomeStartEvent()),
-        ),
-        BlocProvider(
-          create: (_) => sl<SearchCubit>(),
-        ),
+        BlocProvider(create: (_) => sl<HomeBloc>()..add(HomeStartEvent())),
+        BlocProvider(create: (_) => sl<SearchCubit>()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
@@ -92,9 +90,7 @@ class AppState extends State<App> {
             },
             debugShowCheckedModeBanner: false,
             theme: state.theme,
-            navigatorObservers: [
-              BotToastNavigatorObserver(),
-            ],
+            navigatorObservers: [BotToastNavigatorObserver()],
             builder: (context, child) {
               if (PlatformExtension.isDesktop) {
                 final botToastBuilder = BotToastInit();

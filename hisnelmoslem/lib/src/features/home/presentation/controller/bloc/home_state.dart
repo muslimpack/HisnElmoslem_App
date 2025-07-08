@@ -64,10 +64,10 @@ class HomeLoadedState extends HomeState {
     return [
       titles,
       alarms,
-      bookmarkedContents,
       isSearching,
       dashboardArrangement,
       freqFilters,
+      bookmarkedContents,
       bookmarkedTitlesIds,
     ];
   }

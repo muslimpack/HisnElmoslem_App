@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/components/home_bookmarked_content_card.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
-import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/home_bookmarked_content_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -47,11 +47,7 @@ class AzkarBookmarksScreen extends StatelessWidget {
                 bottomNavigationBar: const BottomAppBar(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Expanded(
-                        child: FontSettingsBar(),
-                      ),
-                    ],
+                    children: <Widget>[Expanded(child: FontSettingsBar())],
                   ),
                 ),
               );

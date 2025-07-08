@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/features/bookmark/presentation/components/zikr_toggle_favorite_icon_button.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/commentary_dialog.dart';
@@ -27,37 +28,7 @@ class ZikrViewerTopBar extends StatelessWidget {
                 showCommentaryDialog(context: context, contentId: dbContent.id);
               },
             ),
-            if (!dbContent.favourite)
-              IconButton(
-                tooltip: S.of(context).bookmark,
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.favorite_border),
-                onPressed: () {
-                  context.read<ZikrViewerBloc>().add(
-                    ZikrViewerToggleZikrBookmarkEvent(
-                      content: dbContent,
-                      bookmark: true,
-                    ),
-                  );
-                },
-              )
-            else
-              IconButton(
-                tooltip: S.of(context).bookmark,
-                padding: EdgeInsets.zero,
-                icon: Icon(
-                  Icons.favorite,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () {
-                  context.read<ZikrViewerBloc>().add(
-                    ZikrViewerToggleZikrBookmarkEvent(
-                      content: dbContent,
-                      bookmark: false,
-                    ),
-                  );
-                },
-              ),
+            ZikrToggleFavoriteIconButton(dbContent: dbContent),
             IconButton(
               tooltip: S.of(context).share,
               padding: EdgeInsets.zero,

@@ -7,7 +7,6 @@ class DbContent extends Equatable {
   final int titleId;
   final int order;
   final int count;
-  final bool favourite;
   final String fadl;
   final String source;
   final String search;
@@ -19,7 +18,6 @@ class DbContent extends Equatable {
     required this.titleId,
     required this.order,
     required this.count,
-    required this.favourite,
     required this.fadl,
     required this.source,
     required this.search,
@@ -32,7 +30,6 @@ class DbContent extends Equatable {
     int? titleId,
     int? order,
     int? count,
-    bool? favourite,
     String? fadl,
     String? source,
     String? search,
@@ -44,7 +41,6 @@ class DbContent extends Equatable {
       titleId: titleId ?? this.titleId,
       order: order ?? this.order,
       count: count ?? this.count,
-      favourite: favourite ?? this.favourite,
       fadl: fadl ?? this.fadl,
       source: source ?? this.source,
       search: search ?? this.search,
@@ -54,18 +50,7 @@ class DbContent extends Equatable {
 
   @override
   List<Object> get props {
-    return [
-      id,
-      content,
-      titleId,
-      order,
-      count,
-      favourite,
-      fadl,
-      source,
-      search,
-      hokm,
-    ];
+    return [id, content, titleId, order, count, fadl, source, search, hokm];
   }
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
@@ -75,7 +60,6 @@ class DbContent extends Equatable {
       titleId: map['titleId'] as int,
       order: map['order'] as int,
       count: map['count'] as int,
-      favourite: false,
       search: (map['search'] as String?) ?? "",
       source: (map['source'] as String?) ?? "",
       fadl: (map['fadl'] as String?) ?? "",
