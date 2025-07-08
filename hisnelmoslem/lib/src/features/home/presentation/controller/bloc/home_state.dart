@@ -14,7 +14,6 @@ class HomeLoadedState extends HomeState {
   final List<int> dashboardArrangement;
   final List<DbTitle> titles;
   final List<int> bookmarkedTitlesIds;
-  final Map<int, DbAlarm> alarms;
   final List<DbContent> bookmarkedContents;
   final List<TitlesFreqEnum> freqFilters;
   final bool isSearching;
@@ -32,7 +31,6 @@ class HomeLoadedState extends HomeState {
   const HomeLoadedState({
     required this.dashboardArrangement,
     required this.titles,
-    required this.alarms,
     required this.bookmarkedContents,
     required this.freqFilters,
     required this.isSearching,
@@ -42,7 +40,6 @@ class HomeLoadedState extends HomeState {
   HomeLoadedState copyWith({
     List<int>? dashboardArrangement,
     List<DbTitle>? titles,
-    Map<int, DbAlarm>? alarms,
     List<DbContent>? bookmarkedContents,
     List<int>? bookmarkedTitlesIds,
     List<TitlesFreqEnum>? freqFilters,
@@ -51,7 +48,6 @@ class HomeLoadedState extends HomeState {
     return HomeLoadedState(
       dashboardArrangement: dashboardArrangement ?? this.dashboardArrangement,
       titles: titles ?? this.titles,
-      alarms: alarms ?? this.alarms,
       bookmarkedContents: bookmarkedContents ?? this.bookmarkedContents,
       freqFilters: freqFilters ?? this.freqFilters,
       isSearching: isSearching ?? this.isSearching,
@@ -63,7 +59,6 @@ class HomeLoadedState extends HomeState {
   List<Object> get props {
     return [
       titles,
-      alarms,
       isSearching,
       dashboardArrangement,
       freqFilters,

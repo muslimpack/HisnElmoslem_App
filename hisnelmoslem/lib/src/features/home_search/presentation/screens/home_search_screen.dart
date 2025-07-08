@@ -20,18 +20,15 @@ class HomeSearchScreen extends StatelessWidget {
             }
             return state.searchedTitles.isEmpty
                 ? state.searchText.isEmpty
-                    ? const SizedBox()
-                    : Empty(
-                        isImage: false,
-                        icon: Icons.search_outlined,
-                        title:
-                            "${S.of(context).noTitleWithName}: ${state.searchText}",
-                        description: S.of(context).reviewIndexOfBook,
-                      )
-                : HomeTitlesListView(
-                    titles: state.searchedTitles,
-                    alarms: homeState.alarms,
-                  );
+                      ? const SizedBox()
+                      : Empty(
+                          isImage: false,
+                          icon: Icons.search_outlined,
+                          title:
+                              "${S.of(context).noTitleWithName}: ${state.searchText}",
+                          description: S.of(context).reviewIndexOfBook,
+                        )
+                : HomeTitlesListView(titles: state.searchedTitles);
           },
         );
       },

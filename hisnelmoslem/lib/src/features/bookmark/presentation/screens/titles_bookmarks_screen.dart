@@ -22,10 +22,7 @@ class TitlesBookmarksScreen extends StatelessWidget {
                 title: S.of(context).nothingFoundInFavorites,
                 description: S.of(context).noTitleMarkedAsFavorite,
               )
-            : HomeTitlesListView(
-                titles: state.bookmarkedTitles,
-                alarms: state.alarms,
-              );
+            : HomeTitlesListView(titles: state.bookmarkedTitles);
       },
     );
   }

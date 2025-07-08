@@ -28,15 +28,6 @@ class HomeSearchEvent extends HomeEvent {
   List<Object> get props => [searchText];
 }
 
-class HomeUpdateAlarmsEvent extends HomeEvent {
-  final List<DbAlarm> alarms;
-
-  const HomeUpdateAlarmsEvent({required this.alarms});
-
-  @override
-  List<Object> get props => [alarms];
-}
-
 class HomeToggleDrawerEvent extends HomeEvent {
   const HomeToggleDrawerEvent();
 }
