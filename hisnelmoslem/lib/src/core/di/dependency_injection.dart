@@ -57,7 +57,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmDatabaseHelper());
   sl.registerLazySingleton(() => UthmaniRepository());
   sl.registerLazySingleton(() => UserDataDBHelper());
-  sl.registerLazySingleton(() => HisnDBHelper(sl()));
+  sl.registerLazySingleton(() => HisnDBHelper());
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
 
@@ -72,8 +72,10 @@ Future<void> initSL() async {
   /// Singleton BLoC
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => BookmarkBloc(sl()));
-  sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
+  sl.registerLazySingleton(
+    () => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
   sl.registerLazySingleton(() => SearchCubit(sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));

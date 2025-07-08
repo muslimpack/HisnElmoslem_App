@@ -30,7 +30,6 @@ class DbContent extends Equatable {
     int? titleId,
     int? order,
     int? count,
-    bool? favourite,
     String? fadl,
     String? source,
     String? search,

@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -30,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final AppSettingsRepo appSettingsRepo;
   final HisnDBHelper hisnDBHelper;
+  final UserDataDBHelper userDataDBHelper;
   HomeBloc(
     this.alarmsBloc,
     this.bookmarkBloc,
@@ -37,6 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     this.hisnDBHelper,
     this.appSettingsRepo,
     this.zikrFiltersCubit,
+    this.userDataDBHelper,
   ) : super(HomeLoadingState()) {
     alarmSubscription = alarmsBloc.stream.listen(_onAlarmBlocChanged);
     filterSubscription = zikrFiltersCubit.stream.listen(
@@ -93,9 +96,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final alarms = await alarmDatabaseHelper.getAlarms();
 
-    final azkarFromDB = await hisnDBHelper.getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper
+        .getFavouriteContents();
+    final azkarFromDB = await hisnDBHelper.getContentsByIds(
+      ids: listDbContentFavourite.map((e) => e.itemId).toList(),
+    );
     final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
-    final bookmarkedTitlesIds = await hisnDBHelper.getAllFavoriteTitles();
+    final bookmarkedTitlesIds = await userDataDBHelper.getAllFavoriteTitles();
 
     emit(
       HomeLoadedState(
@@ -213,7 +220,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       zikrFilters: event.filters,
     );
 
-    final azkarFromDB = await hisnDBHelper.getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper
+        .getFavouriteContents();
+    final azkarFromDB = await hisnDBHelper.getContentsByIds(
+      ids: listDbContentFavourite.map((e) => e.itemId).toList(),
+    );
+
     final filteredAzkar = event.filters.getFilteredZikr(azkarFromDB);
 
     emit(state.copyWith(titles: filtered, bookmarkedContents: filteredAzkar));
