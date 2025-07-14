@@ -50,6 +50,12 @@ class SEn extends S {
       'Popup menu to resume uncompleted Zikr session ';
 
   @override
+  String get allWords => 'All words';
+
+  @override
+  String get anyWords => 'Any words';
+
+  @override
   String get appLanguage => 'App Language';
 
   @override
@@ -683,6 +689,9 @@ class SEn extends S {
   String get trueBlackTheme => 'True black Theme';
 
   @override
+  String get typical => 'Typical';
+
+  @override
   String get updatesHistory => 'Updates History';
 
   @override
@@ -696,6 +705,9 @@ class SEn extends S {
 
   @override
   String get yes => 'Yes';
+
+  @override
+  String get zikrContent => 'Zikr content';
 
   @override
   String get zikrIndex => 'Zikr Index';

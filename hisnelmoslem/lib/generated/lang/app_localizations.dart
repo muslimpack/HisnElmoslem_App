@@ -175,6 +175,18 @@ abstract class S {
   /// **'Popup menu to resume uncompleted Zikr session '**
   String get allowZikrRestoreSessionDesc;
 
+  /// No description provided for @allWords.
+  ///
+  /// In en, this message translates to:
+  /// **'All words'**
+  String get allWords;
+
+  /// No description provided for @anyWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Any words'**
+  String get anyWords;
+
   /// No description provided for @appLanguage.
   ///
   /// In en, this message translates to:
@@ -1411,6 +1423,12 @@ abstract class S {
   /// **'True black Theme'**
   String get trueBlackTheme;
 
+  /// No description provided for @typical.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical'**
+  String get typical;
+
   /// No description provided for @updatesHistory.
   ///
   /// In en, this message translates to:
@@ -1440,6 +1458,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Yes'**
   String get yes;
+
+  /// No description provided for @zikrContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Zikr content'**
+  String get zikrContent;
 
   /// No description provided for @zikrIndex.
   ///

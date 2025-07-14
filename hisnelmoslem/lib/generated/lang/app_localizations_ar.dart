@@ -51,6 +51,12 @@ class SAr extends S {
       'عبارة عن نافذة منبثقة لتحديد استكمال جلسات الذكر غير المكتملة';
 
   @override
+  String get allWords => 'جميع الكلمات';
+
+  @override
+  String get anyWords => 'أي كلمة';
+
+  @override
   String get appLanguage => 'لغة التطبيق';
 
   @override
@@ -683,6 +689,9 @@ class SAr extends S {
   String get trueBlackTheme => 'الوضع الأسود الغريب';
 
   @override
+  String get typical => 'مطابق';
+
+  @override
   String get updatesHistory => 'تاريخ التحديثات';
 
   @override
@@ -696,6 +705,9 @@ class SAr extends S {
 
   @override
   String get yes => 'نعم';
+
+  @override
+  String get zikrContent => 'المحتوى';
 
   @override
   String get zikrIndex => 'الذكر رقم';
