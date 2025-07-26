@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/home_search/data/models/search_type.dart';
+import 'package:hisnelmoslem/src/features/home_search/data/models/sql_query.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -125,6 +127,133 @@ class HisnDBHelper {
     return List.generate(maps.length, (i) {
       return DbContent.fromMap(maps[i]);
     });
+  }
+
+  ///MARK: New Search
+
+  SqlQuery _searchTitlesSearchType(
+    String searchText,
+    String property, {
+    required SearchType searchType,
+    required bool useFilters,
+  }) {
+    final SqlQuery sqlQuery = SqlQuery();
+
+    final List<String> splittedSearchWords = searchText.trim().split(' ');
+
+    switch (searchType) {
+      case SearchType.typical:
+        sqlQuery.query = 'WHERE $property LIKE ?';
+        sqlQuery.args.addAll(['%$searchText%']);
+
+      case SearchType.allWords:
+        final String allWordsQuery = splittedSearchWords
+            .map((word) => '$property LIKE ?')
+            .join(' AND ');
+        final List<String> params = splittedSearchWords
+            .map((word) => '%$word%')
+            .toList();
+        sqlQuery.query = 'WHERE ($allWordsQuery)';
+        sqlQuery.args.addAll([...params]);
+
+      case SearchType.anyWords:
+        final String allWordsQuery = splittedSearchWords
+            .map((word) => '$property LIKE ?')
+            .join(' OR ');
+        final List<String> params = splittedSearchWords
+            .map((word) => '%$word%')
+            .toList();
+        sqlQuery.query = 'WHERE ($allWordsQuery)';
+        sqlQuery.args.addAll([...params]);
+    }
+
+    return sqlQuery;
+  }
+
+  Future<(int, List<DbTitle>)> searchTitleByName({
+    required String searchText,
+    required SearchType searchType,
+    required int limit,
+    required int offset,
+  }) async {
+    if (searchText.isEmpty) return (0, <DbTitle>[]);
+
+    final Database db = await database;
+
+    final whereFilters = _searchTitlesSearchType(
+      searchText,
+      "search",
+      searchType: searchType,
+      useFilters: true,
+    );
+
+    /// Pagination
+    final String qurey =
+        '''SELECT * FROM titles ${whereFilters.query} ORDER BY `id` LIMIT ? OFFSET ?''';
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(qurey, [
+      ...whereFilters.args,
+      limit,
+      offset,
+    ]);
+
+    /// Total Count
+    final String totalCountQurey =
+        '''SELECT COUNT(*) as count FROM titles ${whereFilters.query} ''';
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(
+      totalCountQurey,
+      [...whereFilters.args],
+    );
+    final int count = countResult.first["count"] as int? ?? 0;
+
+    final itemList = List.generate(maps.length, (i) {
+      return DbTitle.fromMap(maps[i]);
+    });
+
+    return (count, itemList);
+  }
+
+  Future<(int, List<DbContent>)> searchContent({
+    required String searchText,
+    required SearchType searchType,
+    required int limit,
+    required int offset,
+  }) async {
+    if (searchText.isEmpty) return (0, <DbContent>[]);
+
+    final Database db = await database;
+
+    final whereFilters = _searchTitlesSearchType(
+      searchText,
+      "search",
+      searchType: searchType,
+      useFilters: true,
+    );
+
+    /// Pagination
+    final String qurey =
+        '''SELECT * FROM contents ${whereFilters.query} ORDER BY `order` LIMIT ? OFFSET ?''';
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(qurey, [
+      ...whereFilters.args,
+      limit,
+      offset,
+    ]);
+
+    /// Total Count
+    final String totalCountQurey =
+        '''SELECT COUNT(*) as count FROM contents ${whereFilters.query} ''';
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(
+      totalCountQurey,
+      [...whereFilters.args],
+    );
+    final int count = countResult.first["count"] as int? ?? 0;
+
+    final itemList = List.generate(maps.length, (i) {
+      return DbContent.fromMap(maps[i]);
+    });
+
+    return (count, itemList);
   }
 
   /// Close database

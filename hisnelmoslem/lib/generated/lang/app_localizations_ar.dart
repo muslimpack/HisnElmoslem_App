@@ -51,6 +51,12 @@ class SAr extends S {
       'عبارة عن نافذة منبثقة لتحديد استكمال جلسات الذكر غير المكتملة';
 
   @override
+  String get allWords => 'جميع الكلمات';
+
+  @override
+  String get anyWords => 'أي كلمة';
+
+  @override
   String get appLanguage => 'لغة التطبيق';
 
   @override
@@ -384,10 +390,16 @@ class SAr extends S {
       'لم يتم تعيين منبه لأي ذكر\nإذا أردت تعيين منبه قم بالضغط على علامة المنبه ⏰ بجوار عنوان الذكر';
 
   @override
+  String get noMoreResults => 'لا مزيد من النتائج';
+
+  @override
   String get none => 'بدون';
 
   @override
   String get noRemindersFound => 'لا يوجد أي منبهات';
+
+  @override
+  String get noResultsFound => 'لا توجد نتائج';
 
   @override
   String get notes => 'ملاحظات';
@@ -492,6 +504,9 @@ class SAr extends S {
 
   @override
   String get search => 'البحث';
+
+  @override
+  String get searchFilters => 'مرشحات البحث';
 
   @override
   String get select => 'تحديد';
@@ -683,6 +698,9 @@ class SAr extends S {
   String get trueBlackTheme => 'الوضع الأسود الغريب';
 
   @override
+  String get typical => 'مطابق';
+
+  @override
   String get updatesHistory => 'تاريخ التحديثات';
 
   @override
@@ -696,6 +714,9 @@ class SAr extends S {
 
   @override
   String get yes => 'نعم';
+
+  @override
+  String get zikrContent => 'المحتوى';
 
   @override
   String get zikrIndex => 'الذكر رقم';

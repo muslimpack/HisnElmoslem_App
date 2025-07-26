@@ -50,6 +50,12 @@ class SEn extends S {
       'Popup menu to resume uncompleted Zikr session ';
 
   @override
+  String get allWords => 'All words';
+
+  @override
+  String get anyWords => 'Any words';
+
+  @override
   String get appLanguage => 'App Language';
 
   @override
@@ -383,10 +389,16 @@ class SEn extends S {
       'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title';
 
   @override
+  String get noMoreResults => 'No more results';
+
+  @override
   String get none => 'None';
 
   @override
   String get noRemindersFound => 'No reminders found';
+
+  @override
+  String get noResultsFound => 'No results found';
 
   @override
   String get notes => 'Notes';
@@ -492,6 +504,9 @@ class SEn extends S {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get searchFilters => 'Search Filters';
 
   @override
   String get select => 'Select';
@@ -683,6 +698,9 @@ class SEn extends S {
   String get trueBlackTheme => 'True black Theme';
 
   @override
+  String get typical => 'Typical';
+
+  @override
   String get updatesHistory => 'Updates History';
 
   @override
@@ -696,6 +714,9 @@ class SEn extends S {
 
   @override
   String get yes => 'Yes';
+
+  @override
+  String get zikrContent => 'Zikr content';
 
   @override
   String get zikrIndex => 'Zikr Index';

@@ -5,16 +5,11 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/home_search/presentation/components/home_search_box.dart';
-import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeAppBar extends StatelessWidget {
   final TabController tabController;
-  const HomeAppBar({
-    super.key,
-    required this.tabController,
-  });
+  const HomeAppBar({super.key, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
@@ -37,37 +32,32 @@ class HomeAppBar extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   icon: Icon(MdiIcons.close),
                   onPressed: () {
-                    context
-                        .read<HomeBloc>()
-                        .add(const HomeToggleSearchEvent(isSearching: false));
+                    context.read<HomeBloc>().add(
+                      const HomeToggleSearchEvent(isSearching: false),
+                    );
                   },
                 ),
-          title: !state.isSearching ? null : const HomeSearchBox(),
+
           pinned: true,
           floating: true,
           snap: true,
-          bottom: state.isSearching &
-                  context.watch<SearchCubit>().state.searchText.isNotEmpty
-              ? null
-              : PreferredSize(
-                  preferredSize: const Size(0, 48),
-                  child: TabBar(
-                    controller: tabController,
-                    isScrollable: true,
-                    tabAlignment: TabAlignment.center,
-                    tabs: List.generate(
-                      appDashboardTabs.length,
-                      (index) {
-                        return Tab(
-                          child: Text(
-                            appDashboardTabs[state.dashboardArrangement[index]]
-                                .title(context),
-                          ),
-                        );
-                      },
+          bottom: PreferredSize(
+            preferredSize: const Size(0, 48),
+            child: TabBar(
+              controller: tabController,
+              isScrollable: true,
+              tabAlignment: TabAlignment.center,
+              tabs: List.generate(appDashboardTabs.length, (index) {
+                return Tab(
+                  child: Text(
+                    appDashboardTabs[state.dashboardArrangement[index]].title(
+                      context,
                     ),
                   ),
-                ),
+                );
+              }),
+            ),
+          ),
           actions: [
             if (!state.isSearching) ...[
               IconButton(
@@ -75,9 +65,9 @@ class HomeAppBar extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.search),
                 onPressed: () {
-                  context
-                      .read<HomeBloc>()
-                      .add(const HomeToggleSearchEvent(isSearching: true));
+                  context.read<HomeBloc>().add(
+                    const HomeToggleSearchEvent(isSearching: true),
+                  );
                 },
               ),
               IconButton(

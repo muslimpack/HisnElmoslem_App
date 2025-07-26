@@ -19,15 +19,6 @@ class HomeToggleSearchEvent extends HomeEvent {
   List<Object> get props => [isSearching];
 }
 
-class HomeSearchEvent extends HomeEvent {
-  final String searchText;
-
-  const HomeSearchEvent({required this.searchText});
-
-  @override
-  List<Object> get props => [searchText];
-}
-
 class HomeToggleDrawerEvent extends HomeEvent {
   const HomeToggleDrawerEvent();
 }

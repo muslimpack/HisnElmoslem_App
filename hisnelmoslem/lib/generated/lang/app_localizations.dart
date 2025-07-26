@@ -175,6 +175,18 @@ abstract class S {
   /// **'Popup menu to resume uncompleted Zikr session '**
   String get allowZikrRestoreSessionDesc;
 
+  /// No description provided for @allWords.
+  ///
+  /// In en, this message translates to:
+  /// **'All words'**
+  String get allWords;
+
+  /// No description provided for @anyWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Any words'**
+  String get anyWords;
+
   /// No description provided for @appLanguage.
   ///
   /// In en, this message translates to:
@@ -829,6 +841,12 @@ abstract class S {
   /// **'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title'**
   String get noAlarmSetForAnyZikr;
 
+  /// No description provided for @noMoreResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No more results'**
+  String get noMoreResults;
+
   /// No description provided for @none.
   ///
   /// In en, this message translates to:
@@ -840,6 +858,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'No reminders found'**
   String get noRemindersFound;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
 
   /// No description provided for @notes.
   ///
@@ -1032,6 +1056,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @searchFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Filters'**
+  String get searchFilters;
 
   /// No description provided for @select.
   ///
@@ -1411,6 +1441,12 @@ abstract class S {
   /// **'True black Theme'**
   String get trueBlackTheme;
 
+  /// No description provided for @typical.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical'**
+  String get typical;
+
   /// No description provided for @updatesHistory.
   ///
   /// In en, this message translates to:
@@ -1440,6 +1476,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Yes'**
   String get yes;
+
+  /// No description provided for @zikrContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Zikr content'**
+  String get zikrContent;
 
   /// No description provided for @zikrIndex.
   ///
