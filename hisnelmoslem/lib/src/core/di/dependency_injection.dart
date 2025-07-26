@@ -18,6 +18,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_hel
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/home_search/domain/repository/search_repo.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
@@ -51,6 +52,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ZikrViewerRepo(sl()));
   sl.registerLazySingleton(() => AzkarFiltersRepo(sl()));
   sl.registerLazySingleton(() => TallyRepo(sl()));
+  sl.registerLazySingleton(() => SearchRepo(sl()));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -74,7 +76,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => SearchCubit(sl()));
+  sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
 

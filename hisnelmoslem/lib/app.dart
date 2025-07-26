@@ -67,7 +67,7 @@ class AppState extends State<App> {
           create: (_) => sl<BookmarkBloc>()..add(BookmarkStartEvent()),
         ),
         BlocProvider(create: (_) => sl<HomeBloc>()..add(HomeStartEvent())),
-        BlocProvider(create: (_) => sl<SearchCubit>()),
+        BlocProvider(create: (context) => sl<SearchCubit>()..start()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {

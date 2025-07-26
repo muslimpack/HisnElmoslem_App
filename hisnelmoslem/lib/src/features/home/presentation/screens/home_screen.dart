@@ -10,8 +10,7 @@ import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_ta
 import 'package:hisnelmoslem/src/features/home/presentation/components/home_appbar.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:hisnelmoslem/src/features/home_search/presentation/screens/home_search_screen.dart';
+import 'package:hisnelmoslem/src/features/home_search/presentation/screens/search_screen.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:intl/intl.dart';
@@ -94,6 +93,9 @@ class _DashboardScreenState extends State<DashboardScreen>
             if (state is! HomeLoadedState) {
               return const Loading();
             }
+            if (state.isSearching) {
+              return const SearchScreen();
+            }
             return Scaffold(
               body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -102,21 +104,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                     (BuildContext context, bool innerBoxIsScrolled) {
                       return [HomeAppBar(tabController: tabController)];
                     },
-                body:
-                    state.isSearching &
-                        context.watch<SearchCubit>().state.searchText.isNotEmpty
-                    ? const HomeSearchScreen()
-                    : TabBarView(
-                        physics: const BouncingScrollPhysics(),
-                        controller: tabController,
-                        children: List.generate(appDashboardTabs.length, (
-                          index,
-                        ) {
-                          return appDashboardTabs[state
-                                  .dashboardArrangement[index]]
-                              .widget;
-                        }),
-                      ),
+                body: TabBarView(
+                  physics: const BouncingScrollPhysics(),
+                  controller: tabController,
+                  children: List.generate(appDashboardTabs.length, (index) {
+                    return appDashboardTabs[state.dashboardArrangement[index]]
+                        .widget;
+                  }),
+                ),
               ),
 
               floatingActionButton: FloatingActionButton(

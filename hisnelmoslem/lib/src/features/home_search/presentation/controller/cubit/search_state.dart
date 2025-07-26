@@ -2,28 +2,50 @@
 part of 'search_cubit.dart';
 
 class SearchState extends Equatable {
-  final String searchText;
-  final List<DbTitle> allTitles;
-
-  const SearchState({required this.searchText, required this.allTitles});
-
-  List<DbTitle> get searchedTitles {
-    if (searchText.isEmpty) return [];
-    return allTitles.where((zikr) {
-      return zikr.name.removeDiacritics.contains(searchText);
-    }).toList();
-  }
-
-  SearchState copyWith({
-    String? searchText,
-    List<DbTitle>? allTitles,
-  }) {
-    return SearchState(
-      searchText: searchText ?? this.searchText,
-      allTitles: allTitles ?? this.allTitles,
-    );
-  }
+  const SearchState();
 
   @override
-  List<Object> get props => [searchText, allTitles];
+  List<Object> get props => [];
+}
+
+final class SearchLoadingState extends SearchState {
+  const SearchLoadingState();
+}
+
+class SearchLoadedState extends SearchState {
+  final String searchText;
+  final SearchType searchType;
+  final SearchFor searchFor;
+  final int searchResultCount;
+
+  int get pageSize => 10;
+
+  const SearchLoadedState({
+    required this.searchText,
+    required this.searchType,
+    required this.searchFor,
+    required this.searchResultCount,
+  });
+
+  @override
+  List<Object> get props => [
+    searchText,
+    searchType,
+    searchFor,
+    searchResultCount,
+  ];
+
+  SearchLoadedState copyWith({
+    String? searchText,
+    SearchType? searchType,
+    SearchFor? searchFor,
+    int? searchResultCount,
+  }) {
+    return SearchLoadedState(
+      searchText: searchText ?? this.searchText,
+      searchType: searchType ?? this.searchType,
+      searchFor: searchFor ?? this.searchFor,
+      searchResultCount: searchResultCount ?? this.searchResultCount,
+    );
+  }
 }
