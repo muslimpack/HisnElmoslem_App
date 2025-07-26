@@ -390,10 +390,16 @@ class SAr extends S {
       'لم يتم تعيين منبه لأي ذكر\nإذا أردت تعيين منبه قم بالضغط على علامة المنبه ⏰ بجوار عنوان الذكر';
 
   @override
+  String get noMoreResults => 'لا مزيد من النتائج';
+
+  @override
   String get none => 'بدون';
 
   @override
   String get noRemindersFound => 'لا يوجد أي منبهات';
+
+  @override
+  String get noResultsFound => 'لا توجد نتائج';
 
   @override
   String get notes => 'ملاحظات';
@@ -498,6 +504,9 @@ class SAr extends S {
 
   @override
   String get search => 'البحث';
+
+  @override
+  String get searchFilters => 'مرشحات البحث';
 
   @override
   String get select => 'تحديد';

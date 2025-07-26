@@ -841,6 +841,12 @@ abstract class S {
   /// **'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title'**
   String get noAlarmSetForAnyZikr;
 
+  /// No description provided for @noMoreResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No more results'**
+  String get noMoreResults;
+
   /// No description provided for @none.
   ///
   /// In en, this message translates to:
@@ -852,6 +858,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'No reminders found'**
   String get noRemindersFound;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
 
   /// No description provided for @notes.
   ///
@@ -1044,6 +1056,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @searchFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Filters'**
+  String get searchFilters;
 
   /// No description provided for @select.
   ///

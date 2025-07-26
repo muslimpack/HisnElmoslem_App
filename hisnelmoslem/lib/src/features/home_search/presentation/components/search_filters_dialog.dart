@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_type_bar.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -13,7 +13,7 @@ class SearchFiltersButton extends StatelessWidget {
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         return IconButton(
-          tooltip: "مرشحات البحث",
+          tooltip: S.of(context).searchFilters,
           onPressed: () async {
             await showSearchFilterDialog(context);
           },
@@ -34,21 +34,17 @@ Future showSearchFilterDialog(BuildContext context) {
 }
 
 class SearchFiltersDialog extends StatelessWidget {
-  const SearchFiltersDialog({
-    super.key,
-  });
+  const SearchFiltersDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("مرشحات البحث"),
+      title: Text(S.of(context).searchFilters),
       content: Container(
         constraints: const BoxConstraints(maxWidth: 500),
         child: const Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            SearchTypeBar(),
-          ],
+          children: [SearchTypeBar()],
         ),
       ),
     );

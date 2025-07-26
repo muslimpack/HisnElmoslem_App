@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/shared/custom_inputs/custom_field_decoration.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -30,19 +32,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
         controller: context.read<SearchCubit>().searchController,
         autofocus: true,
         style: const TextStyle(fontSize: 18, fontFamily: "Kitab"),
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          hintText: "البحث في الأذكار",
-          hintStyle: TextStyle(fontSize: 18, fontFamily: "Kitab"),
-          contentPadding: EdgeInsets.only(
-            left: 15,
-            bottom: 5,
-            top: 5,
-            right: 15,
+        decoration: customInputDecoration.copyWith(
+          hintText: S.of(context).search,
+          hintStyle: const TextStyle(fontSize: 18, fontFamily: "Kitab"),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 5,
           ),
         ),
       ),

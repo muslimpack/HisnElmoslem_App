@@ -389,10 +389,16 @@ class SEn extends S {
       'No alarm has been set for any zikr If you want to set an alarm, click on the alarm sign next to the zikr title';
 
   @override
+  String get noMoreResults => 'No more results';
+
+  @override
   String get none => 'None';
 
   @override
   String get noRemindersFound => 'No reminders found';
+
+  @override
+  String get noResultsFound => 'No results found';
 
   @override
   String get notes => 'Notes';
@@ -498,6 +504,9 @@ class SEn extends S {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get searchFilters => 'Search Filters';
 
   @override
   String get select => 'Select';

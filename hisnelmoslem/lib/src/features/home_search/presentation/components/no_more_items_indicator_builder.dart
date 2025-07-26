@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/squiggly_line_painter.dart';
 
 class NoMoreItemsIndicatorBuilder extends StatelessWidget {
-  const NoMoreItemsIndicatorBuilder({
-    super.key,
-  });
+  const NoMoreItemsIndicatorBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class NoMoreItemsIndicatorBuilder extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              "لا مزيد من النتائج",
+              S.of(context).noMoreResults,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall,
             ),

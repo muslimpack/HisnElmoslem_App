@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 
 class NoItemsFoundIndicatorBuilder extends StatelessWidget {
   final String searchText;
-  const NoItemsFoundIndicatorBuilder({
-    super.key,
-    required this.searchText,
-  });
+  const NoItemsFoundIndicatorBuilder({super.key, required this.searchText});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class NoItemsFoundIndicatorBuilder extends StatelessWidget {
         const Icon(Icons.search),
         const SizedBox(height: 10),
         Text(
-          'لا توجد نتائج\n"$searchText"',
+          '${S.of(context).noResultsFound}\n"$searchText"',
           textAlign: TextAlign.center,
         ),
       ],
