@@ -16,7 +16,6 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zi
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_progress_bar.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_top_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 part 'zikr_viewer_card_mode_screen.dart';

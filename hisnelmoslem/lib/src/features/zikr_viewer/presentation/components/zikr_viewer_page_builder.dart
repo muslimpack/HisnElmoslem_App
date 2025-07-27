@@ -56,10 +56,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
               ),
             ),
           ),
-          ListView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(15),
-            children: [ZikrViewerZikrBody(dbContent: dbContent)],
+          SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 76),
+            child: ZikrViewerZikrBody(dbContent: dbContent),
           ),
         ],
       ),
