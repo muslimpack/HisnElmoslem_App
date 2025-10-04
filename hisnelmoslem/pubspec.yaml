@@ -78,6 +78,7 @@ flutter:
     - assets/images/
     - assets/quran/
     - assets/sounds/
+    - assets/sounds/azkar/
     - assets/db/
 
   fonts:
