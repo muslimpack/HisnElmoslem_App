@@ -8,10 +8,7 @@ import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_hel
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 
-Future<dynamic> showCommentaryDialog({
-  required BuildContext context,
-  required int contentId,
-}) {
+Future<dynamic> showCommentaryDialog({required BuildContext context, required int contentId}) {
   // show the dialog
   return showDialog(
     context: context,
@@ -123,6 +120,7 @@ class CommentaryPageView extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: SelectableText(
                 text,
+                textDirection: TextDirection.rtl,
                 style: TextStyle(fontSize: state.fontSize * 10),
               ),
             );
