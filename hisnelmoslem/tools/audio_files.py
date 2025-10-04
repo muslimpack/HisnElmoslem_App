@@ -4,9 +4,9 @@ import shutil
 import requests
 
 # --- USER CONFIGURATION ---
-DB_PATH = r"D:\GitHub\HisnElmoslem_App\hisnelmoslem\assets\db\hisn_elmoslem.db"        # ← your SQLite DB file path
-AUDIO_FOLDER = r"D:\Downloads\Miscellaneous\processed-20250527T080005Z-1-001\processed"     # ← folder containing 221.mp3, etc.
-OUTPUT_FOLDER = r"./tools/output"                 # ← destination folder for copied audios
+DB_PATH = r".\assets\db\hisn_elmoslem.db"        # ← your SQLite DB file path
+AUDIO_FOLDER = r""     # ← folder containing 221.mp3, etc.
+OUTPUT_FOLDER = r"./tools/output/audio"                 # ← destination folder for copied audios
 TITLE_IDS = [3, 27, 29, 30, 31, 96, 98, 107]  # ← favourite title IDs
 # ---------------------------
 
