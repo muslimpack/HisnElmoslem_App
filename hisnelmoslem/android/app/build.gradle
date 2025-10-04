@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         applicationId "com.hassaneltantawy.hisnelmoslem"
-        minSdkVersion 23
+        minSdkVersion flutter.minSdkVersion
         // minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutter.versionCode
