@@ -28,6 +28,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_colorpicker: ^1.1.0
   flutter_email_sender: ^8.0.0
+  flutter_expandable_fab: ^2.5.2
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.6

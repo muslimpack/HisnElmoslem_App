@@ -17,14 +17,9 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
             actions: [BookmarkTitleButton(titleId: state.title.id)],
             bottom: state.activeZikr == null
                 ? null
-                : PreferredSize(
-                    preferredSize: const Size.fromHeight(50),
-                    child: Column(
-                      children: [
-                        ZikrViewerTopBar(dbContent: state.activeZikr!),
-                        const ZikrViewerProgressBar(),
-                      ],
-                    ),
+                : const PreferredSize(
+                    preferredSize: Size.fromHeight(10),
+                    child: Column(children: [ZikrViewerProgressBar()]),
                   ),
           ),
           body: PageView.builder(
@@ -38,6 +33,11 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
           bottomNavigationBar: state.activeZikr == null
               ? null
               : ZikrViewerPageModeBottomBar(dbContent: state.activeZikr!),
+
+          floatingActionButton: state.activeZikr == null
+              ? null
+              : ZikrViewerExpandingFab(dbContent: state.activeZikr!),
+          floatingActionButtonLocation: ExpandableFab.location,
         );
       },
     );

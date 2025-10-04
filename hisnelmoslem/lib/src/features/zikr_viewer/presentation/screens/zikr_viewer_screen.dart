@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
@@ -13,10 +14,10 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_expanding_fab.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_progress_bar.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_top_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 part 'zikr_viewer_card_mode_screen.dart';
@@ -57,9 +58,7 @@ class ZikrViewerScreen extends StatelessWidget {
 
           if (!context.mounted) return;
 
-          context.read<ZikrViewerBloc>().add(
-            ZikrViewerRestoreSessionEvent(confirm ?? false),
-          );
+          context.read<ZikrViewerBloc>().add(ZikrViewerRestoreSessionEvent(confirm ?? false));
         },
         builder: (context, state) {
           if (state is! ZikrViewerLoadedState) {

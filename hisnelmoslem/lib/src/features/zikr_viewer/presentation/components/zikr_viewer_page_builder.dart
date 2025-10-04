@@ -15,23 +15,15 @@ class ZikrViewerPageBuilder extends StatelessWidget {
     final bool isDone = dbContent.count == 0;
     return GestureDetector(
       onTap: () {
-        context.read<ZikrViewerBloc>().add(
-          ZikrViewerDecreaseZikrEvent(content: dbContent),
-        );
+        context.read<ZikrViewerBloc>().add(ZikrViewerDecreaseZikrEvent(content: dbContent));
       },
       onLongPress: () {
         final snackBar = SnackBar(
-          content: Text(
-            dbContent.source,
-            textAlign: TextAlign.center,
-            softWrap: true,
-          ),
+          content: Text(dbContent.source, textAlign: TextAlign.center, softWrap: true),
           action: SnackBarAction(
             label: S.of(context).copy,
             onPressed: () {
-              context.read<ZikrViewerBloc>().add(
-                ZikrViewerCopyZikrEvent(content: dbContent),
-              );
+              context.read<ZikrViewerBloc>().add(ZikrViewerCopyZikrEvent(content: dbContent));
             },
           ),
         );
@@ -43,13 +35,9 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
-                isDone
-                    ? S.of(context).done
-                    : "${dbContent.count}".toArabicNumber(),
+                isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withAlpha((.02 * 255).round()),
+                  color: Theme.of(context).colorScheme.primary.withAlpha((.02 * 255).round()),
                   fontSize: 250,
                   fontWeight: FontWeight.bold,
                 ),
@@ -58,7 +46,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           ),
           ListView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15).copyWith(bottom: 100),
             children: [ZikrViewerZikrBody(dbContent: dbContent)],
           ),
         ],
