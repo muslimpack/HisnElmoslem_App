@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
@@ -18,9 +20,12 @@ class ZikrViewerExpandingFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
     return ExpandableFab(
       fanAngle: 180,
       pos: ExpandableFabPos.center,
+      distance: min((width / 2) * .7, 200),
+
       openButtonBuilder: RotateFloatingActionButtonBuilder(
         heroTag: 'open',
         child: Text(
