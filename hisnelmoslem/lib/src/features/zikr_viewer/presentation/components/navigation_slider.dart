@@ -21,15 +21,13 @@ class NavigationSlider extends StatelessWidget {
             ),
             Expanded(
               child: Slider(
-                divisions: state.azkarToView.length,
+                divisions: state.azkarToView.length - 1,
                 label: "${state.activeZikrIndex + 1}",
                 secondaryTrackValue: state.activeZikrIndex.toDouble(),
-                max: state.azkarToView.length.toDouble() - 1,
+                max: (state.azkarToView.length - 1).toDouble(),
                 value: state.activeZikrIndex.toDouble(),
                 onChanged: (value) {
-                  context.read<ZikrViewerBloc>().pageController.jumpToPage(
-                    value.toInt(),
-                  );
+                  context.read<ZikrViewerBloc>().pageController.jumpToPage(value.toInt());
                 },
               ),
             ),
