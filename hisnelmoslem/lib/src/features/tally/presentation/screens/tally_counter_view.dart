@@ -36,14 +36,13 @@ class TallyCounterView extends StatelessWidget {
             onButtonCLick: !isCountersEmpty
                 ? null
                 : () async {
-                    final EditorResult<DbTally>? result =
-                        await showTallyEditorDialog(context: context);
+                    final EditorResult<DbTally>? result = await showTallyEditorDialog(
+                      context: context,
+                    );
 
                     if (result == null || !context.mounted) return;
 
-                    context.read<TallyBloc>().add(
-                      TallyAddCounterEvent(counter: result.value),
-                    );
+                    context.read<TallyBloc>().add(TallyAddCounterEvent(counter: result.value));
                   },
           );
         }
@@ -53,6 +52,7 @@ class TallyCounterView extends StatelessWidget {
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
+
           body: GestureDetector(
             onTap: () {
               context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent());
@@ -116,12 +116,20 @@ class TallyCounterView extends StatelessWidget {
                   Expanded(
                     child: GradientWidget(
                       FittedBox(
-                        child: Text(
-                          '${activeCounter.count}'.toArabicNumber(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 400),
+                          transitionBuilder: (Widget child, Animation<double> animation) {
+                            // Combined fade + scale animation
+                            return ScaleTransition(
+                              scale: CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                              child: FadeTransition(opacity: animation, child: child),
+                            );
+                          },
+                          child: Text(
+                            key: ValueKey<int>(activeCounter.count),
+                            '${activeCounter.count}'.toArabicNumber(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -129,9 +137,7 @@ class TallyCounterView extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Theme.of(
-                            context,
-                          ).colorScheme.primary.withAlpha((.3 * 255).round()),
+                          Theme.of(context).colorScheme.primary.withAlpha((.3 * 255).round()),
                           Theme.of(context).colorScheme.primary,
                         ],
                       ),
@@ -154,23 +160,29 @@ class TallyCounterView extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Theme.of(
-                          context,
-                        ).colorScheme.primary.withAlpha((.5 * 255).round()),
+                        Theme.of(context).colorScheme.primary.withAlpha((.5 * 255).round()),
                         Theme.of(context).colorScheme.primary,
                       ],
                     ),
                   ),
 
-                  LinearProgressIndicator(
-                    minHeight: 20,
-                    borderRadius: BorderRadius.circular(10),
-                    value:
-                        (activeCounter.count - cycles * resetEvery) /
-                        resetEvery,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary,
+                  TweenAnimationBuilder<double>(
+                    tween: Tween<double>(
+                      begin: 0,
+                      end: (activeCounter.count - cycles * resetEvery) / resetEvery,
                     ),
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeInOut,
+                    builder: (context, value, child) {
+                      return LinearProgressIndicator(
+                        minHeight: 20,
+                        borderRadius: BorderRadius.circular(10),
+                        value: value,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
