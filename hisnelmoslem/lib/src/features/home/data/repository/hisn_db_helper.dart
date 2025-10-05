@@ -9,7 +9,7 @@ import 'package:sqflite/sqflite.dart';
 
 class HisnDBHelper {
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 6;
+  static const int dbVersion = 7;
 
   /* ************* Singleton Constructor ************* */
 
@@ -150,9 +150,7 @@ class HisnDBHelper {
         final String allWordsQuery = splittedSearchWords
             .map((word) => '$property LIKE ?')
             .join(' AND ');
-        final List<String> params = splittedSearchWords
-            .map((word) => '%$word%')
-            .toList();
+        final List<String> params = splittedSearchWords.map((word) => '%$word%').toList();
         sqlQuery.query = 'WHERE ($allWordsQuery)';
         sqlQuery.args.addAll([...params]);
 
@@ -160,9 +158,7 @@ class HisnDBHelper {
         final String allWordsQuery = splittedSearchWords
             .map((word) => '$property LIKE ?')
             .join(' OR ');
-        final List<String> params = splittedSearchWords
-            .map((word) => '%$word%')
-            .toList();
+        final List<String> params = splittedSearchWords.map((word) => '%$word%').toList();
         sqlQuery.query = 'WHERE ($allWordsQuery)';
         sqlQuery.args.addAll([...params]);
     }
@@ -200,10 +196,9 @@ class HisnDBHelper {
     /// Total Count
     final String totalCountQurey =
         '''SELECT COUNT(*) as count FROM titles ${whereFilters.query} ''';
-    final List<Map<String, dynamic>> countResult = await db.rawQuery(
-      totalCountQurey,
-      [...whereFilters.args],
-    );
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(totalCountQurey, [
+      ...whereFilters.args,
+    ]);
     final int count = countResult.first["count"] as int? ?? 0;
 
     final itemList = List.generate(maps.length, (i) {
@@ -243,10 +238,9 @@ class HisnDBHelper {
     /// Total Count
     final String totalCountQurey =
         '''SELECT COUNT(*) as count FROM contents ${whereFilters.query} ''';
-    final List<Map<String, dynamic>> countResult = await db.rawQuery(
-      totalCountQurey,
-      [...whereFilters.args],
-    );
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(totalCountQurey, [
+      ...whereFilters.args,
+    ]);
     final int count = countResult.first["count"] as int? ?? 0;
 
     final itemList = List.generate(maps.length, (i) {
