@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
+import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 part 'onboard_state.dart';
 
@@ -12,8 +15,7 @@ class OnboardCubit extends Cubit<OnboardState> {
   final AppSettingsRepo appSettingsRepo;
   final VolumeButtonManager volumeButtonManager;
   PageController pageController = PageController();
-  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager)
-      : super(OnboardLoadingState()) {
+  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager) : super(OnboardLoadingState()) {
     _init();
   }
 
@@ -21,10 +23,7 @@ class OnboardCubit extends Cubit<OnboardState> {
     volumeButtonManager.toggleActivation(activate: true);
     volumeButtonManager.listen(
       onVolumeDownPressed: () {
-        pageController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeIn,
-        );
+        pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
       },
       onVolumeUpPressed: () {
         pageController.previousPage(
@@ -34,53 +33,44 @@ class OnboardCubit extends Cubit<OnboardState> {
       },
     );
 
-    pageController.addListener(
-      () {
-        final int index = pageController.page!.round();
-        onPageChanged(index);
-      },
-    );
+    pageController.addListener(() {
+      final int index = pageController.page!.round();
+      onPageChanged(index);
+    });
   }
 
   ///TODO: Change every release
   List<Empty> get pageData {
     return [
-//       const Empty(
-//         title: "حصن المسلم الإصدار $kAppVersion",
-//         description: '''
-// السلام عليكم أيها الكريم
-// أهلا بك في تحديث جديد من حصن المسلم
-// قم بسحب الشاشة لتقليب الصفحات
-// أو استخدم مفاتيح الصوت لرؤية الميزات الجديدة
-// ''',
-//       ),
       const Empty(
-        title: "إصدار ثانوي محسن",
+        title: "حصن المسلم الإصدار $kAppVersion",
+        description: '''
+السلام عليكم ورحمة الله وبركاته
+أهلاً وسهلاً بك في تحديث جديد من تطبيق حصن المسلم
+يمكنك سحب الشاشة لتقليب الصفحات،
+أو استخدام مفاتيح الصوت لاستعراض الميزات الجديدة.
+
+جزى الله خيراً كل من قدّم رأيه أو بلّغ عن مشكلة ساعدتنا على التطوير 💚
+''',
+      ),
+      const Empty(
+        title: "الجديد في هذا الإصدار",
         isImage: false,
-        icon: Icons.new_releases,
+        isItemList: true,
         description: """
-- ⚙️ التحكم في نافذة استعادة جلسة الذكر: من الإعدادات.
-- 🔕 إمكانية حذف التنبيهات: مباشرة من المحرر عبر الضغط المطوّل على أيقونة الجرس.
-- 🧮 حذف عدادات السبحة: يمكنك الآن حذفها مباشرة من المحرر.
-- 📝 تحسين نظام تصفية الأذكار: المأخوذة من "موطأ مالك".
-- 🌅 حل مشكلة اختفاء الذكر الأخير: في أذكار الصباح والمساء عند تفعيل تصفية مصادر الأذكار.
-- 🛠️ إصلاح مشكلة تعطل التطبيق: عند عدم منح الأذونات الخاصة بالإشعارات.
+بناء على العديد من المراجعات تم إعادة ذكر "أستغفر الله وأتوب إليه" إلى أذكار المساء
+تحسينات في واجهة السبحة والأذكار مع حركات أنيميشن جديدة أكثر سلاسة وجمالًا.
+تحسين البحث ليصبح أكثر دقة وعمقًا.
+تصميم جديد لشاشة الأذكار أكثر تركيزًا ووضوحًا لسهولة القراءة والاستخدام.
+تحسين شامل للسبحة: تعديل عدد الأذكار، إضافة ذكر جديد، وتجربة استخدام أكثر انسيابية.
+تحسين مشاركة الأذكار كصورة بتصميم أنيق ومظهر محسّن.
+
+استعادة جلسة الأذكار اليومية تلقائيًا في نفس اليوم فقط.
+وضع إضاءة ديناميكي يتكيّف تلقائيًا مع إعداد النظام في جهازك.
+زر مفضّلة جديد لإدارة الأبواب بسهولة من صفحة الأذكار.
+
+إصلاح الأخطاء وإرسال تقرير تلقائي إلى المطوّر في حال حدوث مشكلة.
 """,
-      ),
-      /*     const Empty(
-        title: "الميزات الجديدة",
-        isImage: false,
-        icon: Icons.new_releases,
-      ),
-      const Empty(
-        title: "التحسينات",
-        isImage: false,
-        icon: Icons.more_horiz,
-      ),
-      const Empty(
-        title: "الأعطال التي تم حلها",
-        isImage: false,
-        icon: Icons.bug_report_outlined,
       ),
       Empty(
         title: "المزيد من تطبيقاتنا",
@@ -95,18 +85,12 @@ class OnboardCubit extends Cubit<OnboardState> {
         onButtonCLick: () {
           openURL(kOrgWebsite);
         },
-      ), */
+      ),
     ];
   }
 
   Future start() async {
-    emit(
-      OnboardLoadedState(
-        showSkipBtn: false,
-        currentPageIndex: 0,
-        pages: pageData,
-      ),
-    );
+    emit(OnboardLoadedState(showSkipBtn: false, currentPageIndex: 0, pages: pageData));
   }
 
   Future onPageChanged(int index) async {
