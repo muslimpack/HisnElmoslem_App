@@ -34,12 +34,23 @@ class ZikrViewerPageBuilder extends StatelessWidget {
         children: [
           Center(
             child: FittedBox(
-              child: Text(
-                isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary.withAlpha((.02 * 255).round()),
-                  fontSize: 250,
-                  fontWeight: FontWeight.bold,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 400),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  // Combined fade + scale animation
+                  return ScaleTransition(
+                    scale: CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+                child: Text(
+                  key: ValueKey<int>(dbContent.count),
+                  isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary.withAlpha((.02 * 255).round()),
+                    fontSize: 250,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
