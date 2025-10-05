@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/components/zikr_toggle_favorite_icon_button.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/animated_zikr_count.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/commentary_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -28,9 +28,13 @@ class ZikrViewerExpandingFab extends StatelessWidget {
 
       openButtonBuilder: RotateFloatingActionButtonBuilder(
         heroTag: 'open',
-        child: Text(
-          dbContent.count.toString().toArabicNumber(),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        child: AnimatedZikrCounter(
+          count: dbContent.count,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            fontFeatures: [FontFeature.tabularFigures()],
+          ),
         ),
         shape: const CircleBorder(),
       ),
