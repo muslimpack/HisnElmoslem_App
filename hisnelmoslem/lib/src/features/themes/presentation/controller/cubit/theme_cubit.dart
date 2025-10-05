@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
+import 'package:hisnelmoslem/src/features/themes/presentation/components/app_back_button.dart';
 import 'package:intl/intl.dart';
 
 part 'theme_state.dart';
@@ -31,9 +32,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(deviceBrightness: brightness));
   }
 
-  Future<void> changeBrightnessMode(
-    ThemeBrightnessModeEnum brightnessMode,
-  ) async {
+  Future<void> changeBrightnessMode(ThemeBrightnessModeEnum brightnessMode) async {
     await themeRepo.setThemeBrightnessMode(brightnessMode);
     emit(state.copyWith(themeBrightnessMode: brightnessMode));
   }
@@ -62,9 +61,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(backgroundColor: color));
   }
 
-  Future<void> changeOverrideBackgroundColor(
-    bool overrideBackgroundColor,
-  ) async {
+  Future<void> changeOverrideBackgroundColor(bool overrideBackgroundColor) async {
     await themeRepo.setOverrideBackgroundColor(overrideBackgroundColor);
     emit(state.copyWith(overrideBackgroundColor: overrideBackgroundColor));
   }
