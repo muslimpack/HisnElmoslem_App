@@ -13,26 +13,61 @@ class ZikrViewerProgressBar extends StatelessWidget {
           return const SizedBox();
         }
 
-        return Stack(
-          children: [
-            LinearProgressIndicator(
-              value: 1 - state.manorProgress,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            LinearProgressIndicator(
-              backgroundColor: Colors.transparent,
-              value: state.majorProgress,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(
-                  context,
-                ).colorScheme.primary.withAlpha((.5 * 255).round()),
-              ),
-            ),
-          ],
+        return AnimatedDualProgressBar(
+          minorProgress: state.manorProgress,
+          majorProgress: state.majorProgress,
         );
       },
+    );
+  }
+}
+
+class AnimatedDualProgressBar extends StatelessWidget {
+  final double majorProgress;
+  final double minorProgress;
+
+  const AnimatedDualProgressBar({
+    super.key,
+    required this.majorProgress,
+    required this.minorProgress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+
+    return SizedBox(
+      height: 6,
+      child: Stack(
+        children: [
+          // Minor progress (back layer)
+          TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 0, end: 1 - minorProgress),
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              return LinearProgressIndicator(
+                value: value,
+                valueColor: AlwaysStoppedAnimation<Color>(color.withAlpha((0.5 * 255).toInt())),
+              );
+            },
+          ),
+
+          // Major progress (front layer)
+          TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 0, end: majorProgress),
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              return LinearProgressIndicator(
+                value: value,
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation<Color>(color.withAlpha((0.5 * 255).toInt())),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
