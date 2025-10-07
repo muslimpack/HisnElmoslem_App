@@ -33,9 +33,7 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
   }
 
   Future _load() async {
-    dbContent = await sl<HisnDBHelper>().getContentsByContentId(
-      contentId: widget.contentId,
-    );
+    dbContent = await sl<HisnDBHelper>().getContentsByContentId(contentId: widget.contentId);
 
     shareFadl = sl<ZikrViewerRepo>().shareFadl;
     shareSource = sl<ZikrViewerRepo>().shareSource;
@@ -67,9 +65,12 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 200),
+
       child: AlertDialog(
         scrollable: true,
         title: Text(S.of(context).shareZikr),
+        contentPadding: const EdgeInsets.all(16).copyWith(top: 0),
+        titlePadding: const EdgeInsets.all(16),
         content: isLoading
             ? const Center(child: CircularProgressIndicator())
             : Column(

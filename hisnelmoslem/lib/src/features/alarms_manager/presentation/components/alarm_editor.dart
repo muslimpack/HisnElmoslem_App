@@ -55,10 +55,7 @@ class _AlarmEditorState extends State<_AlarmEditor> {
   void initState() {
     super.initState();
     if (widget.isToEdit) {
-      _time = TimeOfDay.now().replacing(
-        hour: widget.dbAlarm.hour,
-        minute: widget.dbAlarm.minute,
-      );
+      _time = TimeOfDay.now().replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
 
       bodyController = TextEditingController(text: widget.dbAlarm.body);
       repeatType = widget.dbAlarm.repeatType;
@@ -82,96 +79,96 @@ class _AlarmEditorState extends State<_AlarmEditor> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(S.of(context).alarmEditor),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            widget.dbAlarm.title,
-            style: const TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            style: TextStyle(color: Theme.of(context).listTileTheme.textColor),
-            textAlign: TextAlign.center,
-            controller: bodyController,
-            maxLength: 100,
-            autofocus: true,
-            decoration: customInputDecoration.copyWith(
-              hintText: S.of(context).setMessageForYou,
-              labelText: S.of(context).setMessageForYou,
+      contentPadding: const EdgeInsets.all(16).copyWith(top: 0),
+      titlePadding: const EdgeInsets.all(16),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.dbAlarm.title,
+              style: const TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
             ),
-          ),
-          Card(
-            clipBehavior: Clip.hardEdge,
-            child: ListTile(
-              leading: const Icon(Icons.alarm),
-              title: Text(
-                selectedHour == null || selectedMinute == null
-                    ? S.of(context).clickToChooseTime
-                    : DateFormat("hh:mm a").format(
-                        DateTime(1, 1, 1, selectedHour!, selectedMinute!),
-                      ),
-                textAlign: TextAlign.center,
-                textDirection: TextDirection.ltr,
+            const SizedBox(height: 10),
+            TextField(
+              style: TextStyle(color: Theme.of(context).listTileTheme.textColor),
+              textAlign: TextAlign.center,
+              controller: bodyController,
+              maxLength: 100,
+              autofocus: true,
+              decoration: customInputDecoration.copyWith(
+                hintText: S.of(context).setMessageForYou,
+                labelText: S.of(context).setMessageForYou,
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  showPicker(
-                        context: context,
-                        value: Time(hour: _time.hour, minute: _time.minute),
-                        onChange: onTimeChanged,
-                        iosStylePicker: true,
-                        backgroundColor: Theme.of(
-                          context,
-                        ).scaffoldBackgroundColor,
-
-                        // Optional onChange to receive value as DateTime
-                        onChangeDateTime: (DateTime dateTime) {},
-                      )
-                      as Route,
-                );
-              },
             ),
-          ),
-          Card(
-            clipBehavior: Clip.hardEdge,
-            child: DropdownButton<AlarmRepeatType>(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              value: repeatType,
-              isExpanded: true,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 30,
+            Card(
+              clipBehavior: Clip.hardEdge,
+              child: ListTile(
+                leading: const Icon(Icons.alarm),
+                title: Text(
+                  selectedHour == null || selectedMinute == null
+                      ? S.of(context).clickToChooseTime
+                      : DateFormat(
+                          "hh:mm a",
+                        ).format(DateTime(1, 1, 1, selectedHour!, selectedMinute!)),
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    showPicker(
+                          context: context,
+                          value: Time(hour: _time.hour, minute: _time.minute),
+                          onChange: onTimeChanged,
+                          iosStylePicker: true,
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
-              underline: const SizedBox(),
-              // style: TextStyle(
-              //   color: Theme.of(context).listTileTheme.textColor,
-              // ),
-              // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-              onChanged: (AlarmRepeatType? newValue) {
-                if (newValue == null) return;
-                setState(() {
-                  repeatType = newValue;
-                });
-              },
-              items: AlarmRepeatType.values
-                  .map<DropdownMenuItem<AlarmRepeatType>>((
-                    AlarmRepeatType value,
-                  ) {
-                    return DropdownMenuItem<AlarmRepeatType>(
-                      // alignment: Alignment.center,
-                      value: value,
-                      child: Text(
-                        value.getUserFriendlyName(context),
-
-                        // textAlign: TextAlign.center,
-                      ),
-                    );
-                  })
-                  .toList(),
+                          // Optional onChange to receive value as DateTime
+                          onChangeDateTime: (DateTime dateTime) {},
+                        )
+                        as Route,
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+            Card(
+              clipBehavior: Clip.hardEdge,
+              child: DropdownButton<AlarmRepeatType>(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                value: repeatType,
+                isExpanded: true,
+                icon: const Icon(Icons.arrow_drop_down),
+                iconSize: 30,
+
+                underline: const SizedBox(),
+                // style: TextStyle(
+                //   color: Theme.of(context).listTileTheme.textColor,
+                // ),
+                // dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                onChanged: (AlarmRepeatType? newValue) {
+                  if (newValue == null) return;
+                  setState(() {
+                    repeatType = newValue;
+                  });
+                },
+                items: AlarmRepeatType.values.map<DropdownMenuItem<AlarmRepeatType>>((
+                  AlarmRepeatType value,
+                ) {
+                  return DropdownMenuItem<AlarmRepeatType>(
+                    // alignment: Alignment.center,
+                    value: value,
+                    child: Text(
+                      value.getUserFriendlyName(context),
+
+                      // textAlign: TextAlign.center,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -185,17 +182,12 @@ class _AlarmEditorState extends State<_AlarmEditor> {
             child: Text(
               S.of(context).delete,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).buttonTheme.colorScheme?.error,
-              ),
+              style: TextStyle(color: Theme.of(context).buttonTheme.colorScheme?.error),
             ),
             onPressed: () {
               Navigator.pop(
                 context,
-                EditorResult(
-                  value: widget.dbAlarm,
-                  action: EditorActionEnum.delete,
-                ),
+                EditorResult(value: widget.dbAlarm, action: EditorActionEnum.delete),
               );
             },
           ),
@@ -223,10 +215,7 @@ class _AlarmEditorState extends State<_AlarmEditor> {
                 if (widget.isToEdit) {
                   Navigator.pop(
                     context,
-                    EditorResult(
-                      value: editedAlarm,
-                      action: EditorActionEnum.edit,
-                    ),
+                    EditorResult(value: editedAlarm, action: EditorActionEnum.edit),
                   );
                 } else {
                   Navigator.pop(
