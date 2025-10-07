@@ -1,0 +1,199 @@
+name: Build and Release for GitHub
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger only on version tags (e.g. v3.0.0)
+
+jobs:
+# MARK: Android
+  build_android:
+    name: Build Android
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hisnelmoslem
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '18'
+
+      - name: Read Flutter version
+        id: flutter-version
+        run: echo "version=$(jq -r .flutter .fvmrc)" >> $GITHUB_OUTPUT
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('hisnelmoslem/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Setup Android Signing
+        run: |
+          echo "storeFile=keystore.jks" > android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Build APK
+        run: flutter build apk --flavor prod --release
+
+      - name: Build App Bundle
+        run: flutter build appbundle --flavor prod --release
+
+      - name: Rename artifacts
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          echo "VERSION_TAG=$version" >> $GITHUB_ENV
+          mv build/app/outputs/flutter-apk/app-prod-release.apk hisnelmoslem_${version}_android.apk
+          mv build/app/outputs/bundle/prodRelease/app-prod-release.aab hisnelmoslem_${version}_android.aab
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-release
+          path: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.apk
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab-release
+          path: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
+
+      - name: Zip debug symbols (if available)
+        working-directory: hisnelmoslem
+        run: |
+          DIR="build/app/intermediates/merged_native_libs/prodRelease/mergeProdReleaseNativeLibs/out/lib/"
+          OUT_ZIP="build/app/debug_symbols.zip"
+
+          if [ -d "$DIR" ]; then
+            echo "🧩 Found native libs in: $DIR"
+            # Get absolute path to output ZIP before changing directory
+            OUT_ZIP_ABS="$(pwd)/$OUT_ZIP"
+            # cd into the lib directory and zip its contents
+            cd "$DIR"
+            zip -r "$OUT_ZIP_ABS" .
+            cd -
+            echo "✅ Debug symbols zipped successfully: $OUT_ZIP_ABS"
+          else
+            echo "⚠️ No native debug symbols directory found at: $DIR"
+            mkdir -p "$(dirname $OUT_ZIP)"
+            touch "$OUT_ZIP"
+          fi
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.hassaneltantawy.hisnelmoslem
+          releaseFiles: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
+          track: production
+          mappingFile: hisnelmoslem/build/app/outputs/mapping/prodRelease/mapping.txt
+          debugSymbols: hisnelmoslem/build/app/debug_symbols.zip
+          whatsNewDirectory: distribution/whatsnew
+
+# # MARK: Windows
+  build_windows:
+    name: Build Windows
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: hisnelmoslem
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read Flutter version
+        id: flutter-version
+        shell: pwsh
+        run: echo "version=$(Get-Content -Path .fvmrc | ConvertFrom-Json | Select-Object -ExpandProperty flutter)" >> $env:GITHUB_OUTPUT
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows
+
+      - name: Package Windows build
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          $zipName = "hisnelmoslem_${version}_windows.zip"
+
+          mkdir hisnelmoslem
+          Copy-Item -Recurse build/windows/x64/runner/Release/* hisnelmoslem/
+          Compress-Archive -Path hisnelmoslem -DestinationPath $zipName
+
+          echo "ZIP_NAME=$zipName" >> $env:GITHUB_ENV
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hisnelmoslem_${{ github.ref_name }}_windows
+          path: hisnelmoslem/hisnelmoslem
+          
+# MARK: GitHub Release
+  create_release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build_android, build_windows]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: apk-release
+          path: .
+
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aab-release
+          path: .
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-release
+          path: .
+
+      - name: Extract version tag
+        run: echo "VERSION_TAG=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: "Release ${{ github.ref_name }}"
+          body_path: CHANGELOG.md
+          generate_release_notes: true
+          files: |
+            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.apk
+            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
+            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_windows.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
