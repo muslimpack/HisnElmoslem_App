@@ -76,39 +76,40 @@ jobs:
           name: aab-release
           path: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
 
-      - name: Zip debug symbols (if available)
-        working-directory: hisnelmoslem
-        run: |
-          DIR="build/app/intermediates/merged_native_libs/prodRelease/mergeProdReleaseNativeLibs/out/lib/"
-          OUT_ZIP="build/app/debug_symbols.zip"
+      # - name: Zip debug symbols (if available)
+        # working-directory: hisnelmoslem
+        # run: |
+        #   DIR="build/app/intermediates/merged_native_libs/prodRelease/mergeProdReleaseNativeLibs/out/lib/"
+        #   OUT_ZIP="build/app/debug_symbols.zip"
 
-          if [ -d "$DIR" ]; then
-            echo "🧩 Found native libs in: $DIR"
-            # Get absolute path to output ZIP before changing directory
-            OUT_ZIP_ABS="$(pwd)/$OUT_ZIP"
-            # cd into the lib directory and zip its contents
-            cd "$DIR"
-            zip -r "$OUT_ZIP_ABS" .
-            cd -
-            echo "✅ Debug symbols zipped successfully: $OUT_ZIP_ABS"
-          else
-            echo "⚠️ No native debug symbols directory found at: $DIR"
-            mkdir -p "$(dirname $OUT_ZIP)"
-            touch "$OUT_ZIP"
-          fi
+        #   if [ -d "$DIR" ]; then
+        #     echo "🧩 Found native libs in: $DIR"
+        #     # Get absolute path to output ZIP before changing directory
+        #     OUT_ZIP_ABS="$(pwd)/$OUT_ZIP"
+        #     # cd into the lib directory and zip its contents
+        #     cd "$DIR"
+        #     zip -r "$OUT_ZIP_ABS" .
+        #     cd -
+        #     echo "✅ Debug symbols zipped successfully: $OUT_ZIP_ABS"
+        #   else
+        #     echo "⚠️ No native debug symbols directory found at: $DIR"
+        #     mkdir -p "$(dirname $OUT_ZIP)"
+        #     touch "$OUT_ZIP"
+        #   fi
 
-      - name: Upload to Google Play
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          packageName: com.hassaneltantawy.hisnelmoslem
-          releaseFiles: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
-          track: production
-          mappingFile: hisnelmoslem/build/app/outputs/mapping/prodRelease/mapping.txt
-          debugSymbols: hisnelmoslem/build/app/debug_symbols.zip
-          whatsNewDirectory: distribution/whatsnew
+# MARK: Google Play
+      # - name: Upload to Google Play
+      #   uses: r0adkll/upload-google-play@v1
+      #   with:
+      #     serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+      #     packageName: com.hassaneltantawy.hisnelmoslem
+      #     releaseFiles: hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
+      #     track: production
+      #     mappingFile: hisnelmoslem/build/app/outputs/mapping/prodRelease/mapping.txt
+      #     debugSymbols: hisnelmoslem/build/app/debug_symbols.zip
+      #     whatsNewDirectory: distribution/whatsnew
 
-# # MARK: Windows
+# MARK: Windows
   build_windows:
     name: Build Windows
     runs-on: windows-latest
@@ -150,8 +151,8 @@ jobs:
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hisnelmoslem_${{ github.ref_name }}_windows
-          path: hisnelmoslem/hisnelmoslem
+          name: windows-release  # ← Match the download name
+          path: hisnelmoslem/${{ env.ZIP_NAME }}
           
 # MARK: GitHub Release
   create_release:
@@ -192,8 +193,8 @@ jobs:
           body_path: CHANGELOG.md
           generate_release_notes: true
           files: |
-            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.apk
-            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
-            hisnelmoslem/hisnelmoslem_${{ env.VERSION_TAG }}_windows.zip
+            hisnelmoslem_${{ env.VERSION_TAG }}_android.apk
+            hisnelmoslem_${{ env.VERSION_TAG }}_android.aab
+            hisnelmoslem_${{ env.VERSION_TAG }}_windows.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
