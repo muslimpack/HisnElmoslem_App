@@ -116,21 +116,10 @@ class TallyCounterView extends StatelessWidget {
                   Expanded(
                     child: GradientWidget(
                       FittedBox(
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          transitionBuilder: (Widget child, Animation<double> animation) {
-                            // Combined fade + scale animation
-                            return ScaleTransition(
-                              scale: CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
-                              child: FadeTransition(opacity: animation, child: child),
-                            );
-                          },
-                          child: Text(
-                            key: ValueKey<int>(activeCounter.count),
-                            '${activeCounter.count}'.toArabicNumber(),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                          ),
+                        child: Text(
+                          '${activeCounter.count}'.toArabicNumber(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                         ),
                       ),
                       gradient: LinearGradient(
