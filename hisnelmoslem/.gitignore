@@ -49,3 +49,6 @@ app.*.map.json
 .fvm/
 
 /tools/output
+
+# macOS system files
+.DS_Store
