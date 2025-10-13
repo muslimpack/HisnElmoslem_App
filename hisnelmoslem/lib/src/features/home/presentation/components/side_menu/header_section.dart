@@ -5,9 +5,7 @@ import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 
 class HeaderSection extends StatelessWidget {
-  const HeaderSection({
-    super.key,
-  });
+  const HeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +27,8 @@ class HeaderSection extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    "${S.of(context).version}: $kAppVersion",
-                  ),
-                  if (!PlatformExtension.isDesktop)
-                    const ToggleBrightnessButton(),
+                  Text("${S.of(context).version}: ${appVersionWithBuild()}"),
+                  if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
                 ],
               ),
             ],

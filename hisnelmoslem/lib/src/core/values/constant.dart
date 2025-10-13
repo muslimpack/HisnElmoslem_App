@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 //TODO App Version | Change every release
-const String kAppVersion = "3.0.0";
+String appVersion() {
+  return sl<PackageInfo>().version;
+}
+
+String appVersionWithBuild() {
+  return "${sl<PackageInfo>().version} (${sl<PackageInfo>().buildNumber})";
+}
 
 String kAppStorageKey = PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
 

@@ -41,6 +41,7 @@ dependencies:
   infinite_scroll_pagination: ^4.1.0
   intl: ^0.20.2
   material_design_icons_flutter: ^7.0.7296
+  package_info_plus: ^9.0.0
   path: ^1.9.1
   path_provider: ^2.1.5
   rxdart: ^0.28.0

@@ -36,6 +36,7 @@ import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/t
 import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 final sl = GetIt.instance;
 
@@ -68,6 +69,8 @@ Future<void> initSL() async {
   sl.registerFactory(() => AwesomeNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
   sl.registerFactory(() => VolumeButtonManager());
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  sl.registerFactory<PackageInfo>(() => packageInfo);
 
   ///MARK: Init BLOC
 
@@ -86,7 +89,5 @@ Future<void> initSL() async {
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
-  sl.registerFactory(
-    () => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
-  );
+  sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
 }
