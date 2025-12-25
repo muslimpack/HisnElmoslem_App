@@ -62,5 +62,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allows saving files if needed.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows file selection if needed.</string>
 </dict>
 </plist>
