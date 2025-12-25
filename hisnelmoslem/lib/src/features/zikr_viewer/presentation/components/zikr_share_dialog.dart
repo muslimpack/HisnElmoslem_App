@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
@@ -131,11 +132,25 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
               showToast(msg: S.of(context).copiedToClipboard);
             },
           ),
-          IconButton(
-            tooltip: S.of(context).share,
-            icon: const Icon(Icons.share),
-            onPressed: () async {
-              await SharePlus.instance.share(ShareParams(text: shareText));
+          Builder(
+            builder: (context) {
+              return IconButton(
+                tooltip: S.of(context).share,
+                icon: const Icon(Icons.share),
+                onPressed: () async {
+                  try {
+                    final box = context.findRenderObject()! as RenderBox;
+                    await SharePlus.instance.share(
+                      ShareParams(
+                        text: shareText,
+                        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+                      ),
+                    );
+                  } catch (e) {
+                    hisnPrint(e);
+                  }
+                },
+              );
             },
           ),
         ],

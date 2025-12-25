@@ -14,10 +14,7 @@ class FakeHadithToggleHadithEvent extends FakeHadithEvent {
   final DbFakeHaith fakeHadith;
   final bool isRead;
 
-  const FakeHadithToggleHadithEvent({
-    required this.fakeHadith,
-    required this.isRead,
-  });
+  const FakeHadithToggleHadithEvent({required this.fakeHadith, required this.isRead});
 
   @override
   List<Object> get props => [isRead, fakeHadith];
@@ -34,11 +31,12 @@ class FakeHadithShareHadithEvent extends FakeHadithEvent {
 
 class FakeHadithCopyHadithEvent extends FakeHadithEvent {
   final DbFakeHaith fakeHadith;
+  final Rect positionForIpad;
 
-  const FakeHadithCopyHadithEvent({required this.fakeHadith});
+  const FakeHadithCopyHadithEvent({required this.fakeHadith, required this.positionForIpad});
 
   @override
-  List<Object> get props => [fakeHadith];
+  List<Object> get props => [fakeHadith, positionForIpad];
 }
 
 class FakeHadithReportHadithEvent extends FakeHadithEvent {
