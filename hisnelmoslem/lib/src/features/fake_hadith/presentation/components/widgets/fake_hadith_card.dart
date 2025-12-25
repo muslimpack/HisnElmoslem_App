@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
@@ -26,26 +27,17 @@ class FakeHadithCard extends StatelessWidget {
           InkWell(
             onTap: () {
               context.read<FakeHadithBloc>().add(
-                FakeHadithToggleHadithEvent(
-                  fakeHadith: fakeHadith,
-                  isRead: !fakeHadith.isRead,
-                ),
+                FakeHadithToggleHadithEvent(fakeHadith: fakeHadith, isRead: !fakeHadith.isRead),
               );
             },
             onLongPress: () {
               final snackBar = SnackBar(
-                content: Text(
-                  fakeHadith.source,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                ),
+                content: Text(fakeHadith.source, textAlign: TextAlign.center, softWrap: true),
                 action: SnackBarAction(
                   label: S.of(context).copy,
                   onPressed: () async {
                     // Some code to undo the change.
-                    await Clipboard.setData(
-                      ClipboardData(text: fakeHadith.source),
-                    );
+                    await Clipboard.setData(ClipboardData(text: fakeHadith.source));
                   },
                 ),
               );
@@ -98,12 +90,23 @@ class _TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         if (!fakeHadith.isRead) const Icon(Icons.check) else const Icon(Icons.checklist),
-        IconButton(
-          tooltip: S.of(context).copy,
-          icon: const Icon(Icons.copy),
-          onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithCopyHadithEvent(fakeHadith: fakeHadith),
+        Builder(
+          builder: (context) {
+            return IconButton(
+              tooltip: S.of(context).copy,
+              icon: const Icon(Icons.copy),
+              onPressed: () {
+                try {
+                  final box = context.findRenderObject()! as RenderBox;
+
+                  final Rect position = box.localToGlobal(Offset.zero) & box.size;
+                  context.read<FakeHadithBloc>().add(
+                    FakeHadithCopyHadithEvent(fakeHadith: fakeHadith, positionForIpad: position),
+                  );
+                } catch (e) {
+                  hisnPrint(e);
+                }
+              },
             );
           },
         ),
@@ -132,18 +135,14 @@ class _TopBar extends StatelessWidget {
           tooltip: S.of(context).share,
           icon: const Icon(Icons.share),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithShareHadithEvent(fakeHadith: fakeHadith),
-            );
+            context.read<FakeHadithBloc>().add(FakeHadithShareHadithEvent(fakeHadith: fakeHadith));
           },
         ),
         IconButton(
           tooltip: S.of(context).report,
           icon: const Icon(Icons.report_outlined, color: Colors.orange),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithReportHadithEvent(fakeHadith: fakeHadith),
-            );
+            context.read<FakeHadithBloc>().add(FakeHadithReportHadithEvent(fakeHadith: fakeHadith));
           },
         ),
       ],
