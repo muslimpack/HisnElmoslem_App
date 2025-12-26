@@ -3,13 +3,12 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 
 void hisnPrint(Object? object) {
-  final fileNameAndLine = getFileNameAndLine();
-  final methodName = getCurrentMethodName2();
-  printColor(
-    object,
-    color: PrintColors.green,
-    name: "$methodName=>$fileNameAndLine",
-  );
+  final location = getFileNameAndLine();
+  final method = getCurrentMethodName();
+
+  final prettyLog = '''${location.replaceAll("package:hisnelmoslem/", "lib/")} | $method''';
+
+  printColor(object, color: PrintColors.green, name: "HISN] [$prettyLog");
 }
 
 void printColor(Object? object, {int color = 0, String name = "HISN"}) {
@@ -21,63 +20,33 @@ void printColor(Object? object, {int color = 0, String name = "HISN"}) {
 
 String getCurrentMethodName() {
   final frames = StackTrace.current.toString().split('\n');
-  final frame = frames.elementAtOrNull(1);
+  final frame = frames.elementAtOrNull(2) ?? "";
 
-  if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
+  // Extract something like: ClassName.methodName
+  final regex = RegExp(r'#\d+\s+([A-Za-z0-9_<>]+)\.([A-Za-z0-9_<>]+)');
+  final match = regex.firstMatch(frame);
 
-    final methodName = tokens.elementAtOrNull(tokens.length - 2);
-    if (methodName != null) {
-      final methodTokens = methodName.split('.');
-      return methodTokens.length >= 2 &&
-              methodTokens[1] != '<anonymous_closure>'
-          ? (methodTokens.elementAtOrNull(1) ?? '')
-          : methodName;
-    }
+  if (match != null) {
+    return "${match.group(1)}.${match.group(2)}";
   }
-  return '';
-}
 
-String getCurrentMethodName2() {
-  final frames = StackTrace.current.toString().split('\n');
-  final frame = frames.elementAtOrNull(2);
-
-  if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
-
-    final methodName = tokens.elementAtOrNull(tokens.length - 2);
-    if (methodName != null) {
-      final methodTokens = methodName.split('.');
-      return methodTokens.length >= 2 &&
-              methodTokens[1] != '<anonymous_closure>'
-          ? (methodTokens.elementAtOrNull(1) ?? '')
-          : methodName;
-    }
-  }
-  return '';
+  return "UnknownMethod";
 }
 
 String getFileNameAndLine() {
   final frames = StackTrace.current.toString().split('\n');
-  final frame = frames.elementAtOrNull(2);
-  // final frame = frames.elementAtOrNull(1);
+  final frame = frames.elementAtOrNull(2) ?? "";
 
-  if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
+  final regex = RegExp(r'\((.*?):(\d+):(\d+)\)');
+  final match = regex.firstMatch(frame);
 
-    final methodName = tokens.elementAtOrNull(tokens.length - 1);
-    if (methodName != null) {
-      final methodTokens = methodName.split('/').last.replaceAll(")", "");
-      return methodTokens;
-    }
-  }
-  return '';
+  if (match == null) return "unknown_file";
+
+  final fullPath = match.group(1) ?? "";
+  final line = match.group(2) ?? "";
+  final col = match.group(3) ?? "";
+
+  return "$fullPath:$line:$col";
 }
 
 class PrintColors {
