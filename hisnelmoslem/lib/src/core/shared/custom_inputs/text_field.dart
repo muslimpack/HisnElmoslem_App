@@ -24,10 +24,7 @@ class UserTextField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         onChanged: onChange,
-        decoration: customInputDecoration.copyWith(
-          hintText: hintText,
-          labelText: hintText,
-        ),
+        decoration: customInputDecoration.copyWith(hintText: hintText, labelText: hintText),
       ),
     );
   }
@@ -39,6 +36,7 @@ class UserTextFormField extends StatelessWidget {
   final String hintText;
   final Function(String)? onChange;
   final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
 
   const UserTextFormField({
     super.key,
@@ -47,6 +45,7 @@ class UserTextFormField extends StatelessWidget {
     this.onChange,
     this.validator,
     this.autoFocus = false,
+    this.textInputAction,
   });
 
   @override
@@ -58,10 +57,8 @@ class UserTextFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         onChanged: onChange,
-        decoration: customInputDecoration.copyWith(
-          hintText: hintText,
-          labelText: hintText,
-        ),
+        textInputAction: textInputAction,
+        decoration: customInputDecoration.copyWith(hintText: hintText, labelText: hintText),
         validator: validator,
       ),
     );
