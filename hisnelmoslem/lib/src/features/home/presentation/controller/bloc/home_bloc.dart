@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
@@ -71,6 +70,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         dashboardArrangement: appSettingsRepo.dashboardArrangement,
         freqFilters: appSettingsRepo.getTitlesFreqFilterStatus,
         bookmarkedTitlesIds: bookmarkedTitlesIds,
+        isDrawerOpen: false,
       ),
     );
   }
@@ -83,11 +83,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _toggleDrawer(HomeToggleDrawerEvent event, Emitter<HomeState> emit) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
     zoomDrawerController.toggle?.call(forceToggle: true);
-    final isOpen = zoomDrawerController.isOpen;
-    hisnPrint(isOpen?.call());
-    zoomDrawerController.open?.call();
-    hisnPrint(isOpen?.call());
+    emit(state.copyWith(isDrawerOpen: !state.isDrawerOpen));
   }
 
   Future<void> _onDashboardReorded(

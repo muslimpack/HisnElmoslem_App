@@ -16,59 +16,62 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const HeaderSection(),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      DrawerCard(
-                        child: ListTile(
-                          leading: Icon(MdiIcons.counter),
-                          title: Text(S.of(context).tally),
+    return ColoredBox(
+      color: Theme.of(context).colorScheme.primaryContainer.withAlpha(25),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const HeaderSection(),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        DrawerCard(
+                          child: ListTile(
+                            leading: Icon(MdiIcons.counter),
+                            title: Text(S.of(context).tally),
+                            onTap: () {
+                              context.push(const TallyDashboardScreen());
+                            },
+                          ),
+                        ),
+                        const DrawerDivider(),
+                        const QuranSection(),
+                        const DrawerDivider(),
+                        ListTile(
+                          leading: const Icon(Icons.menu_book),
+                          title: Text(S.of(context).fakeHadith),
                           onTap: () {
-                            context.push(const TallyDashboardScreen());
+                            context.push(const FakeHadithDashboardScreen());
                           },
                         ),
-                      ),
-                      const DrawerDivider(),
-                      const QuranSection(),
-                      const DrawerDivider(),
-                      ListTile(
-                        leading: const Icon(Icons.menu_book),
-                        title: Text(S.of(context).fakeHadith),
-                        onTap: () {
-                          context.push(const FakeHadithDashboardScreen());
-                        },
-                      ),
-                      const DrawerDivider(),
-                      DrawerCard(
-                        child: ListTile(
-                          leading: const Icon(Icons.settings),
-                          title: Text(S.of(context).settings),
-                          onTap: () {
-                            context.push(const SettingsScreen());
-                          },
+                        const DrawerDivider(),
+                        DrawerCard(
+                          child: ListTile(
+                            leading: const Icon(Icons.settings),
+                            title: Text(S.of(context).settings),
+                            onTap: () {
+                              context.push(const SettingsScreen());
+                            },
+                          ),
                         ),
-                      ),
-                      const DrawerDivider(),
-                      const MoreSection(),
-                    ],
+                        const DrawerDivider(),
+                        const MoreSection(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const FooterSection(),
-        ],
+            const FooterSection(),
+          ],
+        ),
       ),
     );
   }
