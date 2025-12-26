@@ -8,6 +8,7 @@ class UserTextFormField extends StatelessWidget {
   final int? maxLines;
   final Function(String)? onChange;
   final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
 
   const UserTextFormField({
     super.key,
@@ -17,6 +18,7 @@ class UserTextFormField extends StatelessWidget {
     this.validator,
     this.maxLines,
     this.autoFocus = false,
+    this.textInputAction,
   });
 
   @override
@@ -28,6 +30,7 @@ class UserTextFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         onChanged: onChange,
+        textInputAction: textInputAction,
         maxLines: maxLines,
         decoration: customInputDecoration(
           context,
