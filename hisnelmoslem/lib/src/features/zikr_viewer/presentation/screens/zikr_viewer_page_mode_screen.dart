@@ -14,7 +14,13 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(state.title.name),
-            actions: [BookmarkTitleButton(titleId: state.title.id)],
+            actions: [
+              AnimatedZikrProgressCounter(
+                currentIndex: state.activeZikrIndex,
+                totalCount: state.azkarToView.length,
+              ),
+              BookmarkTitleButton(titleId: state.title.id),
+            ],
             bottom: state.activeZikr == null
                 ? null
                 : const PreferredSize(

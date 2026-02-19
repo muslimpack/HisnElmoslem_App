@@ -43,6 +43,10 @@ class ThemeState extends Equatable {
         colorSchemeSeed: color,
         fontFamily: fontFamily,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: appBarTheme(),
+        actionIconTheme: ActionIconThemeData(
+          backButtonIconBuilder: (context) => const AppBackButton(),
+        ),
       );
     }
     return ThemeData(
@@ -51,10 +55,18 @@ class ThemeState extends Equatable {
         brightness: appBrightness,
         surface: overrideBackgroundColor ? backgroundColor : null,
       ),
+      appBarTheme: appBarTheme(),
       useMaterial3: useMaterial3,
       fontFamily: fontFamily,
       visualDensity: VisualDensity.adaptivePlatformDensity,
+      actionIconTheme: ActionIconThemeData(
+        backButtonIconBuilder: (context) => const AppBackButton(),
+      ),
     );
+  }
+
+  AppBarTheme appBarTheme() {
+    return const AppBarTheme(scrolledUnderElevation: 10, elevation: 0, centerTitle: true);
   }
 
   ThemeState copyWith({
@@ -73,8 +85,7 @@ class ThemeState extends Equatable {
       deviceBrightness: deviceBrightness ?? this.deviceBrightness,
       useMaterial3: useMaterial3 ?? this.useMaterial3,
       backgroundColor: backgroundColor ?? this.backgroundColor,
-      overrideBackgroundColor:
-          overrideBackgroundColor ?? this.overrideBackgroundColor,
+      overrideBackgroundColor: overrideBackgroundColor ?? this.overrideBackgroundColor,
       useOldTheme: useOldTheme ?? this.useOldTheme,
       fontFamily: fontFamily ?? this.fontFamily,
       locale: locale ?? this.locale,

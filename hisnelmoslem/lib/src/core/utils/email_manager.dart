@@ -56,7 +56,7 @@ ${SX.current.shouldBe}:
 
   static Future<void> sendEmail({required Email email}) async {
     final emailToSend = email.copyWith(
-      subject: "${SX.current.appTitle} | ${email.subject} | v$kAppVersion",
+      subject: "${SX.current.appTitle} | ${email.subject} | v${appVersion()}",
     );
 
     final uri = emailToSend.getURI;

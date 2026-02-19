@@ -14,21 +14,16 @@ class ErrorScreen extends StatelessWidget {
   final FlutterErrorDetails details;
   const ErrorScreen({super.key, required this.details});
 
-  Future<void> emailTheError(
-    BuildContext context,
-    FlutterErrorDetails error,
-  ) async {
+  Future<void> emailTheError(BuildContext context, FlutterErrorDetails error) async {
     // get receiver
     const String emailReceiver = kOrgEmail;
     try {
       final String fullErrorDetails = generateErrorReport(error);
 
-      final String errorReportFilePath = await writeToTextFile(
-        fullErrorDetails,
-      );
+      final String errorReportFilePath = await writeToTextFile(fullErrorDetails);
       final Email email = Email(
         body: 'حدث خطأ غير متوقع أثناء استخدام التطبيق.',
-        subject: 'حصن المسلم | خلل في الأداء | $kAppVersion',
+        subject: 'حصن المسلم | خلل في الأداء | ${appVersion()}',
         recipients: [emailReceiver],
         attachmentPaths: [errorReportFilePath],
       );
@@ -55,7 +50,7 @@ class ErrorScreen extends StatelessWidget {
     buffer.writeln(lineBreaker);
 
     ///
-    buffer.writeln('App Version: $kAppVersion');
+    buffer.writeln('App Version: ${appVersion()}');
     buffer.writeln('Operating System: ${Platform.operatingSystem}');
     buffer.writeln(lineBreaker);
 
@@ -103,25 +98,17 @@ class ErrorScreen extends StatelessWidget {
               const Icon(Icons.error, color: Colors.red, size: 80),
               Text(
                 S.of(context).errorOccurred,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.4,
-                ),
+                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.4),
                 child: Card(
                   elevation: 0,
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Scrollbar(
                       child: SingleChildScrollView(
-                        child: Text(
-                          errorMessage,
-                          style: const TextStyle(color: Colors.grey),
-                        ),
+                        child: Text(errorMessage, style: const TextStyle(color: Colors.grey)),
                       ),
                     ),
                   ),

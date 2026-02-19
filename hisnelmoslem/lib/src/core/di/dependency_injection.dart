@@ -38,6 +38,7 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player_dart/data/repository
 import 'package:hisnelmoslem/src/features/zikr_audio_player_dart/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 final sl = GetIt.instance;
 
@@ -71,6 +72,8 @@ Future<void> initSL() async {
   sl.registerFactory(() => AwesomeNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
   sl.registerFactory(() => VolumeButtonManager());
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  sl.registerFactory<PackageInfo>(() => packageInfo);
 
   ///MARK: Init BLOC
 

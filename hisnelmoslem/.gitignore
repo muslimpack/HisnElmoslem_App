@@ -48,4 +48,7 @@ app.*.map.json
 # FVM Version Cache
 .fvm/
 
-/tools/output/
+/tools/output
+
+# macOS system files
+.DS_Store

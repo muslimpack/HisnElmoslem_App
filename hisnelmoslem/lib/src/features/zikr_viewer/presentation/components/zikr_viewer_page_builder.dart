@@ -35,6 +35,7 @@ class ZikrViewerPageBuilder extends StatelessWidget {
           Center(
             child: FittedBox(
               child: Text(
+                key: ValueKey<int>(dbContent.count),
                 isDone ? S.of(context).done : "${dbContent.count}".toArabicNumber(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary.withAlpha((.02 * 255).round()),
