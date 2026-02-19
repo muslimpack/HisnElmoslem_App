@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:hisnelmoslem/src/features/zikr_audio_player_dart/data/models/audio_delay_type_enum.dart';
-import 'package:hisnelmoslem/src/features/zikr_audio_player_dart/data/models/audio_repeat_type_enum.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_repeat_type_enum.dart';
 
 class ZikrAudioPlayerRepo {
   final GetStorage box;
