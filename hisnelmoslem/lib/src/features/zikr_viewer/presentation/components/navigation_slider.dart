@@ -20,16 +20,18 @@ class NavigationSlider extends StatelessWidget {
               child: Text("${state.activeZikrIndex + 1}"),
             ),
             Expanded(
-              child: Slider(
-                divisions: state.azkarToView.length - 1,
-                label: "${state.activeZikrIndex + 1}",
-                secondaryTrackValue: state.activeZikrIndex.toDouble(),
-                max: (state.azkarToView.length - 1).toDouble(),
-                value: state.activeZikrIndex.toDouble(),
-                onChanged: (value) {
-                  context.read<ZikrViewerBloc>().pageController.jumpToPage(value.toInt());
-                },
-              ),
+              child: state.azkarToView.length < 2
+                  ? const SizedBox()
+                  : Slider(
+                      divisions: state.azkarToView.length - 1,
+                      label: "${state.activeZikrIndex + 1}",
+                      secondaryTrackValue: state.activeZikrIndex.toDouble(),
+                      max: (state.azkarToView.length - 1).toDouble(),
+                      value: state.activeZikrIndex.toDouble(),
+                      onChanged: (value) {
+                        context.read<ZikrViewerBloc>().pageController.jumpToPage(value.toInt());
+                      },
+                    ),
             ),
             ConstrainedBox(
               constraints: const BoxConstraints(minWidth: 20),

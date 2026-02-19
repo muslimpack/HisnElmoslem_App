@@ -6,7 +6,7 @@ import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effect
 import 'package:vibration/vibration.dart';
 
 class EffectsManager {
-  final player = AudioPlayer();
+  final _player = AudioPlayer(playerId: "effectsManagerPlayer");
 
   final EffectsManagerRepo _effectsManagerRepo;
   EffectsManager(this._effectsManagerRepo);
@@ -15,10 +15,10 @@ class EffectsManager {
 
   Future _playSound(AssetSource source) async {
     try {
-      await player.stop();
-      await player.setSource(source);
-      await player.setVolume(_effectsManagerRepo.soundEffectVolume);
-      await player.resume();
+      hisnPrint(_player.playerId);
+      await _player.stop();
+      await _player.setVolume(_effectsManagerRepo.soundEffectVolume);
+      await _player.play(source);
     } catch (e) {
       hisnPrint(e);
     }
@@ -39,33 +39,33 @@ class EffectsManager {
   ///MARK: Play vibration
 
   Future<void> playPraiseVibratation() async {
-    await Vibration.hasCustomVibrationsSupport().then(
-      (value) => {
-        if (value)
-          {Vibration.vibrate(duration: 100)}
-        else
-          {HapticFeedback.lightImpact()},
-      },
-    );
+    final value = await Vibration.hasCustomVibrationsSupport();
+
+    if (value) {
+      await Vibration.vibrate(duration: 100);
+    } else {
+      await HapticFeedback.lightImpact();
+    }
   }
 
   Future<void> playZikrVibratation() async {
-    await Vibration.hasCustomVibrationsSupport().then(
-      (value) => {
-        if (value)
-          {Vibration.vibrate(duration: 300)}
-        else
-          {HapticFeedback.mediumImpact()},
-      },
-    );
+    final value = await Vibration.hasCustomVibrationsSupport();
+
+    if (value) {
+      await Vibration.vibrate(duration: 300);
+    } else {
+      await HapticFeedback.mediumImpact();
+    }
   }
 
   Future<void> playTitleVibratation() async {
-    await Vibration.hasCustomVibrationsSupport().then(
-      (value) => {
-        if (value) {Vibration.vibrate()} else {HapticFeedback.heavyImpact()},
-      },
-    );
+    final value = await Vibration.hasCustomVibrationsSupport();
+
+    if (value) {
+      await Vibration.vibrate();
+    } else {
+      await HapticFeedback.heavyImpact();
+    }
   }
 
   //////////////////////////////

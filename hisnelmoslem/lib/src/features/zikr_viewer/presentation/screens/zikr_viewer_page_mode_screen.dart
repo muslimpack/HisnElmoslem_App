@@ -30,7 +30,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
               return ZikrViewerPageBuilder(dbContent: state.azkarToView[index]);
             },
           ),
-          bottomNavigationBar: state.activeZikr == null || (state.azkarToView.length < 3)
+          bottomNavigationBar: state.activeZikr == null
               ? null
               : ZikrViewerPageModeBottomBar(dbContent: state.activeZikr!),
 
