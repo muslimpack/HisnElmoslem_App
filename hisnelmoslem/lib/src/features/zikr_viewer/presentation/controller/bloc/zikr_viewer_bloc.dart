@@ -28,6 +28,11 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 part 'zikr_viewer_event.dart';
 part 'zikr_viewer_state.dart';
 
+class ZikrViewerAudioDelayStateChangedEvent extends ZikrViewerEvent {
+  final bool isDelaying;
+  const ZikrViewerAudioDelayStateChangedEvent(this.isDelaying);
+}
+
 class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
   final EffectsManager effectsManager;
@@ -85,6 +90,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerReportZikrEvent>(_report);
 
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
+
+    on<ZikrViewerAudioDelayStateChangedEvent>(_audioDelayStateChanged);
   }
 
   Future<void> _start(
@@ -121,6 +128,18 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         add(ZikrViewerDecreaseZikrEvent(content: zikr));
       },
     );
+
+    StreamSubscription? audioStateSubscription;
+    audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
+      if (isClosed) {
+        audioStateSubscription?.cancel();
+        return;
+      }
+      add(
+        ZikrViewerAudioDelayStateChangedEvent(audioState.isDelayingBetweenZikr),
+      );
+    });
+
     emit(
       ZikrViewerLoadedState(
         title: title,
@@ -203,6 +222,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
+    // Optional: If the user swipes, the audio player should match the current page if it's playing.
+    // If the audio player index doesn't match the new page index, we might need to sync.
+    if (zikrAudioPlayerCubit.state.isPlaying &&
+        zikrAudioPlayerCubit.state.currentIndex != event.index) {
+      zikrAudioPlayerCubit.startPlayFromIndex(event.index);
+    }
+
     emit(state.copyWith(activeZikrIndex: event.index));
   }
 
@@ -244,15 +270,45 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     }
 
     if (count <= 1) {
-      if (pageController.hasClients) {
-        pageController.nextPage(
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 350),
-        );
+      if (!state.isAudioDelaying) {
+        _turnPage();
       }
     }
 
     emit(state.copyWith(azkarToView: azkarToView));
+  }
+
+  void _turnPage() {
+    if (pageController.hasClients) {
+      final state = this.state;
+      if (state is ZikrViewerLoadedState) {
+        if (state.activeZikrIndex < state.azkarToView.length - 1) {
+          pageController.nextPage(
+            curve: Curves.easeIn,
+            duration: const Duration(milliseconds: 350),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _audioDelayStateChanged(
+    ZikrViewerAudioDelayStateChangedEvent event,
+    Emitter<ZikrViewerState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! ZikrViewerLoadedState) return;
+
+    emit(state.copyWith(isAudioDelaying: event.isDelaying));
+
+    // If the delay just finished, and the current active zikr is completely done (count == 0),
+    // we should turn the page now.
+    if (!event.isDelaying) {
+      final activeZikr = state.activeZikr;
+      if (activeZikr != null && activeZikr.count == 0) {
+        _turnPage();
+      }
+    }
   }
 
   Future<void> _resetActiveZikr(

@@ -111,30 +111,49 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final currentZikr = state.currentZikr;
     if (currentZikr == null) return;
 
-    onDonePlaying?.call(currentZikr);
-
-    emit(
-      state.copyWith(
-        zikrList: List.of(state.zikrList)
-          ..[state.currentIndex] = currentZikr.copyWith(
-            count: currentZikr.count - 1,
-          ),
-      ),
-    );
-
-    if (state.currentZikr!.count > 0 &&
+    if (state.currentZikr!.count > 1 &&
         state.repeatType == AudioRepeatTypeEnum.byZikrCount) {
       hisnPrint('count: ${state.currentZikr!.count}');
+
+      emit(state.copyWith(isDelayingBetweenZikr: true));
       await _handleDelayAndWait();
+      emit(state.copyWith(isDelayingBetweenZikr: false));
+
       if (!state.isPlaying || state.isPaused || isClosed) return;
+
+      // Decrease count in Bloc after delay. It won't turn page because count > 1
+      onDonePlaying?.call(currentZikr);
+
       playZikrAt(state.currentIndex);
       return;
     }
 
     if (state.autoPlay) {
+      emit(state.copyWith(isDelayingBetweenZikr: true));
       await _handleDelayAndWait();
-      if (!state.isPlaying || state.isPaused || isClosed) return;
+
+      if (!state.isPlaying || state.isPaused || isClosed) {
+        emit(state.copyWith(isDelayingBetweenZikr: false));
+        return;
+      }
+
+      // Finish this current zikr totally and pass the baton. This will decrease count to 0.
+      // Since isDelayingBetweenZikr is TRUE, `_decreaaseActiveZikr` won't call `_turnPage` immediately.
+      onDonePlaying?.call(currentZikr);
+
+      // Wait a tiny bit for the Bloc to update its state
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      emit(state.copyWith(isDelayingBetweenZikr: false));
+      // Now the Bloc receives `isDelayingBetweenZikr = false` and explicitly triggers `_turnPage()`.
+      // Which triggers `_pageChange`, which syncs index if needed.
+      // So we don't need to manually call `_playNextZikr()` here if `_pageChange` will sync it anyway!
+      // But just to be safe, `_playNextZikr` will advance the cubit's internal index.
+
       await _playNextZikr();
+    } else {
+      // If no autoplay, just finish the zikr track.
+      onDonePlaying?.call(currentZikr);
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/components/zikr_audio_settings_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 class ZikrAudioPlayerBar extends StatelessWidget {
   final DbContent dbContent;
@@ -40,7 +41,14 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                         state.position > Duration.zero) {
                       cubit.resume();
                     } else {
-                      cubit.playAll();
+                      final activeIndex =
+                          context.read<ZikrViewerBloc>().state
+                              is ZikrViewerLoadedState
+                          ? (context.read<ZikrViewerBloc>().state
+                                    as ZikrViewerLoadedState)
+                                .activeZikrIndex
+                          : 0;
+                      cubit.startPlayFromIndex(activeIndex);
                     }
                   },
                   icon: Icon(state.isPlaying ? Icons.pause : Icons.play_arrow),
