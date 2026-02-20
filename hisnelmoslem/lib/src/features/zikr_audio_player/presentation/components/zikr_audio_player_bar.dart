@@ -37,15 +37,12 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                   onPressed: () {
                     if (state.isPlaying) {
                       cubit.pause();
-                    } else if (state.isPaused &&
-                        state.position > Duration.zero) {
+                    } else if (state.isPaused && state.position > Duration.zero) {
                       cubit.resume();
                     } else {
                       final activeIndex =
-                          context.read<ZikrViewerBloc>().state
-                              is ZikrViewerLoadedState
-                          ? (context.read<ZikrViewerBloc>().state
-                                    as ZikrViewerLoadedState)
+                          context.read<ZikrViewerBloc>().state is ZikrViewerLoadedState
+                          ? (context.read<ZikrViewerBloc>().state as ZikrViewerLoadedState)
                                 .activeZikrIndex
                           : 0;
                       cubit.startPlayFromIndex(activeIndex);
@@ -63,12 +60,8 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       trackHeight: 2.0,
-                      thumbShape: const RoundSliderThumbShape(
-                        enabledThumbRadius: 6.0,
-                      ),
-                      overlayShape: const RoundSliderOverlayShape(
-                        overlayRadius: 12.0,
-                      ),
+                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
                     ),
                     child: Slider(
                       max: maxDuration > 0 ? maxDuration : 1.0,
@@ -91,12 +84,11 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
+                      useSafeArea: true,
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                       ),
-                      builder: (context) => const ZikrAudioSettingsDialog(),
+                      builder: (context) => const SafeArea(child: ZikrAudioSettingsDialog()),
                     );
                   },
                   icon: const Icon(Icons.settings),

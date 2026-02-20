@@ -8,7 +8,8 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return BottomAppBar(
+      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
