@@ -103,7 +103,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     if (state.delayType == AudioDelayTypeEnum.fixedTime) {
       await Future.delayed(Duration(seconds: state.delayDuration));
     } else if (state.delayType == AudioDelayTypeEnum.byPreviousZikr) {
-      await Future.delayed(state.totalDuration);
+      final int adjustedMilliseconds = (state.totalDuration.inMilliseconds / state.playbackSpeed)
+          .round();
+      await Future.delayed(Duration(milliseconds: adjustedMilliseconds));
     }
   }
 
