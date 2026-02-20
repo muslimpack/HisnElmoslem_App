@@ -156,8 +156,6 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final source = AssetSource(audioPath);
 
     await _player.stop();
-    await _player.setPlaybackRate(state.playbackSpeed);
-    await _player.setVolume(state.volume);
 
     emit(
       state.copyWith(
@@ -169,6 +167,8 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     );
 
     await _player.play(source);
+    await _player.setPlaybackRate(state.playbackSpeed);
+    await _player.setVolume(state.volume);
   }
 
   Future<void> _playNextZikr() async {
