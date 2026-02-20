@@ -8,18 +8,18 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (dbContent.audio.isNotEmpty) ZikrAudioPlayerBar(dbContent: dbContent),
-          // const Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 10),
-          //   child: NavigationSlider(),
-          // ),
-        ],
+    return Material(
+      elevation: 8,
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8).copyWith(top: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [if (dbContent.audio.isNotEmpty) ZikrAudioPlayerBar(dbContent: dbContent)],
+          ),
+        ),
       ),
     );
   }

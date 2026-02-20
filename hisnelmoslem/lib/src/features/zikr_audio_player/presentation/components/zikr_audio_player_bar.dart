@@ -11,8 +11,8 @@ class ZikrAudioPlayerBar extends StatelessWidget {
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
-    final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
@@ -25,15 +25,47 @@ class ZikrAudioPlayerBar extends StatelessWidget {
         final duration = state.totalDuration;
 
         final double maxDuration = duration.inMilliseconds.toDouble();
-        double sliderValue = position.inMilliseconds.toDouble();
-        if (sliderValue > maxDuration) sliderValue = maxDuration;
-        if (sliderValue < 0) sliderValue = 0;
+        final double sliderValue = position.inMilliseconds.toDouble().clamp(0.0, maxDuration);
 
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
+            // Row 1: Slider + time label
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 2.0,
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                        overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
+                      ),
+                      child: Slider(
+                        max: maxDuration > 0 ? maxDuration : 1.0,
+                        value: maxDuration > 0 ? sliderValue : 0.0,
+                        onChanged: (value) {
+                          cubit.seek(Duration(milliseconds: value.toInt()));
+                        },
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "${_formatDuration(position)} / ${_formatDuration(duration)}",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+
+            // Row 2: Control buttons
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                IconButton(onPressed: cubit.stop, icon: const Icon(Icons.stop)),
                 IconButton(
+                  iconSize: 36,
                   onPressed: () {
                     if (state.isPlaying) {
                       cubit.pause();
@@ -48,35 +80,8 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                       cubit.startPlayFromIndex(activeIndex);
                     }
                   },
-                  icon: Icon(state.isPlaying ? Icons.pause : Icons.play_arrow),
-                ),
-                IconButton(
-                  onPressed: () {
-                    cubit.stop();
-                  },
-                  icon: const Icon(Icons.stop),
-                ),
-                Expanded(
-                  child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      trackHeight: 2.0,
-                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
-                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
-                    ),
-                    child: Slider(
-                      max: maxDuration > 0 ? maxDuration : 1.0,
-                      value: maxDuration > 0 ? sliderValue : 0.0,
-                      onChanged: (value) {
-                        cubit.seek(Duration(milliseconds: value.toInt()));
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    "${_formatDuration(position)} / ${_formatDuration(duration)}",
-                    style: Theme.of(context).textTheme.bodySmall,
+                  icon: Icon(
+                    state.isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
                   ),
                 ),
                 IconButton(
