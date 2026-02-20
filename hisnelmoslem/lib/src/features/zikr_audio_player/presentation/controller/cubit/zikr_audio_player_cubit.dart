@@ -183,20 +183,25 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final audioPath = 'sounds/azkar/${zikr.audio}';
     final source = AssetSource(audioPath);
 
-    await _player.stop();
+    try {
+      await _player.stop();
 
-    emit(
-      state.copyWith(
-        currentIndex: index,
-        isPlaying: true,
-        isPaused: false,
-        position: Duration.zero,
-      ),
-    );
+      emit(
+        state.copyWith(
+          currentIndex: index,
+          isPlaying: true,
+          isPaused: false,
+          position: Duration.zero,
+        ),
+      );
 
-    await _player.play(source);
-    await _player.setPlaybackRate(state.playbackSpeed);
-    await _player.setVolume(state.volume);
+      await _player.play(source);
+      await _player.setPlaybackRate(state.playbackSpeed);
+      await _player.setVolume(state.volume);
+    } catch (e) {
+      hisnPrint('AudioPlayer Error playing Zikr: $e');
+      emit(state.copyWith(isPlaying: false, isPaused: false));
+    }
   }
 
   Future<void> _playNextZikr() async {
@@ -210,30 +215,51 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
   Future<void> playAll() async {
     if (state.zikrList.isEmpty) return;
-    await playZikrAt(state.currentIndex);
+    try {
+      await playZikrAt(state.currentIndex);
+    } catch (e) {
+      hisnPrint('AudioPlayer Error playAll: $e');
+    }
   }
 
   Future<void> pause() async {
-    await _player.pause();
-    emit(state.copyWith(isPaused: true, isPlaying: false));
+    try {
+      await _player.pause();
+      emit(state.copyWith(isPaused: true, isPlaying: false));
+    } catch (e) {
+      hisnPrint('AudioPlayer Error pause: $e');
+    }
   }
 
   Future<void> resume() async {
     if (state.currentZikr != null && state.position > Duration.zero) {
-      await _player.resume();
-      emit(state.copyWith(isPaused: false, isPlaying: true));
+      try {
+        await _player.resume();
+        emit(state.copyWith(isPaused: false, isPlaying: true));
+      } catch (e) {
+        hisnPrint('AudioPlayer Error resume: $e');
+      }
     } else {
       await playAll();
     }
   }
 
   Future<void> stop() async {
-    await _player.stop();
-    emit(state.copyWith(isPlaying: false, isPaused: false, position: Duration.zero));
+    try {
+      await _player.stop();
+      emit(state.copyWith(isPlaying: false, isPaused: false, position: Duration.zero));
+    } catch (e) {
+      hisnPrint('AudioPlayer Error stop: $e');
+      emit(state.copyWith(isPlaying: false, isPaused: false));
+    }
   }
 
   Future<void> seek(Duration position) async {
-    await _player.seek(position);
+    try {
+      await _player.seek(position);
+    } catch (e) {
+      hisnPrint('AudioPlayer Error seek: $e');
+    }
   }
 
   Future<void> skipToNextZikr() async {
