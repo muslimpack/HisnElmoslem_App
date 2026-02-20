@@ -21,15 +21,18 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     : super(const ZikrAudioPlayerState());
 
   late Function(DbContent zikr)? onDonePlaying;
+  int Function(int index)? getActiveZikrCount;
   StreamSubscription<void>? _completionSub;
   StreamSubscription<Duration>? _positionSub;
   StreamSubscription<Duration>? _durationSub;
 
   Future<void> init({
     Function(DbContent zikr)? onDonePlaying,
+    int Function(int index)? getActiveZikrCount,
     List<DbContent>? zikrList,
   }) async {
     this.onDonePlaying = onDonePlaying;
+    this.getActiveZikrCount = getActiveZikrCount;
     emit(
       state.copyWith(
         currentIndex: 0,
@@ -109,46 +112,59 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     emit(state.copyWith(position: Duration.zero));
 
     final currentZikr = state.currentZikr;
+    // Save index before delays
+    final int savedIndex = state.currentIndex;
     if (currentZikr == null) return;
 
-    if (state.currentZikr!.count > 1 &&
+    final int currentCount =
+        getActiveZikrCount?.call(state.currentIndex) ?? currentZikr.count;
+
+    if (currentCount > 1 &&
         state.repeatType == AudioRepeatTypeEnum.byZikrCount) {
-      hisnPrint('count: ${state.currentZikr!.count}');
+      hisnPrint('count: $currentCount');
 
+      // Set delay state TRUE synchronously
       emit(state.copyWith(isDelayingBetweenZikr: true));
-      await _handleDelayAndWait();
-      emit(state.copyWith(isDelayingBetweenZikr: false));
 
-      if (!state.isPlaying || state.isPaused || isClosed) return;
-
-      // Decrease count in Bloc after delay. It won't turn page because count > 1
+      // Notify Bloc to decrease count.
+      // It won't turn page because count > 1.
       onDonePlaying?.call(currentZikr);
 
+      await _handleDelayAndWait();
+
+      if (!state.isPlaying ||
+          state.isPaused ||
+          isClosed ||
+          state.currentIndex != savedIndex) {
+        emit(state.copyWith(isDelayingBetweenZikr: false));
+        return;
+      }
+
+      emit(state.copyWith(isDelayingBetweenZikr: false));
       playZikrAt(state.currentIndex);
       return;
     }
 
     if (state.autoPlay) {
       emit(state.copyWith(isDelayingBetweenZikr: true));
+
+      // Decrease count in UI! This will make count 0.
+      // The bloc will see `zikrAudioPlayerCubit.state.isDelayingBetweenZikr` is true,
+      // preventing the immediate page turn.
+      onDonePlaying?.call(currentZikr);
+
       await _handleDelayAndWait();
 
-      if (!state.isPlaying || state.isPaused || isClosed) {
+      if (!state.isPlaying ||
+          state.isPaused ||
+          isClosed ||
+          state.currentIndex != savedIndex) {
         emit(state.copyWith(isDelayingBetweenZikr: false));
         return;
       }
 
-      // Finish this current zikr totally and pass the baton. This will decrease count to 0.
-      // Since isDelayingBetweenZikr is TRUE, `_decreaaseActiveZikr` won't call `_turnPage` immediately.
-      onDonePlaying?.call(currentZikr);
-
-      // Wait a tiny bit for the Bloc to update its state
-      await Future.delayed(const Duration(milliseconds: 100));
-
       emit(state.copyWith(isDelayingBetweenZikr: false));
-      // Now the Bloc receives `isDelayingBetweenZikr = false` and explicitly triggers `_turnPage()`.
-      // Which triggers `_pageChange`, which syncs index if needed.
-      // So we don't need to manually call `_playNextZikr()` here if `_pageChange` will sync it anyway!
-      // But just to be safe, `_playNextZikr` will advance the cubit's internal index.
+      // By now, stream emits false. The bloc receives false and turns the page.
 
       await _playNextZikr();
     } else {
