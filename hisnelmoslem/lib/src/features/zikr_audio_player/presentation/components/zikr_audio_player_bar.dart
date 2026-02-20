@@ -31,39 +31,46 @@ class ZikrAudioPlayerBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Row 1: Slider + time label
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackHeight: 2.0,
-                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
-                        overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: state.isPlaying
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                trackHeight: 2.0,
+                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                                overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
+                              ),
+                              child: Slider(
+                                max: maxDuration > 0 ? maxDuration : 1.0,
+                                value: maxDuration > 0 ? sliderValue : 0.0,
+                                onChanged: (value) {
+                                  cubit.seek(Duration(milliseconds: value.toInt()));
+                                },
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "${_formatDuration(position)} / ${_formatDuration(duration)}",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
                       ),
-                      child: Slider(
-                        max: maxDuration > 0 ? maxDuration : 1.0,
-                        value: maxDuration > 0 ? sliderValue : 0.0,
-                        onChanged: (value) {
-                          cubit.seek(Duration(milliseconds: value.toInt()));
-                        },
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "${_formatDuration(position)} / ${_formatDuration(duration)}",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
+                    )
+                  : const SizedBox.shrink(),
             ),
 
             // Row 2: Control buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                IconButton(onPressed: cubit.stop, icon: const Icon(Icons.stop)),
+                if (state.isPlaying || state.isPaused)
+                  IconButton(onPressed: cubit.stop, icon: const Icon(Icons.stop)),
                 IconButton(
                   iconSize: 36,
                   onPressed: () {
