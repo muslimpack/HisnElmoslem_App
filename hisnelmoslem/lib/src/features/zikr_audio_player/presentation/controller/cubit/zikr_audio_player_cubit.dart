@@ -17,8 +17,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   final AudioPlayer _player = AudioPlayer(playerId: "zikr_audio_player");
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
-  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo)
-    : super(const ZikrAudioPlayerState());
+  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo) : super(const ZikrAudioPlayerState());
 
   late Function(DbContent zikr)? onDonePlaying;
   int Function(int index)? getActiveZikrCount;
@@ -116,11 +115,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final int savedIndex = state.currentIndex;
     if (currentZikr == null) return;
 
-    final int currentCount =
-        getActiveZikrCount?.call(state.currentIndex) ?? currentZikr.count;
+    final int currentCount = getActiveZikrCount?.call(state.currentIndex) ?? currentZikr.count;
 
-    if (currentCount > 1 &&
-        state.repeatType == AudioRepeatTypeEnum.byZikrCount) {
+    if (currentCount > 1 && state.repeatType == AudioRepeatTypeEnum.byZikrCount) {
       hisnPrint('count: $currentCount');
 
       // Set delay state TRUE synchronously
@@ -132,10 +129,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
       await _handleDelayAndWait();
 
-      if (!state.isPlaying ||
-          state.isPaused ||
-          isClosed ||
-          state.currentIndex != savedIndex) {
+      if (!state.isPlaying || state.isPaused || isClosed || state.currentIndex != savedIndex) {
         emit(state.copyWith(isDelayingBetweenZikr: false));
         return;
       }
@@ -155,10 +149,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
       await _handleDelayAndWait();
 
-      if (!state.isPlaying ||
-          state.isPaused ||
-          isClosed ||
-          state.currentIndex != savedIndex) {
+      if (!state.isPlaying || state.isPaused || isClosed || state.currentIndex != savedIndex) {
         emit(state.copyWith(isDelayingBetweenZikr: false));
         return;
       }
@@ -236,13 +227,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
   Future<void> stop() async {
     await _player.stop();
-    emit(
-      state.copyWith(
-        isPlaying: false,
-        isPaused: false,
-        position: Duration.zero,
-      ),
-    );
+    emit(state.copyWith(isPlaying: false, isPaused: false, position: Duration.zero));
   }
 
   Future<void> seek(Duration position) async {

@@ -285,9 +285,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       // We check both the bloc state and the cubit state directly to avoid stream race conditions.
       final isDelayingBloc = state.isAudioDelaying;
       final isDelayingCubit = zikrAudioPlayerCubit.state.isDelayingBetweenZikr;
-      final isPlayingAudio = zikrAudioPlayerCubit.state.isPlaying;
 
-      if (!isDelayingBloc && !isDelayingCubit && !isPlayingAudio) {
+      if (!isDelayingBloc && !isDelayingCubit) {
         _turnPage();
       }
     }
@@ -316,12 +315,15 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
+    final wasDelaying = state.isAudioDelaying;
     emit(state.copyWith(isAudioDelaying: event.isDelaying));
 
-    // If the delay just finished, and the current active zikr is completely done (count == 0),
+    // If the delay just finished (transitioned from true to false),
+    // and the current active zikr is completely done (count == 0),
     // we should turn the page now.
-    if (!event.isDelaying) {
+    if (wasDelaying && !event.isDelaying) {
       final activeZikr = state.activeZikr;
+
       if (activeZikr != null && activeZikr.count == 0) {
         _turnPage();
       }
