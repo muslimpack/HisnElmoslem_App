@@ -17,6 +17,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -9,27 +9,57 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: SizedBox(
-          height: 100,
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [colorScheme.primaryContainer, colorScheme.secondaryContainer],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 24, 8, 16),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                S.of(context).hisnElmoslemApp,
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              ),
+              // Icon + brightness toggle on same row
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("${S.of(context).version}: ${appVersionWithBuild()}"),
+                  Image.asset(
+                    'assets/images/app_icon.png',
+                    fit: BoxFit.cover,
+                    width: 50,
+                    height: 50,
+                  ),
                   if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
                 ],
+              ),
+              const SizedBox(height: 12),
+
+              // App name
+              Text(
+                S.of(context).hisnElmoslemApp,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onPrimaryContainer,
+                ),
+              ),
+              const SizedBox(height: 2),
+
+              // Version
+              Text(
+                appVersionWithBuild(),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onPrimaryContainer.withAlpha(125),
+                ),
               ),
             ],
           ),
