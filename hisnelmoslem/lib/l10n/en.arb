@@ -232,5 +232,13 @@
   "yes": "Yes",
   "zikrContent": "Zikr content",
   "zikrIndex": "Zikr Index",
-  "zikrViewerRestoreSessionMsg": "We found a previous session, would you like to restore it?"
+  "zikrViewerRestoreSessionMsg": "We found a previous session, would you like to restore it?",
+  "audioPlayerSpeed": "Playback Speed",
+  "audioPlayerVolume": "Volume",
+  "audioPlayerDelay": "Delay Between Azkar",
+  "audioPlayerDelayNone": "No Delay",
+  "audioPlayerDelayByPrevious": "Same as Previous Zikr",
+  "audioPlayerDelayFixed": "Fixed Time",
+  "audioPlayerDelaySeconds": "Seconds",
+  "audioPlayerSettings": "Audio Settings"
 }

@@ -10,11 +10,14 @@ class ZikrAudioPlayerRepo {
   static const String volumeKey = 'audio_volume';
   static const String repeatKey = 'audio_repeat';
   static const String delayKey = 'audio_delay';
+  static const String delayDurationKey = 'audio_delay_duration';
 
   double getSpeed() => box.read(speedKey) ?? 1.0;
   double getVolume() => box.read(volumeKey) ?? 1.0;
-  AudioDelayTypeEnum getDelay() =>
-      AudioDelayTypeEnum.values.byName(box.read(delayKey) ?? AudioDelayTypeEnum.none.name);
+  AudioDelayTypeEnum getDelay() => AudioDelayTypeEnum.values.byName(
+    box.read(delayKey) ?? AudioDelayTypeEnum.none.name,
+  );
+  int getDelayDuration() => box.read(delayDurationKey) ?? 5;
   AudioRepeatTypeEnum getRepeat() => AudioRepeatTypeEnum.values.byName(
     box.read(repeatKey) ?? AudioRepeatTypeEnum.byZikrCount.name,
   );
@@ -24,10 +27,12 @@ class ZikrAudioPlayerRepo {
     double? volume,
     AudioRepeatTypeEnum? repeat,
     AudioDelayTypeEnum? delay,
+    int? delayDuration,
   }) async {
     if (speed != null) box.write(speedKey, speed);
     if (volume != null) box.write(volumeKey, volume);
     if (repeat != null) box.write(repeatKey, repeat.name);
     if (delay != null) box.write(delayKey, delay.name);
+    if (delayDuration != null) box.write(delayDurationKey, delayDuration);
   }
 }

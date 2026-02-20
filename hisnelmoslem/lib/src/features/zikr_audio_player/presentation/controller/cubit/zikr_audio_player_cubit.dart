@@ -6,6 +6,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_repeat_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr_audio_player_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -15,12 +17,18 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   final AudioPlayer _player = AudioPlayer(playerId: "zikr_audio_player");
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
-  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo) : super(const ZikrAudioPlayerState());
+  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo)
+    : super(const ZikrAudioPlayerState());
 
   late Function(DbContent zikr)? onDonePlaying;
   StreamSubscription<void>? _completionSub;
+  StreamSubscription<Duration>? _positionSub;
+  StreamSubscription<Duration>? _durationSub;
 
-  Future<void> init({Function(DbContent zikr)? onDonePlaying, List<DbContent>? zikrList}) async {
+  Future<void> init({
+    Function(DbContent zikr)? onDonePlaying,
+    List<DbContent>? zikrList,
+  }) async {
     this.onDonePlaying = onDonePlaying;
     emit(
       state.copyWith(
@@ -28,23 +36,78 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
         isPlaying: false,
         autoPlay: true,
         playbackSpeed: zikrAudioPlayerRepo.getSpeed(),
+        volume: zikrAudioPlayerRepo.getVolume(),
+        delayType: zikrAudioPlayerRepo.getDelay(),
+        delayDuration: zikrAudioPlayerRepo.getDelayDuration(),
+        repeatType: zikrAudioPlayerRepo.getRepeat(),
+        position: Duration.zero,
+        totalDuration: Duration.zero,
         zikrList: zikrList,
       ),
     );
 
     _completionSub?.cancel();
+    _positionSub?.cancel();
+    _durationSub?.cancel();
 
     _completionSub = _player.onPlayerComplete.listen((_) async {
       await _onPlaybackCompleted();
     });
+
+    _positionSub = _player.onPositionChanged.listen((p) {
+      if (!isClosed) emit(state.copyWith(position: p));
+    });
+
+    _durationSub = _player.onDurationChanged.listen((d) {
+      if (!isClosed) emit(state.copyWith(totalDuration: d));
+    });
   }
 
-  Future<void> saveSettings({double? speed}) async {
-    zikrAudioPlayerRepo.saveSettings(speed: speed);
-    emit(state.copyWith(playbackSpeed: speed));
+  Future<void> saveSettings({
+    double? speed,
+    double? volume,
+    AudioDelayTypeEnum? delayType,
+    int? delayDuration,
+    AudioRepeatTypeEnum? repeatType,
+  }) async {
+    zikrAudioPlayerRepo.saveSettings(
+      speed: speed,
+      volume: volume,
+      delay: delayType,
+      delayDuration: delayDuration,
+      repeat: repeatType,
+    );
+
+    if (speed != null) {
+      await _player.setPlaybackRate(speed);
+      emit(state.copyWith(playbackSpeed: speed));
+    }
+    if (volume != null) {
+      await _player.setVolume(volume);
+      emit(state.copyWith(volume: volume));
+    }
+    if (delayType != null) {
+      emit(state.copyWith(delayType: delayType));
+    }
+    if (delayDuration != null) {
+      emit(state.copyWith(delayDuration: delayDuration));
+    }
+    if (repeatType != null) {
+      emit(state.copyWith(repeatType: repeatType));
+    }
+  }
+
+  Future<void> _handleDelayAndWait() async {
+    if (state.delayType == AudioDelayTypeEnum.fixedTime) {
+      await Future.delayed(Duration(seconds: state.delayDuration));
+    } else if (state.delayType == AudioDelayTypeEnum.byPreviousZikr) {
+      await Future.delayed(state.totalDuration);
+    }
   }
 
   Future<void> _onPlaybackCompleted() async {
+    emit(state.copyWith(position: Duration.zero));
+
     final currentZikr = state.currentZikr;
     if (currentZikr == null) return;
 
@@ -53,17 +116,24 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     emit(
       state.copyWith(
         zikrList: List.of(state.zikrList)
-          ..[state.currentIndex] = currentZikr.copyWith(count: currentZikr.count - 1),
+          ..[state.currentIndex] = currentZikr.copyWith(
+            count: currentZikr.count - 1,
+          ),
       ),
     );
 
-    if (state.currentZikr!.count > 0) {
+    if (state.currentZikr!.count > 0 &&
+        state.repeatType == AudioRepeatTypeEnum.byZikrCount) {
       hisnPrint('count: ${state.currentZikr!.count}');
+      await _handleDelayAndWait();
+      if (!state.isPlaying || state.isPaused || isClosed) return;
       playZikrAt(state.currentIndex);
       return;
     }
 
     if (state.autoPlay) {
+      await _handleDelayAndWait();
+      if (!state.isPlaying || state.isPaused || isClosed) return;
       await _playNextZikr();
     }
   }
@@ -87,8 +157,16 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
     await _player.stop();
     await _player.setPlaybackRate(state.playbackSpeed);
+    await _player.setVolume(state.volume);
 
-    emit(state.copyWith(currentIndex: index, isPlaying: true, isPaused: false));
+    emit(
+      state.copyWith(
+        currentIndex: index,
+        isPlaying: true,
+        isPaused: false,
+        position: Duration.zero,
+      ),
+    );
 
     await _player.play(source);
   }
@@ -113,13 +191,27 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   }
 
   Future<void> resume() async {
-    await _player.resume();
-    emit(state.copyWith(isPaused: false, isPlaying: true));
+    if (state.currentZikr != null && state.position > Duration.zero) {
+      await _player.resume();
+      emit(state.copyWith(isPaused: false, isPlaying: true));
+    } else {
+      await playAll();
+    }
   }
 
   Future<void> stop() async {
     await _player.stop();
-    emit(state.copyWith(isPlaying: false, isPaused: false));
+    emit(
+      state.copyWith(
+        isPlaying: false,
+        isPaused: false,
+        position: Duration.zero,
+      ),
+    );
+  }
+
+  Future<void> seek(Duration position) async {
+    await _player.seek(position);
   }
 
   Future<void> skipToNextZikr() async {
@@ -134,6 +226,8 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   @override
   Future<void> close() async {
     await _completionSub?.cancel();
+    await _positionSub?.cancel();
+    await _durationSub?.cancel();
     await _player.dispose();
     return super.close();
   }

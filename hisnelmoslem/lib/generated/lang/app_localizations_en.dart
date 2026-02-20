@@ -724,4 +724,28 @@ class SEn extends S {
   @override
   String get zikrViewerRestoreSessionMsg =>
       'We found a previous session, would you like to restore it?';
+
+  @override
+  String get audioPlayerSpeed => 'Playback Speed';
+
+  @override
+  String get audioPlayerVolume => 'Volume';
+
+  @override
+  String get audioPlayerDelay => 'Delay Between Azkar';
+
+  @override
+  String get audioPlayerDelayNone => 'No Delay';
+
+  @override
+  String get audioPlayerDelayByPrevious => 'Same as Previous Zikr';
+
+  @override
+  String get audioPlayerDelayFixed => 'Fixed Time';
+
+  @override
+  String get audioPlayerDelaySeconds => 'Seconds';
+
+  @override
+  String get audioPlayerSettings => 'Audio Settings';
 }
