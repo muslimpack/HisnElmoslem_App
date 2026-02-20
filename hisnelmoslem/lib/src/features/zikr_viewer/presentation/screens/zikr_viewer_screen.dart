@@ -17,6 +17,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/an
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_expanding_fab.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_progress_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
@@ -40,38 +41,47 @@ class ZikrViewerScreen extends StatelessWidget {
                 : ZikrViewerMode.page,
           ),
         ),
-      child: BlocConsumer<ZikrViewerBloc, ZikrViewerState>(
-        listener: (context, state) async {
-          if (state is! ZikrViewerLoadedState) return;
+      child: Builder(
+        builder: (context) {
+          return BlocProvider.value(
+            value: context.read<ZikrViewerBloc>().zikrAudioPlayerCubit,
+            child: BlocConsumer<ZikrViewerBloc, ZikrViewerState>(
+              listener: (context, state) async {
+                if (state is! ZikrViewerLoadedState) return;
 
-          if (!state.askToRestoreSession) return;
+                if (!state.askToRestoreSession) return;
 
-          final bool? confirm = await showDialog(
-            context: context,
-            builder: (context) {
-              return YesOrNoDialog(
-                msg: S.of(context).zikrViewerRestoreSessionMsg,
-                details: state.restoredSession.dateTime.humanize,
-              );
-            },
+                final bool? confirm = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return YesOrNoDialog(
+                      msg: S.of(context).zikrViewerRestoreSessionMsg,
+                      details: state.restoredSession.dateTime.humanize,
+                    );
+                  },
+                );
+
+                if (!context.mounted) return;
+
+                context.read<ZikrViewerBloc>().add(
+                  ZikrViewerRestoreSessionEvent(confirm ?? false),
+                );
+              },
+              builder: (context, state) {
+                if (state is! ZikrViewerLoadedState) {
+                  return const Loading();
+                }
+
+                switch (state.zikrViewerMode) {
+                  case ZikrViewerMode.page:
+                    return const _ZikrViewerPageModeScreen();
+
+                  case ZikrViewerMode.card:
+                    return const _ZikrViewerCardModeScreen();
+                }
+              },
+            ),
           );
-
-          if (!context.mounted) return;
-
-          context.read<ZikrViewerBloc>().add(ZikrViewerRestoreSessionEvent(confirm ?? false));
-        },
-        builder: (context, state) {
-          if (state is! ZikrViewerLoadedState) {
-            return const Loading();
-          }
-
-          switch (state.zikrViewerMode) {
-            case ZikrViewerMode.page:
-              return const _ZikrViewerPageModeScreen();
-
-            case ZikrViewerMode.card:
-              return const _ZikrViewerCardModeScreen();
-          }
         },
       ),
     );

@@ -724,4 +724,28 @@ class SAr extends S {
   @override
   String get zikrViewerRestoreSessionMsg =>
       'عثرنا على جلسة سابقة هل تود استعادتها؟';
+
+  @override
+  String get audioPlayerSpeed => 'سرعة التشغيل';
+
+  @override
+  String get audioPlayerVolume => 'مستوى الصوت';
+
+  @override
+  String get audioPlayerDelay => 'التأخير بين الأذكار';
+
+  @override
+  String get audioPlayerDelayNone => 'بدون تأخير';
+
+  @override
+  String get audioPlayerDelayByPrevious => 'نفس مدة الذكر السابق';
+
+  @override
+  String get audioPlayerDelayFixed => 'وقت محدد';
+
+  @override
+  String get audioPlayerDelaySeconds => 'ثواني';
+
+  @override
+  String get audioPlayerSettings => 'إعدادات الصوت';
 }

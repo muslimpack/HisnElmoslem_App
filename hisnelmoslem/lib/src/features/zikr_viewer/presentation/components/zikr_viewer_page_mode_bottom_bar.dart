@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/components/zikr_audio_player_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/navigation_slider.dart';
 
 class ZikrViewerPageModeBottomBar extends StatelessWidget {
   final DbContent dbContent;
@@ -8,13 +8,18 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: NavigationSlider()),
-        ],
+    return Material(
+      elevation: 8,
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8).copyWith(top: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [if (dbContent.audio.isNotEmpty) ZikrAudioPlayerBar(dbContent: dbContent)],
+          ),
+        ),
       ),
     );
   }

@@ -1494,6 +1494,54 @@ abstract class S {
   /// In en, this message translates to:
   /// **'We found a previous session, would you like to restore it?'**
   String get zikrViewerRestoreSessionMsg;
+
+  /// No description provided for @audioPlayerSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback Speed'**
+  String get audioPlayerSpeed;
+
+  /// No description provided for @audioPlayerVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get audioPlayerVolume;
+
+  /// No description provided for @audioPlayerDelay.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay Between Azkar'**
+  String get audioPlayerDelay;
+
+  /// No description provided for @audioPlayerDelayNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No Delay'**
+  String get audioPlayerDelayNone;
+
+  /// No description provided for @audioPlayerDelayByPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as Previous Zikr'**
+  String get audioPlayerDelayByPrevious;
+
+  /// No description provided for @audioPlayerDelayFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed Time'**
+  String get audioPlayerDelayFixed;
+
+  /// No description provided for @audioPlayerDelaySeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds'**
+  String get audioPlayerDelaySeconds;
+
+  /// No description provided for @audioPlayerSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Settings'**
+  String get audioPlayerSettings;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

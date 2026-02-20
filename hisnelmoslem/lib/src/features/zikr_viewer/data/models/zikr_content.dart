@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 
@@ -11,6 +12,8 @@ class DbContent extends Equatable {
   final String source;
   final String search;
   final String hokm;
+  final String audio;
+  final bool hasAudio;
 
   const DbContent({
     required this.id,
@@ -22,6 +25,8 @@ class DbContent extends Equatable {
     required this.source,
     required this.search,
     required this.hokm,
+    required this.audio,
+    required this.hasAudio,
   });
 
   DbContent copyWith({
@@ -34,6 +39,7 @@ class DbContent extends Equatable {
     String? source,
     String? search,
     String? hokm,
+    String? audio,
   }) {
     return DbContent(
       id: id ?? this.id,
@@ -45,15 +51,18 @@ class DbContent extends Equatable {
       source: source ?? this.source,
       search: search ?? this.search,
       hokm: hokm ?? this.hokm,
+      audio: audio ?? this.audio,
+      hasAudio: hasAudio,
     );
   }
 
   @override
   List<Object> get props {
-    return [id, content, titleId, order, count, fadl, source, search, hokm];
+    return [id, content, titleId, order, count, fadl, source, search, hokm, audio];
   }
 
   factory DbContent.fromMap(Map<String, dynamic> map) {
+    final String? audio = map['audio'] as String?;
     return DbContent(
       id: map['id'] as int,
       content: map['content'] as String,
@@ -64,6 +73,8 @@ class DbContent extends Equatable {
       source: (map['source'] as String?) ?? "",
       fadl: (map['fadl'] as String?) ?? "",
       hokm: (map['hokm'] as String?) ?? "",
+      audio: audio ?? "",
+      hasAudio: audio != null,
     );
   }
 }

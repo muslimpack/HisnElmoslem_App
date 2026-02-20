@@ -232,5 +232,13 @@
   "yes": "نعم",
   "zikrContent": "المحتوى",
   "zikrIndex": "الذكر رقم",
-  "zikrViewerRestoreSessionMsg": "عثرنا على جلسة سابقة هل تود استعادتها؟"
+  "zikrViewerRestoreSessionMsg": "عثرنا على جلسة سابقة هل تود استعادتها؟",
+  "audioPlayerSpeed": "سرعة التشغيل",
+  "audioPlayerVolume": "مستوى الصوت",
+  "audioPlayerDelay": "التأخير بين الأذكار",
+  "audioPlayerDelayNone": "بدون تأخير",
+  "audioPlayerDelayByPrevious": "نفس مدة الذكر السابق",
+  "audioPlayerDelayFixed": "وقت محدد",
+  "audioPlayerDelaySeconds": "ثواني",
+  "audioPlayerSettings": "إعدادات الصوت"
 }

@@ -26,26 +26,17 @@ class FakeHadithCard extends StatelessWidget {
           InkWell(
             onTap: () {
               context.read<FakeHadithBloc>().add(
-                FakeHadithToggleHadithEvent(
-                  fakeHadith: fakeHadith,
-                  isRead: !fakeHadith.isRead,
-                ),
+                FakeHadithToggleHadithEvent(fakeHadith: fakeHadith, isRead: !fakeHadith.isRead),
               );
             },
             onLongPress: () {
               final snackBar = SnackBar(
-                content: Text(
-                  fakeHadith.source,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                ),
+                content: Text(fakeHadith.source, textAlign: TextAlign.center, softWrap: true),
                 action: SnackBarAction(
                   label: S.of(context).copy,
                   onPressed: () async {
                     // Some code to undo the change.
-                    await Clipboard.setData(
-                      ClipboardData(text: fakeHadith.source),
-                    );
+                    await Clipboard.setData(ClipboardData(text: fakeHadith.source));
                   },
                 ),
               );
@@ -97,17 +88,12 @@ class _TopBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        if (!fakeHadith.isRead)
-          const Icon(Icons.check)
-        else
-          const Icon(Icons.checklist),
+        if (!fakeHadith.isRead) const Icon(Icons.check) else const Icon(Icons.checklist),
         IconButton(
           tooltip: S.of(context).copy,
           icon: const Icon(Icons.copy),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithCopyHadithEvent(fakeHadith: fakeHadith),
-            );
+            context.read<FakeHadithBloc>().add(FakeHadithCopyHadithEvent(fakeHadith: fakeHadith));
           },
         ),
         IconButton(
@@ -124,6 +110,8 @@ class _TopBar extends StatelessWidget {
               count: 0,
               hokm: "",
               search: "",
+              audio: "",
+              hasAudio: false,
             );
 
             context.push(ShareAsImageScreen(dbContent: dbContent));
@@ -133,18 +121,14 @@ class _TopBar extends StatelessWidget {
           tooltip: S.of(context).share,
           icon: const Icon(Icons.share),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithShareHadithEvent(fakeHadith: fakeHadith),
-            );
+            context.read<FakeHadithBloc>().add(FakeHadithShareHadithEvent(fakeHadith: fakeHadith));
           },
         ),
         IconButton(
           tooltip: S.of(context).report,
           icon: const Icon(Icons.report_outlined, color: Colors.orange),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(
-              FakeHadithReportHadithEvent(fakeHadith: fakeHadith),
-            );
+            context.read<FakeHadithBloc>().add(FakeHadithReportHadithEvent(fakeHadith: fakeHadith));
           },
         ),
       ],

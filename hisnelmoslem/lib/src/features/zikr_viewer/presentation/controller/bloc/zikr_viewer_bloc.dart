@@ -16,6 +16,7 @@ import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_session.dart';
@@ -27,6 +28,11 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 part 'zikr_viewer_event.dart';
 part 'zikr_viewer_state.dart';
 
+class ZikrViewerAudioDelayStateChangedEvent extends ZikrViewerEvent {
+  final bool isDelaying;
+  const ZikrViewerAudioDelayStateChangedEvent(this.isDelaying);
+}
+
 class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   PageController pageController = PageController();
   final EffectsManager effectsManager;
@@ -36,6 +42,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final HisnDBHelper hisnDBHelper;
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
+  final ZikrAudioPlayerCubit zikrAudioPlayerCubit;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
@@ -44,6 +51,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     this.volumeButtonManager,
     this.zikrViewerRepo,
     this.azkarFiltersRepo,
+    this.zikrAudioPlayerCubit,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -82,6 +90,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerReportZikrEvent>(_report);
 
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
+
+    on<ZikrViewerAudioDelayStateChangedEvent>(_audioDelayStateChanged);
   }
 
   Future<void> _start(
@@ -111,6 +121,35 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         restoredSession != null &&
         restoredSession.data.isNotEmpty &&
         DateUtils.isSameDay(restoredSession.dateTime, DateTime.now());
+
+    zikrAudioPlayerCubit.init(
+      zikrList: azkarToView,
+      onDonePlaying: (zikr) {
+        add(ZikrViewerDecreaseZikrEvent(content: zikr));
+      },
+      getActiveZikrCount: (index) {
+        if (isClosed) return 0;
+        final currentState = state;
+        if (currentState is ZikrViewerLoadedState) {
+          if (index >= 0 && index < currentState.azkarToView.length) {
+            return currentState.azkarToView[index].count;
+          }
+        }
+        return 0;
+      },
+    );
+
+    StreamSubscription? audioStateSubscription;
+    audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
+      if (isClosed) {
+        audioStateSubscription?.cancel();
+        return;
+      }
+      add(
+        ZikrViewerAudioDelayStateChangedEvent(audioState.isDelayingBetweenZikr),
+      );
+    });
+
     emit(
       ZikrViewerLoadedState(
         title: title,
@@ -193,6 +232,13 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final state = this.state;
     if (state is! ZikrViewerLoadedState) return;
 
+    // Optional: If the user swipes, the audio player should match the current page if it's playing.
+    // If the audio player index doesn't match the new page index, we might need to sync.
+    if (zikrAudioPlayerCubit.state.isPlaying &&
+        zikrAudioPlayerCubit.state.currentIndex != event.index) {
+      zikrAudioPlayerCubit.startPlayFromIndex(event.index);
+    }
+
     emit(state.copyWith(activeZikrIndex: event.index));
   }
 
@@ -234,15 +280,54 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     }
 
     if (count <= 1) {
-      if (pageController.hasClients) {
-        pageController.nextPage(
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 350),
-        );
+      // If we are currently in an audio delay phase, we DO NOT turn the page yet.
+      // We wait for the audio delay to finish (`isAudioDelaying` going to false) to turn it.
+      // We check both the bloc state and the cubit state directly to avoid stream race conditions.
+      final isDelayingBloc = state.isAudioDelaying;
+      final isDelayingCubit = zikrAudioPlayerCubit.state.isDelayingBetweenZikr;
+
+      if (!isDelayingBloc && !isDelayingCubit) {
+        _turnPage();
       }
     }
 
     emit(state.copyWith(azkarToView: azkarToView));
+  }
+
+  void _turnPage() {
+    if (pageController.hasClients) {
+      final state = this.state;
+      if (state is ZikrViewerLoadedState) {
+        if (state.activeZikrIndex < state.azkarToView.length - 1) {
+          pageController.nextPage(
+            curve: Curves.easeIn,
+            duration: const Duration(milliseconds: 350),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _audioDelayStateChanged(
+    ZikrViewerAudioDelayStateChangedEvent event,
+    Emitter<ZikrViewerState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! ZikrViewerLoadedState) return;
+
+    final wasDelaying = state.isAudioDelaying;
+    emit(state.copyWith(isAudioDelaying: event.isDelaying));
+
+    // If the delay just finished (transitioned from true to false),
+    // and the current active zikr is completely done (count == 0),
+    // we should turn the page now.
+    if (wasDelaying && !event.isDelaying) {
+      final activeZikr = state.activeZikr;
+
+      if (activeZikr != null && activeZikr.count == 0) {
+        _turnPage();
+      }
+    }
   }
 
   Future<void> _resetActiveZikr(
@@ -358,6 +443,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     WakelockPlus.disable();
     pageController.dispose();
     volumeButtonManager.dispose();
+    zikrAudioPlayerCubit.stop();
     return super.close();
   }
 }
