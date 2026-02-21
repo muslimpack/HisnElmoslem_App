@@ -91,12 +91,9 @@ class LocalNotificationManager {
     tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
   }
 
-  Future<bool?> requestPermissionWithDialog() async {
-    final BuildContext? context = App.navigatorKey.currentContext;
-    if (context == null) return null;
-
+  Future<bool> requestPermissionWithDialog() async {
     final appSettingsRepo = sl<AppSettingsRepo>();
-    if (appSettingsRepo.ignoreNotificationPermission) return null;
+    if (appSettingsRepo.ignoreNotificationPermission) return false;
 
     bool isAllowed = false;
     if (Platform.isAndroid) {
@@ -113,7 +110,8 @@ class LocalNotificationManager {
 
     if (isAllowed) return true;
 
-    if (!context.mounted) return null;
+    final BuildContext? context = App.navigatorKey.currentContext;
+    if (context == null || !context.mounted) return false;
 
     final result = await showDialog<bool>(
       context: context,
@@ -193,9 +191,7 @@ class LocalNotificationManager {
   }
 
   NotificationDetails _buildNotificationDetails(
-    String channelId,
-    String channelName,
-    String channelDesc,
+    NotifyChannel channel,
     String? title,
     String? body,
   ) {
@@ -209,9 +205,9 @@ class LocalNotificationManager {
 
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        channelId,
-        channelName,
-        channelDescription: channelDesc,
+        channel.key,
+        channel.name,
+        channelDescription: channel.description,
         importance: Importance.max,
         priority: Priority.high,
         styleInformation: bigTextStyleInformation,
@@ -235,9 +231,7 @@ class LocalNotificationManager {
       title: title,
       body: body,
       notificationDetails: _buildNotificationDetails(
-        NotificationsChannels.inApp.key,
-        NotificationsChannels.inApp.name,
-        NotificationsChannels.inApp.description,
+        NotificationsChannels.inApp,
         title,
         body,
       ),
@@ -257,9 +251,7 @@ class LocalNotificationManager {
       body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       scheduledDate: scheduleNotificationDateTime,
       notificationDetails: _buildNotificationDetails(
-        NotificationsChannels.scheduled.key,
-        NotificationsChannels.scheduled.name,
-        NotificationsChannels.scheduled.description,
+        NotificationsChannels.scheduled,
         SX.current.haveNotOpenedAppLongTime,
         'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       ),
@@ -307,9 +299,7 @@ class LocalNotificationManager {
       body: body,
       scheduledDate: _nextInstanceOfWeekdayAndTime(weekday, time),
       notificationDetails: _buildNotificationDetails(
-        NotificationsChannels.scheduled.key,
-        NotificationsChannels.scheduled.name,
-        NotificationsChannels.scheduled.description,
+        NotificationsChannels.scheduled,
         title,
         body,
       ),
@@ -333,9 +323,7 @@ class LocalNotificationManager {
       body: body,
       scheduledDate: _nextInstanceOfTime(time),
       notificationDetails: _buildNotificationDetails(
-        NotificationsChannels.scheduled.key,
-        NotificationsChannels.scheduled.name,
-        NotificationsChannels.scheduled.description,
+        NotificationsChannels.scheduled,
         title,
         body,
       ),
@@ -395,12 +383,12 @@ class NotifyChannel {
 }
 
 class NotificationsChannels {
-  static NotifyChannel inApp = NotifyChannel(
+  static NotifyChannel get inApp => NotifyChannel(
     key: 'in_app_notification',
     name: SX.current.channelInAppName,
     description: SX.current.channelInAppNameDesc,
   );
-  static NotifyChannel scheduled = NotifyChannel(
+  static NotifyChannel get scheduled => NotifyChannel(
     key: 'scheduled_channel',
     name: SX.current.channelScheduledName,
     description: SX.current.channelScheduledNameDesc,
