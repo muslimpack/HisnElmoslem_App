@@ -13,7 +13,8 @@ class OnboardCubit extends Cubit<OnboardState> {
   final AppSettingsRepo appSettingsRepo;
   final VolumeButtonManager volumeButtonManager;
   PageController pageController = PageController();
-  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager) : super(OnboardLoadingState()) {
+  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager)
+    : super(OnboardLoadingState()) {
     _init();
   }
 
@@ -21,7 +22,10 @@ class OnboardCubit extends Cubit<OnboardState> {
     volumeButtonManager.toggleActivation(activate: true);
     volumeButtonManager.listen(
       onVolumeDownPressed: () {
-        pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+        pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
       },
       onVolumeUpPressed: () {
         pageController.previousPage(
@@ -40,30 +44,28 @@ class OnboardCubit extends Cubit<OnboardState> {
   ///TODO: Change every release
   List<Empty> get pageData {
     return [
-      //       const Empty(
-      //         title: "حصن المسلم الإصدار $kAppVersion",
-      //         description: '''
-      // السلام عليكم ورحمة الله وبركاته
-      // أهلاً وسهلاً بك في تحديث جديد من تطبيق حصن المسلم
-      // يمكنك سحب الشاشة لتقليب الصفحات،
-      // أو استخدام مفاتيح الصوت لاستعراض الميزات الجديدة.
-
-      // جزى الله خيراً كل من قدّم رأيه أو بلّغ عن مشكلة ساعدتنا على التطوير 💚
-      // ''',
-      //       ),
       const Empty(
         title: "الجديد في هذا الإصدار",
         isImage: false,
         isItemList: true,
         description: """
-حل مشكلة ظهور علامات على شاشة السبحة وشاشة الأذكار في وضع الصفحات
+الأذكار الصوتية لمشهور الأذكار
+تحسينات على السبحة
+يمكنك تخصيص الاهتزازات عند التسبيح من إدارة المؤثرات
+تحسينات على الإشعارات ودعمها لمنصة الويندوز
 """,
       ),
     ];
   }
 
   Future start() async {
-    emit(OnboardLoadedState(showSkipBtn: true, currentPageIndex: 0, pages: pageData));
+    emit(
+      OnboardLoadedState(
+        showSkipBtn: true,
+        currentPageIndex: 0,
+        pages: pageData,
+      ),
+    );
   }
 
   Future onPageChanged(int index) async {
