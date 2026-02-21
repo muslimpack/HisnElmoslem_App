@@ -27,10 +27,7 @@ class TallyCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read<TallyBloc>().add(
-          TallyToggleCounterActivationEvent(
-            counter: dbTally,
-            activate: !isActivated,
-          ),
+          TallyToggleCounterActivationEvent(counter: dbTally, activate: !isActivated),
         );
       },
       child: Container(
@@ -39,15 +36,11 @@ class TallyCard extends StatelessWidget {
           border: BoxBorder.fromLTRB(
             right: BorderSide(
               width: 10,
-              color: isActivated
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.transparent,
+              color: isActivated ? Theme.of(context).colorScheme.primary : Colors.transparent,
             ),
           ),
           color: isActivated
-              ? Theme.of(
-                  context,
-                ).colorScheme.primary.withAlpha((.2 * 255).round())
+              ? Theme.of(context).colorScheme.primary.withAlpha((.2 * 255).round())
               : null,
           image: isActivated
               ? DecorationImage(
@@ -69,9 +62,10 @@ class TallyCard extends StatelessWidget {
                 children: [
                   Text(
                     dbTally.title,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.displayMedium,
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
                   ),
                   Text(dbTally.lastUpdate.humanize),
                 ],
@@ -85,10 +79,7 @@ class TallyCard extends StatelessWidget {
                   Text(
                     dbTally.count
                         .toString()
-                        .padLeft(
-                          (state as TallyLoadedState).maxCounterNumberLength,
-                          "0",
-                        )
+                        .padLeft((state as TallyLoadedState).maxCounterNumberLength, "0")
                         .toArabicNumber(),
                     style: const TextStyle(fontSize: 15),
                   ),
@@ -96,11 +87,10 @@ class TallyCard extends StatelessWidget {
                   IconButton(
                     tooltip: S.of(context).edit,
                     onPressed: () async {
-                      final EditorResult<DbTally>? result =
-                          await showTallyEditorDialog(
-                            context: context,
-                            dbTally: dbTally,
-                          );
+                      final EditorResult<DbTally>? result = await showTallyEditorDialog(
+                        context: context,
+                        dbTally: dbTally,
+                      );
 
                       if (result == null || !context.mounted) return;
                       switch (result.action) {
@@ -112,9 +102,7 @@ class TallyCard extends StatelessWidget {
                           final bool? confirm = await showDialog(
                             context: context,
                             builder: (_) {
-                              return YesOrNoDialog(
-                                msg: S.of(context).counterWillBeDeleted,
-                              );
+                              return YesOrNoDialog(msg: S.of(context).counterWillBeDeleted);
                             },
                           );
 
@@ -122,9 +110,7 @@ class TallyCard extends StatelessWidget {
                             return;
                           }
 
-                          context.read<TallyBloc>().add(
-                            TallyDeleteCounterEvent(counter: dbTally),
-                          );
+                          context.read<TallyBloc>().add(TallyDeleteCounterEvent(counter: dbTally));
                         default:
                       }
                     },
