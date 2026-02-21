@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
@@ -22,7 +21,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AzkarFiltersCubit zikrFiltersCubit;
   late final StreamSubscription filterSubscription;
   late final StreamSubscription bookmarkSubscription;
-  final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   final AppSettingsRepo appSettingsRepo;
   final HisnDBHelper hisnDBHelper;
   final UserDataDBHelper userDataDBHelper;
@@ -33,7 +31,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     this.zikrFiltersCubit,
     this.userDataDBHelper,
   ) : super(HomeLoadingState()) {
-    filterSubscription = zikrFiltersCubit.stream.listen(_onZikrFilterCubitChanged);
+    filterSubscription = zikrFiltersCubit.stream.listen(
+      _onZikrFilterCubitChanged,
+    );
     bookmarkSubscription = bookmarkBloc.stream.listen(_onBookmarkChanged);
     _initHandlers();
   }
@@ -41,7 +41,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeStartEvent>(_start);
     on<HomeToggleSearchEvent>(_toggleSearch);
 
-    on<HomeToggleDrawerEvent>(_toggleDrawer);
     on<HomeDashboardReorderedEvent>(_onDashboardReorded);
 
     on<HomeToggleFilterEvent>(_onFilterToggled);
@@ -53,9 +52,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final filters = zikrFiltersCubit.state.filters;
 
     final dbTitles = await hisnDBHelper.getAllTitles();
-    final List<DbTitle> filtered = await applyFiltersOnTitels(dbTitles, zikrFilters: filters);
+    final List<DbTitle> filtered = await applyFiltersOnTitels(
+      dbTitles,
+      zikrFilters: filters,
+    );
 
-    final listDbContentFavourite = await userDataDBHelper.getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper
+        .getFavouriteContents();
     final azkarFromDB = await hisnDBHelper.getContentsByIds(
       ids: listDbContentFavourite.map((e) => e.itemId).toList(),
     );
@@ -74,15 +77,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  Future<void> _toggleSearch(HomeToggleSearchEvent event, Emitter<HomeState> emit) async {
+  Future<void> _toggleSearch(
+    HomeToggleSearchEvent event,
+    Emitter<HomeState> emit,
+  ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
     emit(state.copyWith(isSearching: event.isSearching));
-  }
-
-  Future<void> _toggleDrawer(HomeToggleDrawerEvent event, Emitter<HomeState> emit) async {
-    zoomDrawerController.toggle?.call();
   }
 
   Future<void> _onDashboardReorded(
@@ -114,7 +116,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     return super.close();
   }
 
-  Future<void> _onFilterToggled(HomeToggleFilterEvent event, Emitter<HomeState> emit) async {
+  Future<void> _onFilterToggled(
+    HomeToggleFilterEvent event,
+    Emitter<HomeState> emit,
+  ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
@@ -140,7 +145,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final List<Filter> filters = zikrFilters ?? zikrFiltersCubit.state.filters;
     for (var i = 0; i < titles.length; i++) {
       final title = titles[i];
-      final azkarFromDB = await hisnDBHelper.getContentsByTitleId(titleId: title.id);
+      final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
+        titleId: title.id,
+      );
       final azkarToSet = filters.getFilteredZikr(azkarFromDB);
       if (azkarToSet.isNotEmpty) titlesToSet.add(title);
     }
@@ -152,14 +159,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     add(HomeFiltersChangeEvent(state.filters));
   }
 
-  Future<void> _filtersChanged(HomeFiltersChangeEvent event, Emitter<HomeState> emit) async {
+  Future<void> _filtersChanged(
+    HomeFiltersChangeEvent event,
+    Emitter<HomeState> emit,
+  ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 
     final dbTitles = await hisnDBHelper.getAllTitles();
-    final List<DbTitle> filtered = await applyFiltersOnTitels(dbTitles, zikrFilters: event.filters);
+    final List<DbTitle> filtered = await applyFiltersOnTitels(
+      dbTitles,
+      zikrFilters: event.filters,
+    );
 
-    final listDbContentFavourite = await userDataDBHelper.getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper
+        .getFavouriteContents();
     final azkarFromDB = await hisnDBHelper.getContentsByIds(
       ids: listDbContentFavourite.map((e) => e.itemId).toList(),
     );
@@ -184,7 +198,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  Future<void> _bookmarkChanged(HomeBookmarksChangeEvent event, Emitter<HomeState> emit) async {
+  Future<void> _bookmarkChanged(
+    HomeBookmarksChangeEvent event,
+    Emitter<HomeState> emit,
+  ) async {
     final state = this.state;
     if (state is! HomeLoadedState) return;
 

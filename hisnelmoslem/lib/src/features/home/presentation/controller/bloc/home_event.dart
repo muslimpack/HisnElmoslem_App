@@ -19,10 +19,6 @@ class HomeToggleSearchEvent extends HomeEvent {
   List<Object> get props => [isSearching];
 }
 
-class HomeToggleDrawerEvent extends HomeEvent {
-  const HomeToggleDrawerEvent();
-}
-
 class HomeDashboardReorderedEvent extends HomeEvent {
   final int oldIndex;
   final int newIndex;
