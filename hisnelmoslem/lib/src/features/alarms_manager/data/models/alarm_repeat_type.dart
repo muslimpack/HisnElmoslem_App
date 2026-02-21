@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_day.dart';
 
 enum AlarmRepeatType {
   daily,
@@ -19,19 +18,19 @@ extension AlarmRepeatTypeExtension on AlarmRepeatType {
       case AlarmRepeatType.daily:
         return -1;
       case AlarmRepeatType.atSaturday:
-        return AwesomeDay.saturday.value;
+        return DateTime.saturday;
       case AlarmRepeatType.atSunday:
-        return AwesomeDay.sunday.value;
+        return DateTime.sunday;
       case AlarmRepeatType.atMonday:
-        return AwesomeDay.monday.value;
+        return DateTime.monday;
       case AlarmRepeatType.atTuesday:
-        return AwesomeDay.tuesday.value;
+        return DateTime.tuesday;
       case AlarmRepeatType.atWednesday:
-        return AwesomeDay.wednesday.value;
+        return DateTime.wednesday;
       case AlarmRepeatType.atThursday:
-        return AwesomeDay.thursday.value;
+        return DateTime.thursday;
       case AlarmRepeatType.atFriday:
-        return AwesomeDay.friday.value;
+        return DateTime.friday;
     }
   }
 
