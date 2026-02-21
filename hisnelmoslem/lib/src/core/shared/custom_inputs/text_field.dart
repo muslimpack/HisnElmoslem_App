@@ -5,6 +5,7 @@ class UserTextFormField extends StatelessWidget {
   final bool autoFocus;
   final TextEditingController controller;
   final String hintText;
+  final int? maxLines;
   final Function(String)? onChange;
   final String? Function(String?)? validator;
 
@@ -14,6 +15,7 @@ class UserTextFormField extends StatelessWidget {
     required this.hintText,
     this.onChange,
     this.validator,
+    this.maxLines,
     this.autoFocus = false,
   });
 
@@ -26,6 +28,7 @@ class UserTextFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         onChanged: onChange,
+        maxLines: maxLines,
         decoration: customInputDecoration(
           context,
         ).copyWith(hintText: hintText, labelText: hintText),
