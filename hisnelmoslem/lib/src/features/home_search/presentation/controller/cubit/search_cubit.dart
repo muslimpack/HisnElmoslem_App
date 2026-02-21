@@ -24,12 +24,8 @@ class SearchCubit extends Cubit<SearchState> {
   final AzkarFiltersRepo zikrFilterStorage;
   final HisnDBHelper azkarDBHelper;
   final SearchRepo searchRepo;
-  SearchCubit(
-    this.homeBloc,
-    this.zikrFilterStorage,
-    this.azkarDBHelper,
-    this.searchRepo,
-  ) : super(const SearchLoadingState()) {
+  SearchCubit(this.homeBloc, this.zikrFilterStorage, this.azkarDBHelper, this.searchRepo)
+    : super(const SearchLoadingState()) {
     homeBloc.stream.listen((event) {
       final homeBlocState = homeBloc.state;
       if (homeBlocState is! HomeLoadedState) return;
@@ -37,11 +33,57 @@ class SearchCubit extends Cubit<SearchState> {
       if (state is! SearchLoadedState) return;
     });
 
-    titlePagingController = PagingController(firstPageKey: 0)
-      ..addPageRequestListener(fetchPage);
+    titlePagingController = PagingController<int, DbTitle>(
+      getNextPageKey: (state) {
+        if (state.keys == null) return 0;
+        final loadedState = this.state;
+        final limit = loadedState is SearchLoadedState ? loadedState.pageSize : 10;
+        if (state.pages != null && state.pages!.isNotEmpty && state.pages!.last.length < limit) {
+          return null;
+        }
+        return state.keys!.last + state.pages!.last.length;
+      },
+      fetchPage: (pageKey) async {
+        final state = this.state;
+        if (state is! SearchLoadedState) return [];
 
-    contentPagingController = PagingController(firstPageKey: 0)
-      ..addPageRequestListener(fetchPage);
+        final (count, titles) = await azkarDBHelper.searchTitleByName(
+          searchText: state.searchText,
+          searchType: state.searchType,
+          limit: state.pageSize,
+          offset: pageKey,
+        );
+
+        emit(state.copyWith(searchResultCount: count));
+        return titles;
+      },
+    );
+
+    contentPagingController = PagingController<int, DbContent>(
+      getNextPageKey: (state) {
+        if (state.keys == null) return 0;
+        final loadedState = this.state;
+        final limit = loadedState is SearchLoadedState ? loadedState.pageSize : 10;
+        if (state.pages != null && state.pages!.isNotEmpty && state.pages!.last.length < limit) {
+          return null;
+        }
+        return state.keys!.last + state.pages!.last.length;
+      },
+      fetchPage: (pageKey) async {
+        final state = this.state;
+        if (state is! SearchLoadedState) return [];
+
+        final (count, content) = await azkarDBHelper.searchContent(
+          searchText: state.searchText,
+          searchType: state.searchType,
+          limit: state.pageSize,
+          offset: pageKey,
+        );
+
+        emit(state.copyWith(searchResultCount: count));
+        return content;
+      },
+    );
 
     searchController.addListener(() {
       EasyDebounce.debounce('search', const Duration(milliseconds: 500), () {
@@ -59,64 +101,6 @@ class SearchCubit extends Cubit<SearchState> {
     );
 
     emit(state);
-  }
-
-  Future fetchPage(int pageKey) async {
-    final state = this.state;
-    if (state is! SearchLoadedState) return;
-
-    switch (state.searchFor) {
-      case SearchFor.title:
-        searchTitleByName(pageKey, state);
-      case SearchFor.content:
-        searchContent(pageKey, state);
-    }
-  }
-
-  Future searchContent(int offset, SearchLoadedState state) async {
-    try {
-      final (count, content) = await azkarDBHelper.searchContent(
-        searchText: state.searchText,
-        searchType: state.searchType,
-        limit: state.pageSize,
-        offset: offset,
-      );
-
-      emit(state.copyWith(searchResultCount: count));
-
-      final isLastPage = content.length < state.pageSize;
-      if (isLastPage) {
-        contentPagingController.appendLastPage(content);
-      } else {
-        final nextPageKey = offset + content.length;
-        contentPagingController.appendPage(content, nextPageKey);
-      }
-    } catch (e) {
-      contentPagingController.error = e;
-    }
-  }
-
-  Future searchTitleByName(int offset, SearchLoadedState state) async {
-    try {
-      final (count, titles) = await azkarDBHelper.searchTitleByName(
-        searchText: state.searchText,
-        searchType: state.searchType,
-        limit: state.pageSize,
-        offset: offset,
-      );
-
-      emit(state.copyWith(searchResultCount: count));
-
-      final isLastPage = titles.length < state.pageSize;
-      if (isLastPage) {
-        titlePagingController.appendLastPage(titles);
-      } else {
-        final nextPageKey = offset + titles.length;
-        titlePagingController.appendPage(titles, nextPageKey);
-      }
-    } catch (e) {
-      titlePagingController.error = e;
-    }
   }
 
   ///MARK: Search header
