@@ -22,6 +22,10 @@ class LocalNotificationManager {
 
   Future<void> init() async {
     try {
+      final bool? isAllowed = await requestPermissionWithDialog();
+
+      if (isAllowed == null || !isAllowed) return;
+
       await _configureLocalTimeZone();
 
       const AndroidInitializationSettings androidInitializationSettings =
@@ -81,12 +85,12 @@ class LocalNotificationManager {
     tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
   }
 
-  Future<void> requestPermissionWithDialog() async {
+  Future<bool?> requestPermissionWithDialog() async {
     final BuildContext? context = App.navigatorKey.currentContext;
-    if (context == null) return;
+    if (context == null) return null;
 
     final appSettingsRepo = sl<AppSettingsRepo>();
-    if (appSettingsRepo.ignoreNotificationPermission) return;
+    if (appSettingsRepo.ignoreNotificationPermission) return null;
 
     bool isAllowed = false;
     if (Platform.isAndroid) {
@@ -101,9 +105,9 @@ class LocalNotificationManager {
       // iOS permissions are implicitly handled via requestPermissions below, but we assume true initially if already accepted in the past
     }
 
-    if (isAllowed) return;
+    if (isAllowed) return true;
 
-    if (!context.mounted) return;
+    if (!context.mounted) return null;
 
     final result = await showDialog<bool>(
       context: context,
@@ -153,7 +157,11 @@ class LocalNotificationManager {
             >()
             ?.requestNotificationsPermission();
       }
+
+      return true;
     }
+
+    return false;
   }
 
   @pragma("vm:entry-point")
@@ -249,7 +257,7 @@ class LocalNotificationManager {
         SX.current.haveNotOpenedAppLongTime,
         'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       payload: "2",
     );
   }
@@ -299,7 +307,7 @@ class LocalNotificationManager {
         title,
         body,
       ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       payload: payload,
     );
@@ -325,7 +333,7 @@ class LocalNotificationManager {
         title,
         body,
       ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
       payload: payload,
     );
