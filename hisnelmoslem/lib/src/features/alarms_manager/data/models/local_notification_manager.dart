@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
+import 'package:path/path.dart' as path;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -29,9 +30,13 @@ class LocalNotificationManager {
       const DarwinInitializationSettings iosInitializationSettings =
           DarwinInitializationSettings();
 
-      const InitializationSettings settings = InitializationSettings(
+      final WindowsInitializationSettings windowsInitializationSettings =
+          _windowsInitializationSettings();
+
+      final InitializationSettings settings = InitializationSettings(
         android: androidInitializationSettings,
         iOS: iosInitializationSettings,
+        windows: windowsInitializationSettings,
       );
 
       await flutterLocalNotificationsPlugin.initialize(
@@ -43,6 +48,31 @@ class LocalNotificationManager {
     } catch (e) {
       hisnPrint(e);
     }
+  }
+
+  WindowsInitializationSettings _windowsInitializationSettings() {
+    String? iconPath;
+    if (Platform.isWindows) {
+      final String exePath = Platform.resolvedExecutable;
+      final String appDir = path.dirname(exePath);
+      iconPath = path.join(
+        appDir,
+        'data',
+        'flutter_assets',
+        'assets/images/app_icon.png',
+      );
+      if (!File(iconPath).existsSync()) {
+        iconPath = null;
+      }
+    }
+
+    return WindowsInitializationSettings(
+      appName: SX.appName,
+      appUserModelId: 'com.hassaneltantawy.hisnelmoslem',
+      //run `[guid]::NewGuid()` on windows
+      guid: '82fd58ee-c707-40ba-b2f8-799d8cb40e12',
+      iconPath: iconPath,
+    );
   }
 
   Future<void> _configureLocalTimeZone() async {
@@ -315,8 +345,10 @@ class LocalNotificationManager {
     }
     /// go to zikr page if clicked
     else {
-      final int pageIndex = int.parse(payload);
-      context.push(ZikrViewerScreen(index: pageIndex));
+      final int? pageIndex = int.tryParse(payload);
+      if (pageIndex != null) {
+        context.push(ZikrViewerScreen(index: pageIndex));
+      }
     }
   }
 }
