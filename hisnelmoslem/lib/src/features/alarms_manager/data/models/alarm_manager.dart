@@ -7,13 +7,13 @@ import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 
 class AlarmManager {
-  final AwesomeNotificationManager awesomeNotificationManager;
+  final LocalNotificationManager localNotificationManager;
 
-  AlarmManager(this.awesomeNotificationManager);
+  AlarmManager(this.localNotificationManager);
 
   Future<void> alarmState({
     required DbAlarm dbAlarm,
@@ -25,7 +25,7 @@ class AlarmManager {
       }
 
       if (dbAlarm.repeatType == AlarmRepeatType.daily) {
-        await awesomeNotificationManager.addCustomDailyReminder(
+        await localNotificationManager.addCustomDailyReminder(
           id: dbAlarm.titleId,
           title: dbAlarm.title,
           body: dbAlarm.body,
@@ -33,7 +33,7 @@ class AlarmManager {
           payload: dbAlarm.titleId.toString(),
         );
       } else {
-        await awesomeNotificationManager.addCustomWeeklyReminder(
+        await localNotificationManager.addCustomWeeklyReminder(
           id: dbAlarm.titleId,
           title: dbAlarm.title,
           body: dbAlarm.body,
@@ -47,7 +47,7 @@ class AlarmManager {
         showToast(msg: "${SX.current.deactivate}: ${dbAlarm.title}");
       }
 
-      await awesomeNotificationManager.cancelNotificationById(
+      await localNotificationManager.cancelNotificationById(
         id: dbAlarm.titleId,
       );
     }

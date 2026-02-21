@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
-import 'package:hisnelmoslem/src/features/alarms_manager/data/models/awesome_notification_manager.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
@@ -69,7 +69,7 @@ Future<void> initSL() async {
 
   ///MARK: Init Manager
   sl.registerFactory(() => EffectsManager(sl()));
-  sl.registerFactory(() => AwesomeNotificationManager());
+  sl.registerFactory(() => LocalNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
   sl.registerFactory(() => VolumeButtonManager());
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -93,5 +93,7 @@ Future<void> initSL() async {
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
-  sl.registerFactory(() => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(
+    () => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
 }
