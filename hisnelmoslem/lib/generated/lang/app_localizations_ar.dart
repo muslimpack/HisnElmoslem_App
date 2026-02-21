@@ -748,4 +748,7 @@ class SAr extends S {
 
   @override
   String get audioPlayerSettings => 'إعدادات الصوت';
+
+  @override
+  String get vibrationDuration => 'مدة الاهتزاز (بالملي ثانية)';
 }

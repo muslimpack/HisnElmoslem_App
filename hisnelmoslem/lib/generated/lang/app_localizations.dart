@@ -1542,6 +1542,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Audio Settings'**
   String get audioPlayerSettings;
+
+  /// No description provided for @vibrationDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration duration (ms)'**
+  String get vibrationDuration;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

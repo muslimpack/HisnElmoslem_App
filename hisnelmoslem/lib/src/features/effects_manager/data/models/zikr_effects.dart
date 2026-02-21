@@ -12,6 +12,10 @@ class ZikrEffects extends Equatable {
   final bool vibrateEveryZikr;
   final bool vibrateEveryTitle;
 
+  final int vibrateEveryPraiseDuration;
+  final int vibrateEveryZikrDuration;
+  final int vibrateEveryTitleDuration;
+
   const ZikrEffects({
     required this.soundEffectVolume,
     required this.soundEveryPraise,
@@ -20,6 +24,9 @@ class ZikrEffects extends Equatable {
     required this.vibrateEveryPraise,
     required this.vibrateEveryZikr,
     required this.vibrateEveryTitle,
+    required this.vibrateEveryPraiseDuration,
+    required this.vibrateEveryZikrDuration,
+    required this.vibrateEveryTitleDuration,
   });
 
   ZikrEffects copyWith({
@@ -30,6 +37,9 @@ class ZikrEffects extends Equatable {
     bool? vibrateEveryPraise,
     bool? vibrateEveryZikr,
     bool? vibrateEveryTitle,
+    int? vibrateEveryPraiseDuration,
+    int? vibrateEveryZikrDuration,
+    int? vibrateEveryTitleDuration,
   }) {
     return ZikrEffects(
       soundEffectVolume: soundEffectVolume ?? this.soundEffectVolume,
@@ -39,6 +49,12 @@ class ZikrEffects extends Equatable {
       vibrateEveryPraise: vibrateEveryPraise ?? this.vibrateEveryPraise,
       vibrateEveryZikr: vibrateEveryZikr ?? this.vibrateEveryZikr,
       vibrateEveryTitle: vibrateEveryTitle ?? this.vibrateEveryTitle,
+      vibrateEveryPraiseDuration:
+          vibrateEveryPraiseDuration ?? this.vibrateEveryPraiseDuration,
+      vibrateEveryZikrDuration:
+          vibrateEveryZikrDuration ?? this.vibrateEveryZikrDuration,
+      vibrateEveryTitleDuration:
+          vibrateEveryTitleDuration ?? this.vibrateEveryTitleDuration,
     );
   }
 
@@ -52,6 +68,9 @@ class ZikrEffects extends Equatable {
       vibrateEveryPraise,
       vibrateEveryZikr,
       vibrateEveryTitle,
+      vibrateEveryPraiseDuration,
+      vibrateEveryZikrDuration,
+      vibrateEveryTitleDuration,
     ];
   }
 }

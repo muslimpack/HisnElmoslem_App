@@ -748,4 +748,7 @@ class SEn extends S {
 
   @override
   String get audioPlayerSettings => 'Audio Settings';
+
+  @override
+  String get vibrationDuration => 'Vibration duration (ms)';
 }

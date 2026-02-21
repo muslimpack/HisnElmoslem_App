@@ -42,7 +42,7 @@ class EffectsManager {
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
-      await Vibration.vibrate(duration: 100);
+      await Vibration.vibrate(duration: _effectsManagerRepo.praiseVibrationDuration);
     } else {
       await HapticFeedback.lightImpact();
     }
@@ -52,7 +52,7 @@ class EffectsManager {
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
-      await Vibration.vibrate(duration: 300);
+      await Vibration.vibrate(duration: _effectsManagerRepo.zikrVibrationDuration);
     } else {
       await HapticFeedback.mediumImpact();
     }
@@ -62,7 +62,7 @@ class EffectsManager {
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
-      await Vibration.vibrate();
+      await Vibration.vibrate(duration: _effectsManagerRepo.titleVibrationDuration);
     } else {
       await HapticFeedback.heavyImpact();
     }
