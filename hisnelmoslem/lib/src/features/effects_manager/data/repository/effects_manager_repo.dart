@@ -46,6 +46,14 @@ class EffectsManagerRepo {
   Future changePraiseVibrationStatus({required bool value}) =>
       box.write(_isPraiseVibrationAllowedKey, value);
 
+  static const _praiseVibrationDurationKey = 'tally_vibrate_duration';
+
+  int get praiseVibrationDuration =>
+      box.read(_praiseVibrationDurationKey) ?? 100;
+
+  Future changePraiseVibrationDuration({required int value}) =>
+      box.write(_praiseVibrationDurationKey, value);
+
   ///
   static const _isZikrVibrationAllowedKey = 'zikr_done_vibrate';
 
@@ -55,6 +63,13 @@ class EffectsManagerRepo {
   Future changeZikrVibrationStatus({required bool value}) =>
       box.write(_isZikrVibrationAllowedKey, value);
 
+  static const _zikrVibrationDurationKey = 'zikr_done_vibrate_duration';
+
+  int get zikrVibrationDuration => box.read(_zikrVibrationDurationKey) ?? 300;
+
+  Future changeZikrVibrationDuration({required int value}) =>
+      box.write(_zikrVibrationDurationKey, value);
+
   ///
   static const _isTitleVibrationAllowedKey = "all_azkar_finished_vibrate";
 
@@ -63,4 +78,12 @@ class EffectsManagerRepo {
 
   Future changeTitleVibrationStatus({required bool value}) =>
       box.write(_isTitleVibrationAllowedKey, value);
+
+  static const _titleVibrationDurationKey =
+      'all_azkar_finished_vibrate_duration';
+
+  int get titleVibrationDuration => box.read(_titleVibrationDurationKey) ?? 500;
+
+  Future changeTitleVibrationDuration({required int value}) =>
+      box.write(_titleVibrationDurationKey, value);
 }

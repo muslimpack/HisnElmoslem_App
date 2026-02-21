@@ -240,5 +240,6 @@
   "audioPlayerDelayByPrevious": "Same as Previous Zikr",
   "audioPlayerDelayFixed": "Fixed Time",
   "audioPlayerDelaySeconds": "Seconds",
-  "audioPlayerSettings": "Audio Settings"
+  "audioPlayerSettings": "Audio Settings",
+  "vibrationDuration": "Vibration duration (ms)"
 }

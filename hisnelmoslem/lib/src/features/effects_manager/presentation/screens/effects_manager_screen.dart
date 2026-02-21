@@ -13,9 +13,7 @@ class EffectsManagerScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-              S.of(context).effectManager,
-            ),
+            title: Text(S.of(context).effectManager),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
           ),
@@ -23,9 +21,7 @@ class EffectsManagerScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               ListTile(
-                leading: const Icon(
-                  Icons.volume_up,
-                ),
+                leading: const Icon(Icons.volume_up),
                 title: Text(S.of(context).soundEffectVolume),
                 subtitle: Slider(
                   value: state.zikrEffects.soundEffectVolume,
@@ -39,9 +35,7 @@ class EffectsManagerScreen extends StatelessWidget {
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.speaker,
-                  ),
+                  leading: const Icon(Icons.speaker),
                   title: Text(S.of(context).soundEffectAtEveryPraise),
                 ),
                 value: state.zikrEffects.soundEveryPraise,
@@ -56,9 +50,7 @@ class EffectsManagerScreen extends StatelessWidget {
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.speaker,
-                  ),
+                  leading: const Icon(Icons.speaker),
                   title: Text(S.of(context).soundEffectAtSingleZikrEnd),
                 ),
                 value: state.zikrEffects.soundEveryZikr,
@@ -73,9 +65,7 @@ class EffectsManagerScreen extends StatelessWidget {
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.speaker,
-                  ),
+                  leading: const Icon(Icons.speaker),
                   title: Text(S.of(context).soundEffectWhenAllZikrEnd),
                 ),
                 value: state.zikrEffects.soundEveryTitle,
@@ -91,9 +81,7 @@ class EffectsManagerScreen extends StatelessWidget {
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
+                  leading: const Icon(Icons.vibration),
                   title: Text(S.of(context).phoneVibrationAtEveryPraise),
                 ),
                 value: state.zikrEffects.vibrateEveryPraise,
@@ -105,14 +93,34 @@ class EffectsManagerScreen extends StatelessWidget {
                       );
                 },
               ),
+              if (state.zikrEffects.vibrateEveryPraise)
+                ListTile(
+                  leading: const Icon(Icons.timer),
+                  title: Text(
+                    "${S.of(context).vibrationDuration}: ${state.zikrEffects.vibrateEveryPraiseDuration} ms",
+                  ),
+                  subtitle: Slider(
+                    min: 10,
+                    max: 1000,
+                    divisions: 99,
+                    label: "${state.zikrEffects.vibrateEveryPraiseDuration} ms",
+                    value: state.zikrEffects.vibrateEveryPraiseDuration
+                        .toDouble(),
+                    onChanged: (value) {
+                      context
+                          .read<SettingsCubit>()
+                          .zikrEffectChangePraiseVibrationDuration(
+                            value.toInt(),
+                          );
+                    },
+                  ),
+                ),
 
               /// Zikr Done Sound Allowed Vibrate
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
+                  leading: const Icon(Icons.vibration),
                   title: Text(S.of(context).phoneVibrationAtSingleZikrEnd),
                 ),
                 value: state.zikrEffects.vibrateEveryZikr,
@@ -122,14 +130,32 @@ class EffectsManagerScreen extends StatelessWidget {
                       .zikrEffectChangePlayVibrationEveryZikr(activate: value);
                 },
               ),
+              if (state.zikrEffects.vibrateEveryZikr)
+                ListTile(
+                  leading: const Icon(Icons.timer),
+                  title: Text(
+                    "${S.of(context).vibrationDuration}: ${state.zikrEffects.vibrateEveryZikrDuration} ms",
+                  ),
+                  subtitle: Slider(
+                    min: 10,
+                    max: 1000,
+                    divisions: 99,
+                    label: "${state.zikrEffects.vibrateEveryZikrDuration} ms",
+                    value: state.zikrEffects.vibrateEveryZikrDuration
+                        .toDouble(),
+                    onChanged: (value) {
+                      context
+                          .read<SettingsCubit>()
+                          .zikrEffectChangeZikrVibrationDuration(value.toInt());
+                    },
+                  ),
+                ),
 
               /// Azkar Done Sound Allowed vibrate
               SwitchListTile(
                 title: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.vibration,
-                  ),
+                  leading: const Icon(Icons.vibration),
                   title: Text(S.of(context).phoneVibrationWhenAllZikrEnd),
                 ),
                 value: state.zikrEffects.vibrateEveryTitle,
@@ -139,6 +165,28 @@ class EffectsManagerScreen extends StatelessWidget {
                       .zikrEffectChangePlayVibrationEveryTitle(activate: value);
                 },
               ),
+              if (state.zikrEffects.vibrateEveryTitle)
+                ListTile(
+                  leading: const Icon(Icons.timer),
+                  title: Text(
+                    "${S.of(context).vibrationDuration}: ${state.zikrEffects.vibrateEveryTitleDuration} ms",
+                  ),
+                  subtitle: Slider(
+                    min: 10,
+                    max: 1000,
+                    divisions: 99,
+                    label: "${state.zikrEffects.vibrateEveryTitleDuration} ms",
+                    value: state.zikrEffects.vibrateEveryTitleDuration
+                        .toDouble(),
+                    onChanged: (value) {
+                      context
+                          .read<SettingsCubit>()
+                          .zikrEffectChangeTitleVibrationDuration(
+                            value.toInt(),
+                          );
+                    },
+                  ),
+                ),
             ],
           ),
         );

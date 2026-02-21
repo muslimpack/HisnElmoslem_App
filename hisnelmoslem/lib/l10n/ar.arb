@@ -240,5 +240,6 @@
   "audioPlayerDelayByPrevious": "نفس مدة الذكر السابق",
   "audioPlayerDelayFixed": "وقت محدد",
   "audioPlayerDelaySeconds": "ثواني",
-  "audioPlayerSettings": "إعدادات الصوت"
+  "audioPlayerSettings": "إعدادات الصوت",
+  "vibrationDuration": "مدة الاهتزاز (بالملي ثانية)"
 }
