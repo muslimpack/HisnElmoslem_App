@@ -24,7 +24,7 @@ class TallyListView extends StatelessWidget {
               return TallyCard(dbTally: state.allCounters[index]);
             },
             separatorBuilder: (BuildContext context, int index) {
-              return const Divider(height: 0);
+              return const SizedBox(height: 0);
             },
           ),
         );
