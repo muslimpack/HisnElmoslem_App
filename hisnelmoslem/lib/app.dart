@@ -45,6 +45,14 @@ class AppState extends State<App> {
     } catch (e) {
       hisnPrint(e);
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await sl<AwesomeNotificationManager>().requestPermissionWithDialog();
+      } catch (e) {
+        hisnPrint(e);
+      }
+    });
   }
 
   @override

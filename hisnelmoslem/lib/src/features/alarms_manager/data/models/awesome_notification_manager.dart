@@ -13,13 +13,8 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_
 class AwesomeNotificationManager {
   Future<void> init() async {
     try {
-      await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-        if (!isAllowed) {
-          if (!sl<AppSettingsRepo>().ignoreNotificationPermission) {
-            AwesomeNotifications().requestPermissionToSendNotifications();
-          }
-        }
-      });
+      // Permission is now requested via requestPermissionWithDialog()
+      // when the app starts up and we have a valid BuildContext
 
       await AwesomeNotifications().initialize(
         /// using null here mean it will use app icon for notification icon
@@ -56,6 +51,55 @@ class AwesomeNotificationManager {
 
   Future listen() async {
     await AwesomeNotifications().setListeners(onActionReceivedMethod: onActionReceivedMethod);
+  }
+
+  Future<void> requestPermissionWithDialog() async {
+    final BuildContext? context = App.navigatorKey.currentContext;
+    if (context == null) return;
+
+    final isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    if (isAllowed) return;
+
+    final appSettingsRepo = sl<AppSettingsRepo>();
+    if (appSettingsRepo.ignoreNotificationPermission) return;
+
+    if (!context.mounted) return;
+
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(SX.current.allowNotifications),
+          content: Text(SX.current.notificationPermissionRequired),
+          actions: [
+            TextButton(
+              child: Text(SX.current.ignoreNotificationPermission),
+              onPressed: () {
+                appSettingsRepo.changeIgnoreNotificationPermissionStatus(value: true);
+                Navigator.pop<bool>(context, false);
+              },
+            ),
+            TextButton(
+              child: Text(SX.current.later),
+              onPressed: () {
+                Navigator.pop<bool>(context, false);
+              },
+            ),
+            FilledButton(
+              child: Text(SX.current.allow),
+              onPressed: () {
+                Navigator.pop<bool>(context, true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result == true) {
+      await AwesomeNotifications().requestPermissionToSendNotifications();
+    }
   }
 
   @pragma("vm:entry-point")
