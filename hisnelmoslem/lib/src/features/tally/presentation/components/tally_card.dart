@@ -67,6 +67,7 @@ class TallyCard extends StatelessWidget {
                   : null,
             ),
             child: Row(
+              spacing: 8,
               children: [
                 // Active indicator dot
                 AnimatedContainer(
@@ -87,7 +88,7 @@ class TallyCard extends StatelessWidget {
                     children: [
                       Text(
                         dbTally.title,
-                        maxLines: 2,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: isActivated ? FontWeight.bold : FontWeight.normal,
@@ -105,57 +106,65 @@ class TallyCard extends StatelessWidget {
                   ),
                 ),
 
-                // Count badge
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: isActivated
-                        ? primary.withAlpha((.2 * 255).round())
-                        : colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    dbTally.count
-                        .toString()
-                        .padLeft((state as TallyLoadedState).maxCounterNumberLength, "0")
-                        .toArabicNumber(),
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isActivated ? primary : colorScheme.onSurface,
-                      fontFeatures: const [FontFeature.tabularFigures()],
+                Column(
+                  spacing: 4,
+                  children: [
+                    // Count badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: isActivated
+                            ? primary.withAlpha((.2 * 255).round())
+                            : colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        dbTally.count
+                            .toString()
+                            .padLeft((state as TallyLoadedState).maxCounterNumberLength, "0")
+                            .toArabicNumber(),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isActivated ? primary : colorScheme.onSurface,
+                          fontFeatures: const [FontFeature.tabularFigures()],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
 
-                const SizedBox(width: 4),
-
-                // Edit button
-                IconButton(
-                  tooltip: S.of(context).edit,
-                  style: IconButton.styleFrom(
-                    foregroundColor: colorScheme.onSurface.withAlpha(130),
-                  ),
-                  onPressed: () async {
-                    final EditorResult<DbTally>? result = await showTallyEditorDialog(
-                      context: context,
-                      dbTally: dbTally,
-                    );
-
-                    if (result == null || !context.mounted) return;
-                    switch (result.action) {
-                      case EditorActionEnum.edit:
-                        context.read<TallyBloc>().add(TallyEditCounterEvent(counter: result.value));
-                      case EditorActionEnum.delete:
-                        final bool? confirm = await showDialog(
+                    // Edit button
+                    IconButton(
+                      tooltip: S.of(context).edit,
+                      style: IconButton.styleFrom(
+                        foregroundColor: colorScheme.onSurface.withAlpha(130),
+                      ),
+                      onPressed: () async {
+                        final EditorResult<DbTally>? result = await showTallyEditorDialog(
                           context: context,
-                          builder: (_) => YesOrNoDialog(msg: S.of(context).counterWillBeDeleted),
+                          dbTally: dbTally,
                         );
-                        if (confirm == null || !confirm || !context.mounted) return;
-                        context.read<TallyBloc>().add(TallyDeleteCounterEvent(counter: dbTally));
-                      default:
-                    }
-                  },
-                  icon: const Icon(Icons.edit_outlined),
+
+                        if (result == null || !context.mounted) return;
+                        switch (result.action) {
+                          case EditorActionEnum.edit:
+                            context.read<TallyBloc>().add(
+                              TallyEditCounterEvent(counter: result.value),
+                            );
+                          case EditorActionEnum.delete:
+                            final bool? confirm = await showDialog(
+                              context: context,
+                              builder: (_) =>
+                                  YesOrNoDialog(msg: S.of(context).counterWillBeDeleted),
+                            );
+                            if (confirm == null || !confirm || !context.mounted) return;
+                            context.read<TallyBloc>().add(
+                              TallyDeleteCounterEvent(counter: dbTally),
+                            );
+                          default:
+                        }
+                      },
+                      icon: const Icon(Icons.edit_outlined),
+                    ),
+                  ],
                 ),
               ],
             ),
