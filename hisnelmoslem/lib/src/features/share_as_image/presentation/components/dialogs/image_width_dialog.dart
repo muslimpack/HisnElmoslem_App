@@ -14,8 +14,9 @@ class ImageWidthDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController widthController =
-        TextEditingController(text: initialValue);
+    final TextEditingController widthController = TextEditingController(
+      text: initialValue,
+    );
     return AlertDialog(
       title: Text(
         S.of(context).editImageSize,

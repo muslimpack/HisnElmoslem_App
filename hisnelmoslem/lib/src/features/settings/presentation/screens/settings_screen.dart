@@ -125,9 +125,7 @@ class SettingsGeneralSection extends StatelessWidget {
           children: [
             SwitchListTile(
               secondary: Icon(
-                !state.isCardReadMode
-                    ? MdiIcons.bookOpenPageVariant
-                    : MdiIcons.card,
+                !state.isCardReadMode ? MdiIcons.bookOpenPageVariant : MdiIcons.card,
               ),
               value: !state.isCardReadMode,
               title: Text(S.of(context).pageMode),
@@ -175,11 +173,9 @@ class SettingsGeneralSection extends StatelessWidget {
               title: Text(S.of(context).ignoreNotificationPermission),
               subtitle: Text(S.of(context).ignoreNotificationPermissionDesc),
               onChanged: (value) {
-                context
-                    .read<SettingsCubit>()
-                    .toggleIgnoreNotificationPermission(
-                      ignore: !state.ignoreNotificationPermission,
-                    );
+                context.read<SettingsCubit>().toggleIgnoreNotificationPermission(
+                  ignore: !state.ignoreNotificationPermission,
+                );
               },
             ),
             SwitchListTile(

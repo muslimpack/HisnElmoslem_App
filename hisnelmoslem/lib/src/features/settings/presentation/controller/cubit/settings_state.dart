@@ -57,8 +57,7 @@ class SettingsState extends Equatable {
       fontSize: fontSize ?? this.fontSize,
       showDiacritics: showDiacritics ?? this.showDiacritics,
       praiseWithVolumeKeys: praiseWithVolumeKeys ?? this.praiseWithVolumeKeys,
-      allowZikrSessionRestoration:
-          allowZikrSessionRestoration ?? this.allowZikrSessionRestoration,
+      allowZikrSessionRestoration: allowZikrSessionRestoration ?? this.allowZikrSessionRestoration,
       ignoreNotificationPermission:
           ignoreNotificationPermission ?? this.ignoreNotificationPermission,
     );

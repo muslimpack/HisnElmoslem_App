@@ -58,7 +58,18 @@ class DbContent extends Equatable {
 
   @override
   List<Object> get props {
-    return [id, content, titleId, order, count, fadl, source, search, hokm, audio];
+    return [
+      id,
+      content,
+      titleId,
+      order,
+      count,
+      fadl,
+      source,
+      search,
+      hokm,
+      audio,
+    ];
   }
 
   factory DbContent.fromMap(Map<String, dynamic> map) {

@@ -247,7 +247,13 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   Future<void> stop() async {
     try {
       await _player.stop();
-      emit(state.copyWith(isPlaying: false, isPaused: false, position: Duration.zero));
+      emit(
+        state.copyWith(
+          isPlaying: false,
+          isPaused: false,
+          position: Duration.zero,
+        ),
+      );
     } catch (e) {
       hisnPrint('AudioPlayer Error stop: $e');
       emit(state.copyWith(isPlaying: false, isPaused: false));

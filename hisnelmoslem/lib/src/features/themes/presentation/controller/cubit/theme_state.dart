@@ -66,7 +66,11 @@ class ThemeState extends Equatable {
   }
 
   AppBarTheme appBarTheme() {
-    return const AppBarTheme(scrolledUnderElevation: 10, elevation: 0, centerTitle: true);
+    return const AppBarTheme(
+      scrolledUnderElevation: 10,
+      elevation: 0,
+      centerTitle: true,
+    );
   }
 
   ThemeState copyWith({

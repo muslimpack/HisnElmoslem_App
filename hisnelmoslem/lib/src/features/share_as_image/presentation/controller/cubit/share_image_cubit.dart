@@ -115,14 +115,20 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     );
 
     final String proccessedText = content2Set.content;
-    final charsPerChunk = charPer1080(settings.wordsCountPerSize, proccessedText);
+    final charsPerChunk = charPer1080(
+      settings.wordsCountPerSize,
+      proccessedText,
+    );
 
     final List<TextRange> splittedMatnRanges = splitStringIntoChunksRange(
       proccessedText,
       charsPerChunk,
     );
 
-    imageKeys = List.generate(splittedMatnRanges.length, (index) => GlobalKey());
+    imageKeys = List.generate(
+      splittedMatnRanges.length,
+      (index) => GlobalKey(),
+    );
     emit(
       ShareImageLoadedState(
         content: content2Set,
@@ -141,7 +147,12 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (content.titleId >= 0) {
       title = await sl<HisnDBHelper>().getTitleById(id: content.titleId);
     } else {
-      title = const DbTitle(id: -1, name: "أحاديث منتشرة لا تصح", freq: "", order: -1);
+      title = const DbTitle(
+        id: -1,
+        name: "أحاديث منتشرة لا تصح",
+        freq: "",
+        order: -1,
+      );
     }
     return title;
   }
@@ -184,7 +195,9 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
-    _updateSettings(state.shareImageSettings.copyWith(additionalTextColor: color));
+    _updateSettings(
+      state.shareImageSettings.copyWith(additionalTextColor: color),
+    );
   }
 
   void resetColors() {
@@ -350,7 +363,10 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     return fileName;
   }
 
-  Future _saveDesktop(List<ByteData> filesData, {required List<String> fileName}) async {
+  Future _saveDesktop(
+    List<ByteData> filesData, {
+    required List<String> fileName,
+  }) async {
     final String? dir = await FilePicker.platform.getDirectoryPath(
       dialogTitle: 'Please select an output file:',
     );
@@ -369,7 +385,9 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     final List<XFile> xFiles = [];
     for (int i = 0; i < filesData.length; i++) {
-      final File file = await File('${tempDir.path}/SharedImage$i.png').create();
+      final File file = await File(
+        '${tempDir.path}/SharedImage$i.png',
+      ).create();
       await file.writeAsBytes(filesData[i].buffer.asUint8List());
       xFiles.add(XFile(file.path));
     }
@@ -412,7 +430,9 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
       final tempDir = await getTemporaryDirectory();
       final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-      final File file = await File('${tempDir.path}/DownloadedImage_$timestamp.png').create();
+      final File file = await File(
+        '${tempDir.path}/DownloadedImage_$timestamp.png',
+      ).create();
       await file.writeAsBytes(uint8List);
 
       await Gal.putImage(file.path);

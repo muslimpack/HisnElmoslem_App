@@ -15,8 +15,7 @@ class DesktopWindowWrapper extends StatefulWidget {
   State<DesktopWindowWrapper> createState() => _DesktopWindowWrapperState();
 }
 
-class _DesktopWindowWrapperState extends State<DesktopWindowWrapper>
-    with WindowListener {
+class _DesktopWindowWrapperState extends State<DesktopWindowWrapper> with WindowListener {
   @override
   void initState() {
     super.initState();

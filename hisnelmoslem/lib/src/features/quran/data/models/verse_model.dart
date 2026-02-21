@@ -28,10 +28,10 @@ class Verse extends Equatable {
 
   @override
   List<Object> get props => [
-        sura,
-        ayah,
-        text,
-      ];
+    sura,
+    ayah,
+    text,
+  ];
 
   Verse copyWith({
     int? sura,

@@ -8,7 +8,11 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class SearchResultViewer<T> extends StatelessWidget {
   final PagingController<int, T> pagingController;
   final Widget Function(BuildContext, T, int) itemBuilder;
-  const SearchResultViewer({super.key, required this.pagingController, required this.itemBuilder});
+  const SearchResultViewer({
+    super.key,
+    required this.pagingController,
+    required this.itemBuilder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,9 @@ class SearchResultViewer<T> extends StatelessWidget {
                 child: LinearProgressIndicator(),
               ),
               noMoreItemsIndicatorBuilder: (context) => const NoMoreItemsIndicatorBuilder(),
-              noItemsFoundIndicatorBuilder: (context) =>
-                  NoItemsFoundIndicatorBuilder(searchText: state.searchText),
+              noItemsFoundIndicatorBuilder: (context) => NoItemsFoundIndicatorBuilder(
+                searchText: state.searchText,
+              ),
             ),
           ),
         );

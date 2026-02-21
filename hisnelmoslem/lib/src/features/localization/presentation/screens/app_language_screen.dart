@@ -25,8 +25,7 @@ class AppLanguageScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final currentLocale = supportedLocales[index];
               return ListTile(
-                tileColor:
-                    context.read<ThemeCubit>().state.locale == currentLocale
+                tileColor: context.read<ThemeCubit>().state.locale == currentLocale
                     ? Theme.of(
                         context,
                       ).colorScheme.primary.withAlpha((.5 * 255).round())

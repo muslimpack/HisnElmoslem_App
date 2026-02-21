@@ -26,7 +26,10 @@ class Empty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> items = description.split("\n").fold([], (previousValue, element) {
+    final List<String> items = description.split("\n").fold([], (
+      previousValue,
+      element,
+    ) {
       if (element.isNotEmpty) {
         return previousValue..add(element.trim());
       }
@@ -42,13 +45,20 @@ class Empty extends StatelessWidget {
           if (isImage)
             Padding(
               padding: const EdgeInsets.all(10),
-              child: SizedBox(height: 250, child: Image.asset(imagePath, fit: BoxFit.fitHeight)),
+              child: SizedBox(
+                height: 250,
+                child: Image.asset(imagePath, fit: BoxFit.fitHeight),
+              ),
             ),
           if (icon != null) Icon(icon, size: iconSize),
           if (title.isNotEmpty)
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 25)),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 25),
+              ),
             ),
           if (description.isNotEmpty)
             if (!isItemList)
@@ -66,12 +76,19 @@ class Empty extends StatelessWidget {
                 return Card(
                   child: ListTile(
                     leading: Card(
-                      color: Theme.of(context).colorScheme.primary.withAlpha(50),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withAlpha(50),
                       child: Container(
                         width: 40,
                         height: 40,
                         padding: const EdgeInsets.all(8.0),
-                        child: Center(child: Text("${index + 1}", textAlign: TextAlign.center)),
+                        child: Center(
+                          child: Text(
+                            "${index + 1}",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ),
                     title: Text(item),

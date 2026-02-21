@@ -29,8 +29,9 @@ class RearrangeDashboardPage extends StatelessWidget {
               return ListTile(
                 key: Key("$index"),
                 title: Text(
-                  appDashboardTabs[state.dashboardArrangement[index]]
-                      .title(context),
+                  appDashboardTabs[state.dashboardArrangement[index]].title(
+                    context,
+                  ),
                 ),
                 trailing: const Icon(Icons.horizontal_rule),
               );
@@ -38,11 +39,11 @@ class RearrangeDashboardPage extends StatelessWidget {
             itemCount: state.dashboardArrangement.length,
             onReorder: (oldIndex, newIndex) {
               context.read<HomeBloc>().add(
-                    HomeDashboardReorderedEvent(
-                      oldIndex: oldIndex,
-                      newIndex: newIndex,
-                    ),
-                  );
+                HomeDashboardReorderedEvent(
+                  oldIndex: oldIndex,
+                  newIndex: newIndex,
+                ),
+              );
             },
           ),
         );

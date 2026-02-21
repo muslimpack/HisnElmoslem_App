@@ -33,11 +33,9 @@ class SettingsCubit extends Cubit<SettingsState> {
             vibrateEveryPraise: effectsManagerRepo.isPraiseVibrationAllowed,
             vibrateEveryZikr: effectsManagerRepo.isZikrVibrationAllowed,
             vibrateEveryTitle: effectsManagerRepo.isTitleVibrationAllowed,
-            vibrateEveryPraiseDuration:
-                effectsManagerRepo.praiseVibrationDuration,
+            vibrateEveryPraiseDuration: effectsManagerRepo.praiseVibrationDuration,
             vibrateEveryZikrDuration: effectsManagerRepo.zikrVibrationDuration,
-            vibrateEveryTitleDuration:
-                effectsManagerRepo.titleVibrationDuration,
+            vibrateEveryTitleDuration: effectsManagerRepo.titleVibrationDuration,
           ),
           enableWakeLock: appSettingsRepo.enableWakeLock,
           isCardReadMode: appSettingsRepo.isCardReadMode,
@@ -45,10 +43,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           fontSize: zikrTextRepo.fontSize,
           showDiacritics: zikrTextRepo.showDiacritics,
           praiseWithVolumeKeys: appSettingsRepo.praiseWithVolumeKeys,
-          allowZikrSessionRestoration:
-              zikrViewerRepo.allowZikrSessionRestoration,
-          ignoreNotificationPermission:
-              appSettingsRepo.ignoreNotificationPermission,
+          allowZikrSessionRestoration: zikrViewerRepo.allowZikrSessionRestoration,
+          ignoreNotificationPermission: appSettingsRepo.ignoreNotificationPermission,
         ),
       );
 

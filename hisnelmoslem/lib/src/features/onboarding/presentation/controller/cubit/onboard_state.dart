@@ -37,10 +37,10 @@ class OnboardLoadedState extends OnboardState {
 
   @override
   List<Object> get props => [
-        currentPageIndex,
-        showSkipBtn,
-        pages,
-      ];
+    currentPageIndex,
+    showSkipBtn,
+    pages,
+  ];
 }
 
 class OnboardDoneState extends OnboardState {}

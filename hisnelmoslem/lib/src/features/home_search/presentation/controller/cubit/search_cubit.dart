@@ -24,8 +24,12 @@ class SearchCubit extends Cubit<SearchState> {
   final AzkarFiltersRepo zikrFilterStorage;
   final HisnDBHelper azkarDBHelper;
   final SearchRepo searchRepo;
-  SearchCubit(this.homeBloc, this.zikrFilterStorage, this.azkarDBHelper, this.searchRepo)
-    : super(const SearchLoadingState()) {
+  SearchCubit(
+    this.homeBloc,
+    this.zikrFilterStorage,
+    this.azkarDBHelper,
+    this.searchRepo,
+  ) : super(const SearchLoadingState()) {
     homeBloc.stream.listen((event) {
       final homeBlocState = homeBloc.state;
       if (homeBlocState is! HomeLoadedState) return;

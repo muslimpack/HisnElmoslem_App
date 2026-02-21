@@ -43,7 +43,10 @@ class TallyCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: () {
             context.read<TallyBloc>().add(
-              TallyToggleCounterActivationEvent(counter: dbTally, activate: !isActivated),
+              TallyToggleCounterActivationEvent(
+                counter: dbTally,
+                activate: !isActivated,
+              ),
             );
           },
           child: Container(
@@ -51,7 +54,10 @@ class TallyCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               border: isActivated
-                  ? Border.all(color: primary.withAlpha((.4 * 255).round()), width: 1.5)
+                  ? Border.all(
+                      color: primary.withAlpha((.4 * 255).round()),
+                      width: 1.5,
+                    )
                   : null,
               image: isActivated
                   ? DecorationImage(
@@ -111,7 +117,10 @@ class TallyCard extends StatelessWidget {
                   children: [
                     // Count badge
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: isActivated
                             ? primary.withAlpha((.2 * 255).round())
@@ -121,7 +130,10 @@ class TallyCard extends StatelessWidget {
                       child: Text(
                         dbTally.count
                             .toString()
-                            .padLeft((state as TallyLoadedState).maxCounterNumberLength, "0")
+                            .padLeft(
+                              (state as TallyLoadedState).maxCounterNumberLength,
+                              "0",
+                            )
                             .toArabicNumber(),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -152,8 +164,9 @@ class TallyCard extends StatelessWidget {
                           case EditorActionEnum.delete:
                             final bool? confirm = await showDialog(
                               context: context,
-                              builder: (_) =>
-                                  YesOrNoDialog(msg: S.of(context).counterWillBeDeleted),
+                              builder: (_) => YesOrNoDialog(
+                                msg: S.of(context).counterWillBeDeleted,
+                              ),
                             );
                             if (confirm == null || !confirm || !context.mounted) return;
                             context.read<TallyBloc>().add(

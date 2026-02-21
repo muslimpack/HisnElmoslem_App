@@ -17,8 +17,8 @@ class VerseRange extends Equatable {
   const VerseRange.same(
     this.startSura,
     this.startAyah,
-  )   : endingSura = startSura,
-        endingAyah = startAyah;
+  ) : endingSura = startSura,
+      endingAyah = startAyah;
 
   bool isSingleVerse() {
     return startAyah == endingAyah && startSura == endingSura;

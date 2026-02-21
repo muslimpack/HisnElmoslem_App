@@ -22,8 +22,7 @@ class TallyListViewBottomBar extends StatelessWidget {
               tooltip: S.of(context).addNewCounter,
               icon: const Icon(Icons.add),
               onPressed: () async {
-                final EditorResult<DbTally>? result =
-                    await showTallyEditorDialog(context: context);
+                final EditorResult<DbTally>? result = await showTallyEditorDialog(context: context);
 
                 if (result == null || !context.mounted) return;
 

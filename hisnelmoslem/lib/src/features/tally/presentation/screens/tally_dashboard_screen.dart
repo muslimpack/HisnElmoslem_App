@@ -73,11 +73,10 @@ class _TallyDashboardScreenState extends State<TallyDashboardScreen>
                       tooltip: S.of(context).edit,
                       onPressed: () async {
                         final DbTally dbTally = state.activeCounter!;
-                        final EditorResult<DbTally>? result =
-                            await showTallyEditorDialog(
-                              context: context,
-                              dbTally: dbTally,
-                            );
+                        final EditorResult<DbTally>? result = await showTallyEditorDialog(
+                          context: context,
+                          dbTally: dbTally,
+                        );
 
                         if (result == null || !context.mounted) return;
                         switch (result.action) {

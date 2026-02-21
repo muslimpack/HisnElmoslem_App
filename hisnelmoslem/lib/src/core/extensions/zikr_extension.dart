@@ -63,9 +63,7 @@ extension ZikrExt on DbContent {
         spans.add(
           TextSpan(
             text: enableDiacritics ? line : line.removeDiacritics,
-            style: containAyah
-                ? TextStyle(fontFamily: containAyah ? "Uthmanic2" : "Kitab")
-                : null,
+            style: containAyah ? TextStyle(fontFamily: containAyah ? "Uthmanic2" : "Kitab") : null,
           ),
         );
       }
@@ -87,15 +85,13 @@ extension ZikrExt on DbContent {
       final List<String> verse = [];
 
       // add Estaaza
-      final alhashrFinalAyah =
-          currentVerse.key.startSura == 59 && currentVerse.key.startAyah == 22;
+      final alhashrFinalAyah = currentVerse.key.startSura == 59 && currentVerse.key.startAyah == 22;
 
       final bool notHaveEstaaza = alhashrFinalAyah;
       if (i == 0 && !notHaveEstaaza) verse.addAll([kEstaaza, "\n\n"]);
 
       // add Basmallah
-      final notHaveBasmallah =
-          currentVerse.key.startSura == 1 && currentVerse.key.startAyah == 1;
+      final notHaveBasmallah = currentVerse.key.startSura == 1 && currentVerse.key.startAyah == 1;
 
       if (i == 0 && !notHaveBasmallah) verse.add(kArBasmallah);
 

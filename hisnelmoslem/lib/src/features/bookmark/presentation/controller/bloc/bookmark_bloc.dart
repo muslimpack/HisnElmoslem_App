@@ -13,8 +13,7 @@ part 'bookmark_state.dart';
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   final UserDataDBHelper userDataDBHelper;
   final HisnDBHelper hisnDBHelper;
-  BookmarkBloc(this.userDataDBHelper, this.hisnDBHelper)
-    : super(BookmarkLoadingState()) {
+  BookmarkBloc(this.userDataDBHelper, this.hisnDBHelper) : super(BookmarkLoadingState()) {
     on<BookmarkStartEvent>(_start);
     on<BookmarkToggleTitleBookmarkEvent>(_bookmarkTitle);
     on<BookmarkToggleContentBookmarkEvent>(_bookmarkContent);
@@ -26,8 +25,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     Emitter<BookmarkState> emit,
   ) async {
     final bookmarkedTitlesIds = await userDataDBHelper.getAllFavoriteTitles();
-    final listDbContentFavourite = await userDataDBHelper
-        .getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper.getFavouriteContents();
     final bookmarkedContents = await hisnDBHelper.getContentsByIds(
       ids: listDbContentFavourite.map((e) => e.itemId).toList(),
     );

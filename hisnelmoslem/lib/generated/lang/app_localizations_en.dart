@@ -46,8 +46,7 @@ class SEn extends S {
   String get allowZikrRestoreSession => 'Allow Zikr session restoration';
 
   @override
-  String get allowZikrRestoreSessionDesc =>
-      'Popup menu to resume uncompleted Zikr session ';
+  String get allowZikrRestoreSessionDesc => 'Popup menu to resume uncompleted Zikr session ';
 
   @override
   String get allWords => 'All words';
@@ -149,12 +148,10 @@ class SEn extends S {
   String get count => 'Count';
 
   @override
-  String get counterCircleMustBeGreaterThanZero =>
-      'Counter circle must be higher than zero';
+  String get counterCircleMustBeGreaterThanZero => 'Counter circle must be higher than zero';
 
   @override
-  String get counterCircleSetToZero =>
-      'The counter circle is set to zero when reach this number';
+  String get counterCircleSetToZero => 'The counter circle is set to zero when reach this number';
 
   @override
   String get counterName => 'Counter name';
@@ -257,8 +254,7 @@ class SEn extends S {
   String get fakeHadith => 'Fake Hadith';
 
   @override
-  String get fastingMondaysThursdaysReminder =>
-      'Fasting Mondays and Thursdays Reminder';
+  String get fastingMondaysThursdaysReminder => 'Fasting Mondays and Thursdays Reminder';
 
   @override
   String get favoritesContent => 'favorites';
@@ -318,8 +314,7 @@ class SEn extends S {
   String get haveBeenRead => 'Read';
 
   @override
-  String get haveNotOpenedAppLongTime =>
-      'You haven\'t opened the app for a long time.';
+  String get haveNotOpenedAppLongTime => 'You haven\'t opened the app for a long time.';
 
   @override
   String get haveNotReadAnythingYet => 'You haven\'t read anything yet';
@@ -441,12 +436,10 @@ class SEn extends S {
   String get phoneVibrationAtEveryPraise => 'Phone vibration at every praise';
 
   @override
-  String get phoneVibrationAtSingleZikrEnd =>
-      'Phone vibration at single zikr end';
+  String get phoneVibrationAtSingleZikrEnd => 'Phone vibration at single zikr end';
 
   @override
-  String get phoneVibrationWhenAllZikrEnd =>
-      'Phone vibration when all zikr end';
+  String get phoneVibrationWhenAllZikrEnd => 'Phone vibration when all zikr end';
 
   @override
   String get prayForUsAndParents => 'Pray for us and our parents.';
@@ -455,15 +448,13 @@ class SEn extends S {
   String get prefPraiseWithVolumeKeys => 'Praise with volume keys';
 
   @override
-  String get prefPraiseWithVolumeKeysDesc =>
-      'Praise with volume keys in page mode and tally';
+  String get prefPraiseWithVolumeKeysDesc => 'Praise with volume keys in page mode and tally';
 
   @override
   String get previous => 'Previous';
 
   @override
-  String get progressDeletedCannotUndo =>
-      'Your progress will be deleted and you can\'t undo that';
+  String get progressDeletedCannotUndo => 'Your progress will be deleted and you can\'t undo that';
 
   @override
   String get prophetSaidLiesIntentional =>
@@ -491,8 +482,7 @@ class SEn extends S {
   String get report => 'Report';
 
   @override
-  String get reportBugsRequestFeatures =>
-      'Report bugs and request new features';
+  String get reportBugsRequestFeatures => 'Report bugs and request new features';
 
   @override
   String get requiresAppRestart => 'Requires app restart';

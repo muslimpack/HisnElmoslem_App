@@ -6,8 +6,7 @@ enum SearchFor {
   content;
 
   static SearchFor fromString(String map) {
-    return SearchFor.values.where((e) => e.name == map).firstOrNull ??
-        SearchFor.title;
+    return SearchFor.values.where((e) => e.name == map).firstOrNull ?? SearchFor.title;
   }
 }
 

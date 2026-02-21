@@ -1,4 +1,3 @@
-
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/features/home_search/data/models/search_for.dart';
 import 'package:hisnelmoslem/src/features/home_search/data/models/search_type.dart';

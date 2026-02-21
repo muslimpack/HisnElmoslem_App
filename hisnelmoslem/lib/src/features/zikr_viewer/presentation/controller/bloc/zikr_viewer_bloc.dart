@@ -159,9 +159,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         azkarToView: azkarToView,
         zikrViewerMode: event.zikrViewerMode,
         activeZikrIndex: 0,
-        restoredSession:
-            restoredSession ??
-            ZikrSession(dateTime: DateTime.now(), data: const {}),
+        restoredSession: restoredSession ?? ZikrSession(dateTime: DateTime.now(), data: const {}),
         askToRestoreSession: askToRestoreSession,
       ),
     );
@@ -182,9 +180,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     final restoredSession = state.restoredSession;
     if (restoredSession.data.isEmpty) return;
 
-    final azkarToView = List<DbContent>.from(state.azkarToView)
-        .map((x) => x.copyWith(count: restoredSession.data[x.id] ?? x.count))
-        .toList();
+    final azkarToView = List<DbContent>.from(
+      state.azkarToView,
+    ).map((x) => x.copyWith(count: restoredSession.data[x.id] ?? x.count)).toList();
 
     int pageToJump = 0;
     for (var i = 0; i < azkarToView.length; i++) {
@@ -272,8 +270,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     if (count == 1) {
       effectsManager.playZikrEffects();
-      final totalProgress =
-          azkarToView.where((x) => x.count == 0).length / azkarToView.length;
+      final totalProgress = azkarToView.where((x) => x.count == 0).length / azkarToView.length;
 
       if (totalProgress == 1) {
         effectsManager.playTitleEffects();
@@ -364,9 +361,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
     if (activeZikr == null) return;
 
-    final originalZikr = state.azkar
-        .where((x) => x.id == activeZikr.id)
-        .firstOrNull;
+    final originalZikr = state.azkar.where((x) => x.id == activeZikr.id).firstOrNull;
     if (originalZikr == null) return;
 
     final azkarToView = List<DbContent>.from(state.azkarToView).map((x) {
@@ -455,9 +450,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     required ZikrViewerLoadedState state,
     DbContent? eventContent,
   }) {
-    return state.zikrViewerMode == ZikrViewerMode.page
-        ? state.activeZikr
-        : eventContent;
+    return state.zikrViewerMode == ZikrViewerMode.page ? state.activeZikr : eventContent;
   }
 
   @override

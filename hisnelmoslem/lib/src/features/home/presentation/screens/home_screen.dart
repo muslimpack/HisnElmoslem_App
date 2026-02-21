@@ -69,8 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    final brightness =
-        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     if (_brightness != brightness) {
       sl<ThemeCubit>().changeDeviceBrightness(brightness);
       _brightness = brightness;
@@ -99,16 +98,14 @@ class _DashboardScreenState extends State<DashboardScreen>
               body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
                 floatHeaderSlivers: true,
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                      return [HomeAppBar(tabController: tabController)];
-                    },
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  return [HomeAppBar(tabController: tabController)];
+                },
                 body: TabBarView(
                   physics: const BouncingScrollPhysics(),
                   controller: tabController,
                   children: List.generate(appDashboardTabs.length, (index) {
-                    return appDashboardTabs[state.dashboardArrangement[index]]
-                        .widget;
+                    return appDashboardTabs[state.dashboardArrangement[index]].widget;
                   }),
                 ),
               ),

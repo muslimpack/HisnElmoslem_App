@@ -11,12 +11,12 @@ class AzkarFiltersCubit extends Cubit<AzkarFiltersState> {
   AzkarFiltersCubit(
     this.azkarFiltersRepo,
   ) : super(
-          AzkarFiltersState(
-            filters: azkarFiltersRepo.getAllFilters,
-            enableFilters: azkarFiltersRepo.getEnableFiltersStatus,
-            enableHokmFilters: azkarFiltersRepo.getEnableHokmFiltersStatus,
-          ),
-        );
+        AzkarFiltersState(
+          filters: azkarFiltersRepo.getAllFilters,
+          enableFilters: azkarFiltersRepo.getEnableFiltersStatus,
+          enableHokmFilters: azkarFiltersRepo.getEnableHokmFiltersStatus,
+        ),
+      );
 
   Future toggleEnableFilters(bool enableFilters) async {
     azkarFiltersRepo.setEnableFiltersStatus(enableFilters);

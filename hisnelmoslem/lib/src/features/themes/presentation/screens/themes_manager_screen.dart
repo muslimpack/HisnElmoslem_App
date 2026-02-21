@@ -132,9 +132,7 @@ class ThemeManagerScreen extends StatelessWidget {
                             ElevatedButton(
                               child: Text(S.of(context).select),
                               onPressed: () {
-                                context
-                                    .read<ThemeCubit>()
-                                    .changeBackgroundColor(selectedColor);
+                                context.read<ThemeCubit>().changeBackgroundColor(selectedColor);
                                 Navigator.of(context).pop();
                               },
                             ),

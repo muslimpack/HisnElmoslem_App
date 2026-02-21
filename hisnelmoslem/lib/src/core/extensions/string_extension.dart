@@ -65,8 +65,7 @@ extension StringExtension on String {
         wordStartIndex = i;
       }
 
-      if (wordStartIndex != -1 &&
-          count >= selectedWordIndex + selectedWord.length) {
+      if (wordStartIndex != -1 && count >= selectedWordIndex + selectedWord.length) {
         wordEndIndex = i;
         break;
       }

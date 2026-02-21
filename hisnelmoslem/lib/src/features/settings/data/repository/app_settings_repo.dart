@@ -30,8 +30,7 @@ class AppSettingsRepo {
   /// If it is true then
   /// page mode will be card mode
   /// if not page mode will be page
-  Future<void> changeReadModeStatus({required bool value}) =>
-      box.write(isCardReadModeKey, value);
+  Future<void> changeReadModeStatus({required bool value}) => box.write(isCardReadModeKey, value);
 
   ///
   void toggleReadModeStatus() {
@@ -57,8 +56,7 @@ class AppSettingsRepo {
   static const String _enableWakeLockKey = "enableWakeLock";
   bool get enableWakeLock => box.read(_enableWakeLockKey) ?? false;
 
-  Future<void> changeEnableWakeLock({required bool use}) =>
-      box.write(_enableWakeLockKey, use);
+  Future<void> changeEnableWakeLock({required bool use}) => box.write(_enableWakeLockKey, use);
 
   void toggleEnableWakeLock() {
     changeEnableWakeLock(use: !enableWakeLock);
@@ -104,8 +102,7 @@ class AppSettingsRepo {
   /* ******* Ignore Notification Permission ******* */
   static const ignoreNotificationPermissionKey = 'ignoreNotificationPermission';
 
-  bool get ignoreNotificationPermission =>
-      box.read(ignoreNotificationPermissionKey) ?? false;
+  bool get ignoreNotificationPermission => box.read(ignoreNotificationPermissionKey) ?? false;
 
   Future<void> changeIgnoreNotificationPermissionStatus({
     required bool value,

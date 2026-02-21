@@ -13,10 +13,8 @@ final class FakeHadithLoadingState extends FakeHadithState {}
 class FakeHadithLoadedState extends FakeHadithState {
   final List<DbFakeHaith> allHadith;
 
-  List<DbFakeHaith> get getReadHadith =>
-      allHadith.where((x) => x.isRead).toList();
-  List<DbFakeHaith> get getUnreadHadith =>
-      allHadith.where((x) => !x.isRead).toList();
+  List<DbFakeHaith> get getReadHadith => allHadith.where((x) => x.isRead).toList();
+  List<DbFakeHaith> get getUnreadHadith => allHadith.where((x) => !x.isRead).toList();
 
   const FakeHadithLoadedState({required this.allHadith});
 

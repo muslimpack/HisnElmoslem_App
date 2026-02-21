@@ -11,9 +11,7 @@ String appVersionWithBuild() {
   return "${sl<PackageInfo>().version} (${sl<PackageInfo>().buildNumber})";
 }
 
-String kAppStorageKey = PlatformExtension.isDesktop
-    ? "hisn_elmoslem_storage"
-    : "GetStorage";
+String kAppStorageKey = PlatformExtension.isDesktop ? "hisn_elmoslem_storage" : "GetStorage";
 
 const double kFontChangeBy = .2;
 const double kFontDefault = 2.6;

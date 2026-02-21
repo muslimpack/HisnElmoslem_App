@@ -44,10 +44,17 @@ class _TallyEditorState extends State<_TallyEditor> {
     if (_isEditing) {
       _dbTally = widget.dbTally!;
       _titleController = TextEditingController(text: _dbTally.title);
-      _resetCounterController = TextEditingController(text: _dbTally.countReset.toString());
-      _counterValueController = TextEditingController(text: _dbTally.count.toString());
+      _resetCounterController = TextEditingController(
+        text: _dbTally.countReset.toString(),
+      );
+      _counterValueController = TextEditingController(
+        text: _dbTally.count.toString(),
+      );
     } else {
-      _dbTally = DbTally.empty(created: DateTime.now(), lastUpdate: DateTime.now());
+      _dbTally = DbTally.empty(
+        created: DateTime.now(),
+        lastUpdate: DateTime.now(),
+      );
       _titleController = TextEditingController();
       _resetCounterController = TextEditingController();
       _counterValueController = TextEditingController(text: "0");
@@ -85,7 +92,9 @@ class _TallyEditorState extends State<_TallyEditor> {
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 20),
                   decoration: BoxDecoration(
-                    color: colorScheme.onSurfaceVariant.withAlpha((0.3 * 255).round()),
+                    color: colorScheme.onSurfaceVariant.withAlpha(
+                      (0.3 * 255).round(),
+                    ),
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -104,7 +113,9 @@ class _TallyEditorState extends State<_TallyEditor> {
                   const SizedBox(width: 12),
                   Text(
                     S.of(context).tallyEditor,
-                    style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -171,7 +182,10 @@ class _TallyEditorState extends State<_TallyEditor> {
                         label: Text(S.of(context).delete),
                         onPressed: () => Navigator.pop(
                           context,
-                          EditorResult(action: EditorActionEnum.delete, value: _dbTally),
+                          EditorResult(
+                            action: EditorActionEnum.delete,
+                            value: _dbTally,
+                          ),
                         ),
                       ),
                     ),
@@ -182,7 +196,9 @@ class _TallyEditorState extends State<_TallyEditor> {
                     child: FilledButton.icon(
                       onPressed: onSubmit,
                       icon: Icon(_isEditing ? Icons.check : Icons.add),
-                      label: Text(_isEditing ? S.of(context).edit : S.of(context).add),
+                      label: Text(
+                        _isEditing ? S.of(context).edit : S.of(context).add,
+                      ),
                     ),
                   ),
                 ],
@@ -201,7 +217,11 @@ class _TallyEditorState extends State<_TallyEditor> {
     final int? resetCounter = int.tryParse(_resetCounterController.text);
     final int? count = int.tryParse(_counterValueController.text);
 
-    _dbTally = _dbTally.copyWith(title: title, countReset: resetCounter, count: count);
+    _dbTally = _dbTally.copyWith(
+      title: title,
+      countReset: resetCounter,
+      count: count,
+    );
 
     if (_dbTally == widget.dbTally) {
       Navigator.pop(context);

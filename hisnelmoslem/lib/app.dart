@@ -27,8 +27,7 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/control
 import 'package:package_info_plus/package_info_plus.dart';
 
 class App extends StatefulWidget {
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   const App({super.key});
 
@@ -106,9 +105,7 @@ class AppState extends State<App> {
               }
               return child ?? const SizedBox();
             },
-            home:
-                sl<AppSettingsRepo>().currentVersion !=
-                    sl<PackageInfo>().version
+            home: sl<AppSettingsRepo>().currentVersion != sl<PackageInfo>().version
                 ? const OnBoardingScreen()
                 : const HomeScreen(),
           );

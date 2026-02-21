@@ -3,13 +3,16 @@ include: package:lint/strict.yaml # For production apps
 # include: package:lint/casual.yaml # For code samples, hackathons and other non-production code
 # include: package:lint/package.yaml # Use this for packages with public API
 
+formatter:
+  page_width: 100
+  trailing_commas: preserve
 # You might want to exclude auto-generated files from dart analysis
 analyzer:
   exclude:
-    - '**.freezed.dart'
-    - '**.g.dart'
-    - 'lib/generated/**'
-    - 'packages/**'
+    - "**.freezed.dart"
+    - "**.g.dart"
+    - "lib/generated/**"
+    - "packages/**"
 
 # You can customize the lint rules set to your own liking. A list of all rules
 # can be found at https://dart-lang.github.io/linter/lints/options/options.html

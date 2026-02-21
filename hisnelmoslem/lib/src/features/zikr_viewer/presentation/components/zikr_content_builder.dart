@@ -104,9 +104,7 @@ class ZikrContentTextWithQuran extends StatelessWidget {
 
           spans.add(
             TextSpan(
-              text: enableDiacritics
-                  ? verse.join()
-                  : verse.join().removeDiacritics,
+              text: enableDiacritics ? verse.join() : verse.join().removeDiacritics,
               style: const TextStyle(
                 fontFamily: "Uthmanic2",
               ),

@@ -25,8 +25,7 @@ class SAr extends S {
   String get add => 'إضافة';
 
   @override
-  String get addNameToCounter =>
-      'أدخل اسم العداد، مثال:\nسبحان الله وبحمده سبحان الله العظيم';
+  String get addNameToCounter => 'أدخل اسم العداد، مثال:\nسبحان الله وبحمده سبحان الله العظيم';
 
   @override
   String get addNewCounter => 'إضافة عداد جديد';
@@ -150,8 +149,7 @@ class SAr extends S {
   String get count => 'عدد المرات';
 
   @override
-  String get counterCircleMustBeGreaterThanZero =>
-      'يجب أن تكون دورة العداد أكبر من الصفر';
+  String get counterCircleMustBeGreaterThanZero => 'يجب أن تكون دورة العداد أكبر من الصفر';
 
   @override
   String get counterCircleSetToZero => 'تصفير العداد عند الوصول لهذا الرقم';
@@ -200,8 +198,7 @@ class SAr extends S {
   String get donnotAskAgain => 'لا تسأل مجدداً';
 
   @override
-  String get drSaeedBinAliBinWahf =>
-      'للفقير إلى الله تعالى الدكتور سعيد بن علي بن وهف القحطاني';
+  String get drSaeedBinAliBinWahf => 'للفقير إلى الله تعالى الدكتور سعيد بن علي بن وهف القحطاني';
 
   @override
   String get edit => 'تعديل';
@@ -291,8 +288,7 @@ class SAr extends S {
   String get fontType => 'نوع الخط';
 
   @override
-  String get freeAdFreeAndOpenSourceApp =>
-      'تطبيق مجاني خالي من الإعلانات ومفتوح المصدر';
+  String get freeAdFreeAndOpenSourceApp => 'تطبيق مجاني خالي من الإعلانات ومفتوح المصدر';
 
   @override
   String get freqAnnual => 'سنوي';
@@ -358,8 +354,7 @@ class SAr extends S {
   String get ignoreNotificationPermission => 'تجاهل إذن الإشعارات';
 
   @override
-  String get ignoreNotificationPermissionDesc =>
-      'عدم طلب إذن الإشعارات عند فتح التطبيق';
+  String get ignoreNotificationPermissionDesc => 'عدم طلب إذن الإشعارات عند فتح التطبيق';
 
   @override
   String get index => 'الفهرس';
@@ -444,8 +439,7 @@ class SAr extends S {
   String get phoneVibrationAtSingleZikrEnd => 'اهتزاز الهاتف عند انتهاء كل ذكر';
 
   @override
-  String get phoneVibrationWhenAllZikrEnd =>
-      'اهتزاز الهاتف عند انتهاء جميع الأذكار';
+  String get phoneVibrationWhenAllZikrEnd => 'اهتزاز الهاتف عند انتهاء جميع الأذكار';
 
   @override
   String get prayForUsAndParents => 'نسألكم الدعاء لنا ولوالدينا';
@@ -454,23 +448,20 @@ class SAr extends S {
   String get prefPraiseWithVolumeKeys => 'التسبيح بمفاتيح الصوت';
 
   @override
-  String get prefPraiseWithVolumeKeysDesc =>
-      'استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة';
+  String get prefPraiseWithVolumeKeysDesc => 'استخدام مفاتيح الصوت للتسبيح في وضع الصفحات والسبحة';
 
   @override
   String get previous => 'السابق';
 
   @override
-  String get progressDeletedCannotUndo =>
-      'سيتم حذف تقدمك في هذا الذكر\nهل تريد القيام بهذا؟';
+  String get progressDeletedCannotUndo => 'سيتم حذف تقدمك في هذا الذكر\nهل تريد القيام بهذا؟';
 
   @override
   String get prophetSaidLiesIntentional =>
       'قال رسول الله صلى الله عليه وسلم: «من كذب علي متعمدا فليتبوأ مقعده من النار»';
 
   @override
-  String get quranPagesFromAndroidQuran =>
-      'صفحات المصحف من خلال موقع android quran';
+  String get quranPagesFromAndroidQuran => 'صفحات المصحف من خلال موقع android quran';
 
   @override
   String get rateTheApp => 'تقييم التطبيق';
@@ -728,8 +719,7 @@ class SAr extends S {
   String get zikrIndex => 'الذكر رقم';
 
   @override
-  String get zikrViewerRestoreSessionMsg =>
-      'تم العثور على جلسة سابقة، هل تود استعادتها؟';
+  String get zikrViewerRestoreSessionMsg => 'تم العثور على جلسة سابقة، هل تود استعادتها؟';
 
   @override
   String get audioPlayerSpeed => 'سرعة التشغيل';

@@ -13,8 +13,7 @@ class OnboardCubit extends Cubit<OnboardState> {
   final AppSettingsRepo appSettingsRepo;
   final VolumeButtonManager volumeButtonManager;
   PageController pageController = PageController();
-  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager)
-    : super(OnboardLoadingState()) {
+  OnboardCubit(this.appSettingsRepo, this.volumeButtonManager) : super(OnboardLoadingState()) {
     _init();
   }
 

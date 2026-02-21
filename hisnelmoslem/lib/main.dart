@@ -5,7 +5,6 @@ import 'package:hisnelmoslem/init_services.dart';
 
 void main() async {
   await initServices();
-  ErrorWidget.builder = (FlutterErrorDetails details) =>
-      ErrorScreen(details: details);
+  ErrorWidget.builder = (FlutterErrorDetails details) => ErrorScreen(details: details);
   runApp(const App());
 }

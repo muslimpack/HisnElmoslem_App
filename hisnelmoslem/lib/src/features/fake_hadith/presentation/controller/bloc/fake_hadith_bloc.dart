@@ -42,14 +42,12 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     final state = this.state;
     if (state is! FakeHadithLoadedState) return;
 
-    final List<DbFakeHaith> allHadith = List<DbFakeHaith>.from(state.allHadith)
-        .map((e) {
-          if (e.id == event.fakeHadith.id) {
-            return event.fakeHadith.copyWith(isRead: event.isRead);
-          }
-          return e;
-        })
-        .toList();
+    final List<DbFakeHaith> allHadith = List<DbFakeHaith>.from(state.allHadith).map((e) {
+      if (e.id == event.fakeHadith.id) {
+        return event.fakeHadith.copyWith(isRead: event.isRead);
+      }
+      return e;
+    }).toList();
 
     if (event.isRead) {
       await fakeHadithDBHelper.markFakeHadithAsRead(

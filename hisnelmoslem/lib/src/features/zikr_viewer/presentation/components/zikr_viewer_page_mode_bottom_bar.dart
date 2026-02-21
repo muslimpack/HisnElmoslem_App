@@ -17,7 +17,9 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [if (dbContent.audio.isNotEmpty) ZikrAudioPlayerBar(dbContent: dbContent)],
+            children: [
+              if (dbContent.audio.isNotEmpty) ZikrAudioPlayerBar(dbContent: dbContent),
+            ],
           ),
         ),
       ),

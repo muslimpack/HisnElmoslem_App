@@ -34,8 +34,8 @@ final class QuranLoadedState extends QuranState {
 
   @override
   List<Object> get props => [
-        surahName,
-        quranList,
-        requiredSurah,
-      ];
+    surahName,
+    quranList,
+    requiredSurah,
+  ];
 }

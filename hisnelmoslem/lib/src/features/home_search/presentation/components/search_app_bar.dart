@@ -23,7 +23,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          context.read<HomeBloc>().add(const HomeToggleSearchEvent(isSearching: false));
+          context.read<HomeBloc>().add(
+            const HomeToggleSearchEvent(isSearching: false),
+          );
         },
       ),
       title: TextFormField(
@@ -33,7 +35,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
         decoration: customInputDecoration(context).copyWith(
           hintText: S.of(context).search,
           hintStyle: const TextStyle(fontSize: 18, fontFamily: "Kitab"),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 5,
+          ),
         ),
       ),
       actions: [

@@ -47,7 +47,10 @@ class OnBoardingScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         state.pages.length,
-                        (index) => Dot(index: index, currentPageIndex: state.currentPageIndex),
+                        (index) => Dot(
+                          index: index,
+                          currentPageIndex: state.currentPageIndex,
+                        ),
                       ),
                     ),
                     if (state.isFinalPage)
@@ -59,7 +62,10 @@ class OnBoardingScreen extends StatelessWidget {
                       )
                     else if (state.showSkipBtn)
                       TextButton(
-                        child: Text(S.of(context).skip, style: const TextStyle()),
+                        child: Text(
+                          S.of(context).skip,
+                          style: const TextStyle(),
+                        ),
                         onPressed: () {
                           context.read<OnboardCubit>().done();
                         },

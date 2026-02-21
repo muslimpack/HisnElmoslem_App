@@ -39,7 +39,9 @@ class TallyCounterView extends StatelessWidget {
                       context: context,
                     );
                     if (result == null || !context.mounted) return;
-                    context.read<TallyBloc>().add(TallyAddCounterEvent(counter: result.value));
+                    context.read<TallyBloc>().add(
+                      TallyAddCounterEvent(counter: result.value),
+                    );
                   },
           );
         }
@@ -53,7 +55,9 @@ class TallyCounterView extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: GestureDetector(
-            onTap: () => context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent()),
+            onTap: () => context.read<TallyBloc>().add(
+              TallyIncreaseActiveCounterEvent(),
+            ),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -68,7 +72,10 @@ class TallyCounterView extends StatelessWidget {
               ),
               child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -95,7 +102,9 @@ class TallyCounterView extends StatelessWidget {
                               ),
                             // Counter title
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 32),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                              ),
                               child: AutoSizeText(
                                 activeCounter.title,
                                 style: TextStyle(
@@ -130,7 +139,10 @@ class TallyCounterView extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [primary.withAlpha((.4 * 255).round()), primary],
+                              colors: [
+                                primary.withAlpha((.4 * 255).round()),
+                                primary,
+                              ],
                             ),
                           ),
                         ),
@@ -147,7 +159,10 @@ class TallyCounterView extends StatelessWidget {
                               GradientWidget(
                                 const Icon(Icons.loop_rounded, size: 28),
                                 gradient: LinearGradient(
-                                  colors: [primary.withAlpha((.5 * 255).round()), primary],
+                                  colors: [
+                                    primary.withAlpha((.5 * 255).round()),
+                                    primary,
+                                  ],
                                 ),
                               ),
                               GradientWidget(
@@ -158,7 +173,10 @@ class TallyCounterView extends StatelessWidget {
                                   ),
                                 ),
                                 gradient: LinearGradient(
-                                  colors: [primary.withAlpha((.5 * 255).round()), primary],
+                                  colors: [
+                                    primary.withAlpha((.5 * 255).round()),
+                                    primary,
+                                  ],
                                 ),
                               ),
                             ],
@@ -180,7 +198,9 @@ class TallyCounterView extends StatelessWidget {
                                 child: Text(
                                   '${(value * 100).toInt()}%',
                                   style: theme.textTheme.bodySmall?.copyWith(
-                                    color: primary.withAlpha((0.7 * 255).toInt()),
+                                    color: primary.withAlpha(
+                                      (0.7 * 255).toInt(),
+                                    ),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -190,8 +210,12 @@ class TallyCounterView extends StatelessWidget {
                                 child: LinearProgressIndicator(
                                   minHeight: 14,
                                   value: value,
-                                  backgroundColor: primary.withAlpha((.15 * 255).round()),
-                                  valueColor: AlwaysStoppedAnimation<Color>(primary),
+                                  backgroundColor: primary.withAlpha(
+                                    (.15 * 255).round(),
+                                  ),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    primary,
+                                  ),
                                 ),
                               ),
                             ],

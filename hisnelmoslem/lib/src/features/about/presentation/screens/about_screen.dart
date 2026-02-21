@@ -22,7 +22,9 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 15),
           ListTile(
             leading: Image.asset('assets/images/app_icon.png', scale: 3),
-            title: Text("${S.of(context).hisnElmoslemAppVersion} ${appVersionWithBuild()}"),
+            title: Text(
+              "${S.of(context).hisnElmoslemAppVersion} ${appVersionWithBuild()}",
+            ),
             subtitle: Text(S.of(context).freeAdFreeAndOpenSourceApp),
           ),
           const Divider(),

@@ -11,24 +11,20 @@ class ShareAsImageRepo {
 
   ///MARK: Colors
 
-  static const String _shareImageTitleTextBoxKey =
-      'share_image_title_text_color';
+  static const String _shareImageTitleTextBoxKey = 'share_image_title_text_color';
 
   Color get shareImageTitleTextColor => Color(
-    box.read<int?>(_shareImageTitleTextBoxKey) ??
-        kShareImageTitleTextColor.toARGB32(),
+    box.read<int?>(_shareImageTitleTextBoxKey) ?? kShareImageTitleTextColor.toARGB32(),
   );
   Future<void> shareImageUpdateTitleColor(Color color) async {
     await box.write(_shareImageTitleTextBoxKey, color.toARGB32());
   }
 
   ///
-  static const String _shareImageBodyTextColorBoxKey =
-      'share_image_body_text_color';
+  static const String _shareImageBodyTextColorBoxKey = 'share_image_body_text_color';
 
   Color get shareImageBodyTextColor => Color(
-    box.read<int?>(_shareImageBodyTextColorBoxKey) ??
-        kShareImageBodyTextColor.toARGB32(),
+    box.read<int?>(_shareImageBodyTextColorBoxKey) ?? kShareImageBodyTextColor.toARGB32(),
   );
 
   Future<void> shareImageUpdateTextColor(Color color) async {
@@ -36,8 +32,7 @@ class ShareAsImageRepo {
   }
 
   ///
-  static const String _shareImageAdditionalTextColorBoxKey =
-      'share_image_additional_text_color';
+  static const String _shareImageAdditionalTextColorBoxKey = 'share_image_additional_text_color';
 
   Color get shareImageAdditionalTextColor => Color(
     box.read<int?>(_shareImageAdditionalTextColorBoxKey) ??
@@ -48,12 +43,10 @@ class ShareAsImageRepo {
   }
 
   ///
-  static const String _shareImageBackgroundColorBoxKey =
-      'share_image_background_color';
+  static const String _shareImageBackgroundColorBoxKey = 'share_image_background_color';
 
   Color get shareImageBackgroundColor => Color(
-    box.read<int?>(_shareImageBackgroundColorBoxKey) ??
-        kShareImageBackgroundColor.toARGB32(),
+    box.read<int?>(_shareImageBackgroundColorBoxKey) ?? kShareImageBackgroundColor.toARGB32(),
   );
   Future<void> updateBackgroundColor(Color color) async {
     await box.write(_shareImageBackgroundColorBoxKey, color.toARGB32());
@@ -82,19 +75,16 @@ class ShareAsImageRepo {
   ///
   static const String _shareImageShowSourceBoxKey = 'share_image_show_source';
 
-  bool get shareImageShowSource =>
-      box.read(_shareImageShowSourceBoxKey) ?? true;
+  bool get shareImageShowSource => box.read(_shareImageShowSourceBoxKey) ?? true;
 
   Future<void> shareImageUpdateShowSource({required bool value}) async {
     await box.write(_shareImageShowSourceBoxKey, value);
   }
 
   ///
-  static const String _shareImageShowZikrIndexBoxKey =
-      'share_image_show_zikr_index';
+  static const String _shareImageShowZikrIndexBoxKey = 'share_image_show_zikr_index';
 
-  bool get shareImageShowZikrIndex =>
-      box.read(_shareImageShowZikrIndexBoxKey) ?? false;
+  bool get shareImageShowZikrIndex => box.read(_shareImageShowZikrIndexBoxKey) ?? false;
   Future<void> shareImageUpdateShowZikrIndex({required bool value}) async {
     await box.write(_shareImageShowZikrIndexBoxKey, value);
   }
@@ -102,11 +92,9 @@ class ShareAsImageRepo {
   ///MARK: Text
 
   ///
-  static const String _shareImageRemoveDiacriticsKey =
-      'share_image_remove_tashkel';
+  static const String _shareImageRemoveDiacriticsKey = 'share_image_remove_tashkel';
 
-  bool get shareImageRemoveDiacritics =>
-      box.read(_shareImageRemoveDiacriticsKey) ?? false;
+  bool get shareImageRemoveDiacritics => box.read(_shareImageRemoveDiacriticsKey) ?? false;
   Future<void> shareImageUpdateRemoveDiacritics({required bool value}) async {
     await box.write(_shareImageRemoveDiacriticsKey, value);
   }
@@ -120,11 +108,9 @@ class ShareAsImageRepo {
   }
 
   ///
-  static const String _shareImageImageQualityBoxKey =
-      'share_image_image_quality';
+  static const String _shareImageImageQualityBoxKey = 'share_image_image_quality';
 
-  double get shareImageImageQuality =>
-      box.read(_shareImageImageQualityBoxKey) ?? 2;
+  double get shareImageImageQuality => box.read(_shareImageImageQualityBoxKey) ?? 2;
   Future<void> shareImageUpdateImageQuality(double value) async {
     await box.write(_shareImageImageQualityBoxKey, value);
   }

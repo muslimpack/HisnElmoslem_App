@@ -24,7 +24,9 @@ class SquigglyLinePainter extends CustomPainter {
 
     for (double i = 0; i < size.width; i++) {
       path.lineTo(
-          i, halfHeight + math.sin(i * math.pi / waveLength) * waveHeight);
+        i,
+        halfHeight + math.sin(i * math.pi / waveLength) * waveHeight,
+      );
     }
 
     canvas.drawPath(path, paint);

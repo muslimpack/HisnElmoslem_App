@@ -8,9 +8,7 @@ class TallyRepo {
   static const String iterationModeKey = 'tallyIterationMode';
 
   TallyIterationMode get getIterationMode =>
-      TallyIterationMode.values
-          .where((x) => x.name == box.read(iterationModeKey))
-          .firstOrNull ??
+      TallyIterationMode.values.where((x) => x.name == box.read(iterationModeKey)).firstOrNull ??
       TallyIterationMode.none;
 
   Future saveIterationMode(TallyIterationMode iterationMode) =>

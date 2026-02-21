@@ -51,7 +51,9 @@ class ZikrViewerExpandingFab extends StatelessWidget {
           backgroundColor: Colors.orange.withAlpha(200),
           child: const Icon(Icons.report_outlined),
           onPressed: () {
-            context.read<ZikrViewerBloc>().add(ZikrViewerReportZikrEvent(content: dbContent));
+            context.read<ZikrViewerBloc>().add(
+              ZikrViewerReportZikrEvent(content: dbContent),
+            );
           },
         ),
         FloatingActionButton.small(
@@ -69,7 +71,9 @@ class ZikrViewerExpandingFab extends StatelessWidget {
           tooltip: S.of(context).resetZikr,
           child: const Icon(Icons.repeat_rounded),
           onPressed: () {
-            context.read<ZikrViewerBloc>().add(ZikrViewerResetZikrEvent(content: dbContent));
+            context.read<ZikrViewerBloc>().add(
+              ZikrViewerResetZikrEvent(content: dbContent),
+            );
           },
         ),
         FloatingActionButton.small(
@@ -92,7 +96,9 @@ class ZikrViewerExpandingFab extends StatelessWidget {
           tooltip: S.of(context).share,
           child: const Icon(Icons.share),
           onPressed: () {
-            context.read<ZikrViewerBloc>().add(ZikrViewerShareZikrEvent(content: dbContent));
+            context.read<ZikrViewerBloc>().add(
+              ZikrViewerShareZikrEvent(content: dbContent),
+            );
           },
         ),
       ],

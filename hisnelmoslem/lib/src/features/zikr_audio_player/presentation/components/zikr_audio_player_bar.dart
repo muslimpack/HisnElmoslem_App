@@ -25,7 +25,10 @@ class ZikrAudioPlayerBar extends StatelessWidget {
         final duration = state.totalDuration;
 
         final double maxDuration = duration.inMilliseconds.toDouble();
-        final double sliderValue = position.inMilliseconds.toDouble().clamp(0.0, maxDuration);
+        final double sliderValue = position.inMilliseconds.toDouble().clamp(
+          0.0,
+          maxDuration,
+        );
 
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -43,14 +46,20 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                             child: SliderTheme(
                               data: SliderTheme.of(context).copyWith(
                                 trackHeight: 2.0,
-                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
-                                overlayShape: const RoundSliderOverlayShape(overlayRadius: 12.0),
+                                thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 6.0,
+                                ),
+                                overlayShape: const RoundSliderOverlayShape(
+                                  overlayRadius: 12.0,
+                                ),
                               ),
                               child: Slider(
                                 max: maxDuration > 0 ? maxDuration : 1.0,
                                 value: maxDuration > 0 ? sliderValue : 0.0,
                                 onChanged: (value) {
-                                  cubit.seek(Duration(milliseconds: value.toInt()));
+                                  cubit.seek(
+                                    Duration(milliseconds: value.toInt()),
+                                  );
                                 },
                               ),
                             ),
@@ -70,7 +79,10 @@ class ZikrAudioPlayerBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 if (state.isPlaying || state.isPaused)
-                  IconButton(onPressed: cubit.stop, icon: const Icon(Icons.stop)),
+                  IconButton(
+                    onPressed: cubit.stop,
+                    icon: const Icon(Icons.stop),
+                  ),
                 IconButton(
                   iconSize: 36,
                   onPressed: () {
@@ -98,7 +110,9 @@ class ZikrAudioPlayerBar extends StatelessWidget {
                       isScrollControlled: true,
                       useSafeArea: true,
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
                       ),
                       builder: (context) => const SafeArea(child: ZikrAudioSettingsDialog()),
                     );

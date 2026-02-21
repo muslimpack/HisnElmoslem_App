@@ -29,8 +29,7 @@ class LocalNotificationManager {
       const AndroidInitializationSettings androidInitializationSettings =
           AndroidInitializationSettings('@mipmap/ic_launcher');
 
-      const DarwinInitializationSettings iosInitializationSettings =
-          DarwinInitializationSettings();
+      const DarwinInitializationSettings iosInitializationSettings = DarwinInitializationSettings();
 
       final WindowsInitializationSettings windowsInitializationSettings =
           _windowsInitializationSettings();
@@ -47,11 +46,9 @@ class LocalNotificationManager {
       );
 
       final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-          await flutterLocalNotificationsPlugin
-              .getNotificationAppLaunchDetails();
+          await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
       if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-        launchNotificationResponse =
-            notificationAppLaunchDetails!.notificationResponse;
+        launchNotificationResponse = notificationAppLaunchDetails!.notificationResponse;
       }
 
       await appOpenNotification();
@@ -99,9 +96,7 @@ class LocalNotificationManager {
     if (Platform.isAndroid) {
       isAllowed =
           await flutterLocalNotificationsPlugin
-              .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin
-              >()
+              .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
               ?.areNotificationsEnabled() ??
           false;
     } else if (Platform.isIOS) {
@@ -150,15 +145,11 @@ class LocalNotificationManager {
     if (result == true) {
       if (Platform.isIOS) {
         await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin
-            >()
+            .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
             ?.requestPermissions(alert: true, badge: true, sound: true);
       } else if (Platform.isAndroid) {
         await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >()
+            .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
             ?.requestNotificationsPermission();
       }
 
@@ -195,13 +186,12 @@ class LocalNotificationManager {
     String? title,
     String? body,
   ) {
-    final BigTextStyleInformation bigTextStyleInformation =
-        BigTextStyleInformation(
-          body ?? '',
-          htmlFormatBigText: true,
-          contentTitle: title,
-          htmlFormatContentTitle: true,
-        );
+    final BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+      body ?? '',
+      htmlFormatBigText: true,
+      contentTitle: title,
+      htmlFormatContentTitle: true,
+    );
 
     return NotificationDetails(
       android: AndroidNotificationDetails(

@@ -5,7 +5,7 @@ class AlarmsRepo {
 
   AlarmsRepo(this.box);
 
-/* ******* Surat al kahf alarm ******* */
+  /* ******* Surat al kahf alarm ******* */
 
   bool get isCaveAlarmEnabled => box.read('cave_status') ?? false;
 

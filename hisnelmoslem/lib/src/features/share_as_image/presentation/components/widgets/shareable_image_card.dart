@@ -71,8 +71,7 @@ class ShareableImageCard extends StatelessWidget {
       fontWeight: FontWeight.bold,
     );
 
-    final whetherShowSource =
-        shareImageSettings.showSource && zikr.source.isNotEmpty;
+    final whetherShowSource = shareImageSettings.showSource && zikr.source.isNotEmpty;
     final whetherShowFadl = shareImageSettings.showFadl && zikr.fadl.isNotEmpty;
     final whetherShowCount = zikr.count > 1;
 
@@ -115,10 +114,7 @@ class ShareableImageCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  zikrTitle.name +
-                      (shareImageSettings.showZikrIndex
-                          ? " :: ${zikr.order}"
-                          : ""),
+                  zikrTitle.name + (shareImageSettings.showZikrIndex ? " :: ${zikr.order}" : ""),
                   textAlign: TextAlign.center,
                   style: secondaryTextStyle.copyWith(fontSize: 45),
                 ),
@@ -127,9 +123,7 @@ class ShareableImageCard extends StatelessWidget {
                   child: Center(
                     child: AutoSizeText(
                       //TDOD remove after database update
-                      shareImageSettings.removeDiacritics
-                          ? (mainText.removeDiacritics)
-                          : mainText,
+                      shareImageSettings.removeDiacritics ? (mainText.removeDiacritics) : mainText,
                       minFontSize: 30,
                       textAlign: TextAlign.center,
                       style: mainTextStyle,
@@ -138,9 +132,7 @@ class ShareableImageCard extends StatelessWidget {
                 ),
 
                 ///MARK: fadl and count
-                if (whetherShowFadl ||
-                    whetherShowSource ||
-                    whetherShowCount) ...[
+                if (whetherShowFadl || whetherShowSource || whetherShowCount) ...[
                   const SizedBox(height: 30),
                 ],
 
@@ -163,9 +155,7 @@ class ShareableImageCard extends StatelessWidget {
                     style: secondaryTextStyle,
                   ),
                 ],
-                if (!whetherShowCount &&
-                    !whetherShowFadl &&
-                    !whetherShowSource) ...[
+                if (!whetherShowCount && !whetherShowFadl && !whetherShowSource) ...[
                   const SizedBox(height: 50),
                 ],
               ],

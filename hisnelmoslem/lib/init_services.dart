@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/di/dependency_injection.dart'
-    as service_locator;
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart' as service_locator;
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';

@@ -7,8 +7,7 @@ enum SearchType {
   anyWords;
 
   static SearchType fromString(String map) {
-    return SearchType.values.where((e) => e.name == map).firstOrNull ??
-        SearchType.typical;
+    return SearchType.values.where((e) => e.name == map).firstOrNull ?? SearchType.typical;
   }
 }
 

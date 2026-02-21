@@ -62,10 +62,9 @@ class QuranReadScreen extends StatelessWidget {
                         child: ColorFiltered(
                           colorFilter: greyScale,
                           child: ColorFiltered(
-                            colorFilter:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? invert
-                                    : normal,
+                            colorFilter: Theme.of(context).brightness == Brightness.dark
+                                ? invert
+                                : normal,
                             child: Image.asset(
                               state.requiredSurah.pages[index].image,
                               fit: BoxFit.fitWidth,
@@ -78,8 +77,7 @@ class QuranReadScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Text(
-                            state.requiredSurah.pages[index].pageNumber
-                                .toArabicNumberString(),
+                            state.requiredSurah.pages[index].pageNumber.toArabicNumberString(),
                           ),
                         ),
                       ),

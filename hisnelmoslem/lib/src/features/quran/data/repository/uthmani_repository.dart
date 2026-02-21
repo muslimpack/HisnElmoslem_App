@@ -52,7 +52,9 @@ ORDER BY ayah;
 
     if (maps.isEmpty) return "";
 
-    return maps.map((e) => Verse.fromMap(e)).fold(
+    return maps
+        .map((e) => Verse.fromMap(e))
+        .fold(
           "",
           (previousValue, element) =>
               "$previousValue ${element.text} ${element.ayah.toArabicNumberString()}",

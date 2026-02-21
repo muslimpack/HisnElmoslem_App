@@ -39,9 +39,9 @@ class _ZikrSourceFilterScreenState extends State<ZikrSourceFilterScreen> {
                   onChanged: !state.enableFilters
                       ? null
                       : (value) {
-                          context
-                              .read<AzkarFiltersCubit>()
-                              .toggleFilter(filter);
+                          context.read<AzkarFiltersCubit>().toggleFilter(
+                            filter,
+                          );
                         },
                 );
               }),

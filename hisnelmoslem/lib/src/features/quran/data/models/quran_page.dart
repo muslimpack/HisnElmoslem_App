@@ -10,14 +10,14 @@ class QuranPage extends Equatable {
   });
 
   factory QuranPage.fromJson(Map<String, dynamic> json) => QuranPage(
-        image: json["image"] as String,
-        pageNumber: json["pageNumber"] as int,
-      );
+    image: json["image"] as String,
+    pageNumber: json["pageNumber"] as int,
+  );
 
   Map<String, dynamic> toJson() => {
-        "image": image,
-        "pageNumber": pageNumber,
-      };
+    "image": image,
+    "pageNumber": pageNumber,
+  };
 
   @override
   List<Object?> get props => [image, pageNumber];

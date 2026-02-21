@@ -26,8 +26,7 @@ class FakeHadithDashboardScreen extends StatelessWidget {
               body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
                 floatHeaderSlivers: true,
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     const FakehadithAppBar(),
                   ];

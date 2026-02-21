@@ -21,8 +21,7 @@ class HomeBookmarkedContentCard extends StatefulWidget {
   });
 
   @override
-  State<HomeBookmarkedContentCard> createState() =>
-      _HomeBookmarkedContentCardState();
+  State<HomeBookmarkedContentCard> createState() => _HomeBookmarkedContentCardState();
 }
 
 class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {

@@ -53,8 +53,7 @@ class ShareImageSettingsEditor extends StatelessWidget {
                         shareImageCubit.updateAdditionalTextColor(color);
                       },
                       colorSwatchList: kShareImageColorsList,
-                      colorToTrack:
-                          state.shareImageSettings.additionalTextColor,
+                      colorToTrack: state.shareImageSettings.additionalTextColor,
                     ),
                     ColorSwatchBuilder(
                       title: S.of(context).backgroundColor,

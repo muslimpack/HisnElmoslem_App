@@ -196,9 +196,12 @@ class HisnDBHelper {
     /// Total Count
     final String totalCountQurey =
         '''SELECT COUNT(*) as count FROM titles ${whereFilters.query} ''';
-    final List<Map<String, dynamic>> countResult = await db.rawQuery(totalCountQurey, [
-      ...whereFilters.args,
-    ]);
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(
+      totalCountQurey,
+      [
+        ...whereFilters.args,
+      ],
+    );
     final int count = countResult.first["count"] as int? ?? 0;
 
     final itemList = List.generate(maps.length, (i) {
@@ -238,9 +241,12 @@ class HisnDBHelper {
     /// Total Count
     final String totalCountQurey =
         '''SELECT COUNT(*) as count FROM contents ${whereFilters.query} ''';
-    final List<Map<String, dynamic>> countResult = await db.rawQuery(totalCountQurey, [
-      ...whereFilters.args,
-    ]);
+    final List<Map<String, dynamic>> countResult = await db.rawQuery(
+      totalCountQurey,
+      [
+        ...whereFilters.args,
+      ],
+    );
     final int count = countResult.first["count"] as int? ?? 0;
 
     final itemList = List.generate(maps.length, (i) {

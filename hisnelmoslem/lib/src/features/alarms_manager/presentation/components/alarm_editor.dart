@@ -55,7 +55,10 @@ class _AlarmEditorState extends State<_AlarmEditor> {
   void initState() {
     super.initState();
     if (widget.isToEdit) {
-      _time = TimeOfDay.now().replacing(hour: widget.dbAlarm.hour, minute: widget.dbAlarm.minute);
+      _time = TimeOfDay.now().replacing(
+        hour: widget.dbAlarm.hour,
+        minute: widget.dbAlarm.minute,
+      );
 
       bodyController = TextEditingController(text: widget.dbAlarm.body);
       repeatType = widget.dbAlarm.repeatType;
@@ -92,7 +95,9 @@ class _AlarmEditorState extends State<_AlarmEditor> {
             ),
             const SizedBox(height: 10),
             TextField(
-              style: TextStyle(color: Theme.of(context).listTileTheme.textColor),
+              style: TextStyle(
+                color: Theme.of(context).listTileTheme.textColor,
+              ),
               textAlign: TextAlign.center,
               controller: bodyController,
               maxLength: 100,
@@ -111,7 +116,9 @@ class _AlarmEditorState extends State<_AlarmEditor> {
                       ? S.of(context).clickToChooseTime
                       : DateFormat(
                           "hh:mm a",
-                        ).format(DateTime(1, 1, 1, selectedHour!, selectedMinute!)),
+                        ).format(
+                          DateTime(1, 1, 1, selectedHour!, selectedMinute!),
+                        ),
                   textAlign: TextAlign.center,
                   textDirection: TextDirection.ltr,
                 ),
@@ -122,7 +129,9 @@ class _AlarmEditorState extends State<_AlarmEditor> {
                           value: Time(hour: _time.hour, minute: _time.minute),
                           onChange: onTimeChanged,
                           iosStylePicker: true,
-                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).scaffoldBackgroundColor,
 
                           // Optional onChange to receive value as DateTime
                           onChangeDateTime: (DateTime dateTime) {},
@@ -182,12 +191,17 @@ class _AlarmEditorState extends State<_AlarmEditor> {
             child: Text(
               S.of(context).delete,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Theme.of(context).buttonTheme.colorScheme?.error),
+              style: TextStyle(
+                color: Theme.of(context).buttonTheme.colorScheme?.error,
+              ),
             ),
             onPressed: () {
               Navigator.pop(
                 context,
-                EditorResult(value: widget.dbAlarm, action: EditorActionEnum.delete),
+                EditorResult(
+                  value: widget.dbAlarm,
+                  action: EditorActionEnum.delete,
+                ),
               );
             },
           ),
@@ -215,7 +229,10 @@ class _AlarmEditorState extends State<_AlarmEditor> {
                 if (widget.isToEdit) {
                   Navigator.pop(
                     context,
-                    EditorResult(value: editedAlarm, action: EditorActionEnum.edit),
+                    EditorResult(
+                      value: editedAlarm,
+                      action: EditorActionEnum.edit,
+                    ),
                   );
                 } else {
                   Navigator.pop(

@@ -57,8 +57,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       zikrFilters: filters,
     );
 
-    final listDbContentFavourite = await userDataDBHelper
-        .getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper.getFavouriteContents();
     final azkarFromDB = await hisnDBHelper.getContentsByIds(
       ids: listDbContentFavourite.map((e) => e.itemId).toList(),
     );
@@ -172,8 +171,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       zikrFilters: event.filters,
     );
 
-    final listDbContentFavourite = await userDataDBHelper
-        .getFavouriteContents();
+    final listDbContentFavourite = await userDataDBHelper.getFavouriteContents();
     final azkarFromDB = await hisnDBHelper.getContentsByIds(
       ids: listDbContentFavourite.map((e) => e.itemId).toList(),
     );

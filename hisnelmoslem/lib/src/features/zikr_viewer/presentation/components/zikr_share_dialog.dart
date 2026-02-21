@@ -33,7 +33,9 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
   }
 
   Future _load() async {
-    dbContent = await sl<HisnDBHelper>().getContentsByContentId(contentId: widget.contentId);
+    dbContent = await sl<HisnDBHelper>().getContentsByContentId(
+      contentId: widget.contentId,
+    );
 
     shareFadl = sl<ZikrViewerRepo>().shareFadl;
     shareSource = sl<ZikrViewerRepo>().shareSource;

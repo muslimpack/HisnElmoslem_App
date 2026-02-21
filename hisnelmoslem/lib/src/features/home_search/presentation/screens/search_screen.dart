@@ -23,18 +23,17 @@ class SearchScreen extends StatelessWidget {
         return Scaffold(
           body: NestedScrollView(
             floatHeaderSlivers: true,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-                  return [
-                    const SearchAppBar(),
-                    const SliverToBoxAdapter(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [SearchForBar(), SearchFiltersButton()],
-                      ),
-                    ),
-                  ];
-                },
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                const SearchAppBar(),
+                const SliverToBoxAdapter(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [SearchForBar(), SearchFiltersButton()],
+                  ),
+                ),
+              ];
+            },
             body: state is! SearchLoadedState
                 ? const Loading()
                 : switch (state.searchFor) {
@@ -45,8 +44,7 @@ class SearchScreen extends StatelessWidget {
                       },
                     ),
                     SearchFor.content => SearchResultViewer<DbContent>(
-                      pagingController:
-                          sl<SearchCubit>().contentPagingController,
+                      pagingController: sl<SearchCubit>().contentPagingController,
                       itemBuilder: (context, item, index) {
                         return SearchContentCard(
                           index: index,

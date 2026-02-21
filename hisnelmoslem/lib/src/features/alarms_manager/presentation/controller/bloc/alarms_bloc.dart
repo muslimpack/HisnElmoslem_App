@@ -106,13 +106,11 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
 
     if (event.enable) {
       showToast(
-        msg:
-            "${SX.current.activate}: ${SX.current.fastingMondaysThursdaysReminder}",
+        msg: "${SX.current.activate}: ${SX.current.fastingMondaysThursdaysReminder}",
       );
     } else {
       showToast(
-        msg:
-            "${SX.current.deactivate}: ${SX.current.fastingMondaysThursdaysReminder}",
+        msg: "${SX.current.deactivate}: ${SX.current.fastingMondaysThursdaysReminder}",
       );
     }
 

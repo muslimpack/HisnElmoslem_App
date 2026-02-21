@@ -40,9 +40,9 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.soundEveryPraise,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlaySoundEveryPraise(activate: value);
+                  context.read<SettingsCubit>().zikrEffectChangePlaySoundEveryPraise(
+                    activate: value,
+                  );
                 },
               ),
 
@@ -55,9 +55,7 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.soundEveryZikr,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlaySoundEveryZikr(activate: value);
+                  context.read<SettingsCubit>().zikrEffectChangePlaySoundEveryZikr(activate: value);
                 },
               ),
 
@@ -70,9 +68,9 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.soundEveryTitle,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlaySoundEveryTitle(activate: value);
+                  context.read<SettingsCubit>().zikrEffectChangePlaySoundEveryTitle(
+                    activate: value,
+                  );
                 },
               ),
               const Divider(),
@@ -86,11 +84,9 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.vibrateEveryPraise,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlayVibrationEveryPraise(
-                        activate: value,
-                      );
+                  context.read<SettingsCubit>().zikrEffectChangePlayVibrationEveryPraise(
+                    activate: value,
+                  );
                 },
               ),
               if (state.zikrEffects.vibrateEveryPraise)
@@ -104,14 +100,11 @@ class EffectsManagerScreen extends StatelessWidget {
                     max: 1000,
                     divisions: 99,
                     label: "${state.zikrEffects.vibrateEveryPraiseDuration} ms",
-                    value: state.zikrEffects.vibrateEveryPraiseDuration
-                        .toDouble(),
+                    value: state.zikrEffects.vibrateEveryPraiseDuration.toDouble(),
                     onChanged: (value) {
-                      context
-                          .read<SettingsCubit>()
-                          .zikrEffectChangePraiseVibrationDuration(
-                            value.toInt(),
-                          );
+                      context.read<SettingsCubit>().zikrEffectChangePraiseVibrationDuration(
+                        value.toInt(),
+                      );
                     },
                   ),
                 ),
@@ -125,9 +118,9 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.vibrateEveryZikr,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlayVibrationEveryZikr(activate: value);
+                  context.read<SettingsCubit>().zikrEffectChangePlayVibrationEveryZikr(
+                    activate: value,
+                  );
                 },
               ),
               if (state.zikrEffects.vibrateEveryZikr)
@@ -141,12 +134,11 @@ class EffectsManagerScreen extends StatelessWidget {
                     max: 1000,
                     divisions: 99,
                     label: "${state.zikrEffects.vibrateEveryZikrDuration} ms",
-                    value: state.zikrEffects.vibrateEveryZikrDuration
-                        .toDouble(),
+                    value: state.zikrEffects.vibrateEveryZikrDuration.toDouble(),
                     onChanged: (value) {
-                      context
-                          .read<SettingsCubit>()
-                          .zikrEffectChangeZikrVibrationDuration(value.toInt());
+                      context.read<SettingsCubit>().zikrEffectChangeZikrVibrationDuration(
+                        value.toInt(),
+                      );
                     },
                   ),
                 ),
@@ -160,9 +152,9 @@ class EffectsManagerScreen extends StatelessWidget {
                 ),
                 value: state.zikrEffects.vibrateEveryTitle,
                 onChanged: (value) {
-                  context
-                      .read<SettingsCubit>()
-                      .zikrEffectChangePlayVibrationEveryTitle(activate: value);
+                  context.read<SettingsCubit>().zikrEffectChangePlayVibrationEveryTitle(
+                    activate: value,
+                  );
                 },
               ),
               if (state.zikrEffects.vibrateEveryTitle)
@@ -176,14 +168,11 @@ class EffectsManagerScreen extends StatelessWidget {
                     max: 1000,
                     divisions: 99,
                     label: "${state.zikrEffects.vibrateEveryTitleDuration} ms",
-                    value: state.zikrEffects.vibrateEveryTitleDuration
-                        .toDouble(),
+                    value: state.zikrEffects.vibrateEveryTitleDuration.toDouble(),
                     onChanged: (value) {
-                      context
-                          .read<SettingsCubit>()
-                          .zikrEffectChangeTitleVibrationDuration(
-                            value.toInt(),
-                          );
+                      context.read<SettingsCubit>().zikrEffectChangeTitleVibrationDuration(
+                        value.toInt(),
+                      );
                     },
                   ),
                 ),

@@ -15,8 +15,7 @@ class AzkarFiltersRepo {
 
   static const String _filterPrefixNameKey = "ZikrFilterStorage";
 
-  static const String _enableFiltersKey =
-      "${_filterPrefixNameKey}enableFilters";
+  static const String _enableFiltersKey = "${_filterPrefixNameKey}enableFilters";
 
   /// Filters for zikr source
   bool get getEnableFiltersStatus {
@@ -29,8 +28,7 @@ class AzkarFiltersRepo {
     return box.write(_enableFiltersKey, activateFilters);
   }
 
-  static const String _enableHokmFiltersKey =
-      "${_filterPrefixNameKey}enableHokmFilters";
+  static const String _enableHokmFiltersKey = "${_filterPrefixNameKey}enableHokmFilters";
 
   /// Filters for zikr Hokm
   bool get getEnableHokmFiltersStatus {

@@ -12,9 +12,7 @@ class ThemeRepo {
 
   Brightness _getBrightness() {
     final String? brightness = box.read(_brightnessKey) as String?;
-    return brightness == Brightness.light.toString()
-        ? Brightness.light
-        : Brightness.dark;
+    return brightness == Brightness.light.toString() ? Brightness.light : Brightness.dark;
   }
 
   ///
@@ -65,9 +63,7 @@ class ThemeRepo {
 
   Color getColor() {
     final int? colorValue = box.read(_themeColorKey) as int?;
-    return colorValue != null
-        ? Color(colorValue)
-        : const Color.fromARGB(255, 105, 187, 253);
+    return colorValue != null ? Color(colorValue) : const Color.fromARGB(255, 105, 187, 253);
   }
 
   Future setColor(Color color) async {

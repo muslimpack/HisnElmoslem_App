@@ -49,12 +49,9 @@ class ZikrEffects extends Equatable {
       vibrateEveryPraise: vibrateEveryPraise ?? this.vibrateEveryPraise,
       vibrateEveryZikr: vibrateEveryZikr ?? this.vibrateEveryZikr,
       vibrateEveryTitle: vibrateEveryTitle ?? this.vibrateEveryTitle,
-      vibrateEveryPraiseDuration:
-          vibrateEveryPraiseDuration ?? this.vibrateEveryPraiseDuration,
-      vibrateEveryZikrDuration:
-          vibrateEveryZikrDuration ?? this.vibrateEveryZikrDuration,
-      vibrateEveryTitleDuration:
-          vibrateEveryTitleDuration ?? this.vibrateEveryTitleDuration,
+      vibrateEveryPraiseDuration: vibrateEveryPraiseDuration ?? this.vibrateEveryPraiseDuration,
+      vibrateEveryZikrDuration: vibrateEveryZikrDuration ?? this.vibrateEveryZikrDuration,
+      vibrateEveryTitleDuration: vibrateEveryTitleDuration ?? this.vibrateEveryTitleDuration,
     );
   }
 

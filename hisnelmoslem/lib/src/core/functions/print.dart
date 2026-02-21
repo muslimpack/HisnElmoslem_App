@@ -24,15 +24,12 @@ String getCurrentMethodName() {
   final frame = frames.elementAtOrNull(1);
 
   if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
+    final tokens = frame.replaceAll('<anonymous closure>', '<anonymous_closure>').split(' ');
 
     final methodName = tokens.elementAtOrNull(tokens.length - 2);
     if (methodName != null) {
       final methodTokens = methodName.split('.');
-      return methodTokens.length >= 2 &&
-              methodTokens[1] != '<anonymous_closure>'
+      return methodTokens.length >= 2 && methodTokens[1] != '<anonymous_closure>'
           ? (methodTokens.elementAtOrNull(1) ?? '')
           : methodName;
     }
@@ -45,15 +42,12 @@ String getCurrentMethodName2() {
   final frame = frames.elementAtOrNull(2);
 
   if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
+    final tokens = frame.replaceAll('<anonymous closure>', '<anonymous_closure>').split(' ');
 
     final methodName = tokens.elementAtOrNull(tokens.length - 2);
     if (methodName != null) {
       final methodTokens = methodName.split('.');
-      return methodTokens.length >= 2 &&
-              methodTokens[1] != '<anonymous_closure>'
+      return methodTokens.length >= 2 && methodTokens[1] != '<anonymous_closure>'
           ? (methodTokens.elementAtOrNull(1) ?? '')
           : methodName;
     }
@@ -67,9 +61,7 @@ String getFileNameAndLine() {
   // final frame = frames.elementAtOrNull(1);
 
   if (frame != null) {
-    final tokens = frame
-        .replaceAll('<anonymous closure>', '<anonymous_closure>')
-        .split(' ');
+    final tokens = frame.replaceAll('<anonymous closure>', '<anonymous_closure>').split(' ');
 
     final methodName = tokens.elementAtOrNull(tokens.length - 1);
     if (methodName != null) {

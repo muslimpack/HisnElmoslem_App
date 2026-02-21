@@ -21,8 +21,7 @@ final class TallyLoadedState extends TallyState {
     required this.loadingIteration,
   });
 
-  DbTally? get activeCounter =>
-      allCounters.where((x) => x.isActivated).firstOrNull;
+  DbTally? get activeCounter => allCounters.where((x) => x.isActivated).firstOrNull;
 
   double get resetEvery => switch (iterationMode) {
     TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 1,

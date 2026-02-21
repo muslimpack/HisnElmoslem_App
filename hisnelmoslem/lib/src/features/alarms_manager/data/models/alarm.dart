@@ -31,7 +31,8 @@ class DbAlarm extends Equatable {
     }
 
     final repeatTypeString = map['repeatType'] as String;
-    final repeatType = AlarmRepeatType.values
+    final repeatType =
+        AlarmRepeatType.values
             .where(
               (x) => x.name.toLowerCase() == repeatTypeString.toLowerCase(),
             )

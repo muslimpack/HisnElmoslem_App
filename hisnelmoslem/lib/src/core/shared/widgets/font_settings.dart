@@ -88,9 +88,7 @@ class FontSettingsBar extends StatelessWidget {
           IconButton(
             tooltip: S.of(context).showDiacritics,
             icon: Transform.rotate(
-              angle: context.watch<SettingsCubit>().state.showDiacritics
-                  ? 0
-                  : -math.pi / 8,
+              angle: context.watch<SettingsCubit>().state.showDiacritics ? 0 : -math.pi / 8,
               child: Icon(MdiIcons.abjadArabic),
             ),
             onPressed: () {
@@ -104,8 +102,7 @@ class FontSettingsBar extends StatelessWidget {
 
 class TextSample extends StatelessWidget {
   const TextSample({super.key});
-  static String text =
-      "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
+  static String text = "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي";
 
   @override
   Widget build(BuildContext context) {

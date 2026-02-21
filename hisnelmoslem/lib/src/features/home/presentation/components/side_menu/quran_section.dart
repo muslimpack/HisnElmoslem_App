@@ -25,28 +25,36 @@ class QuranSection extends StatelessWidget {
               leading: Icon(MdiIcons.bookOpenPageVariant),
               title: Text(S.of(context).endSuraAliImran),
               onTap: () {
-                context.push(const QuranReadScreen(surahName: SurahNameEnum.endofAliImran));
+                context.push(
+                  const QuranReadScreen(surahName: SurahNameEnum.endofAliImran),
+                );
               },
             ),
             ListTile(
               leading: Icon(MdiIcons.bookOpenPageVariant),
               title: Text(S.of(context).suraAlKahf),
               onTap: () {
-                context.push(const QuranReadScreen(surahName: SurahNameEnum.alKahf));
+                context.push(
+                  const QuranReadScreen(surahName: SurahNameEnum.alKahf),
+                );
               },
             ),
             ListTile(
               leading: Icon(MdiIcons.bookOpenPageVariant),
               title: Text(S.of(context).suraAsSajdah),
               onTap: () {
-                context.push(const QuranReadScreen(surahName: SurahNameEnum.assajdah));
+                context.push(
+                  const QuranReadScreen(surahName: SurahNameEnum.assajdah),
+                );
               },
             ),
             ListTile(
               leading: Icon(MdiIcons.bookOpenPageVariant),
               title: Text(S.of(context).suraAlMulk),
               onTap: () {
-                context.push(const QuranReadScreen(surahName: SurahNameEnum.alMulk));
+                context.push(
+                  const QuranReadScreen(surahName: SurahNameEnum.alMulk),
+                );
               },
             ),
           ],

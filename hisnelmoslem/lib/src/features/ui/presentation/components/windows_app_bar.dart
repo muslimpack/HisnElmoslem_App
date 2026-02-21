@@ -66,8 +66,7 @@ class _UIAppBarState extends State<UIAppBar> {
                       label: Icon(switch (state.themeBrightnessMode) {
                         ThemeBrightnessModeEnum.dark => Icons.dark_mode,
                         ThemeBrightnessModeEnum.light => Icons.light_mode,
-                        ThemeBrightnessModeEnum.system =>
-                          Icons.brightness_medium_outlined,
+                        ThemeBrightnessModeEnum.system => Icons.brightness_medium_outlined,
                       }),
                       onSelected: (v) {
                         sl<ThemeCubit>().toggleBrightnessMode();

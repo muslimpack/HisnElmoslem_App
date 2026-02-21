@@ -32,7 +32,9 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(deviceBrightness: brightness));
   }
 
-  Future<void> changeBrightnessMode(ThemeBrightnessModeEnum brightnessMode) async {
+  Future<void> changeBrightnessMode(
+    ThemeBrightnessModeEnum brightnessMode,
+  ) async {
     await themeRepo.setThemeBrightnessMode(brightnessMode);
     emit(state.copyWith(themeBrightnessMode: brightnessMode));
   }
@@ -61,7 +63,9 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(backgroundColor: color));
   }
 
-  Future<void> changeOverrideBackgroundColor(bool overrideBackgroundColor) async {
+  Future<void> changeOverrideBackgroundColor(
+    bool overrideBackgroundColor,
+  ) async {
     await themeRepo.setOverrideBackgroundColor(overrideBackgroundColor);
     emit(state.copyWith(overrideBackgroundColor: overrideBackgroundColor));
   }

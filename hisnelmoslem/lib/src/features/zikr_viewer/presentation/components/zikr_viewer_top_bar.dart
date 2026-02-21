@@ -32,7 +32,9 @@ class ZikrViewerTopBar extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.share),
               onPressed: () {
-                context.read<ZikrViewerBloc>().add(ZikrViewerShareZikrEvent(content: dbContent));
+                context.read<ZikrViewerBloc>().add(
+                  ZikrViewerShareZikrEvent(content: dbContent),
+                );
               },
             ),
             ConstrainedBox(
@@ -40,7 +42,10 @@ class ZikrViewerTopBar extends StatelessWidget {
               child: Center(
                 child: Text(
                   dbContent.count.toString().toArabicNumber(),
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
