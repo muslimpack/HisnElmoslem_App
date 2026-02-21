@@ -100,6 +100,17 @@ class AppSettingsRepo {
   Future<void> changePraiseWithVolumeKeysStatus({required bool value}) =>
       box.write(praiseWithVolumeKeysKey, value);
 
+  ///MARK:Ignore Notification Permission
+  /* ******* Ignore Notification Permission ******* */
+  static const ignoreNotificationPermissionKey = 'ignoreNotificationPermission';
+
+  bool get ignoreNotificationPermission =>
+      box.read(ignoreNotificationPermissionKey) ?? false;
+
+  Future<void> changeIgnoreNotificationPermissionStatus({
+    required bool value,
+  }) => box.write(ignoreNotificationPermissionKey, value);
+
   ///MARK:Titles Freq filters
   /* ******* Titles Freq filters ******* */
   static const String _titlesFreqFilter = "titlesFreqFilter";

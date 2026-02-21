@@ -179,6 +179,19 @@ class SettingsGeneralSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
+              secondary: const Icon(Icons.notifications_off),
+              value: state.ignoreNotificationPermission,
+              title: Text(S.of(context).ignoreNotificationPermission),
+              subtitle: Text(S.of(context).ignoreNotificationPermissionDesc),
+              onChanged: (value) {
+                context
+                    .read<SettingsCubit>()
+                    .toggleIgnoreNotificationPermission(
+                      ignore: !state.ignoreNotificationPermission,
+                    );
+              },
+            ),
+            SwitchListTile(
               secondary: const Icon(Icons.numbers),
               tileColor: Colors.amber.withAlpha((.1 * 255).round()),
               value: state.useHindiDigits,

@@ -47,6 +47,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           praiseWithVolumeKeys: appSettingsRepo.praiseWithVolumeKeys,
           allowZikrSessionRestoration:
               zikrViewerRepo.allowZikrSessionRestoration,
+          ignoreNotificationPermission:
+              appSettingsRepo.ignoreNotificationPermission,
         ),
       );
 
@@ -69,6 +71,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future toggleAllowZikrSessionRestoration({required bool allow}) async {
     await zikrViewerRepo.toggleAllowZikrSessionRestoration(allow);
     emit(state.copyWith(allowZikrSessionRestoration: allow));
+  }
+
+  Future toggleIgnoreNotificationPermission({required bool ignore}) async {
+    await appSettingsRepo.changeIgnoreNotificationPermissionStatus(
+      value: ignore,
+    );
+    emit(state.copyWith(ignoreNotificationPermission: ignore));
   }
 
   ///MARK: praiseWithVolumeKeys

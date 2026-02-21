@@ -113,6 +113,8 @@
   "hokmSahih": "صحيح",
   "imageQuality": "جودة الصورة",
   "imageWidth": "عرض الصورة",
+  "ignoreNotificationPermission": "تجاهل إذن الإشعارات",
+  "ignoreNotificationPermissionDesc": "عدم طلب إذن الإشعارات عند فتح التطبيق",
   "index": "الفهرس",
   "later": "ذكرني لاحقًا",
   "likeAboutApp": "ما أعجبك في التطبيق:",

@@ -356,6 +356,13 @@ class SAr extends S {
   String get imageWidth => 'عرض الصورة';
 
   @override
+  String get ignoreNotificationPermission => 'تجاهل إذن الإشعارات';
+
+  @override
+  String get ignoreNotificationPermissionDesc =>
+      'عدم طلب إذن الإشعارات عند فتح التطبيق';
+
+  @override
   String get index => 'الفهرس';
 
   @override

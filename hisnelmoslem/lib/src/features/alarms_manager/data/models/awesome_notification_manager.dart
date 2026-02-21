@@ -1,11 +1,13 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/app.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class AwesomeNotificationManager {
@@ -13,7 +15,9 @@ class AwesomeNotificationManager {
     try {
       await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
         if (!isAllowed) {
-          AwesomeNotifications().requestPermissionToSendNotifications();
+          if (!sl<AppSettingsRepo>().ignoreNotificationPermission) {
+            AwesomeNotifications().requestPermissionToSendNotifications();
+          }
         }
       });
 
@@ -51,21 +55,17 @@ class AwesomeNotificationManager {
   }
 
   Future listen() async {
-    await AwesomeNotifications()
-        .setListeners(onActionReceivedMethod: onActionReceivedMethod);
+    await AwesomeNotifications().setListeners(onActionReceivedMethod: onActionReceivedMethod);
   }
 
   @pragma("vm:entry-point")
-  static Future<void> onActionReceivedMethod(
-    ReceivedAction receivedAction,
-  ) async {
+  static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     final List<String?> payloadsList = receivedAction.payload!.values.toList();
     final String? payload = payloadsList[0];
     hisnPrint("actionStream: $payload");
 
     try {
-      final int currentBadgeCount =
-          await AwesomeNotifications().getGlobalBadgeCounter();
+      final int currentBadgeCount = await AwesomeNotifications().getGlobalBadgeCounter();
       if (currentBadgeCount > 5) {
         await AwesomeNotifications().resetGlobalBadge();
       } else {
@@ -86,9 +86,7 @@ class AwesomeNotificationManager {
     await AwesomeNotifications().cancelAllSchedules();
   }
 
-  Future<void> cancelNotificationById({
-    required int id,
-  }) async {
+  Future<void> cancelNotificationById({required int id}) async {
     await AwesomeNotifications().cancelSchedule(id);
   }
 
@@ -115,18 +113,14 @@ class AwesomeNotificationManager {
           label: SX.current.dismiss,
           actionType: ActionType.DisabledAction,
         ),
-        NotificationActionButton(
-          key: 'Start',
-          label: SX.current.start,
-        ),
+        NotificationActionButton(key: 'Start', label: SX.current.start),
       ],
     );
   }
 
   /// Show Notification
   Future<void> appOpenNotification() async {
-    final scheduleNotificationDateTime =
-        DateTime.now().add(const Duration(days: 3));
+    final scheduleNotificationDateTime = DateTime.now().add(const Duration(days: 3));
     // int id = createUniqueId();c
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -182,10 +176,7 @@ class AwesomeNotificationManager {
                 label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
-              NotificationActionButton(
-                key: 'Start',
-                label: SX.current.start,
-              ),
+              NotificationActionButton(key: 'Start', label: SX.current.start),
             ]
           : [
               NotificationActionButton(
@@ -231,10 +222,7 @@ class AwesomeNotificationManager {
                 label: SX.current.dismiss,
                 actionType: ActionType.DisabledAction,
               ),
-              NotificationActionButton(
-                key: 'Start',
-                label: SX.current.start,
-              ),
+              NotificationActionButton(key: 'Start', label: SX.current.start),
             ]
           : [
               NotificationActionButton(
@@ -253,25 +241,17 @@ class AwesomeNotificationManager {
 
     /// go to quran page if clicked
     if (payload == "الكهف") {
-      context.push(
-        const QuranReadScreen(
-          surahName: SurahNameEnum.alKahf,
-        ),
-      );
+      context.push(const QuranReadScreen(surahName: SurahNameEnum.alKahf));
     }
-
     /// ignore constant alarms if clicked
     else if (payload == "555" || payload == "666") {
     }
-
     /// go to zikr page if clicked
     else {
       final int pageIndex = int.parse(payload);
       //
 
-      context.push(
-        ZikrViewerScreen(index: pageIndex),
-      );
+      context.push(ZikrViewerScreen(index: pageIndex));
     }
   }
 }
@@ -279,21 +259,14 @@ class AwesomeNotificationManager {
 class Time {
   final int hour;
   final int minute;
-  Time(
-    this.hour, [
-    this.minute = 0,
-  ]);
+  Time(this.hour, [this.minute = 0]);
 }
 
 class NotifyChannel {
   final String key;
   final String name;
   final String description;
-  NotifyChannel({
-    required this.key,
-    required this.name,
-    required this.description,
-  });
+  NotifyChannel({required this.key, required this.name, required this.description});
 }
 
 class NotificationsChannels {

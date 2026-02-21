@@ -113,6 +113,8 @@
   "hokmSahih": "Authentic",
   "imageQuality": "Image quality",
   "imageWidth": "Image width",
+  "ignoreNotificationPermission": "Ignore Notification Permission",
+  "ignoreNotificationPermissionDesc": "Don't ask for notification permissions on app launch",
   "index": "Index",
   "later": "Later",
   "likeAboutApp": "I like about this app:",

@@ -775,6 +775,18 @@ abstract class S {
   /// **'Image width'**
   String get imageWidth;
 
+  /// No description provided for @ignoreNotificationPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore Notification Permission'**
+  String get ignoreNotificationPermission;
+
+  /// No description provided for @ignoreNotificationPermissionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t ask for notification permissions on app launch'**
+  String get ignoreNotificationPermissionDesc;
+
   /// No description provided for @index.
   ///
   /// In en, this message translates to:

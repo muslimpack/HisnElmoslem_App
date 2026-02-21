@@ -355,6 +355,13 @@ class SEn extends S {
   String get imageWidth => 'Image width';
 
   @override
+  String get ignoreNotificationPermission => 'Ignore Notification Permission';
+
+  @override
+  String get ignoreNotificationPermissionDesc =>
+      'Don\'t ask for notification permissions on app launch';
+
+  @override
   String get index => 'Index';
 
   @override
