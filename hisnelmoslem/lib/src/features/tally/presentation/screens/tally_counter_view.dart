@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
@@ -19,9 +20,7 @@ class TallyCounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TallyBloc, TallyState>(
       builder: (context, state) {
-        if (state is! TallyLoadedState) {
-          return const Loading();
-        }
+        if (state is! TallyLoadedState) return const Loading();
 
         final activeCounter = state.activeCounter;
 
@@ -39,141 +38,171 @@ class TallyCounterView extends StatelessWidget {
                     final EditorResult<DbTally>? result = await showTallyEditorDialog(
                       context: context,
                     );
-
                     if (result == null || !context.mounted) return;
-
                     context.read<TallyBloc>().add(TallyAddCounterEvent(counter: result.value));
                   },
           );
         }
 
+        final theme = Theme.of(context);
+        final primary = theme.colorScheme.primary;
         final double resetEvery = state.resetEvery;
         final int cycles = activeCounter.count ~/ resetEvery;
+        final double progress = (activeCounter.count - cycles * resetEvery) / resetEvery;
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
-
           body: GestureDetector(
-            onTap: () {
-              context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent());
-            },
+            onTap: () => context.read<TallyBloc>().add(TallyIncreaseActiveCounterEvent()),
             child: Container(
-              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage("assets/images/grid.png"),
                   repeat: ImageRepeat.repeat,
                   opacity: .03,
                   colorFilter: ColorFilter.mode(
-                    Theme.of(context).scaffoldBackgroundColor.getContrastColor,
+                    theme.scaffoldBackgroundColor.getContrastColor,
                     BlendMode.srcIn,
                   ),
                 ),
               ),
-              child: Column(
-                spacing: 20,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Stack(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (state.iterationMode != TallyIterationMode.none)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              value: state.loadingIteration ? null : 1,
+                      // ── Title area ──────────────────────────────────────
+                      Expanded(
+                        flex: 2,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // Loading spinner top-right
+                            if (state.iterationMode != TallyIterationMode.none)
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    value: state.loadingIteration ? null : 1,
+                                    color: primary,
+                                  ),
+                                ),
+                              ),
+                            // Counter title
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 32),
+                              child: AutoSizeText(
+                                activeCounter.title,
+                                style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                  color: primary,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // ── Main count ──────────────────────────────────────
+                      Expanded(
+                        flex: 4,
+                        child: Center(
+                          child: GradientWidget(
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '${activeCounter.count}'.toArabicNumber(),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 120,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1,
+                                ),
+                              ),
+                            ),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [primary.withAlpha((.4 * 255).round()), primary],
                             ),
                           ),
                         ),
-                      Container(
-                        height: 150,
-                        constraints: const BoxConstraints(minHeight: 150),
-                        child: Center(
-                          child: ListView(
-                            padding: const EdgeInsets.all(20),
-                            shrinkWrap: true,
+                      ),
+
+                      // ── Cycles row ──────────────────────────────────────
+                      if (cycles > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 8,
                             children: [
-                              Text(
-                                activeCounter.title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 40,
-                                  fontFamily: "uthmanic",
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
+                              GradientWidget(
+                                const Icon(Icons.loop_rounded, size: 28),
+                                gradient: LinearGradient(
+                                  colors: [primary.withAlpha((.5 * 255).round()), primary],
+                                ),
+                              ),
+                              GradientWidget(
+                                Text(
+                                  '$cycles'.toArabicNumber(),
+                                  style: theme.textTheme.headlineMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                gradient: LinearGradient(
+                                  colors: [primary.withAlpha((.5 * 255).round()), primary],
                                 ),
                               ),
                             ],
                           ),
                         ),
+
+                      // ── Progress bar ────────────────────────────────────
+                      TweenAnimationBuilder<double>(
+                        tween: Tween<double>(begin: 0, end: progress),
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.easeInOut,
+                        builder: (context, value, _) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              // Percentage label
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 6),
+                                child: Text(
+                                  '${(value * 100).toInt()}%',
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: primary.withAlpha((0.7 * 255).toInt()),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: LinearProgressIndicator(
+                                  minHeight: 14,
+                                  value: value,
+                                  backgroundColor: primary.withAlpha((.15 * 255).round()),
+                                  valueColor: AlwaysStoppedAnimation<Color>(primary),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
+
+                      const SizedBox(height: 16),
                     ],
                   ),
-
-                  Expanded(
-                    child: GradientWidget(
-                      FittedBox(
-                        child: Text(
-                          '${activeCounter.count}'.toArabicNumber(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Theme.of(context).colorScheme.primary.withAlpha((.3 * 255).round()),
-                          Theme.of(context).colorScheme.primary,
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  GradientWidget(
-                    Row(
-                      spacing: 5,
-                      children: [
-                        const Icon(Icons.circle_outlined, size: 45),
-                        if (cycles > 0)
-                          Text(
-                            '$cycles'.toArabicNumber(),
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                      ],
-                    ),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Theme.of(context).colorScheme.primary.withAlpha((.5 * 255).round()),
-                        Theme.of(context).colorScheme.primary,
-                      ],
-                    ),
-                  ),
-
-                  TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                      begin: 0,
-                      end: (activeCounter.count - cycles * resetEvery) / resetEvery,
-                    ),
-                    duration: const Duration(milliseconds: 600),
-                    curve: Curves.easeInOut,
-                    builder: (context, value, child) {
-                      return LinearProgressIndicator(
-                        minHeight: 20,
-                        borderRadius: BorderRadius.circular(10),
-                        value: value,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).colorScheme.primary,
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),
