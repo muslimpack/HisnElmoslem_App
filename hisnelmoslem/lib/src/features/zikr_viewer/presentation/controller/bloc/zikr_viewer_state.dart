@@ -19,6 +19,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
   final ZikrSession restoredSession;
   final bool askToRestoreSession;
   final bool isAudioDelaying;
+  final bool isAudioPlaying;
 
   DbContent? get activeZikr {
     if (azkarToView.isEmpty) return null;
@@ -42,6 +43,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     required this.restoredSession,
     required this.askToRestoreSession,
     this.isAudioDelaying = false,
+    this.isAudioPlaying = false,
   });
 
   ZikrViewerLoadedState copyWith({
@@ -53,6 +55,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     ZikrSession? restoredSession,
     bool? askToRestoreSession,
     bool? isAudioDelaying,
+    bool? isAudioPlaying,
   }) {
     return ZikrViewerLoadedState(
       title: title ?? this.title,
@@ -63,6 +66,7 @@ class ZikrViewerLoadedState extends ZikrViewerState {
       restoredSession: restoredSession ?? this.restoredSession,
       askToRestoreSession: askToRestoreSession ?? this.askToRestoreSession,
       isAudioDelaying: isAudioDelaying ?? this.isAudioDelaying,
+      isAudioPlaying: isAudioPlaying ?? this.isAudioPlaying,
     );
   }
 
@@ -76,5 +80,6 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     restoredSession,
     askToRestoreSession,
     isAudioDelaying,
+    isAudioPlaying,
   ];
 }

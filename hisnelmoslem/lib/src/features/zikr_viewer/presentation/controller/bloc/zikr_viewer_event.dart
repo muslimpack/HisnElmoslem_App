@@ -12,10 +12,7 @@ final class ZikrViewerStartEvent extends ZikrViewerEvent {
   final int titleIndex;
   final ZikrViewerMode zikrViewerMode;
 
-  const ZikrViewerStartEvent({
-    required this.titleIndex,
-    required this.zikrViewerMode,
-  });
+  const ZikrViewerStartEvent({required this.titleIndex, required this.zikrViewerMode});
 
   @override
   List<Object> get props => [titleIndex, zikrViewerMode];
@@ -106,4 +103,14 @@ class ZikrViewerVolumeKeyPressedEvent extends ZikrViewerEvent {
 
   @override
   List<Object> get props => [];
+}
+
+class ZikrViewerAudioDelayStateChangedEvent extends ZikrViewerEvent {
+  final bool isDelaying;
+  const ZikrViewerAudioDelayStateChangedEvent(this.isDelaying);
+}
+
+class ZikrViewerAudioPlayingStateChangedEvent extends ZikrViewerEvent {
+  final bool isPlaying;
+  const ZikrViewerAudioPlayingStateChangedEvent(this.isPlaying);
 }
