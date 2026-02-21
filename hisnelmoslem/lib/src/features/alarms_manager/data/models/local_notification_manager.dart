@@ -22,10 +22,6 @@ class LocalNotificationManager {
 
   Future<void> init() async {
     try {
-      final bool? isAllowed = await requestPermissionWithDialog();
-
-      if (isAllowed == null || !isAllowed) return;
-
       await _configureLocalTimeZone();
 
       const AndroidInitializationSettings androidInitializationSettings =
