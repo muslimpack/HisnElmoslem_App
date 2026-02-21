@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
@@ -26,7 +25,11 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, elevation: 0, title: Text(S.of(context).settings)),
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(S.of(context).settings),
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -100,8 +103,9 @@ class SettingsScreen extends StatelessWidget {
           Title(title: S.of(context).fontSettings),
           const FontSettingsToolbox(),
 
-          ///TODO remove when desktop notification is ready
-          if (!PlatformExtension.isDesktop) ...[const Divider(), const _SettingsAlarmsSection()],
+          const Divider(),
+          const _SettingsAlarmsSection(),
+
           const Divider(),
           const _SettingsContactSection(),
         ],
@@ -120,11 +124,17 @@ class SettingsGeneralSection extends StatelessWidget {
         return Column(
           children: [
             SwitchListTile(
-              secondary: Icon(!state.isCardReadMode ? MdiIcons.bookOpenPageVariant : MdiIcons.card),
+              secondary: Icon(
+                !state.isCardReadMode
+                    ? MdiIcons.bookOpenPageVariant
+                    : MdiIcons.card,
+              ),
               value: !state.isCardReadMode,
               title: Text(S.of(context).pageMode),
               onChanged: (value) {
-                context.read<SettingsCubit>().toggleIsCardReadMode(activate: !value);
+                context.read<SettingsCubit>().toggleIsCardReadMode(
+                  activate: !value,
+                );
               },
             ),
             SwitchListTile(
@@ -143,7 +153,9 @@ class SettingsGeneralSection extends StatelessWidget {
               value: state.enableWakeLock,
               title: Text(S.of(context).enableWakeLock),
               onChanged: (value) {
-                context.read<SettingsCubit>().toggleWakeLock(use: !state.enableWakeLock);
+                context.read<SettingsCubit>().toggleWakeLock(
+                  use: !state.enableWakeLock,
+                );
               },
             ),
             SwitchListTile(
@@ -163,9 +175,11 @@ class SettingsGeneralSection extends StatelessWidget {
               title: Text(S.of(context).ignoreNotificationPermission),
               subtitle: Text(S.of(context).ignoreNotificationPermissionDesc),
               onChanged: (value) {
-                context.read<SettingsCubit>().toggleIgnoreNotificationPermission(
-                  ignore: !state.ignoreNotificationPermission,
-                );
+                context
+                    .read<SettingsCubit>()
+                    .toggleIgnoreNotificationPermission(
+                      ignore: !state.ignoreNotificationPermission,
+                    );
               },
             ),
             SwitchListTile(
@@ -175,7 +189,9 @@ class SettingsGeneralSection extends StatelessWidget {
               title: Text(S.of(context).useHindiDigits),
               subtitle: Text(S.of(context).requiresAppRestart),
               onChanged: (value) {
-                context.read<SettingsCubit>().toggleUseHiniDigits(use: !state.useHindiDigits);
+                context.read<SettingsCubit>().toggleUseHiniDigits(
+                  use: !state.useHindiDigits,
+                );
               },
             ),
           ],
@@ -211,7 +227,9 @@ class _SettingsAlarmsSection extends StatelessWidget {
               title: Text(S.of(context).fastingMondaysThursdaysReminder),
               value: state.isFastAlarmEnabled,
               onChanged: (value) {
-                context.read<AlarmsBloc>().add(AlarmsToggleFastAlarmEvent(value));
+                context.read<AlarmsBloc>().add(
+                  AlarmsToggleFastAlarmEvent(value),
+                );
               },
             ),
             SwitchListTile(
@@ -219,7 +237,9 @@ class _SettingsAlarmsSection extends StatelessWidget {
               title: Text(S.of(context).suraAlKahfReminder),
               value: state.isCaveAlarmEnabled,
               onChanged: (value) {
-                context.read<AlarmsBloc>().add(AlarmsToggleCaveAlarmEvent(value));
+                context.read<AlarmsBloc>().add(
+                  AlarmsToggleCaveAlarmEvent(value),
+                );
               },
             ),
           ],
@@ -275,7 +295,10 @@ class Title extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.primary),
+        style: TextStyle(
+          fontSize: 20,
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
     );
   }

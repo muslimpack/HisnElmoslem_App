@@ -32,7 +32,6 @@ class TitleCard extends StatelessWidget {
         ],
       ),
 
-      ///TODO remove when desktop notification is ready
       trailing: TitleCardAlarmButton(dbTitle: dbTitle),
       title: Text(dbTitle.name),
       onTap: () {
