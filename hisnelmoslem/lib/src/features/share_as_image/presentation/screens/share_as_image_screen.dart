@@ -99,6 +99,13 @@ class ShareImageBaractionButtons extends StatelessWidget {
           icon: const Icon(Icons.style),
         ),
         IconButton(
+          tooltip: S.of(context).saveToGallery,
+          onPressed: () async {
+            await context.read<ShareImageCubit>().saveToGallery();
+          },
+          icon: const Icon(Icons.download),
+        ),
+        IconButton(
           tooltip: S.of(context).share,
           onPressed: () async {
             await context.read<ShareImageCubit>().shareImage();

@@ -758,4 +758,10 @@ class SAr extends S {
 
   @override
   String get vibrationDuration => 'مدة الاهتزاز (بالملي ثانية)';
+
+  @override
+  String get saveToGallery => 'حفظ في المعرض';
+
+  @override
+  String get imageSavedSuccessfully => 'تم حفظ الصورة بنجاح';
 }

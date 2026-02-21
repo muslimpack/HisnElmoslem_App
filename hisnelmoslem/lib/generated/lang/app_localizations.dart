@@ -1560,6 +1560,18 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Vibration duration (ms)'**
   String get vibrationDuration;
+
+  /// No description provided for @saveToGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to Gallery'**
+  String get saveToGallery;
+
+  /// No description provided for @imageSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Image saved successfully'**
+  String get imageSavedSuccessfully;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

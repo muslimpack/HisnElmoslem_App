@@ -243,5 +243,7 @@
   "audioPlayerDelayFixed": "Fixed Time",
   "audioPlayerDelaySeconds": "Seconds",
   "audioPlayerSettings": "Audio Settings",
-  "vibrationDuration": "Vibration duration (ms)"
+  "vibrationDuration": "Vibration duration (ms)",
+  "saveToGallery": "Save to Gallery",
+  "imageSavedSuccessfully": "Image saved successfully"
 }

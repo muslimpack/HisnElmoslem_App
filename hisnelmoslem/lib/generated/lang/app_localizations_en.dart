@@ -758,4 +758,10 @@ class SEn extends S {
 
   @override
   String get vibrationDuration => 'Vibration duration (ms)';
+
+  @override
+  String get saveToGallery => 'Save to Gallery';
+
+  @override
+  String get imageSavedSuccessfully => 'Image saved successfully';
 }

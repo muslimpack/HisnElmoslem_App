@@ -3,7 +3,8 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -50,6 +51,7 @@
         </intent>
     </queries>
     
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />

@@ -36,6 +36,7 @@ dependencies:
   flutter_zoom_drawer: ^3.2.0
   fluttertoast: ^9.0.0
   font_awesome_flutter: ^10.10.0
+  gal: ^2.3.2
   get_it: ^9.2.1
   get_storage: ^2.1.1
   infinite_scroll_pagination: ^5.1.1

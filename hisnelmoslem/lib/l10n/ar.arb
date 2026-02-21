@@ -243,5 +243,7 @@
   "audioPlayerDelayFixed": "وقت محدد",
   "audioPlayerDelaySeconds": "ثواني",
   "audioPlayerSettings": "إعدادات الصوت",
-  "vibrationDuration": "مدة الاهتزاز (بالملي ثانية)"
+  "vibrationDuration": "مدة الاهتزاز (بالملي ثانية)",
+  "saveToGallery": "حفظ في المعرض",
+  "imageSavedSuccessfully": "تم حفظ الصورة بنجاح"
 }

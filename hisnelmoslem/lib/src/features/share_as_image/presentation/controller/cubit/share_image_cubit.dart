@@ -8,9 +8,12 @@ import 'package:capture_widget/core/widget_capture_controller.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:gal/gal.dart';
+import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
@@ -27,11 +30,9 @@ part 'share_image_state.dart';
 
 class ShareImageCubit extends Cubit<ShareImageState> {
   final ShareAsImageRepo shareAsImageRepo;
-  TransformationController transformationController =
-      TransformationController();
+  TransformationController transformationController = TransformationController();
 
-  final CaptureWidgetController captureWidgetController =
-      CaptureWidgetController();
+  final CaptureWidgetController captureWidgetController = CaptureWidgetController();
   final PageController pageController = PageController();
   late final List<GlobalKey> imageKeys;
 
@@ -98,8 +99,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   }
 
   FutureOr start(DbContent content) async {
-    final ShareImageSettings shareImageSettings =
-        shareAsImageRepo.shareImageSettings;
+    final ShareImageSettings shareImageSettings = shareAsImageRepo.shareImageSettings;
     final isContainsQuranText = content.content.contains("QuranText");
     late final DbContent content2Set;
     if (isContainsQuranText) {
@@ -110,24 +110,19 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     final baseTitle = await _getTitle(content2Set);
 
-    final settings = const ShareableImageCardSettings.defaultSettings()
-        .copyWith(wordsCountPerSize: 120);
+    final settings = const ShareableImageCardSettings.defaultSettings().copyWith(
+      wordsCountPerSize: 120,
+    );
 
     final String proccessedText = content2Set.content;
-    final charsPerChunk = charPer1080(
-      settings.wordsCountPerSize,
-      proccessedText,
-    );
+    final charsPerChunk = charPer1080(settings.wordsCountPerSize, proccessedText);
 
     final List<TextRange> splittedMatnRanges = splitStringIntoChunksRange(
       proccessedText,
       charsPerChunk,
     );
 
-    imageKeys = List.generate(
-      splittedMatnRanges.length,
-      (index) => GlobalKey(),
-    );
+    imageKeys = List.generate(splittedMatnRanges.length, (index) => GlobalKey());
     emit(
       ShareImageLoadedState(
         content: content2Set,
@@ -146,12 +141,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (content.titleId >= 0) {
       title = await sl<HisnDBHelper>().getTitleById(id: content.titleId);
     } else {
-      title = const DbTitle(
-        id: -1,
-        name: "أحاديث منتشرة لا تصح",
-        freq: "",
-        order: -1,
-      );
+      title = const DbTitle(id: -1, name: "أحاديث منتشرة لا تصح", freq: "", order: -1);
     }
     return title;
   }
@@ -194,9 +184,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;
 
-    _updateSettings(
-      state.shareImageSettings.copyWith(additionalTextColor: color),
-    );
+    _updateSettings(state.shareImageSettings.copyWith(additionalTextColor: color));
   }
 
   void resetColors() {
@@ -292,8 +280,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (imageSize == Size.zero) return;
 
     // Calculate the scale factors for both width and height
-    final double widthScale =
-        screenSize.width / shareAsImageRepo.shareImageImageWidth;
+    final double widthScale = screenSize.width / shareAsImageRepo.shareImageImageWidth;
     final double heightScale = screenSize.height / imageSize.height;
 
     // Choose the smaller scale to ensure the image fits within the screen
@@ -363,10 +350,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     return fileName;
   }
 
-  Future _saveDesktop(
-    List<ByteData> filesData, {
-    required List<String> fileName,
-  }) async {
+  Future _saveDesktop(List<ByteData> filesData, {required List<String> fileName}) async {
     final String? dir = await FilePicker.platform.getDirectoryPath(
       dialogTitle: 'Please select an output file:',
     );
@@ -385,9 +369,7 @@ class ShareImageCubit extends Cubit<ShareImageState> {
 
     final List<XFile> xFiles = [];
     for (int i = 0; i < filesData.length; i++) {
-      final File file = await File(
-        '${tempDir.path}/SharedImage$i.png',
-      ).create();
+      final File file = await File('${tempDir.path}/SharedImage$i.png').create();
       await file.writeAsBytes(filesData[i].buffer.asUint8List());
       xFiles.add(XFile(file.path));
     }
@@ -399,6 +381,50 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     for (final file in xFiles) {
       await File(file.path).delete();
     }
+  }
+
+  Future<void> saveToGallery() async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    emit(state.copyWith(showLoadingIndicator: true));
+    const double pixelRatio = 2;
+
+    try {
+      final captureWidgetController = CaptureWidgetController(
+        imageKey: imageKeys[state.activeIndex],
+      );
+      final image = await captureWidgetController.getImage(pixelRatio);
+
+      final byteData = await image?.toByteData(format: ImageByteFormat.png);
+
+      if (byteData == null) {
+        emit(state.copyWith(showLoadingIndicator: false));
+        return;
+      }
+
+      final uint8List = byteData.buffer.asUint8List();
+
+      final hasAccess = await Gal.hasAccess();
+      if (!hasAccess) {
+        await Gal.requestAccess();
+      }
+
+      final tempDir = await getTemporaryDirectory();
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      final File file = await File('${tempDir.path}/DownloadedImage_$timestamp.png').create();
+      await file.writeAsBytes(uint8List);
+
+      await Gal.putImage(file.path);
+      showToast(
+        msg: S.of(captureWidgetController.imageKey.currentContext!).imageSavedSuccessfully,
+        type: ToastType.success,
+      );
+    } catch (e) {
+      hisnPrint(e.toString());
+    }
+
+    emit(state.copyWith(showLoadingIndicator: false));
   }
 
   /// **************************
