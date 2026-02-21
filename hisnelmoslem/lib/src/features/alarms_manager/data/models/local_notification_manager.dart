@@ -20,6 +20,8 @@ class LocalNotificationManager {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  NotificationResponse? launchNotificationResponse;
+
   Future<void> init() async {
     try {
       await _configureLocalTimeZone();
@@ -43,6 +45,14 @@ class LocalNotificationManager {
         settings: settings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
       );
+
+      final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+          await flutterLocalNotificationsPlugin
+              .getNotificationAppLaunchDetails();
+      if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+        launchNotificationResponse =
+            notificationAppLaunchDetails!.notificationResponse;
+      }
 
       await appOpenNotification();
     } catch (e) {
@@ -353,6 +363,16 @@ class LocalNotificationManager {
       if (pageIndex != null) {
         context.push(ZikrViewerScreen(index: pageIndex));
       }
+    }
+  }
+
+  void handleLaunchNotification() {
+    if (launchNotificationResponse != null) {
+      final String? payload = launchNotificationResponse!.payload;
+      if (payload != null && payload.isNotEmpty) {
+        onNotificationClick(payload);
+      }
+      launchNotificationResponse = null;
     }
   }
 }
