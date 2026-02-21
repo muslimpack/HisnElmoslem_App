@@ -25,15 +25,11 @@ class UserNumberField extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.number,
 
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly,
-        ],
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
         onChanged: onChange,
-        decoration: customInputDecoration.copyWith(
-          hintText: hintText,
-          labelText: hintText,
-          prefixIcon: Icon(leadingIcon),
-        ),
+        decoration: customInputDecoration(
+          context,
+        ).copyWith(hintText: hintText, labelText: hintText, prefixIcon: Icon(leadingIcon)),
       ),
     );
   }
@@ -64,15 +60,11 @@ class UserNumberFormField extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.number,
 
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly,
-        ],
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
         onChanged: onChange,
-        decoration: customInputDecoration.copyWith(
-          hintText: hintText,
-          labelText: hintText,
-          prefixIcon: Icon(leadingIcon),
-        ),
+        decoration: customInputDecoration(
+          context,
+        ).copyWith(hintText: hintText, labelText: hintText, prefixIcon: Icon(leadingIcon)),
         validator: validator,
       ),
     );

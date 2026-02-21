@@ -26,7 +26,9 @@ class UserTextFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         onChanged: onChange,
-        decoration: customInputDecoration.copyWith(hintText: hintText, labelText: hintText),
+        decoration: customInputDecoration(
+          context,
+        ).copyWith(hintText: hintText, labelText: hintText),
         validator: validator,
       ),
     );

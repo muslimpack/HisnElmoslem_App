@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 
-const InputDecoration customInputDecoration = InputDecoration(
-  filled: true,
-  // fillColor: HexColor("#1A1A1A"),
-  errorBorder: InputBorder.none,
-  disabledBorder: InputBorder.none,
-  border: InputBorder.none,
-  focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20)),
-  ),
-
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20)),
-  ),
-  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-);
+InputDecoration customInputDecoration(BuildContext context) {
+  final colorScheme = Theme.of(context).colorScheme;
+  return InputDecoration(
+    filled: true,
+    fillColor: colorScheme.surfaceContainerHighest.withAlpha(125),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide.none,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide.none,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: colorScheme.error, width: 1.5),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: colorScheme.error, width: 1.5),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide.none,
+    ),
+  );
+}

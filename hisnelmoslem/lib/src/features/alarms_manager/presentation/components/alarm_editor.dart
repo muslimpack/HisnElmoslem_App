@@ -97,7 +97,7 @@ class _AlarmEditorState extends State<_AlarmEditor> {
               controller: bodyController,
               maxLength: 100,
               autofocus: true,
-              decoration: customInputDecoration.copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 hintText: S.of(context).setMessageForYou,
                 labelText: S.of(context).setMessageForYou,
               ),
