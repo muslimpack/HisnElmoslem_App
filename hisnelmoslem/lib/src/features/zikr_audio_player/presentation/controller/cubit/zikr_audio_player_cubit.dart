@@ -48,6 +48,21 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       ),
     );
 
+    await _player.setAudioContext(
+      AudioContext(
+        android: const AudioContextAndroid(
+          isSpeakerphoneOn: true,
+          stayAwake: true,
+        ),
+        iOS: AudioContextIOS(
+          options: const {
+            AVAudioSessionOptions.defaultToSpeaker,
+            AVAudioSessionOptions.mixWithOthers,
+          },
+        ),
+      ),
+    );
+
     _completionSub?.cancel();
     _positionSub?.cancel();
     _durationSub?.cancel();
