@@ -38,9 +38,9 @@ class ZikrAudioPlayerRepo {
       if (val is String) {
         return AudioDelayTypeEnum.values.byName(val);
       }
-      return AudioDelayTypeEnum.none;
+      return AudioDelayTypeEnum.fixedTime;
     } catch (_) {
-      return AudioDelayTypeEnum.none;
+      return AudioDelayTypeEnum.fixedTime;
     }
   }
 
@@ -48,9 +48,9 @@ class ZikrAudioPlayerRepo {
     try {
       final val = box.read(delayDurationKey);
       if (val is num) return val.toInt();
-      return 5;
+      return 1;
     } catch (_) {
-      return 5;
+      return 1;
     }
   }
 
