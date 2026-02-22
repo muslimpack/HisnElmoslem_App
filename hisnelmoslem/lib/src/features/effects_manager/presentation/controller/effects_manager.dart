@@ -3,18 +3,22 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:vibration/vibration.dart';
 
 class EffectsManager {
   final _player = AudioPlayer(playerId: "effectsManagerPlayer");
 
   final EffectsManagerRepo _effectsManagerRepo;
-  EffectsManager(this._effectsManagerRepo);
+  final ZikrAudioPlayerCubit _zikrAudioPlayerCubit;
+
+  EffectsManager(this._effectsManagerRepo, this._zikrAudioPlayerCubit);
 
   ///MARK: Play Sound
 
   Future _playSound(AssetSource source) async {
     try {
+      if (_zikrAudioPlayerCubit.state.isPlaying) return;
       hisnPrint(_player.playerId);
       await _player.stop();
       await _player.setVolume(_effectsManagerRepo.soundEffectVolume);
