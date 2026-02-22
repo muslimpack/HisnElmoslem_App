@@ -48,6 +48,7 @@ class OnboardCubit extends Cubit<OnboardState> {
         isImage: false,
         isItemList: true,
         description: """
+النسخ الاحتياطي والاستعادة محليا
 الأذكار الصوتية لمشهور الأذكار
 تحسينات على السبحة
 يمكنك تخصيص الاهتزازات عند التسبيح من إدارة المؤثرات
