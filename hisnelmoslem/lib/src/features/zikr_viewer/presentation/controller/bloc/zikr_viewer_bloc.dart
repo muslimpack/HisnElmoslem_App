@@ -38,6 +38,9 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
   final ZikrAudioPlayerCubit zikrAudioPlayerCubit;
+
+  StreamSubscription? _audioStateSubscription;
+
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
@@ -135,10 +138,10 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       },
     );
 
-    StreamSubscription? audioStateSubscription;
-    audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
+    _audioStateSubscription?.cancel();
+    _audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
       if (isClosed) {
-        audioStateSubscription?.cancel();
+        _audioStateSubscription?.cancel();
         return;
       }
       final state = this.state;
@@ -456,6 +459,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   @override
   Future<void> close() {
     WakelockPlus.disable();
+    _audioStateSubscription?.cancel();
     pageController.dispose();
     volumeButtonManager.dispose();
     zikrAudioPlayerCubit.stop();
