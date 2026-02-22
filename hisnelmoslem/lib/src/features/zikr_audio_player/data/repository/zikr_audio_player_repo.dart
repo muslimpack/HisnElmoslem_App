@@ -12,15 +12,59 @@ class ZikrAudioPlayerRepo {
   static const String delayKey = 'audio_delay';
   static const String delayDurationKey = 'audio_delay_duration';
 
-  double getSpeed() => box.read(speedKey) ?? 1.0;
-  double getVolume() => box.read(volumeKey) ?? 1.0;
-  AudioDelayTypeEnum getDelay() => AudioDelayTypeEnum.values.byName(
-    box.read(delayKey) ?? AudioDelayTypeEnum.none.name,
-  );
-  int getDelayDuration() => box.read(delayDurationKey) ?? 5;
-  AudioRepeatTypeEnum getRepeat() => AudioRepeatTypeEnum.values.byName(
-    box.read(repeatKey) ?? AudioRepeatTypeEnum.byZikrCount.name,
-  );
+  double getSpeed() {
+    try {
+      final val = box.read(speedKey);
+      if (val is num) return val.toDouble();
+      return 1.0;
+    } catch (_) {
+      return 1.0;
+    }
+  }
+
+  double getVolume() {
+    try {
+      final val = box.read(volumeKey);
+      if (val is num) return val.toDouble();
+      return 1.0;
+    } catch (_) {
+      return 1.0;
+    }
+  }
+
+  AudioDelayTypeEnum getDelay() {
+    try {
+      final val = box.read(delayKey);
+      if (val is String) {
+        return AudioDelayTypeEnum.values.byName(val);
+      }
+      return AudioDelayTypeEnum.fixedTime;
+    } catch (_) {
+      return AudioDelayTypeEnum.fixedTime;
+    }
+  }
+
+  int getDelayDuration() {
+    try {
+      final val = box.read(delayDurationKey);
+      if (val is num) return val.toInt();
+      return 1;
+    } catch (_) {
+      return 1;
+    }
+  }
+
+  AudioRepeatTypeEnum getRepeat() {
+    try {
+      final val = box.read(repeatKey);
+      if (val is String) {
+        return AudioRepeatTypeEnum.values.byName(val);
+      }
+      return AudioRepeatTypeEnum.byZikrCount;
+    } catch (_) {
+      return AudioRepeatTypeEnum.byZikrCount;
+    }
+  }
 
   Future<void> saveSettings({
     double? speed,

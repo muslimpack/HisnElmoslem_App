@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
@@ -54,18 +52,13 @@ class AlarmManager {
   }
 
   Future<void> checkAllAlarmsInDb() async {
-    final box = GetStorage(kAppStorageKey);
-
-    ///todo what [is_awesome_set] mean ?
-    final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
-    if (!isAwesomeSet) {
-      hisnPrint("Setup Awesome from database ....");
-      final alarms = await sl<AlarmDatabaseHelper>().getAlarms();
-      for (var i = 0; i < alarms.length; i++) {
-        final DbAlarm alarm = alarms[i];
-        await alarmState(dbAlarm: alarm, showMsg: false);
-      }
-      box.write('is_awesome_set', true);
+    hisnPrint("Setup Flutter Local Notifications from database ....");
+    final alarms = await sl<AlarmDatabaseHelper>().getAlarms();
+    for (var i = 0; i < alarms.length; i++) {
+      final DbAlarm alarm = alarms[i];
+      await alarmState(dbAlarm: alarm, showMsg: false);
     }
+    // Note: We don't write the flag here.
+    // We write it in AlarmsBloc after migrating Fast and Cave alarms.
   }
 }

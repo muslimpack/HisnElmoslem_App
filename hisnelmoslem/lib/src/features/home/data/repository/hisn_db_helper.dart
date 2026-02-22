@@ -15,7 +15,7 @@ class HisnDBHelper {
 
   static HisnDBHelper? _databaseHelper;
   static Database? _database;
-  static late final DBHelper _dbHelper;
+  static late DBHelper _dbHelper;
 
   factory HisnDBHelper() {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);
@@ -258,7 +258,9 @@ class HisnDBHelper {
 
   /// Close database
   Future close() async {
-    final db = await database;
-    db.close();
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
   }
 }

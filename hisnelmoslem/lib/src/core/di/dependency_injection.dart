@@ -9,6 +9,8 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
+import 'package:hisnelmoslem/src/features/backup_restore/data/repository/backup_restore_repo.dart';
+import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -66,6 +68,14 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HisnDBHelper());
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
+  sl.registerLazySingleton(
+    () => BackupRestoreRepo(
+      userDataDBHelper: sl(),
+      tallyDatabaseHelper: sl(),
+      alarmDatabaseHelper: sl(),
+      fakeHadithDBHelper: sl(),
+    ),
+  );
 
   ///MARK: Init Manager
   sl.registerFactory(() => EffectsManager(sl()));
@@ -86,6 +96,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));
+  sl.registerLazySingleton(() => BackupRestoreCubit(repo: sl()));
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));

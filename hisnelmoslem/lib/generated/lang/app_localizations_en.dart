@@ -754,4 +754,25 @@ class SEn extends S {
 
   @override
   String get imageSavedSuccessfully => 'Image saved successfully';
+
+  @override
+  String get backupAndRestore => 'Backup & Restore';
+
+  @override
+  String get backupData => 'Backup Data';
+
+  @override
+  String get restoreData => 'Restore Data';
+
+  @override
+  String get backupSuccess => 'Backup Success';
+
+  @override
+  String get restoreSuccessRestart => 'Restore Success. Please restart app.';
+
+  @override
+  String get backupFailed => 'Backup Failed';
+
+  @override
+  String get restoreFailed => 'Restore Failed';
 }

@@ -36,6 +36,14 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   Future<void> _start(AlarmsStartEvent event, Emitter<AlarmsState> emit) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
     await alarmManager.checkAllAlarmsInDb();
+
+    if (alarmsRepo.isCaveAlarmEnabled) {
+      await _activateCaveAlarm(value: true);
+    }
+    if (alarmsRepo.isFastAlarmEnabled) {
+      await _activateFastAlarm(value: true);
+    }
+
     emit(
       AlarmsLoadedState(
         alarms: alarms,

@@ -168,7 +168,9 @@ class TallyDatabaseHelper {
 
   // Close database
   Future close() async {
-    final db = await database;
-    db.close();
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
   }
 }

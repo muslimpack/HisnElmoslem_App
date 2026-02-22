@@ -245,5 +245,12 @@
   "audioPlayerSettings": "إعدادات الصوت",
   "vibrationDuration": "مدة الاهتزاز (بالملي ثانية)",
   "saveToGallery": "حفظ في المعرض",
-  "imageSavedSuccessfully": "تم حفظ الصورة بنجاح"
+  "imageSavedSuccessfully": "تم حفظ الصورة بنجاح",
+  "backupAndRestore": "النسخ الاحتياطي والاستعادة",
+  "backupData": "النسخ الاحتياطي للبيانات",
+  "restoreData": "استعادة البيانات",
+  "backupSuccess": "نجح النسخ الاحتياطي",
+  "restoreSuccessRestart": "نجحت الاستعادة. يرجى إعادة تشغيل التطبيق.",
+  "backupFailed": "فشل النسخ الاحتياطي",
+  "restoreFailed": "فشلت الاستعادة"
 }
