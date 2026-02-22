@@ -37,7 +37,7 @@ class ZikrAudioPlayerBar extends StatelessWidget {
             AnimatedSize(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              child: state.isPlaying
+              child: (state.isPlaying || state.isPaused)
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
