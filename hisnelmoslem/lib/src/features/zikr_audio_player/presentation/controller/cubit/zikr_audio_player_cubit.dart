@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
@@ -10,20 +10,21 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_de
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_repeat_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr_audio_player_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:just_audio/just_audio.dart';
 
 part 'zikr_audio_player_state.dart';
 
 class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
-  final AudioPlayer _player = AudioPlayer(playerId: "zikr_audio_player");
+  final AudioPlayer _player = AudioPlayer();
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
   ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo) : super(const ZikrAudioPlayerState());
 
   late Function(DbContent zikr)? onDonePlaying;
   int Function(int index)? getActiveZikrCount;
-  StreamSubscription<void>? _completionSub;
+  StreamSubscription<PlayerState>? _playerStateSub;
   StreamSubscription<Duration>? _positionSub;
-  StreamSubscription<Duration>? _durationSub;
+  StreamSubscription<Duration?>? _durationSub;
 
   Future<void> init({
     Function(DbContent zikr)? onDonePlaying,
@@ -48,35 +49,43 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       ),
     );
 
-    await _player.setAudioContext(
-      AudioContext(
-        android: const AudioContextAndroid(
-          isSpeakerphoneOn: true,
-          stayAwake: true,
+    try {
+      final session = await AudioSession.instance;
+      await session.configure(
+        const AudioSessionConfiguration(
+          avAudioSessionCategory: AVAudioSessionCategory.playback,
+          avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
+          avAudioSessionMode: AVAudioSessionMode.defaultMode,
+          avAudioSessionRouteSharingPolicy: AVAudioSessionRouteSharingPolicy.defaultPolicy,
+          avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+          androidAudioAttributes: AndroidAudioAttributes(
+            contentType: AndroidAudioContentType.music,
+            usage: AndroidAudioUsage.media,
+          ),
+          androidWillPauseWhenDucked: true,
         ),
-        iOS: AudioContextIOS(
-          options: const {
-            AVAudioSessionOptions.defaultToSpeaker,
-            AVAudioSessionOptions.mixWithOthers,
-          },
-        ),
-      ),
-    );
+      );
+    } catch (e) {
+      hisnPrint("Error initializing audio session: $e");
+    }
 
-    _completionSub?.cancel();
+    _playerStateSub?.cancel();
     _positionSub?.cancel();
     _durationSub?.cancel();
 
-    _completionSub = _player.onPlayerComplete.listen((_) async {
-      await _onPlaybackCompleted();
+    _playerStateSub = _player.playerStateStream.listen((playerState) async {
+      final processingState = playerState.processingState;
+      if (processingState == ProcessingState.completed) {
+        await _onPlaybackCompleted();
+      }
     });
 
-    _positionSub = _player.onPositionChanged.listen((p) {
+    _positionSub = _player.positionStream.listen((p) {
       if (!isClosed) emit(state.copyWith(position: p));
     });
 
-    _durationSub = _player.onDurationChanged.listen((d) {
-      if (!isClosed) emit(state.copyWith(totalDuration: d));
+    _durationSub = _player.durationStream.listen((d) {
+      if (!isClosed && d != null) emit(state.copyWith(totalDuration: d));
     });
   }
 
@@ -96,7 +105,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     );
 
     if (speed != null) {
-      await _player.setPlaybackRate(speed);
+      await _player.setSpeed(speed);
       emit(state.copyWith(playbackSpeed: speed));
     }
     if (volume != null) {
@@ -193,10 +202,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       return;
     }
 
-    hisnPrint(_player.playerId);
+    hisnPrint("just_audio playing");
 
-    final audioPath = 'sounds/azkar/${zikr.audio}';
-    final source = AssetSource(audioPath);
+    final audioPath = 'assets/sounds/azkar/${zikr.audio}';
 
     try {
       await _player.stop();
@@ -210,9 +218,10 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
         ),
       );
 
-      await _player.play(source);
-      await _player.setPlaybackRate(state.playbackSpeed);
+      await _player.setAsset(audioPath);
+      await _player.setSpeed(state.playbackSpeed);
       await _player.setVolume(state.volume);
+      await _player.play();
     } catch (e) {
       hisnPrint('AudioPlayer Error playing Zikr: $e');
       emit(state.copyWith(isPlaying: false, isPaused: false));
@@ -249,7 +258,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   Future<void> resume() async {
     if (state.currentZikr != null && state.position > Duration.zero) {
       try {
-        await _player.resume();
+        await _player.play();
         emit(state.copyWith(isPaused: false, isPlaying: true));
       } catch (e) {
         hisnPrint('AudioPlayer Error resume: $e');
@@ -294,7 +303,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
   @override
   Future<void> close() async {
-    await _completionSub?.cancel();
+    await _playerStateSub?.cancel();
     await _positionSub?.cancel();
     await _durationSub?.cancel();
     await _player.dispose();
