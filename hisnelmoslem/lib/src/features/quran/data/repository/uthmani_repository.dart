@@ -14,7 +14,7 @@ class UthmaniRepository {
 
   static UthmaniRepository? _databaseHelper;
   static Database? _database;
-  static late final DBHelper _dbHelper;
+  static late DBHelper _dbHelper;
 
   ///|*| ************* Singleton Constructor ************* *|
   factory UthmaniRepository() {
@@ -63,7 +63,9 @@ ORDER BY ayah;
 
   /// Close database
   Future close() async {
-    final db = await database;
-    db.close();
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
   }
 }

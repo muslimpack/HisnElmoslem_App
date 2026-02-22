@@ -15,7 +15,7 @@ class HisnDBHelper {
 
   static HisnDBHelper? _databaseHelper;
   static Database? _database;
-  static late final DBHelper _dbHelper;
+  static late DBHelper _dbHelper;
 
   factory HisnDBHelper() {
     _dbHelper = DBHelper(dbName: dbName, dbVersion: dbVersion);

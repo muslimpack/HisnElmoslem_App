@@ -83,7 +83,8 @@ class BackupRestoreRepo {
           allowedExtensions: ['hisn'],
         );
         if (outputFile != null) {
-          await File(outputFile).writeAsBytes(zipBytes);
+          final targetPath = outputFile.endsWith('.hisn') ? outputFile : '$outputFile.hisn';
+          await File(targetPath).writeAsBytes(zipBytes);
           return true;
         }
         return false;
