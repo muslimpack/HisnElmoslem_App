@@ -76,9 +76,14 @@ class BackupRestoreRepo {
       if (zipBytes.isEmpty) return false;
 
       if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        final now = DateTime.now();
+        final timestamp =
+            '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}';
+        final defaultFileName = 'hisnelmoslem_backup_$timestamp.hisn';
+
         final outputFile = await FilePicker.platform.saveFile(
           dialogTitle: 'Save Backup',
-          fileName: 'hisnelmoslem_backup.hisn',
+          fileName: defaultFileName,
           type: FileType.custom,
           allowedExtensions: ['hisn'],
         );
@@ -89,14 +94,19 @@ class BackupRestoreRepo {
         }
         return false;
       } else {
+        final now = DateTime.now();
+        final timestamp =
+            '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}';
+        final defaultFileName = 'hisnelmoslem_backup_$timestamp.hisn';
+
         final tempDir = await getTemporaryDirectory();
-        final tempFile = File(join(tempDir.path, 'hisnelmoslem_backup.hisn'));
+        final tempFile = File(join(tempDir.path, defaultFileName));
         await tempFile.writeAsBytes(zipBytes);
 
         final result = await SharePlus.instance.share(
           ShareParams(
             files: [XFile(tempFile.path, mimeType: 'application/octet-stream')],
-            subject: 'Hisn Elmoslem Backup',
+            subject: 'Hisn Elmoslem Backup - $timestamp',
           ),
         );
 
