@@ -245,5 +245,12 @@
   "audioPlayerSettings": "Audio Settings",
   "vibrationDuration": "Vibration duration (ms)",
   "saveToGallery": "Save to Gallery",
-  "imageSavedSuccessfully": "Image saved successfully"
+  "imageSavedSuccessfully": "Image saved successfully",
+  "backupAndRestore": "Backup & Restore",
+  "backupData": "Backup Data",
+  "restoreData": "Restore Data",
+  "backupSuccess": "Backup Success",
+  "restoreSuccessRestart": "Restore Success. Please restart app.",
+  "backupFailed": "Backup Failed",
+  "restoreFailed": "Restore Failed"
 }

@@ -1568,6 +1568,48 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Image saved successfully'**
   String get imageSavedSuccessfully;
+
+  /// No description provided for @backupAndRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & Restore'**
+  String get backupAndRestore;
+
+  /// No description provided for @backupData.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Data'**
+  String get backupData;
+
+  /// No description provided for @restoreData.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Data'**
+  String get restoreData;
+
+  /// No description provided for @backupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Success'**
+  String get backupSuccess;
+
+  /// No description provided for @restoreSuccessRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Success. Please restart app.'**
+  String get restoreSuccessRestart;
+
+  /// No description provided for @backupFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Failed'**
+  String get backupFailed;
+
+  /// No description provided for @restoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Failed'**
+  String get restoreFailed;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

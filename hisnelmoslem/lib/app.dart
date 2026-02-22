@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notif
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
+import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -73,6 +74,7 @@ class AppState extends State<App> {
         BlocProvider(create: (_) => sl<HomeBloc>()..add(HomeStartEvent())),
         BlocProvider(create: (context) => sl<SearchCubit>()..start()),
         BlocProvider(create: (_) => sl<ZikrAudioPlayerCubit>()),
+        BlocProvider(create: (_) => sl<BackupRestoreCubit>()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {

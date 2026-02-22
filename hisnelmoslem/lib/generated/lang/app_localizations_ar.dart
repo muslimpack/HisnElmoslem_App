@@ -753,4 +753,25 @@ class SAr extends S {
 
   @override
   String get imageSavedSuccessfully => 'تم حفظ الصورة بنجاح';
+
+  @override
+  String get backupAndRestore => 'النسخ الاحتياطي والاستعادة';
+
+  @override
+  String get backupData => 'النسخ الاحتياطي للبيانات';
+
+  @override
+  String get restoreData => 'استعادة البيانات';
+
+  @override
+  String get backupSuccess => 'نجح النسخ الاحتياطي';
+
+  @override
+  String get restoreSuccessRestart => 'نجحت الاستعادة. يرجى إعادة تشغيل التطبيق.';
+
+  @override
+  String get backupFailed => 'فشل النسخ الاحتياطي';
+
+  @override
+  String get restoreFailed => 'فشلت الاستعادة';
 }

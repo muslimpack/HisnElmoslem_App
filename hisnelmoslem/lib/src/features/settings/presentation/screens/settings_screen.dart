@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
+import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
@@ -11,6 +12,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_screen.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_hokm_screen.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_source_screen.dart';
+import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
 import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_screen.dart';
 import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_screen.dart';
@@ -105,6 +107,9 @@ class SettingsScreen extends StatelessWidget {
 
           const Divider(),
           const _SettingsAlarmsSection(),
+
+          const Divider(),
+          const _SettingsBackupRestoreSection(),
 
           const Divider(),
           const _SettingsContactSection(),
@@ -277,6 +282,69 @@ class _SettingsContactSection extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+}
+
+class _SettingsBackupRestoreSection extends StatelessWidget {
+  const _SettingsBackupRestoreSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<BackupRestoreCubit, BackupRestoreState>(
+      listener: (context, state) {
+        if (state is BackupRestoreSuccess) {
+          showToast(
+            msg: state.isExport ? S.of(context).backupSuccess : S.of(context).restoreSuccessRestart,
+            type: ToastType.success,
+          );
+        } else if (state is BackupRestoreFailure) {
+          showToast(
+            msg: state.isExport ? S.of(context).backupFailed : S.of(context).restoreFailed,
+            type: ToastType.error,
+          );
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is BackupRestoreLoading;
+        return Column(
+          children: [
+            Title(title: S.of(context).backupAndRestore),
+            ListTile(
+              title: Text(S.of(context).backupData),
+              leading: const Icon(Icons.backup),
+              trailing: isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: isLoading
+                  ? null
+                  : () {
+                      context.read<BackupRestoreCubit>().exportData();
+                    },
+            ),
+            ListTile(
+              title: Text(S.of(context).restoreData),
+              leading: const Icon(Icons.settings_backup_restore),
+              trailing: isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: isLoading
+                  ? null
+                  : () {
+                      context.read<BackupRestoreCubit>().importData();
+                    },
+            ),
+          ],
+        );
+      },
     );
   }
 }
