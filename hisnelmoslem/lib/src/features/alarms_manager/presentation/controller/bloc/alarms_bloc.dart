@@ -3,8 +3,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
@@ -36,6 +38,19 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
   Future<void> _start(AlarmsStartEvent event, Emitter<AlarmsState> emit) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
     await alarmManager.checkAllAlarmsInDb();
+
+    final box = GetStorage(kAppStorageKey);
+    final bool isFlutterLocalSet = box.read<bool>('is_flutter_local_set') ?? false;
+    if (!isFlutterLocalSet) {
+      if (alarmsRepo.isCaveAlarmEnabled) {
+        await _activateCaveAlarm(value: true);
+      }
+      if (alarmsRepo.isFastAlarmEnabled) {
+        await _activateFastAlarm(value: true);
+      }
+      box.write('is_flutter_local_set', true);
+    }
+
     emit(
       AlarmsLoadedState(
         alarms: alarms,

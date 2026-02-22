@@ -56,16 +56,16 @@ class AlarmManager {
   Future<void> checkAllAlarmsInDb() async {
     final box = GetStorage(kAppStorageKey);
 
-    ///todo what [is_awesome_set] mean ?
-    final bool isAwesomeSet = box.read<bool>('is_awesome_set') ?? false;
-    if (!isAwesomeSet) {
-      hisnPrint("Setup Awesome from database ....");
+    final bool isFlutterLocalSet = box.read<bool>('is_flutter_local_set') ?? false;
+    if (!isFlutterLocalSet) {
+      hisnPrint("Setup Flutter Local Notifications from database ....");
       final alarms = await sl<AlarmDatabaseHelper>().getAlarms();
       for (var i = 0; i < alarms.length; i++) {
         final DbAlarm alarm = alarms[i];
         await alarmState(dbAlarm: alarm, showMsg: false);
       }
-      box.write('is_awesome_set', true);
+      // Note: We don't write the flag here.
+      // We write it in AlarmsBloc after migrating Fast and Cave alarms.
     }
   }
 }
