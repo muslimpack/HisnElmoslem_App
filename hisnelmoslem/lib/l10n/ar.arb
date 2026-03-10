@@ -252,5 +252,7 @@
   "backupSuccess": "نجح النسخ الاحتياطي",
   "restoreSuccessRestart": "نجحت الاستعادة. يرجى إعادة تشغيل التطبيق.",
   "backupFailed": "فشل النسخ الاحتياطي",
-  "restoreFailed": "فشلت الاستعادة"
+  "restoreFailed": "فشلت الاستعادة",
+  "showAudioBar": "عرض شريط الصوت",
+  "showAudioBarDesc": "إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار"
 }

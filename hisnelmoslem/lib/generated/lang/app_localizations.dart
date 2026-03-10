@@ -1610,6 +1610,18 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Restore Failed'**
   String get restoreFailed;
+
+  /// No description provided for @showAudioBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Audio Bar'**
+  String get showAudioBar;
+
+  /// No description provided for @showAudioBarDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Show/hide audio control bar in Zikr viewer page'**
+  String get showAudioBarDesc;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

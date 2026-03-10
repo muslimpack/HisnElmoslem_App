@@ -165,6 +165,17 @@ class SettingsGeneralSection extends StatelessWidget {
               },
             ),
             SwitchListTile(
+              secondary: const Icon(Icons.music_note),
+              value: state.showAudioBar,
+              title: Text(S.of(context).showAudioBar),
+              subtitle: Text(S.of(context).showAudioBarDesc),
+              onChanged: (value) {
+                context.read<SettingsCubit>().toggleShowAudioBar(
+                  show: !state.showAudioBar,
+                );
+              },
+            ),
+            SwitchListTile(
               secondary: const Icon(Icons.restore),
               value: state.allowZikrSessionRestoration,
               title: Text(S.of(context).allowZikrRestoreSession),

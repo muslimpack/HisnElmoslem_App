@@ -252,5 +252,7 @@
   "backupSuccess": "Backup Success",
   "restoreSuccessRestart": "Restore Success. Please restart app.",
   "backupFailed": "Backup Failed",
-  "restoreFailed": "Restore Failed"
+  "restoreFailed": "Restore Failed",
+  "showAudioBar": "Show Audio Bar",
+  "showAudioBarDesc": "Show/hide audio control bar in Zikr viewer page"
 }

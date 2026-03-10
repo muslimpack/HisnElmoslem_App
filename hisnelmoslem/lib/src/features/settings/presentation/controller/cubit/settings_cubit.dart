@@ -45,6 +45,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           praiseWithVolumeKeys: appSettingsRepo.praiseWithVolumeKeys,
           allowZikrSessionRestoration: zikrViewerRepo.allowZikrSessionRestoration,
           ignoreNotificationPermission: appSettingsRepo.ignoreNotificationPermission,
+          showAudioBar: appSettingsRepo.showAudioBar,
         ),
       );
 
@@ -74,6 +75,11 @@ class SettingsCubit extends Cubit<SettingsState> {
       value: ignore,
     );
     emit(state.copyWith(ignoreNotificationPermission: ignore));
+  }
+
+  Future toggleShowAudioBar({required bool show}) async {
+    await appSettingsRepo.changeShowAudioBarStatus(value: show);
+    emit(state.copyWith(showAudioBar: show));
   }
 
   ///MARK: praiseWithVolumeKeys

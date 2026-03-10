@@ -774,4 +774,10 @@ class SAr extends S {
 
   @override
   String get restoreFailed => 'فشلت الاستعادة';
+
+  @override
+  String get showAudioBar => 'عرض شريط الصوت';
+
+  @override
+  String get showAudioBarDesc => 'إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار';
 }

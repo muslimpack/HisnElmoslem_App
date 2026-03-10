@@ -775,4 +775,10 @@ class SEn extends S {
 
   @override
   String get restoreFailed => 'Restore Failed';
+
+  @override
+  String get showAudioBar => 'Show Audio Bar';
+
+  @override
+  String get showAudioBarDesc => 'Show/hide audio control bar in Zikr viewer page';
 }

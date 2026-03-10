@@ -128,4 +128,12 @@ class AppSettingsRepo {
   Future setTitlesFreqFilterStatus(List<TitlesFreqEnum> freqList) {
     return box.write(_titlesFreqFilter, freqList.toJson());
   }
+
+  ///MARK:Show Audio Bar
+  /* ******* Show Audio Bar ******* */
+  static const showAudioBarKey = 'showAudioBar';
+
+  bool get showAudioBar => box.read(showAudioBarKey) ?? true;
+
+  Future<void> changeShowAudioBarStatus({required bool value}) => box.write(showAudioBarKey, value);
 }

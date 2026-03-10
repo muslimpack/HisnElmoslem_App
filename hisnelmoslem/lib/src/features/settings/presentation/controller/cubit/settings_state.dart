@@ -11,6 +11,7 @@ class SettingsState extends Equatable {
   final bool praiseWithVolumeKeys;
   final bool allowZikrSessionRestoration;
   final bool ignoreNotificationPermission;
+  final bool showAudioBar;
   const SettingsState({
     required this.zikrEffects,
     required this.isCardReadMode,
@@ -21,6 +22,7 @@ class SettingsState extends Equatable {
     required this.praiseWithVolumeKeys,
     required this.allowZikrSessionRestoration,
     required this.ignoreNotificationPermission,
+    required this.showAudioBar,
   });
 
   @override
@@ -35,6 +37,7 @@ class SettingsState extends Equatable {
       praiseWithVolumeKeys,
       allowZikrSessionRestoration,
       ignoreNotificationPermission,
+      showAudioBar,
     ];
   }
 
@@ -48,6 +51,7 @@ class SettingsState extends Equatable {
     bool? praiseWithVolumeKeys,
     bool? allowZikrSessionRestoration,
     bool? ignoreNotificationPermission,
+    bool? showAudioBar,
   }) {
     return SettingsState(
       zikrEffects: zikrEffects ?? this.zikrEffects,
@@ -60,6 +64,7 @@ class SettingsState extends Equatable {
       allowZikrSessionRestoration: allowZikrSessionRestoration ?? this.allowZikrSessionRestoration,
       ignoreNotificationPermission:
           ignoreNotificationPermission ?? this.ignoreNotificationPermission,
+      showAudioBar: showAudioBar ?? this.showAudioBar,
     );
   }
 }
