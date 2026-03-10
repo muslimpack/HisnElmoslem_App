@@ -15,7 +15,10 @@ class ZikrAudioPlayerRepo {
   double getSpeed() {
     try {
       final val = box.read(speedKey);
-      if (val is num) return val.toDouble();
+      if (val is num) {
+        final speed = val.toDouble();
+        return speed < 0.5 ? 1.0 : speed;
+      }
       return 1.0;
     } catch (_) {
       return 1.0;

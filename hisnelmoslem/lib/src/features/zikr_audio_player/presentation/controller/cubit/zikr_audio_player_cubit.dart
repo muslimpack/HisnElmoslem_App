@@ -48,19 +48,30 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       ),
     );
 
-    await _player.setAudioContext(
-      AudioContext(
-        android: const AudioContextAndroid(
-          isSpeakerphoneOn: true,
-          stayAwake: true,
+    try {
+      await _player.setAudioContext(
+        AudioContext(
+          android: const AudioContextAndroid(
+            isSpeakerphoneOn: true,
+            stayAwake: true,
+            contentType: AndroidContentType.speech,
+          ),
+          iOS: AudioContextIOS(
+            options: const {
+              AVAudioSessionOptions.mixWithOthers,
+            },
+          ),
         ),
-        iOS: AudioContextIOS(
-          options: const {
-            AVAudioSessionOptions.mixWithOthers,
-          },
-        ),
-      ),
-    );
+      );
+    } catch (e) {
+      hisnPrint('AudioPlayer Error setting context: $e');
+    }
+
+    try {
+      await _player.stop();
+    } catch (e) {
+      hisnPrint('AudioPlayer Error stopping in init: $e');
+    }
 
     _completionSub?.cancel();
     _positionSub?.cancel();
