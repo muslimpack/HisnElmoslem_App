@@ -27,7 +27,7 @@ class MainActivity : FlutterActivity() {
         }
         return when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
-                if (action == KeyEvent.ACTION_DOWN) {
+                if (action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
                     channel.invokeMethod("volumeBtnPressed", "VOLUME_UP_DOWN")
                 } else if (action == KeyEvent.ACTION_UP) {
                     channel.invokeMethod("volumeBtnPressed", "VOLUME_UP_UP")
@@ -35,7 +35,7 @@ class MainActivity : FlutterActivity() {
                 true
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                if (action == KeyEvent.ACTION_DOWN) {
+                if (action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
                     channel.invokeMethod("volumeBtnPressed", "VOLUME_DOWN_DOWN")
                 } else if (action == KeyEvent.ACTION_UP) {
                     channel.invokeMethod("volumeBtnPressed", "VOLUME_DOWN_UP")
