@@ -255,6 +255,12 @@ class SAr extends S {
   String get fakeHadith => 'أحاديث لا تصح';
 
   @override
+  String get fastingMondayReminder => 'صيام غدا الإثنين';
+
+  @override
+  String get fastingThursdayReminder => 'صيام غدا الخميس';
+
+  @override
   String get fastingMondaysThursdaysReminder => 'منبه صيام الاثنين والخميس';
 
   @override

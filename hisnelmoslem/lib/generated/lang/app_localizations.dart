@@ -579,6 +579,18 @@ abstract class S {
   /// **'Fake Hadith'**
   String get fakeHadith;
 
+  /// No description provided for @fastingMondayReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Fasting tomorrow (Monday)'**
+  String get fastingMondayReminder;
+
+  /// No description provided for @fastingThursdayReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Fasting tomorrow (Thursday)'**
+  String get fastingThursdayReminder;
+
   /// No description provided for @fastingMondaysThursdaysReminder.
   ///
   /// In en, this message translates to:

@@ -254,6 +254,12 @@ class SEn extends S {
   String get fakeHadith => 'Fake Hadith';
 
   @override
+  String get fastingMondayReminder => 'Fasting tomorrow (Monday)';
+
+  @override
+  String get fastingThursdayReminder => 'Fasting tomorrow (Thursday)';
+
+  @override
   String get fastingMondaysThursdaysReminder => 'Fasting Mondays and Thursdays Reminder';
 
   @override

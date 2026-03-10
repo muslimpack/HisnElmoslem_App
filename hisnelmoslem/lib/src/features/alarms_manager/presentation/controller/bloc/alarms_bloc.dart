@@ -38,10 +38,10 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     await alarmManager.checkAllAlarmsInDb();
 
     if (alarmsRepo.isCaveAlarmEnabled) {
-      await _activateCaveAlarm(value: true);
+      await _activateCaveReminders(value: true);
     }
     if (alarmsRepo.isFastAlarmEnabled) {
-      await _activateFastAlarm(value: true);
+      await _activateFastReminders(value: true);
     }
 
     emit(
@@ -122,7 +122,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       );
     }
 
-    _activateFastAlarm(value: event.enable);
+    _activateFastReminders(value: event.enable);
 
     emit(state.copyWith(isFastAlarmEnabled: event.enable));
   }
@@ -146,15 +146,15 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       );
     }
 
-    await _activateCaveAlarm(value: event.enable);
+    await _activateCaveReminders(value: event.enable);
     emit(state.copyWith(isCaveAlarmEnabled: event.enable));
   }
 
-  Future _activateCaveAlarm({required bool value}) async {
+  Future _activateFastReminders({required bool value}) async {
     if (value) {
       await localNotificationManager.addCustomWeeklyReminder(
         id: 555,
-        title: "صيام غدا الإثنين",
+        title: SX.current.fastingMondayReminder,
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
         time: Time(20),
@@ -163,7 +163,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
       );
       await localNotificationManager.addCustomWeeklyReminder(
         id: 666,
-        title: "صيام غدا الخميس",
+        title: SX.current.fastingThursdayReminder,
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
         time: Time(20),
@@ -176,7 +176,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     }
   }
 
-  Future _activateFastAlarm({required bool value}) async {
+  Future _activateCaveReminders({required bool value}) async {
     if (value) {
       await localNotificationManager.addCustomWeeklyReminder(
         id: 777,

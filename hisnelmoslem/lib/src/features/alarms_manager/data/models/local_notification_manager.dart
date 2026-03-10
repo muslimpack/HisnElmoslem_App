@@ -151,6 +151,9 @@ class LocalNotificationManager {
         await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
             ?.requestNotificationsPermission();
+        await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+            ?.requestExactAlarmsPermission();
       }
 
       return true;
@@ -235,7 +238,7 @@ class LocalNotificationManager {
       tz.local,
     ).add(const Duration(days: 3));
 
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+    await _safeZonedSchedule(
       id: 1000,
       title: SX.current.haveNotOpenedAppLongTime,
       body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
@@ -245,9 +248,43 @@ class LocalNotificationManager {
         SX.current.haveNotOpenedAppLongTime,
         'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       payload: "2",
     );
+  }
+
+  Future<void> _safeZonedSchedule({
+    required int id,
+    required String? title,
+    required String? body,
+    required tz.TZDateTime scheduledDate,
+    required NotificationDetails notificationDetails,
+    required String? payload,
+    DateTimeComponents? matchDateTimeComponents,
+  }) async {
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: scheduledDate,
+        notificationDetails: notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: matchDateTimeComponents,
+        payload: payload,
+      );
+    } catch (e) {
+      hisnPrint("Error scheduling exact alarm, falling back to inexact: $e");
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: scheduledDate,
+        notificationDetails: notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        matchDateTimeComponents: matchDateTimeComponents,
+        payload: payload,
+      );
+    }
   }
 
   tz.TZDateTime _nextInstanceOfTime(Time time) {
@@ -283,7 +320,7 @@ class LocalNotificationManager {
     required Time time,
     required int weekday,
   }) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+    await _safeZonedSchedule(
       id: id,
       title: title,
       body: body,
@@ -293,7 +330,6 @@ class LocalNotificationManager {
         title,
         body,
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       payload: payload,
     );
@@ -307,7 +343,7 @@ class LocalNotificationManager {
     required Time time,
     required String payload,
   }) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+    await _safeZonedSchedule(
       id: id,
       title: title,
       body: body,
@@ -317,7 +353,6 @@ class LocalNotificationManager {
         title,
         body,
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
       payload: payload,
     );
