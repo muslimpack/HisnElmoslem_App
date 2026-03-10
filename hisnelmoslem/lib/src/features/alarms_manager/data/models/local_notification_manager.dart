@@ -92,18 +92,22 @@ class LocalNotificationManager {
     final appSettingsRepo = sl<AppSettingsRepo>();
     if (appSettingsRepo.ignoreNotificationPermission) return false;
 
-    bool isAllowed = false;
+    final androidPlugin = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+
+    bool notificationsAllowed = false;
+    bool exactAlarmsAllowed = true;
+
     if (Platform.isAndroid) {
-      isAllowed =
-          await flutterLocalNotificationsPlugin
-              .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-              ?.areNotificationsEnabled() ??
-          false;
+      notificationsAllowed = await androidPlugin?.areNotificationsEnabled() ?? false;
+      exactAlarmsAllowed = await androidPlugin?.canScheduleExactNotifications() ?? true;
     } else if (Platform.isIOS) {
-      // iOS permissions are implicitly handled via requestPermissions below, but we assume true initially if already accepted in the past
+      // iOS permissions are implicitly handled via requestPermissions below,
+      // but we assume true initially if already accepted in the past
+      notificationsAllowed = true;
     }
 
-    if (isAllowed) return true;
+    if (notificationsAllowed && exactAlarmsAllowed) return true;
 
     final BuildContext? context = App.navigatorKey.currentContext;
     if (context == null || !context.mounted) return false;
