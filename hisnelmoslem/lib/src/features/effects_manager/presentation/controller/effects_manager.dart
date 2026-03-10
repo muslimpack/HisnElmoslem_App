@@ -12,6 +12,8 @@ class EffectsManager {
   final EffectsManagerRepo _effectsManagerRepo;
   final ZikrAudioPlayerCubit _zikrAudioPlayerCubit;
 
+  DateTime _lastVibrationTime = DateTime.fromMillisecondsSinceEpoch(0);
+
   EffectsManager(this._effectsManagerRepo, this._zikrAudioPlayerCubit);
 
   ///MARK: Play Sound
@@ -42,7 +44,17 @@ class EffectsManager {
 
   ///MARK: Play vibration
 
+  bool _canVibrate() {
+    final now = DateTime.now();
+    if (now.difference(_lastVibrationTime).inMilliseconds > 100) {
+      _lastVibrationTime = now;
+      return true;
+    }
+    return false;
+  }
+
   Future<void> playPraiseVibratation() async {
+    if (!_canVibrate()) return;
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
@@ -55,6 +67,7 @@ class EffectsManager {
   }
 
   Future<void> playZikrVibratation() async {
+    if (!_canVibrate()) return;
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
@@ -67,6 +80,7 @@ class EffectsManager {
   }
 
   Future<void> playTitleVibratation() async {
+    if (!_canVibrate()) return;
     final value = await Vibration.hasCustomVibrationsSupport();
 
     if (value) {
@@ -104,5 +118,9 @@ class EffectsManager {
     if (_effectsManagerRepo.isTitleVibrationAllowed) {
       await playTitleVibratation();
     }
+  }
+
+  void dispose() {
+    _player.dispose();
   }
 }
