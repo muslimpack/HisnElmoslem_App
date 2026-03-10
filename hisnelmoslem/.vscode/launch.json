@@ -2,20 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "hisnelmoslem (debug, choose flavor)",
+      "name": "hisnelmoslem (debug)",
       "request": "launch",
       "type": "dart",
       "args": ["--flavor", "${input:flavor}"]
     },
     {
-      "name": "hisnelmoslem (profile, choose flavor)",
+      "name": "hisnelmoslem (profile)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
       "args": ["--flavor", "${input:flavor}"]
     },
     {
-      "name": "hisnelmoslem (release, choose flavor)",
+      "name": "hisnelmoslem (release)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
