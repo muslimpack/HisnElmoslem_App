@@ -11,7 +11,7 @@ class ZikrViewerPageModeBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (dbContent.audio.isNotEmpty) {
-      BlocBuilder<SettingsCubit, SettingsState>(
+      return BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           if (!state.showAudioBar) return const SizedBox.shrink();
           return Material(

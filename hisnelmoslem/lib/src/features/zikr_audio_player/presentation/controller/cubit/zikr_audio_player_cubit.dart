@@ -56,7 +56,6 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
         ),
         iOS: AudioContextIOS(
           options: const {
-            AVAudioSessionOptions.defaultToSpeaker,
             AVAudioSessionOptions.mixWithOthers,
           },
         ),
