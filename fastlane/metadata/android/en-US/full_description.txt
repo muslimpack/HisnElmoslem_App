@@ -1,7 +1,11 @@
-- With a simple interface and completely without ads
-- It supports many color mode.
-- Search Zikr.
-- Add or remove zikr from favourites.
-- Add alarm to each zikr.
-- Sound and vibrate on zikr finish.
+Hisn Elmoslem is a comprehensive, ad-free, and open-source application that provides all the supplications (Azkar) from the famous book "Hisn al-Muslim".
 
+Key Features:
+- Ad-free experience with a clean, simple, and intuitive interface.
+- Complete "Hisn al-Muslim" book content with search functionality.
+- Customization: Multiple color modes (Light, Dark, Black, Yellow) and font adjustments.
+- Favorites: Easily add or remove Azkar from your favorites list.
+- Reminders: Set alarms for specific Azkar to never miss your daily remembrance.
+- Interactive Experience: Sound and vibration feedback on completion.
+- Tasbih: Digital counter for various praises.
+- Advanced Features: Control via volume buttons, background screen lock, and session restoration.
