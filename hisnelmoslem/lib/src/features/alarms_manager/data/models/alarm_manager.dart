@@ -16,6 +16,7 @@ class AlarmManager {
   Future<void> alarmState({
     required DbAlarm dbAlarm,
     bool showMsg = true,
+    bool requestPermission = true,
   }) async {
     if (dbAlarm.isActive) {
       if (showMsg) {
@@ -29,6 +30,7 @@ class AlarmManager {
           body: dbAlarm.body,
           time: Time(dbAlarm.hour, dbAlarm.minute),
           payload: dbAlarm.titleId.toString(),
+          requestPermission: requestPermission,
         );
       } else {
         await localNotificationManager.addCustomWeeklyReminder(
@@ -38,6 +40,7 @@ class AlarmManager {
           time: Time(dbAlarm.hour, dbAlarm.minute),
           payload: dbAlarm.titleId.toString(),
           weekday: dbAlarm.repeatType.getWeekDay(),
+          requestPermission: requestPermission,
         );
       }
     } else {
@@ -56,7 +59,11 @@ class AlarmManager {
     final alarms = await sl<AlarmDatabaseHelper>().getAlarms();
     for (var i = 0; i < alarms.length; i++) {
       final DbAlarm alarm = alarms[i];
-      await alarmState(dbAlarm: alarm, showMsg: false);
+      await alarmState(
+        dbAlarm: alarm,
+        showMsg: false,
+        requestPermission: false,
+      );
     }
     // Note: We don't write the flag here.
     // We write it in AlarmsBloc after migrating Fast and Cave alarms.

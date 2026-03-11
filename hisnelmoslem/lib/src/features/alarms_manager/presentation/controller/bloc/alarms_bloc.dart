@@ -38,10 +38,10 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     await alarmManager.checkAllAlarmsInDb();
 
     if (alarmsRepo.isCaveAlarmEnabled) {
-      await _activateCaveReminders(value: true);
+      await _activateCaveReminders(value: true, requestPermission: false);
     }
     if (alarmsRepo.isFastAlarmEnabled) {
-      await _activateFastReminders(value: true);
+      await _activateFastReminders(value: true, requestPermission: false);
     }
 
     emit(
@@ -150,7 +150,10 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     emit(state.copyWith(isCaveAlarmEnabled: event.enable));
   }
 
-  Future _activateFastReminders({required bool value}) async {
+  Future _activateFastReminders({
+    required bool value,
+    bool requestPermission = true,
+  }) async {
     if (value) {
       await localNotificationManager.addCustomWeeklyReminder(
         id: 555,
@@ -160,6 +163,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         time: Time(20),
         weekday: DateTime.sunday,
         payload: "555",
+        requestPermission: requestPermission,
       );
       await localNotificationManager.addCustomWeeklyReminder(
         id: 666,
@@ -169,6 +173,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         time: Time(20),
         weekday: DateTime.wednesday,
         payload: "666",
+        requestPermission: requestPermission,
       );
     } else {
       await localNotificationManager.cancelNotificationById(id: 555);
@@ -176,7 +181,10 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     }
   }
 
-  Future _activateCaveReminders({required bool value}) async {
+  Future _activateCaveReminders({
+    required bool value,
+    bool requestPermission = true,
+  }) async {
     if (value) {
       await localNotificationManager.addCustomWeeklyReminder(
         id: 777,
@@ -186,6 +194,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         time: Time(9),
         weekday: DateTime.friday,
         payload: "الكهف",
+        requestPermission: requestPermission,
       );
     } else {
       await localNotificationManager.cancelNotificationById(id: 777);

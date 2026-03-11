@@ -24,6 +24,7 @@ class LocalNotificationManager {
       FlutterLocalNotificationsPlugin();
 
   NotificationResponse? launchNotificationResponse;
+  bool _isDialogShowing = false;
 
   Future<void> init() async {
     try {
@@ -53,8 +54,6 @@ class LocalNotificationManager {
       if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
         launchNotificationResponse = notificationAppLaunchDetails!.notificationResponse;
       }
-
-      await appOpenNotification();
     } catch (e) {
       hisnPrint(e);
     }
@@ -92,11 +91,13 @@ class LocalNotificationManager {
   }
 
   Future<bool> requestPermissionWithDialog({bool triggerOnStartup = false}) async {
-    if (triggerOnStartup) {
-      /// if the user ignored the notification permission, don't show the dialog
-      final appSettingsRepo = sl<AppSettingsRepo>();
-      if (appSettingsRepo.ignoreNotificationPermission) return false;
+    if (_isDialogShowing) return false;
 
+    /// if the user ignored the notification permission, don't show the dialog
+    final appSettingsRepo = sl<AppSettingsRepo>();
+    if (appSettingsRepo.ignoreNotificationPermission) return false;
+
+    if (triggerOnStartup) {
       /// if the user has no alarms, don't show the dialog
       final hasAlarms = await _hasAnyActiveAlarms();
       if (!hasAlarms) return false;
@@ -122,6 +123,7 @@ class LocalNotificationManager {
     final BuildContext? context = App.navigatorKey.currentContext;
     if (context == null || !context.mounted) return false;
 
+    _isDialogShowing = true;
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -131,6 +133,7 @@ class LocalNotificationManager {
         );
       },
     );
+    _isDialogShowing = false;
 
     return result ?? false;
   }
@@ -292,8 +295,11 @@ class LocalNotificationManager {
     required String payload,
     required Time time,
     required int weekday,
+    bool requestPermission = true,
   }) async {
-    await requestPermissionWithDialog();
+    if (requestPermission) {
+      await requestPermissionWithDialog();
+    }
     await _safeZonedSchedule(
       id: id,
       title: title,
@@ -316,8 +322,11 @@ class LocalNotificationManager {
     String? body,
     required Time time,
     required String payload,
+    bool requestPermission = true,
   }) async {
-    await requestPermissionWithDialog();
+    if (requestPermission) {
+      await requestPermissionWithDialog();
+    }
     await _safeZonedSchedule(
       id: id,
       title: title,
@@ -372,7 +381,7 @@ class LocalNotificationManager {
     if (alarmsRepo.isFastAlarmEnabled) return true;
 
     final alarms = await alarmDatabaseHelper.getAlarms();
-    if (alarms.isNotEmpty) return true;
+    if (alarms.any((alarm) => alarm.isActive)) return true;
 
     return false;
   }
