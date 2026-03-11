@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/permission_dialog.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
@@ -116,54 +117,13 @@ class LocalNotificationManager {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(SX.current.allowNotifications),
-          content: Text(SX.current.notificationPermissionRequired),
-          actions: [
-            TextButton(
-              child: Text(SX.current.ignoreNotificationPermission),
-              onPressed: () {
-                appSettingsRepo.changeIgnoreNotificationPermissionStatus(
-                  value: true,
-                );
-                Navigator.pop<bool>(context, false);
-              },
-            ),
-            TextButton(
-              child: Text(SX.current.later),
-              onPressed: () {
-                Navigator.pop<bool>(context, false);
-              },
-            ),
-            FilledButton(
-              child: Text(SX.current.allow),
-              onPressed: () {
-                Navigator.pop<bool>(context, true);
-              },
-            ),
-          ],
+        return PermissionDialog(
+          flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
         );
       },
     );
 
-    if (result == true) {
-      if (Platform.isIOS) {
-        await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-            ?.requestPermissions(alert: true, badge: true, sound: true);
-      } else if (Platform.isAndroid) {
-        await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-            ?.requestNotificationsPermission();
-        await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-            ?.requestExactAlarmsPermission();
-      }
-
-      return true;
-    }
-
-    return false;
+    return result ?? false;
   }
 
   @pragma("vm:entry-point")

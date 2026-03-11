@@ -448,6 +448,21 @@ class SAr extends S {
   String get phoneVibrationWhenAllZikrEnd => 'اهتزاز الهاتف عند انتهاء جميع الأذكار';
 
   @override
+  String get preciseTiming => 'التوقيت الدقيق';
+
+  @override
+  String get preciseTimingDesc => 'لضمان وصول التنبيهات في الوقت المحدد بالضبط (خاص بأندرويد 13+).';
+
+  @override
+  String get permissionGranted => 'تم السماح';
+
+  @override
+  String get permissionDenied => 'مرفوض';
+
+  @override
+  String get permissionsRequired => 'الأذونات المطلوبة';
+
+  @override
   String get prayForUsAndParents => 'نسألكم الدعاء لنا ولوالدينا';
 
   @override

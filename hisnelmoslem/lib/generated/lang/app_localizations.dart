@@ -957,6 +957,36 @@ abstract class S {
   /// **'Phone vibration when all zikr end'**
   String get phoneVibrationWhenAllZikrEnd;
 
+  /// No description provided for @preciseTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Precise Timing'**
+  String get preciseTiming;
+
+  /// No description provided for @preciseTimingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'To ensure reminders arrive exactly on time (Android 13+).'**
+  String get preciseTimingDesc;
+
+  /// No description provided for @permissionGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted'**
+  String get permissionGranted;
+
+  /// No description provided for @permissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Denied'**
+  String get permissionDenied;
+
+  /// No description provided for @permissionsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions Required'**
+  String get permissionsRequired;
+
   /// No description provided for @prayForUsAndParents.
   ///
   /// In en, this message translates to:

@@ -448,6 +448,21 @@ class SEn extends S {
   String get phoneVibrationWhenAllZikrEnd => 'Phone vibration when all zikr end';
 
   @override
+  String get preciseTiming => 'Precise Timing';
+
+  @override
+  String get preciseTimingDesc => 'To ensure reminders arrive exactly on time (Android 13+).';
+
+  @override
+  String get permissionGranted => 'Granted';
+
+  @override
+  String get permissionDenied => 'Denied';
+
+  @override
+  String get permissionsRequired => 'Permissions Required';
+
+  @override
   String get prayForUsAndParents => 'Pray for us and our parents.';
 
   @override
