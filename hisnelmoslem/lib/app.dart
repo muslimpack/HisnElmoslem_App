@@ -39,7 +39,9 @@ class AppState extends State<App> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
-        await sl<LocalNotificationManager>().requestPermissionWithDialog();
+        await sl<LocalNotificationManager>().requestPermissionWithDialog(
+          triggerOnStartup: true,
+        );
         sl<LocalNotificationManager>().handleLaunchNotification();
       } catch (e) {
         hisnPrint(e);

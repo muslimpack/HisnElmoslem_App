@@ -8,6 +8,8 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/permission_dialog.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
@@ -89,9 +91,16 @@ class LocalNotificationManager {
     tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
   }
 
-  Future<bool> requestPermissionWithDialog() async {
-    final appSettingsRepo = sl<AppSettingsRepo>();
-    if (appSettingsRepo.ignoreNotificationPermission) return false;
+  Future<bool> requestPermissionWithDialog({bool triggerOnStartup = false}) async {
+    if (triggerOnStartup) {
+      /// if the user ignored the notification permission, don't show the dialog
+      final appSettingsRepo = sl<AppSettingsRepo>();
+      if (appSettingsRepo.ignoreNotificationPermission) return false;
+
+      /// if the user has no alarms, don't show the dialog
+      final hasAlarms = await _hasAnyActiveAlarms();
+      if (!hasAlarms) return false;
+    }
 
     final androidPlugin = flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
@@ -351,6 +360,19 @@ class LocalNotificationManager {
       }
       launchNotificationResponse = null;
     }
+  }
+
+  Future<bool> _hasAnyActiveAlarms() async {
+    final alarmsRepo = sl<AlarmsRepo>();
+    final alarmDatabaseHelper = sl<AlarmDatabaseHelper>();
+
+    if (alarmsRepo.isCaveAlarmEnabled) return true;
+    if (alarmsRepo.isFastAlarmEnabled) return true;
+
+    final alarms = await alarmDatabaseHelper.getAlarms();
+    if (alarms.isNotEmpty) return true;
+
+    return false;
   }
 }
 
