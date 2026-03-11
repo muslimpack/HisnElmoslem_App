@@ -293,6 +293,7 @@ class LocalNotificationManager {
     required Time time,
     required int weekday,
   }) async {
+    await requestPermissionWithDialog();
     await _safeZonedSchedule(
       id: id,
       title: title,
@@ -316,6 +317,7 @@ class LocalNotificationManager {
     required Time time,
     required String payload,
   }) async {
+    await requestPermissionWithDialog();
     await _safeZonedSchedule(
       id: id,
       title: title,
