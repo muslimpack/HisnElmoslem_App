@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 
 class PermissionDialog extends StatefulWidget {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -102,6 +104,15 @@ class _PermissionDialogState extends State<PermissionDialog> with WidgetsBinding
         ),
       ),
       actions: [
+        TextButton(
+          onPressed: () {
+            sl<AppSettingsRepo>().changeIgnoreNotificationPermissionStatus(
+              value: true,
+            );
+            Navigator.pop(context, false);
+          },
+          child: Text(SX.current.ignoreNotificationPermission),
+        ),
         TextButton(
           onPressed: () => Navigator.pop(context, false),
           child: Text(SX.current.later),
