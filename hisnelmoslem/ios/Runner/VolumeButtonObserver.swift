@@ -1,6 +1,7 @@
 import AVFoundation
 import MediaPlayer
 import UIKit
+import QuartzCore
 
 class VolumeButtonObserver: NSObject {
 
@@ -12,6 +13,8 @@ class VolumeButtonObserver: NSObject {
   private var isObserving = false
   private var resetTimer: Timer?
   private var volumeView: MPVolumeView?  // Must be retained
+  private var initialVolume: Float?
+  private var activeDirection: String?
 
   private let onEvent: (String) -> Void
 
@@ -29,6 +32,7 @@ class VolumeButtonObserver: NSObject {
       let session = AVAudioSession.sharedInstance()
       try session.setCategory(.playback, options: .mixWithOthers)
       try session.setActive(true)
+      initialVolume = session.outputVolume
     } catch {
       print("VolumeButtonObserver: audio session error: \(error)")
       return
@@ -57,15 +61,24 @@ class VolumeButtonObserver: NSObject {
 
   func stopObserving() {
     guard isObserving else { return }
-    resetTimer?.invalidate()
-    resetTimer = nil
-    volumeView?.removeFromSuperview()
-    volumeView = nil
+    
+    // Stop listening to changes first
     AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: Self.volumeKey)
     isObserving = false
+    
+    // Clear timers
+    resetTimer?.invalidate()
+    resetTimer = nil
+    
+    // Restore initial volume only if it's different from current (avoid redundant set)
+    if let initial = initialVolume, abs(AVAudioSession.sharedInstance().outputVolume - initial) > 0.01 {
+        setVolume(initial)
+    }
+    
+    // Cleanup UI
+    volumeView?.removeFromSuperview()
+    volumeView = nil
   }
-
-  private var isResettingVolume = false
 
   // ─── KVO ──────────────────────────────────────────────────────
 
@@ -76,46 +89,38 @@ class VolumeButtonObserver: NSObject {
     context: UnsafeMutableRawPointer?
   ) {
     guard
-      !isResettingVolume,
       keyPath == Self.volumeKey,
       let newVolume = change?[.newKey] as? Float,
       let oldVolume = change?[.oldKey] as? Float,
-      abs(newVolume - oldVolume) > 0.01
+      abs(newVolume - oldVolume) > 0.01,
+      abs(newVolume - Self.midVolume) > 0.001 // Ignore changes back to/from midVolume (our reset)
     else { return }
 
-    if newVolume > oldVolume {
-      onEvent("VOLUME_UP_DOWN")
-      scheduleRelease(event: "VOLUME_UP_UP")
-    } else {
-      onEvent("VOLUME_DOWN_DOWN")
-      scheduleRelease(event: "VOLUME_DOWN_UP")
+    if activeDirection == nil {
+      activeDirection = newVolume > oldVolume ? "UP" : "DOWN"
+      onEvent("VOLUME_\(activeDirection!)_DOWN")
+    }
+
+    // Restart release timer
+    resetTimer?.invalidate()
+    resetTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+      guard let self = self, let dir = self.activeDirection else { return }
+      self.onEvent("VOLUME_\(dir)_UP")
+      self.activeDirection = nil
     }
 
     // Reset volume back to mid after a short delay
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
       self?.setVolume(Self.midVolume)
     }
   }
 
   // ─── Helpers ──────────────────────────────────────────────────
 
-  private func scheduleRelease(event: String) {
-    resetTimer?.invalidate()
-    resetTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-      self?.onEvent(event)
-    }
-  }
-
   private func setVolume(_ value: Float) {
     guard let slider = volumeView?.subviews.first(where: { $0 is UISlider }) as? UISlider else {
       return
     }
-    isResettingVolume = true
     slider.value = value
-    
-    // Reset the flag after a short delay to allow the system to process the change
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-      self?.isResettingVolume = false
-    }
   }
 }
