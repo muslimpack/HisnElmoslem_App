@@ -113,9 +113,14 @@ class LocalNotificationManager {
       notificationsAllowed = await androidPlugin?.areNotificationsEnabled() ?? false;
       exactAlarmsAllowed = await androidPlugin?.canScheduleExactNotifications() ?? true;
     } else if (Platform.isIOS) {
-      // iOS permissions are implicitly handled via requestPermissions below,
-      // but we assume true initially if already accepted in the past
-      notificationsAllowed = true;
+      final iosPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      final bool? granted = await iosPlugin?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      return granted ?? false;
     }
 
     if (notificationsAllowed && exactAlarmsAllowed) return true;
