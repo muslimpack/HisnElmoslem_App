@@ -1,48 +1,58 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class VolumeButtonManager {
-  static MethodChannel channel = const MethodChannel("volume_button_channel");
+enum VolumeButtonEvent {
+  volumeUpDown,
+  volumeDownDown,
+  volumeUpUp,
+  volumeDownUp,
+}
 
-  void listen({
-    Function()? onVolumeUpPressed,
-    Function()? onVolumeDownPressed,
-    Function()? onVolumeUpReleased,
-    Function()? onVolumeDownReleased,
-  }) {
+class VolumeButtonManager {
+  static final VolumeButtonManager _instance = VolumeButtonManager._internal();
+
+  factory VolumeButtonManager() {
+    return _instance;
+  }
+
+  VolumeButtonManager._internal() {
     channel.setMethodCallHandler(
       (call) async {
         if (call.method == "volumeBtnPressed") {
           switch (call.arguments) {
             case "VOLUME_UP_DOWN":
-              onVolumeUpPressed?.call();
+              _streamController.add(VolumeButtonEvent.volumeUpDown);
 
             case "VOLUME_DOWN_DOWN":
-              onVolumeDownPressed?.call();
+              _streamController.add(VolumeButtonEvent.volumeDownDown);
 
             case "VOLUME_UP_UP":
-              onVolumeUpReleased?.call();
+              _streamController.add(VolumeButtonEvent.volumeUpUp);
 
             case "VOLUME_DOWN_UP":
-              onVolumeDownReleased?.call();
+              _streamController.add(VolumeButtonEvent.volumeDownUp);
           }
         }
       },
     );
   }
 
+  static MethodChannel channel = const MethodChannel("volume_button_channel");
+
+  final StreamController<VolumeButtonEvent> _streamController =
+      StreamController<VolumeButtonEvent>.broadcast();
+
+  Stream<VolumeButtonEvent> get stream => _streamController.stream;
+
   Future<void> toggleActivation({required bool activate}) async {
-    if (Platform.isAndroid) {
-      await channel.invokeMethod(
-        'activate_volumeBtn',
-        activate,
-      );
-    }
+    await channel.invokeMethod(
+      'activate_volumeBtn',
+      activate,
+    );
   }
 
   void dispose() {
     toggleActivation(activate: false);
-    channel.setMethodCallHandler(null);
   }
 }
