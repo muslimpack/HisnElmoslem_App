@@ -33,7 +33,13 @@ class LocalNotificationManager {
       const AndroidInitializationSettings androidInitializationSettings =
           AndroidInitializationSettings('@mipmap/ic_launcher');
 
-      const DarwinInitializationSettings iosInitializationSettings = DarwinInitializationSettings();
+      const DarwinInitializationSettings iosInitializationSettings =
+          DarwinInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
+        requestCriticalPermission: false,
+      );
 
       final WindowsInitializationSettings windowsInitializationSettings =
           _windowsInitializationSettings();
@@ -113,14 +119,8 @@ class LocalNotificationManager {
       notificationsAllowed = await androidPlugin?.areNotificationsEnabled() ?? false;
       exactAlarmsAllowed = await androidPlugin?.canScheduleExactNotifications() ?? true;
     } else if (Platform.isIOS) {
-      final iosPlugin = flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
-      final bool? granted = await iosPlugin?.requestPermissions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-      return granted ?? false;
+      notificationsAllowed = await isPermissionGranted();
+      exactAlarmsAllowed = true;
     }
 
     if (notificationsAllowed && exactAlarmsAllowed) return true;
@@ -376,6 +376,20 @@ class LocalNotificationManager {
       }
       launchNotificationResponse = null;
     }
+  }
+
+  Future<bool> isPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final androidPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      return await androidPlugin?.areNotificationsEnabled() ?? false;
+    } else if (Platform.isIOS) {
+      final iosPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      final permissions = await iosPlugin?.checkPermissions();
+      return permissions?.isEnabled ?? false;
+    }
+    return false;
   }
 
   Future<bool> _hasAnyActiveAlarms() async {
