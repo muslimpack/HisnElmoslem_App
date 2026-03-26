@@ -17,7 +17,6 @@ class HomeLoadedState extends HomeState {
   final List<DbContent> bookmarkedContents;
   final List<TitlesFreqEnum> freqFilters;
   final bool isSearching;
-  final bool isDrawerOpen;
 
   List<DbTitle> get allTitles {
     return titles.where((x) => freqFilters.validate(x.freq)).toList()
@@ -36,7 +35,6 @@ class HomeLoadedState extends HomeState {
     required this.freqFilters,
     required this.isSearching,
     required this.bookmarkedTitlesIds,
-    required this.isDrawerOpen,
   });
 
   HomeLoadedState copyWith({
@@ -46,7 +44,6 @@ class HomeLoadedState extends HomeState {
     List<int>? bookmarkedTitlesIds,
     List<TitlesFreqEnum>? freqFilters,
     bool? isSearching,
-    bool? isDrawerOpen,
   }) {
     return HomeLoadedState(
       dashboardArrangement: dashboardArrangement ?? this.dashboardArrangement,
@@ -54,7 +51,6 @@ class HomeLoadedState extends HomeState {
       bookmarkedContents: bookmarkedContents ?? this.bookmarkedContents,
       freqFilters: freqFilters ?? this.freqFilters,
       isSearching: isSearching ?? this.isSearching,
-      isDrawerOpen: isDrawerOpen ?? this.isDrawerOpen,
       bookmarkedTitlesIds: bookmarkedTitlesIds ?? this.bookmarkedTitlesIds,
     );
   }
@@ -68,7 +64,6 @@ class HomeLoadedState extends HomeState {
       freqFilters,
       bookmarkedContents,
       bookmarkedTitlesIds,
-      isDrawerOpen,
     ];
   }
 }
