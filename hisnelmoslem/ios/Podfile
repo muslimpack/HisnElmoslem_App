@@ -37,13 +37,10 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    
+    # Required for many local notification setups to ensure deployment target consistency
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
   end
-
-    awesome_pod_file = File.expand_path(File.join('plugins', 'awesome_notifications', 'ios', 'Scripts', 'AwesomePodFile'), '.symlinks')
-    require awesome_pod_file
-    update_awesome_pod_build_settings(installer)
 end
-
-awesome_pod_file = File.expand_path(File.join('plugins', 'awesome_notifications', 'ios', 'Scripts', 'AwesomePodFile'), '.symlinks')
-require awesome_pod_file
-update_awesome_main_target_settings('Runner', File.dirname(File.realpath(__FILE__)), flutter_root)
