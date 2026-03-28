@@ -33,12 +33,10 @@ class LocalNotificationManager {
       const AndroidInitializationSettings androidInitializationSettings =
           AndroidInitializationSettings('@mipmap/ic_launcher');
 
-      const DarwinInitializationSettings iosInitializationSettings =
-          DarwinInitializationSettings(
+      const DarwinInitializationSettings iosInitializationSettings = DarwinInitializationSettings(
         requestAlertPermission: false,
         requestBadgePermission: false,
         requestSoundPermission: false,
-        requestCriticalPermission: false,
       );
 
       final WindowsInitializationSettings windowsInitializationSettings =
