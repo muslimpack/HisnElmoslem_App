@@ -81,7 +81,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => EffectsManager(sl(), sl()));
   sl.registerLazySingleton(() => LocalNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
-  sl.registerFactory(() => VolumeButtonManager());
+  sl.registerLazySingleton(() => VolumeButtonManager());
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
   sl.registerFactory<PackageInfo>(() => packageInfo);
 

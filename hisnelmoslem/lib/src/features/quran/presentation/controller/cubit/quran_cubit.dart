@@ -17,26 +17,26 @@ class QuranCubit extends Cubit<QuranState> {
   final VolumeButtonManager volumeButtonManager;
   final PageController pageController = PageController();
 
+  StreamSubscription? _volumeSubscription;
   QuranCubit(this.volumeButtonManager) : super(QuranLoadingState()) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     volumeButtonManager.toggleActivation(
       activate: sl<AppSettingsRepo>().praiseWithVolumeKeys,
     );
 
-    volumeButtonManager.listen(
-      onVolumeUpPressed: () {
+    _volumeSubscription = volumeButtonManager.stream.listen((event) {
+      if (event == VolumeButtonEvent.volumeUpDown || event == VolumeButtonEvent.volumeUpUp) {
         pageController.previousPage(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
-      },
-      onVolumeDownPressed: () {
+      } else if (event == VolumeButtonEvent.volumeDownDown || event == VolumeButtonEvent.volumeDownUp) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
-      },
-    );
+      }
+    });
   }
 
   FutureOr start(SurahNameEnum surahName) async {
@@ -94,6 +94,7 @@ class QuranCubit extends Cubit<QuranState> {
   @override
   Future<void> close() async {
     pageController.dispose();
+    _volumeSubscription?.cancel();
     volumeButtonManager.dispose();
 
     await SystemChrome.setEnabledSystemUIMode(

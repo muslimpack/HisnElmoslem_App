@@ -7,6 +7,7 @@ class UserNumberField extends StatelessWidget {
   final String hintText;
   final Function(String)? onChange;
   final IconData? leadingIcon;
+  final TextInputAction? textInputAction;
 
   const UserNumberField({
     super.key,
@@ -14,6 +15,7 @@ class UserNumberField extends StatelessWidget {
     required this.hintText,
     this.onChange,
     this.leadingIcon,
+    required this.textInputAction,
   });
 
   @override
@@ -24,10 +26,8 @@ class UserNumberField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         keyboardType: TextInputType.number,
-
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly,
-        ],
+        textInputAction: textInputAction,
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
         onChanged: onChange,
         decoration:
             customInputDecoration(
@@ -47,6 +47,7 @@ class UserNumberFormField extends StatelessWidget {
   final String hintText;
   final Function(String)? onChange;
   final IconData? leadingIcon;
+  final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
 
   const UserNumberFormField({
@@ -56,6 +57,7 @@ class UserNumberFormField extends StatelessWidget {
     this.onChange,
     this.leadingIcon,
     this.validator,
+    required this.textInputAction,
   });
 
   @override
@@ -66,10 +68,8 @@ class UserNumberFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         controller: controller,
         keyboardType: TextInputType.number,
-
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly,
-        ],
+        textInputAction: textInputAction,
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
         onChanged: onChange,
         decoration:
             customInputDecoration(

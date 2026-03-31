@@ -56,7 +56,7 @@ class _TallyEditorState extends State<_TallyEditor> {
         lastUpdate: DateTime.now(),
       );
       _titleController = TextEditingController();
-      _resetCounterController = TextEditingController();
+      _resetCounterController = TextEditingController(text: "33");
       _counterValueController = TextEditingController(text: "0");
     }
   }
@@ -129,6 +129,7 @@ class _TallyEditorState extends State<_TallyEditor> {
                 autoFocus: true,
                 controller: _titleController,
                 hintText: S.of(context).counterName,
+                textInputAction: TextInputAction.next,
                 validator: (p0) => p0 == null || p0.isEmpty ? S.of(context).fieldIsRequired : null,
               ),
 
@@ -141,6 +142,7 @@ class _TallyEditorState extends State<_TallyEditor> {
                 controller: _resetCounterController,
                 leadingIcon: MdiIcons.restore,
                 hintText: S.of(context).circleEvery,
+                textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value == null || value.isEmpty) return S.of(context).fieldIsRequired;
                   final int? v = int.tryParse(value);
@@ -158,6 +160,7 @@ class _TallyEditorState extends State<_TallyEditor> {
                 controller: _counterValueController,
                 leadingIcon: MdiIcons.counter,
                 hintText: S.of(context).count,
+                textInputAction: TextInputAction.done,
                 validator: (value) {
                   if (value == null || value.isEmpty) return S.of(context).fieldIsRequired;
                   final int? v = int.tryParse(value);

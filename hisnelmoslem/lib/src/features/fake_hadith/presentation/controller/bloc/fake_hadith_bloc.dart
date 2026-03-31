@@ -26,19 +26,13 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     on<FakeHadithReportHadithEvent>(_report);
   }
 
-  Future<void> _start(
-    FakeHadithStartEvent event,
-    Emitter<FakeHadithState> emit,
-  ) async {
+  Future<void> _start(FakeHadithStartEvent event, Emitter<FakeHadithState> emit) async {
     final allHadith = await fakeHadithDBHelper.getAllFakeHadiths();
 
     emit(FakeHadithLoadedState(allHadith: allHadith));
   }
 
-  Future<void> _toggle(
-    FakeHadithToggleHadithEvent event,
-    Emitter<FakeHadithState> emit,
-  ) async {
+  Future<void> _toggle(FakeHadithToggleHadithEvent event, Emitter<FakeHadithState> emit) async {
     final state = this.state;
     if (state is! FakeHadithLoadedState) return;
 
@@ -50,42 +44,30 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     }).toList();
 
     if (event.isRead) {
-      await fakeHadithDBHelper.markFakeHadithAsRead(
-        dbFakeHaith: event.fakeHadith,
-      );
+      await fakeHadithDBHelper.markFakeHadithAsRead(dbFakeHaith: event.fakeHadith);
     } else {
-      await fakeHadithDBHelper.markFakeHadithAsUnRead(
-        dbFakeHaith: event.fakeHadith,
-      );
+      await fakeHadithDBHelper.markFakeHadithAsUnRead(dbFakeHaith: event.fakeHadith);
     }
 
     emit(state.copyWith(allHadith: allHadith));
   }
 
-  Future<void> _copy(
-    FakeHadithShareHadithEvent event,
-    Emitter<FakeHadithState> emit,
-  ) async {
+  Future<void> _copy(FakeHadithShareHadithEvent event, Emitter<FakeHadithState> emit) async {
     final DbFakeHaith fakeHadith = event.fakeHadith;
-    await Clipboard.setData(
-      ClipboardData(text: "${fakeHadith.text}\n${fakeHadith.darga}"),
-    );
+    await Clipboard.setData(ClipboardData(text: "${fakeHadith.text}\n${fakeHadith.darga}"));
   }
 
-  Future<void> _share(
-    FakeHadithCopyHadithEvent event,
-    Emitter<FakeHadithState> emit,
-  ) async {
+  Future<void> _share(FakeHadithCopyHadithEvent event, Emitter<FakeHadithState> emit) async {
     final DbFakeHaith fakeHadith = event.fakeHadith;
     await SharePlus.instance.share(
-      ShareParams(text: "${fakeHadith.text}\n${fakeHadith.darga}"),
+      ShareParams(
+        text: "${fakeHadith.text}\n${fakeHadith.darga}",
+        sharePositionOrigin: event.positionForIpad,
+      ),
     );
   }
 
-  Future<void> _report(
-    FakeHadithReportHadithEvent event,
-    Emitter<FakeHadithState> emit,
-  ) async {
+  Future<void> _report(FakeHadithReportHadithEvent event, Emitter<FakeHadithState> emit) async {
     EmailManager.sendMisspelledInFakeHadith(fakeHaith: event.fakeHadith);
   }
 }

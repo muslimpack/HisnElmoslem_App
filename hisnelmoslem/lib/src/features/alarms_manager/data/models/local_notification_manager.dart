@@ -33,7 +33,11 @@ class LocalNotificationManager {
       const AndroidInitializationSettings androidInitializationSettings =
           AndroidInitializationSettings('@mipmap/ic_launcher');
 
-      const DarwinInitializationSettings iosInitializationSettings = DarwinInitializationSettings();
+      const DarwinInitializationSettings iosInitializationSettings = DarwinInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
+      );
 
       final WindowsInitializationSettings windowsInitializationSettings =
           _windowsInitializationSettings();
@@ -113,9 +117,8 @@ class LocalNotificationManager {
       notificationsAllowed = await androidPlugin?.areNotificationsEnabled() ?? false;
       exactAlarmsAllowed = await androidPlugin?.canScheduleExactNotifications() ?? true;
     } else if (Platform.isIOS) {
-      // iOS permissions are implicitly handled via requestPermissions below,
-      // but we assume true initially if already accepted in the past
-      notificationsAllowed = true;
+      notificationsAllowed = await isPermissionGranted();
+      exactAlarmsAllowed = true;
     }
 
     if (notificationsAllowed && exactAlarmsAllowed) return true;
@@ -371,6 +374,20 @@ class LocalNotificationManager {
       }
       launchNotificationResponse = null;
     }
+  }
+
+  Future<bool> isPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final androidPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      return await androidPlugin?.areNotificationsEnabled() ?? false;
+    } else if (Platform.isIOS) {
+      final iosPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      final permissions = await iosPlugin?.checkPermissions();
+      return permissions?.isEnabled ?? false;
+    }
+    return false;
   }
 
   Future<bool> _hasAnyActiveAlarms() async {
