@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/screens/fake_hadith_dashboard_screen.dart';
@@ -9,7 +10,6 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/shared.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/screens/settings_screen.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -33,7 +33,7 @@ class SideMenu extends StatelessWidget {
                     children: [
                       DrawerCard(
                         child: ListTile(
-                          leading: Icon(MdiIcons.counter),
+                          leading: const Icon(MdiIcons.counter),
                           title: Text(S.of(context).tally),
                           onTap: () {
                             context.push(const TallyDashboardScreen());

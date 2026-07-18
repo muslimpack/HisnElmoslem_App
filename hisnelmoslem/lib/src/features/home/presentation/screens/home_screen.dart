@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
@@ -14,7 +15,6 @@ import 'package:hisnelmoslem/src/features/home_search/presentation/screens/searc
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:intl/intl.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -112,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
               floatingActionButton: FloatingActionButton(
                 tooltip: S.of(context).tally,
-                child: Icon(MdiIcons.counter, size: 35),
+                child: const Icon(MdiIcons.counter, size: 35),
                 onPressed: () {
                   context.push(const TallyDashboardScreen());
                 },

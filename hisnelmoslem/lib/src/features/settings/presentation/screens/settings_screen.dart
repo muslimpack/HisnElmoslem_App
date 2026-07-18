@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
@@ -22,7 +23,6 @@ import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_screen.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -273,14 +273,14 @@ class _SettingsContactSection extends StatelessWidget {
       children: [
         Title(title: S.of(context).contact),
         ListTile(
-          leading: Icon(MdiIcons.gmail),
+          leading: const Icon(MdiIcons.gmail),
           title: Text(S.of(context).sendEmail),
           onTap: () {
             EmailManager.messageUS();
           },
         ),
         ListTile(
-          leading: Icon(MdiIcons.github),
+          leading: const Icon(MdiIcons.github),
           trailing: const Icon(Icons.keyboard_arrow_left),
           title: Text(S.of(context).github),
           onTap: () async {
@@ -288,7 +288,7 @@ class _SettingsContactSection extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(MdiIcons.information),
+          leading: const Icon(MdiIcons.information),
           trailing: const Icon(Icons.keyboard_arrow_left),
           title: Text(S.of(context).aboutUs),
           onTap: () {

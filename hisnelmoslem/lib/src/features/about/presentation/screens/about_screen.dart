@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -29,11 +30,11 @@ class AboutScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: Icon(MdiIcons.handClap),
+            leading: const Icon(MdiIcons.handClap),
             title: Text(S.of(context).prayForUsAndParents),
           ),
           ListTile(
-            leading: Icon(MdiIcons.bookOpenPageVariant),
+            leading: const Icon(MdiIcons.bookOpenPageVariant),
             title: Text(S.of(context).quranPagesFromAndroidQuran),
             onTap: () {
               openURL("https://android.quran.com/");
@@ -48,7 +49,7 @@ class AboutScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(MdiIcons.web),
+            leading: const Icon(MdiIcons.web),
             title: Text(S.of(context).officialWebsite),
             subtitle: Text(S.of(context).drSaeedBinAliBinWahf),
             onTap: () {
@@ -56,7 +57,7 @@ class AboutScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(MdiIcons.github),
+            leading: const Icon(MdiIcons.github),
             title: Text(S.of(context).github),
             onTap: () async {
               await openURL(kOrgGithub);

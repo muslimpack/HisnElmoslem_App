@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:archive/archive_io.dart';
 import 'package:file_picker/file_picker.dart';
@@ -81,18 +82,31 @@ class BackupRestoreRepo {
             '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}';
         final defaultFileName = 'hisnelmoslem_backup_$timestamp.hisn';
 
-        final outputFile = await FilePicker.platform.saveFile(
+        final outputFile = await FilePicker.saveFile(
           dialogTitle: 'Save Backup',
           fileName: defaultFileName,
           type: FileType.custom,
           allowedExtensions: ['hisn'],
+          bytes: Uint8List.fromList(zipBytes)
         );
-        if (outputFile != null) {
-          final targetPath = outputFile.endsWith('.hisn') ? outputFile : '$outputFile.hisn';
-          await File(targetPath).writeAsBytes(zipBytes);
-          return true;
+
+        if (outputFile == null) {
+          return false;
         }
-        return false;
+
+        if (!outputFile.endsWith('.hisn')) {
+          final outputFileasFile = File(outputFile);
+
+          //according to AI, the file may still not exist due to bugs
+          if (await outputFileasFile.exists()) {
+            outputFileasFile.delete();
+          }
+        }
+
+        final correctedFile = outputFile.endsWith('.hisn') ? outputFile : '$outputFile.hisn';
+          
+        await File(correctedFile).writeAsBytes(zipBytes, flush: true);
+        return await File(correctedFile).exists();
       } else {
         final now = DateTime.now();
         final timestamp =
@@ -121,7 +135,7 @@ class BackupRestoreRepo {
 
   Future<bool> importData() async {
     try {
-      final result = await FilePicker.platform.pickFiles();
+      final result = await FilePicker.pickFiles();
 
       if (result == null || result.files.isEmpty) return false;
 
