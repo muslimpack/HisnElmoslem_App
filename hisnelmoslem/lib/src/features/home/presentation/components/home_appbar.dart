@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeAppBar extends StatelessWidget {
   final TabController tabController;
@@ -30,7 +30,7 @@ class HomeAppBar extends StatelessWidget {
               : IconButton(
                   tooltip: S.of(context).close,
                   padding: EdgeInsets.zero,
-                  icon: Icon(MdiIcons.close),
+                  icon: const Icon(MdiIcons.close),
                   onPressed: () {
                     context.read<HomeBloc>().add(
                       const HomeToggleSearchEvent(isSearching: false),

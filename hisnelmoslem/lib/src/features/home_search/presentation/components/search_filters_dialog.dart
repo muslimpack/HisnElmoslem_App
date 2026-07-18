@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_type_bar.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SearchFiltersButton extends StatelessWidget {
   const SearchFiltersButton({super.key});
@@ -17,7 +17,7 @@ class SearchFiltersButton extends StatelessWidget {
           onPressed: () async {
             await showSearchFilterDialog(context);
           },
-          icon: Icon(MdiIcons.filter),
+          icon: const Icon(MdiIcons.filter),
         );
       },
     );

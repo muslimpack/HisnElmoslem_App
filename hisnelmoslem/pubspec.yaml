@@ -22,38 +22,38 @@ dependencies:
   easy_debounce: ^2.0.3
   enum_to_string: ^2.2.1
   equatable: ^2.0.7
-  file_picker: ^10.3.3
+  file_picker: ^12.0.0-beta.7
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_colorpicker: ^1.1.0
-  flutter_email_sender: ^8.0.0
+  flutter_email_sender: ^10.0.1
   flutter_expandable_fab: ^2.5.2
-  flutter_local_notifications: ^20.1.0
+  flutter_local_notifications: ^22.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_material_design_icons: ^3.1.0+7447
   flutter_native_splash: ^2.4.6
   flutter_slidable: ^4.0.3
   flutter_timezone: ^5.0.1
   flutter_zoom_drawer: ^3.2.0
   fluttertoast: ^9.0.0
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   gal: ^2.3.2
   get_it: ^9.2.1
   get_storage: ^2.1.1
   infinite_scroll_pagination: ^5.1.1
   intl: ^0.20.2
-  material_design_icons_flutter: ^7.0.7296
-  package_info_plus: ^9.0.0
+  package_info_plus: ^10.2.1
   path: ^1.9.1
   path_provider: ^2.1.5
   rxdart: ^0.28.0
-  share_plus: ^12.0.0
+  share_plus: ^13.2.1
   shared_preferences: ^2.5.3
   sleek_circular_slider: ^2.1.0
   sqflite: ^2.4.2
   sqflite_common_ffi: ^2.3.6
-  timezone: ^0.10.1
+  timezone: ^0.11.1
   url_launcher: ^6.3.2
   vibration: ^3.1.4
   wakelock_plus: ^1.4.0

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/custom_field_decoration.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SearchAppBar extends StatefulWidget {
   const SearchAppBar({super.key});
@@ -45,7 +45,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
         IconButton(
           splashRadius: 20,
           padding: EdgeInsets.zero,
-          icon: Icon(MdiIcons.eraser),
+          icon: const Icon(MdiIcons.eraser),
           onPressed: () {
             context.read<SearchCubit>().clear();
           },

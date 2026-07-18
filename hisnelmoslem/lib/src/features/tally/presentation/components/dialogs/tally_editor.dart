@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 Future<EditorResult<DbTally>?> showTallyEditorDialog({
   required BuildContext context,
