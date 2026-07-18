@@ -27,7 +27,6 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     return azkarToView[activeZikrIndex];
   }
 
-  //double get majorProgress => azkarToView.where((x) => x.count == 0).length / azkarToView.length;
   double get majorProgress {
       var sum = 0;
       for (final (index, zikr) in azkarToView.indexed) {
