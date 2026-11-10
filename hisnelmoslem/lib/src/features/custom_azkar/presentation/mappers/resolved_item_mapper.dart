@@ -1,4 +1,5 @@
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
@@ -9,7 +10,7 @@ extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
     return DbContent(
       id: -item.id,
       content: content,
-      titleId: -customTitleId,
+      titleId: customViewerTitleId(customTitleId),
       order: order,
       count: item.count,
       fadl: fadl,

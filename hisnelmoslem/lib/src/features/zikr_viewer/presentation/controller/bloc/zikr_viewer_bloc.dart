@@ -116,7 +116,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         return;
       }
       final items = await customAzkarRepo.getResolvedItems(customTitleId);
-      title = DbTitle(id: -customTitleId, name: customTitle.name, freq: "", order: 0);
+      title = DbTitle(
+        id: customViewerTitleId(customTitleId),
+        name: customTitle.name,
+        freq: "",
+        order: 0,
+      );
       // Azkar picked by the user are never hidden by the azkar filters.
       filteredAzkar = [
         for (var i = 0; i < items.length; i++)

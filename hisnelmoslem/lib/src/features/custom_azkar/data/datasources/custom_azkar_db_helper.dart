@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,7 +11,7 @@ import 'package:sqflite/sqflite.dart';
 /// `hisn_elmoslem.db`, which is never written to by the custom azkar feature.
 class CustomAzkarDBHelper {
   static const String dbName = "custom_azkar.db";
-  static const int dbVersion = 1;
+  static const int dbVersion = 2;
 
   /// Table names.
   static const String titlesTable = "custom_titles";
@@ -46,6 +47,7 @@ class CustomAzkarDBHelper {
       version: dbVersion,
       onConfigure: (db) => db.execute("PRAGMA foreign_keys = ON"),
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -57,6 +59,7 @@ class CustomAzkarDBHelper {
       "id"	INTEGER NOT NULL,
       "name"	TEXT NOT NULL,
       "description"	TEXT NOT NULL DEFAULT '',
+      "search"	TEXT NOT NULL DEFAULT '',
       "source_title_id"	INTEGER,
       "is_favourite"	INTEGER NOT NULL DEFAULT 0,
       "sort_order"	INTEGER NOT NULL DEFAULT 0,
@@ -70,6 +73,7 @@ class CustomAzkarDBHelper {
     CREATE TABLE "$zikrsTable" (
       "id"	INTEGER NOT NULL,
       "content"	TEXT NOT NULL,
+      "search"	TEXT NOT NULL DEFAULT '',
       "source"	TEXT NOT NULL DEFAULT '',
       "fadl"	TEXT NOT NULL DEFAULT '',
       "default_count"	INTEGER NOT NULL DEFAULT 1,
@@ -109,6 +113,41 @@ class CustomAzkarDBHelper {
       PRIMARY KEY("id" AUTOINCREMENT)
     );
     ''');
+  }
+
+  /// Search text used by the search screens: diacritics removed and lower-cased,
+  /// and alef/yaa/taa-marbuta variants unified, so typing plain letters finds the text.
+  static String normalizeForSearch(String text) {
+    return text
+        .removeDiacritics
+        .replaceAll(RegExp('[أإآٱ]'), 'ا')
+        .replaceAll('ى', 'ي')
+        .replaceAll('ة', 'ه')
+        .toLowerCase()
+        .trim();
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE "$titlesTable" ADD COLUMN "search" TEXT NOT NULL DEFAULT \'\'');
+      await db.execute('ALTER TABLE "$zikrsTable" ADD COLUMN "search" TEXT NOT NULL DEFAULT \'\'');
+      for (final row in await db.query(titlesTable, columns: ['id', 'name'])) {
+        await db.update(
+          titlesTable,
+          {'search': normalizeForSearch(row['name']! as String)},
+          where: 'id = ?',
+          whereArgs: [row['id']],
+        );
+      }
+      for (final row in await db.query(zikrsTable, columns: ['id', 'content'])) {
+        await db.update(
+          zikrsTable,
+          {'search': normalizeForSearch(row['content']! as String)},
+          where: 'id = ?',
+          whereArgs: [row['id']],
+        );
+      }
+    }
   }
 
   /// Must be called before the db file is replaced (restore).

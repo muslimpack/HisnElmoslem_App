@@ -126,6 +126,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       final id = await txn.insert(_titles, {
         'name': title.name,
         'description': title.description,
+        'search': CustomAzkarDBHelper.normalizeForSearch(title.name),
         'source_title_id': title.sourceTitleId,
         'is_favourite': title.isFavourite ? 1 : 0,
         'sort_order': (maxOrder ?? -1) + 1,
@@ -152,6 +153,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
         {
           'name': title.name,
           'description': title.description,
+          'search': CustomAzkarDBHelper.normalizeForSearch(title.name),
           'updated': _now,
         },
         where: 'id = ?',
@@ -307,6 +309,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
     final db = await dbHelper.database;
     final values = {
       'content': zikr.content,
+      'search': CustomAzkarDBHelper.normalizeForSearch(zikr.content),
       'source': zikr.source,
       'fadl': zikr.fadl,
       'default_count': zikr.defaultCount,
@@ -357,12 +360,13 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
     SearchType type,
     String column,
   ) {
-    final words = text.trim().split(' ').where((e) => e.isNotEmpty).toList();
+    final normalized = CustomAzkarDBHelper.normalizeForSearch(text);
+    final words = normalized.split(' ').where((e) => e.isNotEmpty).toList();
     if (words.isEmpty) return (where: '0', args: const []);
 
     switch (type) {
       case SearchType.typical:
-        return (where: '$column LIKE ?', args: ['%${text.trim()}%']);
+        return (where: '$column LIKE ?', args: ['%$normalized%']);
       case SearchType.allWords:
         return (
           where: words.map((_) => '$column LIKE ?').join(' AND '),
@@ -385,7 +389,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
   }) async {
     if (text.trim().isEmpty) return (0, <CustomTitle>[]);
     final db = await dbHelper.database;
-    final w = _searchWhere(text, type, 't.name');
+    final w = _searchWhere(text, type, 't.search');
     final rows = await db.rawQuery(
       '$_titleSelect WHERE ${w.where} ORDER BY t.id LIMIT ? OFFSET ?',
       [...w.args, limit, offset],
@@ -407,7 +411,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
   }) async {
     if (text.trim().isEmpty) return (0, <CustomZikr>[]);
     final db = await dbHelper.database;
-    final w = _searchWhere(text, type, 'content');
+    final w = _searchWhere(text, type, 'search');
     final rows = await db.rawQuery(
       'SELECT * FROM $_zikrs WHERE ${w.where} ORDER BY id LIMIT ? OFFSET ?',
       [...w.args, limit, offset],

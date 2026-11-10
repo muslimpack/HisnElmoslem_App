@@ -44,7 +44,7 @@ class ZikrViewerScreen extends StatelessWidget {
       create: (context) => sl<ZikrViewerBloc>()
         ..add(
           ZikrViewerStartEvent(
-            titleIndex: customTitleId == null ? index : -customTitleId!,
+            titleIndex: customTitleId == null ? index : customViewerTitleId(customTitleId!),
             customTitleId: customTitleId,
             zikrViewerMode: sl<AppSettingsRepo>().isCardReadMode
                 ? ZikrViewerMode.card

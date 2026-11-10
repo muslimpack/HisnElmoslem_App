@@ -14,12 +14,14 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:path/path.dart' as path;
@@ -140,6 +142,9 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     final DbTitle title;
     if (content.titleId >= 0) {
       title = await sl<HisnDBHelper>().getTitleById(id: content.titleId);
+    } else if (content.isFromCustomTitle) {
+      final customTitle = await sl<CustomAzkarRepo>().getTitle(content.customTitleId);
+      title = DbTitle(id: content.titleId, name: customTitle?.name ?? "", freq: "", order: -1);
     } else {
       title = const DbTitle(id: -1, name: "أحاديث منتشرة لا تصح", freq: "", order: -1);
     }

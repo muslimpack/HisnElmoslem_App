@@ -173,6 +173,27 @@ void main() {
     expect((await repo.getFavouriteZikrs()).single.id, zikrId);
   });
 
+  test("search ignores diacritics in both the text and the query", () async {
+    final zikrId = await repo.saveZikr(const CustomZikr(content: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ"));
+    await repo.createTitle(const CustomTitle(name: "أَذْكَارُ الصَّبَاحِ"), [
+      CustomTitleItem(kind: CustomItemKind.custom, refId: zikrId),
+    ]);
+
+    final (titleCount, _) = await repo.searchTitles(
+      "اذكار الصباح",
+      SearchType.typical,
+      limit: 10,
+      offset: 0,
+    );
+    final (zikrCount, _) = await repo.searchZikrs(
+      "سُبْحَانَ الله",
+      SearchType.typical,
+      limit: 10,
+      offset: 0,
+    );
+    expect((titleCount, zikrCount), (1, 1));
+  });
+
   test("SaveCustomTitle validates name and items", () async {
     final save = SaveCustomTitle(repo);
     final item = (await repo.itemFromOriginalZikr(1))!;
