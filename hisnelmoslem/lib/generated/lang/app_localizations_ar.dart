@@ -954,4 +954,7 @@ class SAr extends S {
 
   @override
   String get dashboardArrangementReset => 'استعادة الترتيب الافتراضي';
+
+  @override
+  String get zikrOptions => 'خيارات';
 }

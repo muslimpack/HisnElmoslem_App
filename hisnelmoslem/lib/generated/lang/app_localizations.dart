@@ -1952,6 +1952,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Reset to default order'**
   String get dashboardArrangementReset;
+
+  /// No description provided for @zikrOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get zikrOptions;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

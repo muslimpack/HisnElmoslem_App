@@ -312,5 +312,6 @@
   "dashboardArrangementHint": "Hold and drag a tab to change the order of the home tabs.",
   "dashboardArrangementPreview": "Order on the home screen",
   "dragToReorderTab": "Drag to reorder",
-  "dashboardArrangementReset": "Reset to default order"
+  "dashboardArrangementReset": "Reset to default order",
+  "zikrOptions": "Options"
 }

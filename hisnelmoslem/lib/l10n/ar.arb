@@ -312,5 +312,6 @@
   "dashboardArrangementHint": "اضغط مطولًا واسحب أي تبويب لتغيير ترتيب تبويبات الشاشة الرئيسية.",
   "dashboardArrangementPreview": "الترتيب في الشاشة الرئيسية",
   "dragToReorderTab": "اسحب لإعادة الترتيب",
-  "dashboardArrangementReset": "استعادة الترتيب الافتراضي"
+  "dashboardArrangementReset": "استعادة الترتيب الافتراضي",
+  "zikrOptions": "خيارات"
 }

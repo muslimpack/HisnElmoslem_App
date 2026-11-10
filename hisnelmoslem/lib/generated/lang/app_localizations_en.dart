@@ -956,4 +956,7 @@ class SEn extends S {
 
   @override
   String get dashboardArrangementReset => 'Reset to default order';
+
+  @override
+  String get zikrOptions => 'Options';
 }

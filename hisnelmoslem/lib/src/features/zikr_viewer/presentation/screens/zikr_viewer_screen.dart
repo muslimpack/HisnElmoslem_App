@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
@@ -17,7 +16,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_s
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/animated_zikr_progress_counter.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_expanding_fab.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_options_fab.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_progress_bar.dart';
