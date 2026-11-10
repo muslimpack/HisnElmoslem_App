@@ -190,7 +190,12 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       whereArgs: [titleId],
       orderBy: 'sort_order ASC, id ASC',
     );
-    final items = rows.map(_itemFromMap).toList();
+    return resolveItems(rows.map(_itemFromMap).toList());
+  }
+
+  @override
+  Future<List<ResolvedTitleItem>> resolveItems(List<CustomTitleItem> items) async {
+    final db = await dbHelper.database;
 
     final originalIds = items
         .where((e) => e.kind == CustomItemKind.original)

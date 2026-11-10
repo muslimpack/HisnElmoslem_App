@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_title_favourite_button.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/screens/custom_title_editor_screen.dart';
 
 class CustomTitleCard extends StatelessWidget {
   final CustomTitle title;
@@ -23,7 +25,7 @@ class CustomTitleCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListTile(
-      onTap: onTap,
+      onTap: onTap ?? () => context.push(CustomTitleEditorScreen(titleId: title.id)),
       leading: CustomTitleFavouriteButton(
         titleId: title.id,
         isFavourite: title.isFavourite,
@@ -57,6 +59,8 @@ class CustomTitleMenuButton extends StatelessWidget {
     return PopupMenuButton<_CustomTitleAction>(
       onSelected: (action) async {
         switch (action) {
+          case _CustomTitleAction.edit:
+            context.push(CustomTitleEditorScreen(titleId: title.id));
           case _CustomTitleAction.delete:
             final bloc = context.read<CustomTitlesBloc>();
             final confirm = await showDialog<bool>(
@@ -71,6 +75,14 @@ class CustomTitleMenuButton extends StatelessWidget {
       },
       itemBuilder: (context) => [
         PopupMenuItem(
+          value: _CustomTitleAction.edit,
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.edit_outlined),
+            title: Text(S.of(context).edit),
+          ),
+        ),
+        PopupMenuItem(
           value: _CustomTitleAction.delete,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
@@ -83,4 +95,4 @@ class CustomTitleMenuButton extends StatelessWidget {
   }
 }
 
-enum _CustomTitleAction { delete }
+enum _CustomTitleAction { edit, delete }

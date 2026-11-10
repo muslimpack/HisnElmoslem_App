@@ -23,6 +23,10 @@ abstract interface class CustomAzkarRepo {
   /// Items of a title with their display text resolved (live original, else snapshot).
   Future<List<ResolvedTitleItem>> getResolvedItems(int titleId);
 
+  /// Resolves unsaved items for display, keeping input order and each item's own count.
+  /// Items that cannot be resolved (no live content and no snapshot) are skipped.
+  Future<List<ResolvedTitleItem>> resolveItems(List<CustomTitleItem> items);
+
   /// Builds items (with snapshots) from every zikr of an original title.
   Future<List<CustomTitleItem>> itemsFromOriginalTitle(int originalTitleId);
 

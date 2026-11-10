@@ -22,6 +22,10 @@ class FakeOriginalSource implements OriginalZikrSource {
   @override
   Future<List<DbContent>> getContentsByTitleId(int titleId) async =>
       contents.values.where((e) => e.titleId == titleId).toList();
+
+  @override
+  Future<List<DbContent>> search(String text, SearchType type, {required int limit}) async =>
+      contents.values.where((e) => e.content.contains(text)).take(limit).toList();
 }
 
 DbContent original(int id, int titleId, String text, {int count = 3}) => DbContent(

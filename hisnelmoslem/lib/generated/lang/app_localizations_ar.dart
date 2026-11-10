@@ -829,4 +829,116 @@ class SAr extends S {
 
   @override
   String get customTitleHasReminder => 'التذكير مفعل';
+
+  @override
+  String get newCustomTitle => 'عنوان جديد';
+
+  @override
+  String get createFromScratch => 'ابدأ من الصفر';
+
+  @override
+  String get createFromScratchDesc => 'عنوان فارغ تضيف إليه ما تشاء';
+
+  @override
+  String get createFromExisting => 'ابدأ من عنوان موجود';
+
+  @override
+  String get createFromExistingDesc => 'انسخ أذكار أحد عناوين حصن المسلم ثم عدّل عليها بحرية';
+
+  @override
+  String get editCustomTitle => 'تعديل العنوان';
+
+  @override
+  String get customTitleName => 'اسم العنوان';
+
+  @override
+  String get customTitleDescription => 'الوصف (اختياري)';
+
+  @override
+  String get addZikr => 'إضافة ذكر';
+
+  @override
+  String get newZikr => 'ذكر جديد';
+
+  @override
+  String get myZikrs => 'أذكاري';
+
+  @override
+  String get fromHisn => 'من حصن المسلم';
+
+  @override
+  String get zikrText => 'نص الذكر';
+
+  @override
+  String get zikrSource => 'المصدر (اختياري)';
+
+  @override
+  String get zikrFadl => 'الفضل (اختياري)';
+
+  @override
+  String get zikrCountLabel => 'عدد التكرار';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String addSelected(int count) {
+    return 'إضافة المحدد ($count)';
+  }
+
+  @override
+  String get noCustomZikrs => 'لم تنشئ أي ذكر بعد';
+
+  @override
+  String get noItemsInTitle => 'أضف ذكرًا واحدًا على الأقل لهذا العنوان';
+
+  @override
+  String get titleNameRequired => 'من فضلك أدخل اسم العنوان';
+
+  @override
+  String get zikrTextRequired => 'من فضلك أدخل نص الذكر';
+
+  @override
+  String get discardChangesTitle => 'تجاهل التغييرات؟';
+
+  @override
+  String get discardChangesDetails => 'ستفقد التغييرات التي لم تحفظها.';
+
+  @override
+  String get savedCopyBadge => 'نسخة محفوظة';
+
+  @override
+  String get originalBadge => 'أصلي';
+
+  @override
+  String get customBadge => 'مخصص';
+
+  @override
+  String get removeFromTitle => 'إزالة';
+
+  @override
+  String get dragToReorder => 'اسحب لإعادة الترتيب';
+
+  @override
+  String get countDecrease => 'إنقاص';
+
+  @override
+  String get countIncrease => 'زيادة';
+
+  @override
+  String get deleteCustomZikrConfirm => 'حذف هذا الذكر؟';
+
+  @override
+  String deleteCustomZikrUsedIn(String titles) {
+    return 'مستخدم في: $titles. سيُزال منها.';
+  }
+
+  @override
+  String get searchHisnHint => 'ابحث في حصن المسلم';
+
+  @override
+  String get chooseOriginalTitle => 'اختر عنوانًا';
 }

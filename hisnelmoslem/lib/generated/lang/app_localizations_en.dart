@@ -830,4 +830,117 @@ class SEn extends S {
 
   @override
   String get customTitleHasReminder => 'Reminder is on';
+
+  @override
+  String get newCustomTitle => 'New title';
+
+  @override
+  String get createFromScratch => 'Start from scratch';
+
+  @override
+  String get createFromScratchDesc => 'An empty title that you fill yourself';
+
+  @override
+  String get createFromExisting => 'Start from an existing title';
+
+  @override
+  String get createFromExistingDesc =>
+      'Copy the azkar of a Hisn al-Muslim title, then change them freely';
+
+  @override
+  String get editCustomTitle => 'Edit title';
+
+  @override
+  String get customTitleName => 'Title name';
+
+  @override
+  String get customTitleDescription => 'Description (optional)';
+
+  @override
+  String get addZikr => 'Add zikr';
+
+  @override
+  String get newZikr => 'New zikr';
+
+  @override
+  String get myZikrs => 'My zikrs';
+
+  @override
+  String get fromHisn => 'From Hisn al-Muslim';
+
+  @override
+  String get zikrText => 'Zikr text';
+
+  @override
+  String get zikrSource => 'Source (optional)';
+
+  @override
+  String get zikrFadl => 'Virtue (optional)';
+
+  @override
+  String get zikrCountLabel => 'Repetitions';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String addSelected(int count) {
+    return 'Add selected ($count)';
+  }
+
+  @override
+  String get noCustomZikrs => 'You haven\'t created any zikr yet';
+
+  @override
+  String get noItemsInTitle => 'Add at least one zikr to this title';
+
+  @override
+  String get titleNameRequired => 'Please enter a title name';
+
+  @override
+  String get zikrTextRequired => 'Please enter the zikr text';
+
+  @override
+  String get discardChangesTitle => 'Discard changes?';
+
+  @override
+  String get discardChangesDetails => 'Your unsaved changes will be lost.';
+
+  @override
+  String get savedCopyBadge => 'Saved copy';
+
+  @override
+  String get originalBadge => 'Original';
+
+  @override
+  String get customBadge => 'Custom';
+
+  @override
+  String get removeFromTitle => 'Remove';
+
+  @override
+  String get dragToReorder => 'Drag to reorder';
+
+  @override
+  String get countDecrease => 'Decrease';
+
+  @override
+  String get countIncrease => 'Increase';
+
+  @override
+  String get deleteCustomZikrConfirm => 'Delete this zikr?';
+
+  @override
+  String deleteCustomZikrUsedIn(String titles) {
+    return 'It is used in: $titles. It will be removed from them.';
+  }
+
+  @override
+  String get searchHisnHint => 'Search in Hisn al-Muslim';
+
+  @override
+  String get chooseOriginalTitle => 'Choose a title';
 }

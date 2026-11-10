@@ -1712,6 +1712,222 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Reminder is on'**
   String get customTitleHasReminder;
+
+  /// No description provided for @newCustomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New title'**
+  String get newCustomTitle;
+
+  /// No description provided for @createFromScratch.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from scratch'**
+  String get createFromScratch;
+
+  /// No description provided for @createFromScratchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An empty title that you fill yourself'**
+  String get createFromScratchDesc;
+
+  /// No description provided for @createFromExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from an existing title'**
+  String get createFromExisting;
+
+  /// No description provided for @createFromExistingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy the azkar of a Hisn al-Muslim title, then change them freely'**
+  String get createFromExistingDesc;
+
+  /// No description provided for @editCustomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit title'**
+  String get editCustomTitle;
+
+  /// No description provided for @customTitleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Title name'**
+  String get customTitleName;
+
+  /// No description provided for @customTitleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (optional)'**
+  String get customTitleDescription;
+
+  /// No description provided for @addZikr.
+  ///
+  /// In en, this message translates to:
+  /// **'Add zikr'**
+  String get addZikr;
+
+  /// No description provided for @newZikr.
+  ///
+  /// In en, this message translates to:
+  /// **'New zikr'**
+  String get newZikr;
+
+  /// No description provided for @myZikrs.
+  ///
+  /// In en, this message translates to:
+  /// **'My zikrs'**
+  String get myZikrs;
+
+  /// No description provided for @fromHisn.
+  ///
+  /// In en, this message translates to:
+  /// **'From Hisn al-Muslim'**
+  String get fromHisn;
+
+  /// No description provided for @zikrText.
+  ///
+  /// In en, this message translates to:
+  /// **'Zikr text'**
+  String get zikrText;
+
+  /// No description provided for @zikrSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source (optional)'**
+  String get zikrSource;
+
+  /// No description provided for @zikrFadl.
+  ///
+  /// In en, this message translates to:
+  /// **'Virtue (optional)'**
+  String get zikrFadl;
+
+  /// No description provided for @zikrCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitions'**
+  String get zikrCountLabel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @addSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Add selected ({count})'**
+  String addSelected(int count);
+
+  /// No description provided for @noCustomZikrs.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t created any zikr yet'**
+  String get noCustomZikrs;
+
+  /// No description provided for @noItemsInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one zikr to this title'**
+  String get noItemsInTitle;
+
+  /// No description provided for @titleNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title name'**
+  String get titleNameRequired;
+
+  /// No description provided for @zikrTextRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the zikr text'**
+  String get zikrTextRequired;
+
+  /// No description provided for @discardChangesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get discardChangesTitle;
+
+  /// No description provided for @discardChangesDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Your unsaved changes will be lost.'**
+  String get discardChangesDetails;
+
+  /// No description provided for @savedCopyBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved copy'**
+  String get savedCopyBadge;
+
+  /// No description provided for @originalBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Original'**
+  String get originalBadge;
+
+  /// No description provided for @customBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get customBadge;
+
+  /// No description provided for @removeFromTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeFromTitle;
+
+  /// No description provided for @dragToReorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to reorder'**
+  String get dragToReorder;
+
+  /// No description provided for @countDecrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get countDecrease;
+
+  /// No description provided for @countIncrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get countIncrease;
+
+  /// No description provided for @deleteCustomZikrConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this zikr?'**
+  String get deleteCustomZikrConfirm;
+
+  /// No description provided for @deleteCustomZikrUsedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'It is used in: {titles}. It will be removed from them.'**
+  String deleteCustomZikrUsedIn(String titles);
+
+  /// No description provided for @searchHisnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in Hisn al-Muslim'**
+  String get searchHisnHint;
+
+  /// No description provided for @chooseOriginalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a title'**
+  String get chooseOriginalTitle;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

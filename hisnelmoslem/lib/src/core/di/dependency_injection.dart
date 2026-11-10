@@ -16,7 +16,9 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_a
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_zikr_picker/custom_zikr_picker_cubit.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -110,6 +112,8 @@ Future<void> initSL() async {
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => CustomTitleEditorBloc(sl()));
+  sl.registerFactory(() => CustomZikrPickerCubit(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
