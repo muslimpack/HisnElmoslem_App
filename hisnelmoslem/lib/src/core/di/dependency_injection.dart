@@ -15,6 +15,7 @@ import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
@@ -78,6 +79,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => CustomAzkarDBHelper());
   sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
   sl.registerLazySingleton<CustomAzkarRepo>(() => CustomAzkarRepoImpl(sl(), sl()));
+  sl.registerLazySingleton(() => CustomAlarmScheduler(sl(), sl()));
   sl.registerLazySingleton(
     () => BackupRestoreRepo(
       userDataDBHelper: sl(),
@@ -101,7 +103,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
-  sl.registerLazySingleton(() => CustomTitlesBloc(sl()));
+  sl.registerLazySingleton(() => CustomTitlesBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));

@@ -24,6 +24,24 @@ final class CustomTitlesDeleteEvent extends CustomTitlesEvent {
   List<Object?> get props => [titleId];
 }
 
+/// Stores the title's alarm and (re)schedules or cancels its notification.
+final class CustomAlarmSavedEvent extends CustomTitlesEvent {
+  final CustomAlarm alarm;
+  final String titleName;
+  const CustomAlarmSavedEvent({required this.alarm, required this.titleName});
+
+  @override
+  List<Object?> get props => [alarm, titleName];
+}
+
+final class CustomAlarmRemovedEvent extends CustomTitlesEvent {
+  final int titleId;
+  const CustomAlarmRemovedEvent(this.titleId);
+
+  @override
+  List<Object?> get props => [titleId];
+}
+
 final class CustomTitlesToggleFavouriteEvent extends CustomTitlesEvent {
   final int titleId;
   final bool favourite;

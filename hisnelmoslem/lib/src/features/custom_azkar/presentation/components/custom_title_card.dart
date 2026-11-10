@@ -3,21 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_alarm.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_title_alarm_button.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_title_favourite_button.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/screens/custom_title_editor_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class CustomTitleCard extends StatelessWidget {
   final CustomTitle title;
-  final bool hasActiveAlarm;
+  final CustomAlarm? alarm;
   final VoidCallback? onTap;
 
   const CustomTitleCard({
     super.key,
     required this.title,
-    this.hasActiveAlarm = false,
+    this.alarm,
     this.onTap,
   });
 
@@ -35,7 +37,7 @@ class CustomTitleCard extends StatelessWidget {
       subtitle: Row(
         children: [
           Text(S.of(context).customItemsCount(title.itemCount)),
-          if (hasActiveAlarm) ...[
+          if (alarm?.isActive ?? false) ...[
             const SizedBox(width: 12),
             Icon(Icons.alarm_on_rounded, size: 16, color: theme.colorScheme.primary),
             const SizedBox(width: 4),
@@ -46,7 +48,13 @@ class CustomTitleCard extends StatelessWidget {
           ],
         ],
       ),
-      trailing: CustomTitleMenuButton(title: title),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomTitleAlarmButton(title: title, alarm: alarm),
+          CustomTitleMenuButton(title: title),
+        ],
+      ),
     );
   }
 }

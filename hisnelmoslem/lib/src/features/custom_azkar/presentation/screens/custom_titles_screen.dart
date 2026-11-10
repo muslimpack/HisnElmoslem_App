@@ -37,7 +37,7 @@ class CustomTitlesScreen extends StatelessWidget {
                         return CustomTitleCard(
                           key: ValueKey(title.id),
                           title: title,
-                          hasActiveAlarm: state.hasActiveAlarm(title.id),
+                          alarm: state.alarmsByTitleId[title.id],
                         );
                       },
                     ),
