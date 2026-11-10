@@ -308,5 +308,8 @@
   "deleteCustomZikrUsedIn": "مستخدم في: {titles}. سيُزال منها.",
   "@deleteCustomZikrUsedIn": {"placeholders": {"titles": {"type": "String"}}},
   "searchHisnHint": "ابحث في حصن المسلم",
-  "chooseOriginalTitle": "اختر عنوانًا"
+  "chooseOriginalTitle": "اختر عنوانًا",
+  "dashboardArrangementHint": "اضغط مطولًا واسحب أي تبويب لتغيير ترتيب تبويبات الشاشة الرئيسية.",
+  "dashboardArrangementPreview": "الترتيب في الشاشة الرئيسية",
+  "dragToReorderTab": "اسحب لإعادة الترتيب"
 }

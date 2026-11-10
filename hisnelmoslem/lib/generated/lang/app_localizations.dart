@@ -1928,6 +1928,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Choose a title'**
   String get chooseOriginalTitle;
+
+  /// No description provided for @dashboardArrangementHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold and drag a tab to change the order of the home tabs.'**
+  String get dashboardArrangementHint;
+
+  /// No description provided for @dashboardArrangementPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Order on the home screen'**
+  String get dashboardArrangementPreview;
+
+  /// No description provided for @dragToReorderTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to reorder'**
+  String get dragToReorderTab;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

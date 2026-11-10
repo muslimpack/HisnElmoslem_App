@@ -941,4 +941,14 @@ class SAr extends S {
 
   @override
   String get chooseOriginalTitle => 'اختر عنوانًا';
+
+  @override
+  String get dashboardArrangementHint =>
+      'اضغط مطولًا واسحب أي تبويب لتغيير ترتيب تبويبات الشاشة الرئيسية.';
+
+  @override
+  String get dashboardArrangementPreview => 'الترتيب في الشاشة الرئيسية';
+
+  @override
+  String get dragToReorderTab => 'اسحب لإعادة الترتيب';
 }

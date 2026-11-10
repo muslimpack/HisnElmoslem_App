@@ -943,4 +943,14 @@ class SEn extends S {
 
   @override
   String get chooseOriginalTitle => 'Choose a title';
+
+  @override
+  String get dashboardArrangementHint =>
+      'Hold and drag a tab to change the order of the home tabs.';
+
+  @override
+  String get dashboardArrangementPreview => 'Order on the home screen';
+
+  @override
+  String get dragToReorderTab => 'Drag to reorder';
 }

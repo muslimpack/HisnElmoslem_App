@@ -308,5 +308,8 @@
   "deleteCustomZikrUsedIn": "It is used in: {titles}. It will be removed from them.",
   "@deleteCustomZikrUsedIn": {"placeholders": {"titles": {"type": "String"}}},
   "searchHisnHint": "Search in Hisn al-Muslim",
-  "chooseOriginalTitle": "Choose a title"
+  "chooseOriginalTitle": "Choose a title",
+  "dashboardArrangementHint": "Hold and drag a tab to change the order of the home tabs.",
+  "dashboardArrangementPreview": "Order on the home screen",
+  "dragToReorderTab": "Drag to reorder"
 }
