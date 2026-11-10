@@ -43,7 +43,9 @@ dependencies:
   get_storage: ^2.1.1
   infinite_scroll_pagination: ^5.1.1
   intl: ^0.20.2
-  material_design_icons_flutter: ^7.0.7296
+  # Vendored: upstream extends IconData, which is final in newer Flutter.
+  material_design_icons_flutter:
+    path: packages/material_design_icons_flutter
   package_info_plus: ^9.0.0
   path: ^1.9.1
   path_provider: ^2.1.5
