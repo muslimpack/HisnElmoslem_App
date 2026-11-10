@@ -13,19 +13,21 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_
 
 class CustomTitleCard extends StatelessWidget {
   final CustomTitle title;
-  final CustomAlarm? alarm;
   final VoidCallback? onTap;
 
   const CustomTitleCard({
     super.key,
     required this.title,
-    this.alarm,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final alarm = context.select<CustomTitlesBloc, CustomAlarm?>((bloc) {
+      final state = bloc.state;
+      return state is CustomTitlesLoadedState ? state.alarmsByTitleId[title.id] : null;
+    });
 
     return ListTile(
       onTap: onTap ?? () => context.push(ZikrViewerScreen.custom(customTitleId: title.id)),

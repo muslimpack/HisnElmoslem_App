@@ -105,7 +105,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
   sl.registerLazySingleton(() => CustomTitlesBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));

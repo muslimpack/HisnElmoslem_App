@@ -34,11 +34,7 @@ class CustomTitlesScreen extends StatelessWidget {
                       itemCount: state.titles.length,
                       itemBuilder: (context, index) {
                         final title = state.titles[index];
-                        return CustomTitleCard(
-                          key: ValueKey(title.id),
-                          title: title,
-                          alarm: state.alarmsByTitleId[title.id],
-                        );
+                        return CustomTitleCard(key: ValueKey(title.id), title: title);
                       },
                     ),
             ),

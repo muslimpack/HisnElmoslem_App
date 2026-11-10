@@ -7,6 +7,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/components/zikr_toggle_favorite_icon_button.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/viewer_favourite_buttons.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -94,7 +95,12 @@ class ZikrViewerExpandingFab extends StatelessWidget {
               showCommentaryDialog(context: context, contentId: dbContent.id);
             },
           ),
-        ],
+        ] else if (dbContent.customZikrId != null)
+          FloatingActionButton.small(
+            heroTag: 'bookmark',
+            onPressed: () {},
+            child: ViewerCustomZikrFavouriteButton(dbContent: dbContent),
+          ),
         FloatingActionButton.small(
           heroTag: 'share',
           tooltip: S.of(context).share,

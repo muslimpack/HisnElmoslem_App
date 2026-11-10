@@ -15,6 +15,9 @@ class DbContent extends Equatable {
   final String audio;
   final bool hasAudio;
 
+  /// Set when this content is a zikr authored by the user (custom azkar).
+  final int? customZikrId;
+
   const DbContent({
     required this.id,
     required this.content,
@@ -27,6 +30,7 @@ class DbContent extends Equatable {
     required this.hokm,
     required this.audio,
     required this.hasAudio,
+    this.customZikrId,
   });
 
   DbContent copyWith({
@@ -53,11 +57,12 @@ class DbContent extends Equatable {
       hokm: hokm ?? this.hokm,
       audio: audio ?? this.audio,
       hasAudio: hasAudio,
+      customZikrId: customZikrId,
     );
   }
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       content,
@@ -69,6 +74,7 @@ class DbContent extends Equatable {
       search,
       hokm,
       audio,
+      customZikrId,
     ];
   }
 
