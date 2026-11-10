@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/titles_freq_enum.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
@@ -69,7 +70,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         titles: filtered,
         bookmarkedContents: filteredAzkar,
         isSearching: false,
-        dashboardArrangement: appSettingsRepo.dashboardArrangement,
+        dashboardArrangement: appSettingsRepo.getDashboardArrangement(appDashboardTabs.length),
         freqFilters: appSettingsRepo.getTitlesFreqFilterStatus,
         bookmarkedTitlesIds: bookmarkedTitlesIds,
       ),

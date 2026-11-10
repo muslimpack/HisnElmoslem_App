@@ -261,5 +261,14 @@
   "backupFailed": "فشل النسخ الاحتياطي",
   "restoreFailed": "فشلت الاستعادة",
   "showAudioBar": "عرض شريط الصوت",
-  "showAudioBarDesc": "إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار"
+  "showAudioBarDesc": "إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار",
+  "customAzkar": "أذكار مخصصة",
+  "customAzkarEmptyTitle": "لا توجد عناوين مخصصة بعد",
+  "customAzkarEmptyDesc": "أنشئ عنوانك الخاص وأضف إليه الأذكار التي تحبها. أذكار الحصن الأصلية لا تتغير أبدًا.",
+  "customItemsCount": "{count} ذكر",
+  "@customItemsCount": {"placeholders": {"count": {"type": "int"}}},
+  "customTitleDeleteConfirm": "حذف هذا العنوان؟",
+  "customTitleDeleteDetails": "سيتم حذف العنوان والتذكير الخاص به. الأذكار الأصلية لا تتأثر.",
+  "customTitleDeleted": "تم حذف العنوان",
+  "customTitleHasReminder": "التذكير مفعل"
 }

@@ -12,6 +12,11 @@ import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/
 import 'package:hisnelmoslem/src/features/backup_restore/data/repository/backup_restore_repo.dart';
 import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -68,6 +73,9 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HisnDBHelper());
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
+  sl.registerLazySingleton(() => CustomAzkarDBHelper());
+  sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
+  sl.registerLazySingleton<CustomAzkarRepo>(() => CustomAzkarRepoImpl(sl(), sl()));
   sl.registerLazySingleton(
     () => BackupRestoreRepo(
       userDataDBHelper: sl(),
@@ -91,6 +99,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
+  sl.registerLazySingleton(() => CustomTitlesBloc(sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));

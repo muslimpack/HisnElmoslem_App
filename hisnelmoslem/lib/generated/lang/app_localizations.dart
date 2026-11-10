@@ -1664,6 +1664,54 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Show/hide audio control bar in Zikr viewer page'**
   String get showAudioBarDesc;
+
+  /// No description provided for @customAzkar.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Azkar'**
+  String get customAzkar;
+
+  /// No description provided for @customAzkarEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom titles yet'**
+  String get customAzkarEmptyTitle;
+
+  /// No description provided for @customAzkarEmptyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your own title and fill it with the azkar you love. Your original azkar are never changed.'**
+  String get customAzkarEmptyDesc;
+
+  /// No description provided for @customItemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} azkar'**
+  String customItemsCount(int count);
+
+  /// No description provided for @customTitleDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this title?'**
+  String get customTitleDeleteConfirm;
+
+  /// No description provided for @customTitleDeleteDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'The title and its reminder will be deleted. Original azkar are not affected.'**
+  String get customTitleDeleteDetails;
+
+  /// No description provided for @customTitleDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Title deleted'**
+  String get customTitleDeleted;
+
+  /// No description provided for @customTitleHasReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder is on'**
+  String get customTitleHasReminder;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

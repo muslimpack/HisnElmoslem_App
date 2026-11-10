@@ -802,4 +802,32 @@ class SEn extends S {
 
   @override
   String get showAudioBarDesc => 'Show/hide audio control bar in Zikr viewer page';
+
+  @override
+  String get customAzkar => 'Custom Azkar';
+
+  @override
+  String get customAzkarEmptyTitle => 'No custom titles yet';
+
+  @override
+  String get customAzkarEmptyDesc =>
+      'Create your own title and fill it with the azkar you love. Your original azkar are never changed.';
+
+  @override
+  String customItemsCount(int count) {
+    return '$count azkar';
+  }
+
+  @override
+  String get customTitleDeleteConfirm => 'Delete this title?';
+
+  @override
+  String get customTitleDeleteDetails =>
+      'The title and its reminder will be deleted. Original azkar are not affected.';
+
+  @override
+  String get customTitleDeleted => 'Title deleted';
+
+  @override
+  String get customTitleHasReminder => 'Reminder is on';
 }

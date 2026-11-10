@@ -801,4 +801,32 @@ class SAr extends S {
 
   @override
   String get showAudioBarDesc => 'إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار';
+
+  @override
+  String get customAzkar => 'أذكار مخصصة';
+
+  @override
+  String get customAzkarEmptyTitle => 'لا توجد عناوين مخصصة بعد';
+
+  @override
+  String get customAzkarEmptyDesc =>
+      'أنشئ عنوانك الخاص وأضف إليه الأذكار التي تحبها. أذكار الحصن الأصلية لا تتغير أبدًا.';
+
+  @override
+  String customItemsCount(int count) {
+    return '$count ذكر';
+  }
+
+  @override
+  String get customTitleDeleteConfirm => 'حذف هذا العنوان؟';
+
+  @override
+  String get customTitleDeleteDetails =>
+      'سيتم حذف العنوان والتذكير الخاص به. الأذكار الأصلية لا تتأثر.';
+
+  @override
+  String get customTitleDeleted => 'تم حذف العنوان';
+
+  @override
+  String get customTitleHasReminder => 'التذكير مفعل';
 }

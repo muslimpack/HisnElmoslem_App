@@ -261,5 +261,14 @@
   "backupFailed": "Backup Failed",
   "restoreFailed": "Restore Failed",
   "showAudioBar": "Show Audio Bar",
-  "showAudioBarDesc": "Show/hide audio control bar in Zikr viewer page"
+  "showAudioBarDesc": "Show/hide audio control bar in Zikr viewer page",
+  "customAzkar": "Custom Azkar",
+  "customAzkarEmptyTitle": "No custom titles yet",
+  "customAzkarEmptyDesc": "Create your own title and fill it with the azkar you love. Your original azkar are never changed.",
+  "customItemsCount": "{count} azkar",
+  "@customItemsCount": {"placeholders": {"count": {"type": "int"}}},
+  "customTitleDeleteConfirm": "Delete this title?",
+  "customTitleDeleteDetails": "The title and its reminder will be deleted. Original azkar are not affected.",
+  "customTitleDeleted": "Title deleted",
+  "customTitleHasReminder": "Reminder is on"
 }

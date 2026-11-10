@@ -67,11 +67,22 @@ class AppSettingsRepo {
 
   static const String dashboardArrangementKey = "list_arrange";
 
-  List<int> get dashboardArrangement {
+  /// Saved tab order, normalized to [tabsCount] tabs: unknown indexes are dropped
+  /// and tabs added by newer app versions are appended at the end.
+  List<int> getDashboardArrangement(int tabsCount) {
+    final saved = _savedDashboardArrangement;
+    final valid = saved.where((index) => index >= 0 && index < tabsCount).toSet().toList();
+    for (var i = 0; i < tabsCount; i++) {
+      if (!valid.contains(i)) valid.add(i);
+    }
+    return valid;
+  }
+
+  List<int> get _savedDashboardArrangement {
     final String? data = box.read(dashboardArrangementKey);
 
-    if (data == null) {
-      return [0, 1, 2];
+    if (data == null || data.trim().isEmpty) {
+      return [];
     }
 
     final String tempList;
