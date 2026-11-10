@@ -3,25 +3,23 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_zikr.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/count_stepper.dart';
 
-/// Create or edit a custom zikr. Pops with the edited [CustomZikr] (not yet saved).
-Future<CustomZikr?> showCustomZikrFormSheet({
-  required BuildContext context,
-  CustomZikr? zikr,
-}) {
-  return showModalBottomSheet<CustomZikr>(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
-    builder: (context) => CustomZikrForm(zikr: zikr),
-  );
-}
-
+/// Create or edit a custom zikr.
 class CustomZikrForm extends StatefulWidget {
   final CustomZikr? zikr;
   const CustomZikrForm({super.key, this.zikr});
+
+  /// Resolves to the edited [CustomZikr] (not yet saved), or `null` if dismissed.
+  static Future<CustomZikr?> show(BuildContext context, {CustomZikr? zikr}) {
+    return showModalBottomSheet<CustomZikr>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) => CustomZikrForm(zikr: zikr),
+    );
+  }
 
   @override
   State<CustomZikrForm> createState() => _CustomZikrFormState();

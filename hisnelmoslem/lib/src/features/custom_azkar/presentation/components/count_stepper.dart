@@ -33,10 +33,7 @@ class CountStepper extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () async {
-              final result = await showDialog<int>(
-                context: context,
-                builder: (context) => CountInputDialog(initial: value),
-              );
+              final result = await CountInputDialog.show(context, initial: value);
               if (result != null) onChanged(result);
             },
             child: ConstrainedBox(
@@ -63,6 +60,14 @@ class CountStepper extends StatelessWidget {
 class CountInputDialog extends StatefulWidget {
   final int initial;
   const CountInputDialog({super.key, required this.initial});
+
+  /// Resolves to the typed count, or `null` if dismissed.
+  static Future<int?> show(BuildContext context, {required int initial}) {
+    return showDialog<int>(
+      context: context,
+      builder: (context) => CountInputDialog(initial: initial),
+    );
+  }
 
   @override
   State<CountInputDialog> createState() => _CountInputDialogState();

@@ -16,10 +16,7 @@ class CustomZikrCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: ListTile(
-        onTap: () => showDialog<void>(
-          context: context,
-          builder: (context) => CustomZikrDialog(zikr: zikr),
-        ),
+        onTap: () => CustomZikrDialog.show(context, zikr: zikr),
         title: ZikrPreviewText(content: zikr.content, maxLines: 4),
         subtitle: zikr.source.isEmpty
             ? null
@@ -61,6 +58,13 @@ class CustomZikrFavouriteToggle extends StatelessWidget {
 class CustomZikrDialog extends StatelessWidget {
   final CustomZikr zikr;
   const CustomZikrDialog({super.key, required this.zikr});
+
+  static Future<void> show(BuildContext context, {required CustomZikr zikr}) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => CustomZikrDialog(zikr: zikr),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

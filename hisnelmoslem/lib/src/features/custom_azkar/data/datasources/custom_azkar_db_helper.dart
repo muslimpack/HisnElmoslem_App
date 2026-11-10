@@ -118,8 +118,7 @@ class CustomAzkarDBHelper {
   /// Search text used by the search screens: diacritics removed and lower-cased,
   /// and alef/yaa/taa-marbuta variants unified, so typing plain letters finds the text.
   static String normalizeForSearch(String text) {
-    return text
-        .removeDiacritics
+    return text.removeDiacritics
         .replaceAll(RegExp('[أإآٱ]'), 'ا')
         .replaceAll('ى', 'ي')
         .replaceAll('ة', 'ه')

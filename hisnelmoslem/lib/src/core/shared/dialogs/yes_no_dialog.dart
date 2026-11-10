@@ -7,6 +7,18 @@ class YesOrNoDialog extends StatelessWidget {
 
   const YesOrNoDialog({super.key, required this.msg, this.details});
 
+  /// Resolves to `true` when confirmed, `false` when declined, `null` when dismissed.
+  static Future<bool?> show(
+    BuildContext context, {
+    required String msg,
+    String? details,
+  }) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => YesOrNoDialog(msg: msg, details: details),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

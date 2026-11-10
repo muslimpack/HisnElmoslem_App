@@ -13,28 +13,28 @@ import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/z
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/no_items_found_indicator_builder.dart';
 
 /// Bottom sheet used by the editor to add zikrs to the draft title.
-/// [editorBloc] receives the chosen zikrs.
-Future<void> showAddZikrSheet({
-  required BuildContext context,
-  required CustomTitleEditorBloc editorBloc,
-}) {
-  return showModalBottomSheet<void>(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    showDragHandle: true,
-    builder: (context) => MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: editorBloc),
-        BlocProvider(create: (_) => sl<CustomZikrPickerCubit>()..load()),
-      ],
-      child: const FractionallySizedBox(heightFactor: 0.9, child: AddZikrSheet()),
-    ),
-  );
-}
-
 class AddZikrSheet extends StatelessWidget {
   const AddZikrSheet({super.key});
+
+  /// [editorBloc] receives the chosen zikrs.
+  static Future<void> show(
+    BuildContext context, {
+    required CustomTitleEditorBloc editorBloc,
+  }) {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      showDragHandle: true,
+      builder: (context) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: editorBloc),
+          BlocProvider(create: (_) => sl<CustomZikrPickerCubit>()..load()),
+        ],
+        child: const FractionallySizedBox(heightFactor: 0.9, child: AddZikrSheet()),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class NewZikrTab extends StatelessWidget {
         final editor = context.read<CustomTitleEditorBloc>();
         final navigator = Navigator.of(context);
 
-        final result = await showCustomZikrFormSheet(context: context);
+        final result = await CustomZikrForm.show(context);
         if (result == null) return;
 
         final saved = await picker.saveZikr(result);
@@ -186,21 +186,19 @@ class LibraryZikrTile extends StatelessWidget {
         onSelected: (action) async {
           final editor = context.read<CustomTitleEditorBloc>();
           if (action == "edit") {
-            final result = await showCustomZikrFormSheet(context: context, zikr: zikr);
+            final result = await CustomZikrForm.show(context, zikr: zikr);
             if (result == null) return;
             final saved = await picker.saveZikr(result);
             editor.add(CustomTitleEditorCustomZikrChangedEvent(saved));
           } else {
             final titles = await picker.titlesUsing(zikr.id);
             if (!context.mounted) return;
-            final confirm = await showDialog<bool>(
-              context: context,
-              builder: (context) => YesOrNoDialog(
-                msg: S.of(context).deleteCustomZikrConfirm,
-                details: titles.isEmpty
-                    ? null
-                    : S.of(context).deleteCustomZikrUsedIn(titles.join("، ")),
-              ),
+            final confirm = await YesOrNoDialog.show(
+              context,
+              msg: S.of(context).deleteCustomZikrConfirm,
+              details: titles.isEmpty
+                  ? null
+                  : S.of(context).deleteCustomZikrUsedIn(titles.join("، ")),
             );
             if (confirm ?? false) {
               await picker.deleteZikr(zikr.id);

@@ -7,18 +7,18 @@ import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 
 /// Entry point for creating a title: from scratch or from an existing Hisn title.
-Future<void> showCreateTitleSheet(BuildContext context) {
-  return showModalBottomSheet<void>(
-    context: context,
-    showDragHandle: true,
-    builder: (sheetContext) => CreateTitleSheet(parentContext: context),
-  );
-}
-
 class CreateTitleSheet extends StatelessWidget {
   /// Context that stays mounted after the sheet closes (used for navigation).
   final BuildContext parentContext;
   const CreateTitleSheet({super.key, required this.parentContext});
+
+  static Future<void> show(BuildContext context) {
+    return showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetContext) => CreateTitleSheet(parentContext: context),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +43,7 @@ class CreateTitleSheet extends StatelessWidget {
             subtitle: Text(s.createFromExistingDesc),
             onTap: () async {
               Navigator.pop(context);
-              final DbTitle? picked = await showModalBottomSheet<DbTitle>(
-                context: parentContext,
-                isScrollControlled: true,
-                useSafeArea: true,
-                showDragHandle: true,
-                builder: (_) => BlocProvider.value(
-                  value: parentContext.read<HomeBloc>(),
-                  child: const FractionallySizedBox(
-                    heightFactor: 0.9,
-                    child: OriginalTitlePicker(),
-                  ),
-                ),
-              );
+              final DbTitle? picked = await OriginalTitlePicker.show(parentContext);
               if (picked != null && parentContext.mounted) {
                 parentContext.push(
                   CustomTitleEditorScreen(
@@ -76,6 +64,19 @@ class CreateTitleSheet extends StatelessWidget {
 /// Searchable list of the Hisn al-Muslim titles. Pops with the chosen [DbTitle].
 class OriginalTitlePicker extends StatefulWidget {
   const OriginalTitlePicker({super.key});
+
+  static Future<DbTitle?> show(BuildContext context) {
+    return showModalBottomSheet<DbTitle>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      showDragHandle: true,
+      builder: (_) => BlocProvider.value(
+        value: context.read<HomeBloc>(),
+        child: const FractionallySizedBox(heightFactor: 0.9, child: OriginalTitlePicker()),
+      ),
+    );
+  }
 
   @override
   State<OriginalTitlePicker> createState() => _OriginalTitlePickerState();

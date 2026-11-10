@@ -74,12 +74,10 @@ class CustomTitleMenuButton extends StatelessWidget {
             context.push(CustomTitleEditorScreen(titleId: title.id));
           case _CustomTitleAction.delete:
             final bloc = context.read<CustomTitlesBloc>();
-            final confirm = await showDialog<bool>(
-              context: context,
-              builder: (context) => YesOrNoDialog(
-                msg: S.of(context).customTitleDeleteConfirm,
-                details: S.of(context).customTitleDeleteDetails,
-              ),
+            final confirm = await YesOrNoDialog.show(
+              context,
+              msg: S.of(context).customTitleDeleteConfirm,
+              details: S.of(context).customTitleDeleteDetails,
             );
             if (confirm ?? false) bloc.add(CustomTitlesDeleteEvent(title.id));
         }

@@ -81,12 +81,10 @@ class CustomTitleEditorView extends StatelessWidget {
           onPopInvokedWithResult: (didPop, _) async {
             if (didPop) return;
             final navigator = Navigator.of(context);
-            final discard = await showDialog<bool>(
-              context: context,
-              builder: (context) => YesOrNoDialog(
-                msg: S.of(context).discardChangesTitle,
-                details: S.of(context).discardChangesDetails,
-              ),
+            final discard = await YesOrNoDialog.show(
+              context,
+              msg: S.of(context).discardChangesTitle,
+              details: S.of(context).discardChangesDetails,
             );
             if (discard ?? false) navigator.pop();
           },
@@ -112,8 +110,8 @@ class CustomTitleEditorView extends StatelessWidget {
             ),
             body: const EditorItemsList(),
             floatingActionButton: FloatingActionButton.extended(
-              onPressed: () => showAddZikrSheet(
-                context: context,
+              onPressed: () => AddZikrSheet.show(
+                context,
                 editorBloc: context.read<CustomTitleEditorBloc>(),
               ),
               icon: const Icon(Icons.add_rounded),

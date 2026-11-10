@@ -56,7 +56,7 @@ class CreateCustomTitleButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: FilledButton.tonalIcon(
-          onPressed: () => showCreateTitleSheet(context),
+          onPressed: () => CreateTitleSheet.show(context),
           icon: const Icon(Icons.add_rounded),
           label: Text(S.of(context).newCustomTitle),
         ),
