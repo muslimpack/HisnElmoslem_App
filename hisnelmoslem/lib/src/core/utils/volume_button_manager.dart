@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 
 enum VolumeButtonEvent {
   volumeUpDown,
@@ -46,10 +47,17 @@ class VolumeButtonManager {
   Stream<VolumeButtonEvent> get stream => _streamController.stream;
 
   Future<void> toggleActivation({required bool activate}) async {
-    await channel.invokeMethod(
-      'activate_volumeBtn',
-      activate,
-    );
+    // The native volume-button channel only exists on Android/iOS.
+    if (PlatformExtension.isDesktopOrWeb) return;
+
+    try {
+      await channel.invokeMethod(
+        'activate_volumeBtn',
+        activate,
+      );
+    } on MissingPluginException {
+      // Platform without a native implementation; nothing to toggle.
+    }
   }
 
   void dispose() {
