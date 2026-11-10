@@ -5,6 +5,17 @@ extension StringExtension on String {
     return replaceAll(RegExp(String.fromCharCodes(kArabicDiacriticsChar)), "");
   }
 
+  /// Text prepared for searching: diacritics removed, alef/yaa/taa-marbuta variants
+  /// unified and lower-cased, so plain letters match decorated text.
+  String get normalizedForSearch {
+    return removeDiacritics
+        .replaceAll(RegExp('[أإآٱ]'), 'ا')
+        .replaceAll('ى', 'ي')
+        .replaceAll('ة', 'ه')
+        .toLowerCase()
+        .trim();
+  }
+
   String get removeTextInBrackets {
     final RegExp regExp = RegExp(r'\(.*?\)');
     return replaceAll(regExp, "");

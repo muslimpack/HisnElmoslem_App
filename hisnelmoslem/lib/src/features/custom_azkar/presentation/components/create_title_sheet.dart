@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/screens/custom_title_editor_screen.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -90,7 +91,12 @@ class _OriginalTitlePickerState extends State<OriginalTitlePicker> {
     final state = context.watch<HomeBloc>().state;
     if (state is! HomeLoadedState) return const SizedBox.shrink();
 
-    final titles = state.titles.where((t) => t.name.contains(_query.trim())).toList();
+    final words = _query.normalizedForSearch.split(' ').where((w) => w.isNotEmpty);
+    final titles = state.titles.where((t) {
+      // Same idea as the main search: match against the title's search text.
+      final searchText = (t.search.isEmpty ? t.name : t.search).normalizedForSearch;
+      return words.every(searchText.contains);
+    }).toList();
 
     return Column(
       children: [
