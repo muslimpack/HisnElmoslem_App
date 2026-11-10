@@ -19,7 +19,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
                 currentIndex: state.activeZikrIndex,
                 totalCount: state.azkarToView.length,
               ),
-              BookmarkTitleButton(titleId: state.title.id),
+              if (!state.title.isCustom) BookmarkTitleButton(titleId: state.title.id),
             ],
             bottom: state.activeZikr == null
                 ? null

@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_ti
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_title_favourite_button.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/screens/custom_title_editor_screen.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class CustomTitleCard extends StatelessWidget {
   final CustomTitle title;
@@ -25,7 +26,7 @@ class CustomTitleCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListTile(
-      onTap: onTap ?? () => context.push(CustomTitleEditorScreen(titleId: title.id)),
+      onTap: onTap ?? () => context.push(ZikrViewerScreen.custom(customTitleId: title.id)),
       leading: CustomTitleFavouriteButton(
         titleId: title.id,
         isFavourite: title.isFavourite,

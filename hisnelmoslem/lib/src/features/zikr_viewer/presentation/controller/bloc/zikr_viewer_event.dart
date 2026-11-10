@@ -12,13 +12,17 @@ final class ZikrViewerStartEvent extends ZikrViewerEvent {
   final int titleIndex;
   final ZikrViewerMode zikrViewerMode;
 
+  /// Set to show a user-created title instead of a Hisn al-Muslim title.
+  final int? customTitleId;
+
   const ZikrViewerStartEvent({
     required this.titleIndex,
     required this.zikrViewerMode,
+    this.customTitleId,
   });
 
   @override
-  List<Object> get props => [titleIndex, zikrViewerMode];
+  List<Object?> get props => [titleIndex, zikrViewerMode, customTitleId];
 }
 
 final class ZikrViewerDecreaseZikrEvent extends ZikrViewerEvent {

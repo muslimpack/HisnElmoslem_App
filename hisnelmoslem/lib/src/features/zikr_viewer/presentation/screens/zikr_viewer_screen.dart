@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/components/bookmark_title_button.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/animated_zikr_progress_counter.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
@@ -27,7 +28,14 @@ part 'zikr_viewer_page_mode_screen.dart';
 class ZikrViewerScreen extends StatelessWidget {
   final int index;
 
-  const ZikrViewerScreen({super.key, required this.index});
+  /// Non-null when viewing a user-created title.
+  final int? customTitleId;
+
+  const ZikrViewerScreen({super.key, required this.index}) : customTitleId = null;
+
+  /// Opens a custom title. Its viewer title id is the negated custom id so that
+  /// sessions and other per-title state never collide with original titles.
+  const ZikrViewerScreen.custom({super.key, required int this.customTitleId}) : index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,8 @@ class ZikrViewerScreen extends StatelessWidget {
       create: (context) => sl<ZikrViewerBloc>()
         ..add(
           ZikrViewerStartEvent(
-            titleIndex: index,
+            titleIndex: customTitleId == null ? index : -customTitleId!,
+            customTitleId: customTitleId,
             zikrViewerMode: sl<AppSettingsRepo>().isCardReadMode
                 ? ZikrViewerMode.card
                 : ZikrViewerMode.page,

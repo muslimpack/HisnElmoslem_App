@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_top_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_zikr_body.dart';
@@ -73,15 +74,16 @@ class _BottomBar extends StatelessWidget {
           },
           icon: const Icon(Icons.repeat),
         ),
-        IconButton(
-          tooltip: S.of(context).report,
-          icon: const Icon(Icons.report_outlined, color: Colors.orange),
-          onPressed: () {
-            context.read<ZikrViewerBloc>().add(
-              ZikrViewerReportZikrEvent(content: dbContent),
-            );
-          },
-        ),
+        if (!dbContent.isFromCustomTitle)
+          IconButton(
+            tooltip: S.of(context).report,
+            icon: const Icon(Icons.report_outlined, color: Colors.orange),
+            onPressed: () {
+              context.read<ZikrViewerBloc>().add(
+                ZikrViewerReportZikrEvent(content: dbContent),
+              );
+            },
+          ),
       ],
     );
   }

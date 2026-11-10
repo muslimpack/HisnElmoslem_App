@@ -11,12 +11,15 @@ import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/mappers/resolved_item_mapper.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_session.dart';
@@ -38,6 +41,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
   final ZikrAudioPlayerCubit zikrAudioPlayerCubit;
+  final CustomAzkarRepo customAzkarRepo;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
@@ -47,6 +51,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     this.zikrViewerRepo,
     this.azkarFiltersRepo,
     this.zikrAudioPlayerCubit,
+    this.customAzkarRepo,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -100,20 +105,37 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       WakelockPlus.enable();
     }
 
-    final title = await hisnDBHelper.getTitleById(id: event.titleIndex);
+    final customTitleId = event.customTitleId;
+    final DbTitle title;
+    final List<DbContent> filteredAzkar;
 
-    final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
-      titleId: event.titleIndex,
-    );
-
-    final List<Filter> filters = azkarFiltersRepo.getAllFilters;
-    final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+    if (customTitleId != null) {
+      final customTitle = await customAzkarRepo.getTitle(customTitleId);
+      if (customTitle == null) {
+        App.navigatorKey.currentState?.maybePop();
+        return;
+      }
+      final items = await customAzkarRepo.getResolvedItems(customTitleId);
+      title = DbTitle(id: -customTitleId, name: customTitle.name, freq: "", order: 0);
+      // Azkar picked by the user are never hidden by the azkar filters.
+      filteredAzkar = [
+        for (var i = 0; i < items.length; i++)
+          items[i].toViewerContent(customTitleId: customTitleId, order: i),
+      ];
+    } else {
+      title = await hisnDBHelper.getTitleById(id: event.titleIndex);
+      final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
+        titleId: event.titleIndex,
+      );
+      final List<Filter> filters = azkarFiltersRepo.getAllFilters;
+      filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+    }
 
     final azkarToView = List<DbContent>.from(filteredAzkar);
 
     _initZikrPageMode(event.zikrViewerMode);
 
-    final restoredSession = zikrViewerRepo.getLastSession(event.titleIndex);
+    final restoredSession = zikrViewerRepo.getLastSession(title.id);
     final askToRestoreSession =
         zikrViewerRepo.allowZikrSessionRestoration &&
         restoredSession != null &&
@@ -391,7 +413,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(contentId: activeZikr.id);
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+          content: activeZikr.isFromCustomTitle
+              ? state.azkar.where((x) => x.id == activeZikr.id).firstOrNull ?? activeZikr
+              : null,
+        );
       },
     );
   }
@@ -411,7 +438,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(contentId: activeZikr.id);
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+          content: activeZikr.isFromCustomTitle
+              ? state.azkar.where((x) => x.id == activeZikr.id).firstOrNull ?? activeZikr
+              : null,
+        );
       },
     );
   }
@@ -426,7 +458,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       state: state,
       eventContent: event.content,
     );
-    if (activeZikr == null) return;
+    if (activeZikr == null || activeZikr.isFromCustomTitle) return;
 
     final text = await activeZikr.getPlainText();
     EmailManager.sendMisspelledInZikr(
