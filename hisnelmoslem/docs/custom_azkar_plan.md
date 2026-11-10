@@ -146,3 +146,15 @@ Original favourites live in `data.db` as bare ids that are resolved against the 
 ## 10. Open questions
 
 None outstanding — resolved above.
+
+## 11. Implementation notes (as built, branch `feature/custom-azkar-tab`)
+
+Deviations / decisions made while implementing:
+
+- **Viewer ids**: custom titles open with title id `-customTitleId` and every item gets content id `-itemId` (unique per row, so the same original zikr added twice counts independently). `DbContent.customZikrId` marks zikrs the user authored. Helpers live in `zikr_viewer/data/models/custom_title_source.dart`.
+- **Not available for original zikrs inside a custom title** (they need the real original id): commentary, report and zikr-favourite buttons are hidden. Custom zikrs can be favourited; custom titles have a title bookmark.
+- **Search**: custom matches are prepended to the first page of results (all of them at once); later pages subtract that count from the original-DB offset.
+- **Alarms**: one per title, notification id `1_000_000 + titleId`, payload `custom:<titleId>`; rescheduled in `AlarmManager.checkAllAlarmsInDb` and on `CustomTitlesRefreshEvent`; stale custom notifications are cancelled.
+- **Dashboard order**: `AppSettingsRepo.getDashboardArrangement(tabsCount)` now normalizes the saved order, otherwise existing users (saved order `0,1,2`) would crash with a 4th tab.
+- **Tests**: `test/features/custom_azkar/` — repository (sqflite ffi, in-memory), backup file round trip, alarm payloads, and widget tests for the editor screen.
+- **Not verified here**: no manual run on a device/emulator (notification delivery, tap-to-open from a killed app, real backup/restore through the file picker, RTL visual check). Those still need a hands-on pass.
