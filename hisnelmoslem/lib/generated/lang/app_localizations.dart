@@ -1946,6 +1946,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Drag to reorder'**
   String get dragToReorderTab;
+
+  /// No description provided for @dashboardArrangementReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to default order'**
+  String get dashboardArrangementReset;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

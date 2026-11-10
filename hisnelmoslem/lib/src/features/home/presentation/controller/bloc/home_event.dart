@@ -31,6 +31,11 @@ class HomeDashboardReorderedEvent extends HomeEvent {
   List<Object> get props => [oldIndex, newIndex];
 }
 
+/// Restores the original order of the home tabs.
+class HomeDashboardResetEvent extends HomeEvent {
+  const HomeDashboardResetEvent();
+}
+
 class HomeToggleFilterEvent extends HomeEvent {
   final TitlesFreqEnum filter;
 

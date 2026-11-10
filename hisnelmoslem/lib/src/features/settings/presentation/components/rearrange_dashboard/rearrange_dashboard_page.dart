@@ -17,12 +17,26 @@ class RearrangeDashboardPage extends StatelessWidget {
         if (state is! HomeLoadedState) {
           return const Loading();
         }
+        final isDefaultOrder =
+            [
+              for (var i = 0; i < state.dashboardArrangement.length; i++) i,
+            ].toString() ==
+            state.dashboardArrangement.toString();
         final tabs = [for (final index in state.dashboardArrangement) appDashboardTabs[index]];
 
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Text(S.of(context).dashboardArrangement),
+            actions: [
+              IconButton(
+                tooltip: S.of(context).dashboardArrangementReset,
+                icon: const Icon(Icons.restart_alt_rounded),
+                onPressed: isDefaultOrder
+                    ? null
+                    : () => context.read<HomeBloc>().add(const HomeDashboardResetEvent()),
+              ),
+            ],
           ),
           body: ReorderableListView.builder(
             buildDefaultDragHandles: false,

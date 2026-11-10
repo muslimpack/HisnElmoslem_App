@@ -951,4 +951,7 @@ class SAr extends S {
 
   @override
   String get dragToReorderTab => 'اسحب لإعادة الترتيب';
+
+  @override
+  String get dashboardArrangementReset => 'استعادة الترتيب الافتراضي';
 }

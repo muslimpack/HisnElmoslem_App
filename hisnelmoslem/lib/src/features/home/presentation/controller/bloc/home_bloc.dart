@@ -43,6 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeToggleSearchEvent>(_toggleSearch);
 
     on<HomeDashboardReorderedEvent>(_onDashboardReorded);
+    on<HomeDashboardResetEvent>(_onDashboardReset);
 
     on<HomeToggleFilterEvent>(_onFilterToggled);
     on<HomeFiltersChangeEvent>(_filtersChanged);
@@ -107,6 +108,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     appSettingsRepo.changeDashboardArrangement(listToSet);
 
     emit(state.copyWith(dashboardArrangement: listToSet));
+  }
+
+  Future<void> _onDashboardReset(
+    HomeDashboardResetEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! HomeLoadedState) return;
+
+    final defaultOrder = List<int>.generate(appDashboardTabs.length, (i) => i);
+    appSettingsRepo.changeDashboardArrangement(defaultOrder);
+
+    emit(state.copyWith(dashboardArrangement: defaultOrder));
   }
 
   @override

@@ -953,4 +953,7 @@ class SEn extends S {
 
   @override
   String get dragToReorderTab => 'Drag to reorder';
+
+  @override
+  String get dashboardArrangementReset => 'Reset to default order';
 }
