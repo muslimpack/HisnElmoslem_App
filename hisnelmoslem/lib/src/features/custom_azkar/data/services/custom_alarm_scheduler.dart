@@ -1,3 +1,4 @@
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_alarm.dart';
@@ -68,9 +69,25 @@ class CustomAlarmScheduler {
     return notifications.cancelNotificationById(id: notificationId(titleId));
   }
 
-  /// Re-registers every stored alarm (app start, after a restore, after renames).
+  /// Re-registers every stored alarm (app start, after a restore, after renames)
+  /// and cancels pending custom notifications that no longer have an alarm.
   Future<void> rescheduleAll() async {
     final alarms = await repo.getAlarms();
+    final knownIds = alarms.map((a) => notificationId(a.titleId)).toSet();
+
+    try {
+      final pending = await notifications.flutterLocalNotificationsPlugin
+          .pendingNotificationRequests();
+      for (final request in pending) {
+        if (request.id >= notificationIdBase && !knownIds.contains(request.id)) {
+          await notifications.cancelNotificationById(id: request.id);
+        }
+      }
+    } catch (e) {
+      // Not every platform can list pending notifications; stale ones are harmless.
+      hisnPrint(e);
+    }
+
     for (final alarm in alarms) {
       final title = await repo.getTitle(alarm.titleId);
       if (title == null) {
