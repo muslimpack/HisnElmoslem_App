@@ -9,7 +9,9 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/dot_bar.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/share_card_metrics.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_kind.dart';
 
 /// The picture that is shared: a framed card with the title, the zikr text, its fadl,
 /// source and count, and the app name. Colors come from [ShareImageSettings].
@@ -55,6 +57,7 @@ class ShareableImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final kind = zikrTitle.kind;
     final background = shareImageSettings.backgroundColor;
     final accent = shareImageSettings.titleTextColor;
     final mainColor = shareImageSettings.additionalTextColor;
@@ -98,10 +101,11 @@ class ShareableImageCard extends StatelessWidget {
       mainStyle: mainStyle,
       secondaryStyle: secondaryStyle,
       fadl: showFadl ? zikr.fadl : null,
-      fadlLabel: zikrTitle.id >= 0,
+      fadlLabel: kind == ZikrKind.hisn,
       source: showSource ? zikr.source : null,
       count: showCount ? zikr.count : null,
       hasDots: splittedLength > 1,
+      hasBadge: kind != ZikrKind.hisn,
     );
 
     // The picture must not depend on the phone's font scale.
@@ -171,13 +175,14 @@ class ShareableImageCard extends StatelessWidget {
                               textStyle: secondaryStyle,
                               fadl: showFadl ? zikr.fadl : null,
                               // Fake hadith and custom azkar already carry their own wording.
-                              showFadlLabel: zikrTitle.id >= 0,
+                              showFadlLabel: kind == ZikrKind.hisn,
                               source: showSource ? zikr.source : null,
                               count: showCount ? zikr.count : null,
                             ),
                           ],
                           const SizedBox(height: 24),
                           ShareCardFooter(
+                            kind: kind,
                             accent: accent,
                             fontFamily: settings.secondaryFontFamily,
                             dots: splittedLength > 1
@@ -197,6 +202,62 @@ class ShareableImageCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// A pill at the bottom left that tells a custom zikr or a fake hadith from a Hisn zikr.
+/// A fake hadith is red on purpose, so it can never be mistaken for an authentic one.
+class ShareCardKindBadge extends StatelessWidget {
+  final ZikrKind kind;
+  final Color accent;
+  final String fontFamily;
+
+  const ShareCardKindBadge({
+    super.key,
+    required this.kind,
+    required this.accent,
+    required this.fontFamily,
+  });
+
+  /// Arabic, like the rest of the picture, whatever the app language is.
+  static String labelOf(ZikrKind kind) => switch (kind) {
+    ZikrKind.hisn => "",
+    ZikrKind.custom => "ذكر خاص",
+    ZikrKind.fakeHadith => "حديث لا يصح",
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final isWarning = kind == ZikrKind.fakeHadith;
+    final color = isWarning ? Colors.white : accent;
+    final icon = isWarning ? Icons.warning_amber_rounded : Icons.edit_note_rounded;
+
+    return Container(
+      height: 38,
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      decoration: BoxDecoration(
+        color: isWarning ? const Color(0xFFC62828) : accent.withValues(alpha: .14),
+        borderRadius: BorderRadius.circular(30),
+        border: isWarning ? null : Border.all(color: accent, width: 2),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 26),
+          const SizedBox(width: 8),
+          Text(
+            labelOf(kind),
+            style: TextStyle(
+              fontSize: 26,
+              height: 1.2,
+              fontWeight: FontWeight.bold,
+              color: color,
+              fontFamily: fontFamily,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -377,36 +438,65 @@ class ShareCardDetails extends StatelessWidget {
   }
 }
 
-/// App icon and name, with the page dots of a split zikr.
+/// App icon and name, with the kind badge at the bottom left for a custom zikr or a fake
+/// hadith, and the page dots of a split zikr.
 class ShareCardFooter extends StatelessWidget {
+  final ZikrKind kind;
   final Color accent;
   final String fontFamily;
   final Widget? dots;
 
-  const ShareCardFooter({super.key, required this.accent, required this.fontFamily, this.dots});
+  const ShareCardFooter({
+    super.key,
+    this.kind = ZikrKind.hisn,
+    required this.accent,
+    required this.fontFamily,
+    this.dots,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final brand = Row(
+      mainAxisSize: MainAxisSize.min,
+      textDirection: TextDirection.rtl,
+      children: [
+        Image.asset("assets/images/app_icon.png", height: 72),
+        const SizedBox(width: 18),
+        Text(
+          "تطبيق حصن المسلم",
+          style: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: accent,
+            fontFamily: fontFamily,
+          ),
+        ),
+      ],
+    );
+
     return Column(
       children: [
         ShareCardRule(color: accent, fadeToEnd: true),
         const SizedBox(height: 18),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("assets/images/app_icon.png", height: 72),
-            const SizedBox(width: 18),
-            Text(
-              "تطبيق حصن المسلم",
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: accent,
-                fontFamily: fontFamily,
-              ),
+        if (kind == ZikrKind.hisn)
+          Center(child: brand)
+        else
+          // The app on the right, the badge on the left, whatever the language.
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Row(
+              children: [
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: ShareCardKindBadge(kind: kind, accent: accent, fontFamily: fontFamily),
+                  ),
+                ),
+                const Spacer(),
+                brand,
+              ],
             ),
-          ],
-        ),
+          ),
         if (dots != null) ...[const SizedBox(height: 10), dots!],
       ],
     );

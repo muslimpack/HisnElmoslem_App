@@ -115,6 +115,7 @@ class ShareCardMetrics {
     String? source,
     int? count,
     bool hasDots = false,
+    bool hasBadge = false,
   }) {
     final width = contentWidth(imageWidth);
     var height = 2 * (_frame + _frameGap) + _topPadding + _bottomPadding;
@@ -202,6 +203,7 @@ class ShareCardMetrics {
     String? source,
     int? count,
     bool hasDots = false,
+    bool hasBadge = false,
   }) {
     final width = contentWidth(imageWidth);
     final overhead =
@@ -215,6 +217,7 @@ class ShareCardMetrics {
           source: source,
           count: count,
           hasDots: hasDots,
+          hasBadge: hasBadge,
         ) +
         _slack;
     final maxHeight = max(minHeight, imageWidth * maxAspectRatio);

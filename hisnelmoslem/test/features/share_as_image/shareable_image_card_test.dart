@@ -202,6 +202,30 @@ void main() {
     expect(title.center.dx, closeTo(card.center.dx, 1));
   });
 
+  testWidgets("a Hisn zikr has no kind badge", (tester) async {
+    await pump(tester, size: const Size(1080, 1080), zikr: _zikr());
+
+    expect(find.byType(ShareCardKindBadge), findsNothing);
+  });
+
+  testWidgets("a custom zikr and a fake hadith are marked, and still fit", (tester) async {
+    for (final entry in {
+      -2: "ذكر خاص",
+      -1: "حديث لا يصح",
+    }.entries) {
+      await pump(
+        tester,
+        size: const Size(1080, 1080),
+        zikr: _zikr(),
+        zikrTitle: DbTitle(id: entry.key, name: "عنوان", freq: "", order: 0),
+      );
+
+      expect(find.text(entry.value), findsOneWidget);
+      expectTextClear(tester, _zikr().content);
+      expect(tester.takeException(), isNull);
+    }
+  });
+
   testWidgets("a custom zikr shows its fadl without the label", (tester) async {
     await pump(
       tester,

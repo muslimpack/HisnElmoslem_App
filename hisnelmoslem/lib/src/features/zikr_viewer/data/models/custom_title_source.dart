@@ -1,5 +1,6 @@
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_kind.dart';
 
 /// The viewer shows user-created titles with a title id of `-(customTitleId + 1)`
 /// (always <= -2) and negative content ids (`-itemId`). That keeps them from ever
@@ -10,14 +11,18 @@ int customViewerTitleId(int customTitleId) => -(customTitleId + 1);
 int customTitleIdFromViewerTitleId(int viewerTitleId) => -viewerTitleId - 1;
 
 extension ViewerCustomTitle on DbTitle {
-  bool get isCustom => id <= -2;
+  ZikrKind get kind => ZikrKind.fromTitleId(id);
+
+  bool get isCustom => kind == ZikrKind.custom;
 
   /// The custom title id; only meaningful when [isCustom].
   int get customTitleId => customTitleIdFromViewerTitleId(id);
 }
 
 extension ViewerCustomContent on DbContent {
-  bool get isFromCustomTitle => titleId <= -2;
+  ZikrKind get kind => ZikrKind.fromTitleId(titleId);
+
+  bool get isFromCustomTitle => kind == ZikrKind.custom;
 
   /// The custom title id; only meaningful when [isFromCustomTitle].
   int get customTitleId => customTitleIdFromViewerTitleId(titleId);

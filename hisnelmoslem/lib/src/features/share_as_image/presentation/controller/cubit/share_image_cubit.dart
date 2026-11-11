@@ -27,6 +27,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/services/share_ima
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_kind.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -139,16 +140,20 @@ class ShareImageCubit extends Cubit<ShareImageState> {
   }
 
   FutureOr<DbTitle> _getTitle(DbContent content) async {
-    final DbTitle title;
-    if (content.titleId >= 0) {
-      title = await sl<HisnDBHelper>().getTitleById(id: content.titleId);
-    } else if (content.isFromCustomTitle) {
-      final customTitle = await sl<CustomAzkarRepo>().getTitle(content.customTitleId);
-      title = DbTitle(id: content.titleId, name: customTitle?.name ?? "", freq: "", order: -1);
-    } else {
-      title = const DbTitle(id: -1, name: "أحاديث منتشرة لا تصح", freq: "", order: -1);
+    switch (content.kind) {
+      case ZikrKind.hisn:
+        return sl<HisnDBHelper>().getTitleById(id: content.titleId);
+      case ZikrKind.custom:
+        final customTitle = await sl<CustomAzkarRepo>().getTitle(content.customTitleId);
+        return DbTitle(id: content.titleId, name: customTitle?.name ?? "", freq: "", order: -1);
+      case ZikrKind.fakeHadith:
+        return const DbTitle(
+          id: ZikrKind.fakeHadithTitleId,
+          name: "أحاديث منتشرة لا تصح",
+          freq: "",
+          order: -1,
+        );
     }
-    return title;
   }
 
   /// MARK: ** EVENTS **
