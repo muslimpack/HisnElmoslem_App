@@ -340,5 +340,10 @@
   "audioPause": "إيقاف مؤقت للصوت",
   "audioStop": "إيقاف الصوت",
   "zikrTapToCount": "اضغط للعد",
-  "zikrDone": "تم"
+  "zikrDone": "تم",
+  "shareImageCustomize": "تخصيص",
+  "shareImageColors": "الألوان",
+  "shareImageContent": "المحتوى",
+  "shareImageColorTarget": "اختر ما تريد تلوينه",
+  "shareImageTextColor": "لون النص"
 }

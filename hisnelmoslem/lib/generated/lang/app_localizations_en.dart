@@ -1041,4 +1041,19 @@ class SEn extends S {
 
   @override
   String get zikrDone => 'Done';
+
+  @override
+  String get shareImageCustomize => 'Customize';
+
+  @override
+  String get shareImageColors => 'Colors';
+
+  @override
+  String get shareImageContent => 'Content';
+
+  @override
+  String get shareImageColorTarget => 'Choose what to color';
+
+  @override
+  String get shareImageTextColor => 'Text color';
 }

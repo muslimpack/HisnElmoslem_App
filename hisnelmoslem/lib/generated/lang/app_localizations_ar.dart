@@ -1039,4 +1039,19 @@ class SAr extends S {
 
   @override
   String get zikrDone => 'تم';
+
+  @override
+  String get shareImageCustomize => 'تخصيص';
+
+  @override
+  String get shareImageColors => 'الألوان';
+
+  @override
+  String get shareImageContent => 'المحتوى';
+
+  @override
+  String get shareImageColorTarget => 'اختر ما تريد تلوينه';
+
+  @override
+  String get shareImageTextColor => 'لون النص';
 }

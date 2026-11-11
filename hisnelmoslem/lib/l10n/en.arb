@@ -340,5 +340,10 @@
   "audioPause": "Pause audio",
   "audioStop": "Stop audio",
   "zikrTapToCount": "Tap to count",
-  "zikrDone": "Done"
+  "zikrDone": "Done",
+  "shareImageCustomize": "Customize",
+  "shareImageColors": "Colors",
+  "shareImageContent": "Content",
+  "shareImageColorTarget": "Choose what to color",
+  "shareImageTextColor": "Text color"
 }

@@ -2120,6 +2120,36 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Done'**
   String get zikrDone;
+
+  /// No description provided for @shareImageCustomize.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize'**
+  String get shareImageCustomize;
+
+  /// No description provided for @shareImageColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get shareImageColors;
+
+  /// No description provided for @shareImageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get shareImageContent;
+
+  /// No description provided for @shareImageColorTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what to color'**
+  String get shareImageColorTarget;
+
+  /// No description provided for @shareImageTextColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Text color'**
+  String get shareImageTextColor;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {
