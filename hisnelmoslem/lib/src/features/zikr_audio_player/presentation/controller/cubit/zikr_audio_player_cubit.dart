@@ -38,6 +38,10 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     Function(DbContent zikr)? onDonePlaying,
     int Function(int index)? getActiveZikrCount,
     List<DbContent>? zikrList,
+
+    /// When false a finished track is only reported through [onDonePlaying]: nothing
+    /// is repeated or started next, the caller decides what to play.
+    bool autoPlay = true,
   }) async {
     _playbackToken++;
     this.onDonePlaying = onDonePlaying;
@@ -46,7 +50,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       state.copyWith(
         currentIndex: 0,
         isPlaying: false,
-        autoPlay: true,
+        autoPlay: autoPlay,
         playbackSpeed: zikrAudioPlayerRepo.getSpeed(),
         volume: zikrAudioPlayerRepo.getVolume(),
         delayType: zikrAudioPlayerRepo.getDelay(),
@@ -192,6 +196,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       await _playNextZikr();
     } else {
       // If no autoplay, just finish the zikr track.
+      emit(state.copyWith(isPlaying: false, isPaused: false));
       onDonePlaying?.call(currentZikr);
     }
   }
@@ -257,6 +262,19 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       hisnPrint('AudioPlayer Error playing Zikr: $e');
       emit(state.copyWith(isPlaying: false, isPaused: false));
     }
+  }
+
+  /// Replaces the list with the single [zikr] (used by the tally, which plays one
+  /// recording at a time). Playback is not started.
+  void setTrack(DbContent zikr) {
+    emit(
+      state.copyWith(
+        zikrList: [zikr],
+        currentIndex: 0,
+        position: Duration.zero,
+        totalDuration: Duration.zero,
+      ),
+    );
   }
 
   Future<void> _playNextZikr() async {

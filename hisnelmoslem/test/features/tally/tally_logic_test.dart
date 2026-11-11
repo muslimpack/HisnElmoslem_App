@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
-import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_advance_trigger.dart';
@@ -16,96 +13,36 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_repo.dart'
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class _FakeBox extends Fake implements GetStorage {
-  final values = <String, dynamic>{};
-
-  @override
-  T? read<T>(String key) => values[key] as T?;
-
-  @override
-  Future<void> write(String key, dynamic value) async => values[key] = value;
-}
-
-class _FakeEffects extends Fake implements EffectsManager {
-  final completed = <bool>[];
-
-  @override
-  Future<void> playProgressEffects({
-    bool zikrCompleted = false,
-    bool titleCompleted = false,
-  }) async {
-    completed.add(zikrCompleted);
-  }
-}
-
-class _FakeVolume extends Fake implements VolumeButtonManager {
-  @override
-  Stream<VolumeButtonEvent> get stream => const Stream.empty();
-
-  @override
-  Future<void> toggleActivation({required bool activate}) async {}
-
-  @override
-  void dispose() {}
-}
-
-DbTally _tally(
-  String title, {
-  int count = 0,
-  int cycle = 33,
-  bool active = false,
-  String audio = "",
-}) {
-  final now = DateTime(2026);
-  return DbTally(
-    title: title,
-    count: count,
-    countReset: cycle,
-    isActivated: active,
-    created: now,
-    lastUpdate: now,
-    audioFile: audio,
-  );
-}
-
-Future<Database> _openMemoryDb() {
-  return databaseFactoryFfi.openDatabase(
-    inMemoryDatabasePath,
-    options: OpenDatabaseOptions(
-      version: TallyDatabaseHelper.dbVersion,
-      onCreate: (db, _) => TallyDatabaseHelper.createSchema(db),
-    ),
-  );
-}
+import 'tally_test_support.dart';
 
 void main() {
   setUpAll(sqfliteFfiInit);
 
   group('DbTally', () {
     test('cycle helpers', () {
-      final t = _tally('a', count: 66);
+      final t = makeTally('a', count: 66);
       expect(t.cycles, 2);
       expect(t.countInCycle, 0);
       expect(t.isAtCycleEnd, isTrue);
-      expect(_tally('a', count: 40).isAtCycleEnd, isFalse);
-      expect(_tally('a').isAtCycleEnd, isFalse);
+      expect(makeTally('a', count: 40).isAtCycleEnd, isFalse);
+      expect(makeTally('a').isAtCycleEnd, isFalse);
     });
 
     test('a zero or negative cycle size never divides by zero', () {
-      final t = _tally('a', count: 5, cycle: 0);
+      final t = makeTally('a', count: 5, cycle: 0);
       expect(t.cycleSize, 1);
       expect(t.cycles, 5);
     });
 
     test('the trigger decides when auto-advance moves on', () {
-      final first = _tally('a', count: 1);
+      final first = makeTally('a', count: 1);
       expect(TallyAdvanceTrigger.perCount.shouldAdvance(first), isTrue);
       expect(TallyAdvanceTrigger.perCycle.shouldAdvance(first), isFalse);
       expect(TallyAdvanceTrigger.perCycle.shouldAdvance(first.copyWith(count: 33)), isTrue);
     });
 
     test('map round trip keeps the recording', () {
-      final t = _tally('a', audio: 'rec_1.m4a');
+      final t = makeTally('a', audio: 'rec_1.m4a');
       final back = DbTally.fromMap({...t.toMap(), 'id': 7});
       expect(back.audioFile, 'rec_1.m4a');
       expect(back.hasAudio, isTrue);
@@ -152,11 +89,11 @@ void main() {
     });
 
     test('lists the recordings that counters refer to', () async {
-      final db = await _openMemoryDb();
+      final db = await openMemoryDb();
       final helper = TallyDatabaseHelper.withDatabase(db);
-      await helper.addNewTally(dbTally: _tally('a', audio: 'one.m4a'));
-      await helper.addNewTally(dbTally: _tally('b'));
-      await helper.addNewTally(dbTally: _tally('c', audio: 'two.m4a'));
+      await helper.addNewTally(dbTally: makeTally('a', audio: 'one.m4a'));
+      await helper.addNewTally(dbTally: makeTally('b'));
+      await helper.addNewTally(dbTally: makeTally('c', audio: 'two.m4a'));
 
       expect(await helper.referencedAudioFiles(), {'one.m4a', 'two.m4a'});
       await db.close();
@@ -165,9 +102,9 @@ void main() {
 
   group('pickNextCounter', () {
     final counters = [
-      _tally('a', active: true, audio: 'a.m4a'),
-      _tally('b'),
-      _tally('c', audio: 'c.m4a'),
+      makeTally('a', active: true, audio: 'a.m4a'),
+      makeTally('b'),
+      makeTally('c', audio: 'c.m4a'),
     ].indexed.map((e) => e.$2.copyWith(id: e.$1 + 1)).toList();
 
     test('circular goes to the next one and wraps around', () {
@@ -213,8 +150,8 @@ void main() {
   group('TallyBloc counting', () {
     late Database db;
     late TallyDatabaseHelper helper;
-    late _FakeBox box;
-    late _FakeEffects effects;
+    late FakeBox box;
+    late FakeEffects effects;
     late TallyBloc bloc;
     late Directory audioDir;
     late LocalCustomAudioStorage storage;
@@ -224,19 +161,19 @@ void main() {
       TallyIterationMode mode = TallyIterationMode.none,
       TallyAdvanceTrigger trigger = TallyAdvanceTrigger.perCount,
     }) async {
-      db = await _openMemoryDb();
+      db = await openMemoryDb();
       helper = TallyDatabaseHelper.withDatabase(db);
       for (final c in counters) {
         await helper.addNewTally(dbTally: c);
       }
-      box = _FakeBox();
+      box = FakeBox();
       await TallyRepo(box).saveIterationMode(mode);
       await TallyRepo(box).saveAdvanceTrigger(trigger);
       sl.registerLazySingleton(() => AppSettingsRepo(box));
-      effects = _FakeEffects();
+      effects = FakeEffects();
       audioDir = await Directory.systemTemp.createTemp('tally_audio_test');
       storage = LocalCustomAudioStorage(directoryOverride: audioDir);
-      bloc = TallyBloc(helper, effects, _FakeVolume(), TallyRepo(box), storage);
+      bloc = TallyBloc(helper, effects, FakeVolume(), TallyRepo(box), storage);
       bloc.add(TallyStartEvent());
       await bloc.stream.firstWhere((s) => s is TallyLoadedState);
     }
@@ -257,7 +194,7 @@ void main() {
     }
 
     test('without auto-advance the same counter keeps counting', () async {
-      await start([_tally('a', active: true), _tally('b')]);
+      await start([makeTally('a', active: true), makeTally('b')]);
       await tap();
       final active = await tap();
       expect(active?.title, 'a');
@@ -267,7 +204,7 @@ void main() {
 
     test('per count: moves to the next counter after every count', () async {
       await start(
-        [_tally('a', active: true), _tally('b')],
+        [makeTally('a', active: true), makeTally('b')],
         mode: TallyIterationMode.circular,
       );
       final active = await tap();
@@ -279,8 +216,8 @@ void main() {
     test('per cycle: stays on the counter until its cycle is complete', () async {
       await start(
         [
-          _tally('a', active: true, cycle: 3),
-          _tally('b'),
+          makeTally('a', active: true, cycle: 3),
+          makeTally('b'),
         ],
         mode: TallyIterationMode.circular,
         trigger: TallyAdvanceTrigger.perCycle,
@@ -295,8 +232,8 @@ void main() {
     test('each counter uses its own cycle size, also when auto-advance is on', () async {
       await start(
         [
-          _tally('a', active: true, cycle: 2),
-          _tally('b', cycle: 5),
+          makeTally('a', active: true, cycle: 2),
+          makeTally('b', cycle: 5),
         ],
         mode: TallyIterationMode.circular,
         trigger: TallyAdvanceTrigger.perCycle,
@@ -308,14 +245,18 @@ void main() {
 
     test('audioOnly skips counters without a recording', () async {
       await start(
-        [_tally('a', active: true, audio: 'a.m4a'), _tally('b'), _tally('c', audio: 'c.m4a')],
+        [
+          makeTally('a', active: true, audio: 'a.m4a'),
+          makeTally('b'),
+          makeTally('c', audio: 'c.m4a'),
+        ],
         mode: TallyIterationMode.circular,
       );
       expect((await tap(audioOnly: true))?.title, 'c');
     });
 
     test('a single counter stays active when auto-advance has nowhere to go', () async {
-      await start([_tally('a', active: true)], mode: TallyIterationMode.shuffle);
+      await start([makeTally('a', active: true)], mode: TallyIterationMode.shuffle);
       final active = await tap();
       expect(active?.title, 'a');
       expect(loaded().loadingIteration, isFalse);
@@ -323,7 +264,7 @@ void main() {
 
     test('changing the trigger is saved and used for the next count', () async {
       await start(
-        [_tally('a', active: true, cycle: 2), _tally('b')],
+        [makeTally('a', active: true, cycle: 2), makeTally('b')],
         mode: TallyIterationMode.circular,
       );
       bloc.add(const TallySetAdvanceTriggerEvent(TallyAdvanceTrigger.perCycle));
@@ -343,7 +284,7 @@ void main() {
     }
 
     test('deleting a counter removes its recording', () async {
-      await start([_tally('a', active: true, audio: 'a.m4a'), _tally('b')]);
+      await start([makeTally('a', active: true, audio: 'a.m4a'), makeTally('b')]);
       final file = await recording('a.m4a');
 
       bloc.add(TallyDeleteCounterEvent(counter: loaded().allCounters.first));
@@ -353,7 +294,7 @@ void main() {
     });
 
     test('replacing or removing a recording deletes the old file only', () async {
-      await start([_tally('a', active: true, audio: 'old.m4a')]);
+      await start([makeTally('a', active: true, audio: 'old.m4a')]);
       final old = await recording('old.m4a');
       final fresh = await recording('new.m4a');
 
@@ -374,7 +315,7 @@ void main() {
     });
 
     test('editing a counter without touching the recording keeps it', () async {
-      await start([_tally('a', active: true, audio: 'keep.m4a')]);
+      await start([makeTally('a', active: true, audio: 'keep.m4a')]);
       final file = await recording('keep.m4a');
 
       bloc.add(
@@ -387,7 +328,7 @@ void main() {
     });
 
     test('the sweep of the custom azkar recordings keeps what counters use', () async {
-      await start([_tally('a', active: true, audio: 'used.m4a')]);
+      await start([makeTally('a', active: true, audio: 'used.m4a')]);
       final used = await recording('used.m4a');
       final other = await recording('other.m4a');
       final stray = await recording('stray.m4a');
@@ -405,7 +346,7 @@ void main() {
     });
 
     test('reset can be undone', () async {
-      await start([_tally('a', active: true, count: 12), _tally('b', count: 4)]);
+      await start([makeTally('a', active: true, count: 12), makeTally('b', count: 4)]);
       final before = loaded().allCounters;
 
       bloc.add(TallyResetAllCountersEvent());

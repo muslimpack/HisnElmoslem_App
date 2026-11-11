@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
@@ -55,6 +56,9 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/control
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+/// Registration name of the audio engine the tally uses.
+const String kTallyAudioEngine = "tally_audio_engine";
 
 final sl = GetIt.instance;
 
@@ -130,6 +134,12 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));
+  // The tally plays recordings with its own player, so it never interrupts (or is
+  // interrupted by) the zikr viewer; the audio settings are shared through the repo.
+  sl.registerFactory<ZikrAudioPlayerCubit>(
+    () => ZikrAudioPlayerCubit(sl(), player: AudioPlayer(playerId: "tally_audio_player")),
+    instanceName: kTallyAudioEngine,
+  );
   sl.registerLazySingleton(() => BackupRestoreCubit(repo: sl()));
 
   /// Factory BLoC
