@@ -7,6 +7,25 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/control
 class ZikrAudioSettingsDialog extends StatelessWidget {
   const ZikrAudioSettingsDialog({super.key});
 
+  /// Bottom sheet with speed, volume and delay settings of the zikr audio.
+  ///
+  /// The sheet is a separate route and does not see the viewer's providers, so the
+  /// cubit is taken from [context] or given as [cubit].
+  static Future<void> show(BuildContext context, {ZikrAudioPlayerCubit? cubit}) {
+    final audioCubit = cubit ?? context.read<ZikrAudioPlayerCubit>();
+
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      showDragHandle: true,
+      builder: (_) => BlocProvider.value(
+        value: audioCubit,
+        child: const SafeArea(child: SingleChildScrollView(child: ZikrAudioSettingsDialog())),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ZikrAudioPlayerCubit, ZikrAudioPlayerState>(

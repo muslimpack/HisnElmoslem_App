@@ -335,5 +335,10 @@
   "recordDeleteConfirmCustom": "This zikr will have no audio.",
   "recordMyVoiceBadge": "My voice",
   "recordPlay": "Play",
-  "recordPause": "Pause"
+  "recordPause": "Pause",
+  "audioPlay": "Play audio",
+  "audioPause": "Pause audio",
+  "audioStop": "Stop audio",
+  "zikrTapToCount": "Tap to count",
+  "zikrDone": "Done"
 }

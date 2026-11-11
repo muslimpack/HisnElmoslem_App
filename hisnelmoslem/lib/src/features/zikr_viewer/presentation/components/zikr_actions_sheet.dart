@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/components/zikr_audio_settings_dialog.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/commentary_dialog.dart';
@@ -79,6 +80,17 @@ class ZikrActionsSheet extends StatelessWidget {
               OriginalZikrFavouriteTile(dbContent: dbContent)
             else if (dbContent.customZikrId != null)
               CustomZikrFavouriteTile(zikrId: dbContent.customZikrId!),
+            if (dbContent.hasPlayableAudio)
+              ZikrActionTile(
+                icon: Icons.graphic_eq_rounded,
+                label: s.audioPlayerSettings,
+                onTap: () {
+                  final parent = Navigator.of(context);
+                  final audioCubit = viewerBloc.zikrAudioPlayerCubit;
+                  parent.pop();
+                  ZikrAudioSettingsDialog.show(parent.context, cubit: audioCubit);
+                },
+              ),
             const BrightnessActionTile(),
             ZikrActionTile(
               icon: MdiIcons.formatQuoteOpen,

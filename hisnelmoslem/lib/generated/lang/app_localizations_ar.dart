@@ -1024,4 +1024,19 @@ class SAr extends S {
 
   @override
   String get recordPause => 'إيقاف مؤقت';
+
+  @override
+  String get audioPlay => 'تشغيل الصوت';
+
+  @override
+  String get audioPause => 'إيقاف مؤقت للصوت';
+
+  @override
+  String get audioStop => 'إيقاف الصوت';
+
+  @override
+  String get zikrTapToCount => 'اضغط للعد';
+
+  @override
+  String get zikrDone => 'تم';
 }

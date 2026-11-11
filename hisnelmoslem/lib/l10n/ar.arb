@@ -335,5 +335,10 @@
   "recordDeleteConfirmCustom": "لن يكون لهذا الذكر صوت.",
   "recordMyVoiceBadge": "بصوتي",
   "recordPlay": "تشغيل",
-  "recordPause": "إيقاف مؤقت"
+  "recordPause": "إيقاف مؤقت",
+  "audioPlay": "تشغيل الصوت",
+  "audioPause": "إيقاف مؤقت للصوت",
+  "audioStop": "إيقاف الصوت",
+  "zikrTapToCount": "اضغط للعد",
+  "zikrDone": "تم"
 }

@@ -1026,4 +1026,19 @@ class SEn extends S {
 
   @override
   String get recordPause => 'Pause';
+
+  @override
+  String get audioPlay => 'Play audio';
+
+  @override
+  String get audioPause => 'Pause audio';
+
+  @override
+  String get audioStop => 'Stop audio';
+
+  @override
+  String get zikrTapToCount => 'Tap to count';
+
+  @override
+  String get zikrDone => 'Done';
 }

@@ -2090,6 +2090,36 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Pause'**
   String get recordPause;
+
+  /// No description provided for @audioPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play audio'**
+  String get audioPlay;
+
+  /// No description provided for @audioPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause audio'**
+  String get audioPause;
+
+  /// No description provided for @audioStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop audio'**
+  String get audioStop;
+
+  /// No description provided for @zikrTapToCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to count'**
+  String get zikrTapToCount;
+
+  /// No description provided for @zikrDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get zikrDone;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

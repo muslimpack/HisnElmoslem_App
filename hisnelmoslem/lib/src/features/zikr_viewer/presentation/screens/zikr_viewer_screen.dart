@@ -15,10 +15,9 @@ import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/animated_zikr_progress_counter.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_bottom_dock.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_card_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_options_fab.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_builder.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_page_mode_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_progress_bar.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 

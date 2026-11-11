@@ -41,12 +41,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
           ),
           bottomNavigationBar: state.activeZikr == null
               ? null
-              : ZikrViewerPageModeBottomBar(dbContent: state.activeZikr!),
-
-          floatingActionButton: state.activeZikr == null
-              ? null
-              : ZikrViewerOptionsFab(dbContent: state.activeZikr!),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+              : ZikrViewerBottomDock(dbContent: state.activeZikr!),
         );
       },
     );
