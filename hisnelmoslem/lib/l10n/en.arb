@@ -359,5 +359,8 @@
   "presetMintGarden": "Mint garden",
   "presetCleanWhite": "Clean white",
   "presetRoseDawn": "Rose dawn",
-  "presetSkyMorning": "Sky morning"
+  "presetSkyMorning": "Sky morning",
+  "shareImageColorCurrent": "Current",
+  "shareImageColorNew": "New",
+  "shareImageHexCode": "Hex code"
 }

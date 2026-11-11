@@ -1098,4 +1098,13 @@ class SEn extends S {
 
   @override
   String get presetSkyMorning => 'Sky morning';
+
+  @override
+  String get shareImageColorCurrent => 'Current';
+
+  @override
+  String get shareImageColorNew => 'New';
+
+  @override
+  String get shareImageHexCode => 'Hex code';
 }

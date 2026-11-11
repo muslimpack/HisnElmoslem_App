@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_color_preset.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
@@ -14,6 +13,7 @@ import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_a
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_color_presets_section.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_action_bar.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/select_color_dialog.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -96,17 +96,51 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets("the palette colors the chosen target", (tester) async {
+  testWidgets("a color row opens the picker and applies the chosen hex color", (tester) async {
     await openSheet(tester);
 
-    await tester.tap(find.widgetWithText(ChoiceChip, "Background color"));
-    await tester.pump();
-    // Second swatch of the palette.
-    await tester.tap(find.byType(ColorDot).at(3 + 1)); // 3 chip avatars come first
-    await tester.pump();
+    await tester.tap(find.widgetWithText(ListTile, "Background color"));
+    await tester.pumpAndSettle();
+    expect(find.byType(SelectColorDialog), findsOneWidget);
+    expect(find.text("Current"), findsOneWidget);
+    expect(find.text("New"), findsOneWidget);
 
-    expect(cubit.loaded.shareImageSettings.backgroundColor, kShareImageColorsList[1]);
-    expect(cubit.loaded.shareImageSettings.titleTextColor, isNot(kShareImageColorsList[1]));
+    await tester.enterText(find.byType(TextField), "FF8800");
+    await tester.pump();
+    await tester.tap(find.text("Select color"));
+    await tester.pumpAndSettle();
+
+    expect(cubit.loaded.shareImageSettings.backgroundColor.toARGB32(), 0xFFFF8800);
+    expect(find.byType(SelectColorDialog), findsNothing);
+    // Only that color changed.
+    expect(cubit.loaded.shareImageSettings.titleTextColor.toARGB32(), isNot(0xFFFF8800));
+  });
+
+  testWidgets("cancelling the picker keeps the color", (tester) async {
+    await openSheet(tester);
+    final before = cubit.loaded.shareImageSettings.titleTextColor;
+
+    await tester.tap(find.widgetWithText(ListTile, "Title color"));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), "123456");
+    await tester.pump();
+    await tester.tap(find.text("Cancel"));
+    await tester.pumpAndSettle();
+
+    expect(cubit.loaded.shareImageSettings.titleTextColor, before);
+  });
+
+  testWidgets("the rows show each color's hex code", (tester) async {
+    await openSheet(tester);
+    final settings = cubit.loaded.shareImageSettings;
+
+    expect(find.text(settings.titleTextColor.hexCode), findsOneWidget);
+    expect(find.text(settings.backgroundColor.hexCode), findsOneWidget);
+  });
+
+  test("hex codes are shown as upper case #RRGGBB", () {
+    expect(const Color(0xFF01979F).hexCode, "#01979F");
+    expect(const Color(0xFF000000).hexCode, "#000000");
   });
 
   testWidgets("a ready preset sets the background, title and text colors together", (

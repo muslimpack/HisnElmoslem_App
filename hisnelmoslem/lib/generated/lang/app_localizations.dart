@@ -2234,6 +2234,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Sky morning'**
   String get presetSkyMorning;
+
+  /// No description provided for @shareImageColorCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get shareImageColorCurrent;
+
+  /// No description provided for @shareImageColorNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get shareImageColorNew;
+
+  /// No description provided for @shareImageHexCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Hex code'**
+  String get shareImageHexCode;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

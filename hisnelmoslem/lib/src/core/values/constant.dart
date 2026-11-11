@@ -60,17 +60,6 @@ const Iterable<int> kArabicDiacriticsChar = [
   1618,
 ];
 
-final List<Color> kShareImageColorsList = [
-  const Color.fromARGB(255, 66, 66, 66),
-  const Color.fromARGB(255, 48, 48, 48),
-  const Color.fromARGB(255, 163, 124, 92),
-  const Color.fromARGB(255, 25, 26, 33),
-  const Color.fromARGB(255, 1, 151, 159),
-  Colors.amber,
-  const Color.fromARGB(255, 255, 248, 238),
-  const Color.fromARGB(255, 244, 246, 248),
-];
-
 final List<double> kShareImageQualityList = [1.0, 1.5, 2.0, 2.5, 3];
 
 const String kEstaaza = "أَعُوذُ بِاَللَّهِ مِنْ الشَّيْطَانِ الرَّجِيمِ";

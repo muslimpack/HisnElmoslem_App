@@ -359,5 +359,8 @@
   "presetMintGarden": "حديقة النعناع",
   "presetCleanWhite": "أبيض نقي",
   "presetRoseDawn": "فجر وردي",
-  "presetSkyMorning": "صباح سماوي"
+  "presetSkyMorning": "صباح سماوي",
+  "shareImageColorCurrent": "الحالي",
+  "shareImageColorNew": "الجديد",
+  "shareImageHexCode": "رمز اللون"
 }

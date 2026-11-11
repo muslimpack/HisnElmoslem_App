@@ -1096,4 +1096,13 @@ class SAr extends S {
 
   @override
   String get presetSkyMorning => 'صباح سماوي';
+
+  @override
+  String get shareImageColorCurrent => 'الحالي';
+
+  @override
+  String get shareImageColorNew => 'الجديد';
+
+  @override
+  String get shareImageHexCode => 'رمز اللون';
 }
