@@ -49,6 +49,7 @@ dependencies:
   package_info_plus: ^9.0.0
   path: ^1.9.1
   path_provider: ^2.1.5
+  record: ^7.1.2
   rxdart: ^0.28.0
   share_plus: ^12.0.0
   shared_preferences: ^2.5.3
