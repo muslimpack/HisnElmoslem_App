@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/cubit/azkar_filters_cubit.dart';
 import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
@@ -60,6 +61,9 @@ class AppState extends State<App> {
         BlocProvider(create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent())),
         BlocProvider(
           create: (_) => sl<BookmarkBloc>()..add(BookmarkStartEvent()),
+        ),
+        BlocProvider(
+          create: (_) => sl<CustomTitlesBloc>()..add(const CustomTitlesStartEvent()),
         ),
         BlocProvider(create: (_) => sl<HomeBloc>()..add(HomeStartEvent())),
         BlocProvider(create: (context) => sl<SearchCubit>()..start()),

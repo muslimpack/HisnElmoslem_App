@@ -30,7 +30,8 @@ class QuranCubit extends Cubit<QuranState> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
-      } else if (event == VolumeButtonEvent.volumeDownDown || event == VolumeButtonEvent.volumeDownUp) {
+      } else if (event == VolumeButtonEvent.volumeDownDown ||
+          event == VolumeButtonEvent.volumeDownUp) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,

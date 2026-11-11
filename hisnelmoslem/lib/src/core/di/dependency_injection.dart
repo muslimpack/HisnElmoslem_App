@@ -12,6 +12,20 @@ import 'package:hisnelmoslem/src/features/azkar_filters/presentation/controller/
 import 'package:hisnelmoslem/src/features/backup_restore/data/repository/backup_restore_repo.dart';
 import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/audio_preview_player.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/audio_recorder_service.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_backup.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/audio_preview/audio_preview_cubit.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_zikr_picker/custom_zikr_picker_cubit.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/zikr_recorder/zikr_recorder_cubit.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
@@ -68,17 +82,31 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => HisnDBHelper());
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
+  sl.registerLazySingleton(() => CustomAzkarDBHelper());
+  sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
+  sl.registerLazySingleton<CustomAudioStorage>(LocalCustomAudioStorage.new);
+  // One recorder / player per recording sheet, disposed with its cubit.
+  sl.registerFactory<AudioRecorderService>(RecordPackageAudioRecorder.new);
+  sl.registerFactory<AudioPreviewPlayer>(AudioplayersPreviewPlayer.new);
+  sl.registerFactory(() => ZikrRecorderCubit(recorder: sl(), storage: sl()));
+  sl.registerFactory(() => AudioPreviewCubit(sl()));
+  sl.registerLazySingleton<CustomAzkarRepo>(
+    () => CustomAzkarRepoImpl(sl(), sl(), audioStorage: sl()),
+  );
+  sl.registerLazySingleton(() => CustomAlarmScheduler(sl(), sl()));
   sl.registerLazySingleton(
     () => BackupRestoreRepo(
       userDataDBHelper: sl(),
       tallyDatabaseHelper: sl(),
       alarmDatabaseHelper: sl(),
       fakeHadithDBHelper: sl(),
+      customAzkarDBHelper: sl(),
+      customAudioBackup: CustomAudioBackup(sl()),
     ),
   );
 
   ///MARK: Init Manager
-  sl.registerLazySingleton(() => EffectsManager(sl(), sl()));
+  sl.registerLazySingleton(() => EffectsManager(sl()));
   sl.registerLazySingleton(() => LocalNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
   sl.registerLazySingleton(() => VolumeButtonManager());
@@ -91,8 +119,9 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ThemeCubit(sl()));
   sl.registerLazySingleton(() => AlarmsBloc(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => BookmarkBloc(sl(), sl()));
+  sl.registerLazySingleton(() => CustomTitlesBloc(sl(), sl()));
   sl.registerLazySingleton(() => HomeBloc(sl(), sl(), sl(), sl(), sl()));
-  sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));
@@ -101,10 +130,12 @@ Future<void> initSL() async {
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => CustomTitleEditorBloc(sl(), sl()));
+  sl.registerFactory(() => CustomZikrPickerCubit(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
   sl.registerFactory(() => FakeHadithBloc(sl()));
   sl.registerFactory(
-    () => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+    () => ZikrViewerBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
   );
 }

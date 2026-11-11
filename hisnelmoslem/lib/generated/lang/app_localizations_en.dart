@@ -802,4 +802,243 @@ class SEn extends S {
 
   @override
   String get showAudioBarDesc => 'Show/hide audio control bar in Zikr viewer page';
+
+  @override
+  String get customAzkar => 'Custom Azkar';
+
+  @override
+  String get customAzkarEmptyTitle => 'No custom titles yet';
+
+  @override
+  String get customAzkarEmptyDesc =>
+      'Create your own title and fill it with the azkar you love. Your original azkar are never changed.';
+
+  @override
+  String customItemsCount(int count) {
+    return '$count azkar';
+  }
+
+  @override
+  String get customTitleDeleteConfirm => 'Delete this title?';
+
+  @override
+  String get customTitleDeleteDetails =>
+      'The title and its reminder will be deleted. Original azkar are not affected.';
+
+  @override
+  String get customTitleDeleted => 'Title deleted';
+
+  @override
+  String get customTitleHasReminder => 'Reminder is on';
+
+  @override
+  String get newCustomTitle => 'New title';
+
+  @override
+  String get createFromScratch => 'Start from scratch';
+
+  @override
+  String get createFromScratchDesc => 'An empty title that you fill yourself';
+
+  @override
+  String get createFromExisting => 'Start from an existing title';
+
+  @override
+  String get createFromExistingDesc =>
+      'Copy the azkar of a Hisn al-Muslim title, then change them freely';
+
+  @override
+  String get editCustomTitle => 'Edit title';
+
+  @override
+  String get customTitleName => 'Title name';
+
+  @override
+  String get customTitleDescription => 'Description (optional)';
+
+  @override
+  String get addZikr => 'Add zikr';
+
+  @override
+  String get newZikr => 'New zikr';
+
+  @override
+  String get myZikrs => 'My zikrs';
+
+  @override
+  String get fromHisn => 'From Hisn al-Muslim';
+
+  @override
+  String get zikrText => 'Zikr text';
+
+  @override
+  String get zikrSource => 'Source (optional)';
+
+  @override
+  String get zikrFadl => 'Virtue (optional)';
+
+  @override
+  String get zikrCountLabel => 'Repetitions';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String addSelected(int count) {
+    return 'Add selected ($count)';
+  }
+
+  @override
+  String get noCustomZikrs => 'You haven\'t created any zikr yet';
+
+  @override
+  String get noItemsInTitle => 'Add at least one zikr to this title';
+
+  @override
+  String get titleNameRequired => 'Please enter a title name';
+
+  @override
+  String get zikrTextRequired => 'Please enter the zikr text';
+
+  @override
+  String get discardChangesTitle => 'Discard changes?';
+
+  @override
+  String get discardChangesDetails => 'Your unsaved changes will be lost.';
+
+  @override
+  String get savedCopyBadge => 'Saved copy';
+
+  @override
+  String get originalBadge => 'Original';
+
+  @override
+  String get customBadge => 'Custom';
+
+  @override
+  String get removeFromTitle => 'Remove';
+
+  @override
+  String get dragToReorder => 'Drag to reorder';
+
+  @override
+  String get countDecrease => 'Decrease';
+
+  @override
+  String get countIncrease => 'Increase';
+
+  @override
+  String get deleteCustomZikrConfirm => 'Delete this zikr?';
+
+  @override
+  String deleteCustomZikrUsedIn(String titles) {
+    return 'It is used in: $titles. It will be removed from them.';
+  }
+
+  @override
+  String get searchHisnHint => 'Search in Hisn al-Muslim';
+
+  @override
+  String get chooseOriginalTitle => 'Choose a title';
+
+  @override
+  String get dashboardArrangementHint =>
+      'Hold and drag a tab to change the order of the home tabs.';
+
+  @override
+  String get dashboardArrangementPreview => 'Order on the home screen';
+
+  @override
+  String get dragToReorderTab => 'Drag to reorder';
+
+  @override
+  String get dashboardArrangementReset => 'Reset to default order';
+
+  @override
+  String get zikrOptions => 'Options';
+
+  @override
+  String get recordVoice => 'Record my voice';
+
+  @override
+  String get recordSheetTitle => 'Record your voice';
+
+  @override
+  String get recordStart => 'Start recording';
+
+  @override
+  String get recordStop => 'Stop recording';
+
+  @override
+  String get recordHintIdle => 'Tap the microphone, then recite the zikr.';
+
+  @override
+  String get recordHintRecording => 'Recording… tap to stop';
+
+  @override
+  String get recordPermissionDenied =>
+      'Microphone access is needed to record. Allow it in your device settings.';
+
+  @override
+  String get recordFailed => 'Could not record. Please try again.';
+
+  @override
+  String get recordListen => 'Listen to your recording';
+
+  @override
+  String get recordUse => 'Use this recording';
+
+  @override
+  String get recordAgain => 'Record again';
+
+  @override
+  String get recordDiscardTitle => 'Discard this recording?';
+
+  @override
+  String get recordDiscardDetails => 'The recording you just made will be deleted.';
+
+  @override
+  String get recordCurrent => 'Your recording';
+
+  @override
+  String get recordOriginal => 'Original recitation';
+
+  @override
+  String get recordDelete => 'Delete my recording';
+
+  @override
+  String get recordDeleteConfirmTitle => 'Delete your recording?';
+
+  @override
+  String get recordDeleteConfirmOriginal => 'The original recitation will be played again.';
+
+  @override
+  String get recordDeleteConfirmCustom => 'This zikr will have no audio.';
+
+  @override
+  String get recordMyVoiceBadge => 'My voice';
+
+  @override
+  String get recordPlay => 'Play';
+
+  @override
+  String get recordPause => 'Pause';
+
+  @override
+  String get audioPlay => 'Play audio';
+
+  @override
+  String get audioPause => 'Pause audio';
+
+  @override
+  String get audioStop => 'Stop audio';
+
+  @override
+  String get zikrTapToCount => 'Tap to count';
+
+  @override
+  String get zikrDone => 'Done';
 }

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
-import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_title_card.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/custom_zikr_card.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/widgets/title_card.dart';
 import 'package:hisnelmoslem/src/features/home_search/data/models/search_for.dart';
+import 'package:hisnelmoslem/src/features/home_search/data/models/search_results.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_app_bar.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_content_card.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_filters_dialog.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_for_bar.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/components/search_result_viewer.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -37,20 +38,26 @@ class SearchScreen extends StatelessWidget {
             body: state is! SearchLoadedState
                 ? const Loading()
                 : switch (state.searchFor) {
-                    SearchFor.title => SearchResultViewer<DbTitle>(
+                    SearchFor.title => SearchResultViewer<TitleSearchResult>(
                       pagingController: sl<SearchCubit>().titlePagingController,
                       itemBuilder: (context, item, index) {
-                        return TitleCard(dbTitle: item);
+                        return switch (item) {
+                          OriginalTitleResult(:final title) => TitleCard(dbTitle: title),
+                          CustomTitleResult(:final title) => CustomTitleCard(title: title),
+                        };
                       },
                     ),
-                    SearchFor.content => SearchResultViewer<DbContent>(
+                    SearchFor.content => SearchResultViewer<ContentSearchResult>(
                       pagingController: sl<SearchCubit>().contentPagingController,
                       itemBuilder: (context, item, index) {
-                        return SearchContentCard(
-                          index: index,
-                          zikr: item,
-                          searchText: state.searchText,
-                        );
+                        return switch (item) {
+                          OriginalContentResult(:final content) => SearchContentCard(
+                            index: index,
+                            zikr: content,
+                            searchText: state.searchText,
+                          ),
+                          CustomZikrResult(:final zikr) => CustomZikrCard(zikr: zikr),
+                        };
                       },
                     ),
                   },

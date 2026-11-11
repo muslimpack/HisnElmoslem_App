@@ -1,0 +1,14 @@
+import 'package:flutter/widgets.dart';
+
+const iconMap = <String, IconData>{
+<%  '__ICON_NAME__': _MdiIconData(__CODE_POINT__),%>
+};
+
+class _MdiIconData extends IconData {
+  const _MdiIconData(int codePoint)
+      : super(
+          codePoint,
+          fontFamily: 'Material Design Icons',
+          fontPackage: 'material_design_icons_flutter',
+        );
+}

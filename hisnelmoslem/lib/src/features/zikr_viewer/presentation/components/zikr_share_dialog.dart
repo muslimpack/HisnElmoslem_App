@@ -15,7 +15,10 @@ import 'package:share_plus/share_plus.dart';
 
 class ZikrShareDialog extends StatefulWidget {
   final int contentId;
-  const ZikrShareDialog({super.key, required this.contentId});
+
+  /// Provide for zikrs that are not in the original database (custom titles).
+  final DbContent? content;
+  const ZikrShareDialog({super.key, required this.contentId, this.content});
 
   @override
   State<ZikrShareDialog> createState() => _ZikrShareDialogState();
@@ -34,9 +37,11 @@ class _ZikrShareDialogState extends State<ZikrShareDialog> {
   }
 
   Future _load() async {
-    dbContent = await sl<HisnDBHelper>().getContentsByContentId(
-      contentId: widget.contentId,
-    );
+    dbContent =
+        widget.content ??
+        await sl<HisnDBHelper>().getContentsByContentId(
+          contentId: widget.contentId,
+        );
 
     shareFadl = sl<ZikrViewerRepo>().shareFadl;
     shareSource = sl<ZikrViewerRepo>().shareSource;

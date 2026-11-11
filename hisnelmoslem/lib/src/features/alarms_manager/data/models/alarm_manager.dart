@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart'
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
 
 class AlarmManager {
   final LocalNotificationManager localNotificationManager;
@@ -65,6 +66,7 @@ class AlarmManager {
         requestPermission: false,
       );
     }
+    await sl<CustomAlarmScheduler>().rescheduleAll();
     // Note: We don't write the flag here.
     // We write it in AlarmsBloc after migrating Fast and Cave alarms.
   }

@@ -11,6 +11,8 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/permission_dialog.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/surah_name_enum.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/screens/quran_read_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
@@ -357,6 +359,10 @@ class LocalNotificationManager {
     /// ignore constant alarms if clicked
     else if (payload == "555" || payload == "666") {
     }
+    /// go to a custom title if clicked (payload `custom:<titleId>`)
+    else if (CustomAlarmScheduler.titleIdFromPayload(payload) case final int customTitleId) {
+      context.push(ZikrViewerScreen.custom(customTitleId: customTitleId));
+    }
     /// go to zikr page if clicked
     else {
       final int? pageIndex = int.tryParse(payload);
@@ -399,6 +405,9 @@ class LocalNotificationManager {
 
     final alarms = await alarmDatabaseHelper.getAlarms();
     if (alarms.any((alarm) => alarm.isActive)) return true;
+
+    final customAlarms = await sl<CustomAzkarRepo>().getAlarms();
+    if (customAlarms.any((alarm) => alarm.isActive)) return true;
 
     return false;
   }

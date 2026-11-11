@@ -16,20 +16,27 @@ class FontSettingsIconButton extends StatelessWidget {
       tooltip: S.of(context).fontSettings,
       padding: EdgeInsets.zero,
       icon: Icon(MdiIcons.formatQuoteOpen),
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              contentPadding: EdgeInsets.zero,
-              content: FontSettingsToolbox(),
-            );
-          },
-        );
-      },
+      onPressed: () => FontSettingsDialog.show(context),
+    );
+  }
+}
+
+class FontSettingsDialog extends StatelessWidget {
+  const FontSettingsDialog({super.key});
+
+  static Future<void> show(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => const FontSettingsDialog(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+      contentPadding: EdgeInsets.zero,
+      content: FontSettingsToolbox(),
     );
   }
 }

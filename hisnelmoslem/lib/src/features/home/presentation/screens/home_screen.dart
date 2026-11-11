@@ -32,7 +32,12 @@ class HomeScreen extends StatelessWidget {
               Localizations.localeOf(context).languageCode,
             ),
             menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            menuScreen: const SideMenu(),
+            // ZoomDrawer wraps the menu in a ColoredBox, which would hide
+            // ListTile ink/background, so give the menu its own Material.
+            menuScreen: const Material(
+              type: MaterialType.transparency,
+              child: SideMenu(),
+            ),
             mainScreen: const DashboardScreen(),
             borderRadius: 24.0,
             showShadow: true,

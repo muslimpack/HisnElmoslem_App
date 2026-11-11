@@ -19,7 +19,10 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
                 currentIndex: state.activeZikrIndex,
                 totalCount: state.azkarToView.length,
               ),
-              BookmarkTitleButton(titleId: state.title.id),
+              if (state.title.isCustom)
+                ViewerCustomTitleFavouriteButton(customTitleId: state.title.customTitleId)
+              else
+                BookmarkTitleButton(titleId: state.title.id),
             ],
             bottom: state.activeZikr == null
                 ? null
@@ -38,12 +41,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
           ),
           bottomNavigationBar: state.activeZikr == null
               ? null
-              : ZikrViewerPageModeBottomBar(dbContent: state.activeZikr!),
-
-          floatingActionButton: state.activeZikr == null
-              ? null
-              : ZikrViewerExpandingFab(dbContent: state.activeZikr!),
-          floatingActionButtonLocation: ExpandableFab.location,
+              : ZikrViewerBottomDock(dbContent: state.activeZikr!),
         );
       },
     );

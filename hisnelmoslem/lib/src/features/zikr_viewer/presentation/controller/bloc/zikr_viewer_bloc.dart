@@ -11,12 +11,16 @@ import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/mappers/resolved_item_mapper.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
+import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_session.dart';
@@ -38,6 +42,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final ZikrViewerRepo zikrViewerRepo;
   final AzkarFiltersRepo azkarFiltersRepo;
   final ZikrAudioPlayerCubit zikrAudioPlayerCubit;
+  final CustomAzkarRepo customAzkarRepo;
+  final CustomAudioStorage customAudioStorage;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
@@ -47,6 +53,8 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     this.zikrViewerRepo,
     this.azkarFiltersRepo,
     this.zikrAudioPlayerCubit,
+    this.customAzkarRepo,
+    this.customAudioStorage,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -92,6 +100,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerAudioPlayingStateChangedEvent>(_audioPlayingStateChanged);
   }
 
+  /// Path of the user's recording, or empty when there is none or the file is gone
+  /// (e.g. a restored backup without it), so the original audio is used instead.
+  Future<String> _existingRecordingPath(String? fileName) async {
+    if (fileName == null || fileName.isEmpty) return "";
+    if (!await customAudioStorage.exists(fileName)) return "";
+    return customAudioStorage.pathFor(fileName);
+  }
+
   Future<void> _start(
     ZikrViewerStartEvent event,
     Emitter<ZikrViewerState> emit,
@@ -100,27 +116,53 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       WakelockPlus.enable();
     }
 
-    final title = await hisnDBHelper.getTitleById(id: event.titleIndex);
+    final customTitleId = event.customTitleId;
+    final DbTitle title;
+    final List<DbContent> filteredAzkar;
 
-    final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
-      titleId: event.titleIndex,
-    );
-
-    final List<Filter> filters = azkarFiltersRepo.getAllFilters;
-    final filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+    if (customTitleId != null) {
+      final customTitle = await customAzkarRepo.getTitle(customTitleId);
+      if (customTitle == null) {
+        App.navigatorKey.currentState?.maybePop();
+        return;
+      }
+      final items = await customAzkarRepo.getResolvedItems(customTitleId);
+      title = DbTitle(
+        id: customViewerTitleId(customTitleId),
+        name: customTitle.name,
+        freq: "",
+        order: 0,
+      );
+      // Azkar picked by the user are never hidden by the azkar filters.
+      filteredAzkar = [
+        for (var i = 0; i < items.length; i++)
+          items[i].toViewerContent(
+            customTitleId: customTitleId,
+            order: i,
+            userAudioPath: await _existingRecordingPath(items[i].item.audioFile),
+          ),
+      ];
+    } else {
+      title = await hisnDBHelper.getTitleById(id: event.titleIndex);
+      final azkarFromDB = await hisnDBHelper.getContentsByTitleId(
+        titleId: event.titleIndex,
+      );
+      final List<Filter> filters = azkarFiltersRepo.getAllFilters;
+      filteredAzkar = filters.getFilteredZikr(azkarFromDB);
+    }
 
     final azkarToView = List<DbContent>.from(filteredAzkar);
 
     _initZikrPageMode(event.zikrViewerMode);
 
-    final restoredSession = zikrViewerRepo.getLastSession(event.titleIndex);
+    final restoredSession = zikrViewerRepo.getLastSession(title.id);
     final askToRestoreSession =
         zikrViewerRepo.allowZikrSessionRestoration &&
         restoredSession != null &&
         restoredSession.data.isNotEmpty &&
         DateUtils.isSameDay(restoredSession.dateTime, DateTime.now());
 
-    zikrAudioPlayerCubit.init(
+    await zikrAudioPlayerCubit.init(
       zikrList: azkarToView,
       onDonePlaying: (zikr) {
         add(ZikrViewerDecreaseZikrEvent(content: zikr));
@@ -138,21 +180,21 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
 
     StreamSubscription? audioStateSubscription;
-    audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
-      if (isClosed) {
-        audioStateSubscription?.cancel();
-        return;
-      }
-      final state = this.state;
-      if (state is ZikrViewerLoadedState) {
-        if (state.isAudioPlaying != audioState.isPlaying) {
-          add(ZikrViewerAudioPlayingStateChangedEvent(audioState.isPlaying));
-        }
-      }
-      add(
-        ZikrViewerAudioDelayStateChangedEvent(audioState.isDelayingBetweenZikr),
-      );
-    });
+    // The player emits on every position tick; only these two flags matter here.
+    audioStateSubscription = zikrAudioPlayerCubit.stream
+        .map((s) => (isPlaying: s.isPlaying, isDelaying: s.isDelayingBetweenZikr))
+        .distinct()
+        .listen((audioState) {
+          if (isClosed) {
+            audioStateSubscription?.cancel();
+            return;
+          }
+          final state = this.state;
+          if (state is ZikrViewerLoadedState && state.isAudioPlaying != audioState.isPlaying) {
+            add(ZikrViewerAudioPlayingStateChangedEvent(audioState.isPlaying));
+          }
+          add(ZikrViewerAudioDelayStateChangedEvent(audioState.isDelaying));
+        });
 
     emit(
       ZikrViewerLoadedState(
@@ -266,19 +308,23 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (count > 0) {
       azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
-      effectsManager.playPraiseEffects();
       add(const ZikrViewerSaveSessionEvent());
     }
 
+    var titleCompleted = false;
     if (count == 1) {
-      effectsManager.playZikrEffects();
       final totalProgress = azkarToView.where((x) => x.count == 0).length / azkarToView.length;
-
-      if (totalProgress == 1) {
-        effectsManager.playTitleEffects();
-        add(const ZikrViewerResetSessionEvent());
-      }
+      titleCompleted = totalProgress == 1;
     }
+
+    // One call per tap: the most significant enabled effect plays (praise < zikr < title).
+    if (count > 0) {
+      effectsManager.playProgressEffects(
+        zikrCompleted: count == 1,
+        titleCompleted: titleCompleted,
+      );
+    }
+    if (titleCompleted) add(const ZikrViewerResetSessionEvent());
 
     if (count <= 1) {
       // If we are currently in an audio delay phase, we DO NOT turn the page yet.
@@ -391,7 +437,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(contentId: activeZikr.id);
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+          content: activeZikr.isFromCustomTitle
+              ? state.azkar.where((x) => x.id == activeZikr.id).firstOrNull ?? activeZikr
+              : null,
+        );
       },
     );
   }
@@ -411,7 +462,12 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     showDialog(
       context: App.navigatorKey.currentState!.context,
       builder: (context) {
-        return ZikrShareDialog(contentId: activeZikr.id);
+        return ZikrShareDialog(
+          contentId: activeZikr.id,
+          content: activeZikr.isFromCustomTitle
+              ? state.azkar.where((x) => x.id == activeZikr.id).firstOrNull ?? activeZikr
+              : null,
+        );
       },
     );
   }
@@ -426,7 +482,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       state: state,
       eventContent: event.content,
     );
-    if (activeZikr == null) return;
+    if (activeZikr == null || activeZikr.isFromCustomTitle) return;
 
     final text = await activeZikr.getPlainText();
     EmailManager.sendMisspelledInZikr(

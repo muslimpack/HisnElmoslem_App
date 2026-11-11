@@ -801,4 +801,242 @@ class SAr extends S {
 
   @override
   String get showAudioBarDesc => 'إظهار/إخفاء شريط التحكم في الصوت في صفحة قارئ الأذكار';
+
+  @override
+  String get customAzkar => 'أذكار مخصصة';
+
+  @override
+  String get customAzkarEmptyTitle => 'لا توجد عناوين مخصصة بعد';
+
+  @override
+  String get customAzkarEmptyDesc =>
+      'أنشئ عنوانك الخاص وأضف إليه الأذكار التي تحبها. أذكار الحصن الأصلية لا تتغير أبدًا.';
+
+  @override
+  String customItemsCount(int count) {
+    return '$count ذكر';
+  }
+
+  @override
+  String get customTitleDeleteConfirm => 'حذف هذا العنوان؟';
+
+  @override
+  String get customTitleDeleteDetails =>
+      'سيتم حذف العنوان والتذكير الخاص به. الأذكار الأصلية لا تتأثر.';
+
+  @override
+  String get customTitleDeleted => 'تم حذف العنوان';
+
+  @override
+  String get customTitleHasReminder => 'التذكير مفعل';
+
+  @override
+  String get newCustomTitle => 'عنوان جديد';
+
+  @override
+  String get createFromScratch => 'ابدأ من الصفر';
+
+  @override
+  String get createFromScratchDesc => 'عنوان فارغ تضيف إليه ما تشاء';
+
+  @override
+  String get createFromExisting => 'ابدأ من عنوان موجود';
+
+  @override
+  String get createFromExistingDesc => 'انسخ أذكار أحد عناوين حصن المسلم ثم عدّل عليها بحرية';
+
+  @override
+  String get editCustomTitle => 'تعديل العنوان';
+
+  @override
+  String get customTitleName => 'اسم العنوان';
+
+  @override
+  String get customTitleDescription => 'الوصف (اختياري)';
+
+  @override
+  String get addZikr => 'إضافة ذكر';
+
+  @override
+  String get newZikr => 'ذكر جديد';
+
+  @override
+  String get myZikrs => 'أذكاري';
+
+  @override
+  String get fromHisn => 'من حصن المسلم';
+
+  @override
+  String get zikrText => 'نص الذكر';
+
+  @override
+  String get zikrSource => 'المصدر (اختياري)';
+
+  @override
+  String get zikrFadl => 'الفضل (اختياري)';
+
+  @override
+  String get zikrCountLabel => 'عدد التكرار';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String addSelected(int count) {
+    return 'إضافة المحدد ($count)';
+  }
+
+  @override
+  String get noCustomZikrs => 'لم تنشئ أي ذكر بعد';
+
+  @override
+  String get noItemsInTitle => 'أضف ذكرًا واحدًا على الأقل لهذا العنوان';
+
+  @override
+  String get titleNameRequired => 'من فضلك أدخل اسم العنوان';
+
+  @override
+  String get zikrTextRequired => 'من فضلك أدخل نص الذكر';
+
+  @override
+  String get discardChangesTitle => 'تجاهل التغييرات؟';
+
+  @override
+  String get discardChangesDetails => 'ستفقد التغييرات التي لم تحفظها.';
+
+  @override
+  String get savedCopyBadge => 'نسخة محفوظة';
+
+  @override
+  String get originalBadge => 'أصلي';
+
+  @override
+  String get customBadge => 'مخصص';
+
+  @override
+  String get removeFromTitle => 'إزالة';
+
+  @override
+  String get dragToReorder => 'اسحب لإعادة الترتيب';
+
+  @override
+  String get countDecrease => 'إنقاص';
+
+  @override
+  String get countIncrease => 'زيادة';
+
+  @override
+  String get deleteCustomZikrConfirm => 'حذف هذا الذكر؟';
+
+  @override
+  String deleteCustomZikrUsedIn(String titles) {
+    return 'مستخدم في: $titles. سيُزال منها.';
+  }
+
+  @override
+  String get searchHisnHint => 'ابحث في حصن المسلم';
+
+  @override
+  String get chooseOriginalTitle => 'اختر عنوانًا';
+
+  @override
+  String get dashboardArrangementHint =>
+      'اضغط مطولًا واسحب أي تبويب لتغيير ترتيب تبويبات الشاشة الرئيسية.';
+
+  @override
+  String get dashboardArrangementPreview => 'الترتيب في الشاشة الرئيسية';
+
+  @override
+  String get dragToReorderTab => 'اسحب لإعادة الترتيب';
+
+  @override
+  String get dashboardArrangementReset => 'استعادة الترتيب الافتراضي';
+
+  @override
+  String get zikrOptions => 'خيارات';
+
+  @override
+  String get recordVoice => 'تسجيل صوتي';
+
+  @override
+  String get recordSheetTitle => 'سجّل صوتك';
+
+  @override
+  String get recordStart => 'بدء التسجيل';
+
+  @override
+  String get recordStop => 'إيقاف التسجيل';
+
+  @override
+  String get recordHintIdle => 'اضغط على الميكروفون ثم ردّد الذكر.';
+
+  @override
+  String get recordHintRecording => 'جارٍ التسجيل… اضغط للإيقاف';
+
+  @override
+  String get recordPermissionDenied =>
+      'نحتاج إلى إذن الميكروفون للتسجيل. اسمح به من إعدادات الجهاز.';
+
+  @override
+  String get recordFailed => 'تعذّر التسجيل. حاول مرة أخرى.';
+
+  @override
+  String get recordListen => 'استمع إلى تسجيلك';
+
+  @override
+  String get recordUse => 'استخدم هذا التسجيل';
+
+  @override
+  String get recordAgain => 'إعادة التسجيل';
+
+  @override
+  String get recordDiscardTitle => 'تجاهل هذا التسجيل؟';
+
+  @override
+  String get recordDiscardDetails => 'سيتم حذف التسجيل الذي أنشأته للتو.';
+
+  @override
+  String get recordCurrent => 'تسجيلك';
+
+  @override
+  String get recordOriginal => 'التلاوة الأصلية';
+
+  @override
+  String get recordDelete => 'حذف تسجيلي';
+
+  @override
+  String get recordDeleteConfirmTitle => 'حذف تسجيلك؟';
+
+  @override
+  String get recordDeleteConfirmOriginal => 'ستُشغَّل التلاوة الأصلية مرة أخرى.';
+
+  @override
+  String get recordDeleteConfirmCustom => 'لن يكون لهذا الذكر صوت.';
+
+  @override
+  String get recordMyVoiceBadge => 'بصوتي';
+
+  @override
+  String get recordPlay => 'تشغيل';
+
+  @override
+  String get recordPause => 'إيقاف مؤقت';
+
+  @override
+  String get audioPlay => 'تشغيل الصوت';
+
+  @override
+  String get audioPause => 'إيقاف مؤقت للصوت';
+
+  @override
+  String get audioStop => 'إيقاف الصوت';
+
+  @override
+  String get zikrTapToCount => 'اضغط للعد';
+
+  @override
+  String get zikrDone => 'تم';
 }

@@ -1664,6 +1664,462 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Show/hide audio control bar in Zikr viewer page'**
   String get showAudioBarDesc;
+
+  /// No description provided for @customAzkar.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Azkar'**
+  String get customAzkar;
+
+  /// No description provided for @customAzkarEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom titles yet'**
+  String get customAzkarEmptyTitle;
+
+  /// No description provided for @customAzkarEmptyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your own title and fill it with the azkar you love. Your original azkar are never changed.'**
+  String get customAzkarEmptyDesc;
+
+  /// No description provided for @customItemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} azkar'**
+  String customItemsCount(int count);
+
+  /// No description provided for @customTitleDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this title?'**
+  String get customTitleDeleteConfirm;
+
+  /// No description provided for @customTitleDeleteDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'The title and its reminder will be deleted. Original azkar are not affected.'**
+  String get customTitleDeleteDetails;
+
+  /// No description provided for @customTitleDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Title deleted'**
+  String get customTitleDeleted;
+
+  /// No description provided for @customTitleHasReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder is on'**
+  String get customTitleHasReminder;
+
+  /// No description provided for @newCustomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New title'**
+  String get newCustomTitle;
+
+  /// No description provided for @createFromScratch.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from scratch'**
+  String get createFromScratch;
+
+  /// No description provided for @createFromScratchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An empty title that you fill yourself'**
+  String get createFromScratchDesc;
+
+  /// No description provided for @createFromExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from an existing title'**
+  String get createFromExisting;
+
+  /// No description provided for @createFromExistingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy the azkar of a Hisn al-Muslim title, then change them freely'**
+  String get createFromExistingDesc;
+
+  /// No description provided for @editCustomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit title'**
+  String get editCustomTitle;
+
+  /// No description provided for @customTitleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Title name'**
+  String get customTitleName;
+
+  /// No description provided for @customTitleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (optional)'**
+  String get customTitleDescription;
+
+  /// No description provided for @addZikr.
+  ///
+  /// In en, this message translates to:
+  /// **'Add zikr'**
+  String get addZikr;
+
+  /// No description provided for @newZikr.
+  ///
+  /// In en, this message translates to:
+  /// **'New zikr'**
+  String get newZikr;
+
+  /// No description provided for @myZikrs.
+  ///
+  /// In en, this message translates to:
+  /// **'My zikrs'**
+  String get myZikrs;
+
+  /// No description provided for @fromHisn.
+  ///
+  /// In en, this message translates to:
+  /// **'From Hisn al-Muslim'**
+  String get fromHisn;
+
+  /// No description provided for @zikrText.
+  ///
+  /// In en, this message translates to:
+  /// **'Zikr text'**
+  String get zikrText;
+
+  /// No description provided for @zikrSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source (optional)'**
+  String get zikrSource;
+
+  /// No description provided for @zikrFadl.
+  ///
+  /// In en, this message translates to:
+  /// **'Virtue (optional)'**
+  String get zikrFadl;
+
+  /// No description provided for @zikrCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitions'**
+  String get zikrCountLabel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @addSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Add selected ({count})'**
+  String addSelected(int count);
+
+  /// No description provided for @noCustomZikrs.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t created any zikr yet'**
+  String get noCustomZikrs;
+
+  /// No description provided for @noItemsInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one zikr to this title'**
+  String get noItemsInTitle;
+
+  /// No description provided for @titleNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title name'**
+  String get titleNameRequired;
+
+  /// No description provided for @zikrTextRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the zikr text'**
+  String get zikrTextRequired;
+
+  /// No description provided for @discardChangesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get discardChangesTitle;
+
+  /// No description provided for @discardChangesDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Your unsaved changes will be lost.'**
+  String get discardChangesDetails;
+
+  /// No description provided for @savedCopyBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved copy'**
+  String get savedCopyBadge;
+
+  /// No description provided for @originalBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Original'**
+  String get originalBadge;
+
+  /// No description provided for @customBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get customBadge;
+
+  /// No description provided for @removeFromTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeFromTitle;
+
+  /// No description provided for @dragToReorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to reorder'**
+  String get dragToReorder;
+
+  /// No description provided for @countDecrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get countDecrease;
+
+  /// No description provided for @countIncrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get countIncrease;
+
+  /// No description provided for @deleteCustomZikrConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this zikr?'**
+  String get deleteCustomZikrConfirm;
+
+  /// No description provided for @deleteCustomZikrUsedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'It is used in: {titles}. It will be removed from them.'**
+  String deleteCustomZikrUsedIn(String titles);
+
+  /// No description provided for @searchHisnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in Hisn al-Muslim'**
+  String get searchHisnHint;
+
+  /// No description provided for @chooseOriginalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a title'**
+  String get chooseOriginalTitle;
+
+  /// No description provided for @dashboardArrangementHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold and drag a tab to change the order of the home tabs.'**
+  String get dashboardArrangementHint;
+
+  /// No description provided for @dashboardArrangementPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Order on the home screen'**
+  String get dashboardArrangementPreview;
+
+  /// No description provided for @dragToReorderTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to reorder'**
+  String get dragToReorderTab;
+
+  /// No description provided for @dashboardArrangementReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to default order'**
+  String get dashboardArrangementReset;
+
+  /// No description provided for @zikrOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get zikrOptions;
+
+  /// No description provided for @recordVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Record my voice'**
+  String get recordVoice;
+
+  /// No description provided for @recordSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your voice'**
+  String get recordSheetTitle;
+
+  /// No description provided for @recordStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get recordStart;
+
+  /// No description provided for @recordStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get recordStop;
+
+  /// No description provided for @recordHintIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the microphone, then recite the zikr.'**
+  String get recordHintIdle;
+
+  /// No description provided for @recordHintRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording… tap to stop'**
+  String get recordHintRecording;
+
+  /// No description provided for @recordPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is needed to record. Allow it in your device settings.'**
+  String get recordPermissionDenied;
+
+  /// No description provided for @recordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not record. Please try again.'**
+  String get recordFailed;
+
+  /// No description provided for @recordListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to your recording'**
+  String get recordListen;
+
+  /// No description provided for @recordUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this recording'**
+  String get recordUse;
+
+  /// No description provided for @recordAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again'**
+  String get recordAgain;
+
+  /// No description provided for @recordDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard this recording?'**
+  String get recordDiscardTitle;
+
+  /// No description provided for @recordDiscardDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'The recording you just made will be deleted.'**
+  String get recordDiscardDetails;
+
+  /// No description provided for @recordCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recording'**
+  String get recordCurrent;
+
+  /// No description provided for @recordOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Original recitation'**
+  String get recordOriginal;
+
+  /// No description provided for @recordDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my recording'**
+  String get recordDelete;
+
+  /// No description provided for @recordDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your recording?'**
+  String get recordDeleteConfirmTitle;
+
+  /// No description provided for @recordDeleteConfirmOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'The original recitation will be played again.'**
+  String get recordDeleteConfirmOriginal;
+
+  /// No description provided for @recordDeleteConfirmCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'This zikr will have no audio.'**
+  String get recordDeleteConfirmCustom;
+
+  /// No description provided for @recordMyVoiceBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'My voice'**
+  String get recordMyVoiceBadge;
+
+  /// No description provided for @recordPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get recordPlay;
+
+  /// No description provided for @recordPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get recordPause;
+
+  /// No description provided for @audioPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play audio'**
+  String get audioPlay;
+
+  /// No description provided for @audioPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause audio'**
+  String get audioPause;
+
+  /// No description provided for @audioStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop audio'**
+  String get audioStop;
+
+  /// No description provided for @zikrTapToCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to count'**
+  String get zikrTapToCount;
+
+  /// No description provided for @zikrDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get zikrDone;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

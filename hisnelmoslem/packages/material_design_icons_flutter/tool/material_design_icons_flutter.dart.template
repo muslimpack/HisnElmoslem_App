@@ -1,0 +1,48 @@
+library material_design_icons_flutter;
+
+import 'package:flutter/widgets.dart';
+
+import 'icon_map.dart';
+
+class MdiIcons {
+  const MdiIcons();
+
+<%  static IconData get __ICON_NAME__ => iconMap['__ICON_NAME__']!;%>
+
+  static toCamelCase(String str) {
+    RegExp exp = new RegExp(
+        r"[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+");
+    Iterable<Match> matches = exp.allMatches(str);
+    if (matches.isEmpty) return '';
+    String res = '';
+    for (Match m in matches) {
+      String? match = m.group(0);
+      if (match == null) {
+        throw 'unexpected match-miss';
+      }
+      res += match.substring(0, 1).toUpperCase() +
+        match.substring(1).toLowerCase();
+    }
+    return res.substring(0, 1).toLowerCase() + res.substring(1);
+  }
+
+  static IconData? fromString(String key) {
+    final iconName = MdiIcons.toCamelCase(key);
+    return iconMap[iconName];
+  }
+
+  IconData? operator [](String key) {
+    final iconName = MdiIcons.toCamelCase(key);
+    return iconMap[iconName];
+  }
+
+  /// Returns list of all icons names.
+  static List<String> getNames() {
+    return iconMap.keys.toList();
+  }
+
+  /// Returns list of all icons.
+  static List<IconData> getIcons() {
+    return iconMap.values.toList();
+  }
+}

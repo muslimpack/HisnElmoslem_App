@@ -7,6 +7,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_backup.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -20,12 +22,16 @@ class BackupRestoreRepo {
   final TallyDatabaseHelper tallyDatabaseHelper;
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final FakeHadithDBHelper fakeHadithDBHelper;
+  final CustomAzkarDBHelper customAzkarDBHelper;
+  final CustomAudioBackup customAudioBackup;
 
   BackupRestoreRepo({
     required this.userDataDBHelper,
     required this.tallyDatabaseHelper,
     required this.alarmDatabaseHelper,
     required this.fakeHadithDBHelper,
+    required this.customAzkarDBHelper,
+    required this.customAudioBackup,
   });
 
   Future<List<String>> _getDbPaths() async {
@@ -33,6 +39,7 @@ class BackupRestoreRepo {
     paths.add(await userDataDBHelper.getDbPath());
     paths.add(await tallyDatabaseHelper.getDbPath());
     paths.add(await alarmDatabaseHelper.getDbPath());
+    paths.add(await customAzkarDBHelper.getDbPath());
 
     late final String fakeHadithPath;
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
@@ -71,6 +78,8 @@ class BackupRestoreRepo {
           archive.addFile(ArchiveFile(basename(path), bytes.length, bytes));
         }
       }
+
+      await customAudioBackup.addTo(archive);
 
       final zipBytes = ZipEncoder().encode(archive);
       if (zipBytes.isEmpty) return false;
@@ -136,6 +145,7 @@ class BackupRestoreRepo {
       await tallyDatabaseHelper.close();
       await alarmDatabaseHelper.close();
       await fakeHadithDBHelper.close();
+      await customAzkarDBHelper.close();
 
       for (final file in archive) {
         if (file.isFile) {
@@ -164,6 +174,8 @@ class BackupRestoreRepo {
           }
         }
       }
+
+      await customAudioBackup.restoreFrom(archive);
 
       return true;
     } catch (e) {
