@@ -158,3 +158,14 @@ Deviations / decisions made while implementing:
 - **Dashboard order**: `AppSettingsRepo.getDashboardArrangement(tabsCount)` now normalizes the saved order, otherwise existing users (saved order `0,1,2`) would crash with a 4th tab.
 - **Tests**: `test/features/custom_azkar/` — repository (sqflite ffi, in-memory), backup file round trip, alarm payloads, and widget tests for the editor screen.
 - **Not verified here**: no manual run on a device/emulator (notification delivery, tap-to-open from a killed app, real backup/restore through the file picker, RTL visual check). Those still need a hands-on pass.
+
+### Voice recordings
+
+- **Where**: the recording belongs to a title *item* (`custom_title_items.audio_file`, db v3), so it works for custom zikrs and as an override for linked original zikrs. Only the file name is stored; files live in `<app documents>/custom_audio/` (`CustomAudioStorage`). Playback order: user recording, else the original's bundled audio.
+- **Editor drafts**: saving a title replaces its item rows, so the file name travels on the draft item. Takes made in an open editor are pinned (`CustomAudioStorage.pin`) so cleanup triggered elsewhere (e.g. deleting a library zikr) cannot remove them, and are deleted if the editor is left without saving. Replaced or removed recordings that were already saved stay on disk until the title is saved.
+- **Cleanup**: `CustomAzkarRepoImpl` deletes recordings no item references after `updateTitle`, `deleteTitle`, `deleteZikr` and `setItemAudio`.
+- **Recording**: `record` package (AAC, mono, 22.05 kHz, 64 kbps), max 3 minutes, stops when the app goes to the background. `ZikrRecorderCubit` + `RecordAudioSheet` (record, listen, use / record again, delete existing, play the original recitation). The sheet cannot be dismissed by swipe so a take is not lost by accident; closing asks first.
+- **Entry point**: the "Record my voice" chip on each row of the title editor. There is no recording entry in the viewer yet (item ids change when a title is saved, so recording there would need its own save path).
+- **Permissions**: Android `RECORD_AUDIO`, iOS `NSMicrophoneUsageDescription` (English text only in `Info.plist`).
+- **Backup**: `CustomAudioBackup` adds the files under `custom_audio/` in the `.hisn` archive; restoring a backup that contains the custom database replaces the device's recordings. A missing file falls back to the original audio.
+- **Not verified here**: microphone permission flow, recording and playback on a real device (Android, iOS, Windows), and an interrupted recording (call, background).
