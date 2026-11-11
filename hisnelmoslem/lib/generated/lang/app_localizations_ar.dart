@@ -957,4 +957,71 @@ class SAr extends S {
 
   @override
   String get zikrOptions => 'خيارات';
+
+  @override
+  String get recordVoice => 'تسجيل صوتي';
+
+  @override
+  String get recordSheetTitle => 'سجّل صوتك';
+
+  @override
+  String get recordStart => 'بدء التسجيل';
+
+  @override
+  String get recordStop => 'إيقاف التسجيل';
+
+  @override
+  String get recordHintIdle => 'اضغط على الميكروفون ثم ردّد الذكر.';
+
+  @override
+  String get recordHintRecording => 'جارٍ التسجيل… اضغط للإيقاف';
+
+  @override
+  String get recordPermissionDenied =>
+      'نحتاج إلى إذن الميكروفون للتسجيل. اسمح به من إعدادات الجهاز.';
+
+  @override
+  String get recordFailed => 'تعذّر التسجيل. حاول مرة أخرى.';
+
+  @override
+  String get recordListen => 'استمع إلى تسجيلك';
+
+  @override
+  String get recordUse => 'استخدم هذا التسجيل';
+
+  @override
+  String get recordAgain => 'إعادة التسجيل';
+
+  @override
+  String get recordDiscardTitle => 'تجاهل هذا التسجيل؟';
+
+  @override
+  String get recordDiscardDetails => 'سيتم حذف التسجيل الذي أنشأته للتو.';
+
+  @override
+  String get recordCurrent => 'تسجيلك';
+
+  @override
+  String get recordOriginal => 'التلاوة الأصلية';
+
+  @override
+  String get recordDelete => 'حذف تسجيلي';
+
+  @override
+  String get recordDeleteConfirmTitle => 'حذف تسجيلك؟';
+
+  @override
+  String get recordDeleteConfirmOriginal => 'ستُشغَّل التلاوة الأصلية مرة أخرى.';
+
+  @override
+  String get recordDeleteConfirmCustom => 'لن يكون لهذا الذكر صوت.';
+
+  @override
+  String get recordMyVoiceBadge => 'بصوتي';
+
+  @override
+  String get recordPlay => 'تشغيل';
+
+  @override
+  String get recordPause => 'إيقاف مؤقت';
 }

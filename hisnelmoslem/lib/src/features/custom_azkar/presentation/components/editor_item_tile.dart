@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/count_stepper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/record_audio_sheet.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/zikr_preview_text.dart';
 
 /// One reorderable row of the title editor.
@@ -47,6 +48,7 @@ class EditorItemTile extends StatelessWidget {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       EditorItemBadge(item: resolved),
+                      EditorItemRecordChip(entry: entry),
                       CountStepper(
                         value: entry.count,
                         onChanged: (count) => context.read<CustomTitleEditorBloc>().add(
@@ -92,6 +94,38 @@ class EditorItemBadge extends StatelessWidget {
       avatar: Icon(icon, size: 16),
       label: Text(label),
       padding: EdgeInsets.zero,
+    );
+  }
+}
+
+/// Opens the recording sheet; shows whether the row already has the user's voice.
+class EditorItemRecordChip extends StatelessWidget {
+  final EditorEntry entry;
+  const EditorItemRecordChip({super.key, required this.entry});
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final item = entry.resolved.item;
+    final hasRecording = item.hasUserAudio;
+
+    return ActionChip(
+      visualDensity: VisualDensity.compact,
+      avatar: Icon(hasRecording ? Icons.graphic_eq_rounded : Icons.mic_none_rounded, size: 18),
+      label: Text(hasRecording ? s.recordMyVoiceBadge : s.recordVoice),
+      onPressed: () async {
+        final editor = context.read<CustomTitleEditorBloc>();
+        final result = await RecordAudioSheet.show(
+          context,
+          zikrText: entry.resolved.content,
+          existingFile: item.audioFile,
+          originalAudio: entry.resolved.audio,
+        );
+        if (result == null) return;
+        editor.add(
+          CustomTitleEditorItemAudioChangedEvent(uid: entry.uid, audioFile: result.fileName),
+        );
+      },
     );
   }
 }

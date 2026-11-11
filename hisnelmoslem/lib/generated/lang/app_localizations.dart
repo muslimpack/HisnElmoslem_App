@@ -1958,6 +1958,138 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Options'**
   String get zikrOptions;
+
+  /// No description provided for @recordVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Record my voice'**
+  String get recordVoice;
+
+  /// No description provided for @recordSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your voice'**
+  String get recordSheetTitle;
+
+  /// No description provided for @recordStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get recordStart;
+
+  /// No description provided for @recordStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get recordStop;
+
+  /// No description provided for @recordHintIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the microphone, then recite the zikr.'**
+  String get recordHintIdle;
+
+  /// No description provided for @recordHintRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording… tap to stop'**
+  String get recordHintRecording;
+
+  /// No description provided for @recordPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is needed to record. Allow it in your device settings.'**
+  String get recordPermissionDenied;
+
+  /// No description provided for @recordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not record. Please try again.'**
+  String get recordFailed;
+
+  /// No description provided for @recordListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to your recording'**
+  String get recordListen;
+
+  /// No description provided for @recordUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this recording'**
+  String get recordUse;
+
+  /// No description provided for @recordAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again'**
+  String get recordAgain;
+
+  /// No description provided for @recordDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard this recording?'**
+  String get recordDiscardTitle;
+
+  /// No description provided for @recordDiscardDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'The recording you just made will be deleted.'**
+  String get recordDiscardDetails;
+
+  /// No description provided for @recordCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recording'**
+  String get recordCurrent;
+
+  /// No description provided for @recordOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Original recitation'**
+  String get recordOriginal;
+
+  /// No description provided for @recordDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my recording'**
+  String get recordDelete;
+
+  /// No description provided for @recordDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your recording?'**
+  String get recordDeleteConfirmTitle;
+
+  /// No description provided for @recordDeleteConfirmOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'The original recitation will be played again.'**
+  String get recordDeleteConfirmOriginal;
+
+  /// No description provided for @recordDeleteConfirmCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'This zikr will have no audio.'**
+  String get recordDeleteConfirmCustom;
+
+  /// No description provided for @recordMyVoiceBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'My voice'**
+  String get recordMyVoiceBadge;
+
+  /// No description provided for @recordPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get recordPlay;
+
+  /// No description provided for @recordPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get recordPause;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

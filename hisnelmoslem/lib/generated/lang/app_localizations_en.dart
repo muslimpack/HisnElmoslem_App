@@ -959,4 +959,71 @@ class SEn extends S {
 
   @override
   String get zikrOptions => 'Options';
+
+  @override
+  String get recordVoice => 'Record my voice';
+
+  @override
+  String get recordSheetTitle => 'Record your voice';
+
+  @override
+  String get recordStart => 'Start recording';
+
+  @override
+  String get recordStop => 'Stop recording';
+
+  @override
+  String get recordHintIdle => 'Tap the microphone, then recite the zikr.';
+
+  @override
+  String get recordHintRecording => 'Recording… tap to stop';
+
+  @override
+  String get recordPermissionDenied =>
+      'Microphone access is needed to record. Allow it in your device settings.';
+
+  @override
+  String get recordFailed => 'Could not record. Please try again.';
+
+  @override
+  String get recordListen => 'Listen to your recording';
+
+  @override
+  String get recordUse => 'Use this recording';
+
+  @override
+  String get recordAgain => 'Record again';
+
+  @override
+  String get recordDiscardTitle => 'Discard this recording?';
+
+  @override
+  String get recordDiscardDetails => 'The recording you just made will be deleted.';
+
+  @override
+  String get recordCurrent => 'Your recording';
+
+  @override
+  String get recordOriginal => 'Original recitation';
+
+  @override
+  String get recordDelete => 'Delete my recording';
+
+  @override
+  String get recordDeleteConfirmTitle => 'Delete your recording?';
+
+  @override
+  String get recordDeleteConfirmOriginal => 'The original recitation will be played again.';
+
+  @override
+  String get recordDeleteConfirmCustom => 'This zikr will have no audio.';
+
+  @override
+  String get recordMyVoiceBadge => 'My voice';
+
+  @override
+  String get recordPlay => 'Play';
+
+  @override
+  String get recordPause => 'Pause';
 }
