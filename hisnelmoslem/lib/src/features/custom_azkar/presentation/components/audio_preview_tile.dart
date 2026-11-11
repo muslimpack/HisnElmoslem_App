@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/audio_preview/audio_preview_cubit.dart';
 
@@ -11,8 +12,7 @@ String formatClock(Duration d) {
   return "${two(d.inMinutes.remainder(60))}:${two(d.inSeconds.remainder(60))}";
 }
 
-/// Rounded container that stands out from the bottom sheet behind it (a plain `Card`
-/// has almost the same color as the sheet and disappears).
+/// Container for one clip of the recording sheet. See [OutlinedSurfaceCard].
 class RecordingClipCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -25,18 +25,7 @@ class RecordingClipCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
-    return Container(
-      width: double.infinity,
-      padding: padding,
-      decoration: BoxDecoration(
-        color: colors.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colors.outlineVariant),
-      ),
-      child: child,
-    );
+    return OutlinedSurfaceCard(padding: padding, child: child);
   }
 }
 
