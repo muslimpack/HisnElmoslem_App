@@ -17,6 +17,7 @@ import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_color_preset.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_const.dart';
@@ -190,6 +191,21 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     if (state is! ShareImageLoadedState) return;
 
     _updateSettings(state.shareImageSettings.copyWith(additionalTextColor: color));
+  }
+
+  /// Applies a ready-made set of colors with a single write.
+  Future<void> applyColorPreset(ShareColorPreset preset) async {
+    final state = this.state;
+    if (state is! ShareImageLoadedState) return;
+
+    await _updateSettings(
+      state.shareImageSettings.copyWith(
+        backgroundColor: preset.background,
+        titleTextColor: preset.title,
+        additionalTextColor: preset.text,
+        bodyTextColor: preset.text,
+      ),
+    );
   }
 
   void resetColors() {

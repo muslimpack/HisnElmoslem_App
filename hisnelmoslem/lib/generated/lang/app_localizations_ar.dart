@@ -1054,4 +1054,46 @@ class SAr extends S {
 
   @override
   String get shareImageTextColor => 'لون النص';
+
+  @override
+  String get shareImagePresets => 'ألوان جاهزة';
+
+  @override
+  String get shareImagePresetDark => 'داكنة';
+
+  @override
+  String get shareImagePresetLight => 'فاتحة';
+
+  @override
+  String get presetClassicNight => 'الليل الكلاسيكي';
+
+  @override
+  String get presetEmeraldNight => 'ليل زمردي';
+
+  @override
+  String get presetMidnightGold => 'ذهب منتصف الليل';
+
+  @override
+  String get presetDeepOcean => 'المحيط العميق';
+
+  @override
+  String get presetRoyalPurple => 'بنفسجي ملكي';
+
+  @override
+  String get presetCharcoalCoral => 'فحمي مرجاني';
+
+  @override
+  String get presetParchment => 'رَقّ قديم';
+
+  @override
+  String get presetMintGarden => 'حديقة النعناع';
+
+  @override
+  String get presetCleanWhite => 'أبيض نقي';
+
+  @override
+  String get presetRoseDawn => 'فجر وردي';
+
+  @override
+  String get presetSkyMorning => 'صباح سماوي';
 }

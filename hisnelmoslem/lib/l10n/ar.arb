@@ -345,5 +345,19 @@
   "shareImageColors": "الألوان",
   "shareImageContent": "المحتوى",
   "shareImageColorTarget": "اختر ما تريد تلوينه",
-  "shareImageTextColor": "لون النص"
+  "shareImageTextColor": "لون النص",
+  "shareImagePresets": "ألوان جاهزة",
+  "shareImagePresetDark": "داكنة",
+  "shareImagePresetLight": "فاتحة",
+  "presetClassicNight": "الليل الكلاسيكي",
+  "presetEmeraldNight": "ليل زمردي",
+  "presetMidnightGold": "ذهب منتصف الليل",
+  "presetDeepOcean": "المحيط العميق",
+  "presetRoyalPurple": "بنفسجي ملكي",
+  "presetCharcoalCoral": "فحمي مرجاني",
+  "presetParchment": "رَقّ قديم",
+  "presetMintGarden": "حديقة النعناع",
+  "presetCleanWhite": "أبيض نقي",
+  "presetRoseDawn": "فجر وردي",
+  "presetSkyMorning": "صباح سماوي"
 }

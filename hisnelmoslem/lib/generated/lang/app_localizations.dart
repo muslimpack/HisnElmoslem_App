@@ -2150,6 +2150,90 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Text color'**
   String get shareImageTextColor;
+
+  /// No description provided for @shareImagePresets.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready colors'**
+  String get shareImagePresets;
+
+  /// No description provided for @shareImagePresetDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get shareImagePresetDark;
+
+  /// No description provided for @shareImagePresetLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get shareImagePresetLight;
+
+  /// No description provided for @presetClassicNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic night'**
+  String get presetClassicNight;
+
+  /// No description provided for @presetEmeraldNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald night'**
+  String get presetEmeraldNight;
+
+  /// No description provided for @presetMidnightGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight gold'**
+  String get presetMidnightGold;
+
+  /// No description provided for @presetDeepOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep ocean'**
+  String get presetDeepOcean;
+
+  /// No description provided for @presetRoyalPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal purple'**
+  String get presetRoyalPurple;
+
+  /// No description provided for @presetCharcoalCoral.
+  ///
+  /// In en, this message translates to:
+  /// **'Charcoal coral'**
+  String get presetCharcoalCoral;
+
+  /// No description provided for @presetParchment.
+  ///
+  /// In en, this message translates to:
+  /// **'Parchment'**
+  String get presetParchment;
+
+  /// No description provided for @presetMintGarden.
+  ///
+  /// In en, this message translates to:
+  /// **'Mint garden'**
+  String get presetMintGarden;
+
+  /// No description provided for @presetCleanWhite.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean white'**
+  String get presetCleanWhite;
+
+  /// No description provided for @presetRoseDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose dawn'**
+  String get presetRoseDawn;
+
+  /// No description provided for @presetSkyMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky morning'**
+  String get presetSkyMorning;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

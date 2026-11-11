@@ -8,8 +8,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_color_preset.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_color_presets_section.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_action_bar.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_image_settings_editor.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
@@ -107,13 +109,52 @@ void main() {
     expect(cubit.loaded.shareImageSettings.titleTextColor, isNot(kShareImageColorsList[1]));
   });
 
+  testWidgets("a ready preset sets the background, title and text colors together", (
+    tester,
+  ) async {
+    await openSheet(tester);
+    final preset = kShareColorPresets.firstWhere((p) => p.id == SharePresetId.midnightGold);
+
+    await tester.tap(find.text("Midnight gold"));
+    await tester.pump();
+
+    final settings = cubit.loaded.shareImageSettings;
+    expect(settings.backgroundColor, preset.background);
+    expect(settings.titleTextColor, preset.title);
+    expect(settings.additionalTextColor, preset.text);
+    // The tile now shows as selected.
+    expect(
+      find.descendant(
+        of: find.ancestor(of: find.text("Midnight gold"), matching: find.byType(SharePresetTile)),
+        matching: find.byIcon(Icons.check_rounded),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets("light and dark presets are both offered", (tester) async {
+    await openSheet(tester);
+
+    expect(find.text("Dark"), findsOneWidget);
+    expect(find.text("Light"), findsOneWidget);
+    expect(find.text("Parchment"), findsOneWidget);
+    expect(find.text("Emerald night"), findsOneWidget);
+  });
+
   testWidgets("content switches change what the image shows", (tester) async {
     await openSheet(tester);
     final before = cubit.loaded.shareImageSettings;
 
-    await tester.tap(find.widgetWithText(SwitchListTile, "Show fadl"));
+    // The sheet is taller than the screen now; scroll the switches into view.
+    final fadl = find.widgetWithText(SwitchListTile, "Show fadl");
+    await tester.ensureVisible(fadl);
     await tester.pump();
-    await tester.tap(find.widgetWithText(SwitchListTile, "Show Diacritics"));
+    await tester.tap(fadl);
+    await tester.pump();
+    final diacritics = find.widgetWithText(SwitchListTile, "Show Diacritics");
+    await tester.ensureVisible(diacritics);
+    await tester.pump();
+    await tester.tap(diacritics);
     await tester.pump();
 
     expect(cubit.loaded.shareImageSettings.showFadl, !before.showFadl);

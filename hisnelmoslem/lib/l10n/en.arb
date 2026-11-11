@@ -345,5 +345,19 @@
   "shareImageColors": "Colors",
   "shareImageContent": "Content",
   "shareImageColorTarget": "Choose what to color",
-  "shareImageTextColor": "Text color"
+  "shareImageTextColor": "Text color",
+  "shareImagePresets": "Ready colors",
+  "shareImagePresetDark": "Dark",
+  "shareImagePresetLight": "Light",
+  "presetClassicNight": "Classic night",
+  "presetEmeraldNight": "Emerald night",
+  "presetMidnightGold": "Midnight gold",
+  "presetDeepOcean": "Deep ocean",
+  "presetRoyalPurple": "Royal purple",
+  "presetCharcoalCoral": "Charcoal coral",
+  "presetParchment": "Parchment",
+  "presetMintGarden": "Mint garden",
+  "presetCleanWhite": "Clean white",
+  "presetRoseDawn": "Rose dawn",
+  "presetSkyMorning": "Sky morning"
 }

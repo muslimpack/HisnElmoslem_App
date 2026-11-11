@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_color_presets_section.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/select_color_dialog.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
 
@@ -39,6 +40,9 @@ class ShareImageSettingsEditor extends StatelessWidget {
         children: [
           Text(s.shareImageCustomize, style: theme.textTheme.titleLarge),
           const SizedBox(height: 16),
+          ShareSectionHeader(title: s.shareImagePresets),
+          const ShareColorPresetsSection(),
+          const SizedBox(height: 12),
           ShareSectionHeader(
             title: s.shareImageColors,
             action: TextButton.icon(

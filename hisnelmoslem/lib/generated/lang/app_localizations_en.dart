@@ -1056,4 +1056,46 @@ class SEn extends S {
 
   @override
   String get shareImageTextColor => 'Text color';
+
+  @override
+  String get shareImagePresets => 'Ready colors';
+
+  @override
+  String get shareImagePresetDark => 'Dark';
+
+  @override
+  String get shareImagePresetLight => 'Light';
+
+  @override
+  String get presetClassicNight => 'Classic night';
+
+  @override
+  String get presetEmeraldNight => 'Emerald night';
+
+  @override
+  String get presetMidnightGold => 'Midnight gold';
+
+  @override
+  String get presetDeepOcean => 'Deep ocean';
+
+  @override
+  String get presetRoyalPurple => 'Royal purple';
+
+  @override
+  String get presetCharcoalCoral => 'Charcoal coral';
+
+  @override
+  String get presetParchment => 'Parchment';
+
+  @override
+  String get presetMintGarden => 'Mint garden';
+
+  @override
+  String get presetCleanWhite => 'Clean white';
+
+  @override
+  String get presetRoseDawn => 'Rose dawn';
+
+  @override
+  String get presetSkyMorning => 'Sky morning';
 }
