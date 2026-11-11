@@ -195,7 +195,7 @@ void main() {
     await openSheet(tester, existingFile: "old.m4a");
 
     expect(find.text("Your recording"), findsOneWidget);
-    await tester.tap(find.text("Delete my recording"));
+    await tester.tap(find.byTooltip("Delete my recording"));
     await tester.pumpAndSettle();
     expect(find.text("This zikr will have no audio."), findsOneWidget);
     await tester.tap(find.text("Yes"));

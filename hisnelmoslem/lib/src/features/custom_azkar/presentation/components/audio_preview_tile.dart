@@ -11,6 +11,35 @@ String formatClock(Duration d) {
   return "${two(d.inMinutes.remainder(60))}:${two(d.inSeconds.remainder(60))}";
 }
 
+/// Rounded container that stands out from the bottom sheet behind it (a plain `Card`
+/// has almost the same color as the sheet and disappears).
+class RecordingClipCard extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+
+  const RecordingClipCard({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(12),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return Container(
+      width: double.infinity,
+      padding: padding,
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: colors.outlineVariant),
+      ),
+      child: child,
+    );
+  }
+}
+
 /// Play/pause row with a seek bar for one clip. Give either the name of a [fileName]
 /// recording or a bundled [asset]; [previewKey] must be unique among the tiles that
 /// share an [AudioPreviewCubit].
@@ -20,12 +49,20 @@ class AudioPreviewTile extends StatefulWidget {
   final String? fileName;
   final String? asset;
 
+  /// Small icon before the [label].
+  final IconData? icon;
+
+  /// Shown at the end of the row, e.g. a delete button.
+  final Widget? trailing;
+
   const AudioPreviewTile({
     super.key,
     required this.previewKey,
     required this.label,
     this.fileName,
     this.asset,
+    this.icon,
+    this.trailing,
   }) : assert(fileName != null || asset != null);
 
   @override
@@ -57,8 +94,9 @@ class _AudioPreviewTileState extends State<AudioPreviewTile> {
 
             return Row(
               children: [
-                IconButton.filledTonal(
+                IconButton.filled(
                   tooltip: playing ? s.recordPause : s.recordPlay,
+                  iconSize: 28,
                   onPressed: ready
                       ? () => context.read<AudioPreviewCubit>().toggle(
                           widget.previewKey,
@@ -73,7 +111,22 @@ class _AudioPreviewTileState extends State<AudioPreviewTile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.label, style: theme.textTheme.titleSmall),
+                      Row(
+                        children: [
+                          if (widget.icon != null) ...[
+                            Icon(widget.icon, size: 18, color: theme.colorScheme.primary),
+                            const SizedBox(width: 6),
+                          ],
+                          Expanded(
+                            child: Text(
+                              widget.label,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       if (active && max > 0)
                         Row(
                           children: [
@@ -102,6 +155,7 @@ class _AudioPreviewTileState extends State<AudioPreviewTile> {
                     ],
                   ),
                 ),
+                if (widget.trailing != null) widget.trailing!,
               ],
             );
           },

@@ -117,15 +117,12 @@ class RecordAudioSheet extends StatelessWidget {
                       ],
                       if (originalAudio.isNotEmpty) ...[
                         const SizedBox(height: 16),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: AudioPreviewTile(
-                              previewKey: "original",
-                              label: S.of(context).recordOriginal,
-                              asset: originalAudio,
-                            ),
+                        RecordingClipCard(
+                          child: AudioPreviewTile(
+                            previewKey: "original",
+                            label: S.of(context).recordOriginal,
+                            icon: Icons.menu_book_rounded,
+                            asset: originalAudio,
                           ),
                         ),
                       ],
@@ -250,26 +247,29 @@ class RecorderPanel extends StatelessWidget {
         };
         final maxDuration = context.read<ZikrRecorderCubit>().maxDuration;
 
-        return Column(
-          children: [
-            RecordButton(isRecording: state.isRecording, level: state.level),
-            const SizedBox(height: 8),
-            if (state.isRecording)
+        return RecordingClipCard(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: Column(
+            children: [
+              RecordButton(isRecording: state.isRecording, level: state.level),
+              const SizedBox(height: 8),
+              if (state.isRecording)
+                Text(
+                  "${formatClock(state.elapsed)} / ${formatClock(maxDuration)}",
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              const SizedBox(height: 4),
               Text(
-                "${formatClock(state.elapsed)} / ${formatClock(maxDuration)}",
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontFeatures: const [FontFeature.tabularFigures()],
+                message,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: isError ? theme.colorScheme.error : theme.hintColor,
                 ),
               ),
-            const SizedBox(height: 4),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: isError ? theme.colorScheme.error : theme.hintColor,
-              ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
@@ -337,15 +337,12 @@ class TakeReview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Card(
-          margin: EdgeInsets.zero,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: AudioPreviewTile(
-              previewKey: "take",
-              label: s.recordListen,
-              fileName: fileName,
-            ),
+        RecordingClipCard(
+          child: AudioPreviewTile(
+            previewKey: "take",
+            label: s.recordListen,
+            icon: Icons.graphic_eq_rounded,
+            fileName: fileName,
           ),
         ),
         const SizedBox(height: 16),
@@ -395,34 +392,25 @@ class ExistingRecordingCard extends StatelessWidget {
     final s = S.of(context);
     final theme = Theme.of(context);
 
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AudioPreviewTile(previewKey: "existing", label: s.recordCurrent, fileName: fileName),
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: TextButton.icon(
-                style: TextButton.styleFrom(foregroundColor: theme.colorScheme.error),
-                onPressed: () async {
-                  final navigator = Navigator.of(context);
-                  final confirmed = await YesOrNoDialog.show(
-                    context,
-                    msg: s.recordDeleteConfirmTitle,
-                    details: hasOriginal
-                        ? s.recordDeleteConfirmOriginal
-                        : s.recordDeleteConfirmCustom,
-                  );
-                  if (confirmed == true) navigator.pop(const RecordAudioResult.removed());
-                },
-                icon: const Icon(Icons.delete_outline_rounded),
-                label: Text(s.recordDelete),
-              ),
-            ),
-          ],
+    return RecordingClipCard(
+      child: AudioPreviewTile(
+        previewKey: "existing",
+        label: s.recordCurrent,
+        icon: Icons.mic_rounded,
+        fileName: fileName,
+        trailing: IconButton(
+          tooltip: s.recordDelete,
+          color: theme.colorScheme.error,
+          onPressed: () async {
+            final navigator = Navigator.of(context);
+            final confirmed = await YesOrNoDialog.show(
+              context,
+              msg: s.recordDeleteConfirmTitle,
+              details: hasOriginal ? s.recordDeleteConfirmOriginal : s.recordDeleteConfirmCustom,
+            );
+            if (confirmed == true) navigator.pop(const RecordAudioResult.removed());
+          },
+          icon: const Icon(Icons.delete_outline_rounded),
         ),
       ),
     );
