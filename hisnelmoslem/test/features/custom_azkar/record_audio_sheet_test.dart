@@ -123,6 +123,29 @@ void main() {
     expect(find.text("Use this recording"), findsOneWidget);
   }
 
+  testWidgets("a long zikr is shown in full inside a scrollable card", (tester) async {
+    final longText = List.filled(60, "سبحان الله وبحمده").join(" ");
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: S.localizationsDelegates,
+        supportedLocales: S.supportedLocales,
+        home: Scaffold(body: RecordZikrCard(text: longText)),
+      ),
+    );
+
+    final text = tester.widget<Text>(find.text(longText));
+    expect(text.maxLines, isNull);
+    expect(text.overflow, isNot(TextOverflow.ellipsis));
+    expect(
+      find.descendant(of: find.byType(RecordZikrCard), matching: find.byType(Scrollable)),
+      findsOneWidget,
+    );
+
+    // The card is capped, so the text overflows it and can be scrolled.
+    final scrollable = tester.state<ScrollableState>(find.byType(Scrollable));
+    expect(scrollable.position.maxScrollExtent, greaterThan(0));
+  });
+
   testWidgets("record, listen and use the recording", (tester) async {
     await openSheet(tester);
     expect(find.text("سبحان الله"), findsOneWidget);

@@ -7,10 +7,14 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 class ZikrPreviewText extends StatelessWidget {
   final String content;
 
-  /// Null shows the whole text (for a parent that scrolls).
+  /// Null shows the whole text.
   final int? maxLines;
 
-  const ZikrPreviewText({super.key, required this.content, this.maxLines = 3});
+  /// Cut to [maxLines] lines with an ellipsis.
+  const ZikrPreviewText({super.key, required this.content, int this.maxLines = 3});
+
+  /// Never cut; for a parent that scrolls.
+  const ZikrPreviewText.full({super.key, required this.content}) : maxLines = null;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,12 @@ class ZikrPreviewText extends StatelessWidget {
     ).textTheme.bodyLarge?.copyWith(fontFamily: "Kitab", height: 1.8);
 
     if (!content.contains("QuranText")) {
-      return Text(content, maxLines: maxLines, overflow: TextOverflow.ellipsis, style: style);
+      return Text(
+        content,
+        maxLines: maxLines,
+        overflow: maxLines == null ? TextOverflow.visible : TextOverflow.ellipsis,
+        style: style,
+      );
     }
 
     return FutureBuilder<String>(
@@ -28,7 +37,7 @@ class ZikrPreviewText extends StatelessWidget {
         return Text(
           snapshot.data ?? "…",
           maxLines: maxLines,
-          overflow: TextOverflow.ellipsis,
+          overflow: maxLines == null ? TextOverflow.visible : TextOverflow.ellipsis,
           style: style,
         );
       },

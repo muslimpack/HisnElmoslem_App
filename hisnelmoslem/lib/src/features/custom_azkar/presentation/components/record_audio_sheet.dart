@@ -220,7 +220,7 @@ class RecordZikrCard extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.3),
         child: Scrollbar(
-          child: SingleChildScrollView(child: ZikrPreviewText(content: text, maxLines: null)),
+          child: SingleChildScrollView(child: ZikrPreviewText.full(content: text)),
         ),
       ),
     );
