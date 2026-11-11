@@ -11,52 +11,35 @@ class QuranSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DrawerCard(
+    final colorScheme = Theme.of(context).colorScheme;
+    final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(14));
+    final tint = colorScheme.secondaryContainer.withValues(alpha: 0.35);
+    final surahs = <(String, SurahNameEnum)>[
+      (S.of(context).endSuraAliImran, SurahNameEnum.endofAliImran),
+      (S.of(context).suraAlKahf, SurahNameEnum.alKahf),
+      (S.of(context).suraAsSajdah, SurahNameEnum.assajdah),
+      (S.of(context).suraAlMulk, SurahNameEnum.alMulk),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          leading: Icon(MdiIcons.bookOpenPageVariant),
-          title: Text(S.of(context).sourceQuran), // You can change this key
-          childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+          shape: shape,
+          collapsedShape: shape,
+          backgroundColor: tint,
+          collapsedBackgroundColor: tint,
+          leading: Icon(MdiIcons.bookOpenPageVariant, color: colorScheme.primary),
+          title: Text(S.of(context).sourceQuran),
+          childrenPadding: const EdgeInsets.only(bottom: 6),
           children: [
-            ListTile(
-              leading: Icon(MdiIcons.bookOpenPageVariant),
-              title: Text(S.of(context).endSuraAliImran),
-              onTap: () {
-                context.push(
-                  const QuranReadScreen(surahName: SurahNameEnum.endofAliImran),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(MdiIcons.bookOpenPageVariant),
-              title: Text(S.of(context).suraAlKahf),
-              onTap: () {
-                context.push(
-                  const QuranReadScreen(surahName: SurahNameEnum.alKahf),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(MdiIcons.bookOpenPageVariant),
-              title: Text(S.of(context).suraAsSajdah),
-              onTap: () {
-                context.push(
-                  const QuranReadScreen(surahName: SurahNameEnum.assajdah),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(MdiIcons.bookOpenPageVariant),
-              title: Text(S.of(context).suraAlMulk),
-              onTap: () {
-                context.push(
-                  const QuranReadScreen(surahName: SurahNameEnum.alMulk),
-                );
-              },
-            ),
+            for (final (title, surah) in surahs)
+              DrawerTile(
+                icon: MdiIcons.bookOpenPageVariant,
+                title: title,
+                onTap: () => context.push(QuranReadScreen(surahName: surah)),
+              ),
           ],
         ),
       ),
