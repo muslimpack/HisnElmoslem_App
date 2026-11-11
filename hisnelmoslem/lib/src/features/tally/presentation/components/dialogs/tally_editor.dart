@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/models/editor_result.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/number_field.dart';
 import 'package:hisnelmoslem/src/core/shared/custom_inputs/text_field.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/record_audio_sheet.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -36,6 +39,11 @@ class _TallyEditorState extends State<_TallyEditor> {
   late final TextEditingController _counterValueController;
   final _formKey = GlobalKey<FormState>();
 
+  /// Recordings made while this sheet is open. Only the one the counter ends up
+  /// with is kept, and only if the sheet is saved.
+  final Set<String> _createdFiles = {};
+  bool _saved = false;
+
   bool get _isEditing => widget.dbTally != null;
 
   @override
@@ -66,7 +74,38 @@ class _TallyEditorState extends State<_TallyEditor> {
     _titleController.dispose();
     _resetCounterController.dispose();
     _counterValueController.dispose();
+
+    final storage = sl<CustomAudioStorage>();
+    for (final file in _createdFiles) {
+      storage.unpin(file);
+      if (!_saved || file != _dbTally.audioFile) storage.delete(file);
+    }
     super.dispose();
+  }
+
+  Future<void> _recordVoice() async {
+    final result = await RecordAudioSheet.show(
+      context,
+      zikrText: _titleController.text.trim(),
+      existingFile: _dbTally.hasAudio ? _dbTally.audioFile : null,
+    );
+    if (result == null || !mounted) return;
+
+    final storage = sl<CustomAudioStorage>();
+    final previous = _dbTally.audioFile;
+    final fresh = result.fileName ?? "";
+
+    if (fresh.isNotEmpty) {
+      // Protected from clean-ups until the sheet is closed.
+      storage.pin(fresh);
+      _createdFiles.add(fresh);
+    }
+    if (previous.isNotEmpty && previous != fresh && _createdFiles.remove(previous)) {
+      // A take of this same session that was replaced: nothing refers to it.
+      storage.unpin(previous);
+      await storage.delete(previous);
+    }
+    setState(() => _dbTally = _dbTally.copyWith(audioFile: fresh));
   }
 
   @override
@@ -169,6 +208,24 @@ class _TallyEditorState extends State<_TallyEditor> {
                 },
               ),
 
+              const SizedBox(height: 20),
+
+              // Voice
+              _SectionLabel(label: S.of(context).tallyVoiceSection),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                icon: Icon(_dbTally.hasAudio ? Icons.mic_rounded : Icons.mic_none_rounded),
+                label: Text(
+                  _dbTally.hasAudio ? S.of(context).recordMyVoiceBadge : S.of(context).recordVoice,
+                ),
+                onPressed: _recordVoice,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                S.of(context).tallyVoiceHint,
+                style: theme.textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+              ),
+
               const SizedBox(height: 28),
 
               // Actions
@@ -230,6 +287,8 @@ class _TallyEditorState extends State<_TallyEditor> {
       Navigator.pop(context);
       return;
     }
+
+    _saved = true;
 
     Navigator.pop(
       context,

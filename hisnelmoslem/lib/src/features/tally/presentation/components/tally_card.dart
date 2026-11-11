@@ -4,10 +4,8 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
-import 'package:hisnelmoslem/src/core/models/editor_result.dart';
-import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/dialogs/tally_editor.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 
 class TallyCard extends StatelessWidget {
@@ -42,12 +40,13 @@ class TallyCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {
-            context.read<TallyBloc>().add(
-              TallyToggleCounterActivationEvent(
-                counter: dbTally,
-                activate: !isActivated,
-              ),
-            );
+            if (isActivated) {
+              context.read<TallyBloc>().add(
+                TallyToggleCounterActivationEvent(counter: dbTally, activate: false),
+              );
+            } else {
+              TallyActions.select(context, dbTally);
+            }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -92,8 +91,24 @@ class TallyCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        dbTally.title,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            if (dbTally.hasAudio)
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.only(end: 6),
+                                  child: Icon(
+                                    Icons.mic_rounded,
+                                    size: 18,
+                                    color: isActivated ? primary : colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                            TextSpan(text: dbTally.title),
+                          ],
+                        ),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleMedium?.copyWith(
@@ -149,32 +164,7 @@ class TallyCard extends StatelessWidget {
                       style: IconButton.styleFrom(
                         foregroundColor: colorScheme.onSurface.withAlpha(130),
                       ),
-                      onPressed: () async {
-                        final EditorResult<DbTally>? result = await showTallyEditorDialog(
-                          context: context,
-                          dbTally: dbTally,
-                        );
-
-                        if (result == null || !context.mounted) return;
-                        switch (result.action) {
-                          case EditorActionEnum.edit:
-                            context.read<TallyBloc>().add(
-                              TallyEditCounterEvent(counter: result.value),
-                            );
-                          case EditorActionEnum.delete:
-                            final bool? confirm = await showDialog(
-                              context: context,
-                              builder: (_) => YesOrNoDialog(
-                                msg: S.of(context).counterWillBeDeleted,
-                              ),
-                            );
-                            if (confirm == null || !confirm || !context.mounted) return;
-                            context.read<TallyBloc>().add(
-                              TallyDeleteCounterEvent(counter: dbTally),
-                            );
-                          default:
-                        }
-                      },
+                      onPressed: () => TallyActions.edit(context, dbTally),
                       icon: const Icon(Icons.edit_outlined),
                     ),
                   ],
