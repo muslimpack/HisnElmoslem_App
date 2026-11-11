@@ -243,13 +243,6 @@ class ShareImageCubit extends Cubit<ShareImageState> {
     _updateSettings(state.shareImageSettings.copyWith(showSource: value));
   }
 
-  Future<void> updateShowZikrIndex({required bool value}) async {
-    final state = this.state;
-    if (state is! ShareImageLoadedState) return;
-
-    _updateSettings(state.shareImageSettings.copyWith(showZikrIndex: value));
-  }
-
   Future<void> toggleRemoveDiacritics() async {
     final state = this.state;
     if (state is! ShareImageLoadedState) return;

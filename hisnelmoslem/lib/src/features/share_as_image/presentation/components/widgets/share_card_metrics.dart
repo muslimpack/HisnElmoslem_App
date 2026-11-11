@@ -55,9 +55,6 @@ class ShareCardMetrics {
   /// Room left for rounding of line heights.
   static const double _slack = 12;
 
-  static const double badgeSize = 76;
-  static const double badgeGap = 20;
-
   /// Width available to the content inside the two frames.
   static double contentWidth(double imageWidth) {
     return imageWidth - 2 * (_frame + _frameGap + _sidePadding);
@@ -111,7 +108,6 @@ class ShareCardMetrics {
   static double _overhead({
     required double imageWidth,
     required String title,
-    required bool hasNumber,
     required TextStyle titleStyle,
     required TextStyle secondaryStyle,
     String? fadl,
@@ -123,14 +119,13 @@ class ShareCardMetrics {
     final width = contentWidth(imageWidth);
     var height = 2 * (_frame + _frameGap) + _topPadding + _bottomPadding;
 
-    // Title block: the title (or the badge, when taller), then the ornament line.
-    final titleWidth = hasNumber ? width - 2 * (badgeSize + badgeGap) : width;
+    // Title block: the title, then the ornament line.
     final titleHeight = _layout(
       TextSpan(text: title, style: titleStyle),
-      maxWidth: titleWidth,
+      maxWidth: width,
       maxLines: 2,
     ).height;
-    height += max(titleHeight, hasNumber ? badgeSize : 0) + 14 + 14 + 28;
+    height += titleHeight + 14 + 14 + 28;
 
     // Fadl, source and count.
     final labelStyle = secondaryStyle.copyWith(fontWeight: FontWeight.bold);
@@ -198,7 +193,6 @@ class ShareCardMetrics {
     required double minHeight,
     required double imageWidth,
     required String title,
-    required bool hasNumber,
     required TextStyle titleStyle,
     required String mainText,
     required TextStyle mainStyle,
@@ -214,7 +208,6 @@ class ShareCardMetrics {
         _overhead(
           imageWidth: imageWidth,
           title: title,
-          hasNumber: hasNumber,
           titleStyle: titleStyle,
           secondaryStyle: secondaryStyle,
           fadl: fadl,

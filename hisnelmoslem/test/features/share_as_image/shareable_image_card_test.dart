@@ -14,7 +14,6 @@ const _settings = ShareImageSettings(
   fontSize: 20,
   showFadl: true,
   showSource: true,
-  showZikrIndex: true,
   removeDiacritics: false,
 );
 
@@ -185,43 +184,22 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets("the zikr number is a badge beside the title, not part of the title", (
-    tester,
-  ) async {
+  testWidgets("the zikr number is not on the image", (tester) async {
+    // The zikr is number 4 in its title; nothing on the card should say so.
     await pump(tester, size: const Size(1080, 1080), zikr: _zikr());
 
-    expect(find.text("أذكار المساء"), findsOneWidget);
-    expect(find.text("4"), findsOneWidget);
-    expect(find.textContaining("::"), findsNothing);
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets("no number badge when the zikr index is switched off", (tester) async {
-    await pump(
-      tester,
-      size: const Size(1080, 1080),
-      zikr: _zikr(),
-      settings: _settings.copyWith(showZikrIndex: false),
-    );
-
     expect(find.text("4"), findsNothing);
+    expect(find.textContaining("::"), findsNothing);
+    expect(find.text("أذكار المساء"), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
-  testWidgets("a three digit number and a long title still fit", (tester) async {
-    await pump(
-      tester,
-      size: const Size(1080, 1080),
-      zikr: _zikr().copyWith(order: 123),
-      zikrTitle: const DbTitle(
-        id: 1,
-        name: "أذكار الاستيقاظ من النوم وما يقال عند الخروج من المنزل",
-        freq: "",
-        order: 1,
-      ),
-    );
+  testWidgets("the title is centered, with nothing beside it", (tester) async {
+    await pump(tester, size: const Size(1080, 1080), zikr: _zikr());
 
-    expect(find.text("123"), findsOneWidget);
-    expect(tester.takeException(), isNull);
+    final card = tester.getRect(find.byType(ShareableImageCard));
+    final title = tester.getRect(find.text("أذكار المساء"));
+    expect(title.center.dx, closeTo(card.center.dx, 1));
   });
 
   testWidgets("a custom zikr shows its fadl without the label", (tester) async {

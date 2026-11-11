@@ -569,9 +569,6 @@ class SEn extends S {
   String get showSourceOfZikr => 'Show source of zikr';
 
   @override
-  String get showZikrIndex => 'Show zikr index';
-
-  @override
   String get shuffle => 'Shuffle';
 
   @override

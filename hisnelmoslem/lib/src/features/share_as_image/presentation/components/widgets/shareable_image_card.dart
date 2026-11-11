@@ -93,7 +93,6 @@ class ShareableImageCard extends StatelessWidget {
       minHeight: settings.imageSize.height,
       imageWidth: settings.imageSize.width,
       title: zikrTitle.name,
-      hasNumber: shareImageSettings.showZikrIndex,
       titleStyle: titleStyle,
       mainText: displayText,
       mainStyle: mainStyle,
@@ -151,7 +150,6 @@ class ShareableImageCard extends StatelessWidget {
                         children: [
                           ShareCardTitle(
                             title: zikrTitle.name,
-                            number: shareImageSettings.showZikrIndex ? zikr.order : null,
                             color: accent,
                             fontFamily: settings.secondaryFontFamily,
                           ),
@@ -204,61 +202,36 @@ class ShareableImageCard extends StatelessWidget {
   }
 }
 
-/// Title with the zikr number in a badge beside it, and a thin ornament line and
-/// diamond underneath.
+/// The title, with a thin ornament line and diamond underneath.
 class ShareCardTitle extends StatelessWidget {
   final String title;
-
-  /// Position of the zikr in its title; no badge when null.
-  final int? number;
   final Color color;
   final String fontFamily;
 
   const ShareCardTitle({
     super.key,
     required this.title,
-    this.number,
     required this.color,
     required this.fontFamily,
   });
 
-  static const double _badgeSize = 76;
-
   @override
   Widget build(BuildContext context) {
-    final titleText = AutoSizeText(
-      title,
-      maxLines: 2,
-      minFontSize: 28,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 54,
-        height: 1.4,
-        fontWeight: FontWeight.bold,
-        color: color,
-        fontFamily: fontFamily,
-      ),
-    );
-
     return Column(
       children: [
-        if (number == null)
-          titleText
-        else
-          // The same space is kept on both sides, so the title stays centered.
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: _badgeSize + 20),
-                child: SizedBox(width: double.infinity, child: titleText),
-              ),
-              PositionedDirectional(
-                start: 0,
-                child: ShareCardNumberBadge(number: number!, color: color, size: _badgeSize),
-              ),
-            ],
+        AutoSizeText(
+          title,
+          maxLines: 2,
+          minFontSize: 28,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 54,
+            height: 1.4,
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontFamily: fontFamily,
           ),
+        ),
         const SizedBox(height: 14),
         Row(
           children: [
@@ -273,41 +246,6 @@ class ShareCardTitle extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-/// Round badge with the number of the zikr.
-class ShareCardNumberBadge extends StatelessWidget {
-  final int number;
-  final Color color;
-  final double size;
-
-  const ShareCardNumberBadge({
-    super.key,
-    required this.number,
-    required this.color,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      padding: const EdgeInsets.all(10),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color.withValues(alpha: .14),
-        border: Border.all(color: color, width: 3),
-      ),
-      child: AutoSizeText(
-        "$number",
-        maxLines: 1,
-        minFontSize: 18,
-        style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: color),
-      ),
     );
   }
 }

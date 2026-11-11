@@ -214,12 +214,6 @@ class ShareContentSection extends StatelessWidget {
                   ),
                   const Divider(height: 1),
                   SwitchListTile(
-                    title: Text(s.showZikrIndex),
-                    value: settings.showZikrIndex,
-                    onChanged: (value) => cubit.updateShowZikrIndex(value: value),
-                  ),
-                  const Divider(height: 1),
-                  SwitchListTile(
                     title: Text(s.showFadl),
                     value: settings.showFadl,
                     onChanged: (value) => cubit.uodateShowFadl(value: value),

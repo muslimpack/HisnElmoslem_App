@@ -569,9 +569,6 @@ class SAr extends S {
   String get showSourceOfZikr => 'عرض المصدر';
 
   @override
-  String get showZikrIndex => 'عرض رقم الذكر';
-
-  @override
   String get shuffle => 'عشوائي';
 
   @override

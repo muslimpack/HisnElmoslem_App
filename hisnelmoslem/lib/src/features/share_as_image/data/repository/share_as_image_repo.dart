@@ -82,14 +82,6 @@ class ShareAsImageRepo {
     await box.write(_shareImageShowSourceBoxKey, value);
   }
 
-  ///
-  static const String _shareImageShowZikrIndexBoxKey = 'share_image_show_zikr_index';
-
-  bool get shareImageShowZikrIndex => box.read(_shareImageShowZikrIndexBoxKey) ?? false;
-  Future<void> shareImageUpdateShowZikrIndex({required bool value}) async {
-    await box.write(_shareImageShowZikrIndexBoxKey, value);
-  }
-
   ///MARK: Text
 
   ///
@@ -114,7 +106,6 @@ class ShareAsImageRepo {
         fontSize: shareImageFontSize,
         showFadl: shareImageShowFadl,
         showSource: shareImageShowSource,
-        showZikrIndex: shareImageShowZikrIndex,
         removeDiacritics: shareImageRemoveDiacritics,
       );
     }

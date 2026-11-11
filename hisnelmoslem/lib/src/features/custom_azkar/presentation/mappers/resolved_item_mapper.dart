@@ -15,8 +15,7 @@ extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
       id: -item.id,
       content: content,
       titleId: customViewerTitleId(customTitleId),
-      // Shown as the zikr number (share image); original azkar are numbered from 1.
-      order: order + 1,
+      order: order,
       count: item.count,
       fadl: fadl,
       source: source,

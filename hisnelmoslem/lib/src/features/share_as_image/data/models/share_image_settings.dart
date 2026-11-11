@@ -13,7 +13,6 @@ class ShareImageSettings extends Equatable {
   final double fontSize;
   final bool showFadl;
   final bool showSource;
-  final bool showZikrIndex;
   final bool removeDiacritics;
   final ShareExportQuality exportQuality;
 
@@ -25,7 +24,6 @@ class ShareImageSettings extends Equatable {
     required this.fontSize,
     required this.showFadl,
     required this.showSource,
-    required this.showZikrIndex,
     required this.removeDiacritics,
     this.exportQuality = ShareExportQuality.high,
   });
@@ -38,7 +36,6 @@ class ShareImageSettings extends Equatable {
     double? fontSize,
     bool? showFadl,
     bool? showSource,
-    bool? showZikrIndex,
     bool? removeDiacritics,
     ShareExportQuality? exportQuality,
   }) {
@@ -50,7 +47,6 @@ class ShareImageSettings extends Equatable {
       fontSize: fontSize ?? this.fontSize,
       showFadl: showFadl ?? this.showFadl,
       showSource: showSource ?? this.showSource,
-      showZikrIndex: showZikrIndex ?? this.showZikrIndex,
       removeDiacritics: removeDiacritics ?? this.removeDiacritics,
       exportQuality: exportQuality ?? this.exportQuality,
     );
@@ -66,7 +62,6 @@ class ShareImageSettings extends Equatable {
       fontSize,
       showFadl,
       showSource,
-      showZikrIndex,
       removeDiacritics,
       exportQuality,
     ];
@@ -81,7 +76,6 @@ class ShareImageSettings extends Equatable {
       'fontSize': fontSize,
       'showFadl': showFadl,
       'showSource': showSource,
-      'showZikrIndex': showZikrIndex,
       'removeDiacritics': removeDiacritics,
       'exportQuality': exportQuality.name,
     };
@@ -96,7 +90,6 @@ class ShareImageSettings extends Equatable {
       fontSize: map['fontSize'] as double,
       showFadl: map['showFadl'] as bool,
       showSource: map['showSource'] as bool,
-      showZikrIndex: map['showZikrIndex'] as bool,
       removeDiacritics: map['removeDiacritics'] as bool,
       // Saved before this setting existed: falls back to the default.
       exportQuality: ShareExportQuality.fromName(map['exportQuality'] as String?),

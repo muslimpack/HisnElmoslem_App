@@ -14,7 +14,6 @@ void main() {
       minHeight: minHeight,
       imageWidth: width,
       title: "أذكار الصباح",
-      hasNumber: true,
       titleStyle: titleStyle,
       mainText: text,
       mainStyle: mainStyle,

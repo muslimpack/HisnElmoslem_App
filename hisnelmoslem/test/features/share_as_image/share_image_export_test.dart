@@ -87,7 +87,6 @@ void main() {
           fontSize: 25,
           showFadl: true,
           showSource: false,
-          showZikrIndex: true,
           removeDiacritics: false,
           exportQuality: ShareExportQuality.max,
         ).toJson(),

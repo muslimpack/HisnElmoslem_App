@@ -1197,12 +1197,6 @@ abstract class S {
   /// **'Show source of zikr'**
   String get showSourceOfZikr;
 
-  /// No description provided for @showZikrIndex.
-  ///
-  /// In en, this message translates to:
-  /// **'Show zikr index'**
-  String get showZikrIndex;
-
   /// No description provided for @shuffle.
   ///
   /// In en, this message translates to:
