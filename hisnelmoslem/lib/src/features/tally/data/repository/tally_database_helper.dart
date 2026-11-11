@@ -85,7 +85,6 @@ class TallyDatabaseHelper {
       "countReset"	INTEGER DEFAULT 33,
       "description"	TEXT,
       "audioFile"	TEXT DEFAULT '',
-      "advanceTrigger"	TEXT DEFAULT 'perCount',
       PRIMARY KEY("id" AUTOINCREMENT)
     );
     ''');
@@ -101,10 +100,8 @@ class TallyDatabaseHelper {
   @visibleForTesting
   static Future<void> upgradeSchema(Database db, int oldVersion) async {
     if (oldVersion < 2) {
-      // Voice recording and per-counter auto-advance. Existing counters keep the
-      // old behaviour: no recording, advance after every count.
+      // Voice recording. Existing counters simply have none.
       await db.execute("ALTER TABLE data ADD COLUMN audioFile TEXT DEFAULT ''");
-      await db.execute("ALTER TABLE data ADD COLUMN advanceTrigger TEXT DEFAULT 'perCount'");
     }
   }
 

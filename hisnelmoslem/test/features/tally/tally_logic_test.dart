@@ -53,7 +53,6 @@ DbTally _tally(
   int cycle = 33,
   bool active = false,
   String audio = "",
-  TallyAdvanceTrigger trigger = TallyAdvanceTrigger.perCount,
 }) {
   final now = DateTime(2026);
   return DbTally(
@@ -64,7 +63,6 @@ DbTally _tally(
     created: now,
     lastUpdate: now,
     audioFile: audio,
-    advanceTrigger: trigger,
   );
 }
 
@@ -97,22 +95,21 @@ void main() {
       expect(t.cycles, 5);
     });
 
-    test('advances after every count, or only at the end of a cycle', () {
-      expect(_tally('a', count: 1).shouldAdvanceNow, isTrue);
-      final perCycle = _tally('a', count: 1, trigger: TallyAdvanceTrigger.perCycle);
-      expect(perCycle.shouldAdvanceNow, isFalse);
-      expect(perCycle.copyWith(count: 33).shouldAdvanceNow, isTrue);
+    test('the trigger decides when auto-advance moves on', () {
+      final first = _tally('a', count: 1);
+      expect(TallyAdvanceTrigger.perCount.shouldAdvance(first), isTrue);
+      expect(TallyAdvanceTrigger.perCycle.shouldAdvance(first), isFalse);
+      expect(TallyAdvanceTrigger.perCycle.shouldAdvance(first.copyWith(count: 33)), isTrue);
     });
 
-    test('map round trip keeps the recording and the trigger', () {
-      final t = _tally('a', audio: 'rec_1.m4a', trigger: TallyAdvanceTrigger.perCycle);
+    test('map round trip keeps the recording', () {
+      final t = _tally('a', audio: 'rec_1.m4a');
       final back = DbTally.fromMap({...t.toMap(), 'id': 7});
       expect(back.audioFile, 'rec_1.m4a');
-      expect(back.advanceTrigger, TallyAdvanceTrigger.perCycle);
       expect(back.hasAudio, isTrue);
     });
 
-    test('old rows without the new columns read with the old behaviour', () {
+    test('old rows without the recording column read as having none', () {
       final back = DbTally.fromMap({
         'id': 1,
         'title': 'a',
@@ -123,12 +120,11 @@ void main() {
         'lastUpdate': DateTime(2026).toString(),
       });
       expect(back.audioFile, '');
-      expect(back.advanceTrigger, TallyAdvanceTrigger.perCount);
     });
   });
 
   group('database', () {
-    test('upgrading a version 1 database keeps its rows and adds the new columns', () async {
+    test('upgrading a version 1 database keeps its rows and adds the recording column', () async {
       final db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath);
       await db.execute('''
         CREATE TABLE data (
@@ -150,7 +146,6 @@ void main() {
       expect(all.single.title, 'old');
       expect(all.single.count, 9);
       expect(all.single.audioFile, '');
-      expect(all.single.advanceTrigger, TallyAdvanceTrigger.perCount);
       await db.close();
     });
 
@@ -223,6 +218,7 @@ void main() {
     Future<void> start(
       List<DbTally> counters, {
       TallyIterationMode mode = TallyIterationMode.none,
+      TallyAdvanceTrigger trigger = TallyAdvanceTrigger.perCount,
     }) async {
       db = await _openMemoryDb();
       helper = TallyDatabaseHelper.withDatabase(db);
@@ -231,6 +227,7 @@ void main() {
       }
       box = _FakeBox();
       await TallyRepo(box).saveIterationMode(mode);
+      await TallyRepo(box).saveAdvanceTrigger(trigger);
       sl.registerLazySingleton(() => AppSettingsRepo(box));
       effects = _FakeEffects();
       bloc = TallyBloc(helper, effects, _FakeVolume(), TallyRepo(box));
@@ -275,10 +272,11 @@ void main() {
     test('per cycle: stays on the counter until its cycle is complete', () async {
       await start(
         [
-          _tally('a', active: true, cycle: 3, trigger: TallyAdvanceTrigger.perCycle),
+          _tally('a', active: true, cycle: 3),
           _tally('b'),
         ],
         mode: TallyIterationMode.circular,
+        trigger: TallyAdvanceTrigger.perCycle,
       );
       expect((await tap())?.title, 'a');
       expect((await tap())?.title, 'a');
@@ -290,10 +288,11 @@ void main() {
     test('each counter uses its own cycle size, also when auto-advance is on', () async {
       await start(
         [
-          _tally('a', active: true, cycle: 2, trigger: TallyAdvanceTrigger.perCycle),
-          _tally('b', cycle: 5, trigger: TallyAdvanceTrigger.perCycle),
+          _tally('a', active: true, cycle: 2),
+          _tally('b', cycle: 5),
         ],
         mode: TallyIterationMode.circular,
+        trigger: TallyAdvanceTrigger.perCycle,
       );
       await tap();
       expect((await tap())?.title, 'b');
@@ -313,6 +312,21 @@ void main() {
       final active = await tap();
       expect(active?.title, 'a');
       expect(loaded().loadingIteration, isFalse);
+    });
+
+    test('changing the trigger is saved and used for the next count', () async {
+      await start(
+        [_tally('a', active: true, cycle: 2), _tally('b')],
+        mode: TallyIterationMode.circular,
+      );
+      bloc.add(const TallySetAdvanceTriggerEvent(TallyAdvanceTrigger.perCycle));
+      await bloc.stream.firstWhere(
+        (s) => s is TallyLoadedState && s.advanceTrigger == TallyAdvanceTrigger.perCycle,
+      );
+      expect(TallyRepo(box).getAdvanceTrigger, TallyAdvanceTrigger.perCycle);
+
+      expect((await tap())?.title, 'a');
+      expect((await tap())?.title, 'b');
     });
 
     test('reset can be undone', () async {

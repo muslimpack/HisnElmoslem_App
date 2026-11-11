@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally_advance_trigger.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_repo.dart';
@@ -65,6 +66,8 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
     on<TallyDecreaseActiveCounterEvent>(_decreaseActiveCounter);
     on<TallyToggleIterationModeEvent>(_toggleIterationMode);
+    on<TallySetIterationModeEvent>(_setIterationMode);
+    on<TallySetAdvanceTriggerEvent>(_setAdvanceTrigger);
     on<TallyIterateEvent>(_iterate);
   }
 
@@ -75,6 +78,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
       TallyLoadedState(
         allCounters: allCounters,
         iterationMode: tallyRepo.getIterationMode,
+        advanceTrigger: tallyRepo.getAdvanceTrigger,
         loadingIteration: false,
       ),
     );
@@ -317,7 +321,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     );
     await tallyDatabaseHelper.updateTally(dbTally: counted);
 
-    final advance = state.iterationMode != TallyIterationMode.none && counted.shouldAdvanceNow;
+    final advance =
+        state.iterationMode != TallyIterationMode.none &&
+        state.advanceTrigger.shouldAdvance(counted);
 
     emit(
       state.copyWith(
@@ -371,6 +377,28 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     tallyRepo.saveIterationMode(nextMode);
 
     emit(state.copyWith(iterationMode: nextMode));
+  }
+
+  Future<void> _setIterationMode(
+    TallySetIterationModeEvent event,
+    Emitter<TallyState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    tallyRepo.saveIterationMode(event.mode);
+    emit(state.copyWith(iterationMode: event.mode));
+  }
+
+  Future<void> _setAdvanceTrigger(
+    TallySetAdvanceTriggerEvent event,
+    Emitter<TallyState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    tallyRepo.saveAdvanceTrigger(event.trigger);
+    emit(state.copyWith(advanceTrigger: event.trigger));
   }
 
   /// Hands over to the next counter (circular or shuffle).

@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/features/tally/data/models/tally_advance_trigger.dart';
 
 class DbTally extends Equatable {
   final int id;
@@ -16,9 +15,6 @@ class DbTally extends Equatable {
   /// Name of the user's voice recording for this counter, empty when it has none.
   final String audioFile;
 
-  /// When the counter hands over to the next one (only matters if auto-advance is on).
-  final TallyAdvanceTrigger advanceTrigger;
-
   const DbTally({
     this.id = -1,
     required this.title,
@@ -28,7 +24,6 @@ class DbTally extends Equatable {
     required this.created,
     required this.lastUpdate,
     this.audioFile = "",
-    this.advanceTrigger = TallyAdvanceTrigger.perCount,
   });
 
   const DbTally.empty({
@@ -38,7 +33,6 @@ class DbTally extends Equatable {
     this.countReset = 33,
     this.isActivated = false,
     this.audioFile = "",
-    this.advanceTrigger = TallyAdvanceTrigger.perCount,
     required this.created,
     required this.lastUpdate,
   });
@@ -59,7 +53,6 @@ class DbTally extends Equatable {
       created: DateTime.parse(map['created'] as String),
       lastUpdate: DateTime.parse(map['lastUpdate'] as String),
       audioFile: (map['audioFile'] as String?) ?? "",
-      advanceTrigger: TallyAdvanceTrigger.fromName(map['advanceTrigger'] as String?),
     );
   }
 
@@ -72,7 +65,6 @@ class DbTally extends Equatable {
       "created": created.toString(),
       "lastUpdate": lastUpdate.toString(),
       "audioFile": audioFile,
-      "advanceTrigger": advanceTrigger.name,
     };
   }
 
@@ -90,9 +82,6 @@ class DbTally extends Equatable {
   /// True when [count] has just closed a cycle (33, 66, ...).
   bool get isAtCycleEnd => count > 0 && count % cycleSize == 0;
 
-  /// Whether, after the count that produced this state, auto-advance should move on.
-  bool get shouldAdvanceNow => advanceTrigger == TallyAdvanceTrigger.perCount || isAtCycleEnd;
-
   DbTally copyWith({
     int? id,
     String? title,
@@ -102,7 +91,6 @@ class DbTally extends Equatable {
     DateTime? lastUpdate,
     bool? isActivated,
     String? audioFile,
-    TallyAdvanceTrigger? advanceTrigger,
   }) {
     return DbTally(
       id: id ?? this.id,
@@ -113,7 +101,6 @@ class DbTally extends Equatable {
       lastUpdate: lastUpdate ?? this.lastUpdate,
       isActivated: isActivated ?? this.isActivated,
       audioFile: audioFile ?? this.audioFile,
-      advanceTrigger: advanceTrigger ?? this.advanceTrigger,
     );
   }
 
@@ -128,7 +115,6 @@ class DbTally extends Equatable {
       lastUpdate,
       isActivated,
       audioFile,
-      advanceTrigger,
     ];
   }
 }

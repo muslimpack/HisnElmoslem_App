@@ -13,11 +13,13 @@ final class TallyLoadingState extends TallyState {}
 final class TallyLoadedState extends TallyState {
   final List<DbTally> allCounters;
   final TallyIterationMode iterationMode;
+  final TallyAdvanceTrigger advanceTrigger;
   final bool loadingIteration;
 
   const TallyLoadedState({
     required this.allCounters,
     required this.iterationMode,
+    required this.advanceTrigger,
     required this.loadingIteration,
   });
 
@@ -29,11 +31,13 @@ final class TallyLoadedState extends TallyState {
   TallyLoadedState copyWith({
     List<DbTally>? allCounters,
     TallyIterationMode? iterationMode,
+    TallyAdvanceTrigger? advanceTrigger,
     bool? loadingIteration,
   }) {
     return TallyLoadedState(
       allCounters: allCounters ?? this.allCounters,
       iterationMode: iterationMode ?? this.iterationMode,
+      advanceTrigger: advanceTrigger ?? this.advanceTrigger,
       loadingIteration: loadingIteration ?? this.loadingIteration,
     );
   }
@@ -43,6 +47,7 @@ final class TallyLoadedState extends TallyState {
     allCounters,
     activeCounter,
     iterationMode,
+    advanceTrigger,
     loadingIteration,
   ];
 }

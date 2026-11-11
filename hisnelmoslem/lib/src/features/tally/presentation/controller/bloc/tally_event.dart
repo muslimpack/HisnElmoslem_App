@@ -88,6 +88,25 @@ class TallyDecreaseActiveCounterEvent extends TallyEvent {}
 
 class TallyToggleIterationModeEvent extends TallyEvent {}
 
+class TallySetAdvanceTriggerEvent extends TallyEvent {
+  final TallyAdvanceTrigger trigger;
+
+  const TallySetAdvanceTriggerEvent(this.trigger);
+
+  @override
+  List<Object> get props => [trigger];
+}
+
+/// Sets the auto-advance mode directly (none, circular or shuffle).
+class TallySetIterationModeEvent extends TallyEvent {
+  final TallyIterationMode mode;
+
+  const TallySetIterationModeEvent(this.mode);
+
+  @override
+  List<Object> get props => [mode];
+}
+
 class TallyIterateEvent extends TallyEvent {
   final Completer<DbTally?>? completer;
   final bool audioOnly;
