@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_backup.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/tally/data/repository/tally_database_helper.dart';
@@ -22,6 +23,7 @@ class BackupRestoreRepo {
   final AlarmDatabaseHelper alarmDatabaseHelper;
   final FakeHadithDBHelper fakeHadithDBHelper;
   final CustomAzkarDBHelper customAzkarDBHelper;
+  final CustomAudioBackup customAudioBackup;
 
   BackupRestoreRepo({
     required this.userDataDBHelper,
@@ -29,6 +31,7 @@ class BackupRestoreRepo {
     required this.alarmDatabaseHelper,
     required this.fakeHadithDBHelper,
     required this.customAzkarDBHelper,
+    required this.customAudioBackup,
   });
 
   Future<List<String>> _getDbPaths() async {
@@ -75,6 +78,8 @@ class BackupRestoreRepo {
           archive.addFile(ArchiveFile(basename(path), bytes.length, bytes));
         }
       }
+
+      await customAudioBackup.addTo(archive);
 
       final zipBytes = ZipEncoder().encode(archive);
       if (zipBytes.isEmpty) return false;
@@ -169,6 +174,8 @@ class BackupRestoreRepo {
           }
         }
       }
+
+      await customAudioBackup.restoreFrom(archive);
 
       return true;
     } catch (e) {

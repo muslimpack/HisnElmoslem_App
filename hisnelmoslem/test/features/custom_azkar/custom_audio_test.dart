@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_backup.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
@@ -216,6 +218,72 @@ void main() {
       );
       expect(await storage.exists(saved), isFalse);
       await editor.close();
+    });
+  });
+
+  group("backup", () {
+    late Directory restoreDir;
+    late LocalCustomAudioStorage restoreStorage;
+
+    setUp(() {
+      restoreDir = Directory.systemTemp.createTempSync('custom_audio_restore');
+      restoreStorage = LocalCustomAudioStorage(directoryOverride: restoreDir);
+    });
+
+    tearDown(() {
+      if (restoreDir.existsSync()) restoreDir.deleteSync(recursive: true);
+    });
+
+    test("recordings round trip through the archive", () async {
+      await record("one.m4a");
+      await record("two.m4a");
+
+      final archive = Archive();
+      await CustomAudioBackup(storage).addTo(archive);
+      expect(archive.files.map((f) => f.name).toSet(), {
+        "custom_audio/one.m4a",
+        "custom_audio/two.m4a",
+      });
+
+      // Through real zip bytes, like an exported .hisn file.
+      final decoded = ZipDecoder().decodeBytes(ZipEncoder().encode(archive));
+      await CustomAudioBackup(restoreStorage).restoreFrom(decoded);
+
+      expect(await restoreStorage.exists("one.m4a"), isTrue);
+      expect(File(await restoreStorage.pathFor("two.m4a")).readAsBytesSync(), [1, 2, 3]);
+    });
+
+    test("restoring a backup with the database replaces the device's recordings", () async {
+      File(await restoreStorage.pathFor("stale.m4a")).writeAsBytesSync([9]);
+
+      final archive = Archive()
+        ..addFile(ArchiveFile(CustomAzkarDBHelper.dbName, 1, [0]))
+        ..addFile(ArchiveFile("custom_audio/new.m4a", 1, [7]));
+      await CustomAudioBackup(restoreStorage).restoreFrom(archive);
+
+      expect(await restoreStorage.exists("stale.m4a"), isFalse);
+      expect(await restoreStorage.exists("new.m4a"), isTrue);
+    });
+
+    test("a backup without the database leaves existing recordings alone", () async {
+      File(await restoreStorage.pathFor("mine.m4a")).writeAsBytesSync([9]);
+
+      await CustomAudioBackup(restoreStorage).restoreFrom(Archive());
+
+      expect(await restoreStorage.exists("mine.m4a"), isTrue);
+    });
+
+    test("entries cannot escape the recordings folder", () async {
+      final archive = Archive()..addFile(ArchiveFile("custom_audio/../../evil.m4a", 1, [1]));
+      await CustomAudioBackup(restoreStorage).restoreFrom(archive);
+
+      expect(restoreDir.listSync().map((e) => e.path.split(Platform.pathSeparator).last), [
+        "evil.m4a",
+      ]);
+      expect(
+        File('${restoreDir.parent.path}${Platform.pathSeparator}evil.m4a').existsSync(),
+        isFalse,
+      );
     });
   });
 

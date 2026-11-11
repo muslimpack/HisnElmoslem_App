@@ -18,6 +18,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/audio_preview_player.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/audio_recorder_service.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_backup.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/audio_preview/audio_preview_cubit.dart';
@@ -100,6 +101,7 @@ Future<void> initSL() async {
       alarmDatabaseHelper: sl(),
       fakeHadithDBHelper: sl(),
       customAzkarDBHelper: sl(),
+      customAudioBackup: CustomAudioBackup(sl()),
     ),
   );
 
