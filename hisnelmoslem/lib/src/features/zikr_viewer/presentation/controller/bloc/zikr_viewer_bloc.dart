@@ -162,7 +162,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
         restoredSession.data.isNotEmpty &&
         DateUtils.isSameDay(restoredSession.dateTime, DateTime.now());
 
-    zikrAudioPlayerCubit.init(
+    await zikrAudioPlayerCubit.init(
       zikrList: azkarToView,
       onDonePlaying: (zikr) {
         add(ZikrViewerDecreaseZikrEvent(content: zikr));
@@ -180,21 +180,21 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
 
     StreamSubscription? audioStateSubscription;
-    audioStateSubscription = zikrAudioPlayerCubit.stream.listen((audioState) {
-      if (isClosed) {
-        audioStateSubscription?.cancel();
-        return;
-      }
-      final state = this.state;
-      if (state is ZikrViewerLoadedState) {
-        if (state.isAudioPlaying != audioState.isPlaying) {
-          add(ZikrViewerAudioPlayingStateChangedEvent(audioState.isPlaying));
-        }
-      }
-      add(
-        ZikrViewerAudioDelayStateChangedEvent(audioState.isDelayingBetweenZikr),
-      );
-    });
+    // The player emits on every position tick; only these two flags matter here.
+    audioStateSubscription = zikrAudioPlayerCubit.stream
+        .map((s) => (isPlaying: s.isPlaying, isDelaying: s.isDelayingBetweenZikr))
+        .distinct()
+        .listen((audioState) {
+          if (isClosed) {
+            audioStateSubscription?.cancel();
+            return;
+          }
+          final state = this.state;
+          if (state is ZikrViewerLoadedState && state.isAudioPlaying != audioState.isPlaying) {
+            add(ZikrViewerAudioPlayingStateChangedEvent(audioState.isPlaying));
+          }
+          add(ZikrViewerAudioDelayStateChangedEvent(audioState.isDelaying));
+        });
 
     emit(
       ZikrViewerLoadedState(
@@ -308,19 +308,23 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     if (count > 0) {
       azkarToView[activeZikrIndex] = activeZikr.copyWith(count: count - 1);
 
-      effectsManager.playPraiseEffects();
       add(const ZikrViewerSaveSessionEvent());
     }
 
+    var titleCompleted = false;
     if (count == 1) {
-      effectsManager.playZikrEffects();
       final totalProgress = azkarToView.where((x) => x.count == 0).length / azkarToView.length;
-
-      if (totalProgress == 1) {
-        effectsManager.playTitleEffects();
-        add(const ZikrViewerResetSessionEvent());
-      }
+      titleCompleted = totalProgress == 1;
     }
+
+    // One call per tap: the most significant enabled effect plays (praise < zikr < title).
+    if (count > 0) {
+      effectsManager.playProgressEffects(
+        zikrCompleted: count == 1,
+        titleCompleted: titleCompleted,
+      );
+    }
+    if (titleCompleted) add(const ZikrViewerResetSessionEvent());
 
     if (count <= 1) {
       // If we are currently in an audio delay phase, we DO NOT turn the page yet.

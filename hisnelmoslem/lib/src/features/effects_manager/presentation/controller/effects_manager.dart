@@ -1,126 +1,152 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/effects_manager/data/models/effect_tier.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:vibration/vibration.dart';
 
+/// Short sounds and vibrations for tapping a zikr, finishing a zikr and finishing a title.
 class EffectsManager {
-  final _player = AudioPlayer(playerId: "effectsManagerPlayer");
-
-  final EffectsManagerRepo _effectsManagerRepo;
+  final EffectsManagerRepo _repo;
   final ZikrAudioPlayerCubit _zikrAudioPlayerCubit;
 
-  DateTime _lastVibrationTime = DateTime.fromMillisecondsSinceEpoch(0);
+  EffectsManager(this._repo, this._zikrAudioPlayerCubit);
 
-  EffectsManager(this._effectsManagerRepo, this._zikrAudioPlayerCubit);
+  ///MARK: Sound
 
-  ///MARK: Play Sound
+  /// Mix with whatever the user is listening to instead of taking audio focus, so a tap
+  /// never pauses music or a recitation playing in another app.
+  static final AudioContext _effectsContext = AudioContextConfig(
+    focus: AudioContextConfigFocus.mixWithOthers,
+  ).build();
 
-  Future _playSound(AssetSource source) async {
+  /// One player per sound, so playing one never reconfigures or cuts the others.
+  final Map<EffectTier, AudioPlayer> _players = {};
+
+  static const Map<EffectTier, String> _soundAssets = {
+    EffectTier.praise: 'sounds/tally_sound.mp3',
+    EffectTier.zikr: 'sounds/zikr_done_sound.mp3',
+    EffectTier.title: 'sounds/all_azkar_finished_sound.mp3',
+  };
+
+  AudioPlayer _playerFor(EffectTier tier) {
+    return _players.putIfAbsent(tier, () {
+      final player = AudioPlayer(playerId: "effects_${tier.name}");
+      player.setAudioContext(_effectsContext).catchError((Object e) => hisnPrint(e));
+      return player;
+    });
+  }
+
+  Future<void> _playSound(EffectTier tier) async {
     try {
+      // The recited audio of the zikr has priority over effect sounds.
       if (_zikrAudioPlayerCubit.state.isPlaying) return;
-      hisnPrint(_player.playerId);
-      await _player.stop();
-      await _player.setVolume(_effectsManagerRepo.soundEffectVolume);
-      await _player.play(source);
+      await _playerFor(tier).play(
+        AssetSource(_soundAssets[tier]!),
+        volume: _repo.soundEffectVolume,
+        mode: PlayerMode.lowLatency,
+      );
     } catch (e) {
       hisnPrint(e);
     }
   }
 
-  Future<void> playPraiseSound() async {
-    await _playSound(AssetSource('sounds/tally_sound.mp3'));
+  Future<void> playPraiseSound() => _playSound(EffectTier.praise);
+  Future<void> playZikrSound() => _playSound(EffectTier.zikr);
+  Future<void> playTitleSound() => _playSound(EffectTier.title);
+
+  ///MARK: Vibration
+
+  /// Asked once: the answer never changes and the platform call is slow.
+  late final Future<bool> _hasCustomVibration = _queryCustomVibration();
+
+  Future<bool> _queryCustomVibration() async {
+    try {
+      return await Vibration.hasCustomVibrationsSupport();
+    } catch (e) {
+      hisnPrint(e);
+      return false;
+    }
   }
 
-  Future<void> playZikrSound() async {
-    await _playSound(AssetSource('sounds/zikr_done_sound.mp3'));
-  }
+  /// Held-down or rapid taps would queue vibrations; each kind is limited on its own so
+  /// that finishing a zikr right after a tap still vibrates.
+  final Map<EffectTier, DateTime> _lastVibration = {};
 
-  Future<void> playTitleSound() async {
-    await _playSound(AssetSource('sounds/all_azkar_finished_sound.mp3'));
-  }
-
-  ///MARK: Play vibration
-
-  bool _canVibrate() {
+  bool _canVibrate(EffectTier tier) {
     final now = DateTime.now();
-    if (now.difference(_lastVibrationTime).inMilliseconds > 100) {
-      _lastVibrationTime = now;
-      return true;
-    }
-    return false;
+    final last = _lastVibration[tier];
+    if (last != null && now.difference(last).inMilliseconds <= 100) return false;
+    _lastVibration[tier] = now;
+    return true;
   }
 
-  Future<void> playPraiseVibratation() async {
-    if (!_canVibrate()) return;
-    final value = await Vibration.hasCustomVibrationsSupport();
+  int _vibrationDuration(EffectTier tier) => switch (tier) {
+    EffectTier.praise => _repo.praiseVibrationDuration,
+    EffectTier.zikr => _repo.zikrVibrationDuration,
+    EffectTier.title => _repo.titleVibrationDuration,
+  };
 
-    if (value) {
-      await Vibration.vibrate(
-        duration: _effectsManagerRepo.praiseVibrationDuration,
-      );
-    } else {
-      await HapticFeedback.lightImpact();
-    }
-  }
-
-  Future<void> playZikrVibratation() async {
-    if (!_canVibrate()) return;
-    final value = await Vibration.hasCustomVibrationsSupport();
-
-    if (value) {
-      await Vibration.vibrate(
-        duration: _effectsManagerRepo.zikrVibrationDuration,
-      );
-    } else {
-      await HapticFeedback.mediumImpact();
+  Future<void> _vibrate(EffectTier tier) async {
+    if (!_canVibrate(tier)) return;
+    try {
+      if (await _hasCustomVibration) {
+        await Vibration.vibrate(duration: _vibrationDuration(tier));
+      } else {
+        await switch (tier) {
+          EffectTier.praise => HapticFeedback.lightImpact(),
+          EffectTier.zikr => HapticFeedback.mediumImpact(),
+          EffectTier.title => HapticFeedback.heavyImpact(),
+        };
+      }
+    } catch (e) {
+      hisnPrint(e);
     }
   }
 
-  Future<void> playTitleVibratation() async {
-    if (!_canVibrate()) return;
-    final value = await Vibration.hasCustomVibrationsSupport();
+  Future<void> playPraiseVibratation() => _vibrate(EffectTier.praise);
+  Future<void> playZikrVibratation() => _vibrate(EffectTier.zikr);
+  Future<void> playTitleVibratation() => _vibrate(EffectTier.title);
 
-    if (value) {
-      await Vibration.vibrate(
-        duration: _effectsManagerRepo.titleVibrationDuration,
-      );
-    } else {
-      await HapticFeedback.heavyImpact();
-    }
+  ///MARK: Per-tap effects
+
+  bool _soundEnabled(EffectTier tier) => switch (tier) {
+    EffectTier.praise => _repo.isPraiseSoundAllowed,
+    EffectTier.zikr => _repo.isZikrSoundAllowed,
+    EffectTier.title => _repo.isTitleSoundAllowed,
+  };
+
+  bool _vibrationEnabled(EffectTier tier) => switch (tier) {
+    EffectTier.praise => _repo.isPraiseVibrationAllowed,
+    EffectTier.zikr => _repo.isZikrVibrationAllowed,
+    EffectTier.title => _repo.isTitleVibrationAllowed,
+  };
+
+  /// Plays the effects for one tap. Only the most significant enabled effect plays:
+  /// the tap that finishes a title gives the title effect rather than a praise sound
+  /// racing with it on the same player.
+  Future<void> playProgressEffects({bool zikrCompleted = false, bool titleCompleted = false}) {
+    final sound = pickEffectTier(
+      zikrCompleted: zikrCompleted,
+      titleCompleted: titleCompleted,
+      isEnabled: _soundEnabled,
+    );
+    final vibration = pickEffectTier(
+      zikrCompleted: zikrCompleted,
+      titleCompleted: titleCompleted,
+      isEnabled: _vibrationEnabled,
+    );
+    return Future.wait([
+      if (sound != null) _playSound(sound),
+      if (vibration != null) _vibrate(vibration),
+    ]);
   }
 
-  //////////////////////////////
-  Future playPraiseEffects() async {
-    if (_effectsManagerRepo.isPraiseSoundAllowed) {
-      await playPraiseSound();
+  Future<void> dispose() async {
+    for (final player in _players.values) {
+      await player.dispose();
     }
-    if (_effectsManagerRepo.isPraiseVibrationAllowed) {
-      await playPraiseVibratation();
-    }
-  }
-
-  Future playZikrEffects() async {
-    if (_effectsManagerRepo.isZikrSoundAllowed) {
-      await playZikrSound();
-    }
-    if (_effectsManagerRepo.isZikrVibrationAllowed) {
-      await playZikrVibratation();
-    }
-  }
-
-  Future playTitleEffects() async {
-    if (_effectsManagerRepo.isTitleSoundAllowed) {
-      await playTitleSound();
-    }
-    if (_effectsManagerRepo.isTitleVibrationAllowed) {
-      await playTitleVibratation();
-    }
-  }
-
-  void dispose() {
-    _player.dispose();
+    _players.clear();
   }
 }

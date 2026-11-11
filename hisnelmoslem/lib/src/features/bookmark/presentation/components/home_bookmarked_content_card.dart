@@ -40,10 +40,7 @@ class _HomeBookmarkedContentCardState extends State<HomeBookmarkedContentCard> {
 
   void decrease() {
     if (dbContent.count > 0) {
-      sl<EffectsManager>().playPraiseEffects();
-      if (dbContent.count == 1) {
-        sl<EffectsManager>().playZikrEffects();
-      }
+      sl<EffectsManager>().playProgressEffects(zikrCompleted: dbContent.count == 1);
 
       setState(() {
         dbContent = dbContent.copyWith(count: dbContent.count - 1);
