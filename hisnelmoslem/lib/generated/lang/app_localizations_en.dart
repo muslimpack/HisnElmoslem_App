@@ -185,6 +185,11 @@ class SEn extends S {
   }
 
   @override
+  String tallyCountOf(int count, int total) {
+    return '$count of $total';
+  }
+
+  @override
   String get tallyCounterReset => 'Counter reset';
 
   @override
@@ -212,6 +217,9 @@ class SEn extends S {
 
   @override
   String get tallySessionEndless => 'Until I stop it';
+
+  @override
+  String get tallySessionEndlessShort => 'No limit';
 
   @override
   String get tallySessionMinutes => 'For a set time';

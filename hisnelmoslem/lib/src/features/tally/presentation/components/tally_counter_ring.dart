@@ -4,8 +4,8 @@ import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/gradient_widget.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 
-/// The big count inside a ring that fills as the cycle progresses, with "12 / 33"
-/// under it and the number of finished cycles.
+/// The count inside a ring that fills as the cycle progresses, with "12 of 33" under
+/// it and the number of finished cycles.
 class TallyCounterRing extends StatelessWidget {
   final DbTally counter;
 
@@ -22,15 +22,11 @@ class TallyCounterRing extends StatelessWidget {
     final theme = Theme.of(context);
     final primary = theme.colorScheme.primary;
     final s = S.of(context);
+    final inCycle = counter.isAtCycleEnd ? counter.cycleSize : counter.countInCycle;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final side = constraints.biggest.shortestSide;
-        final countStyle = TextStyle(
-          fontSize: side * 0.3,
-          fontWeight: FontWeight.bold,
-          height: 1,
-        );
 
         return Center(
           child: SizedBox.square(
@@ -40,7 +36,7 @@ class TallyCounterRing extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Padding(
-                    padding: EdgeInsets.all(side * 0.03),
+                    padding: EdgeInsets.all(side * 0.04),
                     child: TweenAnimationBuilder<double>(
                       tween: Tween<double>(end: progressOf(counter)),
                       duration: const Duration(milliseconds: 350),
@@ -48,7 +44,7 @@ class TallyCounterRing extends StatelessWidget {
                       builder: (context, value, _) {
                         return CircularProgressIndicator(
                           value: value,
-                          strokeWidth: side * 0.05,
+                          strokeWidth: side * 0.06,
                           strokeCap: StrokeCap.round,
                           backgroundColor: primary.withAlpha(38),
                           valueColor: AlwaysStoppedAnimation<Color>(primary),
@@ -58,7 +54,7 @@ class TallyCounterRing extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(side * 0.14),
+                  padding: EdgeInsets.all(side * 0.16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -69,7 +65,11 @@ class TallyCounterRing extends StatelessWidget {
                             Text(
                               '${counter.count}'.toArabicNumber(),
                               textAlign: TextAlign.center,
-                              style: countStyle,
+                              style: TextStyle(
+                                fontSize: side * 0.34,
+                                fontWeight: FontWeight.bold,
+                                height: 1.1,
+                              ),
                             ),
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -79,26 +79,30 @@ class TallyCounterRing extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: side * 0.03),
-                      Text(
-                        '${counter.isAtCycleEnd ? counter.cycleSize : counter.countInCycle}'
-                                ' / ${counter.cycleSize}'
-                            .toArabicNumber(),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                          fontFeatures: const [FontFeature.tabularFigures()],
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          s.tallyCountOf(inCycle, counter.cycleSize).toArabicNumber(),
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                         ),
                       ),
-                      if (counter.cycles > 0) ...[
-                        SizedBox(height: side * 0.02),
-                        Chip(
-                          avatar: Icon(Icons.loop_rounded, size: 18, color: primary),
-                          label: Text(s.tallyCyclesDone(counter.cycles).toArabicNumber()),
-                          visualDensity: VisualDensity.compact,
-                          side: BorderSide.none,
-                          backgroundColor: primary.withAlpha(30),
+                      if (counter.cycles > 0)
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 4,
+                            children: [
+                              Icon(Icons.loop_rounded, size: 16, color: primary),
+                              Text(
+                                '${counter.cycles}'.toArabicNumber(),
+                                style: theme.textTheme.labelLarge?.copyWith(color: primary),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
                     ],
                   ),
                 ),

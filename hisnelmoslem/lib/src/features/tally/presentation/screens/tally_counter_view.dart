@@ -6,6 +6,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/sheets/tally_counter_picker_sheet.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
@@ -55,7 +56,8 @@ class TallyCounterView extends StatelessWidget {
               bottom: false,
               child: Column(
                 children: [
-                  TallyCounterHeader(counter: activeCounter, total: state.allCounters.length),
+                  if (state.allCounters.length > 1)
+                    TallyCounterHeader(counter: activeCounter, total: state.allCounters.length),
                   Expanded(child: TallyCountArea(counter: activeCounter)),
                 ],
               ),
@@ -67,8 +69,7 @@ class TallyCounterView extends StatelessWidget {
   }
 }
 
-/// The counter's name between previous and next, with its place in the list. Tapping
-/// the name opens a list to jump to another counter.
+/// Previous and next counter, and "2 of 5" that opens a list to jump to any counter.
 class TallyCounterHeader extends StatelessWidget {
   final DbTally counter;
   final int total;
@@ -77,9 +78,7 @@ class TallyCounterHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final s = S.of(context);
-    final many = total > 1;
     final index = context.select<TallyBloc, int>((bloc) {
       final state = bloc.state;
       return state is TallyLoadedState
@@ -88,69 +87,30 @@ class TallyCounterHeader extends StatelessWidget {
     });
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+      padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
       child: Row(
         children: [
           IconButton(
             tooltip: s.previous,
-            iconSize: 28,
-            constraints: const BoxConstraints.tightFor(width: 52, height: 52),
-            onPressed: many ? () => TallyActions.previous(context) : null,
+            iconSize: 24,
+            constraints: const BoxConstraints.tightFor(width: 48, height: 48),
+            onPressed: () => TallyActions.previous(context),
             icon: const Icon(Icons.arrow_back_ios_new_rounded),
           ),
           Expanded(
-            child: Semantics(
-              button: true,
-              label: '${counter.title}. ${s.tallyPickCounter}',
-              excludeSemantics: true,
-              onTap: () => TallyCounterPickerSheet.show(context),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () => TallyCounterPickerSheet.show(context),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AutoSizeText(
-                        counter.title,
-                        maxLines: 2,
-                        minFontSize: 16,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.primary,
-                          height: 1.4,
-                        ),
-                      ),
-                      if (many)
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '$index / $total'.toArabicNumber(),
-                              style: theme.textTheme.labelMedium?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down_rounded,
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                ),
+            child: Center(
+              child: TextButton.icon(
+                onPressed: () => TallyCounterPickerSheet.show(context),
+                icon: const Icon(Icons.format_list_bulleted_rounded, size: 20),
+                label: Text(s.tallyCountOf(index, total).toArabicNumber()),
               ),
             ),
           ),
           IconButton(
             tooltip: s.next,
-            iconSize: 28,
-            constraints: const BoxConstraints.tightFor(width: 52, height: 52),
-            onPressed: many ? () => TallyActions.next(context) : null,
+            iconSize: 24,
+            constraints: const BoxConstraints.tightFor(width: 48, height: 48),
+            onPressed: () => TallyActions.next(context),
             icon: const Icon(Icons.arrow_forward_ios_rounded),
           ),
         ],
@@ -159,8 +119,9 @@ class TallyCounterHeader extends StatelessWidget {
   }
 }
 
-/// The big tap target: one tap, one count. It is a real button for screen readers,
-/// which hear the name, the count and the size of the cycle.
+/// The counter's text above the ring. Tap anywhere in here to count: one tap, one
+/// count. It is a real button for screen readers, which hear the text, the count and
+/// the size of the cycle.
 class TallyCountArea extends StatelessWidget {
   final DbTally counter;
 
@@ -171,7 +132,7 @@ class TallyCountArea extends StatelessWidget {
     final s = S.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
       child: Semantics(
         button: true,
         liveRegion: true,
@@ -181,13 +142,105 @@ class TallyCountArea extends StatelessWidget {
         onTap: () => TallyActions.count(context),
         child: Material(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(28),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () => TallyActions.count(context),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: TallyCounterRing(counter: counter),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // The ring takes what it needs; the text gets the rest, so a long
+                // text is shown in full (and scrolls when even the smallest size
+                // does not fit).
+                final ring = (constraints.maxHeight * 0.36)
+                    .clamp(150.0, 250.0)
+                    .clamp(0.0, constraints.maxWidth - 32);
+
+                return Column(
+                  children: [
+                    Expanded(child: TallyTextCard(text: counter.title)),
+                    SizedBox(
+                      height: ring,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: TallyCounterRing(counter: counter),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The text of the counter, as large as fits. When even the smallest size does not fit
+/// it scrolls, with a scrollbar showing that there is more.
+class TallyTextCard extends StatefulWidget {
+  final String text;
+
+  const TallyTextCard({super.key, required this.text});
+
+  static const double minFontSize = 18;
+
+  @override
+  State<TallyTextCard> createState() => _TallyTextCardState();
+}
+
+class _TallyTextCardState extends State<TallyTextCard> {
+  final ScrollController _scroll = ScrollController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final fontSize = context.select<SettingsCubit, double>((cubit) => cubit.state.fontSize);
+    final maxFont = (fontSize * 10).clamp(22.0, 38.0);
+
+    TextStyle style(double size) => TextStyle(
+      fontSize: size,
+      height: 1.9,
+      fontWeight: FontWeight.w600,
+      color: theme.colorScheme.onSurface,
+    );
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerLow.withAlpha(235),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: theme.colorScheme.primary.withAlpha(50)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        child: Center(
+          child: AutoSizeText(
+            widget.text,
+            textAlign: TextAlign.center,
+            minFontSize: TallyTextCard.minFontSize,
+            maxFontSize: maxFont,
+            style: style(maxFont),
+            overflowReplacement: Scrollbar(
+              controller: _scroll,
+              thumbVisibility: true,
+              child: SingleChildScrollView(
+                controller: _scroll,
+                padding: const EdgeInsetsDirectional.only(end: 8),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    widget.text,
+                    textAlign: TextAlign.start,
+                    style: style(TallyTextCard.minFontSize + 2),
+                  ),
+                ),
+              ),
             ),
           ),
         ),

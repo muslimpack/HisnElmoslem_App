@@ -186,6 +186,11 @@ class SAr extends S {
   }
 
   @override
+  String tallyCountOf(int count, int total) {
+    return '$count من $total';
+  }
+
+  @override
   String get tallyCounterReset => 'تمت إعادة ضبط العدّاد';
 
   @override
@@ -213,6 +218,9 @@ class SAr extends S {
 
   @override
   String get tallySessionEndless => 'حتى أوقفه';
+
+  @override
+  String get tallySessionEndlessShort => 'بلا حد';
 
   @override
   String get tallySessionMinutes => 'لمدة محددة';

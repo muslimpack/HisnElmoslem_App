@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_ring.dart';
 
+/// One counter in the list: its whole text, the count and the progress of the cycle.
 class TallyCard extends StatelessWidget {
   final DbTally dbTally;
 
@@ -15,161 +14,130 @@ class TallyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<TallyBloc>().state;
-    final bool isActivated;
-    if (state is TallyLoadedState) {
-      isActivated = dbTally.id == state.activeCounter?.id;
-    } else {
-      isActivated = false;
-    }
-
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final primary = colorScheme.primary;
+    final s = S.of(context);
+    final isActivated = dbTally.isActivated;
+    final inCycle = dbTally.isAtCycleEnd ? dbTally.cycleSize : dbTally.countInCycle;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-      child: Material(
-        elevation: isActivated ? 3 : 1,
-        borderRadius: BorderRadius.circular(16),
-        color: isActivated
-            ? Theme.of(context).brightness == Brightness.light
-                  ? null
-                  : primary.withAlpha((.05 * 255).round())
-            : colorScheme.surfaceContainerLow,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: () {
-            if (isActivated) {
-              context.read<TallyBloc>().add(
-                TallyToggleCounterActivationEvent(counter: dbTally, activate: false),
-              );
-            } else {
-              TallyActions.select(context, dbTally);
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: isActivated
-                  ? Border.all(
-                      color: primary.withAlpha((.4 * 255).round()),
-                      width: 1.5,
-                    )
-                  : null,
-              image: isActivated
-                  ? DecorationImage(
-                      image: const AssetImage("assets/images/grid.png"),
-                      fit: BoxFit.fitWidth,
-                      repeat: ImageRepeat.repeat,
-                      opacity: .06,
-                      colorFilter: ColorFilter.mode(
-                        theme.scaffoldBackgroundColor.getContrastColor,
-                        BlendMode.srcIn,
-                      ),
-                    )
-                  : null,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: Semantics(
+        button: true,
+        selected: isActivated,
+        child: Material(
+          color: isActivated ? primary.withAlpha(24) : colorScheme.surfaceContainerLow,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: isActivated ? primary.withAlpha(140) : Colors.transparent,
+              width: 1.5,
             ),
-            child: Row(
-              spacing: 8,
-              children: [
-                // Active indicator dot
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: 4,
-                  height: 40,
-                  margin: const EdgeInsetsDirectional.only(end: 12),
-                  decoration: BoxDecoration(
-                    color: isActivated ? primary : Colors.transparent,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-
-                // Title + date
-                Expanded(
-                  child: Column(
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: isActivated ? () {} : () => TallyActions.select(context, dbTally),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 8, 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            if (dbTally.hasAudio)
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.only(end: 6),
-                                  child: Icon(
-                                    Icons.mic_rounded,
-                                    size: 18,
-                                    color: isActivated ? primary : colorScheme.onSurfaceVariant,
-                                  ),
-                                ),
-                              ),
-                            TextSpan(text: dbTally.title),
-                          ],
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: isActivated ? FontWeight.bold : FontWeight.normal,
-                          color: isActivated ? primary : null,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            dbTally.title,
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              height: 1.7,
+                              fontWeight: isActivated ? FontWeight.bold : FontWeight.w500,
+                              color: isActivated ? primary : null,
+                            ),
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        dbTally.lastUpdate.humanize,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurface.withAlpha(125),
+                      const SizedBox(width: 12),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '${dbTally.count}'.toArabicNumber(),
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: isActivated ? primary : colorScheme.onSurface,
+                                fontFeatures: const [FontFeature.tabularFigures()],
+                              ),
+                            ),
+                            Text(
+                              s.tallyCountOf(inCycle, dbTally.cycleSize).toArabicNumber(),
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-
-                Column(
-                  spacing: 4,
-                  children: [
-                    // Count badge
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: LinearProgressIndicator(
+                        minHeight: 6,
+                        value: TallyCounterRing.progressOf(dbTally),
+                        backgroundColor: primary.withAlpha(30),
                       ),
-                      decoration: BoxDecoration(
-                        color: isActivated
-                            ? primary.withAlpha((.2 * 255).round())
-                            : colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        dbTally.count
-                            .toString()
-                            .padLeft(
-                              (state as TallyLoadedState).maxCounterNumberLength,
-                              "0",
-                            )
-                            .toArabicNumber(),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: isActivated ? primary : colorScheme.onSurface,
-                          fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      if (dbTally.hasAudio) ...[
+                        Icon(Icons.mic_rounded, size: 18, color: colorScheme.onSurfaceVariant),
+                        const SizedBox(width: 6),
+                      ],
+                      if (dbTally.cycles > 0) ...[
+                        Icon(Icons.loop_rounded, size: 16, color: colorScheme.onSurfaceVariant),
+                        const SizedBox(width: 2),
+                        Text(
+                          '${dbTally.cycles}'.toArabicNumber(),
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                      Expanded(
+                        child: Text(
+                          dbTally.lastUpdate.humanize,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: colorScheme.onSurface.withAlpha(125),
+                          ),
                         ),
                       ),
-                    ),
-
-                    // Edit button
-                    IconButton(
-                      tooltip: S.of(context).edit,
-                      style: IconButton.styleFrom(
-                        foregroundColor: colorScheme.onSurface.withAlpha(130),
+                      IconButton(
+                        tooltip: s.edit,
+                        visualDensity: VisualDensity.compact,
+                        style: IconButton.styleFrom(
+                          foregroundColor: colorScheme.onSurface.withAlpha(150),
+                        ),
+                        onPressed: () => TallyActions.edit(context, dbTally),
+                        icon: const Icon(Icons.edit_outlined),
                       ),
-                      onPressed: () => TallyActions.edit(context, dbTally),
-                      icon: const Icon(Icons.edit_outlined),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

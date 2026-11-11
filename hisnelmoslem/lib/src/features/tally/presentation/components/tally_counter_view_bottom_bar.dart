@@ -40,9 +40,8 @@ class TallyCounterViewBottomBar extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (counter.hasAudio) const TallyVoiceStatus(),
+              if (counter.hasAudio) const TallyVoiceProgress(),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Align(
@@ -75,7 +74,7 @@ class TallyCounterViewBottomBar extends StatelessWidget {
   }
 }
 
-/// A round tonal button with its name under it (at least 48 dp to tap).
+/// A round tonal button, 56 dp to tap. The name is its tooltip and screen reader label.
 class TallyDockButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -90,27 +89,12 @@ class TallyDockButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 96),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton.filledTonal(
-            tooltip: label,
-            iconSize: 28,
-            constraints: const BoxConstraints.tightFor(width: 56, height: 56),
-            onPressed: onPressed,
-            icon: Icon(icon),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-        ],
-      ),
+    return IconButton.filledTonal(
+      tooltip: label,
+      iconSize: 28,
+      constraints: const BoxConstraints.tightFor(width: 56, height: 56),
+      onPressed: onPressed,
+      icon: Icon(icon),
     );
   }
 }
@@ -129,7 +113,7 @@ class TallyVoiceButton extends StatelessWidget {
       return Flexible(
         flex: 2,
         child: Padding(
-          padding: const EdgeInsets.only(top: 4),
+          padding: EdgeInsets.zero,
           child: FilledButton.tonalIcon(
             onPressed: () => TallyActions.recordVoice(context, counter),
             icon: const Icon(Icons.mic_rounded),
@@ -172,11 +156,8 @@ class TallyVoiceButton extends StatelessWidget {
                   },
                   icon: Icon(playing ? Icons.pause_rounded : Icons.play_arrow_rounded),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  playing ? s.audioPause : s.audioPlay,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+                const SizedBox(height: 2),
+                const TallyLimitChip(),
               ],
             ),
           ],
@@ -186,75 +167,86 @@ class TallyVoiceButton extends StatelessWidget {
   }
 }
 
-/// How long the playback goes on (tap to change), what it has counted and how far the
-/// current recording is.
-class TallyVoiceStatus extends StatelessWidget {
-  const TallyVoiceStatus({super.key});
-
-  static String limitLabel(BuildContext context, TallySessionLimit limit) {
-    return switch (limit.type) {
-      TallySessionLimitType.endless => '∞',
-      TallySessionLimitType.minutes => S.of(context).tallyMinutesShort(limit.value),
-      TallySessionLimitType.count => '${limit.value}'.toArabicNumber(),
-    };
-  }
+/// What the voice has counted so far and how far the current recording is. Only
+/// shown while a session runs.
+class TallyVoiceProgress extends StatelessWidget {
+  const TallyVoiceProgress({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return BlocBuilder<TallyAudioCubit, TallyAudioState>(
+      buildWhen: (a, b) => a.isActive != b.isActive || a.sessionCount != b.sessionCount,
       builder: (context, state) {
+        if (!state.isActive) return const SizedBox.shrink();
         final engine = context.read<TallyAudioCubit>().engine;
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 12),
           child: Column(
             children: [
-              Row(
-                children: [
-                  ActionChip(
-                    avatar: Icon(
-                      state.limit.type == TallySessionLimitType.minutes
-                          ? Icons.timer_outlined
-                          : state.limit.type == TallySessionLimitType.count
-                          ? Icons.tag_rounded
-                          : Icons.all_inclusive_rounded,
-                      size: 18,
-                    ),
-                    label: Text(limitLabel(context, state.limit).toArabicNumber()),
-                    tooltip: S.of(context).tallySession,
-                    onPressed: () => TallySessionSheet.show(context),
-                  ),
-                  const Spacer(),
-                  if (state.isActive)
-                    Text(
-                      S.of(context).tallySessionCounted(state.sessionCount).toArabicNumber(),
-                      style: theme.textTheme.labelLarge,
-                    ),
-                ],
-              ),
-              if (state.isActive)
-                BlocBuilder<ZikrAudioPlayerCubit, ZikrAudioPlayerState>(
-                  bloc: engine,
-                  buildWhen: (a, b) =>
-                      a.position != b.position || a.totalDuration != b.totalDuration,
-                  builder: (context, audio) {
-                    final total = audio.totalDuration.inMilliseconds;
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: LinearProgressIndicator(
-                        minHeight: 6,
-                        borderRadius: BorderRadius.circular(3),
-                        value: total == 0
-                            ? 0
-                            : (audio.position.inMilliseconds / total).clamp(0.0, 1.0),
-                      ),
-                    );
-                  },
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  S.of(context).tallySessionCounted(state.sessionCount).toArabicNumber(),
+                  style: theme.textTheme.labelLarge,
                 ),
+              ),
+              const SizedBox(height: 6),
+              BlocBuilder<ZikrAudioPlayerCubit, ZikrAudioPlayerState>(
+                bloc: engine,
+                buildWhen: (a, b) => a.position != b.position || a.totalDuration != b.totalDuration,
+                builder: (context, audio) {
+                  final total = audio.totalDuration.inMilliseconds;
+                  return LinearProgressIndicator(
+                    minHeight: 6,
+                    borderRadius: BorderRadius.circular(3),
+                    value: total == 0 ? 0 : (audio.position.inMilliseconds / total).clamp(0.0, 1.0),
+                  );
+                },
+              ),
             ],
           ),
+        );
+      },
+    );
+  }
+}
+
+/// When the playback stops by itself (tap to change): no limit, some minutes or some
+/// counts.
+class TallyLimitChip extends StatelessWidget {
+  const TallyLimitChip({super.key});
+
+  static String label(BuildContext context, TallySessionLimit limit) {
+    final s = S.of(context);
+    return switch (limit.type) {
+      TallySessionLimitType.endless => s.tallySessionEndlessShort,
+      TallySessionLimitType.minutes => s.tallyMinutesShort(limit.value).toArabicNumber(),
+      TallySessionLimitType.count => '${limit.value}'.toArabicNumber(),
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TallyAudioCubit, TallyAudioState>(
+      buildWhen: (a, b) => a.limit != b.limit,
+      builder: (context, state) {
+        final limit = state.limit;
+        return ActionChip(
+          visualDensity: VisualDensity.compact,
+          avatar: Icon(
+            switch (limit.type) {
+              TallySessionLimitType.minutes => Icons.timer_outlined,
+              TallySessionLimitType.count => Icons.tag_rounded,
+              TallySessionLimitType.endless => Icons.all_inclusive_rounded,
+            },
+            size: 18,
+          ),
+          label: Text(label(context, limit)),
+          tooltip: S.of(context).tallySession,
+          onPressed: () => TallySessionSheet.show(context),
         );
       },
     );

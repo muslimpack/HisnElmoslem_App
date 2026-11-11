@@ -435,6 +435,12 @@ abstract class S {
   /// **'Cycles: {count}'**
   String tallyCyclesDone(int count);
 
+  /// No description provided for @tallyCountOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {total}'**
+  String tallyCountOf(int count, int total);
+
   /// No description provided for @tallyCounterReset.
   ///
   /// In en, this message translates to:
@@ -488,6 +494,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Until I stop it'**
   String get tallySessionEndless;
+
+  /// No description provided for @tallySessionEndlessShort.
+  ///
+  /// In en, this message translates to:
+  /// **'No limit'**
+  String get tallySessionEndlessShort;
 
   /// No description provided for @tallySessionMinutes.
   ///
