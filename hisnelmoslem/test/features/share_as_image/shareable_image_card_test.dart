@@ -52,18 +52,21 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
+        // As in the app, the card may be taller than the screen.
         home: Scaffold(
-          body: ShareableImageCard(
-            zikrTitle: zikrTitle,
-            zikr: zikr,
-            settings: ShareableImageCardSettings(
-              imageSize: size,
-              wordsCountPerSize: 1500,
-              mainFontFamily: "kitab",
-              secondaryFontFamily: "kitab",
+          body: SingleChildScrollView(
+            child: ShareableImageCard(
+              zikrTitle: zikrTitle,
+              zikr: zikr,
+              settings: ShareableImageCardSettings(
+                imageSize: size,
+                wordsCountPerSize: 1500,
+                mainFontFamily: "kitab",
+                secondaryFontFamily: "kitab",
+              ),
+              shareImageSettings: settings,
+              splittedLength: splitLength,
             ),
-            shareImageSettings: settings,
-            splittedLength: splitLength,
           ),
         ),
       ),
@@ -83,7 +86,17 @@ void main() {
     });
   }
 
-  testWidgets("a very long zikr shrinks instead of overflowing", (tester) async {
+  double cardHeight(WidgetTester tester) => tester.getSize(find.byType(ShareableImageCard)).height;
+
+  testWidgets("a short zikr keeps the requested image size", (tester) async {
+    await pump(tester, size: const Size(1080, 1080), zikr: _zikr());
+
+    expect(cardHeight(tester), 1080);
+  });
+
+  testWidgets("a very long zikr makes the image taller instead of shrinking the text", (
+    tester,
+  ) async {
     final long = List.filled(120, "سبحان الله وبحمده سبحان الله العظيم").join(" ");
     await pump(
       tester,
@@ -91,10 +104,30 @@ void main() {
       zikr: _zikr(text: long),
     );
 
+    expect(cardHeight(tester), greaterThan(1080));
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets("a long fadl and a split zikr still fit", (tester) async {
+  testWidgets("the taller the zikr, the taller the image", (tester) async {
+    final medium = List.filled(40, "سبحان الله وبحمده").join(" ");
+    final long = List.filled(160, "سبحان الله وبحمده").join(" ");
+
+    await pump(
+      tester,
+      size: const Size(1080, 1080),
+      zikr: _zikr(text: medium),
+    );
+    final mediumHeight = cardHeight(tester);
+    await pump(
+      tester,
+      size: const Size(1080, 1080),
+      zikr: _zikr(text: long),
+    );
+
+    expect(cardHeight(tester), greaterThan(mediumHeight));
+  });
+
+  testWidgets("a long fadl is shown in full and a split zikr still fits", (tester) async {
     final fadl = List.filled(40, "من قالها موقنا بها فمات من يومه دخل الجنة").join(" ");
     await pump(
       tester,
@@ -103,6 +136,8 @@ void main() {
       splitLength: 3,
     );
 
+    expect(find.textContaining("من قالها موقنا", findRichText: true), findsWidgets);
+    expect(cardHeight(tester), greaterThan(1080));
     expect(tester.takeException(), isNull);
   });
 

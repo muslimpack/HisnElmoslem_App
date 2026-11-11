@@ -8,6 +8,7 @@ import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_image_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/dot_bar.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/share_card_metrics.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
 /// The picture that is shared: a framed card with the title, the zikr text, its fadl,
@@ -71,105 +72,135 @@ class ShareableImageCard extends StatelessWidget {
     final showCount = zikr.count > 1;
     final hasDetails = showSource || showFadl || showCount;
 
-    return Container(
-      color: background,
-      height: settings.imageSize.height,
-      width: settings.imageSize.width,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            "assets/images/grid.png",
-            fit: BoxFit.cover,
-            color: contrast.withValues(alpha: .06),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: [accent.withValues(alpha: .10), Colors.transparent],
-                radius: .9,
+    //TDOD remove after database update
+    final displayText = shareImageSettings.removeDiacritics ? mainText.removeDiacritics : mainText;
+    final mainStyle = TextStyle(
+      fontSize: 150,
+      height: 1.45,
+      fontFamily: settings.mainFontFamily,
+      color: mainColor,
+    );
+    final titleStyle = TextStyle(
+      fontSize: 54,
+      height: 1.4,
+      fontWeight: FontWeight.bold,
+      fontFamily: settings.secondaryFontFamily,
+    );
+
+    // A long zikr makes the image taller; its text keeps a readable size and is shown
+    // in full.
+    final height = ShareCardMetrics.requiredHeight(
+      minHeight: settings.imageSize.height,
+      imageWidth: settings.imageSize.width,
+      title: zikrTitle.name,
+      hasNumber: shareImageSettings.showZikrIndex,
+      titleStyle: titleStyle,
+      mainText: displayText,
+      mainStyle: mainStyle,
+      secondaryStyle: secondaryStyle,
+      fadl: showFadl ? zikr.fadl : null,
+      fadlLabel: zikrTitle.id >= 0,
+      source: showSource ? zikr.source : null,
+      count: showCount ? zikr.count : null,
+      hasDots: splittedLength > 1,
+    );
+
+    // The picture must not depend on the phone's font scale.
+    return MediaQuery.withNoTextScaling(
+      child: Container(
+        color: background,
+        height: height,
+        width: settings.imageSize.width,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              "assets/images/grid.png",
+              fit: BoxFit.cover,
+              color: contrast.withValues(alpha: .06),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: [accent.withValues(alpha: .10), Colors.transparent],
+                  radius: .9,
+                ),
               ),
             ),
-          ),
 
-          ///MARK: Double frame
-          Padding(
-            padding: const EdgeInsets.all(36),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(44),
-                border: Border.all(color: accent.withValues(alpha: .55), width: 3),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: contrast.withValues(alpha: .05),
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(color: accent.withValues(alpha: .22), width: 1.5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(48, 44, 48, 32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ShareCardTitle(
-                          title: zikrTitle.name,
-                          number: shareImageSettings.showZikrIndex ? zikr.order : null,
-                          color: accent,
-                          fontFamily: settings.secondaryFontFamily,
-                        ),
-                        const SizedBox(height: 28),
-                        Expanded(
-                          child: Center(
-                            child: AutoSizeText(
-                              //TDOD remove after database update
-                              shareImageSettings.removeDiacritics
-                                  ? mainText.removeDiacritics
-                                  : mainText,
-                              minFontSize: 30,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 150,
-                                height: 1.45,
-                                fontFamily: settings.mainFontFamily,
-                                color: mainColor,
+            ///MARK: Double frame
+            Padding(
+              padding: const EdgeInsets.all(36),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(44),
+                  border: Border.all(color: accent.withValues(alpha: .55), width: 3),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: contrast.withValues(alpha: .05),
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(color: accent.withValues(alpha: .22), width: 1.5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(48, 44, 48, 32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ShareCardTitle(
+                            title: zikrTitle.name,
+                            number: shareImageSettings.showZikrIndex ? zikr.order : null,
+                            color: accent,
+                            fontFamily: settings.secondaryFontFamily,
+                          ),
+                          const SizedBox(height: 28),
+                          Expanded(
+                            child: Center(
+                              child: AutoSizeText(
+                                displayText,
+                                // The card is tall enough for the text at the readable size;
+                                // this only lets it grow into spare room, up to the 150 px.
+                                minFontSize: ShareCardMetrics.minReadableFontSize - 24,
+                                textAlign: TextAlign.center,
+                                style: mainStyle,
                               ),
                             ),
                           ),
-                        ),
-                        if (hasDetails) ...[
+                          if (hasDetails) ...[
+                            const SizedBox(height: 24),
+                            ShareCardDetails(
+                              accent: accent,
+                              textStyle: secondaryStyle,
+                              fadl: showFadl ? zikr.fadl : null,
+                              // Fake hadith and custom azkar already carry their own wording.
+                              showFadlLabel: zikrTitle.id >= 0,
+                              source: showSource ? zikr.source : null,
+                              count: showCount ? zikr.count : null,
+                            ),
+                          ],
                           const SizedBox(height: 24),
-                          ShareCardDetails(
+                          ShareCardFooter(
                             accent: accent,
-                            textStyle: secondaryStyle,
-                            fadl: showFadl ? zikr.fadl : null,
-                            // Fake hadith and custom azkar already carry their own wording.
-                            showFadlLabel: zikrTitle.id >= 0,
-                            source: showSource ? zikr.source : null,
-                            count: showCount ? zikr.count : null,
+                            fontFamily: settings.secondaryFontFamily,
+                            dots: splittedLength > 1
+                                ? DotBar(
+                                    activeIndex: splittedindex,
+                                    length: splittedLength,
+                                    dotColor: accent,
+                                  )
+                                : null,
                           ),
                         ],
-                        const SizedBox(height: 24),
-                        ShareCardFooter(
-                          accent: accent,
-                          fontFamily: settings.secondaryFontFamily,
-                          dots: splittedLength > 1
-                              ? DotBar(
-                                  activeIndex: splittedindex,
-                                  length: splittedLength,
-                                  dotColor: accent,
-                                )
-                              : null,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -344,17 +375,13 @@ class ShareCardDetails extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(32, 18, 24, 18),
-                    // A long fadl shrinks (then is cut) instead of overflowing the card.
-                    child: AutoSizeText.rich(
+                    child: Text.rich(
                       TextSpan(
                         children: [
                           if (showFadlLabel) TextSpan(text: "الفضل: ", style: labelStyle),
                           TextSpan(text: fadl),
                         ],
                       ),
-                      maxLines: 5,
-                      minFontSize: 22,
-                      overflow: TextOverflow.ellipsis,
                       style: textStyle,
                     ),
                   ),
@@ -376,16 +403,13 @@ class ShareCardDetails extends StatelessWidget {
             children: [
               if (source != null)
                 Expanded(
-                  child: AutoSizeText.rich(
+                  child: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(text: "المصدر: ", style: labelStyle),
                         TextSpan(text: source),
                       ],
                     ),
-                    maxLines: 2,
-                    minFontSize: 20,
-                    overflow: TextOverflow.ellipsis,
                     style: smallStyle,
                   ),
                 )
