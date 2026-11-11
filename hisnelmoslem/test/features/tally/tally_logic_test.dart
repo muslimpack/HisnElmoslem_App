@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
@@ -214,6 +216,8 @@ void main() {
     late _FakeBox box;
     late _FakeEffects effects;
     late TallyBloc bloc;
+    late Directory audioDir;
+    late LocalCustomAudioStorage storage;
 
     Future<void> start(
       List<DbTally> counters, {
@@ -230,7 +234,9 @@ void main() {
       await TallyRepo(box).saveAdvanceTrigger(trigger);
       sl.registerLazySingleton(() => AppSettingsRepo(box));
       effects = _FakeEffects();
-      bloc = TallyBloc(helper, effects, _FakeVolume(), TallyRepo(box));
+      audioDir = await Directory.systemTemp.createTemp('tally_audio_test');
+      storage = LocalCustomAudioStorage(directoryOverride: audioDir);
+      bloc = TallyBloc(helper, effects, _FakeVolume(), TallyRepo(box), storage);
       bloc.add(TallyStartEvent());
       await bloc.stream.firstWhere((s) => s is TallyLoadedState);
     }
@@ -239,6 +245,7 @@ void main() {
       await bloc.close();
       await db.close();
       await sl.reset();
+      if (audioDir.existsSync()) audioDir.deleteSync(recursive: true);
     });
 
     TallyLoadedState loaded() => bloc.state as TallyLoadedState;
@@ -327,6 +334,74 @@ void main() {
 
       expect((await tap())?.title, 'a');
       expect((await tap())?.title, 'b');
+    });
+
+    Future<File> recording(String name) async {
+      final file = File(await storage.pathFor(name));
+      await file.writeAsBytes([1, 2, 3]);
+      return file;
+    }
+
+    test('deleting a counter removes its recording', () async {
+      await start([_tally('a', active: true, audio: 'a.m4a'), _tally('b')]);
+      final file = await recording('a.m4a');
+
+      bloc.add(TallyDeleteCounterEvent(counter: loaded().allCounters.first));
+      await bloc.stream.firstWhere((s) => s is TallyLoadedState && s.allCounters.length == 1);
+
+      expect(file.existsSync(), isFalse);
+    });
+
+    test('replacing or removing a recording deletes the old file only', () async {
+      await start([_tally('a', active: true, audio: 'old.m4a')]);
+      final old = await recording('old.m4a');
+      final fresh = await recording('new.m4a');
+
+      bloc.add(
+        TallyEditCounterEvent(counter: loaded().allCounters.first.copyWith(audioFile: 'new.m4a')),
+      );
+      await bloc.stream.firstWhere(
+        (s) => s is TallyLoadedState && s.allCounters.first.audioFile == 'new.m4a',
+      );
+      expect(old.existsSync(), isFalse);
+      expect(fresh.existsSync(), isTrue);
+
+      bloc.add(TallyEditCounterEvent(counter: loaded().allCounters.first.copyWith(audioFile: '')));
+      await bloc.stream.firstWhere(
+        (s) => s is TallyLoadedState && s.allCounters.first.audioFile.isEmpty,
+      );
+      expect(fresh.existsSync(), isFalse);
+    });
+
+    test('editing a counter without touching the recording keeps it', () async {
+      await start([_tally('a', active: true, audio: 'keep.m4a')]);
+      final file = await recording('keep.m4a');
+
+      bloc.add(
+        TallyEditCounterEvent(counter: loaded().allCounters.first.copyWith(title: 'renamed')),
+      );
+      await bloc.stream.firstWhere(
+        (s) => s is TallyLoadedState && s.allCounters.first.title == 'renamed',
+      );
+      expect(file.existsSync(), isTrue);
+    });
+
+    test('the sweep of the custom azkar recordings keeps what counters use', () async {
+      await start([_tally('a', active: true, audio: 'used.m4a')]);
+      final used = await recording('used.m4a');
+      final other = await recording('other.m4a');
+      final stray = await recording('stray.m4a');
+      storage.addReferenceProvider(helper.referencedAudioFiles);
+
+      await storage.deleteUnreferenced({'other.m4a'});
+
+      expect(used.existsSync(), isTrue, reason: 'a counter uses it');
+      expect(other.existsSync(), isTrue, reason: 'a custom zikr uses it');
+      expect(stray.existsSync(), isFalse);
+
+      // A restore replaces every recording, so counters do not protect files then.
+      await storage.deleteUnreferenced(const {}, includeExternal: false);
+      expect(used.existsSync(), isFalse);
     });
 
     test('reset can be undone', () async {

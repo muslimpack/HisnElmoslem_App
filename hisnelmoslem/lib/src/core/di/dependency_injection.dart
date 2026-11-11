@@ -84,7 +84,12 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => CommentaryDBHelper());
   sl.registerLazySingleton(() => CustomAzkarDBHelper());
   sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
-  sl.registerLazySingleton<CustomAudioStorage>(LocalCustomAudioStorage.new);
+  sl.registerLazySingleton<CustomAudioStorage>(
+    // The tally counters keep recordings in the same folder.
+    () =>
+        LocalCustomAudioStorage()
+          ..addReferenceProvider(() => sl<TallyDatabaseHelper>().referencedAudioFiles()),
+  );
   // One recorder / player per recording sheet, disposed with its cubit.
   sl.registerFactory<AudioRecorderService>(RecordPackageAudioRecorder.new);
   sl.registerFactory<AudioPreviewPlayer>(AudioplayersPreviewPlayer.new);
@@ -129,7 +134,7 @@ Future<void> initSL() async {
 
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
-  sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => CustomTitleEditorBloc(sl(), sl()));
   sl.registerFactory(() => CustomZikrPickerCubit(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));

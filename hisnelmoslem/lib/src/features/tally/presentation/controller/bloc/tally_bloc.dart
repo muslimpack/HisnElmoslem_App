@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
@@ -23,6 +24,9 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final EffectsManager effectsManager;
   final VolumeButtonManager volumeButtonManager;
   final TallyRepo tallyRepo;
+
+  /// Where the counters' voice recordings live.
+  final CustomAudioStorage audioStorage;
   StreamSubscription? _volumeSubscription;
 
   /// How long a count stays visible before auto-advance moves to the next counter.
@@ -33,6 +37,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     this.effectsManager,
     this.volumeButtonManager,
     this.tallyRepo,
+    this.audioStorage,
   ) : super(TallyLoadingState()) {
     _initHandlers();
 
@@ -119,6 +124,12 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     await tallyDatabaseHelper.updateTally(dbTally: counterToEdit);
 
+    // A replaced or removed recording is not needed any more.
+    final previous = state.allCounters.where((c) => c.id == counterToEdit.id).firstOrNull;
+    if (previous != null && previous.hasAudio && previous.audioFile != counterToEdit.audioFile) {
+      await audioStorage.delete(previous.audioFile);
+    }
+
     final updatedCounters = List<DbTally>.from(state.allCounters).map((
       counter,
     ) {
@@ -142,6 +153,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     if (state is! TallyLoadedState) return;
 
     await tallyDatabaseHelper.deleteTally(dbTally: event.counter);
+    if (event.counter.hasAudio) await audioStorage.delete(event.counter.audioFile);
 
     final updatedCounters = state.allCounters
         .where((counter) => counter.id != event.counter.id)
