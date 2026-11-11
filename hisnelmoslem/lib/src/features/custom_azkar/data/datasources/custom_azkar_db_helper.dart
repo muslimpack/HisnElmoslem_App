@@ -11,7 +11,7 @@ import 'package:sqflite/sqflite.dart';
 /// `hisn_elmoslem.db`, which is never written to by the custom azkar feature.
 class CustomAzkarDBHelper {
   static const String dbName = "custom_azkar.db";
-  static const int dbVersion = 2;
+  static const int dbVersion = 3;
 
   /// Table names.
   static const String titlesTable = "custom_titles";
@@ -96,6 +96,7 @@ class CustomAzkarDBHelper {
       "snap_source"	TEXT,
       "snap_fadl"	TEXT,
       "snap_hokm"	TEXT,
+      "audio_file"	TEXT,
       PRIMARY KEY("id" AUTOINCREMENT)
     );
     ''');
@@ -139,6 +140,9 @@ class CustomAzkarDBHelper {
           whereArgs: [row['id']],
         );
       }
+    }
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE "$itemsTable" ADD COLUMN "audio_file" TEXT');
     }
   }
 

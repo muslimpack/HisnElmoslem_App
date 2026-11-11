@@ -16,6 +16,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_a
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
@@ -78,7 +79,10 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => CommentaryDBHelper());
   sl.registerLazySingleton(() => CustomAzkarDBHelper());
   sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
-  sl.registerLazySingleton<CustomAzkarRepo>(() => CustomAzkarRepoImpl(sl(), sl()));
+  sl.registerLazySingleton<CustomAudioStorage>(() => const LocalCustomAudioStorage());
+  sl.registerLazySingleton<CustomAzkarRepo>(
+    () => CustomAzkarRepoImpl(sl(), sl(), audioStorage: sl()),
+  );
   sl.registerLazySingleton(() => CustomAlarmScheduler(sl(), sl()));
   sl.registerLazySingleton(
     () => BackupRestoreRepo(

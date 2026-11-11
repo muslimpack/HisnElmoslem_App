@@ -33,6 +33,11 @@ abstract interface class CustomAzkarRepo {
   /// Builds an item (with snapshot) pointing to an original zikr.
   Future<CustomTitleItem?> itemFromOriginalZikr(int originalContentId);
 
+  /// Sets (or with null removes) the recording of a saved item. The replaced file is
+  /// deleted. Item ids change when a title is saved from the editor, so unsaved
+  /// drafts carry the file name on the item instead.
+  Future<void> setItemAudio(int itemId, String? audioFile);
+
   ///MARK: Custom zikrs
   Future<List<CustomZikr>> getZikrs();
   Future<CustomZikr?> getZikr(int id);

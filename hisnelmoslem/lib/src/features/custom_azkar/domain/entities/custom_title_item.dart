@@ -45,6 +45,10 @@ class CustomTitleItem extends Equatable {
   /// Only set for [CustomItemKind.original].
   final ZikrSnapshot? snapshot;
 
+  /// Name of the user's recording (see `CustomAudioStorage`). When set it is played
+  /// instead of the original zikr's bundled audio.
+  final String? audioFile;
+
   const CustomTitleItem({
     this.id = 0,
     this.titleId = 0,
@@ -53,14 +57,20 @@ class CustomTitleItem extends Equatable {
     this.sortOrder = 0,
     this.count = 1,
     this.snapshot,
+    this.audioFile,
   });
 
+  bool get hasUserAudio => audioFile != null && audioFile!.isNotEmpty;
+
+  /// [audioFile] keeps its value when omitted; pass [clearAudio] to remove it.
   CustomTitleItem copyWith({
     int? id,
     int? titleId,
     int? sortOrder,
     int? count,
     ZikrSnapshot? snapshot,
+    String? audioFile,
+    bool clearAudio = false,
   }) {
     return CustomTitleItem(
       id: id ?? this.id,
@@ -70,11 +80,12 @@ class CustomTitleItem extends Equatable {
       sortOrder: sortOrder ?? this.sortOrder,
       count: count ?? this.count,
       snapshot: snapshot ?? this.snapshot,
+      audioFile: clearAudio ? null : (audioFile ?? this.audioFile),
     );
   }
 
   @override
-  List<Object?> get props => [id, titleId, kind, refId, sortOrder, count, snapshot];
+  List<Object?> get props => [id, titleId, kind, refId, sortOrder, count, snapshot, audioFile];
 }
 
 /// A [CustomTitleItem] together with the text that should be displayed for it.

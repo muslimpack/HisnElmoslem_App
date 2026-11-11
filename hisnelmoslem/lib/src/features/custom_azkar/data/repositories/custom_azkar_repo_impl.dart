@@ -1,6 +1,7 @@
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_azkar_db_helper.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_alarm.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
@@ -14,7 +15,24 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
   final CustomAzkarDBHelper dbHelper;
   final OriginalZikrSource originalSource;
 
-  const CustomAzkarRepoImpl(this.dbHelper, this.originalSource);
+  /// Null disables recording cleanup (tests that do not deal with audio).
+  final CustomAudioStorage? audioStorage;
+
+  const CustomAzkarRepoImpl(this.dbHelper, this.originalSource, {this.audioStorage});
+
+  /// Deletes recordings no item points to any more. Called after every change that
+  /// can drop items, so no file is left behind.
+  Future<void> _sweepAudio() async {
+    final storage = audioStorage;
+    if (storage == null) return;
+    final db = await dbHelper.database;
+    final rows = await db.query(
+      _items,
+      columns: ['audio_file'],
+      where: 'audio_file IS NOT NULL',
+    );
+    await storage.deleteUnreferenced({for (final r in rows) r['audio_file']! as String});
+  }
 
   static const _titles = CustomAzkarDBHelper.titlesTable;
   static const _zikrs = CustomAzkarDBHelper.zikrsTable;
@@ -57,6 +75,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       refId: m['ref_id']! as int,
       sortOrder: m['sort_order']! as int,
       count: m['count'] as int? ?? 1,
+      audioFile: m['audio_file'] as String?,
       snapshot: snapContent == null
           ? null
           : ZikrSnapshot(
@@ -79,6 +98,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       'snap_source': item.snapshot?.source,
       'snap_fadl': item.snapshot?.fadl,
       'snap_hokm': item.snapshot?.hokm,
+      'audio_file': item.hasUserAudio ? item.audioFile : null,
     };
   }
 
@@ -162,6 +182,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       await txn.delete(_items, where: 'title_id = ?', whereArgs: [title.id]);
       await _insertItems(txn, title.id, items);
     });
+    await _sweepAudio();
   }
 
   @override
@@ -169,6 +190,19 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
     final db = await dbHelper.database;
     // Items and alarm rows are removed by ON DELETE CASCADE.
     await db.delete(_titles, where: 'id = ?', whereArgs: [id]);
+    await _sweepAudio();
+  }
+
+  @override
+  Future<void> setItemAudio(int itemId, String? audioFile) async {
+    final db = await dbHelper.database;
+    await db.update(
+      _items,
+      {'audio_file': audioFile},
+      where: 'id = ?',
+      whereArgs: [itemId],
+    );
+    await _sweepAudio();
   }
 
   @override
@@ -341,6 +375,7 @@ class CustomAzkarRepoImpl implements CustomAzkarRepo {
       await txn.delete(_items, where: "kind = 'custom' AND ref_id = ?", whereArgs: [id]);
       await txn.delete(_zikrs, where: 'id = ?', whereArgs: [id]);
     });
+    await _sweepAudio();
   }
 
   @override
