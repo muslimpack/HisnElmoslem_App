@@ -174,6 +174,42 @@ void main() {
     expect(reopened.shareImageSettings.showSource, isTrue);
   });
 
+  for (final id in [SharePresetId.charcoalCoral, SharePresetId.skyMorning]) {
+    testWidgets("the selected preset ${id.name} is scrolled into view when the sheet opens", (
+      tester,
+    ) async {
+      // These are far along their rows, off screen without scrolling.
+      await cubit.applyColorPreset(kShareColorPresets.firstWhere((p) => p.id == id));
+      await openSheet(tester);
+
+      final check = find.byIcon(Icons.check_rounded);
+      expect(check, findsOneWidget);
+      final rect = tester.getRect(check);
+      expect(rect.left, greaterThanOrEqualTo(0));
+      expect(rect.right, lessThanOrEqualTo(360));
+    });
+  }
+
+  testWidgets("choosing a preset keeps it in view and reset goes back to the first", (
+    tester,
+  ) async {
+    await openSheet(tester);
+
+    await cubit.applyColorPreset(
+      kShareColorPresets.firstWhere((p) => p.id == SharePresetId.skyMorning),
+    );
+    await tester.pumpAndSettle();
+    final rect = tester.getRect(find.byIcon(Icons.check_rounded));
+    expect(rect.left, greaterThanOrEqualTo(0));
+    expect(rect.right, lessThanOrEqualTo(360));
+
+    cubit.resetColors();
+    await tester.pumpAndSettle();
+    final first = tester.getRect(find.byIcon(Icons.check_rounded));
+    expect(first.left, greaterThanOrEqualTo(0));
+    expect(first.right, lessThanOrEqualTo(360));
+  });
+
   testWidgets("light and dark presets are both offered", (tester) async {
     await openSheet(tester);
 

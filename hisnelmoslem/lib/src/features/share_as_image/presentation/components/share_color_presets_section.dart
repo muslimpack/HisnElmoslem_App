@@ -68,7 +68,9 @@ class ShareColorPresetsSection extends StatelessWidget {
   }
 }
 
-class SharePresetRow extends StatelessWidget {
+/// One row of presets that scrolls sideways. The selected preset is kept in view: the
+/// row scrolls to it when it opens and whenever the selection changes.
+class SharePresetRow extends StatefulWidget {
   final String title;
   final IconData icon;
   final List<ShareColorPreset> presets;
@@ -83,35 +85,102 @@ class SharePresetRow extends StatelessWidget {
   });
 
   @override
+  State<SharePresetRow> createState() => _SharePresetRowState();
+}
+
+class _SharePresetRowState extends State<SharePresetRow> {
+  static const double _gap = 12;
+
+  final ScrollController _controller = ScrollController();
+
+  int get _selectedIndex => widget.presets.indexWhere(
+    (p) => p.matches(
+      background: widget.settings.backgroundColor,
+      title: widget.settings.titleTextColor,
+      text: widget.settings.additionalTextColor,
+    ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelected(animate: false));
+  }
+
+  @override
+  void didUpdateWidget(covariant SharePresetRow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final before = oldWidget.presets.indexWhere(
+      (p) => p.matches(
+        background: oldWidget.settings.backgroundColor,
+        title: oldWidget.settings.titleTextColor,
+        text: oldWidget.settings.additionalTextColor,
+      ),
+    );
+    if (before != _selectedIndex) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelected(animate: true));
+    }
+  }
+
+  /// Puts the selected tile in the middle of the row (as far as the row allows).
+  void _scrollToSelected({required bool animate}) {
+    final index = _selectedIndex;
+    if (index < 0 || !_controller.hasClients) return;
+
+    final position = _controller.position;
+    final tileStart = index * (SharePresetTile.width + _gap);
+    final target = (tileStart - (position.viewportDimension - SharePresetTile.width) / 2).clamp(
+      0.0,
+      position.maxScrollExtent,
+    );
+
+    if (animate) {
+      _controller.animateTo(
+        target,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    } else {
+      _controller.jumpTo(target);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final selected = _selectedIndex;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(icon, size: 18, color: theme.hintColor),
+            Icon(widget.icon, size: 18, color: theme.hintColor),
             const SizedBox(width: 6),
-            Text(title, style: theme.textTheme.labelLarge?.copyWith(color: theme.hintColor)),
+            Text(
+              widget.title,
+              style: theme.textTheme.labelLarge?.copyWith(color: theme.hintColor),
+            ),
           ],
         ),
         const SizedBox(height: 8),
         SizedBox(
           height: 118,
           child: ListView.separated(
+            controller: _controller,
             scrollDirection: Axis.horizontal,
-            itemCount: presets.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            itemCount: widget.presets.length,
+            separatorBuilder: (_, _) => const SizedBox(width: _gap),
             itemBuilder: (context, index) {
-              final preset = presets[index];
               return SharePresetTile(
-                preset: preset,
-                selected: preset.matches(
-                  background: settings.backgroundColor,
-                  title: settings.titleTextColor,
-                  text: settings.additionalTextColor,
-                ),
+                preset: widget.presets[index],
+                selected: index == selected,
               );
             },
           ),
@@ -128,7 +197,7 @@ class SharePresetTile extends StatelessWidget {
 
   const SharePresetTile({super.key, required this.preset, required this.selected});
 
-  static const double _width = 116;
+  static const double width = 116;
   static const double _height = 84;
 
   @override
@@ -144,11 +213,11 @@ class SharePresetTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         onTap: () => context.read<ShareImageCubit>().applyColorPreset(preset),
         child: SizedBox(
-          width: _width,
+          width: width,
           child: Column(
             children: [
               Container(
-                width: _width,
+                width: width,
                 height: _height,
                 decoration: BoxDecoration(
                   color: preset.background,
