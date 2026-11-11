@@ -18,6 +18,10 @@ class DbContent extends Equatable {
   /// Set when this content is a zikr authored by the user (custom azkar).
   final int? customZikrId;
 
+  /// Absolute path of a recording made by the user. When set it is played instead
+  /// of the bundled [audio].
+  final String userAudioPath;
+
   const DbContent({
     required this.id,
     required this.content,
@@ -31,7 +35,11 @@ class DbContent extends Equatable {
     required this.audio,
     required this.hasAudio,
     this.customZikrId,
+    this.userAudioPath = "",
   });
+
+  /// True when there is something to play: the user's recording or bundled audio.
+  bool get hasPlayableAudio => userAudioPath.isNotEmpty || audio.isNotEmpty;
 
   DbContent copyWith({
     int? id,
@@ -58,6 +66,7 @@ class DbContent extends Equatable {
       audio: audio ?? this.audio,
       hasAudio: hasAudio,
       customZikrId: customZikrId,
+      userAudioPath: userAudioPath,
     );
   }
 
@@ -75,6 +84,7 @@ class DbContent extends Equatable {
       hokm,
       audio,
       customZikrId,
+      userAudioPath,
     ];
   }
 

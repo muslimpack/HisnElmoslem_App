@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/repository/azakr_filters_repo.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/mappers/resolved_item_mapper.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -42,6 +43,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
   final AzkarFiltersRepo azkarFiltersRepo;
   final ZikrAudioPlayerCubit zikrAudioPlayerCubit;
   final CustomAzkarRepo customAzkarRepo;
+  final CustomAudioStorage customAudioStorage;
   ZikrViewerBloc(
     this.effectsManager,
     this.homeBloc,
@@ -52,6 +54,7 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     this.azkarFiltersRepo,
     this.zikrAudioPlayerCubit,
     this.customAzkarRepo,
+    this.customAudioStorage,
   ) : super(ZikrViewerLoadingState()) {
     _initHandlers();
   }
@@ -97,6 +100,14 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     on<ZikrViewerAudioPlayingStateChangedEvent>(_audioPlayingStateChanged);
   }
 
+  /// Path of the user's recording, or empty when there is none or the file is gone
+  /// (e.g. a restored backup without it), so the original audio is used instead.
+  Future<String> _existingRecordingPath(String? fileName) async {
+    if (fileName == null || fileName.isEmpty) return "";
+    if (!await customAudioStorage.exists(fileName)) return "";
+    return customAudioStorage.pathFor(fileName);
+  }
+
   Future<void> _start(
     ZikrViewerStartEvent event,
     Emitter<ZikrViewerState> emit,
@@ -125,7 +136,11 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
       // Azkar picked by the user are never hidden by the azkar filters.
       filteredAzkar = [
         for (var i = 0; i < items.length; i++)
-          items[i].toViewerContent(customTitleId: customTitleId, order: i),
+          items[i].toViewerContent(
+            customTitleId: customTitleId,
+            order: i,
+            userAudioPath: await _existingRecordingPath(items[i].item.audioFile),
+          ),
       ];
     } else {
       title = await hisnDBHelper.getTitleById(id: event.titleIndex);

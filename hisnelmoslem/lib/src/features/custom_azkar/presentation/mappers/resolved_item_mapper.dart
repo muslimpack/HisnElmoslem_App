@@ -6,7 +6,11 @@ extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
   /// Converts to the model the zikr viewer works with. Ids are negated (see
   /// `custom_title_source.dart`); every item row gets its own id, so the same
   /// original zikr added twice is counted independently.
-  DbContent toViewerContent({required int customTitleId, required int order}) {
+  DbContent toViewerContent({
+    required int customTitleId,
+    required int order,
+    String userAudioPath = "",
+  }) {
     return DbContent(
       id: -item.id,
       content: content,
@@ -20,6 +24,7 @@ extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
       audio: audio,
       hasAudio: audio.isNotEmpty,
       customZikrId: item.kind == CustomItemKind.custom ? item.refId : null,
+      userAudioPath: userAudioPath,
     );
   }
 }

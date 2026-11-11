@@ -195,7 +195,7 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     if (index < 0 || index >= state.zikrList.length) return;
 
     final zikr = state.zikrList[index];
-    if (!zikr.hasAudio) return;
+    if (!zikr.hasPlayableAudio) return;
 
     if (zikr.count == 0) {
       emit(state.copyWith(currentIndex: index, isPlaying: true));
@@ -205,8 +205,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
     hisnPrint(_player.playerId);
 
-    final audioPath = 'sounds/azkar/${zikr.audio}';
-    final source = AssetSource(audioPath);
+    final Source source = zikr.userAudioPath.isNotEmpty
+        ? DeviceFileSource(zikr.userAudioPath)
+        : AssetSource('sounds/azkar/${zikr.audio}');
 
     try {
       await _player.stop();
