@@ -75,18 +75,11 @@ class ShareAsImageRepo {
   ///
   static const String _shareImageShowSourceBoxKey = 'share_image_show_source';
 
-  bool get shareImageShowSource => box.read(_shareImageShowSourceBoxKey) ?? true;
+  /// Off until the user turns it on; it makes the image longer. A saved choice wins.
+  bool get shareImageShowSource => box.read(_shareImageShowSourceBoxKey) ?? false;
 
   Future<void> shareImageUpdateShowSource({required bool value}) async {
     await box.write(_shareImageShowSourceBoxKey, value);
-  }
-
-  ///
-  static const String _shareImageShowZikrIndexBoxKey = 'share_image_show_zikr_index';
-
-  bool get shareImageShowZikrIndex => box.read(_shareImageShowZikrIndexBoxKey) ?? false;
-  Future<void> shareImageUpdateShowZikrIndex({required bool value}) async {
-    await box.write(_shareImageShowZikrIndexBoxKey, value);
   }
 
   ///MARK: Text
@@ -97,22 +90,6 @@ class ShareAsImageRepo {
   bool get shareImageRemoveDiacritics => box.read(_shareImageRemoveDiacriticsKey) ?? false;
   Future<void> shareImageUpdateRemoveDiacritics({required bool value}) async {
     await box.write(_shareImageRemoveDiacriticsKey, value);
-  }
-
-  ///
-  static const String _shareImageImageWidthBoxKey = 'share_image_image_width';
-
-  int get shareImageImageWidth => box.read(_shareImageImageWidthBoxKey) ?? 600;
-  Future<void> shareImageUpdateImageWidth({required int value}) async {
-    await box.write(_shareImageImageWidthBoxKey, value);
-  }
-
-  ///
-  static const String _shareImageImageQualityBoxKey = 'share_image_image_quality';
-
-  double get shareImageImageQuality => box.read(_shareImageImageQualityBoxKey) ?? 2;
-  Future<void> shareImageUpdateImageQuality(double value) async {
-    await box.write(_shareImageImageQualityBoxKey, value);
   }
 
   ///
@@ -129,10 +106,7 @@ class ShareAsImageRepo {
         fontSize: shareImageFontSize,
         showFadl: shareImageShowFadl,
         showSource: shareImageShowSource,
-        showZikrIndex: shareImageShowZikrIndex,
         removeDiacritics: shareImageRemoveDiacritics,
-        imageWidth: shareImageImageWidth,
-        imageQuality: shareImageImageQuality,
       );
     }
     return ShareImageSettings.fromJson(data);

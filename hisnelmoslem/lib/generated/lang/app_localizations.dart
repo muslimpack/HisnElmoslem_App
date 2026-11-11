@@ -1197,12 +1197,6 @@ abstract class S {
   /// **'Show source of zikr'**
   String get showSourceOfZikr;
 
-  /// No description provided for @showZikrIndex.
-  ///
-  /// In en, this message translates to:
-  /// **'Show zikr index'**
-  String get showZikrIndex;
-
   /// No description provided for @shuffle.
   ///
   /// In en, this message translates to:
@@ -2120,6 +2114,168 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Done'**
   String get zikrDone;
+
+  /// No description provided for @shareImageCustomize.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize'**
+  String get shareImageCustomize;
+
+  /// No description provided for @shareImageColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get shareImageColors;
+
+  /// No description provided for @shareImageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get shareImageContent;
+
+  /// No description provided for @shareImageColorTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what to color'**
+  String get shareImageColorTarget;
+
+  /// No description provided for @shareImageTextColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Text color'**
+  String get shareImageTextColor;
+
+  /// No description provided for @shareImagePresets.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready colors'**
+  String get shareImagePresets;
+
+  /// No description provided for @shareImagePresetDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get shareImagePresetDark;
+
+  /// No description provided for @shareImagePresetLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get shareImagePresetLight;
+
+  /// No description provided for @presetClassicNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic night'**
+  String get presetClassicNight;
+
+  /// No description provided for @presetEmeraldNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald night'**
+  String get presetEmeraldNight;
+
+  /// No description provided for @presetMidnightGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight gold'**
+  String get presetMidnightGold;
+
+  /// No description provided for @presetDeepOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep ocean'**
+  String get presetDeepOcean;
+
+  /// No description provided for @presetRoyalPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal purple'**
+  String get presetRoyalPurple;
+
+  /// No description provided for @presetCharcoalCoral.
+  ///
+  /// In en, this message translates to:
+  /// **'Charcoal coral'**
+  String get presetCharcoalCoral;
+
+  /// No description provided for @presetParchment.
+  ///
+  /// In en, this message translates to:
+  /// **'Parchment'**
+  String get presetParchment;
+
+  /// No description provided for @presetMintGarden.
+  ///
+  /// In en, this message translates to:
+  /// **'Mint garden'**
+  String get presetMintGarden;
+
+  /// No description provided for @presetCleanWhite.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean white'**
+  String get presetCleanWhite;
+
+  /// No description provided for @presetRoseDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose dawn'**
+  String get presetRoseDawn;
+
+  /// No description provided for @presetSkyMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky morning'**
+  String get presetSkyMorning;
+
+  /// No description provided for @shareImageColorCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get shareImageColorCurrent;
+
+  /// No description provided for @shareImageColorNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get shareImageColorNew;
+
+  /// No description provided for @shareImageHexCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Hex code'**
+  String get shareImageHexCode;
+
+  /// No description provided for @shareQualityStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get shareQualityStandard;
+
+  /// No description provided for @shareQualityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get shareQualityHigh;
+
+  /// No description provided for @shareQualityMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum'**
+  String get shareQualityMax;
+
+  /// No description provided for @shareImageQualityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{width} px wide'**
+  String shareImageQualityHint(int width);
+
+  /// No description provided for @galleryPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow access to your photos to save the image'**
+  String get galleryPermissionRequired;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

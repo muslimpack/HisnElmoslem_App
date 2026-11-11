@@ -569,9 +569,6 @@ class SEn extends S {
   String get showSourceOfZikr => 'Show source of zikr';
 
   @override
-  String get showZikrIndex => 'Show zikr index';
-
-  @override
   String get shuffle => 'Shuffle';
 
   @override
@@ -1041,4 +1038,87 @@ class SEn extends S {
 
   @override
   String get zikrDone => 'Done';
+
+  @override
+  String get shareImageCustomize => 'Customize';
+
+  @override
+  String get shareImageColors => 'Colors';
+
+  @override
+  String get shareImageContent => 'Content';
+
+  @override
+  String get shareImageColorTarget => 'Choose what to color';
+
+  @override
+  String get shareImageTextColor => 'Text color';
+
+  @override
+  String get shareImagePresets => 'Ready colors';
+
+  @override
+  String get shareImagePresetDark => 'Dark';
+
+  @override
+  String get shareImagePresetLight => 'Light';
+
+  @override
+  String get presetClassicNight => 'Classic night';
+
+  @override
+  String get presetEmeraldNight => 'Emerald night';
+
+  @override
+  String get presetMidnightGold => 'Midnight gold';
+
+  @override
+  String get presetDeepOcean => 'Deep ocean';
+
+  @override
+  String get presetRoyalPurple => 'Royal purple';
+
+  @override
+  String get presetCharcoalCoral => 'Charcoal coral';
+
+  @override
+  String get presetParchment => 'Parchment';
+
+  @override
+  String get presetMintGarden => 'Mint garden';
+
+  @override
+  String get presetCleanWhite => 'Clean white';
+
+  @override
+  String get presetRoseDawn => 'Rose dawn';
+
+  @override
+  String get presetSkyMorning => 'Sky morning';
+
+  @override
+  String get shareImageColorCurrent => 'Current';
+
+  @override
+  String get shareImageColorNew => 'New';
+
+  @override
+  String get shareImageHexCode => 'Hex code';
+
+  @override
+  String get shareQualityStandard => 'Standard';
+
+  @override
+  String get shareQualityHigh => 'High';
+
+  @override
+  String get shareQualityMax => 'Maximum';
+
+  @override
+  String shareImageQualityHint(int width) {
+    return '$width px wide';
+  }
+
+  @override
+  String get galleryPermissionRequired => 'Allow access to your photos to save the image';
 }

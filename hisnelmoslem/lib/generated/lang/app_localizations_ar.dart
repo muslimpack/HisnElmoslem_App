@@ -569,9 +569,6 @@ class SAr extends S {
   String get showSourceOfZikr => 'عرض المصدر';
 
   @override
-  String get showZikrIndex => 'عرض رقم الذكر';
-
-  @override
   String get shuffle => 'عشوائي';
 
   @override
@@ -1039,4 +1036,87 @@ class SAr extends S {
 
   @override
   String get zikrDone => 'تم';
+
+  @override
+  String get shareImageCustomize => 'تخصيص';
+
+  @override
+  String get shareImageColors => 'الألوان';
+
+  @override
+  String get shareImageContent => 'المحتوى';
+
+  @override
+  String get shareImageColorTarget => 'اختر ما تريد تلوينه';
+
+  @override
+  String get shareImageTextColor => 'لون النص';
+
+  @override
+  String get shareImagePresets => 'ألوان جاهزة';
+
+  @override
+  String get shareImagePresetDark => 'داكنة';
+
+  @override
+  String get shareImagePresetLight => 'فاتحة';
+
+  @override
+  String get presetClassicNight => 'الليل الكلاسيكي';
+
+  @override
+  String get presetEmeraldNight => 'ليل زمردي';
+
+  @override
+  String get presetMidnightGold => 'ذهب منتصف الليل';
+
+  @override
+  String get presetDeepOcean => 'المحيط العميق';
+
+  @override
+  String get presetRoyalPurple => 'بنفسجي ملكي';
+
+  @override
+  String get presetCharcoalCoral => 'فحمي مرجاني';
+
+  @override
+  String get presetParchment => 'رَقّ قديم';
+
+  @override
+  String get presetMintGarden => 'حديقة النعناع';
+
+  @override
+  String get presetCleanWhite => 'أبيض نقي';
+
+  @override
+  String get presetRoseDawn => 'فجر وردي';
+
+  @override
+  String get presetSkyMorning => 'صباح سماوي';
+
+  @override
+  String get shareImageColorCurrent => 'الحالي';
+
+  @override
+  String get shareImageColorNew => 'الجديد';
+
+  @override
+  String get shareImageHexCode => 'رمز اللون';
+
+  @override
+  String get shareQualityStandard => 'عادية';
+
+  @override
+  String get shareQualityHigh => 'عالية';
+
+  @override
+  String get shareQualityMax => 'أقصى';
+
+  @override
+  String shareImageQualityHint(int width) {
+    return 'عرض $width بكسل';
+  }
+
+  @override
+  String get galleryPermissionRequired => 'اسمح بالوصول إلى الصور لحفظ الصورة';
 }
