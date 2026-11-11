@@ -36,10 +36,14 @@ Widget _app(_FakeAudio audio) {
       GlobalCupertinoLocalizations.delegate,
     ],
     supportedLocales: S.supportedLocales,
-    home: Scaffold(
-      body: BlocProvider<TallyAudioCubit>.value(
-        value: audio,
-        child: const TallySessionSheet(),
+    // Not a Scaffold: a modal bottom sheet is not resized by the keyboard either.
+    home: Material(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: BlocProvider<TallyAudioCubit>.value(
+          value: audio,
+          child: const TallySessionSheet(),
+        ),
       ),
     ),
   );
@@ -122,6 +126,24 @@ void main() {
 
       expect(audio.state.limit, const TallySessionLimit.minutes(30));
       expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, '30');
+    });
+
+    testWidgets('the field stays above the keyboard', (tester) async {
+      tester.view.physicalSize = const Size(800, 1000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      addTearDown(tester.view.resetViewInsets);
+
+      final audio = _FakeAudio(const TallySessionLimit.count(100));
+      await tester.pumpWidget(_app(audio));
+      await tester.tap(find.byType(TextField));
+      await tester.pump();
+
+      tester.view.viewInsets = const FakeViewPadding(bottom: 400);
+      await tester.pumpAndSettle();
+
+      final field = tester.getRect(find.byType(TextField));
+      expect(field.bottom, lessThanOrEqualTo(1000 - 400));
     });
 
     testWidgets('the field is only there for minutes and counts', (tester) async {

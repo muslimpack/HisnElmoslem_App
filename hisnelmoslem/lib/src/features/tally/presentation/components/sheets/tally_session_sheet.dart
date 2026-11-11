@@ -74,7 +74,8 @@ class TallySessionSheet extends StatelessWidget {
         }
 
         return SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(12, 0, 12, 24),
+          // Keeps the number field above the keyboard.
+          padding: EdgeInsets.fromLTRB(12, 0, 12, 24 + MediaQuery.viewInsetsOf(context).bottom),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
