@@ -87,9 +87,9 @@ class ShareableImageCard extends StatelessWidget {
       fontFamily: settings.secondaryFontFamily,
     );
 
-    // A long zikr makes the image taller; its text keeps a readable size and is shown
-    // in full.
-    final height = ShareCardMetrics.requiredHeight(
+    // A long zikr makes the image taller, up to 2:3; past that its text gets smaller.
+    // The whole text is always shown.
+    final layout = ShareCardMetrics.layout(
       minHeight: settings.imageSize.height,
       imageWidth: settings.imageSize.width,
       title: zikrTitle.name,
@@ -109,7 +109,7 @@ class ShareableImageCard extends StatelessWidget {
     return MediaQuery.withNoTextScaling(
       child: Container(
         color: background,
-        height: height,
+        height: layout.height,
         width: settings.imageSize.width,
         child: Stack(
           fit: StackFit.expand,
@@ -158,13 +158,11 @@ class ShareableImageCard extends StatelessWidget {
                           const SizedBox(height: 28),
                           Expanded(
                             child: Center(
-                              child: AutoSizeText(
+                              // The size was measured to fit, so nothing is cut or hidden.
+                              child: Text(
                                 displayText,
-                                // The card is tall enough for the text at the readable size;
-                                // this only lets it grow into spare room, up to the 150 px.
-                                minFontSize: ShareCardMetrics.minReadableFontSize - 24,
                                 textAlign: TextAlign.center,
-                                style: mainStyle,
+                                style: mainStyle.copyWith(fontSize: layout.mainFontSize),
                               ),
                             ),
                           ),
@@ -382,6 +380,8 @@ class ShareCardDetails extends StatelessWidget {
                           TextSpan(text: fadl),
                         ],
                       ),
+                      maxLines: ShareCardMetrics.fadlMaxLines,
+                      overflow: TextOverflow.ellipsis,
                       style: textStyle,
                     ),
                   ),
@@ -410,6 +410,8 @@ class ShareCardDetails extends StatelessWidget {
                         TextSpan(text: source),
                       ],
                     ),
+                    maxLines: ShareCardMetrics.sourceMaxLines,
+                    overflow: TextOverflow.ellipsis,
                     style: smallStyle,
                   ),
                 )

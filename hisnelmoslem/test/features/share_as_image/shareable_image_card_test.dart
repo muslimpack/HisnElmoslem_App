@@ -92,40 +92,72 @@ void main() {
     expect(cardHeight(tester), 1080);
   });
 
-  testWidgets("a very long zikr makes the image taller instead of shrinking the text", (
-    tester,
-  ) async {
-    final long = List.filled(120, "سبحان الله وبحمده سبحان الله العظيم").join(" ");
-    await pump(
-      tester,
-      size: const Size(1080, 1080),
-      zikr: _zikr(text: long),
-    );
+  /// The zikr text must not run into the title above it or the details below it.
+  void expectTextClear(WidgetTester tester, String text) {
+    final textRect = tester.getRect(find.text(text));
+    final footer = tester.getRect(find.byType(ShareCardFooter));
+    final title = tester.getRect(find.byType(ShareCardTitle));
 
-    expect(cardHeight(tester), greaterThan(1080));
-    expect(tester.takeException(), isNull);
-  });
+    expect(textRect.top, greaterThanOrEqualTo(title.bottom), reason: "under the title");
+    expect(textRect.bottom, lessThanOrEqualTo(footer.top), reason: "above the footer");
+  }
 
-  testWidgets("the taller the zikr, the taller the image", (tester) async {
-    final medium = List.filled(40, "سبحان الله وبحمده").join(" ");
-    final long = List.filled(160, "سبحان الله وبحمده").join(" ");
-
+  testWidgets("a medium zikr grows the image, but stays within 2:3", (tester) async {
+    final medium = List.filled(6, "سبحان الله وبحمده").join(" ");
     await pump(
       tester,
       size: const Size(1080, 1080),
       zikr: _zikr(text: medium),
     );
-    final mediumHeight = cardHeight(tester);
+
+    expect(cardHeight(tester), greaterThan(1080));
+    expect(cardHeight(tester), lessThanOrEqualTo(1080 * 1.5));
+    expectTextClear(tester, medium);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets("a very long zikr stops at 2:3 and its whole text is still shown", (tester) async {
+    final long = List.filled(60, "سبحان الله وبحمده سبحان الله العظيم").join(" ");
     await pump(
       tester,
       size: const Size(1080, 1080),
       zikr: _zikr(text: long),
     );
 
-    expect(cardHeight(tester), greaterThan(mediumHeight));
+    expect(cardHeight(tester), 1080 * 1.5);
+    expectTextClear(tester, long);
+    // Not cut: no line limit and no ellipsis.
+    final text = tester.widget<Text>(find.text(long));
+    expect(text.maxLines, isNull);
+    expect(text.overflow, isNot(TextOverflow.ellipsis));
+    expect(tester.takeException(), isNull);
   });
 
-  testWidgets("a long fadl is shown in full and a split zikr still fits", (tester) async {
+  testWidgets("a longer zikr gets smaller text, not a taller image, once at 2:3", (
+    tester,
+  ) async {
+    final long = List.filled(20, "سبحان الله وبحمده سبحان الله العظيم").join(" ");
+    final longer = List.filled(40, "سبحان الله وبحمده سبحان الله العظيم").join(" ");
+
+    await pump(
+      tester,
+      size: const Size(1080, 1080),
+      zikr: _zikr(text: long),
+    );
+    final fontOfLong = tester.widget<Text>(find.text(long)).style!.fontSize!;
+    await pump(
+      tester,
+      size: const Size(1080, 1080),
+      zikr: _zikr(text: longer),
+    );
+    final fontOfLonger = tester.widget<Text>(find.text(longer)).style!.fontSize!;
+
+    expect(cardHeight(tester), 1080 * 1.5);
+    expect(fontOfLonger, lessThan(fontOfLong));
+    expectTextClear(tester, longer);
+  });
+
+  testWidgets("a long fadl and a split zikr never pass 2:3", (tester) async {
     final fadl = List.filled(40, "من قالها موقنا بها فمات من يومه دخل الجنة").join(" ");
     await pump(
       tester,
@@ -135,7 +167,7 @@ void main() {
     );
 
     expect(find.textContaining("من قالها موقنا", findRichText: true), findsWidgets);
-    expect(cardHeight(tester), greaterThan(1080));
+    expect(cardHeight(tester), lessThanOrEqualTo(1080 * 1.5));
     expect(tester.takeException(), isNull);
   });
 

@@ -2,18 +2,43 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-/// Works out how tall the shared image has to be so the zikr text can be shown in full
-/// at a readable size. A long zikr makes the image taller; its text is never shrunk
-/// below [minReadableFontSize] or cut.
+/// Height of the card and size of the zikr text on it.
+class ShareCardLayout {
+  final double height;
+  final double mainFontSize;
+
+  const ShareCardLayout({required this.height, required this.mainFontSize});
+}
+
+/// Works out how tall the shared image is and how big its zikr text is, so that the
+/// whole zikr is always shown:
+///
+/// 1. A zikr that fits keeps the requested size and gets the biggest text that fits.
+/// 2. A longer one makes the image taller, so the text can stay at
+///    [minReadableFontSize].
+/// 3. The image is never taller than [maxAspectRatio] times its width (2:3). Past that,
+///    the text gets smaller, only as much as needed, instead of being cut.
+///
+/// A zikr that is too long for one image is split into pages before this; each page
+/// is laid out on its own.
 ///
 /// The numbers mirror the layout of `ShareableImageCard` (frame, paddings and gaps);
 /// change them together.
 class ShareCardMetrics {
   ShareCardMetrics._();
 
-  /// Smallest size of the zikr text. At the usual 1080 px wide image this is about
-  /// 18 logical pixels when it is viewed on a phone.
+  /// Size the zikr text keeps while the image can still grow. At the usual 1080 px
+  /// wide image this is about 18 logical pixels on a phone.
   static const double minReadableFontSize = 54;
+
+  /// Largest size of the zikr text.
+  static const double maxFontSize = 150;
+
+  /// Smallest size the text is ever shrunk to.
+  static const double floorFontSize = 12;
+
+  /// Tallest image, as height divided by width: 3 / 2, a 2:3 portrait.
+  static const double maxAspectRatio = 1.5;
 
   // Frame and padding of the card (see ShareableImageCard).
   static const double _frame = 36;
@@ -21,6 +46,14 @@ class ShareCardMetrics {
   static const double _sidePadding = 48;
   static const double _topPadding = 44;
   static const double _bottomPadding = 32;
+
+  /// Fadl and source are cut with an ellipsis past these, so they can never take the
+  /// room the zikr text needs. Real fadl texts are far shorter.
+  static const int fadlMaxLines = 12;
+  static const int sourceMaxLines = 4;
+
+  /// Room left for rounding of line heights.
+  static const double _slack = 12;
 
   static const double badgeSize = 76;
   static const double badgeGap = 20;
@@ -38,15 +71,48 @@ class ShareCardMetrics {
     )..layout(maxWidth: maxWidth);
   }
 
-  /// Height of the whole card for this content, never below [minHeight].
-  static double requiredHeight({
-    required double minHeight,
+  static double _mainHeight(String text, TextStyle style, double fontSize, double width) {
+    return _layout(
+      TextSpan(
+        text: text,
+        style: style.copyWith(fontSize: fontSize),
+      ),
+      maxWidth: width,
+    ).height;
+  }
+
+  /// The biggest font size in [low]..[high] at which the text is at most [maxHeight] tall.
+  /// [low] when even that is too big.
+  static double _largestFittingFont({
+    required String text,
+    required TextStyle style,
+    required double width,
+    required double maxHeight,
+    required double low,
+    required double high,
+  }) {
+    if (_mainHeight(text, style, high, width) <= maxHeight) return high;
+    if (_mainHeight(text, style, low, width) > maxHeight) return low;
+
+    var fits = low;
+    var tooBig = high;
+    for (var i = 0; i < 12 && tooBig - fits > .5; i++) {
+      final middle = (fits + tooBig) / 2;
+      if (_mainHeight(text, style, middle, width) <= maxHeight) {
+        fits = middle;
+      } else {
+        tooBig = middle;
+      }
+    }
+    return fits;
+  }
+
+  /// Everything on the card except the zikr text.
+  static double _overhead({
     required double imageWidth,
     required String title,
     required bool hasNumber,
     required TextStyle titleStyle,
-    required String mainText,
-    required TextStyle mainStyle,
     required TextStyle secondaryStyle,
     String? fadl,
     bool fadlLabel = true,
@@ -66,15 +132,6 @@ class ShareCardMetrics {
     ).height;
     height += max(titleHeight, hasNumber ? badgeSize : 0) + 14 + 14 + 28;
 
-    // The zikr text at the smallest readable size.
-    height += _layout(
-      TextSpan(
-        text: mainText,
-        style: mainStyle.copyWith(fontSize: minReadableFontSize),
-      ),
-      maxWidth: width,
-    ).height;
-
     // Fadl, source and count.
     final labelStyle = secondaryStyle.copyWith(fontWeight: FontWeight.bold);
     final smallStyle = secondaryStyle.copyWith(fontSize: (secondaryStyle.fontSize ?? 34) - 4);
@@ -91,6 +148,7 @@ class ShareCardMetrics {
                 ],
               ),
               maxWidth: width - 56,
+              maxLines: fadlMaxLines,
             ).height +
             36;
       }
@@ -122,15 +180,81 @@ class ShareCardMetrics {
                   ],
                 ),
                 maxWidth: width - pillWidth,
+                maxLines: sourceMaxLines,
               ).height;
         height += max(sourceHeight, pillHeight);
       }
     }
 
-    // Footer: rule, app name row, and the page dots of a split zikr.
-    height += 24 + 2 + 18 + 72 + (hasDots ? 10 + 20 : 0);
+    // Gap above the footer, then the footer: rule, app name row, and the page dots of a
+    // split zikr. The text region also has a 28 px gap under the title block (included).
+    return height + 24 + 2 + 18 + 72 + (hasDots ? 10 + 20 : 0);
+  }
 
-    // A little slack for rounding of the line heights.
-    return max(minHeight, height + 8);
+  /// Height of the card and size of the zikr text for this content. The card is at least
+  /// [minHeight] tall and at most [maxAspectRatio] times [imageWidth] (or [minHeight],
+  /// when that is already taller).
+  static ShareCardLayout layout({
+    required double minHeight,
+    required double imageWidth,
+    required String title,
+    required bool hasNumber,
+    required TextStyle titleStyle,
+    required String mainText,
+    required TextStyle mainStyle,
+    required TextStyle secondaryStyle,
+    String? fadl,
+    bool fadlLabel = true,
+    String? source,
+    int? count,
+    bool hasDots = false,
+  }) {
+    final width = contentWidth(imageWidth);
+    final overhead =
+        _overhead(
+          imageWidth: imageWidth,
+          title: title,
+          hasNumber: hasNumber,
+          titleStyle: titleStyle,
+          secondaryStyle: secondaryStyle,
+          fadl: fadl,
+          fadlLabel: fadlLabel,
+          source: source,
+          count: count,
+          hasDots: hasDots,
+        ) +
+        _slack;
+    final maxHeight = max(minHeight, imageWidth * maxAspectRatio);
+
+    // 1. Does the zikr fit the requested size with readable text?
+    final fittingAtMin = _largestFittingFont(
+      text: mainText,
+      style: mainStyle,
+      width: width,
+      maxHeight: minHeight - overhead,
+      low: floorFontSize,
+      high: maxFontSize,
+    );
+    if (fittingAtMin >= minReadableFontSize) {
+      return ShareCardLayout(height: minHeight, mainFontSize: fittingAtMin);
+    }
+
+    // 2. Grow the image so the text can stay readable, up to the tallest allowed.
+    final neededAtReadable =
+        overhead + _mainHeight(mainText, mainStyle, minReadableFontSize, width);
+    if (neededAtReadable <= maxHeight) {
+      return ShareCardLayout(height: neededAtReadable, mainFontSize: minReadableFontSize);
+    }
+
+    // 3. At the tallest image, shrink the text just enough to show all of it.
+    final shrunk = _largestFittingFont(
+      text: mainText,
+      style: mainStyle,
+      width: width,
+      maxHeight: maxHeight - overhead,
+      low: floorFontSize,
+      high: minReadableFontSize,
+    );
+    return ShareCardLayout(height: maxHeight, mainFontSize: shrunk);
   }
 }
