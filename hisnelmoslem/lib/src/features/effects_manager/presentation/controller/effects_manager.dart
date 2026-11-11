@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -5,26 +6,20 @@ import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/models/effect_tier.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effects_manager_repo.dart';
-import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:vibration/vibration.dart';
 
 /// Short sounds and vibrations for tapping a zikr, finishing a zikr and finishing a title.
+///
+/// Independent from the zikr audio player: it has its own player and never looks at
+/// whether a recitation is playing.
 class EffectsManager {
   final EffectsManagerRepo _repo;
-  final ZikrAudioPlayerCubit _zikrAudioPlayerCubit;
 
-  EffectsManager(this._repo, this._zikrAudioPlayerCubit);
+  EffectsManager(this._repo);
 
   ///MARK: Sound
 
-  /// Mix with whatever the user is listening to instead of taking audio focus, so a tap
-  /// never pauses music or a recitation playing in another app.
-  static final AudioContext _effectsContext = AudioContextConfig(
-    focus: AudioContextConfigFocus.mixWithOthers,
-  ).build();
-
-  /// One player per sound, so playing one never reconfigures or cuts the others.
-  final Map<EffectTier, AudioPlayer> _players = {};
+  AudioPlayer _player = AudioPlayer(playerId: "effectsManagerPlayer");
 
   static const Map<EffectTier, String> _soundAssets = {
     EffectTier.praise: 'sounds/tally_sound.mp3',
@@ -32,23 +27,33 @@ class EffectsManager {
     EffectTier.title: 'sounds/all_azkar_finished_sound.mp3',
   };
 
-  AudioPlayer _playerFor(EffectTier tier) {
-    return _players.putIfAbsent(tier, () {
-      final player = AudioPlayer(playerId: "effects_${tier.name}");
-      player.setAudioContext(_effectsContext).catchError((Object e) => hisnPrint(e));
-      return player;
-    });
-  }
+  /// Incremented per request: a sound that is no longer the latest does not start.
+  int _soundRequest = 0;
 
   Future<void> _playSound(EffectTier tier) async {
+    final request = ++_soundRequest;
     try {
-      // The recited audio of the zikr has priority over effect sounds.
-      if (_zikrAudioPlayerCubit.state.isPlaying) return;
-      await _playerFor(tier).play(
-        AssetSource(_soundAssets[tier]!),
-        volume: _repo.soundEffectVolume,
-        mode: PlayerMode.lowLatency,
-      );
+      await _player.stop();
+      if (request != _soundRequest) return;
+      // Never wait on the platform for long: a call that does not answer would
+      // otherwise sit there and block every later sound.
+      await _player
+          .play(AssetSource(_soundAssets[tier]!), volume: _repo.soundEffectVolume)
+          .timeout(const Duration(seconds: 2));
+    } on TimeoutException catch (e) {
+      hisnPrint(e);
+      await _replacePlayer();
+    } catch (e) {
+      hisnPrint(e);
+    }
+  }
+
+  /// Starts over with a fresh player after the old one stopped answering.
+  Future<void> _replacePlayer() async {
+    final old = _player;
+    _player = AudioPlayer(playerId: "effectsManagerPlayer");
+    try {
+      await old.dispose();
     } catch (e) {
       hisnPrint(e);
     }
@@ -149,10 +154,5 @@ class EffectsManager {
     ]);
   }
 
-  Future<void> dispose() async {
-    for (final player in _players.values) {
-      await player.dispose();
-    }
-    _players.clear();
-  }
+  Future<void> dispose() => _player.dispose();
 }

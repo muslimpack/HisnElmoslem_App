@@ -106,7 +106,7 @@ Future<void> initSL() async {
   );
 
   ///MARK: Init Manager
-  sl.registerLazySingleton(() => EffectsManager(sl(), sl()));
+  sl.registerLazySingleton(() => EffectsManager(sl()));
   sl.registerLazySingleton(() => LocalNotificationManager());
   sl.registerFactory(() => AlarmManager(sl()));
   sl.registerLazySingleton(() => VolumeButtonManager());
