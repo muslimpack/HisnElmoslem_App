@@ -14,10 +14,13 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 part 'zikr_audio_player_state.dart';
 
 class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
-  final AudioPlayer _player = AudioPlayer(playerId: "zikr_audio_player");
+  final AudioPlayer _player;
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
-  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo) : super(const ZikrAudioPlayerState());
+  /// [player] is only given by tests.
+  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo, {AudioPlayer? player})
+    : _player = player ?? AudioPlayer(playerId: "zikr_audio_player"),
+      super(const ZikrAudioPlayerState());
 
   Function(DbContent zikr)? onDonePlaying;
   int Function(int index)? getActiveZikrCount;
@@ -197,9 +200,28 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     if (index < 0 || index >= state.zikrList.length) return;
 
     final zikr = state.zikrList[index];
-    if (!zikr.hasPlayableAudio) return;
-
     _playbackToken++;
+
+    if (!zikr.hasPlayableAudio) {
+      // Many azkar have no audio. Narration ends here; leaving it "playing" would keep
+      // the audio bar busy and silence the tap sound effects until stopped by hand.
+      try {
+        await _player.stop();
+      } catch (e) {
+        hisnPrint('AudioPlayer Error stopping before a zikr without audio: $e');
+      }
+      emit(
+        state.copyWith(
+          currentIndex: index,
+          isPlaying: false,
+          isPaused: false,
+          position: Duration.zero,
+          totalDuration: Duration.zero,
+          isDelayingBetweenZikr: false,
+        ),
+      );
+      return;
+    }
 
     // The list was copied when the viewer opened, so its counts are stale; ask for the
     // live count to skip azkar that are already done (e.g. restored session).

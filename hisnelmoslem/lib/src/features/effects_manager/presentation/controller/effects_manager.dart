@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
@@ -58,12 +60,16 @@ class EffectsManager {
 
   ///MARK: Vibration
 
-  /// Asked once: the answer never changes and the platform call is slow.
+  /// Whether the vibration length chosen in the settings can be honoured. Asked once:
+  /// the answer never changes and the platform call is slow.
   late final Future<bool> _hasCustomVibration = _queryCustomVibration();
 
   Future<bool> _queryCustomVibration() async {
     try {
-      return await Vibration.hasCustomVibrationsSupport();
+      if (await Vibration.hasCustomVibrationsSupport()) return true;
+      // Some Android phones report no "custom" support yet vibrate for a given length;
+      // falling back to a fixed haptic tick there made the duration setting do nothing.
+      return Platform.isAndroid && await Vibration.hasVibrator();
     } catch (e) {
       hisnPrint(e);
       return false;
