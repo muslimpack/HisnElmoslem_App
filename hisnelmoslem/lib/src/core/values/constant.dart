@@ -60,8 +60,6 @@ const Iterable<int> kArabicDiacriticsChar = [
   1618,
 ];
 
-final List<double> kShareImageQualityList = [1.0, 1.5, 2.0, 2.5, 3];
-
 const String kEstaaza = "أَعُوذُ بِاَللَّهِ مِنْ الشَّيْطَانِ الرَّجِيمِ";
 const String kArBasmallah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 const String kOrgEmail = "muslimpack.org@gmail.com";

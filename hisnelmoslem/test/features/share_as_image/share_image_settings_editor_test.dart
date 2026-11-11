@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_color_preset.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_export_quality.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/models/shareable_image_card_settings.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/data/repository/share_as_image_repo.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_color_presets_section.dart';
@@ -208,6 +209,27 @@ void main() {
     final first = tester.getRect(find.byIcon(Icons.check_rounded));
     expect(first.left, greaterThanOrEqualTo(0));
     expect(first.right, lessThanOrEqualTo(360));
+  });
+
+  testWidgets("the image quality can be chosen and shows the width it gives", (tester) async {
+    await openSheet(tester);
+
+    final quality = find.widgetWithText(SegmentedButton<ShareExportQuality>, "High");
+    await tester.ensureVisible(quality);
+    await tester.pump();
+    // High is the default: 1.5 x 1080.
+    expect(cubit.loaded.shareImageSettings.exportQuality, ShareExportQuality.high);
+    expect(find.text("1620 px wide"), findsOneWidget);
+
+    await tester.tap(find.text("Maximum"));
+    await tester.pump();
+    expect(cubit.loaded.shareImageSettings.exportQuality, ShareExportQuality.max);
+    expect(find.text("2160 px wide"), findsOneWidget);
+
+    await tester.tap(find.text("Standard"));
+    await tester.pump();
+    expect(cubit.loaded.shareImageSettings.exportQuality, ShareExportQuality.standard);
+    expect(find.text("1080 px wide"), findsOneWidget);
   });
 
   testWidgets("light and dark presets are both offered", (tester) async {

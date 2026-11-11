@@ -362,5 +362,11 @@
   "presetSkyMorning": "Sky morning",
   "shareImageColorCurrent": "Current",
   "shareImageColorNew": "New",
-  "shareImageHexCode": "Hex code"
+  "shareImageHexCode": "Hex code",
+  "shareQualityStandard": "Standard",
+  "shareQualityHigh": "High",
+  "shareQualityMax": "Maximum",
+  "shareImageQualityHint": "{width} px wide",
+  "@shareImageQualityHint": {"placeholders": {"width": {"type": "int"}}},
+  "galleryPermissionRequired": "Allow access to your photos to save the image"
 }

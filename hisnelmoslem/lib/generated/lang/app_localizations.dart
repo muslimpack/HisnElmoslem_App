@@ -2252,6 +2252,36 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Hex code'**
   String get shareImageHexCode;
+
+  /// No description provided for @shareQualityStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get shareQualityStandard;
+
+  /// No description provided for @shareQualityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get shareQualityHigh;
+
+  /// No description provided for @shareQualityMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum'**
+  String get shareQualityMax;
+
+  /// No description provided for @shareImageQualityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{width} px wide'**
+  String shareImageQualityHint(int width);
+
+  /// No description provided for @galleryPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow access to your photos to save the image'**
+  String get galleryPermissionRequired;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

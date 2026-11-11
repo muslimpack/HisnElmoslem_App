@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_export_quality.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/share_color_presets_section.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/components/widgets/select_color_dialog.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/controller/cubit/share_image_cubit.dart';
@@ -53,6 +54,9 @@ class ShareImageSettingsEditor extends StatelessWidget {
           const SizedBox(height: 20),
           ShareSectionHeader(title: s.shareImageContent),
           const ShareContentSection(),
+          const SizedBox(height: 20),
+          ShareSectionHeader(title: s.imageQuality),
+          const ShareQualitySection(),
         ],
       ),
     );
@@ -229,6 +233,55 @@ class ShareContentSection extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// How sharp the exported picture is, with the width it gives.
+class ShareQualitySection extends StatelessWidget {
+  const ShareQualitySection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final cubit = context.read<ShareImageCubit>();
+
+    return BlocBuilder<ShareImageCubit, ShareImageState>(
+      builder: (context, state) {
+        if (state is! ShareImageLoadedState) return const SizedBox.shrink();
+        final quality = state.shareImageSettings.exportQuality;
+        final width = (state.settings.imageSize.width * quality.pixelRatio).round();
+
+        return OutlinedSurfaceCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SegmentedButton<ShareExportQuality>(
+                showSelectedIcon: false,
+                segments: [
+                  ButtonSegment(
+                    value: ShareExportQuality.standard,
+                    label: Text(s.shareQualityStandard),
+                  ),
+                  ButtonSegment(value: ShareExportQuality.high, label: Text(s.shareQualityHigh)),
+                  ButtonSegment(value: ShareExportQuality.max, label: Text(s.shareQualityMax)),
+                ],
+                selected: {quality},
+                onSelectionChanged: (value) => cubit.updateExportQuality(value.first),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                s.shareImageQualityHint(width),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+            ],
           ),
         );
       },

@@ -16,8 +16,6 @@ const _settings = ShareImageSettings(
   showSource: true,
   showZikrIndex: true,
   removeDiacritics: false,
-  imageWidth: 1080,
-  imageQuality: 1,
 );
 
 DbContent _zikr({String? text, String fadl = "من قالها موقنا بها حين يمسي", int count = 3}) =>

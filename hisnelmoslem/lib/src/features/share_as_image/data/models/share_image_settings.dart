@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/features/share_as_image/data/models/share_export_quality.dart';
 
 class ShareImageSettings extends Equatable {
   final Color titleTextColor;
@@ -14,8 +15,7 @@ class ShareImageSettings extends Equatable {
   final bool showSource;
   final bool showZikrIndex;
   final bool removeDiacritics;
-  final int imageWidth;
-  final double imageQuality;
+  final ShareExportQuality exportQuality;
 
   const ShareImageSettings({
     required this.titleTextColor,
@@ -27,8 +27,7 @@ class ShareImageSettings extends Equatable {
     required this.showSource,
     required this.showZikrIndex,
     required this.removeDiacritics,
-    required this.imageWidth,
-    required this.imageQuality,
+    this.exportQuality = ShareExportQuality.high,
   });
 
   ShareImageSettings copyWith({
@@ -41,8 +40,7 @@ class ShareImageSettings extends Equatable {
     bool? showSource,
     bool? showZikrIndex,
     bool? removeDiacritics,
-    int? imageWidth,
-    double? imageQuality,
+    ShareExportQuality? exportQuality,
   }) {
     return ShareImageSettings(
       titleTextColor: titleTextColor ?? this.titleTextColor,
@@ -54,8 +52,7 @@ class ShareImageSettings extends Equatable {
       showSource: showSource ?? this.showSource,
       showZikrIndex: showZikrIndex ?? this.showZikrIndex,
       removeDiacritics: removeDiacritics ?? this.removeDiacritics,
-      imageWidth: imageWidth ?? this.imageWidth,
-      imageQuality: imageQuality ?? this.imageQuality,
+      exportQuality: exportQuality ?? this.exportQuality,
     );
   }
 
@@ -71,8 +68,7 @@ class ShareImageSettings extends Equatable {
       showSource,
       showZikrIndex,
       removeDiacritics,
-      imageWidth,
-      imageQuality,
+      exportQuality,
     ];
   }
 
@@ -87,8 +83,7 @@ class ShareImageSettings extends Equatable {
       'showSource': showSource,
       'showZikrIndex': showZikrIndex,
       'removeDiacritics': removeDiacritics,
-      'imageWidth': imageWidth,
-      'imageQuality': imageQuality,
+      'exportQuality': exportQuality.name,
     };
   }
 
@@ -103,8 +98,8 @@ class ShareImageSettings extends Equatable {
       showSource: map['showSource'] as bool,
       showZikrIndex: map['showZikrIndex'] as bool,
       removeDiacritics: map['removeDiacritics'] as bool,
-      imageWidth: map['imageWidth'] as int,
-      imageQuality: map['imageQuality'] as double,
+      // Saved before this setting existed: falls back to the default.
+      exportQuality: ShareExportQuality.fromName(map['exportQuality'] as String?),
     );
   }
 

@@ -1105,4 +1105,21 @@ class SAr extends S {
 
   @override
   String get shareImageHexCode => 'رمز اللون';
+
+  @override
+  String get shareQualityStandard => 'عادية';
+
+  @override
+  String get shareQualityHigh => 'عالية';
+
+  @override
+  String get shareQualityMax => 'أقصى';
+
+  @override
+  String shareImageQualityHint(int width) {
+    return 'عرض $width بكسل';
+  }
+
+  @override
+  String get galleryPermissionRequired => 'اسمح بالوصول إلى الصور لحفظ الصورة';
 }

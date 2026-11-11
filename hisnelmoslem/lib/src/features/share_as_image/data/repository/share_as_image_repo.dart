@@ -101,22 +101,6 @@ class ShareAsImageRepo {
   }
 
   ///
-  static const String _shareImageImageWidthBoxKey = 'share_image_image_width';
-
-  int get shareImageImageWidth => box.read(_shareImageImageWidthBoxKey) ?? 600;
-  Future<void> shareImageUpdateImageWidth({required int value}) async {
-    await box.write(_shareImageImageWidthBoxKey, value);
-  }
-
-  ///
-  static const String _shareImageImageQualityBoxKey = 'share_image_image_quality';
-
-  double get shareImageImageQuality => box.read(_shareImageImageQualityBoxKey) ?? 2;
-  Future<void> shareImageUpdateImageQuality(double value) async {
-    await box.write(_shareImageImageQualityBoxKey, value);
-  }
-
-  ///
   static const String _shareImageSettingsBoxKey = 'share_image_image_settings';
 
   ShareImageSettings get shareImageSettings {
@@ -132,8 +116,6 @@ class ShareAsImageRepo {
         showSource: shareImageShowSource,
         showZikrIndex: shareImageShowZikrIndex,
         removeDiacritics: shareImageRemoveDiacritics,
-        imageWidth: shareImageImageWidth,
-        imageQuality: shareImageImageQuality,
       );
     }
     return ShareImageSettings.fromJson(data);

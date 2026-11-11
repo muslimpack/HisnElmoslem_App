@@ -1107,4 +1107,21 @@ class SEn extends S {
 
   @override
   String get shareImageHexCode => 'Hex code';
+
+  @override
+  String get shareQualityStandard => 'Standard';
+
+  @override
+  String get shareQualityHigh => 'High';
+
+  @override
+  String get shareQualityMax => 'Maximum';
+
+  @override
+  String shareImageQualityHint(int width) {
+    return '$width px wide';
+  }
+
+  @override
+  String get galleryPermissionRequired => 'Allow access to your photos to save the image';
 }

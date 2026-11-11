@@ -362,5 +362,10 @@
   "presetSkyMorning": "صباح سماوي",
   "shareImageColorCurrent": "الحالي",
   "shareImageColorNew": "الجديد",
-  "shareImageHexCode": "رمز اللون"
+  "shareImageHexCode": "رمز اللون",
+  "shareQualityStandard": "عادية",
+  "shareQualityHigh": "عالية",
+  "shareQualityMax": "أقصى",
+  "shareImageQualityHint": "عرض {width} بكسل",
+  "galleryPermissionRequired": "اسمح بالوصول إلى الصور لحفظ الصورة"
 }

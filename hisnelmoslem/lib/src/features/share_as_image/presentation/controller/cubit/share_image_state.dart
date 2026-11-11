@@ -31,27 +31,6 @@ class ShareImageLoadedState extends ShareImageState {
     required this.activeIndex,
   });
 
-  double get dividerSize => 3;
-  double get titleFactor => .8;
-  double get fadlFactor => .8;
-  double get sourceFactor => .7;
-
-  String get getImageTitle {
-    if (content.titleId >= 0) {
-      if (shareImageSettings.showZikrIndex) {
-        return "$title - ذكر رقم ${content.order}";
-      } else {
-        return title.name;
-      }
-    } else {
-      if (shareImageSettings.showZikrIndex) {
-        return "$title - موضوع رقم ${content.order}";
-      } else {
-        return title.name;
-      }
-    }
-  }
-
   @override
   List<Object> get props => [
     content,
