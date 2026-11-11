@@ -80,6 +80,8 @@
   "tallyNoRecordingToPlay": "لا يوجد تسجيل لتشغيله في هذا العدّاد",
   "tallyHowManyMinutes": "دقائق",
   "tallyHowManyCounts": "مرات",
+  "tallyValueBetween": "أدخل رقمًا من {min} إلى {max}",
+  "@tallyValueBetween": {"placeholders": {"min": {"type": "int"}, "max": {"type": "int"}}},
   "counterCircleMustBeGreaterThanZero": "يجب أن تكون دورة العداد أكبر من الصفر",
   "counterCircleSetToZero": "تصفير العداد عند الوصول لهذا الرقم",
   "counterName": "اسم العداد",

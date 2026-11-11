@@ -246,6 +246,11 @@ class SAr extends S {
   String get tallyHowManyCounts => 'مرات';
 
   @override
+  String tallyValueBetween(int min, int max) {
+    return 'أدخل رقمًا من $min إلى $max';
+  }
+
+  @override
   String get counterCircleMustBeGreaterThanZero => 'يجب أن تكون دورة العداد أكبر من الصفر';
 
   @override

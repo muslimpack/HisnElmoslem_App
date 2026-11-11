@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
@@ -37,20 +38,36 @@ class TallySessionSheet extends StatelessWidget {
 
         Widget presets(
           List<int> values,
-          TallySessionLimit Function(int) make,
-          String Function(int) label,
-        ) {
+          String Function(int) label, {
+          required String fieldLabel,
+        }) {
           return Padding(
-            padding: const EdgeInsetsDirectional.only(start: 16, bottom: 8),
-            child: Wrap(
-              spacing: 8,
+            padding: const EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                for (final value in values)
-                  ChoiceChip(
-                    label: Text(label(value).toArabicNumber()),
-                    selected: limit.value == value,
-                    onSelected: (_) => audio.setLimit(make(value)),
-                  ),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    for (final value in values)
+                      ChoiceChip(
+                        label: Text(label(value).toArabicNumber()),
+                        selected: limit.value == value,
+                        onSelected: (_) => audio.setLimit(
+                          TallySessionLimit.tryParse(limit.type, '$value')!,
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                _LimitValueField(
+                  // A new field when the kind of limit changes.
+                  key: ValueKey(limit.type),
+                  type: limit.type,
+                  value: limit.value,
+                  label: fieldLabel,
+                  onValid: audio.setLimit,
+                ),
               ],
             ),
           );
@@ -102,8 +119,8 @@ class TallySessionSheet extends StatelessWidget {
                     if (limit.type == TallySessionLimitType.minutes)
                       presets(
                         TallySessionLimit.minutePresets,
-                        TallySessionLimit.minutes,
                         (v) => s.tallyMinutesShort(v),
+                        fieldLabel: s.tallyHowManyMinutes,
                       ),
                     RadioListTile<TallySessionLimitType>(
                       value: TallySessionLimitType.count,
@@ -112,8 +129,8 @@ class TallySessionSheet extends StatelessWidget {
                     if (limit.type == TallySessionLimitType.count)
                       presets(
                         TallySessionLimit.countPresets,
-                        TallySessionLimit.count,
                         (v) => '$v',
+                        fieldLabel: s.tallyHowManyCounts,
                       ),
                   ],
                 ),
@@ -122,6 +139,74 @@ class TallySessionSheet extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Any number of minutes or counts, not only the presets. A value is used as soon as it
+/// is valid; the field follows the chips when one of them is tapped.
+class _LimitValueField extends StatefulWidget {
+  final TallySessionLimitType type;
+  final int value;
+  final String label;
+  final ValueChanged<TallySessionLimit> onValid;
+
+  const _LimitValueField({
+    super.key,
+    required this.type,
+    required this.value,
+    required this.label,
+    required this.onValid,
+  });
+
+  @override
+  State<_LimitValueField> createState() => _LimitValueFieldState();
+}
+
+class _LimitValueFieldState extends State<_LimitValueField> {
+  late final TextEditingController _controller = TextEditingController(text: '${widget.value}');
+  String? _error;
+
+  int get _max => widget.type == TallySessionLimitType.minutes
+      ? TallySessionLimit.maxMinutes
+      : TallySessionLimit.maxCount;
+
+  @override
+  void didUpdateWidget(_LimitValueField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // A preset was tapped: show it, unless it is what the user just typed.
+    if (widget.value != oldWidget.value && int.tryParse(_controller.text) != widget.value) {
+      _controller.text = '${widget.value}';
+      _error = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _changed(String text) {
+    final limit = TallySessionLimit.tryParse(widget.type, text);
+    setState(() => _error = limit == null ? S.of(context).tallyValueBetween(1, _max) : null);
+    if (limit != null) widget.onValid(limit);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _controller,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: InputDecoration(
+        labelText: widget.label,
+        errorText: _error,
+        border: const OutlineInputBorder(),
+        isDense: true,
+      ),
+      onChanged: _changed,
     );
   }
 }

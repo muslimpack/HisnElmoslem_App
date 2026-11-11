@@ -245,6 +245,11 @@ class SEn extends S {
   String get tallyHowManyCounts => 'Counts';
 
   @override
+  String tallyValueBetween(int min, int max) {
+    return 'Enter a number from $min to $max';
+  }
+
+  @override
   String get counterCircleMustBeGreaterThanZero => 'Counter circle must be higher than zero';
 
   @override

@@ -543,6 +543,12 @@ abstract class S {
   /// **'Counts'**
   String get tallyHowManyCounts;
 
+  /// No description provided for @tallyValueBetween.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number from {min} to {max}'**
+  String tallyValueBetween(int min, int max);
+
   /// No description provided for @counterCircleMustBeGreaterThanZero.
   ///
   /// In en, this message translates to:
