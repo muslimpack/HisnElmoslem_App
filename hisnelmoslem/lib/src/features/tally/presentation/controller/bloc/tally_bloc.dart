@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
@@ -22,6 +23,10 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   final VolumeButtonManager volumeButtonManager;
   final TallyRepo tallyRepo;
   StreamSubscription? _volumeSubscription;
+
+  /// How long a count stays visible before auto-advance moves to the next counter.
+  static const Duration advanceDelay = Duration(milliseconds: 350);
+
   TallyBloc(
     this.tallyDatabaseHelper,
     this.effectsManager,
@@ -36,7 +41,7 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
 
     _volumeSubscription = volumeButtonManager.stream.listen((event) {
       if (event == VolumeButtonEvent.volumeUpDown || event == VolumeButtonEvent.volumeDownDown) {
-        add(TallyIncreaseActiveCounterEvent());
+        add(const TallyIncreaseActiveCounterEvent());
       }
     });
   }
@@ -51,8 +56,13 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     on<TallyPreviousCounterEvent>(_previousCounter);
     on<TallyRandomCounterEvent>(_randomCounter);
     on<TallyResetAllCountersEvent>(_resetAllCounters);
+    on<TallyRestoreCountersEvent>(_restoreCounters);
     on<TallyResetActiveCounterEvent>(_resetActiveCounter);
-    on<TallyIncreaseActiveCounterEvent>(_increaseActiveCounter);
+    // Counting one at a time keeps fast taps from reading the same old value.
+    on<TallyIncreaseActiveCounterEvent>(
+      _increaseActiveCounter,
+      transformer: (events, mapper) => events.asyncExpand(mapper),
+    );
     on<TallyDecreaseActiveCounterEvent>(_decreaseActiveCounter);
     on<TallyToggleIterationModeEvent>(_toggleIterationMode);
     on<TallyIterateEvent>(_iterate);
@@ -136,6 +146,27 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(state.copyWith(allCounters: updatedCounters));
   }
 
+  /// Makes [target] the only active counter. Only the rows that change are written.
+  Future<List<DbTally>> _activate(
+    TallyLoadedState state,
+    DbTally target,
+    Emitter<TallyState> emit,
+  ) async {
+    final updated = <DbTally>[];
+    for (final counter in state.allCounters) {
+      final shouldBeActive = counter.id == target.id;
+      if (counter.isActivated == shouldBeActive) {
+        updated.add(counter);
+        continue;
+      }
+      final changed = counter.copyWith(isActivated: shouldBeActive);
+      await tallyDatabaseHelper.updateTally(dbTally: changed);
+      updated.add(changed);
+    }
+    emit(state.copyWith(allCounters: updated));
+    return updated;
+  }
+
   Future<void> _toggleCounterActivation(
     TallyToggleCounterActivationEvent event,
     Emitter<TallyState> emit,
@@ -143,63 +174,40 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final updatedCounters = List<DbTally>.from(state.allCounters);
-    for (int i = 0; i < updatedCounters.length; i++) {
-      final counter = updatedCounters[i];
-      final DbTally counterToSet;
-      if (counter.id == event.counter.id) {
-        counterToSet = counter.copyWith(isActivated: event.activate);
-      } else {
-        counterToSet = counter.copyWith(isActivated: false);
-      }
-      updatedCounters[i] = counterToSet;
-      await tallyDatabaseHelper.updateTally(dbTally: counterToSet);
+    if (event.activate) {
+      await _activate(state, event.counter, emit);
+      return;
     }
 
-    emit(state.copyWith(allCounters: updatedCounters));
+    final updated = <DbTally>[];
+    for (final counter in state.allCounters) {
+      if (counter.id == event.counter.id && counter.isActivated) {
+        final changed = counter.copyWith(isActivated: false);
+        await tallyDatabaseHelper.updateTally(dbTally: changed);
+        updated.add(changed);
+      } else {
+        updated.add(counter);
+      }
+    }
+    emit(state.copyWith(allCounters: updated));
   }
 
-  Future<void> _nextCounter(
-    TallyNextCounterEvent event,
-    Emitter<TallyState> emit,
-  ) async {
+  Future<void> _moveActive(int step, Emitter<TallyState> emit) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
 
-    final activeCounterIndex = state.allCounters.indexWhere(
-      (x) => x.isActivated,
-    );
-    if (activeCounterIndex == -1) return;
+    final activeIndex = state.allCounters.indexWhere((x) => x.isActivated);
+    if (activeIndex == -1) return;
 
-    final nextCounterIndex = (activeCounterIndex + 1) % state.allCounters.length;
-    final nextCounter = state.allCounters[nextCounterIndex];
-
-    add(
-      TallyToggleCounterActivationEvent(counter: nextCounter, activate: true),
-    );
+    final next = state.allCounters[(activeIndex + step) % state.allCounters.length];
+    await _activate(state, next, emit);
   }
 
-  Future<void> _previousCounter(
-    TallyPreviousCounterEvent event,
-    Emitter<TallyState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! TallyLoadedState) return;
+  Future<void> _nextCounter(TallyNextCounterEvent event, Emitter<TallyState> emit) =>
+      _moveActive(1, emit);
 
-    final activeCounterIndex = state.allCounters.indexWhere(
-      (x) => x.isActivated,
-    );
-    if (activeCounterIndex == -1) return;
-
-    final previousCounterIndex = (activeCounterIndex - 1) % state.allCounters.length;
-    final previousCounter = state.allCounters[previousCounterIndex];
-    add(
-      TallyToggleCounterActivationEvent(
-        counter: previousCounter,
-        activate: true,
-      ),
-    );
-  }
+  Future<void> _previousCounter(TallyPreviousCounterEvent event, Emitter<TallyState> emit) =>
+      _moveActive(-1, emit);
 
   Future<void> _randomCounter(
     TallyRandomCounterEvent event,
@@ -207,21 +215,35 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
   ) async {
     final state = this.state;
     if (state is! TallyLoadedState) return;
+    final next = pickNextCounter(state.allCounters, TallyIterationMode.shuffle);
+    if (next != null) await _activate(state, next, emit);
+  }
 
-    final activeCounterIndex = state.allCounters.indexWhere(
-      (x) => x.isActivated,
-    );
-    if (activeCounterIndex == -1) return;
+  /// The counter auto-advance goes to next, or null when there is nowhere to go.
+  /// With [audioOnly] counters without a recording are skipped.
+  @visibleForTesting
+  static DbTally? pickNextCounter(
+    List<DbTally> counters,
+    TallyIterationMode mode, {
+    bool audioOnly = false,
+    Random? random,
+  }) {
+    final activeIndex = counters.indexWhere((x) => x.isActivated);
+    if (activeIndex == -1 || mode == TallyIterationMode.none) return null;
 
-    int randomIndex;
-    do {
-      randomIndex = Random().nextInt(state.allCounters.length);
-    } while (randomIndex == activeCounterIndex && state.allCounters.length > 2);
+    final candidates = <DbTally>[];
+    for (int step = 1; step < counters.length; step++) {
+      // Walks forward from the active one, so the first candidate is the circular next.
+      final counter = counters[(activeIndex + step) % counters.length];
+      if (!audioOnly || counter.hasAudio) candidates.add(counter);
+    }
+    if (candidates.isEmpty) return null;
 
-    final randomCounter = state.allCounters[randomIndex];
-    add(
-      TallyToggleCounterActivationEvent(counter: randomCounter, activate: true),
-    );
+    return switch (mode) {
+      TallyIterationMode.circular => candidates.first,
+      TallyIterationMode.shuffle => candidates[(random ?? Random()).nextInt(candidates.length)],
+      TallyIterationMode.none => null,
+    };
   }
 
   Future<void> _resetAllCounters(
@@ -240,6 +262,24 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(state.copyWith(allCounters: updatedCounters));
   }
 
+  /// Puts back the counts of [TallyRestoreCountersEvent.counters] (undo of a reset).
+  Future<void> _restoreCounters(
+    TallyRestoreCountersEvent event,
+    Emitter<TallyState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! TallyLoadedState) return;
+
+    final byId = {for (final c in event.counters) c.id: c};
+    final updated = [
+      for (final counter in state.allCounters)
+        if (byId[counter.id] case final old?) counter.copyWith(count: old.count) else counter,
+    ];
+
+    await tallyDatabaseHelper.updateTallies(dbTallies: updated);
+    emit(state.copyWith(allCounters: updated));
+  }
+
   Future<void> _resetActiveCounter(
     TallyResetActiveCounterEvent event,
     Emitter<TallyState> emit,
@@ -253,33 +293,50 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     add(TallyEditCounterEvent(counter: activeCounter.copyWith(count: 0)));
   }
 
+  /// Counts one. When auto-advance is on and this count is the one the counter hands
+  /// over on (every count, or the end of a cycle), the next counter is activated a
+  /// moment later so the new number can be seen first.
   Future<void> _increaseActiveCounter(
     TallyIncreaseActiveCounterEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
-    if (state is! TallyLoadedState) return;
-    final activeCounter = state.activeCounter;
-    if (activeCounter == null) return;
-
-    final completer = Completer<void>();
-    if (state.iterationMode != TallyIterationMode.none) {
-      emit(state.copyWith(loadingIteration: true));
+    if (state is! TallyLoadedState) {
+      event.completer?.complete(null);
+      return;
     }
-    add(
-      TallyEditCounterEvent(
-        counter: activeCounter.copyWith(count: activeCounter.count + 1),
-        completer: completer,
+    final activeCounter = state.activeCounter;
+    if (activeCounter == null) {
+      event.completer?.complete(null);
+      return;
+    }
+
+    final counted = activeCounter.copyWith(
+      count: activeCounter.count + 1,
+      lastUpdate: DateTime.now(),
+    );
+    await tallyDatabaseHelper.updateTally(dbTally: counted);
+
+    final advance = state.iterationMode != TallyIterationMode.none && counted.shouldAdvanceNow;
+
+    emit(
+      state.copyWith(
+        allCounters: [for (final c in state.allCounters) c.id == counted.id ? counted : c],
+        loadingIteration: advance,
       ),
     );
 
-    effectsManager.playProgressEffects(
-      zikrCompleted: activeCounter.count % state.resetEvery == state.resetEvery - 1,
-    );
+    effectsManager.playProgressEffects(zikrCompleted: counted.isAtCycleEnd);
 
-    await completer.future;
-
-    add(TallyIterateEvent());
+    if (advance) {
+      Future.delayed(advanceDelay, () {
+        if (!isClosed) {
+          add(TallyIterateEvent(completer: event.completer, audioOnly: event.audioOnly));
+        }
+      });
+    } else {
+      event.completer?.complete(counted);
+    }
   }
 
   Future<void> _decreaseActiveCounter(
@@ -316,23 +373,30 @@ class TallyBloc extends Bloc<TallyEvent, TallyState> {
     emit(state.copyWith(iterationMode: nextMode));
   }
 
+  /// Hands over to the next counter (circular or shuffle).
   Future<void> _iterate(
     TallyIterateEvent event,
     Emitter<TallyState> emit,
   ) async {
     final state = this.state;
-    if (state is! TallyLoadedState) return;
-
-    switch (state.iterationMode) {
-      case TallyIterationMode.none:
-        break;
-      case TallyIterationMode.circular:
-        add(TallyNextCounterEvent());
-      case TallyIterationMode.shuffle:
-        add(TallyRandomCounterEvent());
+    if (state is! TallyLoadedState) {
+      event.completer?.complete(null);
+      return;
     }
 
-    emit(state.copyWith(loadingIteration: false));
+    final next = pickNextCounter(
+      state.allCounters,
+      state.iterationMode,
+      audioOnly: event.audioOnly,
+    );
+
+    if (next != null) await _activate(state, next, emit);
+
+    final current = this.state;
+    if (current is TallyLoadedState) emit(current.copyWith(loadingIteration: false));
+
+    final after = this.state;
+    event.completer?.complete(after is TallyLoadedState ? after.activeCounter : null);
   }
 
   @override

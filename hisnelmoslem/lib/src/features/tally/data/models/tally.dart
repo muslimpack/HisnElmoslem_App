@@ -1,14 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/features/tally/data/models/tally_advance_trigger.dart';
 
 class DbTally extends Equatable {
   final int id;
   final String title;
   final int count;
+
+  /// The size of one full cycle (33 for the usual tasbih).
   final int countReset;
   final DateTime created;
   final DateTime lastUpdate;
   final bool isActivated;
+
+  /// Name of the user's voice recording for this counter, empty when it has none.
+  final String audioFile;
+
+  /// When the counter hands over to the next one (only matters if auto-advance is on).
+  final TallyAdvanceTrigger advanceTrigger;
 
   const DbTally({
     this.id = -1,
@@ -18,6 +27,8 @@ class DbTally extends Equatable {
     required this.isActivated,
     required this.created,
     required this.lastUpdate,
+    this.audioFile = "",
+    this.advanceTrigger = TallyAdvanceTrigger.perCount,
   });
 
   const DbTally.empty({
@@ -26,6 +37,8 @@ class DbTally extends Equatable {
     this.count = 0,
     this.countReset = 33,
     this.isActivated = false,
+    this.audioFile = "",
+    this.advanceTrigger = TallyAdvanceTrigger.perCount,
     required this.created,
     required this.lastUpdate,
   });
@@ -45,6 +58,8 @@ class DbTally extends Equatable {
       isActivated: isActivated,
       created: DateTime.parse(map['created'] as String),
       lastUpdate: DateTime.parse(map['lastUpdate'] as String),
+      audioFile: (map['audioFile'] as String?) ?? "",
+      advanceTrigger: TallyAdvanceTrigger.fromName(map['advanceTrigger'] as String?),
     );
   }
 
@@ -56,8 +71,27 @@ class DbTally extends Equatable {
       "isActivated": isActivated ? 1 : 0,
       "created": created.toString(),
       "lastUpdate": lastUpdate.toString(),
+      "audioFile": audioFile,
+      "advanceTrigger": advanceTrigger.name,
     };
   }
+
+  bool get hasAudio => audioFile.isNotEmpty;
+
+  /// The size of a cycle, never below 1 so it is safe to divide by.
+  int get cycleSize => countReset < 1 ? 1 : countReset;
+
+  /// Full cycles done so far.
+  int get cycles => count ~/ cycleSize;
+
+  /// How many counts are done in the cycle that is running now.
+  int get countInCycle => count % cycleSize;
+
+  /// True when [count] has just closed a cycle (33, 66, ...).
+  bool get isAtCycleEnd => count > 0 && count % cycleSize == 0;
+
+  /// Whether, after the count that produced this state, auto-advance should move on.
+  bool get shouldAdvanceNow => advanceTrigger == TallyAdvanceTrigger.perCount || isAtCycleEnd;
 
   DbTally copyWith({
     int? id,
@@ -67,6 +101,8 @@ class DbTally extends Equatable {
     DateTime? created,
     DateTime? lastUpdate,
     bool? isActivated,
+    String? audioFile,
+    TallyAdvanceTrigger? advanceTrigger,
   }) {
     return DbTally(
       id: id ?? this.id,
@@ -76,6 +112,8 @@ class DbTally extends Equatable {
       created: created ?? this.created,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       isActivated: isActivated ?? this.isActivated,
+      audioFile: audioFile ?? this.audioFile,
+      advanceTrigger: advanceTrigger ?? this.advanceTrigger,
     );
   }
 
@@ -89,6 +127,8 @@ class DbTally extends Equatable {
       created,
       lastUpdate,
       isActivated,
+      audioFile,
+      advanceTrigger,
     ];
   }
 }

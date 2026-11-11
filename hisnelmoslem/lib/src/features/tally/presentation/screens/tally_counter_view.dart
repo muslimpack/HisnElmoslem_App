@@ -48,15 +48,14 @@ class TallyCounterView extends StatelessWidget {
 
         final theme = Theme.of(context);
         final primary = theme.colorScheme.primary;
-        final double resetEvery = state.resetEvery;
-        final int cycles = activeCounter.count ~/ resetEvery;
-        final double progress = (activeCounter.count - cycles * resetEvery) / resetEvery;
+        final int cycles = activeCounter.cycles;
+        final double progress = activeCounter.countInCycle / activeCounter.cycleSize;
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: GestureDetector(
             onTap: () => context.read<TallyBloc>().add(
-              TallyIncreaseActiveCounterEvent(),
+              const TallyIncreaseActiveCounterEvent(),
             ),
             child: Container(
               decoration: BoxDecoration(

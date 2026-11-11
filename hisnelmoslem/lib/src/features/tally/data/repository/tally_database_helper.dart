@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
@@ -11,7 +12,7 @@ class TallyDatabaseHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "tally_database.db";
-  static const int dbVersion = 1;
+  static const int dbVersion = 2;
 
   static TallyDatabaseHelper? _databaseHelper;
   static Database? _database;
@@ -24,6 +25,12 @@ class TallyDatabaseHelper {
   }
 
   TallyDatabaseHelper._createInstance();
+
+  /// Uses an already open [db] (tests give an in-memory database).
+  @visibleForTesting
+  TallyDatabaseHelper.withDatabase(Database db) {
+    _database = db;
+  }
 
   Future<Database> get database async {
     _database ??= await _initDatabase();
@@ -60,7 +67,10 @@ class TallyDatabaseHelper {
   }
 
   // On create database
-  Future<void> _onCreateDatabase(Database db, int version) async {
+  Future<void> _onCreateDatabase(Database db, int version) => createSchema(db);
+
+  @visibleForTesting
+  static Future<void> createSchema(Database db) async {
     hisnPrint("Create tally.db");
 
     /// Create data table
@@ -74,6 +84,8 @@ class TallyDatabaseHelper {
       "isActivated"	INTEGER DEFAULT 0,
       "countReset"	INTEGER DEFAULT 33,
       "description"	TEXT,
+      "audioFile"	TEXT DEFAULT '',
+      "advanceTrigger"	TEXT DEFAULT 'perCount',
       PRIMARY KEY("id" AUTOINCREMENT)
     );
     ''');
@@ -84,7 +96,17 @@ class TallyDatabaseHelper {
     Database db,
     int oldVersion,
     int newVersion,
-  ) async {}
+  ) => upgradeSchema(db, oldVersion);
+
+  @visibleForTesting
+  static Future<void> upgradeSchema(Database db, int oldVersion) async {
+    if (oldVersion < 2) {
+      // Voice recording and per-counter auto-advance. Existing counters keep the
+      // old behaviour: no recording, advance after every count.
+      await db.execute("ALTER TABLE data ADD COLUMN audioFile TEXT DEFAULT ''");
+      await db.execute("ALTER TABLE data ADD COLUMN advanceTrigger TEXT DEFAULT 'perCount'");
+    }
+  }
 
   // On downgrade database version
   Future<void> _onDowngradeDatabase(
@@ -164,6 +186,16 @@ class TallyDatabaseHelper {
   Future<void> deleteTally({required DbTally dbTally}) async {
     final db = await database;
     await db.delete('data', where: "id = ?", whereArgs: [dbTally.id]);
+  }
+
+  /// Names of the recordings the counters point to.
+  Future<Set<String>> referencedAudioFiles() async {
+    final db = await database;
+    final rows = await db.query('data', columns: ['audioFile']);
+    return {
+      for (final row in rows)
+        if (((row['audioFile'] as String?) ?? "").isNotEmpty) row['audioFile']! as String,
+    };
   }
 
   // Close database

@@ -23,11 +23,6 @@ final class TallyLoadedState extends TallyState {
 
   DbTally? get activeCounter => allCounters.where((x) => x.isActivated).firstOrNull;
 
-  double get resetEvery => switch (iterationMode) {
-    TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 1,
-    _ => 33,
-  };
-
   int get maxCounterNumberLength =>
       allCounters.fold(0, (prev, e) => max(prev, e.count.toString().length));
 

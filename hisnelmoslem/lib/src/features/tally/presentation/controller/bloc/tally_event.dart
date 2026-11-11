@@ -63,10 +63,34 @@ class TallyResetAllCountersEvent extends TallyEvent {}
 
 class TallyResetActiveCounterEvent extends TallyEvent {}
 
-class TallyIncreaseActiveCounterEvent extends TallyEvent {}
+/// Puts back the counts of [counters] (undo of a reset).
+class TallyRestoreCountersEvent extends TallyEvent {
+  final List<DbTally> counters;
+
+  const TallyRestoreCountersEvent({required this.counters});
+
+  @override
+  List<Object> get props => [counters];
+}
+
+class TallyIncreaseActiveCounterEvent extends TallyEvent {
+  /// Completed with the counter that is active once the count (and any auto-advance
+  /// that follows it) is done. Used by voice playback to know what to play next.
+  final Completer<DbTally?>? completer;
+
+  /// Auto-advance only goes to counters that have a recording.
+  final bool audioOnly;
+
+  const TallyIncreaseActiveCounterEvent({this.completer, this.audioOnly = false});
+}
 
 class TallyDecreaseActiveCounterEvent extends TallyEvent {}
 
 class TallyToggleIterationModeEvent extends TallyEvent {}
 
-class TallyIterateEvent extends TallyEvent {}
+class TallyIterateEvent extends TallyEvent {
+  final Completer<DbTally?>? completer;
+  final bool audioOnly;
+
+  const TallyIterateEvent({this.completer, this.audioOnly = false});
+}
