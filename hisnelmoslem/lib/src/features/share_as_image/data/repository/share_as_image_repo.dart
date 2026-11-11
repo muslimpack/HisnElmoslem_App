@@ -75,7 +75,8 @@ class ShareAsImageRepo {
   ///
   static const String _shareImageShowSourceBoxKey = 'share_image_show_source';
 
-  bool get shareImageShowSource => box.read(_shareImageShowSourceBoxKey) ?? true;
+  /// Off until the user turns it on; it makes the image longer. A saved choice wins.
+  bool get shareImageShowSource => box.read(_shareImageShowSourceBoxKey) ?? false;
 
   Future<void> shareImageUpdateShowSource({required bool value}) async {
     await box.write(_shareImageShowSourceBoxKey, value);

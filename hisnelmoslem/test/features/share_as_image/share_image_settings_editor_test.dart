@@ -132,6 +132,14 @@ void main() {
     );
   });
 
+  test("the zikr source is hidden by default, and a saved choice is kept", () async {
+    expect(cubit.repo.shareImageSettings.showSource, isFalse);
+
+    await cubit.updateShowSource(value: true);
+    final reopened = ShareAsImageRepo(GetStorage('share_settings_test'));
+    expect(reopened.shareImageSettings.showSource, isTrue);
+  });
+
   testWidgets("light and dark presets are both offered", (tester) async {
     await openSheet(tester);
 
