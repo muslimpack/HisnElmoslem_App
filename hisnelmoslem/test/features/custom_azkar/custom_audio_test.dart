@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audi
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_zikr.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'custom_azkar_repo_test.dart' show FakeOriginalSource, original;
@@ -120,6 +121,102 @@ void main() {
     await repo.setItemAudio(itemId, null);
     expect((await repo.getResolvedItems(id)).single.item.hasUserAudio, isFalse);
     expect(await storage.exists(second), isFalse);
+  });
+
+  group("editor draft", () {
+    late CustomTitleEditorBloc editor;
+
+    Future<CustomTitleEditorLoadedState> loadedWithOneZikr() async {
+      final zikr = await repo.saveZikr(const CustomZikr(content: "mine"));
+      final id = await repo.createTitle(const CustomTitle(name: "T"), [
+        CustomTitleItem(kind: CustomItemKind.custom, refId: zikr),
+      ]);
+      editor = CustomTitleEditorBloc(repo, storage)..add(CustomTitleEditorStartEvent(titleId: id));
+      return editor.stream
+          .firstWhere((s) => s is CustomTitleEditorLoadedState)
+          .then(
+            (s) => s as CustomTitleEditorLoadedState,
+          );
+    }
+
+    test("a take survives deleting a library zikr while the editor is open", () async {
+      final s = await loadedWithOneZikr();
+      final file = await record("take.m4a");
+      editor.add(
+        CustomTitleEditorItemAudioChangedEvent(uid: s.entries.single.uid, audioFile: file),
+      );
+      await editor.stream.firstWhere(
+        (s) => s is CustomTitleEditorLoadedState && s.entries.single.resolved.item.hasUserAudio,
+      );
+
+      // Any repo mutation sweeps unreferenced files; the draft take is only pinned.
+      await repo.deleteZikr(await repo.saveZikr(const CustomZikr(content: "other")));
+
+      expect(await storage.exists(file), isTrue);
+      await editor.close();
+    });
+
+    test("leaving without saving deletes takes but keeps saved recordings", () async {
+      final s = await loadedWithOneZikr();
+      final uid = s.entries.single.uid;
+      final saved = await record("saved.m4a");
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: saved));
+      editor.add(const CustomTitleEditorSaveEvent());
+      await editor.stream.firstWhere((s) => s is CustomTitleEditorLoadedState && s.saved);
+
+      final unsaved = await record("unsaved.m4a");
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: unsaved));
+      await editor.stream.firstWhere(
+        (s) =>
+            s is CustomTitleEditorLoadedState &&
+            s.entries.single.resolved.item.audioFile == unsaved,
+      );
+
+      await editor.close();
+
+      expect(await storage.exists(saved), isTrue);
+      expect(await storage.exists(unsaved), isFalse);
+    });
+
+    test("re-recording in the same session deletes the replaced take at once", () async {
+      final s = await loadedWithOneZikr();
+      final uid = s.entries.single.uid;
+      final first = await record("t1.m4a");
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: first));
+      final second = await record("t2.m4a");
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: second));
+      await editor.stream.firstWhere(
+        (s) =>
+            s is CustomTitleEditorLoadedState && s.entries.single.resolved.item.audioFile == second,
+      );
+
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(await storage.exists(first), isFalse);
+      expect(await storage.exists(second), isTrue);
+      await editor.close();
+    });
+
+    test("removing a saved recording keeps the file until the title is saved", () async {
+      final s = await loadedWithOneZikr();
+      final uid = s.entries.single.uid;
+      final saved = await record("keep.m4a");
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: saved));
+      editor.add(const CustomTitleEditorSaveEvent());
+      await editor.stream.firstWhere((s) => s is CustomTitleEditorLoadedState && s.saved);
+
+      editor.add(CustomTitleEditorItemAudioChangedEvent(uid: uid, audioFile: null));
+      await editor.stream.firstWhere(
+        (s) => s is CustomTitleEditorLoadedState && !s.entries.single.resolved.item.hasUserAudio,
+      );
+      expect(await storage.exists(saved), isTrue);
+
+      editor.add(const CustomTitleEditorSaveEvent());
+      await editor.stream.firstWhere(
+        (s) => s is CustomTitleEditorLoadedState && s.saved && !s.isSaving,
+      );
+      expect(await storage.exists(saved), isFalse);
+      await editor.close();
+    });
   });
 
   test("storage never resolves outside its folder", () async {

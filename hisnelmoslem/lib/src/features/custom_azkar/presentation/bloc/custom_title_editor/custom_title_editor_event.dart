@@ -54,6 +54,16 @@ final class CustomTitleEditorItemCountChangedEvent extends CustomTitleEditorEven
   List<Object?> get props => [uid, count];
 }
 
+/// Sets the user's recording of a row ([audioFile] null removes it).
+final class CustomTitleEditorItemAudioChangedEvent extends CustomTitleEditorEvent {
+  final int uid;
+  final String? audioFile;
+  const CustomTitleEditorItemAudioChangedEvent({required this.uid, required this.audioFile});
+
+  @override
+  List<Object?> get props => [uid, audioFile];
+}
+
 final class CustomTitleEditorItemRemovedEvent extends CustomTitleEditorEvent {
   final int uid;
   const CustomTitleEditorItemRemovedEvent(this.uid);

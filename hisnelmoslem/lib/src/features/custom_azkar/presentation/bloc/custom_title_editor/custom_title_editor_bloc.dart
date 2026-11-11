@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title_item.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_zikr.dart';
@@ -13,6 +14,7 @@ part 'custom_title_editor_state.dart';
 /// Nothing is written until [CustomTitleEditorSaveEvent].
 class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEditorState> {
   final CustomAzkarRepo repo;
+  final CustomAudioStorage audioStorage;
   final SaveCustomTitle _saveTitle;
   final GetResolvedTitleItems _getResolvedItems;
   final GetItemsFromOriginalTitle _getItemsFromOriginalTitle;
@@ -20,7 +22,14 @@ class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEdit
 
   int _nextUid = 1;
 
-  CustomTitleEditorBloc(this.repo)
+  /// Recordings made in this editor session. They are pinned (safe from cleanup)
+  /// and deleted again if the draft is abandoned.
+  final Set<String> _draftFiles = {};
+
+  /// Recordings that were written to the database by a save.
+  final Set<String> _savedFiles = {};
+
+  CustomTitleEditorBloc(this.repo, this.audioStorage)
     : _saveTitle = SaveCustomTitle(repo),
       _getResolvedItems = GetResolvedTitleItems(repo),
       _getItemsFromOriginalTitle = GetItemsFromOriginalTitle(repo),
@@ -31,6 +40,7 @@ class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEdit
     on<CustomTitleEditorDescriptionChangedEvent>(_descriptionChanged);
     on<CustomTitleEditorItemsReorderedEvent>(_reorder);
     on<CustomTitleEditorItemCountChangedEvent>(_countChanged);
+    on<CustomTitleEditorItemAudioChangedEvent>(_audioChanged);
     on<CustomTitleEditorItemRemovedEvent>(_remove);
     on<CustomTitleEditorCustomZikrsAddedEvent>(_addCustomZikrs);
     on<CustomTitleEditorOriginalZikrsAddedEvent>(_addOriginalZikrs);
@@ -140,18 +150,62 @@ class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEdit
     );
   }
 
-  void _remove(
+  Future<void> _remove(
     CustomTitleEditorItemRemovedEvent event,
     Emitter<CustomTitleEditorState> emit,
-  ) {
+  ) async {
     final s = _loaded;
     if (s == null) return;
+    // Emit before any await so later events (e.g. save) see this change.
     emit(
       s.copyWith(
         entries: s.entries.where((e) => e.uid != event.uid).toList(),
         isDirty: true,
       ),
     );
+    for (final e in s.entries.where((e) => e.uid == event.uid)) {
+      await _dropDraftFile(e.resolved.item.audioFile);
+    }
+  }
+
+  /// Deletes a recording made in this session that is no longer used. Recordings that
+  /// were already saved stay on disk until the title is saved, so leaving the editor
+  /// without saving never loses them.
+  Future<void> _dropDraftFile(String? fileName) async {
+    if (fileName == null || !_draftFiles.contains(fileName) || _savedFiles.contains(fileName)) {
+      return;
+    }
+    _draftFiles.remove(fileName);
+    audioStorage.unpin(fileName);
+    await audioStorage.delete(fileName);
+  }
+
+  Future<void> _audioChanged(
+    CustomTitleEditorItemAudioChangedEvent event,
+    Emitter<CustomTitleEditorState> emit,
+  ) async {
+    final s = _loaded;
+    if (s == null) return;
+
+    final newFile = event.audioFile;
+    if (newFile != null) {
+      _draftFiles.add(newFile);
+      audioStorage.pin(newFile);
+    }
+    // Emit before any await so later events (e.g. save) see this change.
+    emit(
+      s.copyWith(
+        entries: [
+          for (final e in s.entries)
+            if (e.uid == event.uid) e.withAudio(newFile) else e,
+        ],
+        isDirty: true,
+      ),
+    );
+    for (final e in s.entries.where((e) => e.uid == event.uid)) {
+      final old = e.resolved.item.audioFile;
+      if (old != newFile) await _dropDraftFile(old);
+    }
   }
 
   ResolvedTitleItem _fromCustomZikr(CustomZikr z) {
@@ -234,12 +288,17 @@ class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEdit
     );
   }
 
-  void _customZikrDeleted(
+  Future<void> _customZikrDeleted(
     CustomTitleEditorCustomZikrDeletedEvent event,
     Emitter<CustomTitleEditorState> emit,
-  ) {
+  ) async {
     final s = _loaded;
     if (s == null) return;
+    for (final e in s.entries) {
+      if (e.resolved.item.kind == CustomItemKind.custom && e.resolved.item.refId == event.zikrId) {
+        await _dropDraftFile(e.resolved.item.audioFile);
+      }
+    }
     emit(
       s.copyWith(
         entries: s.entries
@@ -264,12 +323,32 @@ class CustomTitleEditorBloc extends Bloc<CustomTitleEditorEvent, CustomTitleEdit
 
     try {
       final items = [for (final e in s.entries) e.toItemForSaving()];
+      // Recordings no longer used must not be pinned, or the cleanup that runs while
+      // saving would keep them.
+      final used = {for (final i in items.where((i) => i.hasUserAudio)) i.audioFile!};
+      for (final file in _draftFiles.where((f) => !used.contains(f)).toList()) {
+        _draftFiles.remove(file);
+        audioStorage.unpin(file);
+      }
       final id = await _saveTitle(s.title, items);
+      _savedFiles
+        ..clear()
+        ..addAll(items.where((i) => i.hasUserAudio).map((i) => i.audioFile!));
       emit(
         s.copyWith(title: s.title.copyWith(id: id), isSaving: false, saved: true, isDirty: false),
       );
     } on CustomTitleValidationException catch (e) {
       emit(s.copyWith(isSaving: false, error: () => e.error));
     }
+  }
+
+  @override
+  Future<void> close() async {
+    // Recordings of an abandoned draft must not stay on disk.
+    for (final file in _draftFiles.toList()) {
+      audioStorage.unpin(file);
+      if (!_savedFiles.contains(file)) await audioStorage.delete(file);
+    }
+    return super.close();
   }
 }

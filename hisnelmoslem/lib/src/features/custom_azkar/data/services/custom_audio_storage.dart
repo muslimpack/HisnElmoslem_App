@@ -21,7 +21,12 @@ abstract interface class CustomAudioStorage {
   /// Removes the recording. Missing files are ignored.
   Future<void> delete(String fileName);
 
-  /// Removes every recording whose name is not in [keep]. Returns how many were removed.
+  /// Marks a recording as in use by an unsaved draft, so [deleteUnreferenced] skips it.
+  void pin(String fileName);
+  void unpin(String fileName);
+
+  /// Removes every recording that is neither in [keep] nor pinned. Returns how many
+  /// were removed.
   Future<int> deleteUnreferenced(Set<String> keep);
 }
 
@@ -32,7 +37,15 @@ class LocalCustomAudioStorage implements CustomAudioStorage {
   /// Used by tests. Null in production (app documents folder).
   final Directory? directoryOverride;
 
-  const LocalCustomAudioStorage({this.directoryOverride});
+  final Set<String> _pinned = {};
+
+  LocalCustomAudioStorage({this.directoryOverride});
+
+  @override
+  void pin(String fileName) => _pinned.add(p.basename(fileName));
+
+  @override
+  void unpin(String fileName) => _pinned.remove(p.basename(fileName));
 
   @override
   Future<Directory> directory() async {
@@ -65,7 +78,8 @@ class LocalCustomAudioStorage implements CustomAudioStorage {
   Future<int> deleteUnreferenced(Set<String> keep) async {
     var removed = 0;
     await for (final entity in (await directory()).list()) {
-      if (entity is File && !keep.contains(p.basename(entity.path))) {
+      final name = p.basename(entity.path);
+      if (entity is File && !keep.contains(name) && !_pinned.contains(name)) {
         await entity.delete();
         removed++;
       }

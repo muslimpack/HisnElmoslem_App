@@ -25,6 +25,23 @@ class EditorEntry extends Equatable {
     );
   }
 
+  EditorEntry withAudio(String? audioFile) {
+    return EditorEntry(
+      uid: uid,
+      resolved: ResolvedTitleItem(
+        item: audioFile == null
+            ? resolved.item.copyWith(clearAudio: true)
+            : resolved.item.copyWith(audioFile: audioFile),
+        content: resolved.content,
+        source: resolved.source,
+        fadl: resolved.fadl,
+        hokm: resolved.hokm,
+        audio: resolved.audio,
+        isFromSnapshot: resolved.isFromSnapshot,
+      ),
+    );
+  }
+
   /// Refreshes the stored snapshot from the live text of original zikrs.
   CustomTitleItem toItemForSaving() {
     final item = resolved.item;

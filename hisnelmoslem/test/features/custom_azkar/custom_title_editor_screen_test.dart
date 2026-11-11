@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +10,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/custom_a
 import 'package:hisnelmoslem/src/features/custom_azkar/data/datasources/original_zikr_source.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/repositories/custom_azkar_repo_impl.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_alarm_scheduler.dart';
+import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_zikr.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_title_editor/custom_title_editor_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
@@ -34,13 +37,15 @@ void main() {
 
   late CustomAzkarDBHelper helper;
   late CustomAzkarRepoImpl repo;
+  late LocalCustomAudioStorage storage;
   final sl = GetIt.instance;
 
   setUp(() {
     helper = CustomAzkarDBHelper(pathOverride: inMemoryDatabasePath);
+    storage = LocalCustomAudioStorage(directoryOverride: Directory.systemTemp.createTempSync('ed'));
     repo = CustomAzkarRepoImpl(helper, _NoOriginals());
     sl
-      ..registerFactory(() => CustomTitleEditorBloc(repo))
+      ..registerFactory(() => CustomTitleEditorBloc(repo, storage))
       ..registerFactory(() => CustomZikrPickerCubit(repo, _NoOriginals()));
   });
 

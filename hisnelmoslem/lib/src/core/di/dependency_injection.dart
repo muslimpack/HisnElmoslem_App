@@ -79,7 +79,7 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => CommentaryDBHelper());
   sl.registerLazySingleton(() => CustomAzkarDBHelper());
   sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
-  sl.registerLazySingleton<CustomAudioStorage>(() => const LocalCustomAudioStorage());
+  sl.registerLazySingleton<CustomAudioStorage>(LocalCustomAudioStorage.new);
   sl.registerLazySingleton<CustomAzkarRepo>(
     () => CustomAzkarRepoImpl(sl(), sl(), audioStorage: sl()),
   );
@@ -119,7 +119,7 @@ Future<void> initSL() async {
   /// Factory BLoC
   sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl()));
-  sl.registerFactory(() => CustomTitleEditorBloc(sl()));
+  sl.registerFactory(() => CustomTitleEditorBloc(sl(), sl()));
   sl.registerFactory(() => CustomZikrPickerCubit(sl(), sl()));
   sl.registerFactory(() => ShareImageCubit(sl()));
   sl.registerFactory(() => QuranCubit(sl()));
