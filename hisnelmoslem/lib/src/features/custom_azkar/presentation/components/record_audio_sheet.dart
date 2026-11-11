@@ -93,41 +93,45 @@ class RecordAudioSheet extends StatelessWidget {
             if (!didPop) requestClose(context);
           },
           child: RecordingLifecycleGuard(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const RecordSheetHeader(),
-                  const SizedBox(height: 12),
-                  RecordZikrCard(text: zikrText),
-                  const SizedBox(height: 16),
-                  const RecorderPanel(),
-                  if (!state.isRecording && !state.hasTake) ...[
-                    if (existingFile != null) ...[
-                      const SizedBox(height: 16),
-                      ExistingRecordingCard(
-                        fileName: existingFile!,
-                        hasOriginal: originalAudio.isNotEmpty,
-                      ),
-                    ],
-                    if (originalAudio.isNotEmpty) ...[
-                      const SizedBox(height: 16),
-                      Card(
-                        margin: EdgeInsets.zero,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: AudioPreviewTile(
-                            previewKey: "original",
-                            label: S.of(context).recordOriginal,
-                            asset: originalAudio,
+            // useSafeArea only covers the top; keep the buttons above the system bar.
+            child: SafeArea(
+              top: false,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const RecordSheetHeader(),
+                    const SizedBox(height: 12),
+                    RecordZikrCard(text: zikrText),
+                    const SizedBox(height: 16),
+                    const RecorderPanel(),
+                    if (!state.isRecording && !state.hasTake) ...[
+                      if (existingFile != null) ...[
+                        const SizedBox(height: 16),
+                        ExistingRecordingCard(
+                          fileName: existingFile!,
+                          hasOriginal: originalAudio.isNotEmpty,
+                        ),
+                      ],
+                      if (originalAudio.isNotEmpty) ...[
+                        const SizedBox(height: 16),
+                        Card(
+                          margin: EdgeInsets.zero,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: AudioPreviewTile(
+                              previewKey: "original",
+                              label: S.of(context).recordOriginal,
+                              asset: originalAudio,
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ],
                   ],
-                ],
+                ),
               ),
             ),
           ),
@@ -212,7 +216,13 @@ class RecordZikrCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: theme.colorScheme.primary.withAlpha(60)),
       ),
-      child: ZikrPreviewText(content: text, maxLines: 6),
+      // Long azkar scroll inside the card instead of being cut off.
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.3),
+        child: Scrollbar(
+          child: SingleChildScrollView(child: ZikrPreviewText(content: text, maxLines: null)),
+        ),
+      ),
     );
   }
 }

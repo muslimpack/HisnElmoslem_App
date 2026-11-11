@@ -98,34 +98,37 @@ class _OriginalTitlePickerState extends State<OriginalTitlePicker> {
       return words.every(searchText.contains);
     }).toList();
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: TextField(
-            onChanged: (value) => setState(() => _query = value),
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search_rounded),
-              hintText: S.of(context).chooseOriginalTitle,
-              border: const OutlineInputBorder(),
+    return SafeArea(
+      top: false,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: TextField(
+              onChanged: (value) => setState(() => _query = value),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search_rounded),
+                hintText: S.of(context).chooseOriginalTitle,
+                border: const OutlineInputBorder(),
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-              final title = titles[index];
-              return ListTile(
-                key: ValueKey(title.id),
-                leading: CircleAvatar(child: Text(title.order.toString())),
-                title: Text(title.name),
-                onTap: () => Navigator.pop<DbTitle>(context, title),
-              );
-            },
+          Expanded(
+            child: ListView.builder(
+              itemCount: titles.length,
+              itemBuilder: (context, index) {
+                final title = titles[index];
+                return ListTile(
+                  key: ValueKey(title.id),
+                  leading: CircleAvatar(child: Text(title.order.toString())),
+                  title: Text(title.name),
+                  onTap: () => Navigator.pop<DbTitle>(context, title),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -6,7 +6,9 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 /// range markup, which is resolved to the verse text like the viewer does.
 class ZikrPreviewText extends StatelessWidget {
   final String content;
-  final int maxLines;
+
+  /// Null shows the whole text (for a parent that scrolls).
+  final int? maxLines;
 
   const ZikrPreviewText({super.key, required this.content, this.maxLines = 3});
 

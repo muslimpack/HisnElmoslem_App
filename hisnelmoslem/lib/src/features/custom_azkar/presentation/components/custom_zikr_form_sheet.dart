@@ -60,59 +60,62 @@ class _CustomZikrFormState extends State<CustomZikrForm> {
 
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                widget.zikr == null ? s.newZikr : s.edit,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _content,
-                autofocus: true,
-                minLines: 3,
-                maxLines: 8,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  labelText: s.zikrText,
-                  border: const OutlineInputBorder(),
+      child: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  widget.zikr == null ? s.newZikr : s.edit,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                validator: (value) => (value ?? "").trim().isEmpty ? s.zikrTextRequired : null,
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _source,
-                decoration: InputDecoration(
-                  labelText: s.zikrSource,
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _content,
+                  autofocus: true,
+                  minLines: 3,
+                  maxLines: 8,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    labelText: s.zikrText,
+                    border: const OutlineInputBorder(),
+                  ),
+                  validator: (value) => (value ?? "").trim().isEmpty ? s.zikrTextRequired : null,
                 ),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _fadl,
-                minLines: 1,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  labelText: s.zikrFadl,
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _source,
+                  decoration: InputDecoration(
+                    labelText: s.zikrSource,
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: Text(s.zikrCountLabel)),
-                  CountStepper(value: _count, onChanged: (v) => setState(() => _count = v)),
-                ],
-              ),
-              const SizedBox(height: 20),
-              FilledButton(onPressed: _submit, child: Text(s.save)),
-            ],
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _fadl,
+                  minLines: 1,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    labelText: s.zikrFadl,
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(child: Text(s.zikrCountLabel)),
+                    CountStepper(value: _count, onChanged: (v) => setState(() => _count = v)),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                FilledButton(onPressed: _submit, child: Text(s.save)),
+              ],
+            ),
           ),
         ),
       ),
