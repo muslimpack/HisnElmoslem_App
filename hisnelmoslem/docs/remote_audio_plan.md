@@ -135,3 +135,20 @@ presentation/
 - Re-record the evening zikrs (119, 122, 123, 131) with the bundled reciter, or accept the blocklist?
 - Allow mixing: bundled voice where available and another reciter elsewhere? (plan says no)
 - Cap on parallel downloads (suggested 3) and whether to continue in the background in a later version.
+
+## 9. As built: download center (phase 5 revised)
+
+- **Settings > Download center** (`DownloadCenterScreen`): the three reciters with what is on the
+  phone, the current reciter marked, and the "play online" switch. Also opened from the audio
+  settings sheet and from the pill below.
+- **Reciter screen** (`ReciterTitlesScreen`): header with "use this reciter", download all and delete
+  all; below it every title that has recordings, each with a download button (not yet complete) and a
+  delete button (anything on the phone). A running title shows a progress ring that pauses.
+  Titles that share a lesson (morning and evening azkar) share its files, so deleting one affects
+  the other.
+- **Download pill** (`DownloadActivityPill`, in `MaterialApp.builder`): floats above every screen
+  while a download runs or is paused, shows files done of total with pause or resume, opens the
+  center when tapped, reports the end and stays when files failed (retry).
+- **Streaming**: the dock shows a progress bar and a spinner on the play button while a recording
+  from the internet loads (`ZikrAudioPlayerState.isLoadingAudio`).
+- **About** has a card saying the reciters and recordings come from binwahaf.com.

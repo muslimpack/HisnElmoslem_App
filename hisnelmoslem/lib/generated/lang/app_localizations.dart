@@ -1821,12 +1821,6 @@ abstract class S {
   /// **'Audio Settings'**
   String get audioPlayerSettings;
 
-  /// No description provided for @audioReciterSheetTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Reciter and downloads'**
-  String get audioReciterSheetTitle;
-
   /// No description provided for @audioReciter.
   ///
   /// In en, this message translates to:
@@ -1958,6 +1952,78 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Another download is already running'**
   String get audioDownloadAlreadyRunning;
+
+  /// No description provided for @audioLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading audio…'**
+  String get audioLoading;
+
+  /// No description provided for @downloadCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Download center'**
+  String get downloadCenter;
+
+  /// No description provided for @downloadCenterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a reciter, then download all of its recordings or only some titles to listen without the internet.'**
+  String get downloadCenterDesc;
+
+  /// No description provided for @audioUseReciter.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this reciter'**
+  String get audioUseReciter;
+
+  /// No description provided for @audioReciterInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Current reciter'**
+  String get audioReciterInUse;
+
+  /// No description provided for @audioDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all'**
+  String get audioDeleteAll;
+
+  /// No description provided for @audioDeleteTitleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the downloaded audio of “{title}”? Titles that share its recordings are affected too.'**
+  String audioDeleteTitleConfirm(String title);
+
+  /// No description provided for @audioDownloadTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get audioDownloadTooltip;
+
+  /// No description provided for @audioNoTitles.
+  ///
+  /// In en, this message translates to:
+  /// **'No recordings are available for this reciter.'**
+  String get audioNoTitles;
+
+  /// No description provided for @audioTitleDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded'**
+  String get audioTitleDownloaded;
+
+  /// No description provided for @aboutAudioSourceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio source'**
+  String get aboutAudioSourceTitle;
+
+  /// No description provided for @aboutAudioSourceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The reciters and recordings in the download center are from the website of Dr. Saeed bin Ali bin Wahf Al-Qahtani (binwahaf.com).'**
+  String get aboutAudioSourceDesc;
 
   /// No description provided for @vibrationDuration.
   ///

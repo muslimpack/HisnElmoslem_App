@@ -897,9 +897,6 @@ class SAr extends S {
   String get audioPlayerSettings => 'إعدادات الصوت';
 
   @override
-  String get audioReciterSheetTitle => 'القارئ والتحميلات';
-
-  @override
   String get audioReciter => 'القارئ';
 
   @override
@@ -979,6 +976,46 @@ class SAr extends S {
 
   @override
   String get audioDownloadAlreadyRunning => 'هناك تحميل آخر قيد التنفيذ';
+
+  @override
+  String get audioLoading => 'جارٍ تحميل الصوت…';
+
+  @override
+  String get downloadCenter => 'مركز التحميلات';
+
+  @override
+  String get downloadCenterDesc =>
+      'اختر القارئ ثم حمّل كل تسجيلاته أو أبوابًا بعينها لتستمع دون إنترنت.';
+
+  @override
+  String get audioUseReciter => 'استخدام هذا القارئ';
+
+  @override
+  String get audioReciterInUse => 'القارئ الحالي';
+
+  @override
+  String get audioDeleteAll => 'حذف الكل';
+
+  @override
+  String audioDeleteTitleConfirm(String title) {
+    return 'هل تريد حذف الصوت المحمّل لـ «$title»؟ وتتأثر بذلك الأبواب التي تشاركه التسجيلات.';
+  }
+
+  @override
+  String get audioDownloadTooltip => 'تحميل';
+
+  @override
+  String get audioNoTitles => 'لا توجد تسجيلات متاحة لهذا القارئ.';
+
+  @override
+  String get audioTitleDownloaded => 'تم التحميل';
+
+  @override
+  String get aboutAudioSourceTitle => 'مصدر الصوتيات';
+
+  @override
+  String get aboutAudioSourceDesc =>
+      'القرّاء وتسجيلاتهم في مركز التحميلات مأخوذة من موقع الشيخ الدكتور سعيد بن علي بن وهف القحطاني (binwahaf.com).';
 
   @override
   String get vibrationDuration => 'مدة الاهتزاز (بالملي ثانية)';

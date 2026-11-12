@@ -151,6 +151,38 @@ void main() {
     });
   });
 
+  group('per title', () {
+    test('statuses cover every title that has recordings, with what is on the phone', () async {
+      final file = await store.fileOf(hamad, url('a'));
+      await file.parent.create(recursive: true);
+      await file.writeAsBytes(List.filled(7, 1));
+
+      final statuses = await cubit.titleStatuses(hamad);
+
+      expect(statuses.keys, unorderedEquals([10, 11, 12]));
+      expect(statuses[10]!.totalFiles, 2);
+      expect(statuses[10]!.downloadedFiles, 1);
+      expect(statuses[10]!.downloadedBytes, 7);
+      expect(statuses[11]!.totalFiles, 1); // zikr 4 is not remote-ok
+      expect(statuses[12]!.downloadedFiles, 0);
+      expect(statuses[11]!.isComplete, isTrue); // shares lesson a with title 10
+    });
+
+    test('deleting a title removes its files and its unfinished parts', () async {
+      await cubit.start(await cubit.buildPlan(hamad));
+      final part = File('${(await store.fileOf(hamad, url('d'))).path}.part');
+      await part.writeAsBytes([1]);
+
+      await cubit.deleteTitle(hamad, 12);
+
+      expect(await store.existingPath(hamad, url('d')), isNull);
+      expect(await store.existingPath(hamad, url('e')), isNull);
+      expect(part.existsSync(), isFalse);
+      // Another title's own file stays.
+      expect(await store.existingPath(hamad, url('b')), isNotNull);
+    });
+  });
+
   group('running a job', () {
     test('downloads everything, ends completed and forgets the job', () async {
       final plan = await cubit.buildPlan(hamad);

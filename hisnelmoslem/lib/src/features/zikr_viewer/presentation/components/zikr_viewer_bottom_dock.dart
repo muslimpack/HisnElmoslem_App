@@ -158,7 +158,20 @@ class DockAudioProgress extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
           alignment: Alignment.topCenter,
-          child: active && max > 0
+          child: state.isLoadingAudio
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: LinearProgressIndicator(borderRadius: BorderRadius.circular(4)),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(S.of(context).audioLoading, style: theme.textTheme.bodySmall),
+                    ],
+                  ),
+                )
+              : active && max > 0
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
@@ -226,9 +239,15 @@ class DockAudioControls extends StatelessWidget {
                   );
                 }
               },
-              icon: Icon(state.isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded),
+              icon: state.isLoadingAudio
+                  ? const SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(strokeWidth: 3),
+                    )
+                  : Icon(state.isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded),
             ),
-            if (active)
+            if (active || state.isLoadingAudio)
               IconButton(
                 tooltip: s.audioStop,
                 onPressed: cubit.stop,

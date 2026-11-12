@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
@@ -50,6 +51,53 @@ class ReciterDownloadsCubit extends Cubit<ReciterDownloadsState> {
       }
     }
     return urls;
+  }
+
+  /// How much of every title of [reciter] is on the phone, for the titles that have recordings
+  /// of this reciter. No network is used.
+  Future<Map<int, ReciterAudioStatus>> titleStatuses(Reciter reciter) async {
+    final contents = await loadContents();
+
+    final urlsByTitle = <int, Map<String, String>>{};
+    for (final c in contents) {
+      if (!c.audioRemoteOk) continue;
+      for (final url in c.audioUrls[reciter.slug] ?? const <String>[]) {
+        (urlsByTitle[c.titleId] ??= {})[AudioFileStore.keyOf(url)] = url;
+      }
+    }
+
+    final result = <int, ReciterAudioStatus>{};
+    for (final entry in urlsByTitle.entries) {
+      var done = 0;
+      var bytes = 0;
+      for (final url in entry.value.values) {
+        final file = await store.fileOf(reciter, url);
+        if (await file.exists()) {
+          final length = await file.length();
+          if (length > 0) {
+            done++;
+            bytes += length;
+          }
+        }
+      }
+      result[entry.key] = ReciterAudioStatus(
+        totalFiles: entry.value.length,
+        downloadedFiles: done,
+        downloadedBytes: bytes,
+      );
+    }
+    return result;
+  }
+
+  /// Deletes the downloaded files of one title. Titles that share a lesson (morning and evening
+  /// azkar) share its file, so those files go for the other title too.
+  Future<void> deleteTitle(Reciter reciter, int titleId) async {
+    for (final url in await _urlsOf(reciter, titleId: titleId)) {
+      final file = await store.fileOf(reciter, url);
+      if (await file.exists()) await file.delete();
+      final part = File('${file.path}.part');
+      if (await part.exists()) await part.delete();
+    }
   }
 
   /// How much of [reciter] is on the phone. No network is used.

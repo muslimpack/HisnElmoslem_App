@@ -4,8 +4,8 @@ import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
-import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_audio_sheet.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_name.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 
@@ -285,12 +285,14 @@ class _ReciterEntryCardState extends State<ReciterEntryCard> {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: ListTile(
         leading: const Icon(Icons.record_voice_over_rounded),
-        title: Text(S.of(context).audioReciterSheetTitle),
+        title: Text(S.of(context).downloadCenter),
         subtitle: Text(reciter.localizedName(context)),
         trailing: const Icon(Icons.chevron_right_rounded),
         onTap: () async {
-          await ReciterAudioSheet.show(context);
-          // The reciter may have changed in the sheet.
+          await Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const DownloadCenterScreen()),
+          );
+          // The reciter may have changed there.
           if (mounted) setState(() {});
         },
       ),

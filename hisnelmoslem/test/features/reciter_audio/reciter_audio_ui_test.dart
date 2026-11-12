@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/http_audio_downloader.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
@@ -14,11 +15,12 @@ import 'package:hisnelmoslem/src/features/reciter_audio/domain/byte_format.dart'
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/download_plan.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/download_confirm_dialog.dart';
-import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_audio_sheet.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/reciter_titles_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
-class _NoNetwork implements AudioDownloader {
+class _OkDownloader implements AudioDownloader {
   @override
   Future<int?> contentLength(String url) async => 1024 * 1024;
 
@@ -28,7 +30,11 @@ class _NoNetwork implements AudioDownloader {
     required File target,
     void Function(int received, int? total)? onProgress,
     DownloadCancelToken? cancel,
-  }) async => throw const DownloadFailed('offline');
+  }) async {
+    await target.parent.create(recursive: true);
+    await target.writeAsBytes(List.filled(1024, 1));
+    return 1024;
+  }
 }
 
 Widget app(Widget child) => MaterialApp(
@@ -81,9 +87,54 @@ void main() {
     expect(answer, isTrue);
   });
 
-  group('ReciterAudioSheet', () {
+  group('download center', () {
     late Directory root;
     late ReciterAudioRepo repo;
+    late AudioFileStore store;
+
+    final contents = [
+      const DbContent(
+        id: 1,
+        content: 'x',
+        titleId: 1,
+        order: 1,
+        count: 1,
+        fadl: '',
+        source: '',
+        search: '',
+        hokm: '',
+        audio: '',
+        hasAudio: false,
+        audioRemoteOk: true,
+        audioUrls: {
+          'hamad_alduraihem': ['https://cdn.binwahaf.com/uploads/2025/12/0001.mp3'],
+          'rashid_alhulaibah': ['https://cdn.binwahaf.com/uploads/2025/12/0001-1.mp3'],
+        },
+      ),
+      const DbContent(
+        id: 2,
+        content: 'y',
+        titleId: 2,
+        order: 2,
+        count: 1,
+        fadl: '',
+        source: '',
+        search: '',
+        hokm: '',
+        audio: '',
+        hasAudio: false,
+        audioRemoteOk: true,
+        audioUrls: {
+          'hamad_alduraihem': ['https://cdn.binwahaf.com/uploads/2025/12/0002.mp3'],
+        },
+      ),
+    ];
+
+    Future<List<DbTitle>> titles() async => const [
+      DbTitle(id: 1, name: 'Waking up', freq: '', order: 1),
+      DbTitle(id: 2, name: 'Morning', freq: '', order: 2),
+      DbTitle(id: 3, name: 'No audio title', freq: '', order: 3),
+    ];
 
     setUpAll(() async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
@@ -98,37 +149,19 @@ void main() {
       repo = ReciterAudioRepo(GetStorage('reciter_ui_test'));
       await repo.setReciter(Reciter.hamadAlduraihem);
       await repo.setAllowStream(true);
-
-      final store = AudioFileStore(() async => root);
-      final cubit = ReciterDownloadsCubit(
-        downloader: _NoNetwork(),
-        store: store,
-        repo: repo,
-        loadContents: ({int? titleId}) async => [
-          const DbContent(
-            id: 1,
-            content: 'x',
-            titleId: 1,
-            order: 1,
-            count: 1,
-            fadl: '',
-            source: '',
-            search: '',
-            hokm: '',
-            audio: '',
-            hasAudio: false,
-            audioRemoteOk: true,
-            audioUrls: {
-              'hamad_alduraihem': ['https://cdn.binwahaf.com/uploads/2025/12/0001.mp3'],
-              'rashid_alhulaibah': ['https://cdn.binwahaf.com/uploads/2025/12/0001-1.mp3'],
-            },
-          ),
-        ],
-      );
+      store = AudioFileStore(() async => root);
       sl
         ..registerSingleton<ReciterAudioRepo>(repo)
         ..registerSingleton<AudioFileStore>(store)
-        ..registerSingleton<ReciterDownloadsCubit>(cubit);
+        ..registerSingleton<ReciterDownloadsCubit>(
+          ReciterDownloadsCubit(
+            downloader: _OkDownloader(),
+            store: store,
+            repo: repo,
+            loadContents: ({int? titleId}) async =>
+                titleId == null ? contents : contents.where((c) => c.titleId == titleId).toList(),
+          ),
+        );
     });
 
     tearDown(() async {
@@ -136,32 +169,114 @@ void main() {
       if (root.existsSync()) root.deleteSync(recursive: true);
     });
 
-    testWidgets('lists the reciters, saves the choice and the streaming switch', (tester) async {
+    void phone(WidgetTester tester) {
       tester.view.physicalSize = const Size(360 * 3, 900 * 3);
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
+    }
 
-      await tester.runAsync(() async {
-        await tester.pumpWidget(app(const ReciterAudioSheet()));
-        await Future<void>.delayed(const Duration(milliseconds: 200));
-      });
-      await tester.pump();
+    /// Real async (files, storage) needs real time next to the fake clock.
+    Future<void> settle(WidgetTester tester) async {
+      for (var i = 0; i < 12; i++) {
+        await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 60)));
+        await tester.pump();
+      }
+    }
 
-      expect(find.text('Reciter and downloads'), findsOneWidget);
+    testWidgets('lists the reciters with what is on the phone and saves the streaming switch', (
+      tester,
+    ) async {
+      phone(tester);
+      await tester.pumpWidget(app(const DownloadCenterScreen()));
+      await settle(tester);
+
+      expect(find.text('Download center'), findsOneWidget);
       expect(find.text('Hamad Al-Duraihem'), findsOneWidget);
+      expect(find.text('Sulaiman Al-Shuwaihi'), findsOneWidget);
       expect(find.text('Rashid Al-Hulaibah'), findsOneWidget);
-      expect(find.textContaining('0 of 1 files'), findsWidgets);
-
-      await tester.tap(find.text('Rashid Al-Hulaibah'));
-      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
-      await tester.pump();
-      expect(repo.getReciter(), Reciter.rashidAlhulaibah);
+      expect(find.text('Current reciter'), findsOneWidget);
+      expect(find.textContaining('0 of 2 files'), findsOneWidget);
 
       await tester.scrollUntilVisible(find.text('Play online'), 200);
       await tester.tap(find.byType(Switch));
-      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
-      await tester.pump();
+      await settle(tester);
       expect(repo.getAllowStream(), isFalse);
+    });
+
+    testWidgets('a reciter lists its titles; a downloaded one offers delete, the others download', (
+      tester,
+    ) async {
+      phone(tester);
+      // Title 1 is fully downloaded, title 2 is not.
+      final file = await tester.runAsync(
+        () => store.fileOf(
+          Reciter.hamadAlduraihem,
+          'https://cdn.binwahaf.com/uploads/2025/12/0001.mp3',
+        ),
+      );
+      await tester.runAsync(() async {
+        await file!.parent.create(recursive: true);
+        await file.writeAsBytes(List.filled(2048, 1));
+      });
+
+      await tester.pumpWidget(
+        app(ReciterTitlesScreen(reciter: Reciter.hamadAlduraihem, loadTitles: titles)),
+      );
+      await settle(tester);
+
+      expect(find.text('Waking up'), findsOneWidget);
+      expect(find.text('Morning'), findsOneWidget);
+      expect(find.text('No audio title'), findsNothing);
+      expect(find.textContaining('Downloaded'), findsOneWidget);
+
+      // Title 1 (downloaded): delete only. Title 2: download only.
+      final wakingRow = find.ancestor(of: find.text('Waking up'), matching: find.byType(ListTile));
+      final morningRow = find.ancestor(of: find.text('Morning'), matching: find.byType(ListTile));
+      expect(
+        find.descendant(of: wakingRow, matching: find.byIcon(Icons.delete_outline_rounded)),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: wakingRow, matching: find.byIcon(Icons.download_rounded)),
+        findsNothing,
+      );
+      expect(
+        find.descendant(of: morningRow, matching: find.byIcon(Icons.download_rounded)),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: morningRow, matching: find.byIcon(Icons.delete_outline_rounded)),
+        findsNothing,
+      );
+
+      // Deleting title 1 asks first, then removes its file.
+      await tester.tap(
+        find.descendant(of: wakingRow, matching: find.byIcon(Icons.delete_outline_rounded)),
+      );
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Delete the downloaded audio of'), findsOneWidget);
+      await tester.tap(find.text('Delete'));
+      await settle(tester);
+
+      expect(file!.existsSync(), isFalse);
+      expect(
+        find.descendant(of: wakingRow, matching: find.byIcon(Icons.download_rounded)),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('the header can switch to this reciter', (tester) async {
+      phone(tester);
+      await tester.pumpWidget(
+        app(ReciterTitlesScreen(reciter: Reciter.rashidAlhulaibah, loadTitles: titles)),
+      );
+      await settle(tester);
+
+      await tester.tap(find.text('Use this reciter'));
+      await settle(tester);
+
+      expect(repo.getReciter(), Reciter.rashidAlhulaibah);
+      expect(find.text('Current reciter'), findsOneWidget);
     });
   });
 }

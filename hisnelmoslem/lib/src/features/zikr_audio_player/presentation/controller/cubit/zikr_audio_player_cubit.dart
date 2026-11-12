@@ -287,6 +287,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
   Future<void> _playPart(Source source) async {
     final token = _playbackToken;
+    // A recording from the internet takes a moment to load: tell the UI so it can show progress.
+    final streaming = source is UrlSource;
+    if (streaming) emit(state.copyWith(isLoadingAudio: true));
     try {
       await _player.play(source, volume: state.volume);
       await _player.setPlaybackRate(state.playbackSpeed);
@@ -296,7 +299,19 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
       hisnPrint('AudioPlayer Error playing $source: $e');
       if (isClosed || token != _playbackToken) return;
       _parts = const [];
-      emit(state.copyWith(isPlaying: false, isPaused: false, isDelayingBetweenZikr: false));
+      emit(
+        state.copyWith(
+          isPlaying: false,
+          isPaused: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
+      return;
+    } finally {
+      if (streaming && !isClosed && state.isLoadingAudio && token == _playbackToken) {
+        emit(state.copyWith(isLoadingAudio: false));
+      }
     }
   }
 
@@ -358,7 +373,14 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     _playbackToken++;
     try {
       await _player.pause();
-      emit(state.copyWith(isPaused: true, isPlaying: false, isDelayingBetweenZikr: false));
+      emit(
+        state.copyWith(
+          isPaused: true,
+          isPlaying: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
     } catch (e) {
       hisnPrint('AudioPlayer Error pause: $e');
     }
@@ -387,11 +409,19 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
           isPaused: false,
           position: Duration.zero,
           isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
         ),
       );
     } catch (e) {
       hisnPrint('AudioPlayer Error stop: $e');
-      emit(state.copyWith(isPlaying: false, isPaused: false, isDelayingBetweenZikr: false));
+      emit(
+        state.copyWith(
+          isPlaying: false,
+          isPaused: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
     }
   }
 

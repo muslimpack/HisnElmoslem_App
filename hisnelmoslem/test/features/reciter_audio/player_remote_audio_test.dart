@@ -30,6 +30,9 @@ class FakePlayer extends Fake implements AudioPlayer {
   /// Makes `play` throw for sources of this type, like a stream that cannot be loaded.
   bool failStreams = false;
 
+  /// Holds `play` of a stream until completed, like a slow network.
+  Completer<void>? streamGate;
+
   @override
   Stream<void> get onPlayerComplete => complete.stream;
   @override
@@ -50,6 +53,7 @@ class FakePlayer extends Fake implements AudioPlayer {
     Duration? position,
     PlayerMode? mode,
   }) async {
+    if (source is UrlSource) await streamGate?.future;
     if (failStreams && source is UrlSource) throw Exception('no network');
     playedSources.add(source);
   }
@@ -210,5 +214,43 @@ void main() {
     expect(zikr(1, urls: urls).hasPlayableAudio, isTrue);
     expect(zikr(1, urls: urls, remoteOk: false).hasPlayableAudio, isFalse);
     expect(zikr(1).hasPlayableAudio, isFalse);
+  });
+
+  test('a stream shows as loading until it starts, then stops showing', () async {
+    player.streamGate = Completer<void>();
+    await start([zikr(1, urls: urls)]);
+
+    final play = cubit.startPlayFromIndex(0);
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    expect(cubit.state.isLoadingAudio, isTrue);
+
+    player.streamGate!.complete();
+    await play;
+    expect(cubit.state.isLoadingAudio, isFalse);
+    expect(cubit.state.isPlaying, isTrue);
+  });
+
+  test('loading ends when the stream cannot be loaded, and when it is stopped meanwhile', () async {
+    player.failStreams = true;
+    await start([zikr(1, urls: urls)]);
+    await cubit.startPlayFromIndex(0);
+    expect(cubit.state.isLoadingAudio, isFalse);
+
+    player
+      ..failStreams = false
+      ..streamGate = Completer<void>();
+    final play = cubit.startPlayFromIndex(0);
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    expect(cubit.state.isLoadingAudio, isTrue);
+    await cubit.stop();
+    expect(cubit.state.isLoadingAudio, isFalse);
+    player.streamGate!.complete();
+    await play;
+  });
+
+  test('a bundled file never shows the loading state', () async {
+    await start([zikr(1, audio: 'a.mp3')]);
+    await cubit.startPlayFromIndex(0);
+    expect(cubit.state.isLoadingAudio, isFalse);
   });
 }

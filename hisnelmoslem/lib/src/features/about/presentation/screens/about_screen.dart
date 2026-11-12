@@ -55,6 +55,23 @@ class AboutScreen extends StatelessWidget {
               openURL("https://www.binwahaf.com/");
             },
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Card(
+              elevation: 0,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              clipBehavior: Clip.antiAlias,
+              child: ListTile(
+                leading: const Icon(Icons.record_voice_over_rounded),
+                title: Text(S.of(context).aboutAudioSourceTitle),
+                subtitle: Text(S.of(context).aboutAudioSourceDesc),
+                trailing: const Icon(Icons.open_in_new_rounded),
+                onTap: () {
+                  openURL("https://www.binwahaf.com/");
+                },
+              ),
+            ),
+          ),
           ListTile(
             leading: Icon(MdiIcons.github),
             title: Text(S.of(context).github),

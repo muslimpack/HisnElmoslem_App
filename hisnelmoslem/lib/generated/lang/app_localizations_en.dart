@@ -899,9 +899,6 @@ class SEn extends S {
   String get audioPlayerSettings => 'Audio Settings';
 
   @override
-  String get audioReciterSheetTitle => 'Reciter and downloads';
-
-  @override
   String get audioReciter => 'Reciter';
 
   @override
@@ -982,6 +979,46 @@ class SEn extends S {
 
   @override
   String get audioDownloadAlreadyRunning => 'Another download is already running';
+
+  @override
+  String get audioLoading => 'Loading audio…';
+
+  @override
+  String get downloadCenter => 'Download center';
+
+  @override
+  String get downloadCenterDesc =>
+      'Choose a reciter, then download all of its recordings or only some titles to listen without the internet.';
+
+  @override
+  String get audioUseReciter => 'Use this reciter';
+
+  @override
+  String get audioReciterInUse => 'Current reciter';
+
+  @override
+  String get audioDeleteAll => 'Delete all';
+
+  @override
+  String audioDeleteTitleConfirm(String title) {
+    return 'Delete the downloaded audio of “$title”? Titles that share its recordings are affected too.';
+  }
+
+  @override
+  String get audioDownloadTooltip => 'Download';
+
+  @override
+  String get audioNoTitles => 'No recordings are available for this reciter.';
+
+  @override
+  String get audioTitleDownloaded => 'Downloaded';
+
+  @override
+  String get aboutAudioSourceTitle => 'Audio source';
+
+  @override
+  String get aboutAudioSourceDesc =>
+      'The reciters and recordings in the download center are from the website of Dr. Saeed bin Ali bin Wahf Al-Qahtani (binwahaf.com).';
 
   @override
   String get vibrationDuration => 'Vibration duration (ms)';
