@@ -91,22 +91,30 @@ class TallyDockTile extends StatelessWidget {
       // also drops the tap action of the InkWell.
       onTap: onTap,
       excludeSemantics: true,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(
-                radius: 26,
-                backgroundColor: theme.colorScheme.primary.withAlpha(30),
-                foregroundColor: theme.colorScheme.primary,
-                child: Icon(icon),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // The splash is only as big as the circle.
+            Material(
+              color: theme.colorScheme.primary.withAlpha(30),
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: onTap,
+                child: SizedBox.square(
+                  dimension: 52,
+                  child: Icon(icon, color: theme.colorScheme.primary),
+                ),
               ),
-              // As tall as the limit chip of the session tile, so both labels line up.
-              SizedBox(
+            ),
+            // The name is tappable too, without a splash. As tall as the limit chip of
+            // the session tile, so both labels line up.
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: onTap,
+              child: SizedBox(
                 height: 48,
                 child: Center(
                   child: Text(
@@ -117,8 +125,8 @@ class TallyDockTile extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -190,27 +198,38 @@ class TallySessionTile extends StatelessWidget {
                 ),
               ],
             ),
-            InkWell(
-              borderRadius: BorderRadius.circular(12),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () => TallySessionSheet.show(context),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                 child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 4,
-                    children: [
-                      Icon(
-                        switch (limit.type) {
-                          TallySessionLimitType.minutes => Icons.timer_outlined,
-                          TallySessionLimitType.count => Icons.tag_rounded,
-                          TallySessionLimitType.endless => Icons.all_inclusive_rounded,
-                        },
-                        size: 16,
-                        color: theme.colorScheme.primary,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    borderRadius: BorderRadius.circular(12),
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: () => TallySessionSheet.show(context),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 4,
+                          children: [
+                            Icon(
+                              switch (limit.type) {
+                                TallySessionLimitType.minutes => Icons.timer_outlined,
+                                TallySessionLimitType.count => Icons.tag_rounded,
+                                TallySessionLimitType.endless => Icons.all_inclusive_rounded,
+                              },
+                              size: 16,
+                              color: theme.colorScheme.primary,
+                            ),
+                            Text(limitLabel(context, limit), style: theme.textTheme.bodySmall),
+                          ],
+                        ),
                       ),
-                      Text(limitLabel(context, limit), style: theme.textTheme.bodySmall),
-                    ],
+                    ),
                   ),
                 ),
               ),
