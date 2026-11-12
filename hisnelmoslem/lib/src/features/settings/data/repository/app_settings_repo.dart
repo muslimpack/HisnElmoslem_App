@@ -16,6 +16,13 @@ class AppSettingsRepo {
     await box.write(_currentVersion, value);
   }
 
+  ///MARK:Home drawer hint
+  /* ******* The one-time "peek" that shows the side menu exists ******* */
+  static const _homeDrawerHintShownKey = 'home_drawer_hint_shown';
+  bool get isHomeDrawerHintShown => box.read(_homeDrawerHintShownKey) ?? false;
+
+  Future<void> markHomeDrawerHintShown() => box.write(_homeDrawerHintShownKey, true);
+
   ///MARK:Azkar Read Mode
   /* ******* Azkar Read Mode ******* */
   static const isCardReadModeKey = 'is_card_read_mode';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
@@ -8,12 +7,15 @@ import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/home_appbar.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/home_drawer/home_drawer.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/home_drawer/home_drawer_hint.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/home_drawer/pull_to_open_drawer.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/side_menu.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/screens/search_screen.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/screens/tally_dashboard_screen.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
-import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,23 +29,13 @@ class HomeScreen extends StatelessWidget {
           return const Loading();
         }
         return Scaffold(
-          body: ZoomDrawer(
-            isRtl: Bidi.isRtlLanguage(
-              Localizations.localeOf(context).languageCode,
+          body: HomeDrawer(
+            menu: const SideMenu(),
+            child: HomeDrawerHint(
+              alreadyShown: sl<AppSettingsRepo>().isHomeDrawerHintShown,
+              onShown: sl<AppSettingsRepo>().markHomeDrawerHintShown,
+              child: const DashboardScreen(),
             ),
-            menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            // ZoomDrawer wraps the menu in a ColoredBox, which would hide
-            // ListTile ink/background, so give the menu its own Material.
-            menuScreen: const Material(
-              type: MaterialType.transparency,
-              child: SideMenu(),
-            ),
-            mainScreen: const DashboardScreen(),
-            borderRadius: 24.0,
-            showShadow: true,
-            angle: 0.0,
-            drawerShadowsBackgroundColor: Theme.of(context).colorScheme.primary,
-            slideWidth: 270,
           ),
         );
       },
@@ -106,12 +98,17 @@ class _DashboardScreenState extends State<DashboardScreen>
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                   return [HomeAppBar(tabController: tabController)];
                 },
-                body: TabBarView(
-                  physics: const BouncingScrollPhysics(),
-                  controller: tabController,
-                  children: List.generate(appDashboardTabs.length, (index) {
-                    return appDashboardTabs[state.dashboardArrangement[index]].widget;
-                  }),
+                // Pulling the first tab further toward the start edge opens the drawer.
+                body: PullToOpenDrawer(
+                  builder: (context, physics) {
+                    return TabBarView(
+                      physics: physics,
+                      controller: tabController,
+                      children: List.generate(appDashboardTabs.length, (index) {
+                        return appDashboardTabs[state.dashboardArrangement[index]].widget;
+                      }),
+                    );
+                  },
                 ),
               ),
 

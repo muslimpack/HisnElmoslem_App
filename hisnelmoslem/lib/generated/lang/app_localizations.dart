@@ -315,6 +315,36 @@ abstract class S {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get menu;
+
+  /// No description provided for @closeMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Close menu'**
+  String get closeMenu;
+
+  /// No description provided for @drawerSectionRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get drawerSectionRead;
+
+  /// No description provided for @drawerSectionTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get drawerSectionTools;
+
+  /// No description provided for @drawerSectionMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get drawerSectionMore;
+
   /// No description provided for @commentary.
   ///
   /// In en, this message translates to:

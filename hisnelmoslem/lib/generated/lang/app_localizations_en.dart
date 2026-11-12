@@ -121,6 +121,21 @@ class SEn extends S {
   String get close => 'Close';
 
   @override
+  String get menu => 'Menu';
+
+  @override
+  String get closeMenu => 'Close menu';
+
+  @override
+  String get drawerSectionRead => 'Read';
+
+  @override
+  String get drawerSectionTools => 'Tools';
+
+  @override
+  String get drawerSectionMore => 'More';
+
+  @override
   String get commentary => 'Commentary';
 
   @override

@@ -1,10 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/home/data/data_source/app_dashboard_tabs.dart';
+import 'package:hisnelmoslem/src/features/home/presentation/components/home_drawer/home_drawer.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/screens/settings_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -18,16 +20,11 @@ class HomeAppBar extends StatelessWidget {
         if (state is! HomeLoadedState) {
           return const SizedBox();
         }
+        final isPermanentMenu = HomeDrawerScope.isPermanentOf(context);
         return SliverAppBar(
-          leading: !state.isSearching
-              ? Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: Image.asset(
-                    'assets/images/app_icon.png',
-                    fit: BoxFit.cover,
-                  ),
-                )
-              : IconButton(
+          automaticallyImplyLeading: false,
+          leading: state.isSearching
+              ? IconButton(
                   tooltip: S.of(context).close,
                   padding: EdgeInsets.zero,
                   icon: Icon(MdiIcons.close),
@@ -36,6 +33,13 @@ class HomeAppBar extends StatelessWidget {
                       const HomeToggleSearchEvent(isSearching: false),
                     );
                   },
+                )
+              : isPermanentMenu
+              ? null
+              : IconButton(
+                  tooltip: S.of(context).menu,
+                  icon: const Icon(Icons.menu_rounded),
+                  onPressed: () => HomeDrawerScope.of(context).toggle(),
                 ),
 
           pinned: true,
@@ -71,11 +75,10 @@ class HomeAppBar extends StatelessWidget {
                 },
               ),
               IconButton(
+                tooltip: S.of(context).settings,
                 padding: EdgeInsets.zero,
-                icon: const Icon(Icons.vertical_split_rounded),
-                onPressed: () {
-                  ZoomDrawer.of(context)?.toggle();
-                },
+                icon: const Icon(Icons.settings_rounded),
+                onPressed: () => context.push(const SettingsScreen()),
               ),
             ],
           ],

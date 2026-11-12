@@ -9,42 +9,35 @@ import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MoreSection extends StatelessWidget {
-  const MoreSection({
-    super.key,
-  });
+  const MoreSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        DrawerCard(
-          child: ListTile(
-            leading: Icon(MdiIcons.gmail),
-            title: Text(S.of(context).contactDev),
-            onTap: () {
-              EmailManager.messageUS();
-            },
+        DrawerReveal(
+          order: 6,
+          child: DrawerTile(
+            icon: MdiIcons.gmail,
+            title: S.of(context).contactDev,
+            onTap: EmailManager.messageUS,
           ),
         ),
-        DrawerCard(
-          child: ListTile(
-            leading: Icon(MdiIcons.web),
-            title: Text(S.of(context).moreApps),
-            onTap: () {
-              openURL(kOrgWebsite);
-            },
+        DrawerReveal(
+          order: 7,
+          child: DrawerTile(
+            icon: MdiIcons.web,
+            title: S.of(context).moreApps,
+            onTap: () => openURL(kOrgWebsite),
           ),
         ),
-        DrawerCard(
-          child: ListTile(
-            leading: const Icon(Icons.info),
-            title: Text(S.of(context).aboutUs),
-            onTap: () {
-              context.push(
-                const AboutScreen(),
-              );
-            },
+        DrawerReveal(
+          order: 8,
+          child: DrawerTile(
+            icon: Icons.info_rounded,
+            title: S.of(context).aboutUs,
+            onTap: () => context.push(const AboutScreen()),
           ),
         ),
       ],

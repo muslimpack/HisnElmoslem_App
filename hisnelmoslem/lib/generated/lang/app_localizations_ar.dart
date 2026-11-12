@@ -122,6 +122,21 @@ class SAr extends S {
   String get close => 'إغلاق';
 
   @override
+  String get menu => 'القائمة';
+
+  @override
+  String get closeMenu => 'إغلاق القائمة';
+
+  @override
+  String get drawerSectionRead => 'القراءة';
+
+  @override
+  String get drawerSectionTools => 'الأدوات';
+
+  @override
+  String get drawerSectionMore => 'المزيد';
+
+  @override
   String get commentary => 'الشرح';
 
   @override
