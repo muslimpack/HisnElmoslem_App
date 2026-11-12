@@ -9,7 +9,7 @@ import 'package:sqflite/sqflite.dart';
 
 class HisnDBHelper {
   static const String dbName = "hisn_elmoslem.db";
-  static const int dbVersion = 9;
+  static const int dbVersion = 10;
 
   /* ************* Singleton Constructor ************* */
 

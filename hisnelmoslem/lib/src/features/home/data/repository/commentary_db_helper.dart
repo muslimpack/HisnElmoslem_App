@@ -8,7 +8,7 @@ class CommentaryDBHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "commentary.db";
-  static const int dbVersion = 1;
+  static const int dbVersion = 2;
 
   /* ************* Singleton Constructor ************* */
 
@@ -31,8 +31,8 @@ class CommentaryDBHelper {
 
   /* ************* Functions ************* */
 
-  /// Get Commentary by contentId
-  Future<Commentary> getCommentaryByContentId({
+  /// Get Commentary by contentId, or `null` when the zikr has no commentary
+  Future<Commentary?> getCommentaryByContentId({
     required int? contentId,
   }) async {
     final Database db = await database;
@@ -41,8 +41,8 @@ class CommentaryDBHelper {
       '''SELECT * FROM commentary  WHERE contentId = ?''',
       [contentId],
     );
-    final Commentary commentary = Commentary.fromMap(maps[0]);
-    return commentary;
+    if (maps.isEmpty) return null;
+    return Commentary.fromMap(maps.first);
   }
 
   /// Close database

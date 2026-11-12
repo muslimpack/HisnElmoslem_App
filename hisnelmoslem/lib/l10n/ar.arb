@@ -46,6 +46,7 @@
   "commentaryBenefit": "الفضل",
   "commentaryHadith": "الحديث",
   "commentarySharh": "الشرح",
+  "commentaryNotAvailable": "لا يوجد نص متاح لهذا الذكر حتى الآن.",
   "contact": "التواصل",
   "contactDev": "تواصل مع المطور",
   "copiedToClipboard": "تم النسخ إلى الحافظة",

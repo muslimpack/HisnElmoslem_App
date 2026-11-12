@@ -369,6 +369,12 @@ abstract class S {
   /// **'Commentary'**
   String get commentarySharh;
 
+  /// No description provided for @commentaryNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No text is available for this zikr yet.'**
+  String get commentaryNotAvailable;
+
   /// No description provided for @contact.
   ///
   /// In en, this message translates to:
