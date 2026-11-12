@@ -53,3 +53,4 @@ app.*.map.json
 # macOS system files
 .DS_Store
 tools/binwahaf_out/
+tools/audio_fix_staging/.venv/
