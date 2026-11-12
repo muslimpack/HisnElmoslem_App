@@ -44,6 +44,7 @@ import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.da
 import 'package:hisnelmoslem/src/features/reciter_audio/data/http_audio_downloader.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_resolver.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -86,6 +87,16 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => ReciterAudioRepo(sl()));
   sl.registerLazySingleton(() => AudioFileStore(getApplicationDocumentsDirectory));
   sl.registerLazySingleton<AudioDownloader>(() => HttpAudioDownloader(client: http.Client()));
+  sl.registerLazySingleton(
+    () => ReciterDownloadsCubit(
+      downloader: sl(),
+      store: sl(),
+      repo: sl(),
+      loadContents: ({int? titleId}) => titleId == null
+          ? sl<HisnDBHelper>().getAllContents()
+          : sl<HisnDBHelper>().getContentsByTitleId(titleId: titleId),
+    ),
+  );
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
