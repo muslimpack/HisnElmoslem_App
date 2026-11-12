@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audio_storage.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_session_limit.dart';
@@ -107,6 +108,11 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
   final TallyRepo repo;
   final CustomAudioStorage storage;
 
+  /// The volume keys count (when the user chose that) unless the voice is playing; then
+  /// they are left to the system, so they change the volume like in any player.
+  final VolumeButtonManager? volumeButtons;
+  final bool Function() _countWithVolumeKeys;
+
   final Future<void> Function(Duration) _wait;
   final DateTime Function() _now;
 
@@ -115,9 +121,12 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
     required this.engine,
     required this.repo,
     required this.storage,
+    this.volumeButtons,
+    bool Function()? countWithVolumeKeys,
     Future<void> Function(Duration)? wait,
     DateTime Function()? now,
-  }) : _wait = wait ?? Future<void>.delayed,
+  }) : _countWithVolumeKeys = countWithVolumeKeys ?? (() => true),
+       _wait = wait ?? Future<void>.delayed,
        _now = now ?? DateTime.now,
        super(TallyAudioState(limit: repo.getSessionLimit));
 
@@ -136,6 +145,16 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
           before: _before,
           activeBefore: _activeBefore,
         );
+
+  @override
+  void onChange(Change<TallyAudioState> change) {
+    super.onChange(change);
+    final was = change.currentState.phase == TallyAudioPhase.playing;
+    final isNow = change.nextState.phase == TallyAudioPhase.playing;
+    if (was == isNow) return;
+    // Playing: the system handles the keys. Paused or stopped: back to the user's choice.
+    volumeButtons?.toggleActivation(activate: !isNow && _countWithVolumeKeys());
+  }
 
   Future<void> init() {
     return engine.init(

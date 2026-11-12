@@ -67,6 +67,14 @@ class _FakePlayer extends Fake implements AudioPlayer {
   Future<void> dispose() async {}
 }
 
+/// Remembers whether the volume keys were handed to the app (true) or to the system.
+class _RecordingVolume extends FakeVolume {
+  final calls = <bool>[];
+
+  @override
+  Future<void> toggleActivation({required bool activate}) async => calls.add(activate);
+}
+
 void main() {
   setUpAll(sqfliteFfiInit);
 
@@ -81,6 +89,8 @@ void main() {
   late LocalCustomAudioStorage storage;
   late DateTime clock;
   late List<Duration> waits;
+  late _RecordingVolume volume;
+  var countWithKeys = true;
 
   Future<void> start(
     List<DbTally> counters, {
@@ -111,11 +121,15 @@ void main() {
     engine = ZikrAudioPlayerCubit(ZikrAudioPlayerRepo(box), player: player);
     clock = DateTime(2026);
     waits = [];
+    volume = _RecordingVolume();
+    countWithKeys = true;
     audio = TallyAudioCubit(
       tallyBloc: bloc,
       engine: engine,
       repo: repo,
       storage: storage,
+      volumeButtons: volume,
+      countWithVolumeKeys: () => countWithKeys,
       wait: (d) async => waits.add(d),
       now: () => clock,
     );
@@ -445,5 +459,56 @@ void main() {
         expect(audio.state.summary, isNull);
       },
     );
+  });
+
+  group('volume keys', () {
+    test('while the voice plays the system gets the volume keys, otherwise the app does', () async {
+      await start([makeTally('a', active: true, audio: 'a.m4a')]);
+
+      await audio.start();
+      expect(volume.calls, [false]);
+
+      await audio.pause();
+      expect(volume.calls, [false, true]);
+
+      await audio.resume();
+      expect(volume.calls, [false, true, false]);
+
+      await audio.stop();
+      expect(volume.calls, [false, true, false, true]);
+    });
+
+    test('they stay with the system when the user does not count with them', () async {
+      await start([makeTally('a', active: true, audio: 'a.m4a')]);
+      countWithKeys = false;
+
+      await audio.start();
+      await audio.stop();
+
+      expect(volume.calls, [false, false]);
+    });
+
+    test('a session that ends by itself hands the keys back', () async {
+      await start(
+        [makeTally('a', active: true, audio: 'a.m4a')],
+        limit: const TallySessionLimit.count(1),
+      );
+
+      await audio.start();
+      await finishPlayback();
+
+      expect(audio.state.phase, TallyAudioPhase.idle);
+      expect(volume.calls.last, isTrue);
+    });
+
+    test('the pause between two playbacks does not give the keys back', () async {
+      await start([makeTally('a', active: true, audio: 'a.m4a')]);
+      await engine.saveSettings(delayType: AudioDelayTypeEnum.fixedTime, delayDuration: 3);
+
+      await audio.start();
+      await finishPlayback();
+
+      expect(volume.calls, [false], reason: 'still playing, so only one change');
+    });
   });
 }

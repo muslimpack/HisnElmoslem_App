@@ -140,28 +140,26 @@ class TallyCountArea extends StatelessWidget {
         label: counter.title,
         onTapHint: s.tallyAddOne,
         onTap: () => TallyActions.count(context),
-        child: Material(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(24),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: () => TallyActions.count(context),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
-                    child: AnimatedSwitcher(
-                      duration: MediaQuery.disableAnimationsOf(context)
-                          ? Duration.zero
-                          : const Duration(milliseconds: 250),
-                      child: TallyZikrText(key: ValueKey(counter.id), text: counter.title),
-                    ),
+        // No splash: counting is what this screen is for, and a ripple on every count is
+        // noise. The whole area still takes the tap.
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => TallyActions.count(context),
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
+                  child: AnimatedSwitcher(
+                    duration: MediaQuery.disableAnimationsOf(context)
+                        ? Duration.zero
+                        : const Duration(milliseconds: 250),
+                    child: TallyZikrText(key: ValueKey(counter.id), text: counter.title),
                   ),
                 ),
-                TallyTotalLine(counter: counter),
-              ],
-            ),
+              ),
+              TallyTotalLine(counter: counter),
+            ],
           ),
         ),
       ),

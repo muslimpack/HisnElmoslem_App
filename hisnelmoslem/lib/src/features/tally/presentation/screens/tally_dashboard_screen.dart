@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
+import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_iteration_mode.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/sheets/tally_auto_advance_sheet.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
@@ -26,6 +27,8 @@ class TallyDashboardScreen extends StatelessWidget {
             engine: sl(instanceName: kTallyAudioEngine),
             repo: sl(),
             storage: sl(),
+            volumeButtons: sl(),
+            countWithVolumeKeys: () => sl<AppSettingsRepo>().praiseWithVolumeKeys,
           )..init(),
         ),
       ],
