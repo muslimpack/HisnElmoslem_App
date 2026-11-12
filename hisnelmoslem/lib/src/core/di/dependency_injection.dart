@@ -40,6 +40,8 @@ import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cu
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/quran_cubit.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -56,6 +58,7 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/control
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// Registration name of the audio engine the tally uses.
 const String kTallyAudioEngine = "tally_audio_engine";
@@ -77,6 +80,8 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => TallyRepo(sl()));
   sl.registerLazySingleton(() => SearchRepo(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerRepo(sl()));
+  sl.registerLazySingleton(() => ReciterAudioRepo(sl()));
+  sl.registerLazySingleton(() => AudioFileStore(getApplicationDocumentsDirectory));
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());

@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content_extension.dart';
 
@@ -14,6 +16,14 @@ class DbContent extends Equatable {
   final String hokm;
   final String audio;
   final bool hasAudio;
+
+  /// Remote recordings per reciter slug (`contents.audio_urls`). A zikr that spans several
+  /// lessons has more than one url, to be played in order.
+  final Map<String, List<String>> audioUrls;
+
+  /// False when the remote recordings must not be used for this zikr (it is only a piece of a
+  /// lesson, or the recording says another wording). The bundled [audio] is not affected.
+  final bool audioRemoteOk;
 
   /// Set when this content is a zikr authored by the user (custom azkar).
   final int? customZikrId;
@@ -34,6 +44,8 @@ class DbContent extends Equatable {
     required this.hokm,
     required this.audio,
     required this.hasAudio,
+    this.audioUrls = const {},
+    this.audioRemoteOk = false,
     this.customZikrId,
     this.userAudioPath = "",
   });
@@ -65,6 +77,8 @@ class DbContent extends Equatable {
       hokm: hokm ?? this.hokm,
       audio: audio ?? this.audio,
       hasAudio: hasAudio,
+      audioUrls: audioUrls,
+      audioRemoteOk: audioRemoteOk,
       customZikrId: customZikrId,
       userAudioPath: userAudioPath,
     );
@@ -83,6 +97,8 @@ class DbContent extends Equatable {
       search,
       hokm,
       audio,
+      audioUrls,
+      audioRemoteOk,
       customZikrId,
       userAudioPath,
     ];
@@ -102,7 +118,31 @@ class DbContent extends Equatable {
       hokm: (map['hokm'] as String?) ?? "",
       audio: audio ?? "",
       hasAudio: audio != null,
+      audioUrls: parseAudioUrls(map['audio_urls']),
+      audioRemoteOk: map['audio_remote_ok'] == 1,
     );
+  }
+
+  /// Parses `{"reciter": "url" | ["url", ...]}`; anything malformed gives an empty map.
+  static Map<String, List<String>> parseAudioUrls(Object? raw) {
+    if (raw is! String || raw.isEmpty) return const {};
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map) return const {};
+      final result = <String, List<String>>{};
+      for (final entry in decoded.entries) {
+        final value = entry.value;
+        final List<String> urls = switch (value) {
+          final String url => [url],
+          final List<dynamic> list => list.whereType<String>().toList(),
+          _ => const [],
+        };
+        if (urls.isNotEmpty) result['${entry.key}'] = urls;
+      }
+      return result;
+    } catch (_) {
+      return const {};
+    }
   }
 }
 
