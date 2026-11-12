@@ -93,7 +93,7 @@ class ZikrActionsSheet extends StatelessWidget {
                   ZikrAudioSettingsDialog.show(parent.context, cubit: audioCubit);
                 },
               ),
-            if (!isCustom && dbContent.audioRemoteOk)
+            if (!isCustom)
               ZikrActionTile(
                 icon: Icons.download_rounded,
                 label: s.audioDownloadTitleAction,
