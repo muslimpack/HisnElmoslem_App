@@ -22,6 +22,23 @@ enum TallyAudioEnd {
   noRecording,
 }
 
+/// What the counters looked like when a voice session began, and how many counts it made,
+/// so the session can be taken back.
+class TallyAudioSummary extends Equatable {
+  final int counted;
+  final List<DbTally> before;
+  final DbTally? activeBefore;
+
+  const TallyAudioSummary({
+    required this.counted,
+    required this.before,
+    required this.activeBefore,
+  });
+
+  @override
+  List<Object?> get props => [counted, before, activeBefore];
+}
+
 class TallyAudioState extends Equatable {
   final TallyAudioPhase phase;
   final TallySessionLimit limit;
@@ -35,12 +52,16 @@ class TallyAudioState extends Equatable {
   /// Set when the session ended on its own; cleared when a new one starts.
   final TallyAudioEnd? endedBecause;
 
+  /// Set when a session that counted something ends (stopped or finished).
+  final TallyAudioSummary? summary;
+
   const TallyAudioState({
     this.phase = TallyAudioPhase.idle,
     this.limit = const TallySessionLimit.endless(),
     this.sessionCount = 0,
     this.elapsed = Duration.zero,
     this.endedBecause,
+    this.summary,
   });
 
   bool get isActive => phase != TallyAudioPhase.idle;
@@ -51,7 +72,9 @@ class TallyAudioState extends Equatable {
     int? sessionCount,
     Duration? elapsed,
     TallyAudioEnd? endedBecause,
+    TallyAudioSummary? summary,
     bool clearEnd = false,
+    bool clearSummary = false,
   }) {
     return TallyAudioState(
       phase: phase ?? this.phase,
@@ -59,11 +82,12 @@ class TallyAudioState extends Equatable {
       sessionCount: sessionCount ?? this.sessionCount,
       elapsed: elapsed ?? this.elapsed,
       endedBecause: clearEnd ? null : (endedBecause ?? this.endedBecause),
+      summary: clearSummary ? null : (summary ?? this.summary),
     );
   }
 
   @override
-  List<Object?> get props => [phase, limit, sessionCount, elapsed, endedBecause];
+  List<Object?> get props => [phase, limit, sessionCount, elapsed, endedBecause, summary];
 }
 
 /// Plays the voice recording of the active counter and counts one for every finished
@@ -102,6 +126,16 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
   int _token = 0;
   Duration _accumulated = Duration.zero;
   DateTime? _since;
+  List<DbTally> _before = const [];
+  DbTally? _activeBefore;
+
+  TallyAudioSummary? _summary() => state.sessionCount == 0
+      ? null
+      : TallyAudioSummary(
+          counted: state.sessionCount,
+          before: _before,
+          activeBefore: _activeBefore,
+        );
 
   Future<void> init() {
     return engine.init(
@@ -132,12 +166,18 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
     _token++;
     _accumulated = Duration.zero;
     _since = _now();
+    final loaded = tallyBloc.state;
+    if (loaded is TallyLoadedState) {
+      _before = loaded.allCounters;
+      _activeBefore = loaded.activeCounter;
+    }
     emit(
       state.copyWith(
         phase: TallyAudioPhase.playing,
         sessionCount: 0,
         elapsed: Duration.zero,
         clearEnd: true,
+        clearSummary: true,
       ),
     );
     await _playActive(_token);
@@ -166,6 +206,7 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
 
   /// Stops and forgets the session.
   Future<void> stop() async {
+    final summary = _summary();
     _token++;
     _since = null;
     _accumulated = Duration.zero;
@@ -176,6 +217,7 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
         sessionCount: 0,
         elapsed: Duration.zero,
         clearEnd: true,
+        summary: summary,
       ),
     );
   }
@@ -186,7 +228,14 @@ class TallyAudioCubit extends Cubit<TallyAudioState> {
     _since = null;
     _accumulated = Duration.zero;
     await engine.stop();
-    emit(state.copyWith(phase: TallyAudioPhase.idle, elapsed: elapsed, endedBecause: reason));
+    emit(
+      state.copyWith(
+        phase: TallyAudioPhase.idle,
+        elapsed: elapsed,
+        endedBecause: reason,
+        summary: _summary(),
+      ),
+    );
   }
 
   Future<void> _playActive(int token) async {

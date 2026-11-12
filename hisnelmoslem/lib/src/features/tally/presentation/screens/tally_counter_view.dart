@@ -135,9 +135,9 @@ class TallyCountArea extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Semantics(
         button: true,
-        liveRegion: true,
         excludeSemantics: true,
-        label: s.tallyCountSemantics(counter.title, counter.count, counter.cycleSize),
+        // Read once when focused. The count is announced by the dock counter.
+        label: counter.title,
         onTapHint: s.tallyAddOne,
         onTap: () => TallyActions.count(context),
         child: Material(
@@ -151,7 +151,12 @@ class TallyCountArea extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
-                    child: TallyZikrText(text: counter.title),
+                    child: AnimatedSwitcher(
+                      duration: MediaQuery.disableAnimationsOf(context)
+                          ? Duration.zero
+                          : const Duration(milliseconds: 250),
+                      child: TallyZikrText(key: ValueKey(counter.id), text: counter.title),
+                    ),
                   ),
                 ),
                 TallyTotalLine(counter: counter),

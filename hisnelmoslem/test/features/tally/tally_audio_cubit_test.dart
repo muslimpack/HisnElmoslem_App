@@ -376,4 +376,74 @@ void main() {
       expect(waits, [Duration.zero]);
     });
   });
+
+  group('summary and undo', () {
+    test('a stopped session reports what it counted and how things were before', () async {
+      await start(
+        [makeTally('a', active: true, audio: 'a.m4a'), makeTally('b', audio: 'b.m4a')],
+        mode: TallyIterationMode.circular,
+      );
+
+      await audio.start();
+      await finishPlayback();
+      await finishPlayback();
+      await audio.stop();
+
+      final summary = audio.state.summary!;
+      expect(summary.counted, 2);
+      expect(summary.before.map((c) => c.count), [0, 0]);
+      expect(summary.activeBefore?.title, 'a');
+    });
+
+    test('undoing the summary puts the counts and the active counter back', () async {
+      await start(
+        [makeTally('a', active: true, audio: 'a.m4a'), makeTally('b', audio: 'b.m4a')],
+        mode: TallyIterationMode.circular,
+      );
+      await audio.start();
+      await finishPlayback();
+      await finishPlayback();
+      await audio.stop();
+      expect(countOf('a'), 1);
+      expect(countOf('b'), 1);
+
+      final summary = audio.state.summary!;
+      bloc.add(TallyRestoreCountersEvent(counters: summary.before));
+      bloc.add(TallyToggleCounterActivationEvent(counter: summary.activeBefore!, activate: true));
+      await until(() => countOf('a') == 0 && countOf('b') == 0 && activeTitle() == 'a');
+    });
+
+    test('a session that ends on its limit also has a summary', () async {
+      await start(
+        [makeTally('a', active: true, audio: 'a.m4a')],
+        limit: const TallySessionLimit.count(2),
+      );
+
+      await audio.start();
+      await finishPlayback();
+      await finishPlayback();
+
+      expect(audio.state.endedBecause, TallyAudioEnd.limitReached);
+      expect(audio.state.summary?.counted, 2);
+    });
+
+    test(
+      'stopping before anything was counted has no summary, and a new start clears the old one',
+      () async {
+        await start([makeTally('a', active: true, audio: 'a.m4a')]);
+
+        await audio.start();
+        await audio.stop();
+        expect(audio.state.summary, isNull);
+
+        await audio.start();
+        await finishPlayback();
+        await audio.stop();
+        expect(audio.state.summary, isNotNull);
+
+        await audio.start();
+        expect(audio.state.summary, isNull);
+      },
+    );
+  });
 }

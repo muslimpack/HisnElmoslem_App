@@ -196,6 +196,14 @@ class SAr extends S {
   }
 
   @override
+  String tallyAutoShort(String mode) {
+    return 'تلقائي: $mode';
+  }
+
+  @override
+  String get tallyReRecord => 'إعادة تسجيل صوتي';
+
+  @override
   String get tallyCounterReset => 'تمت إعادة ضبط العدّاد';
 
   @override
@@ -259,7 +267,7 @@ class SAr extends S {
   String get counterCircleMustBeGreaterThanZero => 'يجب أن تكون دورة العداد أكبر من الصفر';
 
   @override
-  String get counterCircleSetToZero => 'تصفير العداد عند الوصول لهذا الرقم';
+  String get counterCircleSetToZero => 'عدد المرات في الدورة الواحدة (تبدأ الحلقة من جديد بعدها)';
 
   @override
   String get counterName => 'اسم العداد';

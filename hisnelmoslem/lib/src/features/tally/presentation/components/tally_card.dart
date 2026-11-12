@@ -89,26 +89,34 @@ class TallyCard extends StatelessWidget {
                   const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: LinearProgressIndicator(
-                        minHeight: 6,
-                        value: dbTally.cycleProgress,
-                        backgroundColor: primary.withAlpha(30),
+                    // The percentage would be read before the text of the card.
+                    child: ExcludeSemantics(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: LinearProgressIndicator(
+                          minHeight: 6,
+                          value: dbTally.cycleProgress,
+                          backgroundColor: primary.withAlpha(30),
+                        ),
                       ),
                     ),
                   ),
                   Row(
                     children: [
                       if (dbTally.hasAudio) ...[
-                        Icon(Icons.mic_rounded, size: 18, color: colorScheme.onSurfaceVariant),
+                        Icon(
+                          Icons.mic_rounded,
+                          size: 18,
+                          semanticLabel: s.recordMyVoiceBadge,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
                         const SizedBox(width: 6),
                       ],
                       if (dbTally.cycles > 0) ...[
                         Icon(Icons.loop_rounded, size: 16, color: colorScheme.onSurfaceVariant),
                         const SizedBox(width: 2),
                         Text(
-                          '${dbTally.cycles}'.toArabicNumber(),
+                          s.tallyCyclesDone(dbTally.cycles).toArabicNumber(),
                           style: theme.textTheme.labelMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),
@@ -118,7 +126,7 @@ class TallyCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           dbTally.lastUpdate.humanize,
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: colorScheme.onSurface.withAlpha(125),
@@ -127,7 +135,7 @@ class TallyCard extends StatelessWidget {
                       ),
                       IconButton(
                         tooltip: s.edit,
-                        visualDensity: VisualDensity.compact,
+                        constraints: const BoxConstraints.tightFor(width: 48, height: 48),
                         style: IconButton.styleFrom(
                           foregroundColor: colorScheme.onSurface.withAlpha(150),
                         ),

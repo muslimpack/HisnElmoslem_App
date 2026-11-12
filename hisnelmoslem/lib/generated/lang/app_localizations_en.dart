@@ -195,6 +195,14 @@ class SEn extends S {
   }
 
   @override
+  String tallyAutoShort(String mode) {
+    return 'Auto: $mode';
+  }
+
+  @override
+  String get tallyReRecord => 'Re-record my voice';
+
+  @override
   String get tallyCounterReset => 'Counter reset';
 
   @override
@@ -258,7 +266,8 @@ class SEn extends S {
   String get counterCircleMustBeGreaterThanZero => 'Counter circle must be higher than zero';
 
   @override
-  String get counterCircleSetToZero => 'The counter circle is set to zero when reach this number';
+  String get counterCircleSetToZero =>
+      'How many counts in one cycle (the ring starts again after it)';
 
   @override
   String get counterName => 'Counter name';

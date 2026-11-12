@@ -89,6 +89,9 @@ class TallyDockTile extends StatelessWidget {
     return Semantics(
       button: true,
       label: label,
+      // Without this the tile can be focused but not activated: excluding the children
+      // also drops the tap action of the InkWell.
+      onTap: onTap,
       excludeSemantics: true,
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -184,27 +187,28 @@ class TallySessionTile extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 4),
             InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () => TallySessionSheet.show(context),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 4,
-                  children: [
-                    Icon(
-                      switch (limit.type) {
-                        TallySessionLimitType.minutes => Icons.timer_outlined,
-                        TallySessionLimitType.count => Icons.tag_rounded,
-                        TallySessionLimitType.endless => Icons.all_inclusive_rounded,
-                      },
-                      size: 16,
-                      color: theme.colorScheme.primary,
-                    ),
-                    Text(limitLabel(context, limit), style: theme.textTheme.bodySmall),
-                  ],
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 4,
+                    children: [
+                      Icon(
+                        switch (limit.type) {
+                          TallySessionLimitType.minutes => Icons.timer_outlined,
+                          TallySessionLimitType.count => Icons.tag_rounded,
+                          TallySessionLimitType.endless => Icons.all_inclusive_rounded,
+                        },
+                        size: 16,
+                        color: theme.colorScheme.primary,
+                      ),
+                      Text(limitLabel(context, limit), style: theme.textTheme.bodySmall),
+                    ],
+                  ),
                 ),
               ),
             ),

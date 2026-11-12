@@ -66,7 +66,7 @@ class TallyMoreSheet extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.mic_rounded),
-            title: Text(counter.hasAudio ? s.recordMyVoiceBadge : s.recordVoice),
+            title: Text(counter.hasAudio ? s.tallyReRecord : s.recordVoice),
             subtitle: Text(s.tallyVoiceHint),
             onTap: () => _run(context, () => TallyActions.recordVoice(parentContext, counter)),
           ),

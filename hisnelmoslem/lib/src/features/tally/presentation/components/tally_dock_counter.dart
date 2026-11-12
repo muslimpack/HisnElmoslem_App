@@ -19,10 +19,14 @@ class TallyDockCounter extends StatelessWidget {
     final s = S.of(context);
     final atEnd = counter.isAtCycleEnd;
 
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+
     return Semantics(
       button: true,
+      // Short, so it can be announced after every count; the text itself is read once.
+      liveRegion: true,
       excludeSemantics: true,
-      label: s.tallyCountSemantics(counter.title, counter.count, counter.cycleSize),
+      label: s.tallyCountOf(counter.shownInCycle, counter.cycleSize),
       onTapHint: s.tallyAddOne,
       onTap: () => TallyActions.count(context),
       child: SizedBox.square(
@@ -32,7 +36,7 @@ class TallyDockCounter extends StatelessWidget {
           children: [
             TweenAnimationBuilder<double>(
               tween: Tween(end: counter.cycleProgress),
-              duration: const Duration(milliseconds: 250),
+              duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 250),
               curve: Curves.easeOut,
               builder: (context, value, _) => CircularProgressIndicator(
                 value: value,
@@ -51,7 +55,7 @@ class TallyDockCounter extends StatelessWidget {
                   onTap: () => TallyActions.count(context),
                   child: Center(
                     child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 150),
+                      duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 150),
                       child: FittedBox(
                         key: ValueKey<int>(counter.shownInCycle),
                         fit: BoxFit.scaleDown,

@@ -30,18 +30,46 @@ class TallyDashboardScreen extends StatelessWidget {
         ),
       ],
       child: BlocListener<TallyAudioCubit, TallyAudioState>(
-        listenWhen: (a, b) => b.endedBecause != null && a.endedBecause != b.endedBecause,
+        listenWhen: (a, b) =>
+            (b.endedBecause != null && a.endedBecause != b.endedBecause) ||
+            (b.summary != null && a.summary != b.summary),
         listener: (context, state) {
           final s = S.of(context);
-          final message = switch (state.endedBecause) {
-            TallyAudioEnd.limitReached => s.tallySessionDone,
-            TallyAudioEnd.noRecording => s.tallyNoRecordingToPlay,
-            null => null,
-          };
-          if (message == null) return;
+          final summary = state.summary;
+          final bloc = context.read<TallyBloc>();
+          final parts = <String>[
+            switch (state.endedBecause) {
+              TallyAudioEnd.limitReached => s.tallySessionDone,
+              TallyAudioEnd.noRecording => s.tallyNoRecordingToPlay,
+              null => '',
+            },
+            if (summary != null) s.tallySessionCounted(summary.counted),
+          ].where((part) => part.isNotEmpty);
+          if (parts.isEmpty) return;
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(message)));
+            ..showSnackBar(
+              SnackBar(
+                duration: const Duration(seconds: 8),
+                content: Text(parts.join(' · ')),
+                // The voice may have counted on several counters: put them all back.
+                action: summary == null
+                    ? null
+                    : SnackBarAction(
+                        label: s.undo,
+                        onPressed: () {
+                          bloc.add(TallyRestoreCountersEvent(counters: summary.before));
+                          final home = summary.activeBefore;
+                          if (home != null) {
+                            bloc.add(
+                              TallyToggleCounterActivationEvent(counter: home, activate: true),
+                            );
+                          }
+                        },
+                      ),
+              ),
+            );
         },
         child: const _TallyDashboardView(),
       ),
@@ -105,7 +133,7 @@ class _TallyDashboardViewState extends State<_TallyDashboardView>
                   label: Text(
                     state.iterationMode == TallyIterationMode.none
                         ? s.tallyAutoAdvance
-                        : state.iterationMode.localeName(context),
+                        : s.tallyAutoShort(state.iterationMode.localeName(context)),
                   ),
                 )
               else if (state.allCounters.isNotEmpty)

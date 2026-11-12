@@ -447,6 +447,18 @@ abstract class S {
   /// **'Total: {count}'**
   String tallyTotal(int count);
 
+  /// No description provided for @tallyAutoShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto: {mode}'**
+  String tallyAutoShort(String mode);
+
+  /// No description provided for @tallyReRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-record my voice'**
+  String get tallyReRecord;
+
   /// No description provided for @tallyCounterReset.
   ///
   /// In en, this message translates to:
@@ -564,7 +576,7 @@ abstract class S {
   /// No description provided for @counterCircleSetToZero.
   ///
   /// In en, this message translates to:
-  /// **'The counter circle is set to zero when reach this number'**
+  /// **'How many counts in one cycle (the ring starts again after it)'**
   String get counterCircleSetToZero;
 
   /// No description provided for @counterName.
