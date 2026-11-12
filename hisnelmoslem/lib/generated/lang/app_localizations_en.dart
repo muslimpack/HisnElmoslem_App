@@ -190,6 +190,11 @@ class SEn extends S {
   }
 
   @override
+  String tallyTotal(int count) {
+    return 'Total: $count';
+  }
+
+  @override
   String get tallyCounterReset => 'Counter reset';
 
   @override

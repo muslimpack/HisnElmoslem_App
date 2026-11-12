@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/sheets/tally_auto_advance_sheet.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/sheets/tally_session_sheet.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
+import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_view_bottom_bar.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/cubit/tally_audio_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/components/zikr_audio_settings_dialog.dart';
@@ -53,6 +55,11 @@ class TallyMoreSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
+            leading: const Icon(Icons.remove_circle_outline_rounded),
+            title: Text(s.decrease),
+            onTap: () => _run(context, () => TallyActions.decrease(parentContext)),
+          ),
+          ListTile(
             leading: const Icon(Icons.edit_outlined),
             title: Text(s.edit),
             onTap: () => _run(context, () => TallyActions.edit(parentContext, counter)),
@@ -72,6 +79,17 @@ class TallyMoreSheet extends StatelessWidget {
                 cubit: parentContext.read<TallyAudioCubit>().engine,
               );
             }),
+          ),
+          ListTile(
+            leading: const Icon(Icons.timer_outlined),
+            title: Text(s.tallySession),
+            subtitle: Text(
+              TallySessionTile.limitLabel(
+                context,
+                parentContext.read<TallyAudioCubit>().state.limit,
+              ),
+            ),
+            onTap: () => _run(context, () => TallySessionSheet.show(parentContext)),
           ),
           BlocBuilder<TallyBloc, TallyState>(
             bloc: parentContext.read<TallyBloc>(),

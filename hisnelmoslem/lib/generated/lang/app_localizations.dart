@@ -441,6 +441,12 @@ abstract class S {
   /// **'{count} of {total}'**
   String tallyCountOf(int count, int total);
 
+  /// No description provided for @tallyTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total: {count}'**
+  String tallyTotal(int count);
+
   /// No description provided for @tallyCounterReset.
   ///
   /// In en, this message translates to:

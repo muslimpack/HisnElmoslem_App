@@ -4,7 +4,6 @@ import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_actions.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_ring.dart';
 
 /// One counter in the list: its whole text, the count and the progress of the cycle.
 class TallyCard extends StatelessWidget {
@@ -19,7 +18,6 @@ class TallyCard extends StatelessWidget {
     final primary = colorScheme.primary;
     final s = S.of(context);
     final isActivated = dbTally.isActivated;
-    final inCycle = dbTally.isAtCycleEnd ? dbTally.cycleSize : dbTally.countInCycle;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -76,7 +74,9 @@ class TallyCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              s.tallyCountOf(inCycle, dbTally.cycleSize).toArabicNumber(),
+                              s
+                                  .tallyCountOf(dbTally.shownInCycle, dbTally.cycleSize)
+                                  .toArabicNumber(),
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: colorScheme.onSurfaceVariant,
                               ),
@@ -93,7 +93,7 @@ class TallyCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                       child: LinearProgressIndicator(
                         minHeight: 6,
-                        value: TallyCounterRing.progressOf(dbTally),
+                        value: dbTally.cycleProgress,
                         backgroundColor: primary.withAlpha(30),
                       ),
                     ),

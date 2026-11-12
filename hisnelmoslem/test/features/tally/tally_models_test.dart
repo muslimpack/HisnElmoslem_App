@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_session_limit.dart';
-import 'package:hisnelmoslem/src/features/tally/presentation/components/tally_counter_ring.dart';
 
 import 'tally_test_support.dart';
 
@@ -46,13 +45,13 @@ void main() {
     });
   });
 
-  group('TallyCounterRing.progressOf', () {
+  group('DbTally.cycleProgress', () {
     test('fills during the cycle, is full at its end and empty with the next count', () {
-      expect(TallyCounterRing.progressOf(makeTally('a')), 0);
-      expect(TallyCounterRing.progressOf(makeTally('a', count: 11)), closeTo(1 / 3, 0.001));
-      expect(TallyCounterRing.progressOf(makeTally('a', count: 33)), 1);
-      expect(TallyCounterRing.progressOf(makeTally('a', count: 34)), closeTo(1 / 33, 0.001));
-      expect(TallyCounterRing.progressOf(makeTally('a', count: 66)), 1);
+      expect(makeTally('a').cycleProgress, 0);
+      expect(makeTally('a', count: 11).cycleProgress, closeTo(1 / 3, 0.001));
+      expect(makeTally('a', count: 33).cycleProgress, 1);
+      expect(makeTally('a', count: 34).cycleProgress, closeTo(1 / 33, 0.001));
+      expect(makeTally('a', count: 66).cycleProgress, 1);
     });
   });
 }

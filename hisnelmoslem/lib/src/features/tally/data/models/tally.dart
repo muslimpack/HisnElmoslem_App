@@ -79,6 +79,13 @@ class DbTally extends Equatable {
   /// How many counts are done in the cycle that is running now.
   int get countInCycle => count % cycleSize;
 
+  /// How far the cycle that is running has come, from 0 to 1. Full at the end of a
+  /// cycle (33 of 33) and empty again with the next count.
+  double get cycleProgress => isAtCycleEnd ? 1 : countInCycle / cycleSize;
+
+  /// The count to show inside the cycle: 0..cycleSize (the size itself at its end).
+  int get shownInCycle => isAtCycleEnd ? cycleSize : countInCycle;
+
   /// True when [count] has just closed a cycle (33, 66, ...).
   bool get isAtCycleEnd => count > 0 && count % cycleSize == 0;
 

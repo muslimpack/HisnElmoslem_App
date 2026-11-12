@@ -61,6 +61,8 @@
   "@tallyCyclesDone": {"placeholders": {"count": {"type": "int"}}},
   "tallyCountOf": "{count} of {total}",
   "@tallyCountOf": {"placeholders": {"count": {"type": "int"}, "total": {"type": "int"}}},
+  "tallyTotal": "Total: {count}",
+  "@tallyTotal": {"placeholders": {"count": {"type": "int"}}},
   "tallyCounterReset": "Counter reset",
   "tallyAllCountersReset": "All counters reset",
   "tallyPickCounter": "Choose a counter",

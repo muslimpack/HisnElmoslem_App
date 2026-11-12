@@ -191,6 +191,11 @@ class SAr extends S {
   }
 
   @override
+  String tallyTotal(int count) {
+    return 'المجموع: $count';
+  }
+
+  @override
   String get tallyCounterReset => 'تمت إعادة ضبط العدّاد';
 
   @override

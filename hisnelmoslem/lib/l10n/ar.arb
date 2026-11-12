@@ -61,6 +61,8 @@
   "@tallyCyclesDone": {"placeholders": {"count": {"type": "int"}}},
   "tallyCountOf": "{count} من {total}",
   "@tallyCountOf": {"placeholders": {"count": {"type": "int"}, "total": {"type": "int"}}},
+  "tallyTotal": "المجموع: {count}",
+  "@tallyTotal": {"placeholders": {"count": {"type": "int"}}},
   "tallyCounterReset": "تمت إعادة ضبط العدّاد",
   "tallyAllCountersReset": "تمت إعادة ضبط كل العدّادات",
   "tallyPickCounter": "اختر عدّادًا",
