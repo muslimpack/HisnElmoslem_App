@@ -369,6 +369,204 @@ abstract class S {
   /// **'Count'**
   String get count;
 
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @tallyMoreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get tallyMoreOptions;
+
+  /// No description provided for @tallyAutoAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-advance'**
+  String get tallyAutoAdvance;
+
+  /// No description provided for @tallyAutoAdvanceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to another counter by itself while you count.'**
+  String get tallyAutoAdvanceDesc;
+
+  /// No description provided for @tallyAutoAdvanceOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get tallyAutoAdvanceOff;
+
+  /// No description provided for @tallyAdvanceWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'Move on'**
+  String get tallyAdvanceWhen;
+
+  /// No description provided for @tallyAdvanceEveryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'After every count'**
+  String get tallyAdvanceEveryCount;
+
+  /// No description provided for @tallyAdvanceEveryCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'After a full cycle'**
+  String get tallyAdvanceEveryCycle;
+
+  /// No description provided for @tallyAddOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one'**
+  String get tallyAddOne;
+
+  /// No description provided for @tallyCountSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}: {count} of {total}'**
+  String tallyCountSemantics(String title, int count, int total);
+
+  /// No description provided for @tallyCyclesDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycles: {count}'**
+  String tallyCyclesDone(int count);
+
+  /// No description provided for @tallyCountOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {total}'**
+  String tallyCountOf(int count, int total);
+
+  /// No description provided for @tallyTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total: {count}'**
+  String tallyTotal(int count);
+
+  /// No description provided for @tallyAutoShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto: {mode}'**
+  String tallyAutoShort(String mode);
+
+  /// No description provided for @tallyReRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-record my voice'**
+  String get tallyReRecord;
+
+  /// No description provided for @tallyCounterReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Counter reset'**
+  String get tallyCounterReset;
+
+  /// No description provided for @tallyAllCountersReset.
+  ///
+  /// In en, this message translates to:
+  /// **'All counters reset'**
+  String get tallyAllCountersReset;
+
+  /// No description provided for @tallyPickCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a counter'**
+  String get tallyPickCounter;
+
+  /// No description provided for @tallyVoiceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your voice'**
+  String get tallyVoiceSection;
+
+  /// No description provided for @tallyVoiceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record yourself, then play it and let it count for you.'**
+  String get tallyVoiceHint;
+
+  /// No description provided for @tallySessionCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'Counted by voice: {count}'**
+  String tallySessionCounted(int count);
+
+  /// No description provided for @tallySession.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback session'**
+  String get tallySession;
+
+  /// No description provided for @tallySessionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'When should the playback stop by itself?'**
+  String get tallySessionDesc;
+
+  /// No description provided for @tallySessionEndless.
+  ///
+  /// In en, this message translates to:
+  /// **'Until I stop it'**
+  String get tallySessionEndless;
+
+  /// No description provided for @tallySessionEndlessShort.
+  ///
+  /// In en, this message translates to:
+  /// **'No limit'**
+  String get tallySessionEndlessShort;
+
+  /// No description provided for @tallySessionMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'For a set time'**
+  String get tallySessionMinutes;
+
+  /// No description provided for @tallySessionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Until a number of counts'**
+  String get tallySessionCount;
+
+  /// No description provided for @tallyMinutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String tallyMinutesShort(int minutes);
+
+  /// No description provided for @tallySessionDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback session finished'**
+  String get tallySessionDone;
+
+  /// No description provided for @tallyNoRecordingToPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'This counter has no recording to play'**
+  String get tallyNoRecordingToPlay;
+
+  /// No description provided for @tallyHowManyMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get tallyHowManyMinutes;
+
+  /// No description provided for @tallyHowManyCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts'**
+  String get tallyHowManyCounts;
+
+  /// No description provided for @tallyValueBetween.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number from {min} to {max}'**
+  String tallyValueBetween(int min, int max);
+
   /// No description provided for @counterCircleMustBeGreaterThanZero.
   ///
   /// In en, this message translates to:
@@ -378,7 +576,7 @@ abstract class S {
   /// No description provided for @counterCircleSetToZero.
   ///
   /// In en, this message translates to:
-  /// **'The counter circle is set to zero when reach this number'**
+  /// **'How many counts in one cycle (the ring starts again after it)'**
   String get counterCircleSetToZero;
 
   /// No description provided for @counterName.

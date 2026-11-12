@@ -13,20 +13,17 @@ final class TallyLoadingState extends TallyState {}
 final class TallyLoadedState extends TallyState {
   final List<DbTally> allCounters;
   final TallyIterationMode iterationMode;
+  final TallyAdvanceTrigger advanceTrigger;
   final bool loadingIteration;
 
   const TallyLoadedState({
     required this.allCounters,
     required this.iterationMode,
+    required this.advanceTrigger,
     required this.loadingIteration,
   });
 
   DbTally? get activeCounter => allCounters.where((x) => x.isActivated).firstOrNull;
-
-  double get resetEvery => switch (iterationMode) {
-    TallyIterationMode.none => activeCounter?.countReset.toDouble() ?? 1,
-    _ => 33,
-  };
 
   int get maxCounterNumberLength =>
       allCounters.fold(0, (prev, e) => max(prev, e.count.toString().length));
@@ -34,11 +31,13 @@ final class TallyLoadedState extends TallyState {
   TallyLoadedState copyWith({
     List<DbTally>? allCounters,
     TallyIterationMode? iterationMode,
+    TallyAdvanceTrigger? advanceTrigger,
     bool? loadingIteration,
   }) {
     return TallyLoadedState(
       allCounters: allCounters ?? this.allCounters,
       iterationMode: iterationMode ?? this.iterationMode,
+      advanceTrigger: advanceTrigger ?? this.advanceTrigger,
       loadingIteration: loadingIteration ?? this.loadingIteration,
     );
   }
@@ -48,6 +47,7 @@ final class TallyLoadedState extends TallyState {
     allCounters,
     activeCounter,
     iterationMode,
+    advanceTrigger,
     loadingIteration,
   ];
 }

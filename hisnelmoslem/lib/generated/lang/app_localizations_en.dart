@@ -148,10 +148,126 @@ class SEn extends S {
   String get count => 'Count';
 
   @override
+  String get undo => 'Undo';
+
+  @override
+  String get tallyMoreOptions => 'More options';
+
+  @override
+  String get tallyAutoAdvance => 'Auto-advance';
+
+  @override
+  String get tallyAutoAdvanceDesc => 'Move to another counter by itself while you count.';
+
+  @override
+  String get tallyAutoAdvanceOff => 'Off';
+
+  @override
+  String get tallyAdvanceWhen => 'Move on';
+
+  @override
+  String get tallyAdvanceEveryCount => 'After every count';
+
+  @override
+  String get tallyAdvanceEveryCycle => 'After a full cycle';
+
+  @override
+  String get tallyAddOne => 'Add one';
+
+  @override
+  String tallyCountSemantics(String title, int count, int total) {
+    return '$title: $count of $total';
+  }
+
+  @override
+  String tallyCyclesDone(int count) {
+    return 'Cycles: $count';
+  }
+
+  @override
+  String tallyCountOf(int count, int total) {
+    return '$count of $total';
+  }
+
+  @override
+  String tallyTotal(int count) {
+    return 'Total: $count';
+  }
+
+  @override
+  String tallyAutoShort(String mode) {
+    return 'Auto: $mode';
+  }
+
+  @override
+  String get tallyReRecord => 'Re-record my voice';
+
+  @override
+  String get tallyCounterReset => 'Counter reset';
+
+  @override
+  String get tallyAllCountersReset => 'All counters reset';
+
+  @override
+  String get tallyPickCounter => 'Choose a counter';
+
+  @override
+  String get tallyVoiceSection => 'Your voice';
+
+  @override
+  String get tallyVoiceHint => 'Record yourself, then play it and let it count for you.';
+
+  @override
+  String tallySessionCounted(int count) {
+    return 'Counted by voice: $count';
+  }
+
+  @override
+  String get tallySession => 'Playback session';
+
+  @override
+  String get tallySessionDesc => 'When should the playback stop by itself?';
+
+  @override
+  String get tallySessionEndless => 'Until I stop it';
+
+  @override
+  String get tallySessionEndlessShort => 'No limit';
+
+  @override
+  String get tallySessionMinutes => 'For a set time';
+
+  @override
+  String get tallySessionCount => 'Until a number of counts';
+
+  @override
+  String tallyMinutesShort(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get tallySessionDone => 'Playback session finished';
+
+  @override
+  String get tallyNoRecordingToPlay => 'This counter has no recording to play';
+
+  @override
+  String get tallyHowManyMinutes => 'Minutes';
+
+  @override
+  String get tallyHowManyCounts => 'Counts';
+
+  @override
+  String tallyValueBetween(int min, int max) {
+    return 'Enter a number from $min to $max';
+  }
+
+  @override
   String get counterCircleMustBeGreaterThanZero => 'Counter circle must be higher than zero';
 
   @override
-  String get counterCircleSetToZero => 'The counter circle is set to zero when reach this number';
+  String get counterCircleSetToZero =>
+      'How many counts in one cycle (the ring starts again after it)';
 
   @override
   String get counterName => 'Counter name';

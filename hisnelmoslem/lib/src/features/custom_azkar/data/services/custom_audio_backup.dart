@@ -24,10 +24,11 @@ class CustomAudioBackup {
 
   /// Restores the recordings found in [archive]. When the archive also carries the
   /// custom azkar database, the recordings on the device are replaced, because that
-  /// database no longer refers to them.
+  /// database no longer refers to them. The tally recordings travel in the same archive
+  /// and are replaced together with the tally database.
   Future<void> restoreFrom(Archive archive) async {
     final hasDatabase = archive.any((f) => f.isFile && f.name == CustomAzkarDBHelper.dbName);
-    if (hasDatabase) await storage.deleteUnreferenced(const {});
+    if (hasDatabase) await storage.deleteUnreferenced(const {}, includeExternal: false);
 
     for (final file in archive) {
       if (!file.isFile || !file.name.startsWith(prefix)) continue;

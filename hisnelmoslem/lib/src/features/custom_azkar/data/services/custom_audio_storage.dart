@@ -25,9 +25,14 @@ abstract interface class CustomAudioStorage {
   void pin(String fileName);
   void unpin(String fileName);
 
-  /// Removes every recording that is neither in [keep] nor pinned. Returns how many
-  /// were removed.
-  Future<int> deleteUnreferenced(Set<String> keep);
+  /// Lets another feature say which recordings it still uses (for example the tally
+  /// counters), so a sweep by this storage's owner never deletes them.
+  void addReferenceProvider(Future<Set<String>> Function() provider);
+
+  /// Removes every recording that is neither in [keep], pinned, nor (unless
+  /// [includeExternal] is false) used by a registered reference provider. Returns how
+  /// many were removed.
+  Future<int> deleteUnreferenced(Set<String> keep, {bool includeExternal = true});
 }
 
 class LocalCustomAudioStorage implements CustomAudioStorage {
@@ -38,8 +43,14 @@ class LocalCustomAudioStorage implements CustomAudioStorage {
   final Directory? directoryOverride;
 
   final Set<String> _pinned = {};
+  final List<Future<Set<String>> Function()> _referenceProviders = [];
 
   LocalCustomAudioStorage({this.directoryOverride});
+
+  @override
+  void addReferenceProvider(Future<Set<String>> Function() provider) {
+    _referenceProviders.add(provider);
+  }
 
   @override
   void pin(String fileName) => _pinned.add(p.basename(fileName));
@@ -75,11 +86,17 @@ class LocalCustomAudioStorage implements CustomAudioStorage {
   }
 
   @override
-  Future<int> deleteUnreferenced(Set<String> keep) async {
+  Future<int> deleteUnreferenced(Set<String> keep, {bool includeExternal = true}) async {
+    final kept = {...keep};
+    if (includeExternal) {
+      for (final provider in _referenceProviders) {
+        kept.addAll(await provider());
+      }
+    }
     var removed = 0;
     await for (final entity in (await directory()).list()) {
       final name = p.basename(entity.path);
-      if (entity is File && !keep.contains(name) && !_pinned.contains(name)) {
+      if (entity is File && !kept.contains(name) && !_pinned.contains(name)) {
         await entity.delete();
         removed++;
       }

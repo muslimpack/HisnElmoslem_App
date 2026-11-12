@@ -149,10 +149,125 @@ class SAr extends S {
   String get count => 'عدد المرات';
 
   @override
+  String get undo => 'تراجع';
+
+  @override
+  String get tallyMoreOptions => 'المزيد من الخيارات';
+
+  @override
+  String get tallyAutoAdvance => 'الانتقال التلقائي';
+
+  @override
+  String get tallyAutoAdvanceDesc => 'ينتقل إلى عدّاد آخر تلقائيًا أثناء العدّ.';
+
+  @override
+  String get tallyAutoAdvanceOff => 'متوقف';
+
+  @override
+  String get tallyAdvanceWhen => 'الانتقال';
+
+  @override
+  String get tallyAdvanceEveryCount => 'بعد كل عدّة';
+
+  @override
+  String get tallyAdvanceEveryCycle => 'بعد إتمام الدورة';
+
+  @override
+  String get tallyAddOne => 'أضف واحدة';
+
+  @override
+  String tallyCountSemantics(String title, int count, int total) {
+    return '$title: $count من $total';
+  }
+
+  @override
+  String tallyCyclesDone(int count) {
+    return 'الدورات: $count';
+  }
+
+  @override
+  String tallyCountOf(int count, int total) {
+    return '$count من $total';
+  }
+
+  @override
+  String tallyTotal(int count) {
+    return 'المجموع: $count';
+  }
+
+  @override
+  String tallyAutoShort(String mode) {
+    return 'تلقائي: $mode';
+  }
+
+  @override
+  String get tallyReRecord => 'إعادة تسجيل صوتي';
+
+  @override
+  String get tallyCounterReset => 'تمت إعادة ضبط العدّاد';
+
+  @override
+  String get tallyAllCountersReset => 'تمت إعادة ضبط كل العدّادات';
+
+  @override
+  String get tallyPickCounter => 'اختر عدّادًا';
+
+  @override
+  String get tallyVoiceSection => 'صوتك';
+
+  @override
+  String get tallyVoiceHint => 'سجّل صوتك ثم شغّله ليعدّ عنك.';
+
+  @override
+  String tallySessionCounted(int count) {
+    return 'العدّ بالصوت: $count';
+  }
+
+  @override
+  String get tallySession => 'جلسة التشغيل';
+
+  @override
+  String get tallySessionDesc => 'متى يتوقف التشغيل من تلقاء نفسه؟';
+
+  @override
+  String get tallySessionEndless => 'حتى أوقفه';
+
+  @override
+  String get tallySessionEndlessShort => 'بلا حد';
+
+  @override
+  String get tallySessionMinutes => 'لمدة محددة';
+
+  @override
+  String get tallySessionCount => 'حتى عدد معين';
+
+  @override
+  String tallyMinutesShort(int minutes) {
+    return '$minutes د';
+  }
+
+  @override
+  String get tallySessionDone => 'انتهت جلسة التشغيل';
+
+  @override
+  String get tallyNoRecordingToPlay => 'لا يوجد تسجيل لتشغيله في هذا العدّاد';
+
+  @override
+  String get tallyHowManyMinutes => 'دقائق';
+
+  @override
+  String get tallyHowManyCounts => 'مرات';
+
+  @override
+  String tallyValueBetween(int min, int max) {
+    return 'أدخل رقمًا من $min إلى $max';
+  }
+
+  @override
   String get counterCircleMustBeGreaterThanZero => 'يجب أن تكون دورة العداد أكبر من الصفر';
 
   @override
-  String get counterCircleSetToZero => 'تصفير العداد عند الوصول لهذا الرقم';
+  String get counterCircleSetToZero => 'عدد المرات في الدورة الواحدة (تبدأ الحلقة من جديد بعدها)';
 
   @override
   String get counterName => 'اسم العداد';
