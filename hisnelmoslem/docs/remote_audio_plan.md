@@ -73,7 +73,9 @@ presentation/
 
 - Register everything in `initSL()`; the cubit is a lazy singleton so a download keeps running while
   the user leaves the screen.
-- Dependencies to add: `http` (or `dio`) and `connectivity_plus` (only to warn on mobile data).
+- Dependencies: `http` only (added; it was already a transitive dependency; `dio` adds nothing this
+  needs). **No `connectivity_plus`**: it is unreliable on VPN and Windows, so the app does not try to
+  tell Wi-Fi from mobile data. "Offline" is detected from real request failures instead.
   `path_provider` is already there.
 - `ZikrAudioPlayerCubit` gets an injected `AudioSourceResolver` and asks it for the `Source`
   (`DeviceFileSource`, `AssetSource` or `UrlSource`). It does not learn about downloads or the
@@ -86,8 +88,8 @@ presentation/
 - **Audio settings sheet** (existing `zikr_audio_settings_dialog.dart`): a "Reciter" row opening the
   picker. Each reciter row shows: name, downloaded status (none / partial n% / complete), size, and a
   download or delete action.
-- **Download a whole reciter**: confirm dialog with the total size and a Wi-Fi-only switch
-  (default on), then a progress row with pause and cancel. Finishing shows a snackbar. Failed files
+- **Download a whole reciter**: confirm dialog that shows the total size and
+  warns it may use mobile data (no network-type detection, see section 4), then a progress row with pause and cancel. Finishing shows a snackbar. Failed files
   are retried 3 times, then listed ("12 files failed, retry").
 - **Download a whole title**: button in the zikr actions sheet and in the title card menu
   ("Download audio for this title"), for the selected reciter. Shows `n/total` and is greyed out when
@@ -103,14 +105,14 @@ presentation/
 
 1. Domain + data: reciters, resolver, file store, repo and settings, unit tests (resolver priority,
    blocklist, split zikrs, lesson-id keys).
-2. HTTP downloader with Range resume, retry, `.part` handling; tests with a fake HTTP server.
+2. HTTP downloader with Range resume, retry, `.part` handling; tests with `MockClient`. **Done.**
 3. `ZikrAudioPlayerCubit` uses the resolver (stream + downloaded files), test with the existing fake
    player, check `hasPlayableAudio` and the tally voice session still work.
 4. `ReciterDownloadsCubit` (scopes: reciter, title), queue, progress, cancel, persistence across
    app restarts (resume list in `GetStorage`).
 5. UI: picker, download tiles, title button, offline hints, l10n.
 6. DB version bump (`audio_exact`, blocklist), changelog, whats-new text, device check (airplane mode,
-   mobile data, kill during a download).
+   kill during a download).
 
 ## 7. Verification checklist
 
@@ -118,7 +120,7 @@ presentation/
 - [ ] Streaming works for a zikr without a bundled file; the blocked and split zikrs never stream.
 - [ ] Killing the app during a download and reopening resumes from the `.part` size.
 - [ ] Airplane mode: downloaded zikrs play, others are skipped without stalling the session.
-- [ ] Wi-Fi-only blocks the download on mobile data and explains why.
+- [ ] The confirm dialog shows the real size and nothing downloads before the user accepts.
 - [ ] Download whole title: only that title's files, shared lessons are not downloaded twice.
 - [ ] Delete reciter frees the folder; backup/restore leaves downloads alone.
 - [ ] Low storage: the download stops with a clear message, nothing half-written is left as `.mp3`.

@@ -6,7 +6,6 @@ class ReciterAudioRepo {
   ReciterAudioRepo(this.box);
 
   static const String reciterKey = 'audio_reciter';
-  static const String wifiOnlyKey = 'audio_download_wifi_only';
 
   Reciter getReciter() {
     try {
@@ -17,14 +16,4 @@ class ReciterAudioRepo {
   }
 
   Future<void> setReciter(Reciter reciter) => box.write(reciterKey, reciter.slug);
-
-  bool getWifiOnly() {
-    try {
-      return box.read(wifiOnlyKey) as bool? ?? true;
-    } catch (_) {
-      return true;
-    }
-  }
-
-  Future<void> setWifiOnly(bool value) => box.write(wifiOnlyKey, value);
 }
