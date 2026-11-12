@@ -62,6 +62,8 @@
         </intent>
     </queries>
     
+    <!-- Streaming and downloading the reciters' recordings. The debug manifest has it, release builds need it here. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.VIBRATE" />
