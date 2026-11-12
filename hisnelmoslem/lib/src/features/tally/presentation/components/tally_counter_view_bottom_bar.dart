@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/dock_row.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally_session_limit.dart';
 import 'package:hisnelmoslem/src/features/tally/presentation/components/sheets/tally_more_sheet.dart';
@@ -46,24 +47,14 @@ class TallyCounterViewBottomBar extends StatelessWidget {
                   value: context.read<TallyAudioCubit>().engine,
                   child: const DockAudioProgress(),
                 ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      child: TallySessionTile(counter: counter),
-                    ),
-                  ),
-                  TallyDockCounter(counter: counter),
-                  Expanded(
-                    child: Align(
-                      child: TallyDockTile(
-                        icon: Icons.tune_rounded,
-                        label: S.of(context).zikrOptions,
-                        onTap: () => TallyMoreSheet.show(context),
-                      ),
-                    ),
-                  ),
-                ],
+              DockRow(
+                play: TallySessionTile(counter: counter),
+                counter: TallyDockCounter(counter: counter),
+                options: TallyDockTile(
+                  icon: Icons.tune_rounded,
+                  label: S.of(context).zikrOptions,
+                  onTap: () => TallyMoreSheet.show(context),
+                ),
               ),
             ],
           ),
@@ -173,14 +164,10 @@ class TallySessionTile extends StatelessWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
+              // Play first (on the left), then stop, in both directions.
+              textDirection: TextDirection.ltr,
               spacing: 6,
               children: [
-                if (state.isActive)
-                  IconButton.outlined(
-                    tooltip: s.audioStop,
-                    onPressed: audio.stop,
-                    icon: const Icon(Icons.stop_rounded),
-                  ),
                 IconButton.filledTonal(
                   tooltip: playing ? s.audioPause : s.audioPlay,
                   iconSize: 30,
@@ -196,6 +183,12 @@ class TallySessionTile extends StatelessWidget {
                   },
                   icon: Icon(playing ? Icons.pause_rounded : Icons.play_arrow_rounded),
                 ),
+                if (state.isActive)
+                  IconButton.outlined(
+                    tooltip: s.audioStop,
+                    onPressed: audio.stop,
+                    icon: const Icon(Icons.stop_rounded),
+                  ),
               ],
             ),
             GestureDetector(

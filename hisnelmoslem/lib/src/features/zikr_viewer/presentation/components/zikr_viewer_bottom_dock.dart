@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
+import 'package:hisnelmoslem/src/core/shared/widgets/dock_row.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -39,26 +40,14 @@ class ZikrViewerBottomDock extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (showAudio) const DockAudioProgress(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: ZikrActionTile(
-                        icon: Icons.tune_rounded,
-                        label: S.of(context).zikrOptions,
-                        onTap: () => ZikrActionsSheet.show(context, dbContent: dbContent),
-                      ),
-                    ),
-                  ),
-                  DockCounter(dbContent: dbContent),
-                  Expanded(
-                    child: Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: showAudio ? const DockAudioControls() : const SizedBox.shrink(),
-                    ),
-                  ),
-                ],
+              DockRow(
+                play: showAudio ? const DockAudioControls() : const SizedBox.shrink(),
+                counter: DockCounter(dbContent: dbContent),
+                options: ZikrActionTile(
+                  icon: Icons.tune_rounded,
+                  label: S.of(context).zikrOptions,
+                  onTap: () => ZikrActionsSheet.show(context, dbContent: dbContent),
+                ),
               ),
             ],
           ),
@@ -218,13 +207,9 @@ class DockAudioControls extends StatelessWidget {
 
         return Row(
           mainAxisSize: MainAxisSize.min,
+          // Play first (on the left), then stop, in both directions.
+          textDirection: TextDirection.ltr,
           children: [
-            if (active)
-              IconButton(
-                tooltip: s.audioStop,
-                onPressed: cubit.stop,
-                icon: const Icon(Icons.stop_rounded),
-              ),
             IconButton.filledTonal(
               tooltip: state.isPlaying ? s.audioPause : s.audioPlay,
               iconSize: 30,
@@ -243,6 +228,12 @@ class DockAudioControls extends StatelessWidget {
               },
               icon: Icon(state.isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded),
             ),
+            if (active)
+              IconButton(
+                tooltip: s.audioStop,
+                onPressed: cubit.stop,
+                icon: const Icon(Icons.stop_rounded),
+              ),
           ],
         );
       },
