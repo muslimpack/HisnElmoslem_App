@@ -8,7 +8,7 @@ class CommentaryDBHelper {
   /* ************* Variables ************* */
 
   static const String dbName = "commentary.db";
-  static const int dbVersion = 2;
+  static const int dbVersion = 3;
 
   /* ************* Singleton Constructor ************* */
 
