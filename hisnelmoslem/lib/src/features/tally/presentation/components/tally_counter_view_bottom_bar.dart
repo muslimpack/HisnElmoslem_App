@@ -50,14 +50,12 @@ class TallyCounterViewBottomBar extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Align(
-                      alignment: AlignmentDirectional.centerStart,
                       child: TallySessionTile(counter: counter),
                     ),
                   ),
                   TallyDockCounter(counter: counter),
                   Expanded(
                     child: Align(
-                      alignment: AlignmentDirectional.centerEnd,
                       child: TallyDockTile(
                         icon: Icons.tune_rounded,
                         label: S.of(context).zikrOptions,
@@ -97,7 +95,7 @@ class TallyDockTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 6),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -107,12 +105,17 @@ class TallyDockTile extends StatelessWidget {
                 foregroundColor: theme.colorScheme.primary,
                 child: Icon(icon),
               ),
-              const SizedBox(height: 6),
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall,
+              // As tall as the limit chip of the session tile, so both labels line up.
+              SizedBox(
+                height: 48,
+                child: Center(
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ),
               ),
             ],
           ),
