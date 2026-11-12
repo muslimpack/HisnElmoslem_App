@@ -15,6 +15,9 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 /// Stands in for the platform player, which cannot run in unit tests.
 class FakePlayer extends Fake implements AudioPlayer {
   final complete = StreamController<void>.broadcast();
+  final position = StreamController<Duration>.broadcast();
+  final duration = StreamController<Duration>.broadcast();
+  int stops = 0;
   final playedSources = <Source>[];
 
   /// Sources have no equality, so tests compare these readable forms.
@@ -36,9 +39,9 @@ class FakePlayer extends Fake implements AudioPlayer {
   @override
   Stream<void> get onPlayerComplete => complete.stream;
   @override
-  Stream<Duration> get onPositionChanged => const Stream.empty();
+  Stream<Duration> get onPositionChanged => position.stream;
   @override
-  Stream<Duration> get onDurationChanged => const Stream.empty();
+  Stream<Duration> get onDurationChanged => duration.stream;
   @override
   String get playerId => 'fake';
 
@@ -59,7 +62,7 @@ class FakePlayer extends Fake implements AudioPlayer {
   }
 
   @override
-  Future<void> stop() async {}
+  Future<void> stop() async => stops++;
   @override
   Future<void> pause() async {}
   @override
@@ -252,5 +255,76 @@ void main() {
     await start([zikr(1, audio: 'a.mp3')]);
     await cubit.startPlayFromIndex(0);
     expect(cubit.state.isLoadingAudio, isFalse);
+  });
+
+  group('count spoken at the end of a recording from the website', () {
+    Future<void> reach(Duration total, Duration at) async {
+      player.duration.add(total);
+      await Future<void>.delayed(Duration.zero);
+      player.position.add(at);
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+    }
+
+    test('the end of a repeated zikr is skipped, and the next repetition starts', () async {
+      await start([zikr(1, urls: urls, count: 3)]);
+      cubit.getActiveZikrCount = (_) => 3;
+      var done = 0;
+      cubit.onDonePlaying = (_) => done++;
+
+      await cubit.startPlayFromIndex(0);
+      await reach(const Duration(seconds: 10), const Duration(seconds: 7));
+      expect(done, 0, reason: 'before the last 1.8 seconds nothing is cut');
+
+      await reach(const Duration(seconds: 10), const Duration(milliseconds: 8300));
+      expect(done, 1);
+      expect(player.stops, greaterThan(0));
+    });
+
+    test('a zikr that is not repeated plays to its end', () async {
+      await start([zikr(1, urls: urls)]);
+      var done = 0;
+      cubit.onDonePlaying = (_) => done++;
+
+      await cubit.startPlayFromIndex(0);
+      await reach(const Duration(seconds: 10), const Duration(milliseconds: 9500));
+      expect(done, 0);
+    });
+
+    test('the bundled recording is never cut', () async {
+      await start([zikr(1, audio: 'a.mp3', urls: urls, count: 3)]);
+      var done = 0;
+      cubit.onDonePlaying = (_) => done++;
+
+      await cubit.startPlayFromIndex(0);
+      await reach(const Duration(seconds: 10), const Duration(milliseconds: 9500));
+      expect(done, 0);
+    });
+
+    test('a short recording is left alone', () async {
+      await start([zikr(1, urls: urls, count: 3)]);
+      var done = 0;
+      cubit.onDonePlaying = (_) => done++;
+
+      await cubit.startPlayFromIndex(0);
+      await reach(const Duration(seconds: 4), const Duration(milliseconds: 3500));
+      expect(done, 0);
+    });
+
+    test('only the last of several recordings is cut', () async {
+      selected = Reciter.rashidAlhulaibah;
+      await start([zikr(1, urls: urls, count: 3)]);
+      cubit.getActiveZikrCount = (_) => 3;
+      var done = 0;
+      cubit.onDonePlaying = (_) => done++;
+
+      await cubit.startPlayFromIndex(0);
+      await reach(const Duration(seconds: 10), const Duration(milliseconds: 9500));
+      expect(done, 0, reason: 'the first of two recordings plays on');
+
+      player.complete.add(null);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await reach(const Duration(seconds: 10), const Duration(milliseconds: 9000));
+      expect(done, 1);
+    });
   });
 }
