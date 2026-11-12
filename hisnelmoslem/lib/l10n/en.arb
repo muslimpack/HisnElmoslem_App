@@ -325,6 +325,7 @@
   "audioDownloadStarted": "Download started",
   "audioDownloadDone": "Download finished",
   "audioDownloadAlreadyRunning": "Another download is already running",
+  "audioAvailabilityNote": "Not every zikr has a recording from every reciter. A zikr without one plays the recording included in the app when there is one, and otherwise has no audio.",
   "audioLoading": "Loading audio…",
   "downloadCenter": "Download center",
   "downloadCenterDesc": "Choose a reciter, then download all of its recordings or only some titles to listen without the internet.",

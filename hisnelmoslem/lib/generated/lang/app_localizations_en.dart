@@ -981,6 +981,10 @@ class SEn extends S {
   String get audioDownloadAlreadyRunning => 'Another download is already running';
 
   @override
+  String get audioAvailabilityNote =>
+      'Not every zikr has a recording from every reciter. A zikr without one plays the recording included in the app when there is one, and otherwise has no audio.';
+
+  @override
   String get audioLoading => 'Loading audio…';
 
   @override

@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/byte_format.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter_audio_status.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/audio_availability_note.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/download_job_controls.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_download_actions.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_name.dart';
@@ -128,17 +129,24 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
                   if (index == 0) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: _Header(
-                        reciter: reciter,
-                        isSelected: isSelected,
-                        total: _total(),
-                        downloads: downloads,
-                        onUse: () async {
-                          await repo.setReciter(reciter);
-                          setState(() => isSelected = true);
-                        },
-                        onDownloadAll: () => ReciterDownloadActions.download(context, reciter),
-                        onDeleteAll: _deleteAll,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const AudioAvailabilityNote(),
+                          const SizedBox(height: 12),
+                          _Header(
+                            reciter: reciter,
+                            isSelected: isSelected,
+                            total: _total(),
+                            downloads: downloads,
+                            onUse: () async {
+                              await repo.setReciter(reciter);
+                              setState(() => isSelected = true);
+                            },
+                            onDownloadAll: () => ReciterDownloadActions.download(context, reciter),
+                            onDeleteAll: _deleteAll,
+                          ),
+                        ],
                       ),
                     );
                   }

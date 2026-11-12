@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/byte_format.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter_audio_status.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/audio_availability_note.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_name.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_state.dart';
@@ -88,6 +89,8 @@ class _DownloadCenterScreenState extends State<DownloadCenterScreen> {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           children: [
             Text(s.downloadCenterDesc, style: theme.textTheme.bodyMedium),
+            const SizedBox(height: 12),
+            const AudioAvailabilityNote(),
             const SizedBox(height: 16),
             for (final reciter in Reciter.all) ...[
               _ReciterCard(

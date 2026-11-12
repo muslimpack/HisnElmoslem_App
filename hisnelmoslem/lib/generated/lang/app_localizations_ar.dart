@@ -978,6 +978,10 @@ class SAr extends S {
   String get audioDownloadAlreadyRunning => 'هناك تحميل آخر قيد التنفيذ';
 
   @override
+  String get audioAvailabilityNote =>
+      'ليس لكل ذكر تسجيل عند كل قارئ. الذكر الذي لا يتوفر له تسجيل يُشغَّل له التسجيل المضمن في التطبيق إن وُجد، وإلا فلا يكون له صوت.';
+
+  @override
   String get audioLoading => 'جارٍ تحميل الصوت…';
 
   @override

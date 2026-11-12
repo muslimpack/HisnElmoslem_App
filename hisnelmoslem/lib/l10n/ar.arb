@@ -318,6 +318,7 @@
   "audioDownloadStarted": "بدأ التحميل",
   "audioDownloadDone": "اكتمل التحميل",
   "audioDownloadAlreadyRunning": "هناك تحميل آخر قيد التنفيذ",
+  "audioAvailabilityNote": "ليس لكل ذكر تسجيل عند كل قارئ. الذكر الذي لا يتوفر له تسجيل يُشغَّل له التسجيل المضمن في التطبيق إن وُجد، وإلا فلا يكون له صوت.",
   "audioLoading": "جارٍ تحميل الصوت…",
   "downloadCenter": "مركز التحميلات",
   "downloadCenterDesc": "اختر القارئ ثم حمّل كل تسجيلاته أو أبوابًا بعينها لتستمع دون إنترنت.",

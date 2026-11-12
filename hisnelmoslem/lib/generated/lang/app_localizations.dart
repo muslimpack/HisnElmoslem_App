@@ -1953,6 +1953,12 @@ abstract class S {
   /// **'Another download is already running'**
   String get audioDownloadAlreadyRunning;
 
+  /// No description provided for @audioAvailabilityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Not every zikr has a recording from every reciter. A zikr without one plays the recording included in the app when there is one, and otherwise has no audio.'**
+  String get audioAvailabilityNote;
+
   /// No description provided for @audioLoading.
   ///
   /// In en, this message translates to:
