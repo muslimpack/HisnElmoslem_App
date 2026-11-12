@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_color.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/empty.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
@@ -36,31 +35,16 @@ class TallyCounterView extends StatelessWidget {
           );
         }
 
-        final theme = Theme.of(context);
-
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: DecoratedBox(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage("assets/images/grid.png"),
-                repeat: ImageRepeat.repeat,
-                opacity: .03,
-                colorFilter: ColorFilter.mode(
-                  theme.scaffoldBackgroundColor.getContrastColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-            child: SafeArea(
-              bottom: false,
-              child: Column(
-                children: [
-                  if (state.allCounters.length > 1)
-                    TallyCounterHeader(counter: activeCounter, total: state.allCounters.length),
-                  Expanded(child: TallyCountArea(counter: activeCounter)),
-                ],
-              ),
+          body: SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                if (state.allCounters.length > 1)
+                  TallyCounterHeader(counter: activeCounter, total: state.allCounters.length),
+                Expanded(child: TallyCountArea(counter: activeCounter)),
+              ],
             ),
           ),
         );
