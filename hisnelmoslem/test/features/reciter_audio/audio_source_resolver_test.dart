@@ -30,7 +30,7 @@ DbContent zikr({
 
 AudioSourceResolver resolver({Set<String> downloaded = const {}, bool online = true}) {
   return AudioSourceResolver(
-    downloadedPath: (reciter, url) =>
+    downloadedPath: (reciter, url) async =>
         downloaded.contains('${reciter.slug}|$url') ? '/files/${reciter.slug}/$url' : null,
     isOnline: () => online,
   );
@@ -43,45 +43,51 @@ void main() {
   };
 
   group('AudioSourceResolver', () {
-    test('the user recording wins over everything', () {
-      final choice = resolver().resolve(
+    test('the user recording wins over everything', () async {
+      final choice = await resolver().resolve(
         zikr(audio: 'a.mp3', userAudioPath: '/rec.m4a', urls: urls),
         Reciter.rashidAlhulaibah,
       );
       expect(choice, const UserRecording('/rec.m4a'));
     });
 
-    test('the bundled reciter keeps the bundled file even when a download exists', () {
-      final choice = resolver(downloaded: {'hamad_alduraihem|https://cdn/h.mp3'}).resolve(
+    test('the bundled reciter keeps the bundled file even when a download exists', () async {
+      final choice = await resolver(downloaded: {'hamad_alduraihem|https://cdn/h.mp3'}).resolve(
         zikr(audio: 'a.mp3', urls: urls),
         Reciter.hamadAlduraihem,
       );
       expect(choice, const BundledAsset('a.mp3'));
     });
 
-    test('another reciter replaces the bundled file when it has a recording', () {
-      final choice = resolver().resolve(zikr(audio: 'a.mp3', urls: urls), Reciter.rashidAlhulaibah);
+    test('another reciter replaces the bundled file when it has a recording', () async {
+      final choice = await resolver().resolve(
+        zikr(audio: 'a.mp3', urls: urls),
+        Reciter.rashidAlhulaibah,
+      );
       expect(choice, const StreamUrls(['https://cdn/r1.mp3', 'https://cdn/r2.mp3']));
     });
 
-    test('another reciter falls back to the bundled file when it has no usable recording', () {
-      final choice = resolver().resolve(
-        zikr(audio: 'a.mp3', urls: urls, remoteOk: false),
-        Reciter.rashidAlhulaibah,
-      );
-      expect(choice, const BundledAsset('a.mp3'));
-      final noUrl = resolver().resolve(zikr(audio: 'a.mp3'), Reciter.sulaimanAlshuwaihi);
-      expect(noUrl, const BundledAsset('a.mp3'));
-    });
+    test(
+      'another reciter falls back to the bundled file when it has no usable recording',
+      () async {
+        final choice = await resolver().resolve(
+          zikr(audio: 'a.mp3', urls: urls, remoteOk: false),
+          Reciter.rashidAlhulaibah,
+        );
+        expect(choice, const BundledAsset('a.mp3'));
+        final noUrl = await resolver().resolve(zikr(audio: 'a.mp3'), Reciter.sulaimanAlshuwaihi);
+        expect(noUrl, const BundledAsset('a.mp3'));
+      },
+    );
 
-    test('downloaded files are used only when every part is there', () {
-      final partial = resolver(downloaded: {'rashid_alhulaibah|https://cdn/r1.mp3'}).resolve(
+    test('downloaded files are used only when every part is there', () async {
+      final partial = await resolver(downloaded: {'rashid_alhulaibah|https://cdn/r1.mp3'}).resolve(
         zikr(urls: urls),
         Reciter.rashidAlhulaibah,
       );
       expect(partial, isA<StreamUrls>());
 
-      final all = resolver(
+      final all = await resolver(
         downloaded: {
           'rashid_alhulaibah|https://cdn/r1.mp3',
           'rashid_alhulaibah|https://cdn/r2.mp3',
@@ -96,13 +102,15 @@ void main() {
       );
     });
 
-    test('offline without a download gives no audio', () {
-      final choice = resolver(online: false).resolve(zikr(urls: urls), Reciter.hamadAlduraihem);
+    test('offline without a download gives no audio', () async {
+      final choice = await resolver(
+        online: false,
+      ).resolve(zikr(urls: urls), Reciter.hamadAlduraihem);
       expect(choice, const NoAudio());
     });
 
-    test('a zikr that is not remote-ok never streams or uses downloads', () {
-      final choice = resolver(downloaded: {'hamad_alduraihem|https://cdn/h.mp3'}).resolve(
+    test('a zikr that is not remote-ok never streams or uses downloads', () async {
+      final choice = await resolver(downloaded: {'hamad_alduraihem|https://cdn/h.mp3'}).resolve(
         zikr(urls: urls, remoteOk: false),
         Reciter.hamadAlduraihem,
       );

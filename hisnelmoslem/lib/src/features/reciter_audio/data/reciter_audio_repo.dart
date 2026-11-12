@@ -6,6 +6,7 @@ class ReciterAudioRepo {
   ReciterAudioRepo(this.box);
 
   static const String reciterKey = 'audio_reciter';
+  static const String allowStreamKey = 'audio_allow_stream';
 
   Reciter getReciter() {
     try {
@@ -16,4 +17,15 @@ class ReciterAudioRepo {
   }
 
   Future<void> setReciter(Reciter reciter) => box.write(reciterKey, reciter.slug);
+
+  /// Whether recordings that are not on the phone may be streamed. Defaults to on.
+  bool getAllowStream() {
+    try {
+      return box.read(allowStreamKey) as bool? ?? true;
+    } catch (_) {
+      return true;
+    }
+  }
+
+  Future<void> setAllowStream(bool value) => box.write(allowStreamKey, value);
 }

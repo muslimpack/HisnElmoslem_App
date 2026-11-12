@@ -50,8 +50,10 @@ class DbContent extends Equatable {
     this.userAudioPath = "",
   });
 
-  /// True when there is something to play: the user's recording or bundled audio.
-  bool get hasPlayableAudio => userAudioPath.isNotEmpty || audio.isNotEmpty;
+  /// True when there is something to play: the user's recording, bundled audio or a remote
+  /// recording of some reciter.
+  bool get hasPlayableAudio =>
+      userAudioPath.isNotEmpty || audio.isNotEmpty || (audioRemoteOk && audioUrls.isNotEmpty);
 
   DbContent copyWith({
     int? id,

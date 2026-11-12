@@ -43,6 +43,7 @@ import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/qu
 import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/http_audio_downloader.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_resolver.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -141,7 +142,16 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
-  sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));
+  sl.registerLazySingleton(
+    () => ZikrAudioPlayerCubit(
+      sl(),
+      resolver: AudioSourceResolver(
+        downloadedPath: (reciter, url) => sl<AudioFileStore>().existingPath(reciter, url),
+        isOnline: () => sl<ReciterAudioRepo>().getAllowStream(),
+      ),
+      reciter: () => sl<ReciterAudioRepo>().getReciter(),
+    ),
+  );
   // The tally plays recordings with its own player, so it never interrupts (or is
   // interrupted by) the zikr viewer; the audio settings are shared through the repo.
   sl.registerFactory<ZikrAudioPlayerCubit>(

@@ -6,6 +6,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_choice.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_resolver.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_repeat_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr_audio_player_repo.dart';
@@ -17,8 +20,15 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   final AudioPlayer _player;
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
+  /// Chooses between bundled, downloaded and streamed recordings. Without it only the user's
+  /// recording and the bundled file are played (the tally uses it that way).
+  final AudioSourceResolver? resolver;
+
+  /// The reciter to play, read for every zikr so a change applies from the next one.
+  final Reciter Function()? reciter;
+
   /// [player] is only given by tests.
-  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo, {AudioPlayer? player})
+  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo, {AudioPlayer? player, this.resolver, this.reciter})
     : _player = player ?? AudioPlayer(playerId: "zikr_audio_player"),
       super(const ZikrAudioPlayerState());
 
@@ -29,6 +39,11 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   /// when that happened sees a different value afterwards and ends without playing, so
   /// pausing and resuming during a delay can never start the next zikr twice.
   int _playbackToken = 0;
+
+  /// Sources of the zikr being played. More than one when a zikr spans several recordings;
+  /// they play one after the other and count as a single playback.
+  List<Source> _parts = const [];
+  int _partIndex = 0;
 
   StreamSubscription<void>? _completionSub;
   StreamSubscription<Duration>? _positionSub;
@@ -151,6 +166,13 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   Future<void> _onPlaybackCompleted() async {
     emit(state.copyWith(position: Duration.zero));
 
+    // The next recording of the same zikr, if any.
+    if (_partIndex + 1 < _parts.length) {
+      _partIndex++;
+      await _playPart(_parts[_partIndex]);
+      return;
+    }
+
     final currentZikr = state.currentZikr;
     final int token = _playbackToken;
     if (currentZikr == null) return;
@@ -207,7 +229,8 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final zikr = state.zikrList[index];
     _playbackToken++;
 
-    if (!zikr.hasPlayableAudio) {
+    final parts = await _sourcesOf(zikr);
+    if (parts.isEmpty) {
       // Many azkar have no audio. Narration ends here; leaving it "playing" would keep
       // the audio bar busy and silence the tap sound effects until stopped by hand.
       try {
@@ -239,9 +262,8 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
     hisnPrint(_player.playerId);
 
-    final Source source = zikr.userAudioPath.isNotEmpty
-        ? DeviceFileSource(zikr.userAudioPath)
-        : AssetSource('sounds/azkar/${zikr.audio}');
+    _parts = parts;
+    _partIndex = 0;
 
     try {
       await _player.stop();
@@ -256,12 +278,49 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
         ),
       );
 
-      await _player.play(source, volume: state.volume);
-      await _player.setPlaybackRate(state.playbackSpeed);
+      await _playPart(parts.first);
     } catch (e) {
       hisnPrint('AudioPlayer Error playing Zikr: $e');
       emit(state.copyWith(isPlaying: false, isPaused: false));
     }
+  }
+
+  Future<void> _playPart(Source source) async {
+    final token = _playbackToken;
+    try {
+      await _player.play(source, volume: state.volume);
+      await _player.setPlaybackRate(state.playbackSpeed);
+    } catch (e) {
+      // A recording that cannot be loaded (for example a stream while offline) is treated like
+      // a zikr without audio: narration ends instead of hanging.
+      hisnPrint('AudioPlayer Error playing $source: $e');
+      if (isClosed || token != _playbackToken) return;
+      _parts = const [];
+      emit(state.copyWith(isPlaying: false, isPaused: false, isDelayingBetweenZikr: false));
+    }
+  }
+
+  /// The recordings to play for [zikr], in order; empty when it has none.
+  Future<List<Source>> _sourcesOf(DbContent zikr) async {
+    final AudioSourceChoice choice;
+    final r = resolver;
+    if (r != null) {
+      choice = await r.resolve(zikr, reciter?.call() ?? Reciter.defaultReciter);
+    } else if (zikr.userAudioPath.isNotEmpty) {
+      choice = UserRecording(zikr.userAudioPath);
+    } else if (zikr.audio.isNotEmpty) {
+      choice = BundledAsset(zikr.audio);
+    } else {
+      choice = const NoAudio();
+    }
+
+    return switch (choice) {
+      NoAudio() => const [],
+      UserRecording(:final path) => [DeviceFileSource(path)],
+      BundledAsset(:final fileName) => [AssetSource('sounds/azkar/$fileName')],
+      DownloadedFiles(:final paths) => [for (final p in paths) DeviceFileSource(p)],
+      StreamUrls(:final urls) => [for (final u in urls) UrlSource(u)],
+    };
   }
 
   /// Replaces the list with the single [zikr] (used by the tally, which plays one

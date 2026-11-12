@@ -9,12 +9,15 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.d
 /// [isOnline]. Zikrs that are not [DbContent.audioRemoteOk] never use remote recordings.
 class AudioSourceResolver {
   /// Absolute path of the downloaded file of [url] for [reciter], or null when it is not there.
-  final String? Function(Reciter reciter, String url) downloadedPath;
+  final Future<String?> Function(Reciter reciter, String url) downloadedPath;
+
+  /// Whether streaming is allowed. The app cannot tell Wi-Fi from mobile data reliably, so this
+  /// is the user's setting, not a network check; a stream that cannot start is skipped by the player.
   final bool Function() isOnline;
 
   const AudioSourceResolver({required this.downloadedPath, required this.isOnline});
 
-  AudioSourceChoice resolve(DbContent zikr, Reciter reciter) {
+  Future<AudioSourceChoice> resolve(DbContent zikr, Reciter reciter) async {
     if (zikr.userAudioPath.isNotEmpty) return UserRecording(zikr.userAudioPath);
 
     final remote = zikr.audioRemoteOk ? zikr.audioUrls[reciter.slug] : null;
@@ -31,7 +34,7 @@ class AudioSourceResolver {
 
     final local = <String>[];
     for (final url in remote) {
-      final path = downloadedPath(reciter, url);
+      final path = await downloadedPath(reciter, url);
       if (path == null) break;
       local.add(path);
     }
