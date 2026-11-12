@@ -2019,6 +2019,12 @@ abstract class S {
   /// **'Downloaded'**
   String get audioTitleDownloaded;
 
+  /// No description provided for @audioNotDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not downloaded'**
+  String get audioNotDownloaded;
+
   /// No description provided for @aboutAudioSourceTitle.
   ///
   /// In en, this message translates to:

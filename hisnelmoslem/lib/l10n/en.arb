@@ -337,6 +337,7 @@
   "audioDownloadTooltip": "Download",
   "audioNoTitles": "No recordings are available for this reciter.",
   "audioTitleDownloaded": "Downloaded",
+  "audioNotDownloaded": "Not downloaded",
   "aboutAudioSourceTitle": "Audio source",
   "aboutAudioSourceDesc": "The reciters and recordings in the download center are from the website of Dr. Saeed bin Ali bin Wahf Al-Qahtani (binwahaf.com).",
   "vibrationDuration": "Vibration duration (ms)",

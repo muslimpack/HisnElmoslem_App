@@ -329,6 +329,7 @@
   "audioDownloadTooltip": "تحميل",
   "audioNoTitles": "لا توجد تسجيلات متاحة لهذا القارئ.",
   "audioTitleDownloaded": "تم التحميل",
+  "audioNotDownloaded": "لم يُحمَّل بعد",
   "aboutAudioSourceTitle": "مصدر الصوتيات",
   "aboutAudioSourceDesc": "القرّاء وتسجيلاتهم في مركز التحميلات مأخوذة من موقع الشيخ الدكتور سعيد بن علي بن وهف القحطاني (binwahaf.com).",
   "vibrationDuration": "مدة الاهتزاز (بالملي ثانية)",

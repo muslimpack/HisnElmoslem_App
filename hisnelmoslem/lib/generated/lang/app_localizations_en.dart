@@ -1018,6 +1018,9 @@ class SEn extends S {
   String get audioTitleDownloaded => 'Downloaded';
 
   @override
+  String get audioNotDownloaded => 'Not downloaded';
+
+  @override
   String get aboutAudioSourceTitle => 'Audio source';
 
   @override

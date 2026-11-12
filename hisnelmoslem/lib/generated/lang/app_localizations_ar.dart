@@ -1015,6 +1015,9 @@ class SAr extends S {
   String get audioTitleDownloaded => 'تم التحميل';
 
   @override
+  String get audioNotDownloaded => 'لم يُحمَّل بعد';
+
+  @override
   String get aboutAudioSourceTitle => 'مصدر الصوتيات';
 
   @override

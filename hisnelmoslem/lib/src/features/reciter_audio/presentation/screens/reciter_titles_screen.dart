@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -38,6 +39,8 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
   Reciter get reciter => widget.reciter;
 
   late bool isSelected = repo.getReciter() == reciter;
+  final searchController = TextEditingController();
+  String query = '';
   List<DbTitle> titles = const [];
   Map<int, ReciterAudioStatus> statuses = const {};
   bool loaded = false;
@@ -48,6 +51,12 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
   void initState() {
     super.initState();
     _load();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -107,6 +116,7 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final s = S.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -121,48 +131,120 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
         listener: (context, state) => _load(),
         child: !loaded
             ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                itemCount: titles.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const AudioAvailabilityNote(),
-                          const SizedBox(height: 12),
-                          _Header(
-                            reciter: reciter,
-                            isSelected: isSelected,
-                            total: _total(),
-                            downloads: downloads,
-                            onUse: () async {
-                              await repo.setReciter(reciter);
-                              setState(() => isSelected = true);
-                            },
-                            onDownloadAll: () => ReciterDownloadActions.download(context, reciter),
-                            onDeleteAll: _deleteAll,
-                          ),
-                        ],
+            : Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                    child: TextField(
+                      controller: searchController,
+                      onChanged: (value) => setState(() => query = value),
+                      textInputAction: TextInputAction.search,
+                      decoration: InputDecoration(
+                        hintText: s.search,
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        suffixIcon: query.isEmpty
+                            ? null
+                            : IconButton(
+                                onPressed: () {
+                                  searchController.clear();
+                                  setState(() => query = '');
+                                },
+                                icon: const Icon(Icons.close_rounded),
+                              ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        isDense: true,
                       ),
-                    );
-                  }
-                  final title = titles[index - 1];
-                  return _TitleTile(
-                    title: title,
-                    status: statuses[title.id]!,
-                    reciter: reciter,
-                    downloads: downloads,
-                    onDownload: () =>
-                        ReciterDownloadActions.download(context, reciter, titleId: title.id),
-                    onDelete: () => _deleteTitle(title),
-                  );
-                },
+                    ),
+                  ),
+                  Expanded(child: _buildList(context)),
+                ],
               ),
       ),
+    );
+  }
+
+  /// The titles that match the search. The diacritics-free `search` text of a title is compared,
+  /// not its decorated name, and downloaded titles come first.
+  Widget _buildList(BuildContext context) {
+    final s = S.of(context);
+    final q = query.normalizedForSearch;
+
+    final shown = titles.where((t) {
+      if (q.isEmpty) return true;
+      final text = t.search.isNotEmpty ? t.search : t.name;
+      return text.normalizedForSearch.contains(q);
+    }).toList();
+    final downloaded = shown.where((t) => statuses[t.id]?.hasDownloads ?? false).toList();
+    final available = shown.where((t) => !(statuses[t.id]?.hasDownloads ?? false)).toList();
+
+    // The note and the header of the reciter are only shown while not searching.
+    final items = <Object>[
+      if (q.isEmpty) _Intro(),
+      if (downloaded.isNotEmpty) s.audioTitleDownloaded,
+      ...downloaded,
+      if (available.isNotEmpty && downloaded.isNotEmpty) s.audioNotDownloaded,
+      ...available,
+      if (shown.isEmpty) _NoResults(),
+    ];
+
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        if (item is _Intro) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const AudioAvailabilityNote(),
+                const SizedBox(height: 12),
+                _Header(
+                  reciter: reciter,
+                  isSelected: isSelected,
+                  total: _total(),
+                  downloads: downloads,
+                  onUse: () async {
+                    await repo.setReciter(reciter);
+                    setState(() => isSelected = true);
+                  },
+                  onDownloadAll: () => ReciterDownloadActions.download(context, reciter),
+                  onDeleteAll: _deleteAll,
+                ),
+              ],
+            ),
+          );
+        }
+        if (item is _NoResults) {
+          return Padding(
+            padding: const EdgeInsets.all(32),
+            child: Center(child: Text(s.noResultsFound)),
+          );
+        }
+        if (item is String) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+            child: Text(
+              item,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          );
+        }
+        final title = item as DbTitle;
+        return _TitleTile(
+          title: title,
+          status: statuses[title.id]!,
+          reciter: reciter,
+          downloads: downloads,
+          onDownload: () => ReciterDownloadActions.download(context, reciter, titleId: title.id),
+          onDelete: () => _deleteTitle(title),
+        );
+      },
     );
   }
 
@@ -179,6 +261,11 @@ class _ReciterTitlesScreenState extends State<ReciterTitlesScreen> {
     return ReciterAudioStatus(totalFiles: files, downloadedFiles: done, downloadedBytes: bytes);
   }
 }
+
+/// Markers of the two non-title rows of the list.
+class _Intro {}
+
+class _NoResults {}
 
 class _Header extends StatelessWidget {
   final Reciter reciter;

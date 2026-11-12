@@ -227,7 +227,8 @@ void main() {
       expect(find.text('Waking up'), findsOneWidget);
       expect(find.text('Morning'), findsOneWidget);
       expect(find.text('No audio title'), findsNothing);
-      expect(find.textContaining('Downloaded'), findsOneWidget);
+      // The group label and the status of the downloaded title.
+      expect(find.textContaining('Downloaded'), findsNWidgets(2));
 
       // Title 1 (downloaded): delete only. Title 2: download only.
       final wakingRow = find.ancestor(of: find.text('Waking up'), matching: find.byType(ListTile));
@@ -277,6 +278,64 @@ void main() {
 
       expect(repo.getReciter(), Reciter.rashidAlhulaibah);
       expect(find.text('Current reciter'), findsOneWidget);
+    });
+
+    testWidgets('downloaded titles come first, under their own label', (tester) async {
+      phone(tester);
+      // Title 2 is downloaded, title 1 is not: title 2 must be listed above title 1.
+      final file = await tester.runAsync(
+        () => store.fileOf(
+          Reciter.hamadAlduraihem,
+          'https://cdn.binwahaf.com/uploads/2025/12/0002.mp3',
+        ),
+      );
+      await tester.runAsync(() async {
+        await file!.parent.create(recursive: true);
+        await file.writeAsBytes(List.filled(2048, 1));
+      });
+
+      await tester.pumpWidget(
+        app(ReciterTitlesScreen(reciter: Reciter.hamadAlduraihem, loadTitles: titles)),
+      );
+      await settle(tester);
+
+      expect(find.text('Not downloaded'), findsOneWidget);
+      final morningY = tester.getTopLeft(find.text('Morning')).dy;
+      final wakingY = tester.getTopLeft(find.text('Waking up')).dy;
+      expect(morningY, lessThan(wakingY));
+      expect(tester.getTopLeft(find.text('Not downloaded')).dy, lessThan(wakingY));
+      expect(tester.getTopLeft(find.text('Not downloaded')).dy, greaterThan(morningY));
+    });
+
+    testWidgets('search compares the diacritics-free search text, not the decorated name', (
+      tester,
+    ) async {
+      phone(tester);
+      Future<List<DbTitle>> decorated() async => const [
+        DbTitle(id: 1, name: 'أَذْكَارُ الصَّبَاحِ', freq: '', order: 1, search: 'أذكار الصباح'),
+        DbTitle(id: 2, name: 'أَذْكَارُ الْمَسَاءِ', freq: '', order: 2, search: 'أذكار المساء'),
+      ];
+
+      await tester.pumpWidget(
+        app(ReciterTitlesScreen(reciter: Reciter.hamadAlduraihem, loadTitles: decorated)),
+      );
+      await settle(tester);
+      expect(find.text('أَذْكَارُ الصَّبَاحِ'), findsOneWidget);
+      expect(find.text('أَذْكَارُ الْمَسَاءِ'), findsOneWidget);
+
+      // Plain letters, no diacritics, a ta marbuta typed as ha: still matches the first title.
+      await tester.enterText(find.byType(TextField), 'الصباح');
+      await settle(tester);
+      expect(find.text('أَذْكَارُ الصَّبَاحِ'), findsOneWidget);
+      expect(find.text('أَذْكَارُ الْمَسَاءِ'), findsNothing);
+
+      await tester.enterText(find.byType(TextField), 'غير موجود');
+      await settle(tester);
+      expect(find.text('No results found'), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.close_rounded));
+      await settle(tester);
+      expect(find.text('أَذْكَارُ الْمَسَاءِ'), findsOneWidget);
     });
   });
 }
