@@ -158,21 +158,28 @@ class _PillBody extends StatelessWidget {
                     style: theme.textTheme.bodyMedium?.copyWith(color: colors.onInverseSurface),
                   ),
                 ),
+                // No tooltips here: the pill lives above the navigator, where there is no Overlay.
                 if (running)
-                  IconButton(
-                    tooltip: s.audioDownloadPause,
-                    visualDensity: VisualDensity.compact,
-                    color: colors.onInverseSurface,
-                    onPressed: downloads.pause,
-                    icon: const Icon(Icons.pause_rounded),
+                  Semantics(
+                    button: true,
+                    label: s.audioDownloadPause,
+                    child: IconButton(
+                      visualDensity: VisualDensity.compact,
+                      color: colors.onInverseSurface,
+                      onPressed: downloads.pause,
+                      icon: const Icon(Icons.pause_rounded),
+                    ),
                   )
                 else if (paused || failed > 0)
-                  IconButton(
-                    tooltip: paused ? s.audioDownloadResume : s.audioDownloadRetry,
-                    visualDensity: VisualDensity.compact,
-                    color: colors.onInverseSurface,
-                    onPressed: downloads.resume,
-                    icon: Icon(paused ? Icons.play_arrow_rounded : Icons.refresh_rounded),
+                  Semantics(
+                    button: true,
+                    label: paused ? s.audioDownloadResume : s.audioDownloadRetry,
+                    child: IconButton(
+                      visualDensity: VisualDensity.compact,
+                      color: colors.onInverseSurface,
+                      onPressed: downloads.resume,
+                      icon: Icon(paused ? Icons.play_arrow_rounded : Icons.refresh_rounded),
+                    ),
                   )
                 else
                   const SizedBox(width: 8),

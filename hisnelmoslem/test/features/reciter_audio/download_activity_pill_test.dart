@@ -70,19 +70,20 @@ void main() {
 
   tearDown(() => cubit.close());
 
+  /// Mounted like the app does: in `MaterialApp.builder`, above the navigator, where there is
+  /// no Overlay (a tooltip in the pill would fail there).
   Future<void> pump(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         localizationsDelegates: S.localizationsDelegates,
         supportedLocales: S.supportedLocales,
-        home: Scaffold(
-          body: Stack(
-            children: [
-              const SizedBox.expand(),
-              DownloadActivityPill(downloads: cubit, onTap: () => opened++),
-            ],
-          ),
+        builder: (context, child) => Stack(
+          children: [
+            child ?? const SizedBox(),
+            DownloadActivityPill(downloads: cubit, onTap: () => opened++),
+          ],
         ),
+        home: const Scaffold(body: SizedBox.expand()),
       ),
     );
   }
