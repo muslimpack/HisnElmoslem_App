@@ -897,6 +897,90 @@ class SAr extends S {
   String get audioPlayerSettings => 'إعدادات الصوت';
 
   @override
+  String get audioReciterSheetTitle => 'القارئ والتحميلات';
+
+  @override
+  String get audioReciter => 'القارئ';
+
+  @override
+  String get audioBundledReciterNote => 'التسجيلات المضمنة في التطبيق';
+
+  @override
+  String get audioAllowStream => 'التشغيل عبر الإنترنت';
+
+  @override
+  String get audioAllowStreamDesc =>
+      'شغّل التسجيلات غير الموجودة على الجهاز عبر الإنترنت. قد يستهلك باقة الإنترنت.';
+
+  @override
+  String get audioDownloadAll => 'تحميل الكل';
+
+  @override
+  String audioFilesStatus(int done, int total, String size) {
+    return '$done من $total ملف · $size';
+  }
+
+  @override
+  String get audioDeleteDownloads => 'حذف التحميلات';
+
+  @override
+  String audioDeleteConfirm(String name) {
+    return 'هل تريد حذف تسجيلات $name من هذا الجهاز؟';
+  }
+
+  @override
+  String get audioDownloadConfirmTitle => 'تحميل التسجيلات';
+
+  @override
+  String audioDownloadConfirmBody(int count, String size) {
+    return '$count ملف، حوالي $size. قد يستهلك باقة الإنترنت.';
+  }
+
+  @override
+  String audioDownloadConfirmBodyNoSize(int count) {
+    return '$count ملف. قد يستهلك باقة الإنترنت.';
+  }
+
+  @override
+  String audioDownloading(int done, int total) {
+    return 'جارٍ التحميل $done من $total';
+  }
+
+  @override
+  String audioDownloadPaused(int done, int total) {
+    return 'توقف عند $done من $total';
+  }
+
+  @override
+  String audioDownloadFailedFiles(int count) {
+    return 'تعذّر تحميل $count ملف';
+  }
+
+  @override
+  String get audioDownloadPause => 'إيقاف مؤقت';
+
+  @override
+  String get audioDownloadResume => 'استئناف';
+
+  @override
+  String get audioDownloadRetry => 'إعادة المحاولة';
+
+  @override
+  String get audioDownloadTitleAction => 'تحميل صوت هذا الباب';
+
+  @override
+  String get audioNothingToDownload => 'لا يوجد ما يُحمَّل: كل شيء على الجهاز أو غير متوفر.';
+
+  @override
+  String get audioDownloadStarted => 'بدأ التحميل';
+
+  @override
+  String get audioDownloadDone => 'اكتمل التحميل';
+
+  @override
+  String get audioDownloadAlreadyRunning => 'هناك تحميل آخر قيد التنفيذ';
+
+  @override
   String get vibrationDuration => 'مدة الاهتزاز (بالملي ثانية)';
 
   @override

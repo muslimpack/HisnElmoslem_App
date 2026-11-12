@@ -1821,6 +1821,144 @@ abstract class S {
   /// **'Audio Settings'**
   String get audioPlayerSettings;
 
+  /// No description provided for @audioReciterSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciter and downloads'**
+  String get audioReciterSheetTitle;
+
+  /// No description provided for @audioReciter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciter'**
+  String get audioReciter;
+
+  /// No description provided for @audioBundledReciterNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Recordings included in the app'**
+  String get audioBundledReciterNote;
+
+  /// No description provided for @audioAllowStream.
+  ///
+  /// In en, this message translates to:
+  /// **'Play online'**
+  String get audioAllowStream;
+
+  /// No description provided for @audioAllowStreamDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Play recordings that are not on the phone from the internet. This may use mobile data.'**
+  String get audioAllowStreamDesc;
+
+  /// No description provided for @audioDownloadAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Download all'**
+  String get audioDownloadAll;
+
+  /// No description provided for @audioFilesStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} files · {size}'**
+  String audioFilesStatus(int done, int total, String size);
+
+  /// No description provided for @audioDeleteDownloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete downloads'**
+  String get audioDeleteDownloads;
+
+  /// No description provided for @audioDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the recordings of {name} from this phone?'**
+  String audioDeleteConfirm(String name);
+
+  /// No description provided for @audioDownloadConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Download recordings'**
+  String get audioDownloadConfirmTitle;
+
+  /// No description provided for @audioDownloadConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} files, about {size}. This may use mobile data.'**
+  String audioDownloadConfirmBody(int count, String size);
+
+  /// No description provided for @audioDownloadConfirmBodyNoSize.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} files. This may use mobile data.'**
+  String audioDownloadConfirmBodyNoSize(int count);
+
+  /// No description provided for @audioDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading {done} of {total}'**
+  String audioDownloading(int done, int total);
+
+  /// No description provided for @audioDownloadPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused at {done} of {total}'**
+  String audioDownloadPaused(int done, int total);
+
+  /// No description provided for @audioDownloadFailedFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} files could not be downloaded'**
+  String audioDownloadFailedFiles(int count);
+
+  /// No description provided for @audioDownloadPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get audioDownloadPause;
+
+  /// No description provided for @audioDownloadResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get audioDownloadResume;
+
+  /// No description provided for @audioDownloadRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get audioDownloadRetry;
+
+  /// No description provided for @audioDownloadTitleAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Download this title\'s audio'**
+  String get audioDownloadTitleAction;
+
+  /// No description provided for @audioNothingToDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to download: everything is already on the phone or not available.'**
+  String get audioNothingToDownload;
+
+  /// No description provided for @audioDownloadStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Download started'**
+  String get audioDownloadStarted;
+
+  /// No description provided for @audioDownloadDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Download finished'**
+  String get audioDownloadDone;
+
+  /// No description provided for @audioDownloadAlreadyRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Another download is already running'**
+  String get audioDownloadAlreadyRunning;
+
   /// No description provided for @vibrationDuration.
   ///
   /// In en, this message translates to:

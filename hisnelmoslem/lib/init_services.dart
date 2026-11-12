@@ -11,6 +11,7 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/utils/app_bloc_observer.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:intl/intl.dart';
@@ -36,6 +37,8 @@ Future<void> initServices() async {
   try {
     await GetStorage.init(kAppStorageKey);
     await sl<LocalNotificationManager>().init();
+    // A download that was running when the app closed is shown as paused, ready to resume.
+    sl<ReciterDownloadsCubit>().restore();
   } catch (e) {
     hisnPrint(e);
   }

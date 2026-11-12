@@ -7,6 +7,7 @@ import 'package:hisnelmoslem/src/features/reciter_audio/data/http_audio_download
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/download_plan.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter_audio_status.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_state.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 
@@ -36,9 +37,8 @@ class ReciterDownloadsCubit extends Cubit<ReciterDownloadsState> {
   DownloadCancelToken? _token;
   bool _removeJobWhenStopped = false;
 
-  /// What is still missing for [reciter] (and [titleId] when given), with the size the server
-  /// reports for those files.
-  Future<DownloadPlan> buildPlan(Reciter reciter, {int? titleId}) async {
+  /// Every file [reciter] has for the zikrs that may use remote audio (one per lesson).
+  Future<List<String>> _urlsOf(Reciter reciter, {int? titleId}) async {
     final contents = await loadContents(titleId: titleId);
 
     final seen = <String>{};
@@ -49,6 +49,35 @@ class ReciterDownloadsCubit extends Cubit<ReciterDownloadsState> {
         if (seen.add(AudioFileStore.keyOf(url))) urls.add(url);
       }
     }
+    return urls;
+  }
+
+  /// How much of [reciter] is on the phone. No network is used.
+  Future<ReciterAudioStatus> statusOf(Reciter reciter, {int? titleId}) async {
+    final urls = await _urlsOf(reciter, titleId: titleId);
+    var done = 0;
+    var bytes = 0;
+    for (final url in urls) {
+      final file = await store.fileOf(reciter, url);
+      if (await file.exists()) {
+        final length = await file.length();
+        if (length > 0) {
+          done++;
+          bytes += length;
+        }
+      }
+    }
+    return ReciterAudioStatus(
+      totalFiles: urls.length,
+      downloadedFiles: done,
+      downloadedBytes: bytes,
+    );
+  }
+
+  /// What is still missing for [reciter] (and [titleId] when given), with the size the server
+  /// reports for those files.
+  Future<DownloadPlan> buildPlan(Reciter reciter, {int? titleId}) async {
+    final urls = await _urlsOf(reciter, titleId: titleId);
 
     final pending = <String>[];
     for (final url in urls) {

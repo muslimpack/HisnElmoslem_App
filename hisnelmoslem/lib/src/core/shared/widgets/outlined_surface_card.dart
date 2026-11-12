@@ -25,7 +25,9 @@ class OutlinedSurfaceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: colors.outlineVariant),
       ),
-      child: child,
+      // Gives tiles and buttons inside the card a Material above the decoration, so their ink
+      // splashes and backgrounds are not hidden by the card color.
+      child: Material(type: MaterialType.transparency, child: child),
     );
   }
 }

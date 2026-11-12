@@ -899,6 +899,91 @@ class SEn extends S {
   String get audioPlayerSettings => 'Audio Settings';
 
   @override
+  String get audioReciterSheetTitle => 'Reciter and downloads';
+
+  @override
+  String get audioReciter => 'Reciter';
+
+  @override
+  String get audioBundledReciterNote => 'Recordings included in the app';
+
+  @override
+  String get audioAllowStream => 'Play online';
+
+  @override
+  String get audioAllowStreamDesc =>
+      'Play recordings that are not on the phone from the internet. This may use mobile data.';
+
+  @override
+  String get audioDownloadAll => 'Download all';
+
+  @override
+  String audioFilesStatus(int done, int total, String size) {
+    return '$done of $total files · $size';
+  }
+
+  @override
+  String get audioDeleteDownloads => 'Delete downloads';
+
+  @override
+  String audioDeleteConfirm(String name) {
+    return 'Delete the recordings of $name from this phone?';
+  }
+
+  @override
+  String get audioDownloadConfirmTitle => 'Download recordings';
+
+  @override
+  String audioDownloadConfirmBody(int count, String size) {
+    return '$count files, about $size. This may use mobile data.';
+  }
+
+  @override
+  String audioDownloadConfirmBodyNoSize(int count) {
+    return '$count files. This may use mobile data.';
+  }
+
+  @override
+  String audioDownloading(int done, int total) {
+    return 'Downloading $done of $total';
+  }
+
+  @override
+  String audioDownloadPaused(int done, int total) {
+    return 'Paused at $done of $total';
+  }
+
+  @override
+  String audioDownloadFailedFiles(int count) {
+    return '$count files could not be downloaded';
+  }
+
+  @override
+  String get audioDownloadPause => 'Pause';
+
+  @override
+  String get audioDownloadResume => 'Resume';
+
+  @override
+  String get audioDownloadRetry => 'Try again';
+
+  @override
+  String get audioDownloadTitleAction => 'Download this title\'s audio';
+
+  @override
+  String get audioNothingToDownload =>
+      'Nothing to download: everything is already on the phone or not available.';
+
+  @override
+  String get audioDownloadStarted => 'Download started';
+
+  @override
+  String get audioDownloadDone => 'Download finished';
+
+  @override
+  String get audioDownloadAlreadyRunning => 'Another download is already running';
+
+  @override
   String get vibrationDuration => 'Vibration duration (ms)';
 
   @override
