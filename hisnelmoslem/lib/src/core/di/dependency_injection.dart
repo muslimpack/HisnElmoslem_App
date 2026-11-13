@@ -37,7 +37,6 @@ import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.da
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
 import 'package:hisnelmoslem/src/features/home_search/domain/repository/search_repo.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
-import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/quran_cubit.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.dart';
@@ -172,7 +171,6 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => BackupRestoreCubit(repo: sl()));
 
   /// Factory BLoC
-  sl.registerFactory(() => OnboardCubit(sl(), sl()));
   sl.registerFactory(() => TallyBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => CustomTitleEditorBloc(sl(), sl()));
   sl.registerFactory(() => CustomZikrPickerCubit(sl(), sl()));
