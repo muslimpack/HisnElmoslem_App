@@ -1,18 +1,55 @@
 name: Build and Release Hisn El Moslem
 
+# Tag vX.Y.Z       -> GitHub release     + Google Play production
+# Tag vX.Y.Z-rc.1  -> GitHub pre-release + Google Play internal track
+# Run workflow     -> pick platforms and where (or whether) to publish
+
 on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      platforms:
+        description: "Platforms to build (comma separated: android, windows, ios)"
+        type: string
+        default: "android,windows"
+      github_release:
+        description: "GitHub release"
+        type: choice
+        default: none
+        options: [none, draft, prerelease, release]
+      play_track:
+        description: "Google Play track"
+        type: choice
+        default: none
+        options: [none, internal, alpha, beta, production]
+      play_rollout:
+        description: "Google Play rollout: 'draft' or a percentage (1-100)"
+        type: string
+        default: "100"
+      testflight:
+        description: "Upload iOS build to TestFlight (when ios is selected)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   release:
-    uses: muslimpack/.github/.github/workflows/flutter_release.yaml@main
+    uses: muslimpack/.github/.github/workflows/flutter_release.yaml@v2
     with:
       app_directory: hisnelmoslem
       package_name: com.hassaneltantawy.hisnelmoslem
       java_version: '17'
-    secrets:
-      KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
-      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-      SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+      platforms: ${{ inputs.platforms || 'android,windows' }}
+      github_release: ${{ inputs.github_release || 'auto' }}
+      play_track: ${{ inputs.play_track || 'auto' }}
+      play_rollout: ${{ inputs.play_rollout || '100' }}
+      testflight: ${{ github.event_name == 'push' || inputs.testflight == true }}
+    secrets: inherit
