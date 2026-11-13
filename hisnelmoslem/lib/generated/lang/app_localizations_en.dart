@@ -148,6 +148,9 @@ class SEn extends S {
   String get commentarySharh => 'Commentary';
 
   @override
+  String get commentaryNotAvailable => 'No text is available for this zikr yet.';
+
+  @override
   String get contact => 'Contact';
 
   @override

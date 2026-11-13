@@ -149,6 +149,9 @@ class SAr extends S {
   String get commentarySharh => 'الشرح';
 
   @override
+  String get commentaryNotAvailable => 'لا يوجد نص متاح لهذا الذكر حتى الآن.';
+
+  @override
   String get contact => 'التواصل';
 
   @override

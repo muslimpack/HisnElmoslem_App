@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/loading.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_helper.dart';
@@ -31,13 +32,17 @@ class CommentaryDialog extends StatefulWidget {
 
 class _CommentaryDialogState extends State<CommentaryDialog> {
   bool isLoading = true;
-  late final Commentary? commentary;
+  Commentary? commentary;
 
   Future<void> getData() async {
-    final data = await sl<CommentaryDBHelper>().getCommentaryByContentId(
-      contentId: widget.contentId,
-    );
-    commentary = data;
+    try {
+      commentary = await sl<CommentaryDBHelper>().getCommentaryByContentId(
+        contentId: widget.contentId,
+      );
+    } catch (e) {
+      hisnPrint(e);
+    }
+    if (!mounted) return;
     setState(() {
       isLoading = false;
     });
@@ -95,9 +100,18 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
               body: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  CommentaryPageView(text: commentary?.hadith ?? ""),
-                  CommentaryPageView(text: commentary?.benefit ?? ""),
-                  CommentaryPageView(text: commentary?.sharh ?? ""),
+                  CommentaryPageView(
+                    text: commentary?.hadith ?? "",
+                    emptyText: S.of(context).commentaryNotAvailable,
+                  ),
+                  CommentaryPageView(
+                    text: commentary?.benefit ?? "",
+                    emptyText: S.of(context).commentaryNotAvailable,
+                  ),
+                  CommentaryPageView(
+                    text: commentary?.sharh ?? "",
+                    emptyText: S.of(context).commentaryNotAvailable,
+                  ),
                 ],
               ),
               bottomNavigationBar: const BottomAppBar(
@@ -110,7 +124,8 @@ class _CommentaryDialogState extends State<CommentaryDialog> {
 
 class CommentaryPageView extends StatelessWidget {
   final String text;
-  const CommentaryPageView({super.key, required this.text});
+  final String emptyText;
+  const CommentaryPageView({super.key, required this.text, this.emptyText = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +137,7 @@ class CommentaryPageView extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(20),
               child: SelectableText(
-                text,
+                text.trim().isEmpty ? emptyText : text,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(fontSize: state.fontSize * 10),
               ),
