@@ -6,6 +6,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_choice.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_resolver.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/reciter.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_repeat_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr_audio_player_repo.dart';
@@ -17,10 +20,27 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   final AudioPlayer _player;
   final ZikrAudioPlayerRepo zikrAudioPlayerRepo;
 
+  /// Chooses between bundled, downloaded and streamed recordings. Without it only the user's
+  /// recording and the bundled file are played (the tally uses it that way).
+  final AudioSourceResolver? resolver;
+
+  /// The reciter to play, read for every zikr so a change applies from the next one.
+  final Reciter Function()? reciter;
+
+  /// The reciters of the website say how many times to repeat at the end of a zikr that is
+  /// repeated. The app counts the repetitions itself, so for a recording from the website the
+  /// last part of a zikr with a count above one is skipped.
+  final Duration remoteTailTrim;
+
   /// [player] is only given by tests.
-  ZikrAudioPlayerCubit(this.zikrAudioPlayerRepo, {AudioPlayer? player})
-    : _player = player ?? AudioPlayer(playerId: "zikr_audio_player"),
-      super(const ZikrAudioPlayerState());
+  ZikrAudioPlayerCubit(
+    this.zikrAudioPlayerRepo, {
+    AudioPlayer? player,
+    this.resolver,
+    this.reciter,
+    this.remoteTailTrim = const Duration(milliseconds: 1800),
+  }) : _player = player ?? AudioPlayer(playerId: "zikr_audio_player"),
+       super(const ZikrAudioPlayerState());
 
   Function(DbContent zikr)? onDonePlaying;
   int Function(int index)? getActiveZikrCount;
@@ -29,6 +49,17 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
   /// when that happened sees a different value afterwards and ends without playing, so
   /// pausing and resuming during a delay can never start the next zikr twice.
   int _playbackToken = 0;
+
+  /// Sources of the zikr being played. More than one when a zikr spans several recordings;
+  /// they play one after the other and count as a single playback.
+  List<Source> _parts = const [];
+  int _partIndex = 0;
+
+  /// The end of the current recording is skipped (see [remoteTailTrim]); [_tailCut] is set once
+  /// that was done for this playback, and [_appliedTrim] is how much was skipped.
+  bool _trimTail = false;
+  bool _tailCut = false;
+  Duration _appliedTrim = Duration.zero;
 
   StreamSubscription<void>? _completionSub;
   StreamSubscription<Duration>? _positionSub;
@@ -96,7 +127,9 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     });
 
     _positionSub = _player.onPositionChanged.listen((p) {
-      if (!isClosed) emit(state.copyWith(position: p));
+      if (isClosed) return;
+      emit(state.copyWith(position: p));
+      _cutTailIfDue(p);
     });
 
     _durationSub = _player.onDurationChanged.listen((d) {
@@ -138,18 +171,46 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     }
   }
 
+  /// Ends the recording early when it reached the part the reciter uses to say the count.
+  Future<void> _cutTailIfDue(Duration position) async {
+    if (!_trimTail || _tailCut || _partIndex != _parts.length - 1) return;
+    final total = state.totalDuration;
+    // Short recordings are left alone: there is nothing to skip.
+    if (total <= remoteTailTrim * 3 || position < total - remoteTailTrim) return;
+
+    _tailCut = true;
+    _appliedTrim = remoteTailTrim;
+    final token = _playbackToken;
+    try {
+      await _player.stop();
+    } catch (e) {
+      hisnPrint('AudioPlayer Error cutting the tail: $e');
+    }
+    if (isClosed || token != _playbackToken) return;
+    await _onPlaybackCompleted();
+  }
+
   Future<void> _handleDelayAndWait() async {
     if (state.delayType == AudioDelayTypeEnum.fixedTime) {
       await Future.delayed(Duration(seconds: state.delayDuration));
     } else if (state.delayType == AudioDelayTypeEnum.byPreviousZikr) {
-      final int adjustedMilliseconds = (state.totalDuration.inMilliseconds / state.playbackSpeed)
-          .round();
+      final played = state.totalDuration - _appliedTrim;
+      final int adjustedMilliseconds =
+          ((played.isNegative ? Duration.zero : played).inMilliseconds / state.playbackSpeed)
+              .round();
       await Future.delayed(Duration(milliseconds: adjustedMilliseconds));
     }
   }
 
   Future<void> _onPlaybackCompleted() async {
     emit(state.copyWith(position: Duration.zero));
+
+    // The next recording of the same zikr, if any.
+    if (_partIndex + 1 < _parts.length) {
+      _partIndex++;
+      await _playPart(_parts[_partIndex]);
+      return;
+    }
 
     final currentZikr = state.currentZikr;
     final int token = _playbackToken;
@@ -207,7 +268,12 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     final zikr = state.zikrList[index];
     _playbackToken++;
 
-    if (!zikr.hasPlayableAudio) {
+    final choice = await _sourcesOf(zikr);
+    final parts = choice.sources;
+    _tailCut = false;
+    _appliedTrim = Duration.zero;
+    _trimTail = choice.remote && zikr.count > 1;
+    if (parts.isEmpty) {
       // Many azkar have no audio. Narration ends here; leaving it "playing" would keep
       // the audio bar busy and silence the tap sound effects until stopped by hand.
       try {
@@ -239,9 +305,8 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
 
     hisnPrint(_player.playerId);
 
-    final Source source = zikr.userAudioPath.isNotEmpty
-        ? DeviceFileSource(zikr.userAudioPath)
-        : AssetSource('sounds/azkar/${zikr.audio}');
+    _parts = parts;
+    _partIndex = 0;
 
     try {
       await _player.stop();
@@ -256,12 +321,74 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
         ),
       );
 
-      await _player.play(source, volume: state.volume);
-      await _player.setPlaybackRate(state.playbackSpeed);
+      await _playPart(parts.first);
     } catch (e) {
       hisnPrint('AudioPlayer Error playing Zikr: $e');
       emit(state.copyWith(isPlaying: false, isPaused: false));
     }
+  }
+
+  Future<void> _playPart(Source source) async {
+    final token = _playbackToken;
+    // A recording from the internet takes a moment to load: tell the UI so it can show progress.
+    final streaming = source is UrlSource;
+    if (streaming) emit(state.copyWith(isLoadingAudio: true));
+    try {
+      await _player.play(source, volume: state.volume);
+      await _player.setPlaybackRate(state.playbackSpeed);
+    } catch (e) {
+      // A recording that cannot be loaded (for example a stream while offline) is treated like
+      // a zikr without audio: narration ends instead of hanging.
+      hisnPrint('AudioPlayer Error playing $source: $e');
+      if (isClosed || token != _playbackToken) return;
+      _parts = const [];
+      emit(
+        state.copyWith(
+          isPlaying: false,
+          isPaused: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
+      return;
+    } finally {
+      if (streaming && !isClosed && state.isLoadingAudio && token == _playbackToken) {
+        emit(state.copyWith(isLoadingAudio: false));
+      }
+    }
+  }
+
+  /// The recordings to play for [zikr], in order; empty when it has none.
+  /// [remote] is true when they come from the website (downloaded or streamed).
+  Future<({List<Source> sources, bool remote})> _sourcesOf(DbContent zikr) async {
+    final AudioSourceChoice choice;
+    final r = resolver;
+    if (r != null) {
+      choice = await r.resolve(zikr, reciter?.call() ?? Reciter.defaultReciter);
+    } else if (zikr.userAudioPath.isNotEmpty) {
+      choice = UserRecording(zikr.userAudioPath);
+    } else if (zikr.audio.isNotEmpty) {
+      choice = BundledAsset(zikr.audio);
+    } else {
+      choice = const NoAudio();
+    }
+
+    return switch (choice) {
+      NoAudio() => (sources: const <Source>[], remote: false),
+      UserRecording(:final path) => (sources: <Source>[DeviceFileSource(path)], remote: false),
+      BundledAsset(:final fileName) => (
+        sources: <Source>[AssetSource('sounds/azkar/$fileName')],
+        remote: false,
+      ),
+      DownloadedFiles(:final paths) => (
+        sources: <Source>[for (final p in paths) DeviceFileSource(p)],
+        remote: true,
+      ),
+      StreamUrls(:final urls) => (
+        sources: <Source>[for (final u in urls) UrlSource(u)],
+        remote: true,
+      ),
+    };
   }
 
   /// Replaces the list with the single [zikr] (used by the tally, which plays one
@@ -299,7 +426,14 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
     _playbackToken++;
     try {
       await _player.pause();
-      emit(state.copyWith(isPaused: true, isPlaying: false, isDelayingBetweenZikr: false));
+      emit(
+        state.copyWith(
+          isPaused: true,
+          isPlaying: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
     } catch (e) {
       hisnPrint('AudioPlayer Error pause: $e');
     }
@@ -328,11 +462,19 @@ class ZikrAudioPlayerCubit extends Cubit<ZikrAudioPlayerState> {
           isPaused: false,
           position: Duration.zero,
           isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
         ),
       );
     } catch (e) {
       hisnPrint('AudioPlayer Error stop: $e');
-      emit(state.copyWith(isPlaying: false, isPaused: false, isDelayingBetweenZikr: false));
+      emit(
+        state.copyWith(
+          isPlaying: false,
+          isPaused: false,
+          isDelayingBetweenZikr: false,
+          isLoadingAudio: false,
+        ),
+      );
     }
   }
 

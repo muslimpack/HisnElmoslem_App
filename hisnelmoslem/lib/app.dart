@@ -17,6 +17,9 @@ import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home
 import 'package:hisnelmoslem/src/features/home/presentation/screens/home_screen.dart';
 import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cubit/search_cubit.dart';
 import 'package:hisnelmoslem/src/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/download_activity_pill.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
@@ -93,13 +96,25 @@ class AppState extends State<App> {
             theme: state.theme,
             navigatorObservers: [BotToastNavigatorObserver()],
             builder: (context, child) {
+              // Above every screen: the small pill that shows a download in the background.
+              final app = Stack(
+                children: [
+                  child ?? const SizedBox(),
+                  DownloadActivityPill(
+                    downloads: sl<ReciterDownloadsCubit>(),
+                    onTap: () => App.navigatorKey.currentState?.push(
+                      MaterialPageRoute<void>(builder: (_) => const DownloadCenterScreen()),
+                    ),
+                  ),
+                ],
+              );
               if (PlatformExtension.isDesktop) {
                 final botToastBuilder = BotToastInit();
                 return DesktopWindowWrapper(
-                  child: botToastBuilder(context, child),
+                  child: botToastBuilder(context, app),
                 );
               }
-              return child ?? const SizedBox();
+              return app;
             },
             home: sl<AppSettingsRepo>().currentVersion != sl<PackageInfo>().version
                 ? const OnBoardingScreen()

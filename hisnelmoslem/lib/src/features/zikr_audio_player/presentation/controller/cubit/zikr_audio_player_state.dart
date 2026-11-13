@@ -15,6 +15,9 @@ class ZikrAudioPlayerState extends Equatable {
   final List<DbContent> zikrList;
   final bool isDelayingBetweenZikr;
 
+  /// True while a recording from the internet is being loaded, before it starts to play.
+  final bool isLoadingAudio;
+
   DbContent? get currentZikr =>
       zikrList.isEmpty || currentIndex < 0 || currentIndex >= zikrList.length
       ? null
@@ -34,6 +37,7 @@ class ZikrAudioPlayerState extends Equatable {
     this.totalDuration = Duration.zero,
     this.zikrList = const [],
     this.isDelayingBetweenZikr = false,
+    this.isLoadingAudio = false,
   });
 
   ZikrAudioPlayerState copyWith({
@@ -50,6 +54,7 @@ class ZikrAudioPlayerState extends Equatable {
     Duration? totalDuration,
     List<DbContent>? zikrList,
     bool? isDelayingBetweenZikr,
+    bool? isLoadingAudio,
   }) {
     return ZikrAudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -65,6 +70,7 @@ class ZikrAudioPlayerState extends Equatable {
       totalDuration: totalDuration ?? this.totalDuration,
       zikrList: zikrList ?? this.zikrList,
       isDelayingBetweenZikr: isDelayingBetweenZikr ?? this.isDelayingBetweenZikr,
+      isLoadingAudio: isLoadingAudio ?? this.isLoadingAudio,
     );
   }
 
@@ -82,5 +88,6 @@ class ZikrAudioPlayerState extends Equatable {
     totalDuration,
     zikrList,
     isDelayingBetweenZikr,
+    isLoadingAudio,
   ];
 }

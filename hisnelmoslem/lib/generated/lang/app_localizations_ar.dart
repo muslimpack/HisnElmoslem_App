@@ -897,6 +897,134 @@ class SAr extends S {
   String get audioPlayerSettings => 'إعدادات الصوت';
 
   @override
+  String get audioReciter => 'القارئ';
+
+  @override
+  String get audioBundledReciterNote => 'التسجيلات المضمنة في التطبيق';
+
+  @override
+  String get audioAllowStream => 'التشغيل عبر الإنترنت';
+
+  @override
+  String get audioAllowStreamDesc =>
+      'شغّل التسجيلات غير الموجودة على الجهاز عبر الإنترنت. قد يستهلك باقة الإنترنت.';
+
+  @override
+  String get audioDownloadAll => 'تحميل الكل';
+
+  @override
+  String audioFilesStatus(int done, int total, String size) {
+    return '$done من $total ملف · $size';
+  }
+
+  @override
+  String get audioDeleteDownloads => 'حذف التحميلات';
+
+  @override
+  String audioDeleteConfirm(String name) {
+    return 'هل تريد حذف تسجيلات $name من هذا الجهاز؟';
+  }
+
+  @override
+  String get audioDownloadConfirmTitle => 'تحميل التسجيلات';
+
+  @override
+  String audioDownloadConfirmBody(int count, String size) {
+    return '$count ملف، حوالي $size. قد يستهلك باقة الإنترنت.';
+  }
+
+  @override
+  String audioDownloadConfirmBodyNoSize(int count) {
+    return '$count ملف. قد يستهلك باقة الإنترنت.';
+  }
+
+  @override
+  String audioDownloading(int done, int total) {
+    return 'جارٍ التحميل $done من $total';
+  }
+
+  @override
+  String audioDownloadPaused(int done, int total) {
+    return 'توقف عند $done من $total';
+  }
+
+  @override
+  String audioDownloadFailedFiles(int count) {
+    return 'تعذّر تحميل $count ملف';
+  }
+
+  @override
+  String get audioDownloadPause => 'إيقاف مؤقت';
+
+  @override
+  String get audioDownloadResume => 'استئناف';
+
+  @override
+  String get audioDownloadRetry => 'إعادة المحاولة';
+
+  @override
+  String get audioDownloadTitleAction => 'تحميل صوت هذا الباب';
+
+  @override
+  String get audioNothingToDownload => 'لا يوجد ما يُحمَّل: كل شيء على الجهاز أو غير متوفر.';
+
+  @override
+  String get audioDownloadStarted => 'بدأ التحميل';
+
+  @override
+  String get audioDownloadDone => 'اكتمل التحميل';
+
+  @override
+  String get audioDownloadAlreadyRunning => 'هناك تحميل آخر قيد التنفيذ';
+
+  @override
+  String get audioAvailabilityNote =>
+      'ليس لكل ذكر تسجيل عند كل قارئ. الذكر الذي لا يتوفر له تسجيل يُشغَّل له التسجيل المضمن في التطبيق إن وُجد، وإلا فلا يكون له صوت.';
+
+  @override
+  String get audioLoading => 'جارٍ تحميل الصوت…';
+
+  @override
+  String get downloadCenter => 'مركز التحميلات';
+
+  @override
+  String get downloadCenterDesc =>
+      'اختر القارئ ثم حمّل كل تسجيلاته أو أبوابًا بعينها لتستمع دون إنترنت.';
+
+  @override
+  String get audioUseReciter => 'استخدام هذا القارئ';
+
+  @override
+  String get audioReciterInUse => 'القارئ الحالي';
+
+  @override
+  String get audioDeleteAll => 'حذف الكل';
+
+  @override
+  String audioDeleteTitleConfirm(String title) {
+    return 'هل تريد حذف الصوت المحمّل لـ «$title»؟ وتتأثر بذلك الأبواب التي تشاركه التسجيلات.';
+  }
+
+  @override
+  String get audioDownloadTooltip => 'تحميل';
+
+  @override
+  String get audioNoTitles => 'لا توجد تسجيلات متاحة لهذا القارئ.';
+
+  @override
+  String get audioTitleDownloaded => 'تم التحميل';
+
+  @override
+  String get audioNotDownloaded => 'لم يُحمَّل بعد';
+
+  @override
+  String get aboutAudioSourceTitle => 'مصدر الصوتيات';
+
+  @override
+  String get aboutAudioSourceDesc =>
+      'القرّاء وتسجيلاتهم في مركز التحميلات مأخوذة من موقع الشيخ الدكتور سعيد بن علي بن وهف القحطاني (binwahaf.com).';
+
+  @override
   String get vibrationDuration => 'مدة الاهتزاز (بالملي ثانية)';
 
   @override

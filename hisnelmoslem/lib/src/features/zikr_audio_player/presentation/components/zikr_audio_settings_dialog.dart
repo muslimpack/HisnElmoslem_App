@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/outlined_surface_card.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_name.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/models/audio_delay_type_enum.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 
 /// Playback speed, volume and the pause between azkar, as one card per setting.
 class ZikrAudioSettingsDialog extends StatelessWidget {
-  const ZikrAudioSettingsDialog({super.key});
+  /// Adds the entry that opens the reciter and downloads sheet. Off in tests, which have no
+  /// service locator.
+  final bool showReciterEntry;
+
+  const ZikrAudioSettingsDialog({super.key, this.showReciterEntry = false});
 
   /// Bottom sheet with the settings of the zikr audio.
   ///
@@ -23,7 +31,7 @@ class ZikrAudioSettingsDialog extends StatelessWidget {
       showDragHandle: true,
       builder: (_) => BlocProvider.value(
         value: audioCubit,
-        child: const SafeArea(top: false, child: ZikrAudioSettingsDialog()),
+        child: const SafeArea(top: false, child: ZikrAudioSettingsDialog(showReciterEntry: true)),
       ),
     );
   }
@@ -46,6 +54,10 @@ class ZikrAudioSettingsDialog extends StatelessWidget {
           const AudioVolumeSetting(),
           const SizedBox(height: 12),
           const AudioDelaySetting(),
+          if (showReciterEntry) ...[
+            const SizedBox(height: 12),
+            const ReciterEntryCard(),
+          ],
         ],
       ),
     );
@@ -252,6 +264,38 @@ class AudioDelaySetting extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Opens the reciter and downloads sheet; shows the reciter that is selected.
+class ReciterEntryCard extends StatefulWidget {
+  const ReciterEntryCard({super.key});
+
+  @override
+  State<ReciterEntryCard> createState() => _ReciterEntryCardState();
+}
+
+class _ReciterEntryCardState extends State<ReciterEntryCard> {
+  @override
+  Widget build(BuildContext context) {
+    final reciter = sl<ReciterAudioRepo>().getReciter();
+
+    return OutlinedSurfaceCard(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: ListTile(
+        leading: const Icon(Icons.record_voice_over_rounded),
+        title: Text(S.of(context).downloadCenter),
+        subtitle: Text(reciter.localizedName(context)),
+        trailing: const Icon(Icons.chevron_right_rounded),
+        onTap: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const DownloadCenterScreen()),
+          );
+          // The reciter may have changed there.
+          if (mounted) setState(() {});
+        },
+      ),
     );
   }
 }

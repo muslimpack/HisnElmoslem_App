@@ -8,7 +8,8 @@ What it changes (nothing else is touched):
   1. commentary.db   fills sharh (and benefit) of zikrs that have none, from the lesson explanation.
                      Existing sharh/benefit are never overwritten.
   2. hisn_elmoslem.db  adds the column contents.audio_urls (JSON, reciter -> url, or a list of urls
-                     when one zikr spans several lessons). The old audio / audio_url columns and the
+                     when one zikr spans several lessons) and contents.audio_remote_ok (1 = safe to
+                     stream or download: the zikr is a whole lesson with the right wording). The old audio / audio_url columns and the
                      bundled trimmed audio files are not changed.
 
 Usage (from hisnelmoslem/):
@@ -30,6 +31,9 @@ from download_binwahaf import reader_slug  # noqa: E402
 OUT = Path('tools/binwahaf_out')
 HISN = Path('assets/db/hisn_elmoslem.db')
 COMM = Path('assets/db/commentary.db')
+# Evening zikrs whose text says أمسينا/أمسى/أمسيت while the site recording (shared with the morning)
+# says the morning wording. They must not be offered from the site.
+REMOTE_BLOCKLIST = {119, 120, 122, 123, 131, 132}
 USABLE = {'exact', 'near', 'part', 'part_other_chapter', 'whole'}
 
 
@@ -164,8 +168,13 @@ def main() -> int:
     cols = [r[1] for r in hisn.execute('pragma table_info(contents)')]
     if 'audio_urls' not in cols:
         hisn.execute('alter table contents add column audio_urls TEXT')
+    if 'audio_remote_ok' not in cols:
+        hisn.execute('alter table contents add column audio_remote_ok INTEGER NOT NULL DEFAULT 0')
     for cid, urls in audio.items():
-        hisn.execute('update contents set audio_urls=? where id=?', (json.dumps(urls, ensure_ascii=False), cid))
+        # 1 only when the DB zikr is the whole lesson (exact/near) and its wording is right
+        ok = int(lessons_of[cid][1] in ('exact', 'near') and cid not in REMOTE_BLOCKLIST)
+        hisn.execute('update contents set audio_urls=?, audio_remote_ok=? where id=?',
+                     (json.dumps(urls, ensure_ascii=False), ok, cid))
     hisn.commit()
     hisn.execute('vacuum')
     Path(args.report).write_text(report, encoding='utf-8')

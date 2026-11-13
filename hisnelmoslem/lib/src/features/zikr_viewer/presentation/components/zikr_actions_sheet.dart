@@ -5,6 +5,8 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_download_actions.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/components/zikr_audio_settings_dialog.dart';
@@ -89,6 +91,20 @@ class ZikrActionsSheet extends StatelessWidget {
                   final audioCubit = viewerBloc.zikrAudioPlayerCubit;
                   parent.pop();
                   ZikrAudioSettingsDialog.show(parent.context, cubit: audioCubit);
+                },
+              ),
+            if (!isCustom)
+              ZikrActionTile(
+                icon: Icons.download_rounded,
+                label: s.audioDownloadTitleAction,
+                onTap: () {
+                  final parent = Navigator.of(context);
+                  parent.pop();
+                  ReciterDownloadActions.download(
+                    parent.context,
+                    sl<ReciterAudioRepo>().getReciter(),
+                    titleId: dbContent.titleId,
+                  );
                 },
               ),
             const BrightnessActionTile(),

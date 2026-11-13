@@ -19,6 +19,7 @@ import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
 import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_screen.dart';
 import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_screen.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_screen.dart';
@@ -60,6 +61,13 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.view_array),
             onTap: () {
               context.push(const RearrangeDashboardPage());
+            },
+          ),
+          ListTile(
+            title: Text(S.of(context).downloadCenter),
+            leading: const Icon(Icons.download_for_offline_rounded),
+            onTap: () {
+              context.push(const DownloadCenterScreen());
             },
           ),
           ListTile(

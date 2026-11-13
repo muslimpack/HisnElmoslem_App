@@ -40,6 +40,11 @@ import 'package:hisnelmoslem/src/features/home_search/presentation/controller/cu
 import 'package:hisnelmoslem/src/features/onboarding/presentation/controller/cubit/onboard_cubit.dart';
 import 'package:hisnelmoslem/src/features/quran/data/repository/uthmani_repository.dart';
 import 'package:hisnelmoslem/src/features/quran/presentation/controller/cubit/quran_cubit.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/audio_file_store.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/http_audio_downloader.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/domain/audio_source_resolver.dart';
+import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/reciter_downloads_cubit.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/zikr_text_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
@@ -55,7 +60,9 @@ import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/repository/zikr_viewer_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// Registration name of the audio engine the tally uses.
 const String kTallyAudioEngine = "tally_audio_engine";
@@ -77,6 +84,19 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => TallyRepo(sl()));
   sl.registerLazySingleton(() => SearchRepo(sl()));
   sl.registerLazySingleton(() => ZikrAudioPlayerRepo(sl()));
+  sl.registerLazySingleton(() => ReciterAudioRepo(sl()));
+  sl.registerLazySingleton(() => AudioFileStore(getApplicationDocumentsDirectory));
+  sl.registerLazySingleton<AudioDownloader>(() => HttpAudioDownloader(client: http.Client()));
+  sl.registerLazySingleton(
+    () => ReciterDownloadsCubit(
+      downloader: sl(),
+      store: sl(),
+      repo: sl(),
+      loadContents: ({int? titleId}) => titleId == null
+          ? sl<HisnDBHelper>().getAllContents()
+          : sl<HisnDBHelper>().getContentsByTitleId(titleId: titleId),
+    ),
+  );
 
   ///MARK: Init Repo
   sl.registerLazySingleton(() => TallyDatabaseHelper());
@@ -133,7 +153,16 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
-  sl.registerLazySingleton(() => ZikrAudioPlayerCubit(sl()));
+  sl.registerLazySingleton(
+    () => ZikrAudioPlayerCubit(
+      sl(),
+      resolver: AudioSourceResolver(
+        downloadedPath: (reciter, url) => sl<AudioFileStore>().existingPath(reciter, url),
+        isOnline: () => sl<ReciterAudioRepo>().getAllowStream(),
+      ),
+      reciter: () => sl<ReciterAudioRepo>().getReciter(),
+    ),
+  );
   // The tally plays recordings with its own player, so it never interrupts (or is
   // interrupted by) the zikr viewer; the audio settings are shared through the repo.
   sl.registerFactory<ZikrAudioPlayerCubit>(
