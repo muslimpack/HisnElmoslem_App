@@ -166,7 +166,7 @@ Future<void> initSL() async {
       sl(),
       sl(),
       deviceLanguage: () => PlatformDispatcher.instance.locale.languageCode,
-      appLanguage: () => sl<ThemeRepo>().appLocale?.languageCode ?? 'ar',
+      appLanguage: () => sl<ThemeRepo>().appLocale.languageCode,
     ),
   );
   sl.registerLazySingleton(
