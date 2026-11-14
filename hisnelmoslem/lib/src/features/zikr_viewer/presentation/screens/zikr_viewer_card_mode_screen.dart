@@ -13,7 +13,7 @@ class _ZikrViewerCardModeScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(state.title.name),
+            title: TitleWithTranslation(name: state.title.name, titleId: state.title.id),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),

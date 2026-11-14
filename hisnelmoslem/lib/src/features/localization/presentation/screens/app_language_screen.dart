@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/controller/translations_cubit.dart';
 
 class AppLanguageScreen extends StatelessWidget {
   const AppLanguageScreen({super.key});
@@ -32,9 +33,11 @@ class AppLanguageScreen extends StatelessWidget {
                     : null,
                 title: Text(currentLocale.languageCode),
                 onTap: () {
-                  context.read<ThemeCubit>().changeAppLocale(
-                    currentLocale.languageCode,
-                  );
+                  final translations = context.read<TranslationsCubit>();
+                  context
+                      .read<ThemeCubit>()
+                      .changeAppLocale(currentLocale.languageCode)
+                      .then((_) => translations.refresh());
                 },
               );
             },

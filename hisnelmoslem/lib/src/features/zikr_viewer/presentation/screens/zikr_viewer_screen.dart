@@ -12,6 +12,7 @@ import 'package:hisnelmoslem/src/features/bookmark/presentation/components/bookm
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/viewer_favourite_buttons.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/components/title_translation_text.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/animated_zikr_progress_counter.dart';

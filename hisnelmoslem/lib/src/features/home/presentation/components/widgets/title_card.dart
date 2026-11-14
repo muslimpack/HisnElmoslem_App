@@ -4,6 +4,7 @@ import 'package:hisnelmoslem/src/core/extensions/extension.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/title_card_alarm_button.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/components/bookmark_title_button.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/components/title_translation_text.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_viewer_screen.dart';
 
 class TitleCard extends StatelessWidget {
@@ -34,6 +35,9 @@ class TitleCard extends StatelessWidget {
 
       trailing: TitleCardAlarmButton(dbTitle: dbTitle),
       title: Text(dbTitle.name),
+      subtitle: TitleTranslationText.hasTitle(context, dbTitle.id)
+          ? TitleTranslationText(titleId: dbTitle.id)
+          : null,
       onTap: () {
         context.push(ZikrViewerScreen(index: dbTitle.id));
       },

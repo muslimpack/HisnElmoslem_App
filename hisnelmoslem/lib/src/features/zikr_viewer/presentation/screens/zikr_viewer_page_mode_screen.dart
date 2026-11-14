@@ -13,7 +13,7 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(state.title.name),
+            title: TitleWithTranslation(name: state.title.name, titleId: state.title.id),
             actions: [
               AnimatedZikrProgressCounter(
                 currentIndex: state.activeZikrIndex,
