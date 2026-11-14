@@ -3,26 +3,11 @@
 
 Usage: python tools/binwahaf_match.py [--site tools/binwahaf_out/content.json] [--out DIR]
 """
-import argparse, difflib, json, re, sqlite3
+import argparse, difflib, json, re, sqlite3, sys
 from pathlib import Path
 
-DIA = re.compile('[\u064b-\u065f\u0670\u06d6-\u06ed\u0640\u200c-\u200f\u202a-\u202f]')
-
-def norm(s: str) -> str:
-    s = DIA.sub('', s or '')
-    s = s.replace('أ', 'ا').replace('إ', 'ا').replace('آ', 'ا').replace('ٱ', 'ا')
-    s = s.replace('ى', 'ي').replace('ة', 'ه').replace('ؤ', 'و').replace('ئ', 'ي')
-    s = re.sub(r'[^\u0621-\u064a ]', ' ', s)
-    return re.sub(r'\s+', ' ', s).strip()
-
-def expand_quran_all(text, q):
-    def rep(m):
-        out = []
-        for part in re.findall(r'\(([\d:]+)\)', m.group(0)):
-            sura, a, b = (int(x) for x in part.split(':'))
-            out += [r[0] for r in q.execute('select text from arabic_text where sura=? and ayah between ? and ? order by ayah', (sura, a, b))]
-        return ' '.join(out)
-    return re.sub(r'QuranText\[[^\]]*\]', rep, text or '')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hisn_text import norm, expand_quran_all  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser()

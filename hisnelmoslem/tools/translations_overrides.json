@@ -1,0 +1,18 @@
+{
+ "_doc": "Manual decisions for tools/translations_match.py. Keys are app ids from hisn_elmoslem.db. contents: zikrs = the source DB ZekarIDs whose translation is used (empty = no translation), coverage = exact|near|combined|partial. titles: category = the source DB CategoryID, names = per-language name used instead of the category name.",
+ "titles": {
+  "29": {"category": 27, "names": {"en": "Remembrance said in the morning", "fr": "Du matin"},
+         "note": "the source DB category 27 is named for morning and evening (En 'Remembrance said in the morning and evening', Fr 'Du matin et du soir'); the app splits the chapter, so the name is cut to the morning part. Owner to confirm the wording."},
+  "30": {"category": 135, "names": {"en": "Remembrance said in the evening", "fr": "Du soir"},
+         "note": "the source DB category 135 (evening) has no English or French name; the name follows the morning one. Owner to confirm the wording."}
+ },
+ "contents": {
+  "92": {"zikrs": [], "note": "Preface before Ayat al-Kursi. the source DB En 74 at the same id is a glossary note about morning/evening times, not this text, and Fr has no item."},
+  "116": {"zikrs": [], "note": "Evening copy of 92: same reason."},
+  "148": {"zikrs": [], "note": "App gives the text of Surat As-Sajda; the source DB 110 only says the Prophet recited As-Sajda and Al-Mulk before sleeping (an instruction, not a meaning of the verses)."},
+  "332": {"zikrs": [], "note": "App gives the text of Surat Al-Mulk; same reason as 148."},
+  "184": {"zikrs": [], "note": "App gives the full adhan; the source DB 147 is only the instruction 'The athan (call to prayer)'."},
+  "272": {"zikrs": [234], "coverage": "near", "note": "Barking dogs / braying donkeys: the source DB 234 (category 112) is the same hadith; Arabic adds 'al-Azim'. binwahaf links this content to the wrong lesson, so the number route cannot confirm."},
+  "287": {"zikrs": [], "note": "App 'Allahumma barik fima a'tayt'; the source DB 249 is a different wording ('Allahumma barik alayh') plus a definition of the evil eye. Excluded rather than shown as a meaning of other words."}
+ }
+}
