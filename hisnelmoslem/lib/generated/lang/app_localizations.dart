@@ -2824,6 +2824,30 @@ abstract class S {
   /// **'Fixed typos, completed missing explanations and corrected some audio.'**
   String get whatsNewContentDesc;
 
+  /// No description provided for @whatsNewTranslationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation and pronunciation'**
+  String get whatsNewTranslationsTitle;
+
+  /// No description provided for @whatsNewTranslationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Read every zikr in English or French: the meaning and a Latin-letter transliteration appear under the Arabic text. Choose the language and what to show in Settings.'**
+  String get whatsNewTranslationsDesc;
+
+  /// No description provided for @whatsNewFrenchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'French is here'**
+  String get whatsNewFrenchTitle;
+
+  /// No description provided for @whatsNewFrenchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The app now speaks French, and the language screen shows each language by its own name. Without a choice it follows your device language.'**
+  String get whatsNewFrenchDesc;
+
   /// No description provided for @translationSettings.
   ///
   /// In en, this message translates to:

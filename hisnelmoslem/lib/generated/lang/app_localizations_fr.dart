@@ -1450,6 +1450,20 @@ class SFr extends S {
       'Fautes corrigées, explications manquantes complétées et certains audios corrigés.';
 
   @override
+  String get whatsNewTranslationsTitle => 'Traduction et transcription';
+
+  @override
+  String get whatsNewTranslationsDesc =>
+      'Lisez chaque invocation en anglais ou en français : le sens et la transcription en lettres latines s\'affichent sous le texte arabe. Choisissez la langue et ce qui s\'affiche dans les réglages.';
+
+  @override
+  String get whatsNewFrenchTitle => 'Le français arrive';
+
+  @override
+  String get whatsNewFrenchDesc =>
+      'L\'application est disponible en français, et chaque langue s\'affiche sous son nom. Sans choix, elle suit la langue de votre appareil.';
+
+  @override
   String get translationSettings => 'Traduction';
 
   @override

@@ -23,6 +23,8 @@ class OnBoardingScreen extends StatelessWidget {
     final s = S.of(context);
     final items = <_Item>[
       _Item(Icons.library_add_rounded, s.whatsNewCustomTitle, s.whatsNewCustomDesc),
+      _Item(Icons.translate_rounded, s.whatsNewTranslationsTitle, s.whatsNewTranslationsDesc),
+      _Item(Icons.language_rounded, s.whatsNewFrenchTitle, s.whatsNewFrenchDesc),
       _Item(Icons.cloud_download_rounded, s.whatsNewDownloadsTitle, s.whatsNewDownloadsDesc),
       _Item(Icons.touch_app_rounded, s.whatsNewTallyTitle, s.whatsNewTallyDesc),
       _Item(Icons.view_agenda_rounded, s.whatsNewViewerTitle, s.whatsNewViewerDesc),

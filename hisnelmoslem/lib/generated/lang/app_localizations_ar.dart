@@ -1434,6 +1434,20 @@ class SAr extends S {
   String get whatsNewContentDesc => 'صُحّحت أخطاء إملائية وأُكملت شروح ناقصة وصُحّح بعض الصوتيات.';
 
   @override
+  String get whatsNewTranslationsTitle => 'الترجمة والنطق';
+
+  @override
+  String get whatsNewTranslationsDesc =>
+      'اقرأ كل ذكر بالإنجليزية أو الفرنسية: يظهر المعنى والنطق بالحروف اللاتينية أسفل النص العربي. اختر اللغة وما يُعرض من الإعدادات.';
+
+  @override
+  String get whatsNewFrenchTitle => 'الفرنسية في التطبيق';
+
+  @override
+  String get whatsNewFrenchDesc =>
+      'أصبح التطبيق متاحاً بالفرنسية، وتظهر اللغات بأسمائها في شاشة اللغة. وإذا لم تختر لغة فسيتبع لغة جهازك.';
+
+  @override
   String get translationSettings => 'الترجمة';
 
   @override

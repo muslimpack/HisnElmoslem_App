@@ -1441,6 +1441,20 @@ class SEn extends S {
       'Fixed typos, completed missing explanations and corrected some audio.';
 
   @override
+  String get whatsNewTranslationsTitle => 'Translation and pronunciation';
+
+  @override
+  String get whatsNewTranslationsDesc =>
+      'Read every zikr in English or French: the meaning and a Latin-letter transliteration appear under the Arabic text. Choose the language and what to show in Settings.';
+
+  @override
+  String get whatsNewFrenchTitle => 'French is here';
+
+  @override
+  String get whatsNewFrenchDesc =>
+      'The app now speaks French, and the language screen shows each language by its own name. Without a choice it follows your device language.';
+
+  @override
   String get translationSettings => 'Translation';
 
   @override
