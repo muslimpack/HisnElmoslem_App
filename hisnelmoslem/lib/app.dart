@@ -23,6 +23,7 @@ import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/dow
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/controller/translations_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/presentation/components/desktop_window_wrapper.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -59,6 +60,7 @@ class AppState extends State<App> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()),
+        BlocProvider(create: (_) => sl<TranslationsCubit>()..start()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(create: (_) => sl<AzkarFiltersCubit>()),
         BlocProvider(create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent())),

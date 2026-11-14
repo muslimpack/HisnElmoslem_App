@@ -465,5 +465,17 @@
   "whatsNewHomeTitle": "رئيسية على ذوقك",
   "whatsNewHomeDesc": "درج رئيسي قابل للسحب وصفحة ترتيب اللوحة بتصميم جديد مع إعادة الترتيب الافتراضي.",
   "whatsNewContentTitle": "تصحيحات",
-  "whatsNewContentDesc": "صُحّحت أخطاء إملائية وأُكملت شروح ناقصة وصُحّح بعض الصوتيات."
+  "whatsNewContentDesc": "صُحّحت أخطاء إملائية وأُكملت شروح ناقصة وصُحّح بعض الصوتيات.",
+  "translationSettings": "الترجمة",
+  "translationLanguage": "لغة الترجمة",
+  "translationLanguageAuto": "تلقائي",
+  "translationLanguageAutoDesc": "حسب لغة الجهاز، والإنجليزية إن لم تتوفر",
+  "translationSource": "المصدر: {source}",
+  "translationFallbackHint": "معروضة بالإنجليزية لعدم توفرها بلغتك",
+  "translationPartialHint": "قد تشمل هذه الترجمة أكثر من النص أعلاه.",
+  "translationShowMeaning": "إظهار المعنى",
+  "translationShowTranslit": "إظهار النطق بالحروف اللاتينية",
+  "translationShowTitles": "إظهار عناوين مترجمة",
+  "aboutTranslationsTitle": "الترجمات",
+  "aboutTranslationsDesc": "الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com."
 }

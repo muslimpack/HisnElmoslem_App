@@ -1439,4 +1439,45 @@ class SEn extends S {
   @override
   String get whatsNewContentDesc =>
       'Fixed typos, completed missing explanations and corrected some audio.';
+
+  @override
+  String get translationSettings => 'Translation';
+
+  @override
+  String get translationLanguage => 'Translation language';
+
+  @override
+  String get translationLanguageAuto => 'Automatic';
+
+  @override
+  String get translationLanguageAutoDesc =>
+      'Follows the device language, English if it is not available';
+
+  @override
+  String translationSource(String source) {
+    return 'Source: $source';
+  }
+
+  @override
+  String get translationFallbackHint =>
+      'Shown in English because it is not available in your language';
+
+  @override
+  String get translationPartialHint => 'This translation may cover more than the text above.';
+
+  @override
+  String get translationShowMeaning => 'Show meaning';
+
+  @override
+  String get translationShowTranslit => 'Show transliteration';
+
+  @override
+  String get translationShowTitles => 'Show translated titles';
+
+  @override
+  String get aboutTranslationsTitle => 'Translations';
+
+  @override
+  String get aboutTranslationsDesc =>
+      'The English and French translations and transliterations are from hisnmuslim.com.';
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
@@ -54,6 +56,10 @@ import 'package:hisnelmoslem/src/features/tally/data/repository/tally_repo.dart'
 import 'package:hisnelmoslem/src/features/tally/presentation/controller/bloc/tally_bloc.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/translations/data/translation_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/translations/data/translations_db_helper.dart';
+import 'package:hisnelmoslem/src/features/translations/data/translations_repo.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/controller/translations_cubit.dart';
 import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/data/repository/zikr_audio_player_repo.dart';
 import 'package:hisnelmoslem/src/features/zikr_audio_player/presentation/controller/cubit/zikr_audio_player_cubit.dart';
@@ -106,6 +112,9 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => FakeHadithDBHelper(sl()));
   sl.registerLazySingleton(() => CommentaryDBHelper());
   sl.registerLazySingleton(() => CustomAzkarDBHelper());
+  sl.registerLazySingleton(() => TranslationsDBHelper());
+  sl.registerLazySingleton(() => TranslationsRepo(sl()));
+  sl.registerLazySingleton(() => TranslationSettingsRepo(sl()));
   sl.registerLazySingleton<OriginalZikrSource>(() => HisnOriginalZikrSource(sl()));
   sl.registerLazySingleton<CustomAudioStorage>(
     // The tally counters keep recordings in the same folder.
@@ -152,6 +161,14 @@ Future<void> initSL() async {
   sl.registerLazySingleton(() => SearchCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => SettingsCubit(sl(), sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => AzkarFiltersCubit(sl()));
+  sl.registerLazySingleton(
+    () => TranslationsCubit(
+      sl(),
+      sl(),
+      deviceLanguage: () => PlatformDispatcher.instance.locale.languageCode,
+      appLanguage: () => sl<ThemeRepo>().appLocale?.languageCode ?? 'ar',
+    ),
+  );
   sl.registerLazySingleton(
     () => ZikrAudioPlayerCubit(
       sl(),

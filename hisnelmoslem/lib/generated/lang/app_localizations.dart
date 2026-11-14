@@ -2822,6 +2822,78 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Fixed typos, completed missing explanations and corrected some audio.'**
   String get whatsNewContentDesc;
+
+  /// No description provided for @translationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get translationSettings;
+
+  /// No description provided for @translationLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation language'**
+  String get translationLanguage;
+
+  /// No description provided for @translationLanguageAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get translationLanguageAuto;
+
+  /// No description provided for @translationLanguageAutoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows the device language, English if it is not available'**
+  String get translationLanguageAutoDesc;
+
+  /// No description provided for @translationSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: {source}'**
+  String translationSource(String source);
+
+  /// No description provided for @translationFallbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown in English because it is not available in your language'**
+  String get translationFallbackHint;
+
+  /// No description provided for @translationPartialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This translation may cover more than the text above.'**
+  String get translationPartialHint;
+
+  /// No description provided for @translationShowMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Show meaning'**
+  String get translationShowMeaning;
+
+  /// No description provided for @translationShowTranslit.
+  ///
+  /// In en, this message translates to:
+  /// **'Show transliteration'**
+  String get translationShowTranslit;
+
+  /// No description provided for @translationShowTitles.
+  ///
+  /// In en, this message translates to:
+  /// **'Show translated titles'**
+  String get translationShowTitles;
+
+  /// No description provided for @aboutTranslationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get aboutTranslationsTitle;
+
+  /// No description provided for @aboutTranslationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The English and French translations and transliterations are from hisnmuslim.com.'**
+  String get aboutTranslationsDesc;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

@@ -1432,4 +1432,43 @@ class SAr extends S {
 
   @override
   String get whatsNewContentDesc => 'صُحّحت أخطاء إملائية وأُكملت شروح ناقصة وصُحّح بعض الصوتيات.';
+
+  @override
+  String get translationSettings => 'الترجمة';
+
+  @override
+  String get translationLanguage => 'لغة الترجمة';
+
+  @override
+  String get translationLanguageAuto => 'تلقائي';
+
+  @override
+  String get translationLanguageAutoDesc => 'حسب لغة الجهاز، والإنجليزية إن لم تتوفر';
+
+  @override
+  String translationSource(String source) {
+    return 'المصدر: $source';
+  }
+
+  @override
+  String get translationFallbackHint => 'معروضة بالإنجليزية لعدم توفرها بلغتك';
+
+  @override
+  String get translationPartialHint => 'قد تشمل هذه الترجمة أكثر من النص أعلاه.';
+
+  @override
+  String get translationShowMeaning => 'إظهار المعنى';
+
+  @override
+  String get translationShowTranslit => 'إظهار النطق بالحروف اللاتينية';
+
+  @override
+  String get translationShowTitles => 'إظهار عناوين مترجمة';
+
+  @override
+  String get aboutTranslationsTitle => 'الترجمات';
+
+  @override
+  String get aboutTranslationsDesc =>
+      'الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com.';
 }

@@ -474,5 +474,18 @@
   "whatsNewHomeTitle": "Home your way",
   "whatsNewHomeDesc": "A draggable home drawer and a redesigned dashboard arrangement with reset to default.",
   "whatsNewContentTitle": "Corrections",
-  "whatsNewContentDesc": "Fixed typos, completed missing explanations and corrected some audio."
+  "whatsNewContentDesc": "Fixed typos, completed missing explanations and corrected some audio.",
+  "translationSettings": "Translation",
+  "translationLanguage": "Translation language",
+  "translationLanguageAuto": "Automatic",
+  "translationLanguageAutoDesc": "Follows the device language, English if it is not available",
+  "translationSource": "Source: {source}",
+  "@translationSource": {"placeholders": {"source": {"type": "String"}}},
+  "translationFallbackHint": "Shown in English because it is not available in your language",
+  "translationPartialHint": "This translation may cover more than the text above.",
+  "translationShowMeaning": "Show meaning",
+  "translationShowTranslit": "Show transliteration",
+  "translationShowTitles": "Show translated titles",
+  "aboutTranslationsTitle": "Translations",
+  "aboutTranslationsDesc": "The English and French translations and transliterations are from hisnmuslim.com."
 }
