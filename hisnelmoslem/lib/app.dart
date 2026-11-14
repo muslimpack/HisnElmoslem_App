@@ -90,9 +90,12 @@ class AppState extends State<App> {
               GlobalCupertinoLocalizations.delegate,
             ],
             localeResolutionCallback: (locale, supportedLocales) {
-              return locale != null && supportedLocales.contains(locale)
-                  ? locale
-                  : supportedLocales.first;
+              if (locale == null) return supportedLocales.first;
+              // A device locale with a region (fr_FR) still matches its language.
+              return supportedLocales.firstWhere(
+                (supported) => supported.languageCode == locale.languageCode,
+                orElse: () => supportedLocales.first,
+              );
             },
             debugShowCheckedModeBanner: false,
             theme: state.theme,

@@ -28,6 +28,11 @@ void main() {
       expect(resolve('auto', device: 'de', app: 'fr'), 'fr');
     });
 
+    test('auto resolves to French when the app language is French and the device is Arabic', () {
+      expect(resolve('auto', app: 'fr'), 'fr');
+      expect(resolve(null, app: 'fr'), 'fr');
+    });
+
     test('auto ends at English for Arabic app and unknown device', () {
       expect(resolve('auto', device: 'de'), 'en');
       expect(resolve('auto'), 'en');
