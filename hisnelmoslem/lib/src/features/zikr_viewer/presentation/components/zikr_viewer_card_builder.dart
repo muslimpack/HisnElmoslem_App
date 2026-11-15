@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/components/feedback_sheet.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -78,10 +79,10 @@ class _BottomBar extends StatelessWidget {
           IconButton(
             tooltip: S.of(context).report,
             icon: const Icon(Icons.report_outlined, color: Colors.orange),
-            onPressed: () {
-              context.read<ZikrViewerBloc>().add(
-                ZikrViewerReportZikrEvent(content: dbContent),
-              );
+            onPressed: () async {
+              final report = await context.read<ZikrViewerBloc>().misspellingContextFor(dbContent);
+              if (report == null || !context.mounted) return;
+              await FeedbackSheet.show(context, misspelling: report);
             },
           ),
       ],

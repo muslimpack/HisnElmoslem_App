@@ -38,12 +38,3 @@ class FakeHadithCopyHadithEvent extends FakeHadithEvent {
   @override
   List<Object> get props => [fakeHadith, positionForIpad];
 }
-
-class FakeHadithReportHadithEvent extends FakeHadithEvent {
-  final DbFakeHaith fakeHadith;
-
-  const FakeHadithReportHadithEvent({required this.fakeHadith});
-
-  @override
-  List<Object> get props => [fakeHadith];
-}

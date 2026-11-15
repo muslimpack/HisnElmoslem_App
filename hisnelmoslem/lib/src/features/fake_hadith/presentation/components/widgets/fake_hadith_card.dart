@@ -7,6 +7,8 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/models/feedback_draft.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/components/feedback_sheet.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/share_as_image/presentation/screens/share_as_image_screen.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
@@ -142,7 +144,15 @@ class _TopBar extends StatelessWidget {
           tooltip: S.of(context).report,
           icon: const Icon(Icons.report_outlined, color: Colors.orange),
           onPressed: () {
-            context.read<FakeHadithBloc>().add(FakeHadithReportHadithEvent(fakeHadith: fakeHadith));
+            FeedbackSheet.show(
+              context,
+              misspelling: MisspellingContext(
+                title: S.of(context).fakeHadith,
+                index: fakeHadith.id + 1,
+                currentText: fakeHadith.text,
+                isFakeHadith: true,
+              ),
+            );
           },
         ),
       ],
