@@ -11,25 +11,16 @@ class _ZikrViewerPageModeScreen extends StatelessWidget {
           return const Loading();
         }
         return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: TitleWithTranslation(name: state.title.name, titleId: state.title.id),
+          appBar: ZikrViewerAppBar(
+            title: state.title.name,
+            titleId: state.title.id,
+            showProgress: state.activeZikr != null,
             actions: [
-              AnimatedZikrProgressCounter(
-                currentIndex: state.activeZikrIndex,
-                totalCount: state.azkarToView.length,
-              ),
               if (state.title.isCustom)
                 ViewerCustomTitleFavouriteButton(customTitleId: state.title.customTitleId)
               else
                 BookmarkTitleButton(titleId: state.title.id),
             ],
-            bottom: state.activeZikr == null
-                ? null
-                : const PreferredSize(
-                    preferredSize: Size.fromHeight(10),
-                    child: Column(children: [ZikrViewerProgressBar()]),
-                  ),
           ),
           body: PageView.builder(
             physics: const BouncingScrollPhysics(),

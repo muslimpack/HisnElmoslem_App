@@ -11,20 +11,12 @@ class _ZikrViewerCardModeScreen extends StatelessWidget {
           return const Loading();
         }
         return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: TitleWithTranslation(name: state.title.name, titleId: state.title.id),
+          appBar: ZikrViewerAppBar(
+            title: state.title.name,
+            titleId: state.title.id,
             actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("${state.azkarToView.length}".toArabicNumber()),
-              ),
               if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
             ],
-            bottom: const PreferredSize(
-              preferredSize: Size(100, 5),
-              child: ZikrViewerProgressBar(),
-            ),
           ),
           body: ListView.builder(
             physics: const BouncingScrollPhysics(),
