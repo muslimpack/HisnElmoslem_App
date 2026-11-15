@@ -4,7 +4,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mo
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/controller/bloc/zikr_viewer_bloc.dart';
 
 /// Stories-style progress: one segment per zikr, each filling as that zikr's own count is
-/// finished. In page mode the active zikr's segment is taller.
+/// finished. In page mode the active zikr's segment is wider.
 class ZikrViewerProgressBar extends StatelessWidget {
   const ZikrViewerProgressBar({super.key});
 
@@ -38,14 +38,16 @@ class ZikrViewerProgressBar extends StatelessWidget {
 class SegmentedProgressBar extends StatelessWidget {
   static const double _gap = 3;
   static const double _minSegmentWidth = 5;
-  static const double _height = 4;
-  static const double _activeHeight = 7;
+  static const double _height = 5;
+
+  /// How many times wider the active segment is than the others.
+  static const double _activeWeight = 3;
   static const Duration _duration = Duration(milliseconds: 400);
 
   /// Fill of every segment, 0..1.
   final List<double> progress;
 
-  /// Segment drawn taller, or -1 for none.
+  /// Segment drawn wider, or -1 for none.
   final int activeIndex;
 
   const SegmentedProgressBar({super.key, required this.progress, this.activeIndex = -1});
@@ -57,25 +59,26 @@ class SegmentedProgressBar extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final fill = scheme.primary;
     final track = scheme.primary.withValues(alpha: 0.25);
+    final hasActive = activeIndex >= 0 && activeIndex < progress.length;
 
     return SizedBox(
-      height: _activeHeight,
+      height: _height,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final segmentWidth =
-              (constraints.maxWidth - _gap * (progress.length - 1)) / progress.length;
+          final available = constraints.maxWidth - _gap * (progress.length - 1);
+          final totalWeight = progress.length + (hasActive ? _activeWeight - 1 : 0);
+          final unit = available / totalWeight;
 
           // Too many zikrs for readable segments: one continuous bar of the total.
-          if (segmentWidth < _minSegmentWidth) {
+          if (unit < _minSegmentWidth) {
             final total = progress.fold<double>(0, (a, b) => a + b) / progress.length;
-            return Align(
-              child: _Segment(
-                value: total,
-                height: _height,
-                fill: fill,
-                track: track,
-                duration: _duration,
-              ),
+            return _Segment(
+              value: total,
+              width: constraints.maxWidth,
+              height: _height,
+              fill: fill,
+              track: track,
+              duration: _duration,
             );
           }
 
@@ -83,16 +86,13 @@ class SegmentedProgressBar extends StatelessWidget {
             spacing: _gap,
             children: [
               for (var i = 0; i < progress.length; i++)
-                Expanded(
-                  child: Align(
-                    child: _Segment(
-                      value: progress[i],
-                      height: i == activeIndex ? _activeHeight : _height,
-                      fill: fill,
-                      track: track,
-                      duration: _duration,
-                    ),
-                  ),
+                _Segment(
+                  value: progress[i],
+                  width: unit * (hasActive && i == activeIndex ? _activeWeight : 1),
+                  height: _height,
+                  fill: fill,
+                  track: track,
+                  duration: _duration,
                 ),
             ],
           );
@@ -105,6 +105,7 @@ class SegmentedProgressBar extends StatelessWidget {
 class _Segment extends StatelessWidget {
   const _Segment({
     required this.value,
+    required this.width,
     required this.height,
     required this.fill,
     required this.track,
@@ -112,6 +113,7 @@ class _Segment extends StatelessWidget {
   });
 
   final double value;
+  final double width;
   final double height;
   final Color fill;
   final Color track;
@@ -121,6 +123,8 @@ class _Segment extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: duration,
+      curve: Curves.easeInOut,
+      width: width,
       height: height,
       decoration: BoxDecoration(color: track, borderRadius: BorderRadius.circular(height)),
       clipBehavior: Clip.antiAlias,

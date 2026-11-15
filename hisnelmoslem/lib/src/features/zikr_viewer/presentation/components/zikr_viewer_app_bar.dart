@@ -5,7 +5,7 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zi
 /// App bar shared by the page and card modes of the zikr viewer: back, the title with its
 /// translation and the mode's own [actions]. Progress is the segmented bar under it.
 class ZikrViewerAppBar extends StatelessWidget implements PreferredSizeWidget {
-  static const double _progressHeight = 22;
+  static const double _progressHeight = 20;
 
   final String title;
   final int titleId;
