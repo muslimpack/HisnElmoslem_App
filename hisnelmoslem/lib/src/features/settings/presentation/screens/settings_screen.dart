@@ -318,28 +318,6 @@ class _SettingsAlarmsSection extends StatelessWidget {
                 onTap: () => FastReminderDialog.show(context),
               ),
             SwitchListTile(
-              secondary: const Icon(Icons.wb_sunny_outlined),
-              title: Text(S.of(context).morningAzkarReminder),
-              subtitle: Text(S.of(context).presetReminderDesc),
-              value: state.alarms.any(
-                (a) => a.titleId == AlarmsBloc.morningTitleId && a.isActive,
-              ),
-              onChanged: (value) => context.read<AlarmsBloc>().add(
-                AlarmsTogglePresetEvent(titleId: AlarmsBloc.morningTitleId, enable: value),
-              ),
-            ),
-            SwitchListTile(
-              secondary: const Icon(Icons.nights_stay_outlined),
-              title: Text(S.of(context).eveningAzkarReminder),
-              subtitle: Text(S.of(context).presetReminderDesc),
-              value: state.alarms.any(
-                (a) => a.titleId == AlarmsBloc.eveningTitleId && a.isActive,
-              ),
-              onChanged: (value) => context.read<AlarmsBloc>().add(
-                AlarmsTogglePresetEvent(titleId: AlarmsBloc.eveningTitleId, enable: value),
-              ),
-            ),
-            SwitchListTile(
               secondary: const Icon(Icons.alarm),
               title: Text(S.of(context).suraAlKahfReminder),
               value: state.isCaveAlarmEnabled,

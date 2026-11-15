@@ -496,8 +496,5 @@
   "fastingRemindSameDay": "Remind on the day itself",
   "fastingRemindSameDayDesc": "Off: the evening before. On: the morning or time you choose on the fasting day.",
   "fastingMondayTodayReminder": "Fasting today (Monday)",
-  "fastingThursdayTodayReminder": "Fasting today (Thursday)",
-  "morningAzkarReminder": "Morning adhkar reminder",
-  "eveningAzkarReminder": "Evening adhkar reminder",
-  "presetReminderDesc": "Daily. Change the time from Reminders manager."
+  "fastingThursdayTodayReminder": "Fasting today (Thursday)"
 }

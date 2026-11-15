@@ -2949,24 +2949,6 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Fasting today (Thursday)'**
   String get fastingThursdayTodayReminder;
-
-  /// No description provided for @morningAzkarReminder.
-  ///
-  /// In en, this message translates to:
-  /// **'Morning adhkar reminder'**
-  String get morningAzkarReminder;
-
-  /// No description provided for @eveningAzkarReminder.
-  ///
-  /// In en, this message translates to:
-  /// **'Evening adhkar reminder'**
-  String get eveningAzkarReminder;
-
-  /// No description provided for @presetReminderDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily. Change the time from Reminders manager.'**
-  String get presetReminderDesc;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

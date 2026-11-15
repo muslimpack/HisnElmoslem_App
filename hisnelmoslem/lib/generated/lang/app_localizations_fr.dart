@@ -1518,13 +1518,4 @@ class SFr extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'Jeûne aujourd\'hui (jeudi)';
-
-  @override
-  String get morningAzkarReminder => 'Rappel des invocations du matin';
-
-  @override
-  String get eveningAzkarReminder => 'Rappel des invocations du soir';
-
-  @override
-  String get presetReminderDesc => 'Chaque jour. Changez l\'heure dans le gestionnaire de rappels.';
 }

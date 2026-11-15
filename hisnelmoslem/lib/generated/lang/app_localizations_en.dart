@@ -1510,13 +1510,4 @@ class SEn extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'Fasting today (Thursday)';
-
-  @override
-  String get morningAzkarReminder => 'Morning adhkar reminder';
-
-  @override
-  String get eveningAzkarReminder => 'Evening adhkar reminder';
-
-  @override
-  String get presetReminderDesc => 'Daily. Change the time from Reminders manager.';
 }

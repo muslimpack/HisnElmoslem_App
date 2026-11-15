@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -11,7 +10,6 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manag
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
-import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 
 part 'alarms_event.dart';
 part 'alarms_state.dart';
@@ -34,12 +32,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     on<AlarmsToggleFastAlarmEvent>(_toggleFastAlarm);
     on<AlarmsToggleCaveAlarmEvent>(_toggleCaveAlarm);
     on<AlarmsFastScheduleChangedEvent>(_changeFastSchedule);
-    on<AlarmsTogglePresetEvent>(_togglePreset);
   }
-
-  /// Morning and evening adhkar titles of the bundled book.
-  static const int morningTitleId = 29;
-  static const int eveningTitleId = 30;
 
   Future<void> _start(AlarmsStartEvent event, Emitter<AlarmsState> emit) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
@@ -87,43 +80,6 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         fastSameDay: event.sameDay,
       ),
     );
-  }
-
-  Future<void> _togglePreset(
-    AlarmsTogglePresetEvent event,
-    Emitter<AlarmsState> emit,
-  ) async {
-    final state = this.state;
-    if (state is! AlarmsLoadedState) return;
-
-    final existing = state.alarms.where((a) => a.titleId == event.titleId).firstOrNull;
-
-    if (existing != null) {
-      final updated = existing.copyWith(isActive: event.enable);
-      await alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updated);
-      await alarmManager.alarmState(dbAlarm: updated);
-      emit(
-        state.copyWith(
-          alarms: [for (final a in state.alarms) a.id == updated.id ? updated : a],
-        ),
-      );
-      return;
-    }
-    if (!event.enable) return;
-
-    final title = await sl<HisnDBHelper>().getTitleById(id: event.titleId);
-    final isMorning = event.titleId == morningTitleId;
-    final draft = DbAlarm(
-      titleId: title.id,
-      title: title.name,
-      body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
-      hour: isMorning ? 6 : 17,
-      isActive: true,
-    );
-    final id = await alarmDatabaseHelper.addNewAlarm(dbAlarm: draft);
-    final added = draft.copyWith(id: id);
-    await alarmManager.alarmState(dbAlarm: added);
-    emit(state.copyWith(alarms: [...state.alarms, added]));
   }
 
   Future<void> _add(AlarmsAddEvent event, Emitter<AlarmsState> emit) async {

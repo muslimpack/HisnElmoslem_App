@@ -486,8 +486,5 @@
   "fastingRemindSameDay": "التذكير في يوم الصيام نفسه",
   "fastingRemindSameDayDesc": "إيقاف: مساء اليوم السابق. تشغيل: في الوقت الذي تختاره صباح يوم الصيام.",
   "fastingMondayTodayReminder": "صيام اليوم الإثنين",
-  "fastingThursdayTodayReminder": "صيام اليوم الخميس",
-  "morningAzkarReminder": "تذكير أذكار الصباح",
-  "eveningAzkarReminder": "تذكير أذكار المساء",
-  "presetReminderDesc": "يوميا. يمكنك تغيير الوقت من إدارة التنبيهات."
+  "fastingThursdayTodayReminder": "صيام اليوم الخميس"
 }

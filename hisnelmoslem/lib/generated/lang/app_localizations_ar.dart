@@ -1501,13 +1501,4 @@ class SAr extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'صيام اليوم الخميس';
-
-  @override
-  String get morningAzkarReminder => 'تذكير أذكار الصباح';
-
-  @override
-  String get eveningAzkarReminder => 'تذكير أذكار المساء';
-
-  @override
-  String get presetReminderDesc => 'يوميا. يمكنك تغيير الوقت من إدارة التنبيهات.';
 }
