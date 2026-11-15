@@ -105,10 +105,34 @@ class LocalNotificationManager {
     );
   }
 
+  /// Zone name and UTC offset the alarms were last planned with.
+  String? _timeZoneSignature;
+
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
+    await _applyDeviceTimeZone();
+  }
+
+  Future<void> _applyDeviceTimeZone() async {
     final timezoneInfo = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
+    _timeZoneSignature = '${timezoneInfo.identifier}|${DateTime.now().timeZoneOffset.inMinutes}';
+  }
+
+  /// Re-reads the device time zone and returns whether it, or its UTC offset
+  /// (a DST change), differs from what the alarms were planned with.
+  ///
+  /// Scheduled alarms keep the wall-clock time they were planned with, so they
+  /// must be planned again when this returns `true`.
+  Future<bool> refreshTimeZone() async {
+    final before = _timeZoneSignature;
+    try {
+      await _applyDeviceTimeZone();
+    } catch (e) {
+      hisnPrint(e);
+      return false;
+    }
+    return before != null && before != _timeZoneSignature;
   }
 
   Future<bool> requestPermissionWithDialog({bool triggerOnStartup = false}) async {

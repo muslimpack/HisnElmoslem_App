@@ -37,10 +37,35 @@ class App extends StatefulWidget {
   AppState createState() => AppState();
 }
 
-class AppState extends State<App> {
+class AppState extends State<App> with WidgetsBindingObserver {
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _replanAlarmsIfTimeZoneChanged();
+  }
+
+  /// A DST change or a trip to another time zone while the app was in the
+  /// background leaves alarms an hour (or more) off, so plan them again.
+  Future<void> _replanAlarmsIfTimeZoneChanged() async {
+    try {
+      if (!await sl<LocalNotificationManager>().refreshTimeZone()) return;
+      final context = App.navigatorKey.currentContext;
+      if (context == null || !context.mounted) return;
+      context.read<AlarmsBloc>().add(AlarmsStartEvent());
+    } catch (e) {
+      hisnPrint(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
