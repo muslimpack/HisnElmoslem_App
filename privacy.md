@@ -126,3 +126,11 @@ Egypt
 HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 
 Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request form by clicking here. We will respond to your request within 30 days.
+
+
+ADDENDUM (2026): NETWORK, MICROPHONE AND FEEDBACK
+
+- Internet: the App contacts the internet only when you choose to stream or download recitations. Nothing about you is sent beyond the standard request to fetch the audio file.
+- Microphone: used only when you record your own voice for a custom zikr or counter. Recordings stay on your device (and in your backups); they are never uploaded.
+- Feedback and bug reports: sending feedback opens your email app with a message you can read and edit. Device details (such as app and OS version) are included only if you choose to attach them. Nothing is sent automatically.
+- Error log: unexpected errors are saved in a local log on your device and are not uploaded.

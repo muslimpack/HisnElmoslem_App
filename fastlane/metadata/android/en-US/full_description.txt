@@ -1,11 +1,16 @@
 Hisn Elmoslem is a comprehensive, ad-free, and open-source application that provides all the supplications (Azkar) from the famous book "Hisn al-Muslim".
 
 Key Features:
-- Ad-free experience with a clean, simple, and intuitive interface.
+- Ad-free experience with a clean, simple, and intuitive interface, in Arabic, English and French.
 - Complete "Hisn al-Muslim" book content with search functionality.
+- Custom Azkar: create your own titles and azkar, set repeat counts and reminders, and record your own voice for any zikr.
+- Recitations: listen to bundled audio, or choose a reciter and download whole chapters for offline use or stream them online.
+- Translation and transliteration of every zikr in English and French.
 - Customization: Multiple color modes (Light, Dark, Black, Yellow) and font adjustments.
 - Favorites: Easily add or remove Azkar from your favorites list.
-- Reminders: Set alarms for specific Azkar to never miss your daily remembrance.
-- Interactive Experience: Sound and vibration feedback on completion.
-- Tasbih: Digital counter for various praises.
+- Reminders: Set alarms for specific Azkar, plus morning, evening and Monday/Thursday fasting reminders.
+- Tasbih: Digital counter with voice-guided counting and auto-advance.
+- Share Azkar as beautiful images, and back up or restore your data.
 - Advanced Features: Control via volume buttons, background screen lock, and session restoration.
+
+Privacy: no ads and no tracking. The internet is used only if you choose to stream or download recitations, and the microphone only when you record your own voice.

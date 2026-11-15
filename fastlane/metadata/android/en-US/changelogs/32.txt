@@ -1,0 +1,6 @@
+- Custom Athkar: create your own titles and athkar, and record your voice for them.
+- Downloads Center: download recitations (Al-Dreehim, Al-Shuwaihi, Al-Haleebah) or stream online.
+- Translation and transliteration in English and French; the app is now available in French.
+- Redesigned tally, athkar viewer, share-as-image and home drawer.
+- Choose your Monday/Thursday fasting reminder time; more accurate alerts across DST changes.
+- Corrections to some athkar and commentary.
