@@ -47,7 +47,7 @@ jobs:
       app_directory: hisnelmoslem
       package_name: com.hassaneltantawy.hisnelmoslem
       java_version: '17'
-      platforms: ${{ inputs.platforms || 'android,windows' }}
+      platforms: ${{ inputs.platforms || 'android,windows,ios' }}
       github_release: ${{ inputs.github_release || 'auto' }}
       play_track: ${{ inputs.play_track || 'auto' }}
       play_rollout: ${{ inputs.play_rollout || '100' }}
