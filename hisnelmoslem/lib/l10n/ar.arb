@@ -481,5 +481,13 @@
   "translationShowTranslit": "إظهار النطق بالحروف اللاتينية",
   "translationShowTitles": "إظهار عناوين مترجمة",
   "aboutTranslationsTitle": "الترجمات",
-  "aboutTranslationsDesc": "الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com."
+  "aboutTranslationsDesc": "الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com.",
+  "fastingReminderTime": "وقت التذكير",
+  "fastingRemindSameDay": "التذكير في يوم الصيام نفسه",
+  "fastingRemindSameDayDesc": "إيقاف: مساء اليوم السابق. تشغيل: في الوقت الذي تختاره صباح يوم الصيام.",
+  "fastingMondayTodayReminder": "صيام اليوم الإثنين",
+  "fastingThursdayTodayReminder": "صيام اليوم الخميس",
+  "morningAzkarReminder": "تذكير أذكار الصباح",
+  "eveningAzkarReminder": "تذكير أذكار المساء",
+  "presetReminderDesc": "يوميا. يمكنك تغيير الوقت من إدارة التنبيهات."
 }

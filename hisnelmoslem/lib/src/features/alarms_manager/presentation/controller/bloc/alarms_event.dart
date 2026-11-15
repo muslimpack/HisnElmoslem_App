@@ -57,3 +57,29 @@ class AlarmsToggleFastAlarmEvent extends AlarmsEvent {
   @override
   List<Object> get props => [enable];
 }
+
+class AlarmsFastScheduleChangedEvent extends AlarmsEvent {
+  final int hour;
+  final int minute;
+  final bool sameDay;
+
+  const AlarmsFastScheduleChangedEvent({
+    required this.hour,
+    required this.minute,
+    required this.sameDay,
+  });
+
+  @override
+  List<Object> get props => [hour, minute, sameDay];
+}
+
+/// Switches one of the ready-made daily reminders (morning or evening adhkar) on or off.
+class AlarmsTogglePresetEvent extends AlarmsEvent {
+  final int titleId;
+  final bool enable;
+
+  const AlarmsTogglePresetEvent({required this.titleId, required this.enable});
+
+  @override
+  List<Object> get props => [titleId, enable];
+}

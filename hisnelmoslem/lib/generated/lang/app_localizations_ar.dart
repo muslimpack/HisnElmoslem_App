@@ -1485,4 +1485,29 @@ class SAr extends S {
   @override
   String get aboutTranslationsDesc =>
       'الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com.';
+
+  @override
+  String get fastingReminderTime => 'وقت التذكير';
+
+  @override
+  String get fastingRemindSameDay => 'التذكير في يوم الصيام نفسه';
+
+  @override
+  String get fastingRemindSameDayDesc =>
+      'إيقاف: مساء اليوم السابق. تشغيل: في الوقت الذي تختاره صباح يوم الصيام.';
+
+  @override
+  String get fastingMondayTodayReminder => 'صيام اليوم الإثنين';
+
+  @override
+  String get fastingThursdayTodayReminder => 'صيام اليوم الخميس';
+
+  @override
+  String get morningAzkarReminder => 'تذكير أذكار الصباح';
+
+  @override
+  String get eveningAzkarReminder => 'تذكير أذكار المساء';
+
+  @override
+  String get presetReminderDesc => 'يوميا. يمكنك تغيير الوقت من إدارة التنبيهات.';
 }

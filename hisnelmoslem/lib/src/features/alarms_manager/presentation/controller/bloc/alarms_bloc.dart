@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
@@ -10,6 +11,7 @@ import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_manag
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarms_repo.dart';
+import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 
 part 'alarms_event.dart';
 part 'alarms_state.dart';
@@ -31,7 +33,13 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     on<AlarmsRemoveEvent>(_remove);
     on<AlarmsToggleFastAlarmEvent>(_toggleFastAlarm);
     on<AlarmsToggleCaveAlarmEvent>(_toggleCaveAlarm);
+    on<AlarmsFastScheduleChangedEvent>(_changeFastSchedule);
+    on<AlarmsTogglePresetEvent>(_togglePreset);
   }
+
+  /// Morning and evening adhkar titles of the bundled book.
+  static const int morningTitleId = 29;
+  static const int eveningTitleId = 30;
 
   Future<void> _start(AlarmsStartEvent event, Emitter<AlarmsState> emit) async {
     final alarms = await alarmDatabaseHelper.getAlarms();
@@ -49,8 +57,73 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         alarms: alarms,
         isCaveAlarmEnabled: alarmsRepo.isCaveAlarmEnabled,
         isFastAlarmEnabled: alarmsRepo.isFastAlarmEnabled,
+        fastHour: alarmsRepo.fastAlarmHour,
+        fastMinute: alarmsRepo.fastAlarmMinute,
+        fastSameDay: alarmsRepo.fastAlarmSameDay,
       ),
     );
+  }
+
+  Future<void> _changeFastSchedule(
+    AlarmsFastScheduleChangedEvent event,
+    Emitter<AlarmsState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! AlarmsLoadedState) return;
+
+    await alarmsRepo.changeFastSchedule(
+      hour: event.hour,
+      minute: event.minute,
+      sameDay: event.sameDay,
+    );
+    if (alarmsRepo.isFastAlarmEnabled) {
+      await _activateFastReminders(value: true, requestPermission: false);
+    }
+
+    emit(
+      state.copyWith(
+        fastHour: event.hour,
+        fastMinute: event.minute,
+        fastSameDay: event.sameDay,
+      ),
+    );
+  }
+
+  Future<void> _togglePreset(
+    AlarmsTogglePresetEvent event,
+    Emitter<AlarmsState> emit,
+  ) async {
+    final state = this.state;
+    if (state is! AlarmsLoadedState) return;
+
+    final existing = state.alarms.where((a) => a.titleId == event.titleId).firstOrNull;
+
+    if (existing != null) {
+      final updated = existing.copyWith(isActive: event.enable);
+      await alarmDatabaseHelper.updateAlarmInfo(dbAlarm: updated);
+      await alarmManager.alarmState(dbAlarm: updated);
+      emit(
+        state.copyWith(
+          alarms: [for (final a in state.alarms) a.id == updated.id ? updated : a],
+        ),
+      );
+      return;
+    }
+    if (!event.enable) return;
+
+    final title = await sl<HisnDBHelper>().getTitleById(id: event.titleId);
+    final isMorning = event.titleId == morningTitleId;
+    final draft = DbAlarm(
+      titleId: title.id,
+      title: title.name,
+      body: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
+      hour: isMorning ? 6 : 17,
+      isActive: true,
+    );
+    final id = await alarmDatabaseHelper.addNewAlarm(dbAlarm: draft);
+    final added = draft.copyWith(id: id);
+    await alarmManager.alarmState(dbAlarm: added);
+    emit(state.copyWith(alarms: [...state.alarms, added]));
   }
 
   Future<void> _add(AlarmsAddEvent event, Emitter<AlarmsState> emit) async {
@@ -155,23 +228,27 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     bool requestPermission = true,
   }) async {
     if (value) {
+      final sameDay = alarmsRepo.fastAlarmSameDay;
+      final time = Time(alarmsRepo.fastAlarmHour, alarmsRepo.fastAlarmMinute);
       await localNotificationManager.addCustomWeeklyReminder(
         id: 555,
-        title: SX.current.fastingMondayReminder,
+        title: sameDay ? SX.current.fastingMondayTodayReminder : SX.current.fastingMondayReminder,
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: Time(20),
-        weekday: DateTime.sunday,
+        time: time,
+        weekday: sameDay ? DateTime.monday : DateTime.sunday,
         payload: "555",
         requestPermission: requestPermission,
       );
       await localNotificationManager.addCustomWeeklyReminder(
         id: 666,
-        title: SX.current.fastingThursdayReminder,
+        title: sameDay
+            ? SX.current.fastingThursdayTodayReminder
+            : SX.current.fastingThursdayReminder,
         body:
             "قال رسول الله صلى الله عليه وسلم :\n تُعرضُ الأعمالُ يومَ الإثنين والخميسِ فأُحِبُّ أن يُعرضَ عملي وأنا صائمٌ ",
-        time: Time(20),
-        weekday: DateTime.wednesday,
+        time: time,
+        weekday: sameDay ? DateTime.thursday : DateTime.wednesday,
         payload: "666",
         requestPermission: requestPermission,
       );

@@ -491,5 +491,13 @@
   "translationShowTranslit": "Afficher la translittération",
   "translationShowTitles": "Afficher les titres traduits",
   "aboutTranslationsTitle": "Traductions",
-  "aboutTranslationsDesc": "Les traductions et translittérations en anglais et en français proviennent de hisnmuslim.com."
+  "aboutTranslationsDesc": "Les traductions et translittérations en anglais et en français proviennent de hisnmuslim.com.",
+  "fastingReminderTime": "Heure du rappel",
+  "fastingRemindSameDay": "Rappeler le jour même",
+  "fastingRemindSameDayDesc": "Désactivé : la veille au soir. Activé : à l'heure choisie le jour du jeûne.",
+  "fastingMondayTodayReminder": "Jeûne aujourd'hui (lundi)",
+  "fastingThursdayTodayReminder": "Jeûne aujourd'hui (jeudi)",
+  "morningAzkarReminder": "Rappel des invocations du matin",
+  "eveningAzkarReminder": "Rappel des invocations du soir",
+  "presetReminderDesc": "Chaque jour. Changez l'heure dans le gestionnaire de rappels."
 }
