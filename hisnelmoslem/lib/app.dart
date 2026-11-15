@@ -44,11 +44,13 @@ class AppState extends State<App> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
-        final isAllowed = await sl<LocalNotificationManager>().isPermissionGranted();
-        if (isAllowed) {
-          await sl<LocalNotificationManager>().appOpenNotification();
+        final notifications = sl<LocalNotificationManager>();
+        notifications.handleLaunchNotification();
+        // Ask once the user has alarms but the system blocks them.
+        await notifications.requestPermissionWithDialog(triggerOnStartup: true);
+        if (await notifications.isPermissionGranted()) {
+          await notifications.appOpenNotification();
         }
-        sl<LocalNotificationManager>().handleLaunchNotification();
       } catch (e) {
         hisnPrint(e);
       }

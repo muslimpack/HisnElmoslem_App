@@ -6,7 +6,6 @@ import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PermissionDialog extends StatefulWidget {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -77,31 +76,7 @@ class _PermissionDialogState extends State<PermissionDialog> with WidgetsBinding
               isGranted: _notificationsAllowed,
               onTap: () async {
                 if (!_notificationsAllowed) {
-                  if (Platform.isAndroid) {
-                    final androidPlugin = widget.flutterLocalNotificationsPlugin
-                        .resolvePlatformSpecificImplementation<
-                          AndroidFlutterLocalNotificationsPlugin
-                        >();
-                    await androidPlugin?.requestNotificationsPermission();
-                  } else if (Platform.isIOS) {
-                    final iosPlugin = widget.flutterLocalNotificationsPlugin
-                        .resolvePlatformSpecificImplementation<
-                          IOSFlutterLocalNotificationsPlugin
-                        >();
-                    final bool? granted = await iosPlugin?.requestPermissions(
-                      alert: true,
-                      badge: true,
-                      sound: true,
-                    );
-
-                    if (granted == false) {
-                      // On iOS, if permission was already denied, the system dialog won't show.
-                      // We should offer to open settings.
-                      if (context.mounted) {
-                        await launchUrl(Uri.parse('app-settings:'));
-                      }
-                    }
-                  }
+                  await sl<LocalNotificationManager>().requestNotificationPermission();
                   await _checkPermissions();
                 }
               },

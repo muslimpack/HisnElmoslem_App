@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/extensions/localization_extesion.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/repository/alarm_database_helper.dart';
@@ -20,13 +22,26 @@ import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/screens/zikr_
 import 'package:path/path.dart' as path;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 
 class LocalNotificationManager {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  static const MethodChannel _settingsChannel = MethodChannel('notification_settings_channel');
+
+  /// Windows can only schedule one-shot toasts, so repeating alarms are expanded
+  /// into the next few occurrences (re-planned on every app launch).
+  /// Occurrence `k` uses id `id + k * windowsOccurrenceStride`.
+  static const int windowsOccurrenceStride = 10000000;
+  static const int _windowsDailyOccurrences = 14;
+  static const int _windowsWeeklyOccurrences = 8;
+
   NotificationResponse? launchNotificationResponse;
   bool _isDialogShowing = false;
+
+  /// Android and iOS ask the user at runtime; desktop has no such permission.
+  bool get _needsRuntimePermission => PlatformExtension.isPhone;
 
   Future<void> init() async {
     try {
@@ -97,6 +112,7 @@ class LocalNotificationManager {
   }
 
   Future<bool> requestPermissionWithDialog({bool triggerOnStartup = false}) async {
+    if (!_needsRuntimePermission) return true;
     if (_isDialogShowing) return false;
 
     /// if the user ignored the notification permission, don't show the dialog
@@ -163,6 +179,11 @@ class LocalNotificationManager {
 
   Future<void> cancelNotificationById({required int id}) async {
     await flutterLocalNotificationsPlugin.cancel(id: id);
+    if (Platform.isWindows) {
+      for (var k = 1; k < _windowsDailyOccurrences; k++) {
+        await flutterLocalNotificationsPlugin.cancel(id: id + k * windowsOccurrenceStride);
+      }
+    }
   }
 
   NotificationDetails _buildNotificationDetails(
@@ -242,6 +263,18 @@ class LocalNotificationManager {
     required String? payload,
     DateTimeComponents? matchDateTimeComponents,
   }) async {
+    if (Platform.isWindows) {
+      await _scheduleWindowsWindow(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: scheduledDate,
+        notificationDetails: notificationDetails,
+        payload: payload,
+        matchDateTimeComponents: matchDateTimeComponents,
+      );
+      return;
+    }
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
         id: id,
@@ -265,6 +298,46 @@ class LocalNotificationManager {
         matchDateTimeComponents: matchDateTimeComponents,
         payload: payload,
       );
+    }
+  }
+
+  Future<void> _scheduleWindowsWindow({
+    required int id,
+    required String? title,
+    required String? body,
+    required tz.TZDateTime scheduledDate,
+    required NotificationDetails notificationDetails,
+    required String? payload,
+    required DateTimeComponents? matchDateTimeComponents,
+  }) async {
+    final bool weekly = matchDateTimeComponents == DateTimeComponents.dayOfWeekAndTime;
+    final bool repeating = matchDateTimeComponents != null;
+    final int count = !repeating
+        ? 1
+        : weekly
+        ? _windowsWeeklyOccurrences
+        : _windowsDailyOccurrences;
+    final Duration step = Duration(days: weekly ? 7 : 1);
+
+    try {
+      // Drop what was planned before so a re-plan never duplicates toasts.
+      await cancelNotificationById(id: id);
+      var date = scheduledDate;
+      for (var k = 0; k < count; k++) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          id: id + k * windowsOccurrenceStride,
+          title: title,
+          body: body,
+          scheduledDate: date,
+          notificationDetails: notificationDetails,
+          // Required by the API, ignored on Windows.
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          payload: payload,
+        );
+        date = date.add(step);
+      }
+    } catch (e) {
+      hisnPrint("Error scheduling Windows notification $id: $e");
     }
   }
 
@@ -393,7 +466,57 @@ class LocalNotificationManager {
       final permissions = await iosPlugin?.checkPermissions();
       return permissions?.isEnabled ?? false;
     }
-    return false;
+    // Windows and other desktops have no runtime permission.
+    return true;
+  }
+
+  /// Opens the system page where the user can re-enable notifications.
+  Future<void> openNotificationSettings() async {
+    try {
+      if (Platform.isAndroid) {
+        await _settingsChannel.invokeMethod<void>('openNotificationSettings');
+      } else if (Platform.isIOS) {
+        await launchUrl(Uri.parse('app-settings:'));
+      }
+    } catch (e) {
+      hisnPrint(e);
+    }
+  }
+
+  /// Asks for the notification permission, or sends the user to settings when
+  /// the system will no longer show its prompt.
+  ///
+  /// Returns whether notifications are enabled afterwards.
+  Future<bool> requestNotificationPermission() async {
+    final repo = sl<AppSettingsRepo>();
+    if (Platform.isAndroid) {
+      final androidPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      final bool? granted = await androidPlugin?.requestNotificationsPermission();
+      if (granted == true) return true;
+      // Denied (possibly permanently) or disabled in settings: the system prompt
+      // may not appear again, so offer the settings page.
+      if (await isPermissionGranted()) return true;
+      if (repo.notificationPermissionRequested) await openNotificationSettings();
+      await repo.changeNotificationPermissionRequested(value: true);
+      return false;
+    } else if (Platform.isIOS) {
+      // iOS shows its prompt only once. Afterwards a refusal can only be undone in settings.
+      if (repo.notificationPermissionRequested) {
+        await openNotificationSettings();
+        return false;
+      }
+      final iosPlugin = flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      final bool? granted = await iosPlugin?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      await repo.changeNotificationPermissionRequested(value: true);
+      return granted ?? false;
+    }
+    return true;
   }
 
   Future<bool> _hasAnyActiveAlarms() async {
