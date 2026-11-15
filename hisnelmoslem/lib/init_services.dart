@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,7 +38,9 @@ Future<void> initServices() async {
 
   try {
     await GetStorage.init(kAppStorageKey);
-    await sl<LocalNotificationManager>().init();
+    // Not awaited: it needs a few platform calls and the time zone database, and nothing
+    // before the first frame depends on it. Users of the manager wait on `ensureReady`.
+    unawaited(sl<LocalNotificationManager>().init());
     // A download that was running when the app closed is shown as paused, ready to resume.
     sl<ReciterDownloadsCubit>().restore();
   } catch (e) {

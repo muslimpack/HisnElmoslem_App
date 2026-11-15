@@ -76,6 +76,7 @@ class CustomAlarmScheduler {
     final knownIds = alarms.map((a) => notificationId(a.titleId)).toSet();
 
     try {
+      await notifications.ensureReady();
       final pending = await notifications.flutterLocalNotificationsPlugin
           .pendingNotificationRequests();
       for (final request in pending) {

@@ -84,9 +84,12 @@ void main() {
       AlarmsRepo(box),
       AlarmManager(notifications),
       notifications,
+      replanDelay: Duration.zero,
     );
-    bloc.add(AlarmsStartEvent());
+    bloc.add(const AlarmsStartEvent());
     await bloc.stream.firstWhere((s) => s is AlarmsLoadedState);
+    await bloc.replanIdle;
+    notifications.weekly.clear();
   });
 
   tearDown(() async {
@@ -96,8 +99,9 @@ void main() {
 
   test('fasting reminders default to the evening before at 20:00', () async {
     await AlarmsRepo(box).changFastAlarmStatus(value: true);
-    bloc.add(AlarmsStartEvent());
-    await bloc.stream.firstWhere((s) => s is AlarmsLoadedState);
+    bloc.add(const AlarmsStartEvent(forceReplan: true));
+    await bloc.stream.firstWhere((s) => s is AlarmsLoadedState && s.isFastAlarmEnabled);
+    await bloc.replanIdle;
 
     expect(notifications.weekly.map((w) => w.weekday), [DateTime.sunday, DateTime.wednesday]);
     expect(notifications.weekly.every((w) => w.hour == 20 && w.minute == 0), isTrue);
@@ -125,5 +129,24 @@ void main() {
 
     expect(notifications.weekly, isEmpty);
     expect(box.data['fast_hour'], 7);
+  });
+
+  test('the alarm list is shown before the alarms are planned with the system', () async {
+    await AlarmsRepo(box).changFastAlarmStatus(value: true);
+    // A fresh bloc with a long delay: planning must not hold up the loaded state.
+    final slow = AlarmsBloc(
+      _FakeDb(),
+      AlarmsRepo(box),
+      AlarmManager(notifications),
+      notifications,
+      replanDelay: const Duration(hours: 1),
+    );
+    addTearDown(slow.close);
+
+    slow.add(const AlarmsStartEvent());
+    final loaded = await slow.stream.firstWhere((s) => s is AlarmsLoadedState);
+
+    expect((loaded as AlarmsLoadedState).isFastAlarmEnabled, isTrue);
+    expect(notifications.weekly, isEmpty);
   });
 }

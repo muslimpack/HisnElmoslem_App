@@ -65,6 +65,9 @@ class AlarmManager {
         showMsg: false,
         requestPermission: false,
       );
+      // Each alarm is a platform call (on Android it runs on the UI thread); give the
+      // UI room to draw between them.
+      await Future<void>.delayed(const Duration(milliseconds: 10));
     }
     await sl<CustomAlarmScheduler>().rescheduleAll();
     // Note: We don't write the flag here.

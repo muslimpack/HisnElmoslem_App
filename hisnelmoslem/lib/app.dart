@@ -56,7 +56,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
       if (!await sl<LocalNotificationManager>().refreshTimeZone()) return;
       final context = App.navigatorKey.currentContext;
       if (context == null || !context.mounted) return;
-      context.read<AlarmsBloc>().add(AlarmsStartEvent());
+      context.read<AlarmsBloc>().add(const AlarmsStartEvent(forceReplan: true));
     } catch (e) {
       hisnPrint(e);
     }
@@ -70,7 +70,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
         final notifications = sl<LocalNotificationManager>();
-        notifications.handleLaunchNotification();
+        await notifications.handleLaunchNotification();
         // Ask once the user has alarms but the system blocks them.
         await notifications.requestPermissionWithDialog(triggerOnStartup: true);
         if (await notifications.isPermissionGranted()) {
@@ -90,7 +90,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
         BlocProvider(create: (_) => sl<TranslationsCubit>()..start()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(create: (_) => sl<AzkarFiltersCubit>()),
-        BlocProvider(create: (_) => sl<AlarmsBloc>()..add(AlarmsStartEvent())),
+        BlocProvider(create: (_) => sl<AlarmsBloc>()..add(const AlarmsStartEvent())),
         BlocProvider(
           create: (_) => sl<BookmarkBloc>()..add(BookmarkStartEvent()),
         ),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/bookmark/data/models/zikr_content_favourite.dart';
 import 'package:hisnelmoslem/src/features/bookmark/data/models/zikr_title_favourite.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_hadith_read.dart';
@@ -21,6 +22,7 @@ class UserDataDBHelper {
 
   static UserDataDBHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
 
   factory UserDataDBHelper() {
     _databaseHelper ??= UserDataDBHelper._createInstance();
@@ -30,8 +32,7 @@ class UserDataDBHelper {
   UserDataDBHelper._createInstance();
 
   Future<Database> get database async {
-    _database ??= await _initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_initDatabase);
   }
 
   /* ************* Database Creation ************* */

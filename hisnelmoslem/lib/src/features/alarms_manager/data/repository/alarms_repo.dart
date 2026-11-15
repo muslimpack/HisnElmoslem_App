@@ -29,6 +29,12 @@ class AlarmsRepo {
     changFastAlarmStatus(value: !isFastAlarmEnabled);
   }
 
+  /// When every alarm was last planned with the system (milliseconds since epoch).
+  int? get lastPlannedAtMs => box.read('alarms_last_planned_ms');
+
+  Future<void> markPlanned() =>
+      box.write('alarms_last_planned_ms', DateTime.now().millisecondsSinceEpoch);
+
   /// Time of day of the fasting reminders (default 20:00).
   int get fastAlarmHour => box.read('fast_hour') ?? 20;
   int get fastAlarmMinute => box.read('fast_minute') ?? 0;

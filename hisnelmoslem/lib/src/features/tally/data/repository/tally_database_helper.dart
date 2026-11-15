@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/tally/data/models/tally.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,6 +17,7 @@ class TallyDatabaseHelper {
 
   static TallyDatabaseHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
 
   /* ************* Singleton Constructor ************* */
 
@@ -33,8 +35,7 @@ class TallyDatabaseHelper {
   }
 
   Future<Database> get database async {
-    _database ??= await _initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_initDatabase);
   }
 
   /* ************* Database Creation ************* */

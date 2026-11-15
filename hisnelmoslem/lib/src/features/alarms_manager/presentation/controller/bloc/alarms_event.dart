@@ -8,7 +8,15 @@ sealed class AlarmsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AlarmsStartEvent extends AlarmsEvent {}
+class AlarmsStartEvent extends AlarmsEvent {
+  /// Plan the alarms again even where that is normally skipped (the time zone changed).
+  final bool forceReplan;
+
+  const AlarmsStartEvent({this.forceReplan = false});
+
+  @override
+  List<Object> get props => [forceReplan];
+}
 
 class AlarmsAddEvent extends AlarmsEvent {
   final DbAlarm alarm;

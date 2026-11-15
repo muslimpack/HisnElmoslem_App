@@ -43,7 +43,17 @@ class LocalNotificationManager {
   /// Android and iOS ask the user at runtime; desktop has no such permission.
   bool get _needsRuntimePermission => PlatformExtension.isPhone;
 
-  Future<void> init() async {
+  Future<void> _ready = Future<void>.value();
+
+  /// Completes when [init] has finished. Anything that touches the plugin or the time
+  /// zone must wait for it, because startup does not (see `initServices`).
+  Future<void> ensureReady() => _ready;
+
+  /// Starts the setup and returns the same future [ensureReady] gives, so the caller
+  /// may leave it running instead of holding up the first frame.
+  Future<void> init() => _ready = _init();
+
+  Future<void> _init() async {
     try {
       await _configureLocalTimeZone();
 
@@ -125,6 +135,7 @@ class LocalNotificationManager {
   /// Scheduled alarms keep the wall-clock time they were planned with, so they
   /// must be planned again when this returns `true`.
   Future<bool> refreshTimeZone() async {
+    await _ready;
     final before = _timeZoneSignature;
     try {
       await _applyDeviceTimeZone();
@@ -136,6 +147,7 @@ class LocalNotificationManager {
   }
 
   Future<bool> requestPermissionWithDialog({bool triggerOnStartup = false}) async {
+    await _ready;
     if (!_needsRuntimePermission) return true;
     if (_isDialogShowing) return false;
 
@@ -198,10 +210,12 @@ class LocalNotificationManager {
   }
 
   Future<void> cancelAllNotifications() async {
+    await _ready;
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   Future<void> cancelNotificationById({required int id}) async {
+    await _ready;
     await flutterLocalNotificationsPlugin.cancel(id: id);
     if (Platform.isWindows) {
       for (var k = 1; k < _windowsDailyOccurrences; k++) {
@@ -245,6 +259,7 @@ class LocalNotificationManager {
     String? body,
     required String payload,
   }) async {
+    await _ready;
     await flutterLocalNotificationsPlugin.show(
       id: 999,
       title: title,
@@ -260,6 +275,7 @@ class LocalNotificationManager {
 
   /// Show Notification App Open
   Future<void> appOpenNotification() async {
+    await _ready;
     final scheduleNotificationDateTime = _addDays(tz.TZDateTime.now(tz.local), 3);
 
     await _safeZonedSchedule(
@@ -357,6 +373,8 @@ class LocalNotificationManager {
           payload: payload,
         );
         date = _addDays(date, stepDays);
+        // The Windows calls are synchronous; let the UI draw between them.
+        await Future<void>.delayed(Duration.zero);
       }
     } catch (e) {
       hisnPrint("Error scheduling Windows notification $id: $e");
@@ -405,6 +423,7 @@ class LocalNotificationManager {
     required int weekday,
     bool requestPermission = true,
   }) async {
+    await _ready;
     if (requestPermission) {
       await requestPermissionWithDialog();
     }
@@ -432,6 +451,7 @@ class LocalNotificationManager {
     required String payload,
     bool requestPermission = true,
   }) async {
+    await _ready;
     if (requestPermission) {
       await requestPermissionWithDialog();
     }
@@ -475,7 +495,8 @@ class LocalNotificationManager {
     }
   }
 
-  void handleLaunchNotification() {
+  Future<void> handleLaunchNotification() async {
+    await _ready;
     if (launchNotificationResponse != null) {
       final String? payload = launchNotificationResponse!.payload;
       if (payload != null && payload.isNotEmpty) {
@@ -486,6 +507,7 @@ class LocalNotificationManager {
   }
 
   Future<bool> isPermissionGranted() async {
+    await _ready;
     if (Platform.isAndroid) {
       final androidPlugin = flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
@@ -518,6 +540,7 @@ class LocalNotificationManager {
   ///
   /// Returns whether notifications are enabled afterwards.
   Future<bool> requestNotificationPermission() async {
+    await _ready;
     final repo = sl<AppSettingsRepo>();
     if (Platform.isAndroid) {
       final androidPlugin = flutterLocalNotificationsPlugin

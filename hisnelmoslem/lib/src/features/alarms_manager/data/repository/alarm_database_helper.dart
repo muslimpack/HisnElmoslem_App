@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:path/path.dart';
@@ -16,6 +17,7 @@ class AlarmDatabaseHelper {
 
   static AlarmDatabaseHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
 
   /* ************* Singleton Constructor ************* */
 
@@ -27,8 +29,7 @@ class AlarmDatabaseHelper {
   AlarmDatabaseHelper._createInstance();
 
   Future<Database> get database async {
-    _database ??= await _initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_initDatabase);
   }
 
   /* ************* Database Creation ************* */
