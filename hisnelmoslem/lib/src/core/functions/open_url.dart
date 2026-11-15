@@ -8,7 +8,7 @@ Future<void> openURL(String url) async {
     if (await canLaunchUrl(parsed)) {
       await launchUrl(parsed, mode: LaunchMode.externalApplication);
     }
-  } catch (e) {
-    hisnPrint("عقم ثققخق: $e");
+  } catch (e, st) {
+    hisnLogError(e, st, source: 'open_url');
   }
 }

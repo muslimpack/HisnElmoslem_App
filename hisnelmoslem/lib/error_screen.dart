@@ -1,81 +1,18 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
-import 'package:hisnelmoslem/src/core/extensions/extension_datetime.dart';
-import 'package:hisnelmoslem/src/core/functions/open_url.dart';
-import 'package:hisnelmoslem/src/core/functions/print.dart';
-import 'package:hisnelmoslem/src/core/values/constant.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/components/feedback_sheet.dart';
 
 class ErrorScreen extends StatelessWidget {
   final FlutterErrorDetails details;
   const ErrorScreen({super.key, required this.details});
 
-  Future<void> emailTheError(
-    BuildContext context,
-    FlutterErrorDetails error,
-  ) async {
-    // get receiver
-    const String emailReceiver = kOrgEmail;
-    try {
-      final String fullErrorDetails = generateErrorReport(error);
-
-      final String errorReportFilePath = await writeToTextFile(
-        fullErrorDetails,
-      );
-      final Email email = Email(
-        body: 'حدث خطأ غير متوقع أثناء استخدام التطبيق.',
-        subject: 'حصن المسلم | خلل في الأداء | ${appVersion()}',
-        recipients: [emailReceiver],
-        attachmentPaths: [errorReportFilePath],
-      );
-      await FlutterEmailSender.send(email);
-    } catch (e) {
-      hisnPrint(e.toString());
-      openURL('mailto:$emailReceiver');
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(S.of(context).errorEmailAppOpen),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    }
-  }
-
-  String generateErrorReport(FlutterErrorDetails error) {
-    final lineBreaker = '\n${'-' * 40}\n';
-    final StringBuffer buffer = StringBuffer();
-
-    ///
-    buffer.writeln(DateTime.now().humanize);
-    buffer.writeln(lineBreaker);
-
-    ///
-    buffer.writeln('App Version: ${appVersion()}');
-    buffer.writeln('Operating System: ${Platform.operatingSystem}');
-    buffer.writeln(lineBreaker);
-
-    ///
-    buffer.writeln('The exception was:\n');
-    buffer.writeln(error.exception);
-    buffer.writeln(lineBreaker);
-
-    ///
-    buffer.writeln('Stack Trace:\n');
-    buffer.writeln(error.stack);
-
-    return buffer.toString();
-  }
-
-  Future<String> writeToTextFile(String text) async {
-    final Directory directory = await getTemporaryDirectory();
-    final File file = File('${directory.path}/ErrorReport.txt');
-    await file.writeAsString(text);
-    return file.path;
+  /// The error is already in the local error log (see `_setUpErrorCapture`), so the bug report
+  /// sheet attaches it when the user agrees to share device data.
+  void _report(BuildContext context) {
+    final target = App.navigatorKey.currentContext ?? context;
+    FeedbackSheet.show(target);
   }
 
   void _copyToClipboard(BuildContext context, String text) {
@@ -132,8 +69,8 @@ class ErrorScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () => emailTheError(context, details),
-                      icon: const Icon(Icons.email),
+                      onPressed: () => _report(context),
+                      icon: const Icon(Icons.bug_report_outlined),
                       label: Text(S.of(context).sendEmail),
                     ),
                   ),

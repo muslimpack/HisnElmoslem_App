@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
-import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:share_plus/share_plus.dart';
@@ -23,7 +22,6 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
     on<FakeHadithToggleHadithEvent>(_toggle);
     on<FakeHadithShareHadithEvent>(_copy);
     on<FakeHadithCopyHadithEvent>(_share);
-    on<FakeHadithReportHadithEvent>(_report);
   }
 
   Future<void> _start(FakeHadithStartEvent event, Emitter<FakeHadithState> emit) async {
@@ -65,9 +63,5 @@ class FakeHadithBloc extends Bloc<FakeHadithEvent, FakeHadithState> {
         sharePositionOrigin: event.positionForIpad,
       ),
     );
-  }
-
-  Future<void> _report(FakeHadithReportHadithEvent event, Emitter<FakeHadithState> emit) async {
-    EmailManager.sendMisspelledInFakeHadith(fakeHaith: event.fakeHadith);
   }
 }

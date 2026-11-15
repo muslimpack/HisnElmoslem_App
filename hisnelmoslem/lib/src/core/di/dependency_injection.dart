@@ -33,6 +33,11 @@ import 'package:hisnelmoslem/src/features/effects_manager/data/repository/effect
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/repository/fake_hadith_database_helper.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/presentation/controller/bloc/fake_hadith_bloc.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/services/device_info_collector.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/services/error_log_store.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/services/feedback_email_composer.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/services/feedback_sender.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/controller/feedback_cubit.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/commentary_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
@@ -139,6 +144,39 @@ Future<void> initSL() async {
       fakeHadithDBHelper: sl(),
       customAzkarDBHelper: sl(),
       customAudioBackup: CustomAudioBackup(sl()),
+    ),
+  );
+
+  ///MARK: Init Feedback
+  sl.registerLazySingleton(() => ErrorLogStore(getApplicationSupportDirectory));
+  sl.registerLazySingleton<DeviceInfoCollector>(
+    () => PlatformDeviceInfoCollector(
+      packageInfo: () => sl<PackageInfo>(),
+      appLanguage: () => sl<ThemeRepo>().appLocale.languageCode,
+      appSettings: () {
+        final effects = sl<EffectsManagerRepo>();
+        String onOff(bool v) => v ? 'on' : 'off';
+        return {
+          'Zikr sound': onOff(effects.isZikrSoundAllowed),
+          'Zikr vibration': onOff(effects.isZikrVibrationAllowed),
+          'Tally sound': onOff(effects.isPraiseSoundAllowed),
+          'Tally vibration': onOff(effects.isPraiseVibrationAllowed),
+        };
+      },
+    ),
+  );
+  sl.registerLazySingleton<FeedbackSender>(() => const MailAppFeedbackSender());
+  sl.registerFactory(
+    () => FeedbackCubit(
+      collector: sl(),
+      errorLog: sl(),
+      sender: sl(),
+      tempDir: getTemporaryDirectory,
+      composerFor: (strings) => FeedbackEmailComposer(
+        strings: strings,
+        recipient: kOrgEmail,
+        appVersion: appVersionWithBuild(),
+      ),
     ),
   );
 

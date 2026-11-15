@@ -154,7 +154,7 @@ class SEn extends S {
   String get contact => 'Contact';
 
   @override
-  String get contactDev => 'Contact to Dev';
+  String get contactDev => 'Contact the developer';
 
   @override
   String get copiedToClipboard => 'Copied to clipboard';
@@ -1510,4 +1510,85 @@ class SEn extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'Fasting today (Thursday)';
+
+  @override
+  String get feedbackTitle => 'Contact the developer';
+
+  @override
+  String get feedbackTypeLabel => 'Type';
+
+  @override
+  String get feedbackTypeBug => 'Bug report';
+
+  @override
+  String get feedbackTypeFeature => 'Feature request';
+
+  @override
+  String get feedbackTypeSuggestion => 'Suggestion';
+
+  @override
+  String get feedbackTypeQuestion => 'Question';
+
+  @override
+  String get feedbackTypeMisspelling => 'Spelling mistake';
+
+  @override
+  String get feedbackTypeOther => 'Other';
+
+  @override
+  String get feedbackMessageLabel => 'Your message';
+
+  @override
+  String get feedbackMessageHint => 'Describe what happened or what you would like to see';
+
+  @override
+  String get feedbackMessageRequired => 'Please write a message first';
+
+  @override
+  String get feedbackCorrectionLabel => 'The correct text';
+
+  @override
+  String get feedbackCorrectionHint => 'Write how it should be';
+
+  @override
+  String get feedbackCurrentText => 'Current text';
+
+  @override
+  String get feedbackShareDeviceInfo => 'Share non-sensitive device info';
+
+  @override
+  String get feedbackShareDeviceInfoDesc =>
+      'Helps us reproduce problems. No personal data, accounts or device IDs.';
+
+  @override
+  String get feedbackWhatShared => 'What will be shared?';
+
+  @override
+  String get feedbackSharedPreviewTitle => 'Data that will be shared';
+
+  @override
+  String get feedbackDeviceInfoSection => 'Device info';
+
+  @override
+  String get feedbackRecentErrors => 'Recent errors (sent as a file)';
+
+  @override
+  String get feedbackNoErrors => 'No errors recorded';
+
+  @override
+  String get feedbackSend => 'Send';
+
+  @override
+  String get feedbackBodyDetails => 'Details';
+
+  @override
+  String get feedbackBodyErrorsAttached => 'Recent errors are attached as a file.';
+
+  @override
+  String get feedbackErrorsInline => 'Recent errors';
+
+  @override
+  String feedbackMailFallback(String email) {
+    return 'No mail app found. The message was copied, please send it to $email';
+  }
 }

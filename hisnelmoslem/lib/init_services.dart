@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,8 @@ Future<void> initServices() async {
 
   service_locator.initSL();
 
+  _setUpErrorCapture();
+
   await loadLocalizations();
 
   await phoneDeviceBars();
@@ -48,6 +51,19 @@ Future<void> initServices() async {
   }
 
   await initWindowsManager();
+}
+
+/// Sends every uncaught error (framework, async and platform) to the local error log, which a
+/// bug report can attach. Nothing is uploaded.
+void _setUpErrorCapture() {
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    hisnLogError(details.exception, details.stack, source: 'flutter');
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    hisnLogError(error, stack, source: 'platform');
+    return true;
+  };
 }
 
 Future phoneDeviceBars() async {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/controller/bloc/bookmark_bloc.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/bloc/custom_titles/custom_titles_bloc.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/components/feedback_sheet.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/data/reciter_audio_repo.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/components/reciter_download_actions.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
@@ -122,9 +124,14 @@ class ZikrActionsSheet extends StatelessWidget {
                 icon: Icons.report_outlined,
                 label: s.report,
                 color: Colors.orange,
-                onTap: () {
-                  Navigator.pop(context);
-                  viewerBloc.add(ZikrViewerReportZikrEvent(content: dbContent));
+                onTap: () async {
+                  // The sheet closes first, so keep a context that outlives it.
+                  final parent = Navigator.of(context);
+                  parent.pop();
+                  final report = await viewerBloc.misspellingContextFor(dbContent);
+                  final target = App.navigatorKey.currentContext;
+                  if (report == null || target == null || !target.mounted) return;
+                  await FeedbackSheet.show(target, misspelling: report);
                 },
               ),
           ],

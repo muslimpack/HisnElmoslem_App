@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/app.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
-import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/utils/volume_button_manager.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/data/models/zikr_filter_list_extension.dart';
@@ -15,6 +14,7 @@ import 'package:hisnelmoslem/src/features/custom_azkar/data/services/custom_audi
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/repositories/custom_azkar_repo.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/mappers/resolved_item_mapper.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/controller/effects_manager.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/models/feedback_draft.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/hisn_db_helper.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/controller/bloc/home_bloc.dart';
@@ -92,7 +92,6 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
 
     on<ZikrViewerCopyZikrEvent>(_copyActiveZikr);
     on<ZikrViewerShareZikrEvent>(_shareActiveZikr);
-    on<ZikrViewerReportZikrEvent>(_report);
 
     on<ZikrViewerVolumeKeyPressedEvent>(_volumeKeyPressed);
 
@@ -472,23 +471,18 @@ class ZikrViewerBloc extends Bloc<ZikrViewerEvent, ZikrViewerState> {
     );
   }
 
-  Future<void> _report(
-    ZikrViewerReportZikrEvent event,
-    Emitter<ZikrViewerState> emit,
-  ) async {
+  /// What the feedback sheet needs to report a misspelling in [content]; null for the user's
+  /// own (custom) azkar, which are not ours to correct.
+  Future<MisspellingContext?> misspellingContextFor(DbContent content) async {
     final state = this.state;
-    if (state is! ZikrViewerLoadedState) return;
-    final activeZikr = _getZikrToDealWith(
-      state: state,
-      eventContent: event.content,
-    );
-    if (activeZikr == null || activeZikr.isFromCustomTitle) return;
+    if (state is! ZikrViewerLoadedState) return null;
+    final activeZikr = _getZikrToDealWith(state: state, eventContent: content);
+    if (activeZikr == null || activeZikr.isFromCustomTitle) return null;
 
-    final text = await activeZikr.getPlainText();
-    EmailManager.sendMisspelledInZikr(
+    return MisspellingContext(
       title: state.title.name,
-      zikrId: (activeZikr.id + 1).toString(),
-      zikrBody: text,
+      index: activeZikr.id + 1,
+      currentText: await activeZikr.getPlainText(),
     );
   }
 

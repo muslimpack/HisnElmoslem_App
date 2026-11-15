@@ -61,15 +61,6 @@ final class ZikrViewerShareZikrEvent extends ZikrViewerEvent {
   List<Object?> get props => [content];
 }
 
-final class ZikrViewerReportZikrEvent extends ZikrViewerEvent {
-  final DbContent content;
-
-  const ZikrViewerReportZikrEvent({required this.content});
-
-  @override
-  List<Object?> get props => [content];
-}
-
 class ZikrViewerNextTitleEvent extends ZikrViewerEvent {}
 
 class ZikrViewerPerviousTitleEvent extends ZikrViewerEvent {}

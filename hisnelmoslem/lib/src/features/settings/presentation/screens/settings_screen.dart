@@ -7,7 +7,6 @@ import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
-import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about_screen.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/fast_reminder_dialog.dart';
@@ -18,6 +17,7 @@ import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/sel
 import 'package:hisnelmoslem/src/features/backup_restore/presentation/components/restart_widget.dart';
 import 'package:hisnelmoslem/src/features/backup_restore/presentation/controller/cubit/backup_restore_cubit.dart';
 import 'package:hisnelmoslem/src/features/effects_manager/presentation/screens/effects_manager_screen.dart';
+import 'package:hisnelmoslem/src/features/feedback/presentation/components/feedback_sheet.dart';
 import 'package:hisnelmoslem/src/features/fonts/presentation/screens/font_family_screen.dart';
 import 'package:hisnelmoslem/src/features/localization/presentation/screens/app_language_screen.dart';
 import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/download_center_screen.dart';
@@ -345,9 +345,7 @@ class _SettingsContactSection extends StatelessWidget {
         ListTile(
           leading: Icon(MdiIcons.gmail),
           title: Text(S.of(context).sendEmail),
-          onTap: () {
-            EmailManager.messageUS();
-          },
+          onTap: () => FeedbackSheet.show(context),
         ),
         ListTile(
           leading: Icon(MdiIcons.github),
