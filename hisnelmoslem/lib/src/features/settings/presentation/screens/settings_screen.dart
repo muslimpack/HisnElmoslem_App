@@ -23,6 +23,9 @@ import 'package:hisnelmoslem/src/features/reciter_audio/presentation/screens/dow
 import 'package:hisnelmoslem/src/features/settings/presentation/components/rearrange_dashboard/rearrange_dashboard_page.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/screens/themes_manager_screen.dart';
+import 'package:hisnelmoslem/src/features/translations/domain/translation_resolver.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/components/translation_language_sheet.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/controller/translations_cubit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -115,6 +118,9 @@ class SettingsScreen extends StatelessWidget {
           const Divider(),
           Title(title: S.of(context).fontSettings),
           const FontSettingsToolbox(),
+
+          const Divider(),
+          const _SettingsTranslationSection(),
 
           const Divider(),
           const _SettingsAlarmsSection(),
@@ -216,6 +222,52 @@ class SettingsGeneralSection extends StatelessWidget {
                   use: !state.useHindiDigits,
                 );
               },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _SettingsTranslationSection extends StatelessWidget {
+  const _SettingsTranslationSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TranslationsCubit, TranslationsState>(
+      builder: (context, state) {
+        final s = S.of(context);
+        final cubit = context.read<TranslationsCubit>();
+        final languageName = state.setting == TranslationResolver.auto
+            ? s.translationLanguageAuto
+            : (state.languageOf(state.setting)?.nameNative ?? s.translationLanguageAuto);
+        return Column(
+          children: [
+            Title(title: s.translationSettings),
+            ListTile(
+              leading: const Icon(Icons.translate),
+              title: Text(s.translationLanguage),
+              subtitle: Text(languageName),
+              onTap: () => TranslationLanguageSheet.show(context),
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.subject),
+              value: state.showMeaning,
+              title: Text(s.translationShowMeaning),
+              onChanged: (value) => cubit.toggleShowMeaning(show: value),
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.record_voice_over_outlined),
+              value: state.showTranslit,
+              title: Text(s.translationShowTranslit),
+              onChanged: (value) => cubit.toggleShowTranslit(show: value),
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.title),
+              value: state.showTitles,
+              title: Text(s.translationShowTitles),
+              onChanged: (value) => cubit.toggleShowTitles(show: value),
             ),
           ],
         );

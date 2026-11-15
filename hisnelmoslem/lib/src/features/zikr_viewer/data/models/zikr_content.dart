@@ -32,6 +32,10 @@ class DbContent extends Equatable {
   /// of the bundled [audio].
   final String userAudioPath;
 
+  /// For an original zikr inside a custom title (its [id] is negative): the id of the original
+  /// zikr, so it can be translated.
+  final int? originalContentId;
+
   const DbContent({
     required this.id,
     required this.content,
@@ -48,7 +52,11 @@ class DbContent extends Equatable {
     this.audioRemoteOk = false,
     this.customZikrId,
     this.userAudioPath = "",
+    this.originalContentId,
   });
+
+  /// Id to look the translation up with. The user's own zikrs have none.
+  int? get translationKey => id > 0 ? id : originalContentId;
 
   /// True when there is something to play: the user's recording, bundled audio or a remote
   /// recording of some reciter.
@@ -83,6 +91,7 @@ class DbContent extends Equatable {
       audioRemoteOk: audioRemoteOk,
       customZikrId: customZikrId,
       userAudioPath: userAudioPath,
+      originalContentId: originalContentId,
     );
   }
 
@@ -103,6 +112,7 @@ class DbContent extends Equatable {
       audioRemoteOk,
       customZikrId,
       userAudioPath,
+      originalContentId,
     ];
   }
 

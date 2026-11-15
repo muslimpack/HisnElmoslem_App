@@ -1384,4 +1384,114 @@ class SEn extends S {
 
   @override
   String get galleryPermissionRequired => 'Allow access to your photos to save the image';
+
+  @override
+  String get whatsNewTitle => 'What\'s new';
+
+  @override
+  String get whatsNewHeroBadge => 'Biggest update';
+
+  @override
+  String get whatsNewCustomTitle => 'Your own azkar';
+
+  @override
+  String get whatsNewCustomDesc =>
+      'Create your own titles, fill them with your azkar or Hisn azkar, set the repeat count and a reminder, and record your own voice for any zikr. Included in search, favourites and backups.';
+
+  @override
+  String get whatsNewDownloadsTitle => 'Download center';
+
+  @override
+  String get whatsNewDownloadsDesc =>
+      'Choose a reciter (Rashid Al-Hulaibah, Sulaiman Al-Shuwaihi or Hamad Al-Duraihem) and download a whole book or a single title to listen offline, or stream it directly.';
+
+  @override
+  String get whatsNewTallyTitle => 'Redesigned tally';
+
+  @override
+  String get whatsNewTallyDesc =>
+      'A cleaner counting screen with voice playback that counts for you, auto-advance and undo.';
+
+  @override
+  String get whatsNewViewerTitle => 'New zikr screen';
+
+  @override
+  String get whatsNewViewerDesc =>
+      'One bottom dock for audio and options, and volume keys that stay under control.';
+
+  @override
+  String get whatsNewShareTitle => 'Better shared images';
+
+  @override
+  String get whatsNewShareDesc =>
+      'Ready color presets, quality settings and a clean image that always fits the whole zikr.';
+
+  @override
+  String get whatsNewHomeTitle => 'Home your way';
+
+  @override
+  String get whatsNewHomeDesc =>
+      'A draggable home drawer and a redesigned dashboard arrangement with reset to default.';
+
+  @override
+  String get whatsNewContentTitle => 'Corrections';
+
+  @override
+  String get whatsNewContentDesc =>
+      'Fixed typos, completed missing explanations and corrected some audio.';
+
+  @override
+  String get whatsNewTranslationsTitle => 'Translation and pronunciation';
+
+  @override
+  String get whatsNewTranslationsDesc =>
+      'Read every zikr in English or French: the meaning and a Latin-letter transliteration appear under the Arabic text. Choose the language and what to show in Settings.';
+
+  @override
+  String get whatsNewFrenchTitle => 'French is here';
+
+  @override
+  String get whatsNewFrenchDesc =>
+      'The app now speaks French, and the language screen shows each language by its own name. Without a choice it follows your device language.';
+
+  @override
+  String get translationSettings => 'Translation';
+
+  @override
+  String get translationLanguage => 'Translation language';
+
+  @override
+  String get translationLanguageAuto => 'Automatic';
+
+  @override
+  String get translationLanguageAutoDesc =>
+      'Follows the device language, English if it is not available';
+
+  @override
+  String translationSource(String source) {
+    return 'Source: $source';
+  }
+
+  @override
+  String get translationFallbackHint =>
+      'Shown in English because it is not available in your language';
+
+  @override
+  String get translationPartialHint => 'This translation may cover more than the text above.';
+
+  @override
+  String get translationShowMeaning => 'Show meaning';
+
+  @override
+  String get translationShowTranslit => 'Show transliteration';
+
+  @override
+  String get translationShowTitles => 'Show translated titles';
+
+  @override
+  String get aboutTranslationsTitle => 'Translations';
+
+  @override
+  String get aboutTranslationsDesc =>
+      'The English and French translations and transliterations are from hisnmuslim.com.';
 }

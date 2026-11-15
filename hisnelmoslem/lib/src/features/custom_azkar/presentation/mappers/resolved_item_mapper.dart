@@ -25,6 +25,7 @@ extension ResolvedTitleItemViewerMapper on ResolvedTitleItem {
       hasAudio: audio.isNotEmpty,
       customZikrId: item.kind == CustomItemKind.custom ? item.refId : null,
       userAudioPath: userAudioPath,
+      originalContentId: item.kind == CustomItemKind.original ? item.refId : null,
     );
   }
 }

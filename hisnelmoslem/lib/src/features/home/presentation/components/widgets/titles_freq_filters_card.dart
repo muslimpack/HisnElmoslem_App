@@ -14,8 +14,9 @@ class TitleFreqFilterCard extends StatelessWidget {
         if (state is! HomeLoadedState) {
           return const Loading();
         }
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        return Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: TitlesFreqEnum.values.map(
             (e) {
               return Padding(

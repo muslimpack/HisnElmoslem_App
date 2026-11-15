@@ -54,3 +54,5 @@ app.*.map.json
 .DS_Store
 tools/binwahaf_out/
 tools/audio_fix_staging/.venv/
+tools/translations_raw/
+tools/translations_out/

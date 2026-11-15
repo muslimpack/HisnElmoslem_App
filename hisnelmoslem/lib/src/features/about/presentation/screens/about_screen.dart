@@ -72,6 +72,23 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Card(
+              elevation: 0,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              clipBehavior: Clip.antiAlias,
+              child: ListTile(
+                leading: const Icon(Icons.translate),
+                title: Text(S.of(context).aboutTranslationsTitle),
+                subtitle: Text(S.of(context).aboutTranslationsDesc),
+                trailing: const Icon(Icons.open_in_new_rounded),
+                onTap: () {
+                  openURL("https://hisnmuslim.com/");
+                },
+              ),
+            ),
+          ),
           ListTile(
             leading: Icon(MdiIcons.github),
             title: Text(S.of(context).github),

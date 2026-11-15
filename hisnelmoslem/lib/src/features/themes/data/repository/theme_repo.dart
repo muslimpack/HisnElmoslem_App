@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
+import 'package:hisnelmoslem/src/features/localization/domain/app_language.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 
 class ThemeRepo {
@@ -105,23 +106,11 @@ class ThemeRepo {
   ///
 
   static const _appLocaleKey = 'app_locale';
-  Locale? get appLocale {
+  Locale get appLocale {
     final value = box.read<String?>(_appLocaleKey);
-    final Locale? locale;
-    if (value == null) {
-      final languageCode = PlatformExtension.languageCode;
-      if (languageCode == null) {
-        locale = null;
-      } else {
-        ///TODO use languageCode
-        // locale = Locale(languageCode);
-        locale = const Locale("ar");
-      }
-    } else {
-      locale = Locale(value);
-    }
-
-    return locale;
+    // Nothing chosen yet: follow the device language when the app has it, else Arabic.
+    // A stored language that is no longer supported falls back to Arabic as well.
+    return Locale(AppLanguages.resolveCode(value ?? PlatformExtension.languageCode));
   }
 
   Future<void> changAppLocale(String value) async {

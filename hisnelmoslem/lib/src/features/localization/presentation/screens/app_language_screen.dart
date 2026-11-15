@@ -1,8 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
+import 'package:hisnelmoslem/src/features/localization/domain/app_language.dart';
 import 'package:hisnelmoslem/src/features/themes/presentation/controller/cubit/theme_cubit.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/controller/translations_cubit.dart';
 
 class AppLanguageScreen extends StatelessWidget {
   const AppLanguageScreen({super.key});
@@ -11,7 +12,7 @@ class AppLanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
-        const supportedLocales = S.supportedLocales;
+        final selectedCode = state.locale?.languageCode;
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -21,26 +22,54 @@ class AppLanguageScreen extends StatelessWidget {
           ),
           body: ListView.builder(
             padding: const EdgeInsets.all(15),
-            itemCount: supportedLocales.length,
+            itemCount: AppLanguages.all.length,
             itemBuilder: (context, index) {
-              final currentLocale = supportedLocales[index];
-              return ListTile(
-                tileColor: context.read<ThemeCubit>().state.locale == currentLocale
-                    ? Theme.of(
-                        context,
-                      ).colorScheme.primary.withAlpha((.5 * 255).round())
-                    : null,
-                title: Text(currentLocale.languageCode),
+              final language = AppLanguages.all[index];
+              return AppLanguageTile(
+                language: language,
+                selected: language.code == selectedCode,
                 onTap: () {
-                  context.read<ThemeCubit>().changeAppLocale(
-                    currentLocale.languageCode,
-                  );
+                  final translations = context.read<TranslationsCubit>();
+                  context
+                      .read<ThemeCubit>()
+                      .changeAppLocale(language.code)
+                      .then((_) => translations.refresh());
                 },
               );
             },
           ),
         );
       },
+    );
+  }
+}
+
+/// One language row: its native name, written in its own direction, and its code underneath.
+class AppLanguageTile extends StatelessWidget {
+  final AppLanguage language;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const AppLanguageTile({
+    required this.language,
+    required this.selected,
+    required this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return ListTile(
+      selected: selected,
+      tileColor: selected ? scheme.primary.withAlpha((.5 * 255).round()) : null,
+      title: Text(
+        language.nativeName,
+        textDirection: language.isRtl ? TextDirection.rtl : TextDirection.ltr,
+      ),
+      subtitle: Text(language.code, textDirection: TextDirection.ltr),
+      trailing: selected ? const Icon(Icons.check) : null,
+      onTap: onTap,
     );
   }
 }

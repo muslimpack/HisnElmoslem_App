@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_fr.dart';
 
 // ignore_for_file: type=lint
 
@@ -91,7 +92,7 @@ abstract class S {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('en'), Locale('fr')];
 
   /// No description provided for @aboutUs.
   ///
@@ -2726,6 +2727,198 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Allow access to your photos to save the image'**
   String get galleryPermissionRequired;
+
+  /// No description provided for @whatsNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new'**
+  String get whatsNewTitle;
+
+  /// No description provided for @whatsNewHeroBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Biggest update'**
+  String get whatsNewHeroBadge;
+
+  /// No description provided for @whatsNewCustomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own azkar'**
+  String get whatsNewCustomTitle;
+
+  /// No description provided for @whatsNewCustomDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your own titles, fill them with your azkar or Hisn azkar, set the repeat count and a reminder, and record your own voice for any zikr. Included in search, favourites and backups.'**
+  String get whatsNewCustomDesc;
+
+  /// No description provided for @whatsNewDownloadsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Download center'**
+  String get whatsNewDownloadsTitle;
+
+  /// No description provided for @whatsNewDownloadsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a reciter (Rashid Al-Hulaibah, Sulaiman Al-Shuwaihi or Hamad Al-Duraihem) and download a whole book or a single title to listen offline, or stream it directly.'**
+  String get whatsNewDownloadsDesc;
+
+  /// No description provided for @whatsNewTallyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Redesigned tally'**
+  String get whatsNewTallyTitle;
+
+  /// No description provided for @whatsNewTallyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A cleaner counting screen with voice playback that counts for you, auto-advance and undo.'**
+  String get whatsNewTallyDesc;
+
+  /// No description provided for @whatsNewViewerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New zikr screen'**
+  String get whatsNewViewerTitle;
+
+  /// No description provided for @whatsNewViewerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One bottom dock for audio and options, and volume keys that stay under control.'**
+  String get whatsNewViewerDesc;
+
+  /// No description provided for @whatsNewShareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Better shared images'**
+  String get whatsNewShareTitle;
+
+  /// No description provided for @whatsNewShareDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready color presets, quality settings and a clean image that always fits the whole zikr.'**
+  String get whatsNewShareDesc;
+
+  /// No description provided for @whatsNewHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Home your way'**
+  String get whatsNewHomeTitle;
+
+  /// No description provided for @whatsNewHomeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A draggable home drawer and a redesigned dashboard arrangement with reset to default.'**
+  String get whatsNewHomeDesc;
+
+  /// No description provided for @whatsNewContentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections'**
+  String get whatsNewContentTitle;
+
+  /// No description provided for @whatsNewContentDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed typos, completed missing explanations and corrected some audio.'**
+  String get whatsNewContentDesc;
+
+  /// No description provided for @whatsNewTranslationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation and pronunciation'**
+  String get whatsNewTranslationsTitle;
+
+  /// No description provided for @whatsNewTranslationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Read every zikr in English or French: the meaning and a Latin-letter transliteration appear under the Arabic text. Choose the language and what to show in Settings.'**
+  String get whatsNewTranslationsDesc;
+
+  /// No description provided for @whatsNewFrenchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'French is here'**
+  String get whatsNewFrenchTitle;
+
+  /// No description provided for @whatsNewFrenchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The app now speaks French, and the language screen shows each language by its own name. Without a choice it follows your device language.'**
+  String get whatsNewFrenchDesc;
+
+  /// No description provided for @translationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get translationSettings;
+
+  /// No description provided for @translationLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation language'**
+  String get translationLanguage;
+
+  /// No description provided for @translationLanguageAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get translationLanguageAuto;
+
+  /// No description provided for @translationLanguageAutoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows the device language, English if it is not available'**
+  String get translationLanguageAutoDesc;
+
+  /// No description provided for @translationSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: {source}'**
+  String translationSource(String source);
+
+  /// No description provided for @translationFallbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown in English because it is not available in your language'**
+  String get translationFallbackHint;
+
+  /// No description provided for @translationPartialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This translation may cover more than the text above.'**
+  String get translationPartialHint;
+
+  /// No description provided for @translationShowMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Show meaning'**
+  String get translationShowMeaning;
+
+  /// No description provided for @translationShowTranslit.
+  ///
+  /// In en, this message translates to:
+  /// **'Show transliteration'**
+  String get translationShowTranslit;
+
+  /// No description provided for @translationShowTitles.
+  ///
+  /// In en, this message translates to:
+  /// **'Show translated titles'**
+  String get translationShowTitles;
+
+  /// No description provided for @aboutTranslationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get aboutTranslationsTitle;
+
+  /// No description provided for @aboutTranslationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The English and French translations and transliterations are from hisnmuslim.com.'**
+  String get aboutTranslationsDesc;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {
@@ -2737,7 +2930,7 @@ class _SDelegate extends LocalizationsDelegate<S> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_SDelegate old) => false;
@@ -2750,6 +2943,8 @@ S lookupS(Locale locale) {
       return SAr();
     case 'en':
       return SEn();
+    case 'fr':
+      return SFr();
   }
 
   throw FlutterError(

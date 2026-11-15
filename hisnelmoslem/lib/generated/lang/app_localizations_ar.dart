@@ -1380,4 +1380,109 @@ class SAr extends S {
 
   @override
   String get galleryPermissionRequired => 'اسمح بالوصول إلى الصور لحفظ الصورة';
+
+  @override
+  String get whatsNewTitle => 'الجديد في هذا الإصدار';
+
+  @override
+  String get whatsNewHeroBadge => 'أكبر تحديث';
+
+  @override
+  String get whatsNewCustomTitle => 'أذكارك الخاصة';
+
+  @override
+  String get whatsNewCustomDesc =>
+      'أنشئ عناوين خاصة بك وأضف إليها أذكارك أو أذكار حصن المسلم، وحدد عدد التكرار والتنبيه، وسجّل صوتك لأي ذكر. وهي مدعومة في البحث والمفضلة والنسخ الاحتياطي.';
+
+  @override
+  String get whatsNewDownloadsTitle => 'مركز التحميلات';
+
+  @override
+  String get whatsNewDownloadsDesc =>
+      'اختر القارئ (راشد الحليبة، سليمان الشويهي، حمد الدريهم) وحمّل الكتاب كاملاً أو باباً بعينه للاستماع دون إنترنت، أو شغّله مباشرة عبر الإنترنت.';
+
+  @override
+  String get whatsNewTallyTitle => 'سبحة بتصميم جديد';
+
+  @override
+  String get whatsNewTallyDesc =>
+      'شاشة عدّ أنظف مع تشغيل صوتي يعدّ لك، وانتقال تلقائي وتراجع عن العدّ.';
+
+  @override
+  String get whatsNewViewerTitle => 'شاشة ذكر جديدة';
+
+  @override
+  String get whatsNewViewerDesc => 'شريط سفلي واحد للصوت والخيارات، وأزرار صوت أكثر ضبطاً.';
+
+  @override
+  String get whatsNewShareTitle => 'صور مشاركة أجمل';
+
+  @override
+  String get whatsNewShareDesc => 'ألوان جاهزة وإعدادات للجودة وصورة نظيفة تتسع للذكر كاملاً.';
+
+  @override
+  String get whatsNewHomeTitle => 'رئيسية على ذوقك';
+
+  @override
+  String get whatsNewHomeDesc =>
+      'درج رئيسي قابل للسحب وصفحة ترتيب اللوحة بتصميم جديد مع إعادة الترتيب الافتراضي.';
+
+  @override
+  String get whatsNewContentTitle => 'تصحيحات';
+
+  @override
+  String get whatsNewContentDesc => 'صُحّحت أخطاء إملائية وأُكملت شروح ناقصة وصُحّح بعض الصوتيات.';
+
+  @override
+  String get whatsNewTranslationsTitle => 'الترجمة والنطق';
+
+  @override
+  String get whatsNewTranslationsDesc =>
+      'اقرأ كل ذكر بالإنجليزية أو الفرنسية: يظهر المعنى والنطق بالحروف اللاتينية أسفل النص العربي. اختر اللغة وما يُعرض من الإعدادات.';
+
+  @override
+  String get whatsNewFrenchTitle => 'الفرنسية في التطبيق';
+
+  @override
+  String get whatsNewFrenchDesc =>
+      'أصبح التطبيق متاحاً بالفرنسية، وتظهر اللغات بأسمائها في شاشة اللغة. وإذا لم تختر لغة فسيتبع لغة جهازك.';
+
+  @override
+  String get translationSettings => 'الترجمة';
+
+  @override
+  String get translationLanguage => 'لغة الترجمة';
+
+  @override
+  String get translationLanguageAuto => 'تلقائي';
+
+  @override
+  String get translationLanguageAutoDesc => 'حسب لغة الجهاز، والإنجليزية إن لم تتوفر';
+
+  @override
+  String translationSource(String source) {
+    return 'المصدر: $source';
+  }
+
+  @override
+  String get translationFallbackHint => 'معروضة بالإنجليزية لعدم توفرها بلغتك';
+
+  @override
+  String get translationPartialHint => 'قد تشمل هذه الترجمة أكثر من النص أعلاه.';
+
+  @override
+  String get translationShowMeaning => 'إظهار المعنى';
+
+  @override
+  String get translationShowTranslit => 'إظهار النطق بالحروف اللاتينية';
+
+  @override
+  String get translationShowTitles => 'إظهار عناوين مترجمة';
+
+  @override
+  String get aboutTranslationsTitle => 'الترجمات';
+
+  @override
+  String get aboutTranslationsDesc =>
+      'الترجمات الإنجليزية والفرنسية والنطق بالحروف اللاتينية مأخوذة من موقع hisnmuslim.com.';
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/src/core/shared/widgets/text_divider.dart';
 import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
+import 'package:hisnelmoslem/src/features/translations/presentation/components/zikr_translation_block.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_content.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_content_builder.dart';
 
@@ -25,6 +26,7 @@ class ZikrViewerZikrBody extends StatelessWidget {
               enableDiacritics: state.showDiacritics,
               fontSize: state.fontSize * 10,
             ),
+            ZikrTranslationBlock(contentKey: dbContent.translationKey),
             if (dbContent.fadl.isNotEmpty) ...[
               const SizedBox(height: 20),
               const TextDivider(),

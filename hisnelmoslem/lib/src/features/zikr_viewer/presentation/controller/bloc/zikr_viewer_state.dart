@@ -27,12 +27,6 @@ class ZikrViewerLoadedState extends ZikrViewerState {
     return azkarToView[activeZikrIndex];
   }
 
-  double get majorProgress => azkarToView.where((x) => x.count == 0).length / azkarToView.length;
-
-  double get manorProgress =>
-      azkarToView.fold(0, (sum, curr) => sum + curr.count) /
-      azkar.fold(0, (sum, curr) => sum + curr.count);
-
   const ZikrViewerLoadedState({
     required this.title,
     required this.azkar,
