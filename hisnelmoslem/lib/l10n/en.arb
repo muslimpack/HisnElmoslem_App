@@ -491,5 +491,10 @@
   "translationShowTranslit": "Show transliteration",
   "translationShowTitles": "Show translated titles",
   "aboutTranslationsTitle": "Translations",
-  "aboutTranslationsDesc": "The English and French translations and transliterations are from hisnmuslim.com."
+  "aboutTranslationsDesc": "The English and French translations and transliterations are from hisnmuslim.com.",
+  "fastingReminderTime": "Reminder time",
+  "fastingRemindSameDay": "Remind on the day itself",
+  "fastingRemindSameDayDesc": "Off: the evening before. On: the morning or time you choose on the fasting day.",
+  "fastingMondayTodayReminder": "Fasting today (Monday)",
+  "fastingThursdayTodayReminder": "Fasting today (Thursday)"
 }

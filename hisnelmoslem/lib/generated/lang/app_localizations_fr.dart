@@ -1502,4 +1502,20 @@ class SFr extends S {
   @override
   String get aboutTranslationsDesc =>
       'Les traductions et translittérations en anglais et en français proviennent de hisnmuslim.com.';
+
+  @override
+  String get fastingReminderTime => 'Heure du rappel';
+
+  @override
+  String get fastingRemindSameDay => 'Rappeler le jour même';
+
+  @override
+  String get fastingRemindSameDayDesc =>
+      'Désactivé : la veille au soir. Activé : à l\'heure choisie le jour du jeûne.';
+
+  @override
+  String get fastingMondayTodayReminder => 'Jeûne aujourd\'hui (lundi)';
+
+  @override
+  String get fastingThursdayTodayReminder => 'Jeûne aujourd\'hui (jeudi)';
 }

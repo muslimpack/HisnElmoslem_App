@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// Read-only bundled `assets/db/translations.db`, copied like the other bundled databases.
@@ -16,12 +17,13 @@ class TranslationsDBHelper {
 
   final Future<Database> Function() _opener;
   Database? _database;
+  final SharedOpen<Database> _opening = SharedOpen<Database>();
 
   /// [opener] lets tests supply a fixture database instead of the bundled asset.
   TranslationsDBHelper({Future<Database> Function()? opener})
     : _opener = opener ?? DBHelper(dbName: dbName, dbVersion: dbVersion).initDatabase;
 
-  Future<Database> get database async => _database ??= await _opener();
+  Future<Database> get database async => _database ??= await _opening.run(_opener);
 
   Future<void> close() async {
     await _database?.close();

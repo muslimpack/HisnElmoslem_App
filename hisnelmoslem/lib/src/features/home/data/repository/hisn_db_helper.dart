@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
 import 'package:hisnelmoslem/src/features/home_search/data/models/search_type.dart';
 import 'package:hisnelmoslem/src/features/home_search/data/models/sql_query.dart';
@@ -15,6 +16,7 @@ class HisnDBHelper {
 
   static HisnDBHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
   static late DBHelper _dbHelper;
 
   factory HisnDBHelper() {
@@ -26,8 +28,7 @@ class HisnDBHelper {
   HisnDBHelper._createInstance();
 
   Future<Database> get database async {
-    _database ??= await _dbHelper.initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_dbHelper.initDatabase);
   }
 
   /* ************* Functions ************* */

@@ -1494,4 +1494,20 @@ class SEn extends S {
   @override
   String get aboutTranslationsDesc =>
       'The English and French translations and transliterations are from hisnmuslim.com.';
+
+  @override
+  String get fastingReminderTime => 'Reminder time';
+
+  @override
+  String get fastingRemindSameDay => 'Remind on the day itself';
+
+  @override
+  String get fastingRemindSameDayDesc =>
+      'Off: the evening before. On: the morning or time you choose on the fasting day.';
+
+  @override
+  String get fastingMondayTodayReminder => 'Fasting today (Monday)';
+
+  @override
+  String get fastingThursdayTodayReminder => 'Fasting today (Thursday)';
 }

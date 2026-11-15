@@ -126,6 +126,14 @@ class AppSettingsRepo {
     required bool value,
   }) => box.write(ignoreNotificationPermissionKey, value);
 
+  /// Whether the system notification prompt was already shown once.
+  static const notificationPermissionRequestedKey = 'notificationPermissionRequested';
+
+  bool get notificationPermissionRequested => box.read(notificationPermissionRequestedKey) ?? false;
+
+  Future<void> changeNotificationPermissionRequested({required bool value}) =>
+      box.write(notificationPermissionRequestedKey, value);
+
   ///MARK:Titles Freq filters
   /* ******* Titles Freq filters ******* */
   static const String _titlesFreqFilter = "titlesFreqFilter";

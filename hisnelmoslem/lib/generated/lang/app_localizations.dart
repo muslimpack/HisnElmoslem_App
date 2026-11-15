@@ -2919,6 +2919,36 @@ abstract class S {
   /// In en, this message translates to:
   /// **'The English and French translations and transliterations are from hisnmuslim.com.'**
   String get aboutTranslationsDesc;
+
+  /// No description provided for @fastingReminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get fastingReminderTime;
+
+  /// No description provided for @fastingRemindSameDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind on the day itself'**
+  String get fastingRemindSameDay;
+
+  /// No description provided for @fastingRemindSameDayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Off: the evening before. On: the morning or time you choose on the fasting day.'**
+  String get fastingRemindSameDayDesc;
+
+  /// No description provided for @fastingMondayTodayReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Fasting today (Monday)'**
+  String get fastingMondayTodayReminder;
+
+  /// No description provided for @fastingThursdayTodayReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Fasting today (Thursday)'**
+  String get fastingThursdayTodayReminder;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

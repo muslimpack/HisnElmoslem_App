@@ -33,7 +33,7 @@ class DBHelper {
     hisnPrint("$dbName copying new db...");
 
     try {
-      Directory(dirname(path)).createSync(recursive: true);
+      await Directory(dirname(path)).create(recursive: true);
       final ByteData data = await rootBundle.load(dbAssetPath);
       final List<int> bytes = data.buffer.asUint8List();
 
@@ -43,7 +43,7 @@ class DBHelper {
       );
 
       final file = File(path);
-      file.writeAsBytesSync(bytes, flush: true);
+      await file.writeAsBytes(bytes, flush: true);
 
       // Verify file size after writing (optional, for debugging)
       final writtenFileSize = await file.length();

@@ -10,6 +10,7 @@ import 'package:hisnelmoslem/src/core/shared/widgets/font_settings.dart';
 import 'package:hisnelmoslem/src/core/utils/email_manager.dart';
 import 'package:hisnelmoslem/src/core/values/constant.dart';
 import 'package:hisnelmoslem/src/features/about/presentation/screens/about_screen.dart';
+import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/fast_reminder_dialog.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/controller/bloc/alarms_bloc.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/screens/alarms_screen.dart';
 import 'package:hisnelmoslem/src/features/azkar_filters/presentation/screens/select_zikr_hokm_screen.dart';
@@ -307,6 +308,15 @@ class _SettingsAlarmsSection extends StatelessWidget {
                 );
               },
             ),
+            if (state.isFastAlarmEnabled)
+              ListTile(
+                leading: const Icon(Icons.schedule),
+                title: Text(S.of(context).fastingReminderTime),
+                subtitle: Text(
+                  TimeOfDay(hour: state.fastHour, minute: state.fastMinute).format(context),
+                ),
+                onTap: () => FastReminderDialog.show(context),
+              ),
             SwitchListTile(
               secondary: const Icon(Icons.alarm),
               title: Text(S.of(context).suraAlKahfReminder),

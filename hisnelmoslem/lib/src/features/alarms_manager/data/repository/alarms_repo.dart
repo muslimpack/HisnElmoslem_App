@@ -28,4 +28,27 @@ class AlarmsRepo {
   void toggleFastAlarmStatus() {
     changFastAlarmStatus(value: !isFastAlarmEnabled);
   }
+
+  /// When every alarm was last planned with the system (milliseconds since epoch).
+  int? get lastPlannedAtMs => box.read('alarms_last_planned_ms');
+
+  Future<void> markPlanned() =>
+      box.write('alarms_last_planned_ms', DateTime.now().millisecondsSinceEpoch);
+
+  /// Time of day of the fasting reminders (default 20:00).
+  int get fastAlarmHour => box.read('fast_hour') ?? 20;
+  int get fastAlarmMinute => box.read('fast_minute') ?? 0;
+
+  /// `false`: the evening before the fast. `true`: on the fasting day itself.
+  bool get fastAlarmSameDay => box.read('fast_same_day') ?? false;
+
+  Future<void> changeFastSchedule({
+    required int hour,
+    required int minute,
+    required bool sameDay,
+  }) async {
+    await box.write('fast_hour', hour);
+    await box.write('fast_minute', minute);
+    await box.write('fast_same_day', sameDay);
+  }
 }

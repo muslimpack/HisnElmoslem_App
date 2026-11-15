@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/commentary.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,6 +15,7 @@ class CommentaryDBHelper {
 
   static CommentaryDBHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
   static late DBHelper _dbHelper;
 
   factory CommentaryDBHelper() {
@@ -25,8 +27,7 @@ class CommentaryDBHelper {
   CommentaryDBHelper._createInstance();
 
   Future<Database> get database async {
-    _database ??= await _dbHelper.initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_dbHelper.initDatabase);
   }
 
   /* ************* Functions ************* */

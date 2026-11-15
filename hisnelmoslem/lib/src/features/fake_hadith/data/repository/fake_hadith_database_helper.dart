@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/fake_hadith/data/models/fake_haith.dart';
 import 'package:hisnelmoslem/src/features/home/data/repository/data_database_helper.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,6 +17,7 @@ class FakeHadithDBHelper {
 
   static FakeHadithDBHelper? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
   static late DBHelper _dbHelper;
 
   factory FakeHadithDBHelper(UserDataDBHelper userDataDBHelper) {
@@ -27,8 +29,7 @@ class FakeHadithDBHelper {
   FakeHadithDBHelper._createInstance(this.userDataDBHelper);
 
   Future<Database> get database async {
-    _database ??= await _dbHelper.initDatabase();
-    return _database!;
+    return _database ??= await _opening.run(_dbHelper.initDatabase);
   }
 
   /* ************* Database Creation ************* */

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:hisnelmoslem/src/core/extensions/extension_object.dart';
 import 'package:hisnelmoslem/src/core/utils/db_helper.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:hisnelmoslem/src/features/quran/data/models/verse_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,6 +15,7 @@ class UthmaniRepository {
 
   static UthmaniRepository? _databaseHelper;
   static Database? _database;
+  static final SharedOpen<Database> _opening = SharedOpen<Database>();
   static late DBHelper _dbHelper;
 
   ///|*| ************* Singleton Constructor ************* *|
@@ -27,7 +29,7 @@ class UthmaniRepository {
 
   Future<Database> get database async {
     if (_database == null || !(_database?.isOpen ?? false)) {
-      _database = await _dbHelper.initDatabase();
+      _database = await _opening.run(_dbHelper.initDatabase);
     }
     return _database!;
   }

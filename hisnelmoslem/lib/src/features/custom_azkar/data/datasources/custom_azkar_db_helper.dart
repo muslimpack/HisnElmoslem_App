@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:hisnelmoslem/src/core/extensions/string_extension.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
+import 'package:hisnelmoslem/src/core/utils/shared_open.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -25,9 +26,10 @@ class CustomAzkarDBHelper {
   CustomAzkarDBHelper({this.pathOverride});
 
   Database? _database;
+  final SharedOpen<Database> _opening = SharedOpen<Database>();
 
   Future<Database> get database async {
-    return _database ??= await _initDatabase();
+    return _database ??= await _opening.run(_initDatabase);
   }
 
   Future<String> getDbPath() async {
