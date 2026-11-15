@@ -236,9 +236,7 @@ class LocalNotificationManager {
 
   /// Show Notification App Open
   Future<void> appOpenNotification() async {
-    final scheduleNotificationDateTime = tz.TZDateTime.now(
-      tz.local,
-    ).add(const Duration(days: 3));
+    final scheduleNotificationDateTime = _addDays(tz.TZDateTime.now(tz.local), 3);
 
     await _safeZonedSchedule(
       id: 1000,
@@ -317,7 +315,7 @@ class LocalNotificationManager {
         : weekly
         ? _windowsWeeklyOccurrences
         : _windowsDailyOccurrences;
-    final Duration step = Duration(days: weekly ? 7 : 1);
+    final int stepDays = weekly ? 7 : 1;
 
     try {
       // Drop what was planned before so a re-plan never duplicates toasts.
@@ -334,11 +332,19 @@ class LocalNotificationManager {
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
           payload: payload,
         );
-        date = date.add(step);
+        date = _addDays(date, stepDays);
       }
     } catch (e) {
       hisnPrint("Error scheduling Windows notification $id: $e");
     }
+  }
+
+  /// Adds calendar days and keeps the wall-clock time.
+  ///
+  /// `TZDateTime.add(Duration(days: n))` adds absolute hours, so across a DST
+  /// change the reminder would land an hour early or late.
+  tz.TZDateTime _addDays(tz.TZDateTime date, int days) {
+    return tz.TZDateTime(tz.local, date.year, date.month, date.day + days, date.hour, date.minute);
   }
 
   tz.TZDateTime _nextInstanceOfTime(Time time) {
@@ -352,7 +358,7 @@ class LocalNotificationManager {
       time.minute,
     );
     if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+      scheduledDate = _addDays(scheduledDate, 1);
     }
     return scheduledDate;
   }
@@ -360,7 +366,7 @@ class LocalNotificationManager {
   tz.TZDateTime _nextInstanceOfWeekdayAndTime(int weekday, Time time) {
     tz.TZDateTime scheduledDate = _nextInstanceOfTime(time);
     while (scheduledDate.weekday != weekday) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+      scheduledDate = _addDays(scheduledDate, 1);
     }
     return scheduledDate;
   }
