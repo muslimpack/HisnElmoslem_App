@@ -1501,4 +1501,85 @@ class SAr extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'صيام اليوم الخميس';
+
+  @override
+  String get feedbackTitle => 'تواصل مع المطور';
+
+  @override
+  String get feedbackTypeLabel => 'النوع';
+
+  @override
+  String get feedbackTypeBug => 'الإبلاغ عن خلل';
+
+  @override
+  String get feedbackTypeFeature => 'طلب ميزة';
+
+  @override
+  String get feedbackTypeSuggestion => 'اقتراح';
+
+  @override
+  String get feedbackTypeQuestion => 'سؤال';
+
+  @override
+  String get feedbackTypeMisspelling => 'خطأ إملائي';
+
+  @override
+  String get feedbackTypeOther => 'أخرى';
+
+  @override
+  String get feedbackMessageLabel => 'رسالتك';
+
+  @override
+  String get feedbackMessageHint => 'اشرح ما حدث أو ما تتمنى رؤيته';
+
+  @override
+  String get feedbackMessageRequired => 'من فضلك اكتب رسالة أولاً';
+
+  @override
+  String get feedbackCorrectionLabel => 'النص الصحيح';
+
+  @override
+  String get feedbackCorrectionHint => 'اكتب الصيغة الصحيحة';
+
+  @override
+  String get feedbackCurrentText => 'النص الحالي';
+
+  @override
+  String get feedbackShareDeviceInfo => 'مشاركة بيانات الجهاز غير الحساسة';
+
+  @override
+  String get feedbackShareDeviceInfoDesc =>
+      'تساعدنا على تتبع المشكلات. لا تتضمن بيانات شخصية أو حسابات أو معرّفات للجهاز.';
+
+  @override
+  String get feedbackWhatShared => 'ما الذي سيتم إرساله؟';
+
+  @override
+  String get feedbackSharedPreviewTitle => 'البيانات التي ستُرسل';
+
+  @override
+  String get feedbackDeviceInfoSection => 'بيانات الجهاز';
+
+  @override
+  String get feedbackRecentErrors => 'آخر الأخطاء (تُرسل كملف)';
+
+  @override
+  String get feedbackNoErrors => 'لا توجد أخطاء مسجلة';
+
+  @override
+  String get feedbackSend => 'إرسال';
+
+  @override
+  String get feedbackBodyDetails => 'التفاصيل';
+
+  @override
+  String get feedbackBodyErrorsAttached => 'آخر الأخطاء مرفقة في ملف.';
+
+  @override
+  String get feedbackErrorsInline => 'آخر الأخطاء';
+
+  @override
+  String feedbackMailFallback(String email) {
+    return 'لم يتم العثور على تطبيق بريد. تم نسخ الرسالة، أرسلها إلى $email';
+  }
 }

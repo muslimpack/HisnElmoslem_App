@@ -1518,4 +1518,85 @@ class SFr extends S {
 
   @override
   String get fastingThursdayTodayReminder => 'Jeûne aujourd\'hui (jeudi)';
+
+  @override
+  String get feedbackTitle => 'Contacter le développeur';
+
+  @override
+  String get feedbackTypeLabel => 'Type';
+
+  @override
+  String get feedbackTypeBug => 'Signaler un bug';
+
+  @override
+  String get feedbackTypeFeature => 'Demande de fonctionnalité';
+
+  @override
+  String get feedbackTypeSuggestion => 'Suggestion';
+
+  @override
+  String get feedbackTypeQuestion => 'Question';
+
+  @override
+  String get feedbackTypeMisspelling => 'Faute d\'orthographe';
+
+  @override
+  String get feedbackTypeOther => 'Autre';
+
+  @override
+  String get feedbackMessageLabel => 'Votre message';
+
+  @override
+  String get feedbackMessageHint => 'Décrivez ce qui s\'est passé ou ce que vous souhaitez voir';
+
+  @override
+  String get feedbackMessageRequired => 'Veuillez d\'abord écrire un message';
+
+  @override
+  String get feedbackCorrectionLabel => 'Le texte correct';
+
+  @override
+  String get feedbackCorrectionHint => 'Écrivez la version correcte';
+
+  @override
+  String get feedbackCurrentText => 'Texte actuel';
+
+  @override
+  String get feedbackShareDeviceInfo => 'Partager les infos non sensibles de l\'appareil';
+
+  @override
+  String get feedbackShareDeviceInfoDesc =>
+      'Nous aide à reproduire les problèmes. Aucune donnée personnelle, compte ou identifiant.';
+
+  @override
+  String get feedbackWhatShared => 'Que sera partagé ?';
+
+  @override
+  String get feedbackSharedPreviewTitle => 'Données qui seront partagées';
+
+  @override
+  String get feedbackDeviceInfoSection => 'Infos de l\'appareil';
+
+  @override
+  String get feedbackRecentErrors => 'Erreurs récentes (envoyées en fichier)';
+
+  @override
+  String get feedbackNoErrors => 'Aucune erreur enregistrée';
+
+  @override
+  String get feedbackSend => 'Envoyer';
+
+  @override
+  String get feedbackBodyDetails => 'Détails';
+
+  @override
+  String get feedbackBodyErrorsAttached => 'Les erreurs récentes sont jointes en fichier.';
+
+  @override
+  String get feedbackErrorsInline => 'Erreurs récentes';
+
+  @override
+  String feedbackMailFallback(String email) {
+    return 'Aucune application de messagerie. Message copié, envoyez-le à $email';
+  }
 }

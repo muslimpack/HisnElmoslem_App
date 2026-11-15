@@ -385,7 +385,7 @@ abstract class S {
   /// No description provided for @contactDev.
   ///
   /// In en, this message translates to:
-  /// **'Contact to Dev'**
+  /// **'Contact the developer'**
   String get contactDev;
 
   /// No description provided for @copiedToClipboard.
@@ -2949,6 +2949,162 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Fasting today (Thursday)'**
   String get fastingThursdayTodayReminder;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact the developer'**
+  String get feedbackTitle;
+
+  /// No description provided for @feedbackTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get feedbackTypeLabel;
+
+  /// No description provided for @feedbackTypeBug.
+  ///
+  /// In en, this message translates to:
+  /// **'Bug report'**
+  String get feedbackTypeBug;
+
+  /// No description provided for @feedbackTypeFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature request'**
+  String get feedbackTypeFeature;
+
+  /// No description provided for @feedbackTypeSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get feedbackTypeSuggestion;
+
+  /// No description provided for @feedbackTypeQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get feedbackTypeQuestion;
+
+  /// No description provided for @feedbackTypeMisspelling.
+  ///
+  /// In en, this message translates to:
+  /// **'Spelling mistake'**
+  String get feedbackTypeMisspelling;
+
+  /// No description provided for @feedbackTypeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get feedbackTypeOther;
+
+  /// No description provided for @feedbackMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your message'**
+  String get feedbackMessageLabel;
+
+  /// No description provided for @feedbackMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe what happened or what you would like to see'**
+  String get feedbackMessageHint;
+
+  /// No description provided for @feedbackMessageRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please write a message first'**
+  String get feedbackMessageRequired;
+
+  /// No description provided for @feedbackCorrectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'The correct text'**
+  String get feedbackCorrectionLabel;
+
+  /// No description provided for @feedbackCorrectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write how it should be'**
+  String get feedbackCorrectionHint;
+
+  /// No description provided for @feedbackCurrentText.
+  ///
+  /// In en, this message translates to:
+  /// **'Current text'**
+  String get feedbackCurrentText;
+
+  /// No description provided for @feedbackShareDeviceInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Share non-sensitive device info'**
+  String get feedbackShareDeviceInfo;
+
+  /// No description provided for @feedbackShareDeviceInfoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Helps us reproduce problems. No personal data, accounts or device IDs.'**
+  String get feedbackShareDeviceInfoDesc;
+
+  /// No description provided for @feedbackWhatShared.
+  ///
+  /// In en, this message translates to:
+  /// **'What will be shared?'**
+  String get feedbackWhatShared;
+
+  /// No description provided for @feedbackSharedPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Data that will be shared'**
+  String get feedbackSharedPreviewTitle;
+
+  /// No description provided for @feedbackDeviceInfoSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Device info'**
+  String get feedbackDeviceInfoSection;
+
+  /// No description provided for @feedbackRecentErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent errors (sent as a file)'**
+  String get feedbackRecentErrors;
+
+  /// No description provided for @feedbackNoErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'No errors recorded'**
+  String get feedbackNoErrors;
+
+  /// No description provided for @feedbackSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get feedbackSend;
+
+  /// No description provided for @feedbackBodyDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get feedbackBodyDetails;
+
+  /// No description provided for @feedbackBodyErrorsAttached.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent errors are attached as a file.'**
+  String get feedbackBodyErrorsAttached;
+
+  /// No description provided for @feedbackErrorsInline.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent errors'**
+  String get feedbackErrorsInline;
+
+  /// No description provided for @feedbackMailFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'No mail app found. The message was copied, please send it to {email}'**
+  String feedbackMailFallback(String email);
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {
