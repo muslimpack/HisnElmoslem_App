@@ -4,6 +4,12 @@ import 'package:hisnelmoslem/src/core/functions/print.dart';
 class AppBlocObserver extends BlocObserver {
   bool detailed = false;
   @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    hisnLogError(error, stackTrace, source: 'bloc:${bloc.runtimeType}');
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     if (bloc is Cubit) {

@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
+import 'package:hisnelmoslem/src/features/feedback/data/services/error_log_store.dart';
 
 void hisnPrint(Object? object) {
   final fileNameAndLine = getFileNameAndLine();
@@ -10,6 +12,17 @@ void hisnPrint(Object? object) {
     color: PrintColors.green,
     name: "$methodName=>$fileNameAndLine",
   );
+}
+
+/// Prints (debug only) and records an error in the local error log, so a bug report can
+/// include it. Safe to call anywhere: it never throws.
+void hisnLogError(Object error, StackTrace? stack, {String source = 'app'}) {
+  hisnPrint(error);
+  try {
+    sl<ErrorLogStore>().record(error, stack, source: source);
+  } catch (_) {
+    // The service locator may not be ready this early.
+  }
 }
 
 void printColor(Object? object, {int color = 0, String name = "HISN"}) {
