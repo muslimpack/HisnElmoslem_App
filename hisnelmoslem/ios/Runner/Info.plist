@@ -24,6 +24,8 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+        <key>NSCameraUsageDescription</key>
+        <string>Hisn Elmoslem does not use your camera. This entry is required because the built-in file picker used for backups includes camera support; the app never asks for camera access.</string>
         <key>LSApplicationQueriesSchemes</key>
         <array>
             <string>https</string>
