@@ -35,8 +35,6 @@
             <string>sms</string>
             <string>tel</string>
         </array>
-        <key>NSContactsUsageDescription</key>
-        <string>This app requires contacts access to function properly</string>
         <key>NSLocalNetworkUsageDescription</key>
         <string>Used to search for chromecast devices</string>
 		<key>UILaunchStoryboardName</key>
