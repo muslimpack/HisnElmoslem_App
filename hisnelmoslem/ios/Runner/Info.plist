@@ -24,8 +24,6 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
-        <key>NSCameraUsageDescription</key>
-        <string>This app requires camera access to add user and service images.</string>
         <key>LSApplicationQueriesSchemes</key>
         <array>
             <string>https</string>
@@ -63,8 +61,8 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allows saving files if needed.</string>
+	<string>Hisn Elmoslem saves the images you create with &quot;Share as image&quot; (for example, a dhikr card) to your Photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows file selection if needed.</string>
+	<string>Hisn Elmoslem needs Photos access on older iOS versions to save the images you create with &quot;Share as image&quot; (for example, a dhikr card) to your library.</string>
 </dict>
 </plist>
