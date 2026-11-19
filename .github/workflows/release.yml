@@ -11,9 +11,13 @@ on:
   workflow_dispatch:
     inputs:
       platforms:
-        description: "Platforms to build (comma separated: android, windows, ios)"
+        description: "Comma separated: android, windows, ios (use none for an AppImage-only build)"
         type: string
         default: "android,windows"
+      linux_appimage:
+        description: "Build the Linux x86-64 AppImage"
+        type: boolean
+        default: false
       github_release:
         description: "GitHub release"
         type: choice
@@ -41,7 +45,63 @@ permissions:
   contents: write
 
 jobs:
+  build_appimage:
+    name: Build Linux AppImage
+    if: github.event_name == 'push' || inputs.linux_appimage
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: hisnelmoslem
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev \
+            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libsqlite3-0 \
+            desktop-file-utils file
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version-file: hisnelmoslem/.fvmrc
+          cache: true
+
+      - name: Build and package
+        run: |
+          flutter pub get --enforce-lockfile
+          flutter build linux --release --no-pub
+          linux/appimage/package.sh "$RUNNER_TEMP/hisnelmoslem-linux-x86_64.AppImage"
+
+      - name: Check AppImage payload
+        working-directory: ${{ runner.temp }}
+        run: |
+          ./hisnelmoslem-linux-x86_64.AppImage --appimage-extract >/dev/null
+          test -x squashfs-root/AppRun
+          test -x squashfs-root/usr/bin/hisnelmoslem
+          test -f squashfs-root/usr/bin/lib/libflutter_linux_gtk.so
+          test -d squashfs-root/usr/bin/data/flutter_assets/assets/db
+          ldd squashfs-root/usr/bin/hisnelmoslem > appimage-libraries.txt
+          if grep -F 'not found' appimage-libraries.txt; then
+            exit 1
+          fi
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-linux-appimage
+          path: ${{ runner.temp }}/hisnelmoslem-linux-x86_64.AppImage
+          if-no-files-found: error
+
   release:
+    needs: build_appimage
+    if: >-
+      !cancelled() && inputs.platforms != 'none' &&
+      (needs.build_appimage.result == 'success' || needs.build_appimage.result == 'skipped')
     uses: muslimpack/.github/.github/workflows/flutter_release.yaml@v2
     with:
       app_directory: hisnelmoslem

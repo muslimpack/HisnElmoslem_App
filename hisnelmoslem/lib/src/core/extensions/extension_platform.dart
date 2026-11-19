@@ -11,6 +11,11 @@ extension PlatformExtension on Platform {
     return isDesktop || kIsWeb;
   }
 
+  static bool get isLinux => Platform.isLinux;
+
+  /// The desktop notification plugin can display notifications on Linux, but cannot schedule them.
+  static bool get supportsScheduledReminders => !isLinux;
+
   static bool get isPhone {
     return Platform.isAndroid || Platform.isIOS;
   }

@@ -210,11 +210,13 @@ class LocalNotificationManager {
   }
 
   Future<void> cancelAllNotifications() async {
+    if (!PlatformExtension.supportsScheduledReminders) return;
     await _ready;
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   Future<void> cancelNotificationById({required int id}) async {
+    if (!PlatformExtension.supportsScheduledReminders) return;
     await _ready;
     await flutterLocalNotificationsPlugin.cancel(id: id);
     if (Platform.isWindows) {
@@ -301,6 +303,7 @@ class LocalNotificationManager {
     required String? payload,
     DateTimeComponents? matchDateTimeComponents,
   }) async {
+    if (!PlatformExtension.supportsScheduledReminders) return;
     if (Platform.isWindows) {
       await _scheduleWindowsWindow(
         id: id,

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Hisn Elmoslem
+Name[ar]=حصن المسلم
+Comment=Read and search Islamic supplications
+Comment[ar]=قراءة الأذكار والبحث فيها
+Exec=hisnelmoslem
+Icon=com.hassaneltantawy.hisnelmoslem
+Terminal=false
+Categories=Education;

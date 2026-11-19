@@ -1,3 +1,4 @@
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/alarm_repeat_type.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/data/models/local_notification_manager.dart';
@@ -72,6 +73,7 @@ class CustomAlarmScheduler {
   /// Re-registers every stored alarm (app start, after a restore, after renames)
   /// and cancels pending custom notifications that no longer have an alarm.
   Future<void> rescheduleAll() async {
+    if (!PlatformExtension.supportsScheduledReminders) return;
     final alarms = await repo.getAlarms();
     final knownIds = alarms.map((a) => notificationId(a.titleId)).toSet();
 
