@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
@@ -11,6 +13,7 @@ import 'package:hisnelmoslem/src/features/bookmark/presentation/components/bookm
 import 'package:hisnelmoslem/src/features/custom_azkar/presentation/components/viewer_favourite_buttons.dart';
 import 'package:hisnelmoslem/src/features/home/presentation/components/side_menu/toggle_brightness_btn.dart';
 import 'package:hisnelmoslem/src/features/settings/data/repository/app_settings_repo.dart';
+import 'package:hisnelmoslem/src/features/settings/presentation/controller/cubit/settings_cubit.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/custom_title_source.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/data/models/zikr_viewer_mode.dart';
 import 'package:hisnelmoslem/src/features/zikr_viewer/presentation/components/zikr_viewer_app_bar.dart';
@@ -90,6 +93,54 @@ class ZikrViewerScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _ZikrViewerDesktopBody extends StatelessWidget {
+  const _ZikrViewerDesktopBody({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!PlatformExtension.isDesktop) return child;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ScrollbarTheme(
+          data: ScrollbarTheme.of(context).copyWith(
+            thumbVisibility: const WidgetStatePropertyAll(true),
+            trackVisibility: const WidgetStatePropertyAll(true),
+            thickness: const WidgetStatePropertyAll(10),
+            radius: const Radius.circular(5),
+            mainAxisMargin: 4,
+            crossAxisMargin: 4,
+          ),
+          child: child,
+        ),
+        // The translucent overlay sees wheel signals before the scroll views beneath it.
+        Listener(
+          behavior: HitTestBehavior.translucent,
+          onPointerSignal: (event) {
+            if (event is! PointerScrollEvent ||
+                event.scrollDelta.dy == 0 ||
+                !HardwareKeyboard.instance.isControlPressed) {
+              return;
+            }
+
+            GestureBinding.instance.pointerSignalResolver.register(event, (_) {
+              final settings = context.read<SettingsCubit>();
+              if (event.scrollDelta.dy < 0) {
+                settings.increaseFontSize();
+              } else {
+                settings.decreaseFontSize();
+              }
+            });
+          },
+        ),
+      ],
     );
   }
 }

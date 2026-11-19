@@ -18,13 +18,15 @@ class _ZikrViewerCardModeScreen extends StatelessWidget {
               if (!PlatformExtension.isDesktop) const ToggleBrightnessButton(),
             ],
           ),
-          body: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(8),
-            itemCount: state.azkarToView.length,
-            itemBuilder: (context, index) {
-              return ZikrViewerCardBuilder(dbContent: state.azkarToView[index]);
-            },
+          body: _ZikrViewerDesktopBody(
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(8),
+              itemCount: state.azkarToView.length,
+              itemBuilder: (context, index) {
+                return ZikrViewerCardBuilder(dbContent: state.azkarToView[index]);
+              },
+            ),
           ),
           bottomNavigationBar: const Card(
             child: Row(
