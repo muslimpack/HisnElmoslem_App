@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/shared/dialogs/yes_no_dialog.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_alarm.dart';
 import 'package:hisnelmoslem/src/features/custom_azkar/domain/entities/custom_title.dart';
@@ -39,7 +40,7 @@ class CustomTitleCard extends StatelessWidget {
       subtitle: Row(
         children: [
           Text(S.of(context).customItemsCount(title.itemCount)),
-          if (alarm?.isActive ?? false) ...[
+          if (PlatformExtension.supportsScheduledReminders && (alarm?.isActive ?? false)) ...[
             const SizedBox(width: 12),
             Icon(Icons.alarm_on_rounded, size: 16, color: theme.colorScheme.primary),
             const SizedBox(width: 4),
@@ -53,7 +54,8 @@ class CustomTitleCard extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomTitleAlarmButton(title: title, alarm: alarm),
+          if (PlatformExtension.supportsScheduledReminders)
+            CustomTitleAlarmButton(title: title, alarm: alarm),
           CustomTitleMenuButton(title: title),
         ],
       ),

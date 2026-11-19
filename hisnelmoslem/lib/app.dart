@@ -46,7 +46,9 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _replanAlarmsIfTimeZoneChanged();
+    if (state == AppLifecycleState.resumed && PlatformExtension.supportsScheduledReminders) {
+      _replanAlarmsIfTimeZoneChanged();
+    }
   }
 
   /// A DST change or a trip to another time zone while the app was in the
@@ -67,6 +69,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
+    if (!PlatformExtension.supportsScheduledReminders) return;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
         final notifications = sl<LocalNotificationManager>();
@@ -90,7 +93,15 @@ class AppState extends State<App> with WidgetsBindingObserver {
         BlocProvider(create: (_) => sl<TranslationsCubit>()..start()),
         BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(create: (_) => sl<AzkarFiltersCubit>()),
-        BlocProvider(create: (_) => sl<AlarmsBloc>()..add(const AlarmsStartEvent())),
+        BlocProvider(
+          create: (_) {
+            final bloc = sl<AlarmsBloc>();
+            if (PlatformExtension.supportsScheduledReminders) {
+              bloc.add(const AlarmsStartEvent());
+            }
+            return bloc;
+          },
+        ),
         BlocProvider(
           create: (_) => sl<BookmarkBloc>()..add(BookmarkStartEvent()),
         ),

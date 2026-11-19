@@ -6,12 +6,28 @@ This document provides an overview of the Continuous Integration and Continuous 
 
 The workflow automates the process of building, signing, and releasing the application. When a new tag matching the pattern `v*.*.*` is pushed to the repository, it automatically triggers a process that results in:
 
-1.  A new **GitHub Release** containing the Android APK, Android App Bundle (AAB), and a zipped version of the Windows application.
+1.  A new **GitHub Release** with platform downloads including the Linux x86-64 AppImage.
 2.  A new build being uploaded to the **Google Play Store** for production.
 
 ## Workflow Trigger
 
 The workflow is automatically triggered on every `push` of a new tag that matches the pattern `v*.*.*` (e.g., `v1.2.3`).
+
+## Linux AppImage
+
+Tagged builds attach `hisnelmoslem-linux-x86_64.AppImage` to the GitHub Release. To build only the AppImage from the Actions tab, run **Build and Release Hisn El Moslem** with **Build the Linux x86-64 AppImage** enabled and `platforms` set to `none`. Download it from the workflow run’s artifacts.
+
+To run the downloaded AppImage, make it executable with `chmod +x hisnelmoslem-linux-x86_64.AppImage` and open it. On a system without FUSE, run `./hisnelmoslem-linux-x86_64.AppImage --appimage-extract-and-run`.
+
+The app uses the system’s GTK 3, SQLite and GStreamer libraries. Install the GStreamer base and good plugins for audio playback and Zenity or KDialog for file dialogs. Recording custom audio also needs `parecord` and `ffmpeg`. Scheduled reminders are unavailable on Linux.
+
+To build it locally, install the pinned Flutter SDK from `hisnelmoslem/.fvmrc` and the Linux build dependencies listed in the release workflow. Run these commands from `hisnelmoslem/`.
+
+```sh
+flutter pub get --enforce-lockfile
+flutter build linux --release --no-pub
+linux/appimage/package.sh build/hisnelmoslem-linux-x86_64.AppImage
+```
 
 ## Workflow Breakdown
 

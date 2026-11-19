@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hisnelmoslem/generated/lang/app_localizations.dart';
 import 'package:hisnelmoslem/src/core/di/dependency_injection.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/core/functions/open_url.dart';
 import 'package:hisnelmoslem/src/core/functions/print.dart';
 import 'package:hisnelmoslem/src/core/functions/show_toast.dart';
@@ -123,8 +124,10 @@ class SettingsScreen extends StatelessWidget {
           const Divider(),
           const _SettingsTranslationSection(),
 
-          const Divider(),
-          const _SettingsAlarmsSection(),
+          if (PlatformExtension.supportsScheduledReminders) ...[
+            const Divider(),
+            const _SettingsAlarmsSection(),
+          ],
 
           const Divider(),
           const _SettingsBackupRestoreSection(),
@@ -201,17 +204,18 @@ class SettingsGeneralSection extends StatelessWidget {
                 );
               },
             ),
-            SwitchListTile(
-              secondary: const Icon(Icons.notifications_off),
-              value: state.ignoreNotificationPermission,
-              title: Text(S.of(context).ignoreNotificationPermission),
-              subtitle: Text(S.of(context).ignoreNotificationPermissionDesc),
-              onChanged: (value) {
-                context.read<SettingsCubit>().toggleIgnoreNotificationPermission(
-                  ignore: !state.ignoreNotificationPermission,
-                );
-              },
-            ),
+            if (PlatformExtension.supportsScheduledReminders)
+              SwitchListTile(
+                secondary: const Icon(Icons.notifications_off),
+                value: state.ignoreNotificationPermission,
+                title: Text(S.of(context).ignoreNotificationPermission),
+                subtitle: Text(S.of(context).ignoreNotificationPermissionDesc),
+                onChanged: (value) {
+                  context.read<SettingsCubit>().toggleIgnoreNotificationPermission(
+                    ignore: !state.ignoreNotificationPermission,
+                  );
+                },
+              ),
             SwitchListTile(
               secondary: const Icon(Icons.numbers),
               tileColor: Colors.amber.withAlpha((.1 * 255).round()),

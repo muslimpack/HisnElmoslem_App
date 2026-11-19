@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/localization/domain/app_language.dart';
 import 'package:hisnelmoslem/src/features/themes/data/models/theme_brightness_mode_enum.dart';
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';

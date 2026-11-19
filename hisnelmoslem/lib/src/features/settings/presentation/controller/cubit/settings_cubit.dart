@@ -214,9 +214,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   ///MARK: Zikr Text
 
   Future<void> changFontSize(double value) async {
-    final double tempValue = value.clamp(kFontMin, kFontMax);
-    await zikrTextRepo.changFontSize(tempValue);
-    emit(state.copyWith(fontSize: tempValue));
+    final fontSize = value.clamp(kFontMin, kFontMax);
+    if (fontSize == state.fontSize) return;
+    emit(state.copyWith(fontSize: fontSize));
+    await zikrTextRepo.changFontSize(fontSize);
   }
 
   Future resetFontSize() async {

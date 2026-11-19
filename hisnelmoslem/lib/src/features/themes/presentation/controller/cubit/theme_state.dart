@@ -36,12 +36,15 @@ class ThemeState extends Equatable {
   }
 
   ThemeData get theme {
+    // Linux system fonts vary. Use the bundled font for missing Arabic glyphs.
+    final fontFallback = PlatformExtension.isLinux ? const ['Cairo'] : null;
     if (useOldTheme && !useMaterial3) {
       return ThemeData(
         useMaterial3: false,
         brightness: appBrightness,
         colorSchemeSeed: color,
         fontFamily: fontFamily,
+        fontFamilyFallback: fontFallback,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: appBarTheme(),
         actionIconTheme: ActionIconThemeData(
@@ -58,6 +61,7 @@ class ThemeState extends Equatable {
       appBarTheme: appBarTheme(),
       useMaterial3: useMaterial3,
       fontFamily: fontFamily,
+      fontFamilyFallback: fontFallback,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       actionIconTheme: ActionIconThemeData(
         backButtonIconBuilder: (context) => const AppBackButton(),

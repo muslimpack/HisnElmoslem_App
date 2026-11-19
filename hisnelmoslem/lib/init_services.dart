@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
@@ -18,17 +19,25 @@ import 'package:hisnelmoslem/src/features/reciter_audio/presentation/controller/
 import 'package:hisnelmoslem/src/features/themes/data/repository/theme_repo.dart';
 import 'package:hisnelmoslem/src/features/ui/data/repository/local_repo.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_linux/path_provider_linux.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqlite3/open.dart' as sqlite;
 import 'package:window_manager/window_manager.dart';
 
 Future<void> initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = AppBlocObserver();
+  _setUpErrorCapture();
+
+  if (PlatformExtension.isLinux) {
+    PathProviderPlatform.instance = _LinuxAppPathProvider();
+    await GetStorage.init(kAppStorageKey);
+  }
 
   service_locator.initSL();
-
-  _setUpErrorCapture();
 
   await loadLocalizations();
 
@@ -36,14 +45,23 @@ Future<void> initServices() async {
 
   if (PlatformExtension.isDesktopOrWeb) {
     sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+    databaseFactory = PlatformExtension.isLinux
+        ? createDatabaseFactoryFfi(ffiInit: _loadLinuxSqlite)
+        : databaseFactoryFfi;
+    if (PlatformExtension.isLinux) {
+      // The FFI default is relative to the working directory, which can be read-only.
+      final directory = await getApplicationSupportDirectory();
+      await databaseFactory.setDatabasesPath(directory.path);
+    }
   }
 
   try {
     await GetStorage.init(kAppStorageKey);
     // Not awaited: it needs a few platform calls and the time zone database, and nothing
     // before the first frame depends on it. Users of the manager wait on `ensureReady`.
-    unawaited(sl<LocalNotificationManager>().init());
+    if (PlatformExtension.supportsScheduledReminders) {
+      unawaited(sl<LocalNotificationManager>().init());
+    }
     // A download that was running when the app closed is shown as paused, ready to resume.
     sl<ReciterDownloadsCubit>().restore();
   } catch (e) {
@@ -51,6 +69,20 @@ Future<void> initServices() async {
   }
 
   await initWindowsManager();
+}
+
+void _loadLinuxSqlite() {
+  // Use the runtime library name so users don't need the development package.
+  sqlite.open.overrideFor(
+    sqlite.OperatingSystem.linux,
+    () => DynamicLibrary.open('libsqlite3.so.0'),
+  );
+}
+
+class _LinuxAppPathProvider extends PathProviderLinux {
+  // Settings and recordings need app-private storage even without an XDG Documents directory.
+  @override
+  Future<String?> getApplicationDocumentsPath() => getApplicationSupportPath();
 }
 
 /// Sends every uncaught error (framework, async and platform) to the local error log, which a

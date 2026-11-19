@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hisnelmoslem/src/core/extensions/extension.dart';
+import 'package:hisnelmoslem/src/core/extensions/extension_platform.dart';
 import 'package:hisnelmoslem/src/features/alarms_manager/presentation/components/title_card_alarm_button.dart';
 import 'package:hisnelmoslem/src/features/bookmark/presentation/components/bookmark_title_button.dart';
 import 'package:hisnelmoslem/src/features/home/data/models/zikr_title.dart';
@@ -33,7 +34,9 @@ class TitleCard extends StatelessWidget {
         ],
       ),
 
-      trailing: TitleCardAlarmButton(dbTitle: dbTitle),
+      trailing: PlatformExtension.supportsScheduledReminders
+          ? TitleCardAlarmButton(dbTitle: dbTitle)
+          : null,
       title: Text(dbTitle.name),
       subtitle: TitleTranslationText.hasTitle(context, dbTitle.id)
           ? TitleTranslationText(titleId: dbTitle.id)
